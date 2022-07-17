@@ -108,6 +108,8 @@ end
 local function check_des(map, des)
 	for _,d in ipairs(des) do
 		local cnt,free = 0,0
+		-- go through information provided by d and count how may mappings are
+		-- not set aka free and how many mappings are the same in d and the map
 		for _,e in ipairs(d.matches) do
 			-- print(e[1], e[2])
 			if not map.m[e[1]] then
@@ -116,10 +118,19 @@ local function check_des(map, des)
 				cnt = cnt+1
 			end
 		end
+		-- if there are more matches between d and mapping, then d has right
+		-- matches then map is no valid mapping (otherwise d.num would be
+		-- higher)
+		-- if there are fewer matches between d and the current mapping as are
+		-- right in d, then the mapping isn't valid as well (at d.num has to be
+		-- right, thus at least d.num have to match). Exceptions are mappings
+		-- which are not fully decided yet, here there are free matchings which
+		-- still can match with d
 		if cnt < d.num-free or cnt > d.num then
 			return false
 		end
 	end
+	-- only if all constraints are met, the mapping can be valid
 	return true
 end
 
@@ -160,33 +171,48 @@ local function backtrack(map, s1, s2, check, lvl)
 	return node
 end
 
-function _M.run(file, rev)
-	local s1,s2,des,mb = parse_file(file, rev)
-	local map={cnt=0, m={}}
-	-- TODO handle mb move outside
-	local rm1,rm2 = {},{}
-	local pre_tree = {node={name=nil, children={}}}
-	pre_tree.root = pre_tree.node
+local function handle_fixed(s1,s2,map,tree,des, mb)
+	local rm1,rm2 = {},{} -- colect which to remove
+	-- node is the current leaf, root is the root of the tree
+	tree.root = tree.node
 	for _,v in ipairs(mb) do
 		if v[3] then
+			-- definite match found -> remove both elements and insert into the
+			-- tree and map
+			-- this is a performance enhancement (one could just add this as additional constraint as well)
 			map.m[v[1]] = v[2]
+			-- child of the current match
 			local node = {name=nil, children={}}
-			pre_tree.node.name = v[1]
-			pre_tree.node.children[v[2]] = node
-			pre_tree.node = node
+			-- fill the current node
+			tree.node.name = v[1]
+			tree.node.children[v[2]] = node
+			-- set the next node to work on
+			tree.node = node
+			-- add elements to the remove set
 			rm1[v[1]],rm2[v[2]] = true,true
 		else
+			-- definitely no match -> insert this as an additional constraint
 			table.insert(des, {num=0, matches={{v[1],v[2]}}})
 		end
 	end
+	-- do the actual removing
+	-- go from top to low to preserve to be removed indices
 	for i=#s1,1,-1 do if rm1[s1[i]] then table.remove(s1,i) end end
 	for i=#s2,1,-1 do if rm2[s2[i]] then table.remove(s2,i) end end
+end
+
+function _M.run(file, rev)
+	local s1,s2,des,mb = parse_file(file, rev)
+	local map={cnt=0, m={}}
+	local tree = {node={name=nil, children={}}}
+	handle_fixed(s1, s2, map, tree, des, mb)
 	-- for _,v in ipairs(s1) do io.write(v, " ") end io.write("\n")
 	-- for _,v in ipairs(s2) do io.write(v, " ") end io.write("\n")
 	local r = backtrack(map, s1, s2, function(map) return check_des(map, des) end, nil)
 	if r then
-		pre_tree.node.name,pre_tree.node.children = r.name,r.children
-		return pre_tree.root
+		-- add to tree as the current node
+		tree.node.name,tree.node.children = r.name,r.children
+		return tree.root
 	end
 	return nil
 end

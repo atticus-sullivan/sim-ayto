@@ -15,6 +15,7 @@ for _,e in ipairs(runs) do
 	os.execute(string.format("dot -Tpdf -o '%s' '%s'", e.opdf, e.ofn))
 
 	rs = sim.to_list(rs)
+	print(#rs)
 	for _,r in ipairs(rs) do
 		sim.print_map(r)
 		print()
