@@ -20,13 +20,13 @@ end
 
 local function backtrack(map, s1, s2, check, lvl)
 	if not check(map) then
-		return {}
+		return nil
 	end
 	if #s1 <= 0 then
-		return {table_copy(map.m)}
+		return true
 	end
-	local r = {}
 	local e1 = table.remove(s1)
+	local node
 	for i2 = 1,#s2 do
 		local e2 = table.remove(s2, i2)
 		map.m[e1] = e2
@@ -34,13 +34,17 @@ local function backtrack(map, s1, s2, check, lvl)
 		if lvl then
 			io.write(string.rep(" ", lvl*4), "trying: ", e1, " -> ", e2, "\n")
 		end
-		table_append(r, backtrack(map, s1, s2, check, lvl and lvl+1 or nil))
+		local r = backtrack(map, s1, s2, check, lvl and lvl+1 or nil)
+		if r then
+			node = node or {name=e1, children={}}
+			node.children[e2] = r
+		end
 		table.insert(s2, i2, e2)
 		map.m[e1] = nil
 		map.cnt = map.cnt-1
 	end
 	table.insert(s1, e1)
-	return r
+	return node
 end
 
 local function check_des(map, des)
@@ -117,11 +121,16 @@ function _M.run(file)
 	end
 	local map={cnt=0, m={}}
 	-- handle mb
-	local rm1 = {}
-	local rm2 = {}
+	local rm1,rm2 = {},{}
+	local pre_tree = {node={name=nil, children={}}}
+	pre_tree.root = pre_tree.node
 	for _,v in ipairs(mb) do
 		if v[3] then
 			map.m[v[1]] = v[2]
+			local node = {name=nil, children={}}
+			pre_tree.node.name = v[1]
+			pre_tree.node.children[v[2]] = node
+			pre_tree.node = node
 			rm1[v[1]],rm2[v[2]] = true,true
 		else
 			table.insert(des, {num=0, matches={{v[1],v[2]}}})
@@ -131,7 +140,46 @@ function _M.run(file)
 	for i=#s2,1,-1 do if rm2[s2[i]] then table.remove(s2,i) end end
 	-- for _,v in ipairs(s1) do io.write(v, " ") end io.write("\n")
 	-- for _,v in ipairs(s2) do io.write(v, " ") end io.write("\n")
-	return backtrack(map, s1, s2, function(map) return check_des(map, des) end, nil)
+	local r = backtrack(map, s1, s2, function(map) return check_des(map, des) end, nil)
+	pre_tree.node.name,pre_tree.node.children = r.name,r.children
+	return pre_tree.root
+end
+
+function _M.to_dot(par, node)
+	local file = io.open("test.dot")
+	local f, f_inc = 0, 1
+	local function foo(par, node)
+		if node == nil then return end
+		if node == true then file:write(par, " -> ", "fin",tostring(f), "\n") f=f+f_inc return end
+		for k,v in pairs(node.children) do
+			local self = node.name..k..tostring(f)
+			f = f+f_inc
+			file:write(par, " -> ", self, "\n")
+			foo(self, v)
+		end
+	end
+	file:write("digraph D {")
+	foo(par, node)
+	file:write("}\n")
+end
+function _M.to_list(node, state)
+	local r = {}
+	if node == nil then return {} end
+	if node == true then
+		return {table_copy(state)}
+	end
+	state = state or {}
+	for k,v in pairs(node.children) do
+		state[node.name] = k
+		local r_ = _M.to_list(v, state)
+		if #r_ >= 1 then
+			for _,v in ipairs(r_) do
+				table.insert(r, v)
+			end
+		end
+	end
+	state[node.name] = nil
+	return r
 end
 
 return _M

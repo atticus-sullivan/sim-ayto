@@ -43,43 +43,43 @@ local function res_eq(r1, r2)
 	return true
 end
 
-local rs
-rs = testee.run(mock_file{"A", "B", "C", "", "1", "2", "3", "", "A->2", "", "0 A->1,B->2,C->3"})
-for _,r in pairs(rs) do
-	testee.print_map(r)
-	print()
-end
-
-print("===============================")
-
-rs = testee.run(mock_file{"A", "B", "C", "", "1", "2", "3", "", "A-/>2", "", "0 A->1,B->2,C->3"})
-for _,r in pairs(rs) do
-	testee.print_map(r)
-	print()
-end
-
-
-print("===============================")
-
-rs = testee.run(mock_file{"A", "B", "C", "", "1", "2", "3", "", "", "3 A->1,B->2,C->3"})
-for _,r in pairs(rs) do
-	testee.print_map(r)
-	print()
-end
-
-print("===============================")
-
-rs = testee.run(mock_file{"A", "B", "C", "", "1", "2", "3", "", "", "0 A->1"})
-for _,r in pairs(rs) do
-	testee.print_map(r)
-	print()
-end
-
-os.exit()
-local real = {
-	{["A"] = "2", ["B"] = "1", ["C"] = "3",},
-	{["A"] = "1", ["B"] = "3", ["C"] = "2",},
-	{["A"] = "3", ["B"] = "2", ["C"] = "1",},
-	{["A"] = "1", ["B"] = "2", ["C"] = "3",},
+local tests = {
+	{
+		file={"A", "B", "C", "", "1", "2", "3", "", "A->2", "", "0 A->1,B->2,C->3"},
+		real={
+			{["A"] = "2", ["B"] = "3", ["C"] = "1",},
+		}
+	},
+	{
+		file={"A", "B", "C", "", "1", "2", "3", "", "A-/>2", "", "0 A->1,B->2,C->3"},
+		real={
+			{["A"] = "3", ["B"] = "1", ["C"] = "2",},
+		}
+	},
+	{
+		file={"A", "B", "C", "", "1", "2", "3", "", "", "3 A->1,B->2,C->3"},
+		real={
+			{["A"] = "1", ["B"] = "2", ["C"] = "3",},
+		}
+	},
+	{
+		file={"A", "B", "C", "", "1", "2", "3", "", "", "0 A->1"},
+		real={
+			{["A"] = "2", ["B"] = "1", ["C"] = "3",},
+			{["A"] = "2", ["B"] = "3", ["C"] = "1",},
+			{["A"] = "3", ["B"] = "2", ["C"] = "1",},
+			{["A"] = "3", ["B"] = "1", ["C"] = "2",},
+		}
+	},
 }
-print(res_eq(rs, real))
+
+local rs
+for _,t in ipairs(tests) do
+	rs = testee.to_list(testee.run(mock_file(t.file)))
+	for _,r in pairs(rs) do
+		testee.print_map(r)
+		print()
+	end
+	print(res_eq(rs, t.real))
+	print("===============================")
+end
