@@ -23,21 +23,21 @@ local function parse_file(file, rev)
 	end
 
 	local function parse_set(line, s)
-		table.insert(s, line:match("%s*([^%->, ]+)%s*"))
+		table.insert(s, line:match("%s*([^%->,%s]+)%s*.*"))
 	end
 
 	local function parse_mb(line)
 		local e1,e2
 		if rev then
-			e2,e1 = line:match("^%s*([^%->/ ]+)%s*%->%s*([^%->/ ]+)%s*$")
+			e2,e1 = line:match("^%s*([^%->/ ]+)%s*%->%s*([^%->/%s]+)%s*.*$")
 		else
-			e1,e2 = line:match("^%s*([^%->/ ]+)%s*%->%s*([^%->/ ]+)%s*$")
+			e1,e2 = line:match("^%s*([^%->/ ]+)%s*%->%s*([^%->/%s]+)%s*.*$")
 		end
 		if not e1 or not e2 then
 			if rev then
-				e2,e1 = line:match("^%s*([^%->/ ]+)%s*%-/>%s*([^%->/ ]+)%s*$")
+				e2,e1 = line:match("^%s*([^%->/ ]+)%s*%-/>%s*([^%->/%s]+)%s*.*$")
 			else
-				e1,e2 = line:match("^%s*([^%->/ ]+)%s*%-/>%s*([^%->/ ]+)%s*$")
+				e1,e2 = line:match("^%s*([^%->/ ]+)%s*%-/>%s*([^%->/%s]+)%s*.*$")
 			end
 			assert(table_contains(s1, e1), "invalid mb mapping "..line)
 			assert(table_contains(s2, e2), "invalid mb mapping "..line)
@@ -57,9 +57,9 @@ local function parse_file(file, rev)
 		while line and line ~= "" do
 			local e1,e2
 			if rev then
-				e2,e1 = line:match("^%s*([^%->, ]+)%s*%->%s*([^%->, ]+)%s*$")
+				e2,e1 = line:match("^%s*([^%->, ]+)%s*%->%s*([^%->,%s]+)%s*.*$")
 			else
-				e1,e2 = line:match("^%s*([^%->, ]+)%s*%->%s*([^%->, ]+)%s*$")
+				e1,e2 = line:match("^%s*([^%->, ]+)%s*%->%s*([^%->,%s]+)%s*.*$")
 			end
 			assert(table_contains(s1, e1), "invalid mn mapping "..line)
 			assert(table_contains(s2, e2), "invalid mn mapping "..line)
