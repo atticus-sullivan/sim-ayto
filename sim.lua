@@ -1,5 +1,3 @@
-local _M = {}
-
 local function table_copy(t)
 	local r = {}
 	for k,v in pairs(t) do
@@ -12,6 +10,121 @@ local function table_append(t1, t2)
 		table.insert(t1, v)
 	end
 end
+local function table_contains(t, ele)
+	for _,v in ipairs(t) do
+		if v == ele then return true end
+	end
+	return false
+end
+
+local function parse_file(file, rev)
+	local s1,s2,des,mb,state = {},{},{},{},0
+
+	local function next_line(line)
+		line = file:read("l")
+		while line and line:match("^#") do line = file:read("l") end
+		return line
+	end
+
+	local function parse_set(line, s)
+		table.insert(s, line:match("%s*([^%->, ]+)%s*"))
+	end
+
+	local function parse_mb(line)
+		local e1,e2
+		if rev then
+			e2,e1 = line:match("^%s*([^%->/ ]+)%s*%->%s*([^%->/ ]+)%s*$")
+		else
+			e1,e2 = line:match("^%s*([^%->/ ]+)%s*%->%s*([^%->/ ]+)%s*$")
+		end
+		if not e1 or not e2 then
+			if rev then
+				e2,e1 = line:match("^%s*([^%->/ ]+)%s*%-/>%s*([^%->/ ]+)%s*$")
+			else
+				e1,e2 = line:match("^%s*([^%->/ ]+)%s*%-/>%s*([^%->/ ]+)%s*$")
+			end
+			assert(table_contains(s1, e1), "invalid mb mapping "..line)
+			assert(table_contains(s2, e2), "invalid mb mapping "..line)
+			assert(e1 and e2, "error")
+			table.insert(mb, {e1, e2, false})
+		else
+			assert(table_contains(s1, e1), "invalid mb mapping "..line)
+			assert(table_contains(s2, e2), "invalid mb mapping "..line)
+			assert(e1 and e2, "error")
+			table.insert(mb, {e1, e2, true})
+		end
+	end
+
+	local function parse_mn(line)
+		local d = {num=tonumber(line:match("^%s*(%d+)%s*")), matches={}}
+		line = next_line(line)
+		while line and line ~= "" do
+			local e1,e2
+			if rev then
+				e2,e1 = line:match("^%s*([^%->, ]+)%s*%->%s*([^%->, ]+)%s*$")
+			else
+				e1,e2 = line:match("^%s*([^%->, ]+)%s*%->%s*([^%->, ]+)%s*$")
+			end
+			assert(table_contains(s1, e1), "invalid mn mapping "..line)
+			assert(table_contains(s2, e2), "invalid mn mapping "..line)
+			table.insert(d.matches, {e1, e2})
+			line = next_line(line)
+		end
+		table.insert(des, d)
+	end
+
+	local line = file:read("l")
+	while line do
+		if line:match("^#") then
+			-- print("skip")
+		elseif line == "" then
+				state = state + 1
+		else
+			if state == 0 then
+				if rev then
+					parse_set(line, s2)
+				else
+					parse_set(line, s1)
+				end
+			elseif state == 1 then
+				if rev then
+					parse_set(line, s1)
+				else
+					parse_set(line, s2)
+				end
+			elseif state == 2 then
+				parse_mb(line)
+			elseif state >= 3 then
+				parse_mn(line)
+			else
+				error("invalid state")
+			end
+		end
+		line = file:read("l")
+	end
+	return s1,s2,des,mb
+end
+
+local function check_des(map, des)
+	for _,d in ipairs(des) do
+		local cnt,free = 0,0
+		for _,e in ipairs(d.matches) do
+			-- print(e[1], e[2])
+			if not map.m[e[1]] then
+				free = free+1
+			elseif map.m[e[1]] == e[2] then
+				cnt = cnt+1
+			end
+		end
+		if cnt < d.num-free or cnt > d.num then
+			return false
+		end
+	end
+	return true
+end
+
+local _M = {}
+
 function _M.print_map(m)
 	for k,v in pairs(m) do
 		io.write(k, " -> ", v, "\n")
@@ -47,105 +160,10 @@ local function backtrack(map, s1, s2, check, lvl)
 	return node
 end
 
-local function check_des(map, des)
-	for _,d in ipairs(des) do
-		local cnt,free = 0,0
-		for _,e in ipairs(d.matches) do
-			-- print(e[1], e[2])
-			if not map.m[e[1]] then
-				free = free+1
-			elseif map.m[e[1]] == e[2] then
-				cnt = cnt+1
-			end
-		end
-		-- _M.print_map(map.m)
-		-- if d.num == 1 then print(cnt) end
-		if cnt < d.num-free or cnt > d.num then
-			-- print("false")
-			return false
-		end
-		-- print("keep on")
-	end
-	return true
-end
-
-local function table_contains(t, ele)
-	for _,v in ipairs(t) do
-		if v == ele then return true end
-	end
-	return false
-end
-
-local function parse_file(file)
-	local s1,s2,des,mb,state = {},{},{},{},0
-
-	local function next_line(line)
-		line = file:read("l")
-		while line:match("^#") do line = file:read("l") end
-		return line
-	end
-
-	local function parse_set(line, s)
-		table.insert(s, line)
-	end
-
-	local function parse_mb(line)
-		local e1,e2 = line:match("^([^%->/]+)%->([^%->/]+)$")
-		if not e1 or not e2 then
-			e1,e2 = line:match("^([^%->/]+)%-/>([^%->/]+)$")
-			assert(table_contains(s1, e1), "invalid mb mapping")
-			assert(table_contains(s2, e2), "invalid mb mapping")
-			assert(e1 and e2, "error")
-			table.insert(mb, {e1, e2, false})
-		else
-			assert(table_contains(s1, e1), "invalid mb mapping")
-			assert(table_contains(s2, e2), "invalid mb mapping")
-			assert(e1 and e2, "error")
-			table.insert(mb, {e1, e2, true})
-		end
-	end
-
-	local function parse_mn(line)
-		local d = {num=tonumber(line:match("^%d+")), matches={}}
-		line = next_line(line)
-		while line and line ~= "" do
-			local e1,e2 = line:match("^([^%->,]+)%->([^%->,]+)$")
-			assert(table_contains(s1, e1), "invalid mn mapping")
-			assert(table_contains(s2, e2), "invalid mn mapping")
-			table.insert(d.matches, {e1, e2})
-			line = next_line(line)
-		end
-		table.insert(des, d)
-	end
-
-	local line = file:read("l")
-	while line do
-		if line:match("^#") then
-			-- print("skip")
-		elseif line == "" then
-				state = state + 1
-		else
-			if state == 0 then
-				parse_set(line, s1)
-			elseif state == 1 then
-				parse_set(line, s2)
-			elseif state == 2 then
-				parse_mb(line)
-			elseif state >= 3 then
-				parse_mn(line)
-			else
-				error("invalid state")
-			end
-		end
-		line = file:read("l")
-	end
-	return s1,s2,des,mb
-end
-
-function _M.run(file)
-	local s1,s2,des,mb = parse_file(file)
+function _M.run(file, rev)
+	local s1,s2,des,mb = parse_file(file, rev)
 	local map={cnt=0, m={}}
-	-- handle mb
+	-- TODO handle mb move outside
 	local rm1,rm2 = {},{}
 	local pre_tree = {node={name=nil, children={}}}
 	pre_tree.root = pre_tree.node
@@ -173,15 +191,15 @@ function _M.run(file)
 	return nil
 end
 
-function _M.to_dot(par, node, fn)
+function _M.to_dot(par, node, fn, f_inc)
 	assert(not fn:match("[/]"), "fn should contain no '/'")
 	local file = io.open(fn, "w")
-	local f, f_inc = 0, 1
+	local f = 0
 	local function foo(par, node)
 		if node == nil then return end
-		if node == true then file:write(par, " -> ", "fin",tostring(f), "\n") f=f+f_inc return end
+		if node == true then file:write(par, " -> ", "fin_",tostring(f), "\n") f=f+f_inc return end
 		for k,v in pairs(node.children) do
-			local self = node.name..k..tostring(f)
+			local self = node.name..k.."_"..tostring(f)
 			f = f+f_inc
 			file:write(par, " -> ", self, "\n")
 			foo(self, v)
