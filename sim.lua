@@ -76,49 +76,74 @@ local function table_contains(t, ele)
 	return false
 end
 
-function _M.run(file)
+local function parse_file(file)
 	local s1,s2,des,mb,state = {},{},{},{},0
-	for line in file:lines() do
-		if not line:match("^#") then
-			if line == "" then
-				state = state + 1
-			else
-				if state == 0 then
-					table.insert(s1, line)
-				elseif state == 1 then
-					table.insert(s2, line)
 
-				elseif state == 2 then
-					local e1,e2 = line:match("^([^%->/]+)%->([^%->/]+)$")
-					if not e1 or not e2 then
-						e1,e2 = line:match("^([^%->/]+)%-/>([^%->/]+)$")
-						assert(table_contains(s1, e1), "invalid mb mapping")
-						assert(table_contains(s2, e2), "invalid mb mapping")
-						assert(e1 and e2, "error")
-						table.insert(mb, {e1, e2, false})
-					else
-						assert(table_contains(s1, e1), "invalid mb mapping")
-						assert(table_contains(s2, e2), "invalid mb mapping")
-						assert(e1 and e2, "error")
-						table.insert(mb, {e1, e2, true})
-					end
-				elseif state >= 3 then
-					local d = {num=tonumber(line:match("^%d+")), matches={}}
-					line = line:gsub("^%d+%s*", "")
-					for e1,e2 in line:gmatch("([^%->,]+)%->([^%->,]+)") do
-						assert(table_contains(s1, e1), "invalid mn mapping")
-						assert(table_contains(s2, e2), "invalid mn mapping")
-						table.insert(d.matches, {e1, e2})
-					end
-					table.insert(des, d)
-				else
-					error("invalid state")
-				end
-			end
+	local function next_line(line)
+		line = file:read("l")
+		while line:match("^#") do line = file:read("l") end
+		return line
+	end
+
+	local function parse_set(line, s)
+		table.insert(s, line)
+	end
+
+	local function parse_mb(line)
+		local e1,e2 = line:match("^([^%->/]+)%->([^%->/]+)$")
+		if not e1 or not e2 then
+			e1,e2 = line:match("^([^%->/]+)%-/>([^%->/]+)$")
+			assert(table_contains(s1, e1), "invalid mb mapping")
+			assert(table_contains(s2, e2), "invalid mb mapping")
+			assert(e1 and e2, "error")
+			table.insert(mb, {e1, e2, false})
 		else
-			-- print("skip")
+			assert(table_contains(s1, e1), "invalid mb mapping")
+			assert(table_contains(s2, e2), "invalid mb mapping")
+			assert(e1 and e2, "error")
+			table.insert(mb, {e1, e2, true})
 		end
 	end
+
+	local function parse_mn(line)
+		local d = {num=tonumber(line:match("^%d+")), matches={}}
+		line = next_line(line)
+		while line and line ~= "" do
+			local e1,e2 = line:match("^([^%->,]+)%->([^%->,]+)$")
+			assert(table_contains(s1, e1), "invalid mn mapping")
+			assert(table_contains(s2, e2), "invalid mn mapping")
+			table.insert(d.matches, {e1, e2})
+			line = next_line(line)
+		end
+		table.insert(des, d)
+	end
+
+	local line = file:read("l")
+	while line do
+		if line:match("^#") then
+			-- print("skip")
+		elseif line == "" then
+				state = state + 1
+		else
+			if state == 0 then
+				parse_set(line, s1)
+			elseif state == 1 then
+				parse_set(line, s2)
+			elseif state == 2 then
+				parse_mb(line)
+			elseif state >= 3 then
+				parse_mn(line)
+			else
+				error("invalid state")
+			end
+		end
+		line = file:read("l")
+	end
+	return s1,s2,des,mb
+end
+
+function _M.run(file)
+	local s1,s2,des,mb = parse_file(file)
 	local map={cnt=0, m={}}
 	-- handle mb
 	local rm1,rm2 = {},{}
@@ -141,12 +166,16 @@ function _M.run(file)
 	-- for _,v in ipairs(s1) do io.write(v, " ") end io.write("\n")
 	-- for _,v in ipairs(s2) do io.write(v, " ") end io.write("\n")
 	local r = backtrack(map, s1, s2, function(map) return check_des(map, des) end, nil)
-	pre_tree.node.name,pre_tree.node.children = r.name,r.children
-	return pre_tree.root
+	if r then
+		pre_tree.node.name,pre_tree.node.children = r.name,r.children
+		return pre_tree.root
+	end
+	return nil
 end
 
-function _M.to_dot(par, node)
-	local file = io.open("test.dot")
+function _M.to_dot(par, node, fn)
+	assert(not fn:match("[/]"), "fn should contain no '/'")
+	local file = io.open(fn, "w")
 	local f, f_inc = 0, 1
 	local function foo(par, node)
 		if node == nil then return end
@@ -161,6 +190,7 @@ function _M.to_dot(par, node)
 	file:write("digraph D {")
 	foo(par, node)
 	file:write("}\n")
+	file:close()
 end
 function _M.to_list(node, state)
 	local r = {}
