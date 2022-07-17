@@ -1,23 +1,34 @@
 local sim = require"sim"
 
-local file,rs
+local file,rs,cnt
 
 local runs = {
-	{ifn=arg[1], rev=false, ofn="test.dot",     opdf="test.pdf",     f_inc=0},
-	{ifn=arg[1], rev=true,  ofn="test.rev.dot", opdf="test.rev.pdf", f_inc=0},
+	{ifn=arg[1], rev=false, ofn="test1.dot", opdf="test1.pdf", id_inc=0, cnt=true,  dot=false, tree=false, pdf=false, title="Current"},
+	-- {ifn=arg[2], rev=false, ofn="test2.dot", opdf="test2.pdf", id_inc=0, cnt=true, dot=false, tree=false, pdf=false, title="MB"},
+	-- {ifn=arg[3], rev=false, ofn="test3.dot", opdf="test3.pdf", id_inc=0, cnt=true, dot=false, tree=false, pdf=false, title="MN"},
 }
 
+-- cfg.id_inc
+-- cfg.fn
+-- cfg.rev
+-- cfg.cnt
+-- cfg.dot
+-- cfg.tree
 for _,e in ipairs(runs) do
-	file = io.open(e.ifn)
-	rs = sim.run(file, e.rev)
+	if e.ifn then
+		print(e.title)
+		file = io.open(e.ifn)
+		rs,cnt = sim.run(file, e)
+		print(cnt)
+		if e.pdf then
+			os.execute(string.format("dot -Tpdf -o '%s' '%s'", e.opdf, e.ofn))
+			print("pdf created")
+		end
 
-	sim.to_dot("root", rs, e.ofn, e.f_inc)
-	os.execute(string.format("dot -Tpdf -o '%s' '%s'", e.opdf, e.ofn))
-
-	rs = sim.to_list(rs)
-	print(#rs)
-	for _,r in ipairs(rs) do
-		sim.print_map(r)
-		print()
+		rs = sim.to_list(rs)
+		for _,r in ipairs(rs) do
+			sim.print_map(r)
+			print()
+		end
 	end
 end

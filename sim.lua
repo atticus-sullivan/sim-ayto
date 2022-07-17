@@ -1,14 +1,10 @@
+CNT = 0
 local function table_copy(t)
 	local r = {}
 	for k,v in pairs(t) do
 		r[k] = v
 	end
 	return r
-end
-local function table_append(t1, t2)
-	for _,v in ipairs(t2) do
-		table.insert(t1, v)
-	end
 end
 local function table_contains(t, ele)
 	for _,v in ipairs(t) do
@@ -112,9 +108,9 @@ local function check_des(map, des)
 		-- not set aka free and how many mappings are the same in d and the map
 		for _,e in ipairs(d.matches) do
 			-- print(e[1], e[2])
-			if not map.m[e[1]] then
+			if not map[e[1]] then
 				free = free+1
-			elseif map.m[e[1]] == e[2] then
+			elseif map[e[1]] == e[2] then
 				cnt = cnt+1
 			end
 		end
@@ -134,45 +130,53 @@ local function check_des(map, des)
 	return true
 end
 
-local _M = {}
-
-function _M.print_map(m)
-	for k,v in pairs(m) do
-		io.write(k, " -> ", v, "\n")
-	end
-end
-
-local function backtrack(map, s1, s2, check, lvl)
+local function backtrack(map, s1, s2, check, lvl, cfg,par)
 	if not check(map) then
 		return nil
 	end
 	if #s1 <= 0 then
+		if cfg.cnt then
+			CNT = CNT+1
+		end
+		if cfg.dot then
+			cfg.of:write(par, " -> ", "fin_",tostring(ID), "\n")
+			ID = ID+cfg.id_inc
+		end
 		return true
 	end
 	local e1 = table.remove(s1)
 	local node
 	for i2 = 1,#s2 do
 		local e2 = table.remove(s2, i2)
-		map.m[e1] = e2
-		map.cnt = map.cnt+1
+		map[e1] = e2
 		if lvl then
 			io.write(string.rep(" ", lvl*4), "trying: ", e1, " -> ", e2, "\n")
 		end
-		local r = backtrack(map, s1, s2, check, lvl and lvl+1 or nil)
+		local self
+		if cfg.dot then
+			self = e1..e2.."_"..tostring(ID)
+			ID = ID+cfg.id_inc
+		end
+		local r = backtrack(map, s1, s2, check, lvl and lvl+1 or nil, cfg,self)
 		if r then
 			node = node or {name=e1, children={}}
-			node.children[e2] = r
+			if cfg.tree then
+				node.children[e2] = r
+			end
+			if cfg.dot then
+				cfg.of:write(par, " -> ", self, "\n")
+			end
 		end
 		table.insert(s2, i2, e2)
-		map.m[e1] = nil
-		map.cnt = map.cnt-1
+		map[e1] = nil
 	end
 	table.insert(s1, e1)
 	return node
 end
 
-local function handle_fixed(s1,s2,map,tree,des, mb)
+local function handle_fixed(s1,s2,map,tree,des, mb, par,cfg)
 	local rm1,rm2 = {},{} -- colect which to remove
+	local self = par
 	-- node is the current leaf, root is the root of the tree
 	tree.root = tree.node
 	for _,v in ipairs(mb) do
@@ -180,14 +184,21 @@ local function handle_fixed(s1,s2,map,tree,des, mb)
 			-- definite match found -> remove both elements and insert into the
 			-- tree and map
 			-- this is a performance enhancement (one could just add this as additional constraint as well)
-			map.m[v[1]] = v[2]
-			-- child of the current match
-			local node = {name=nil, children={}}
-			-- fill the current node
-			tree.node.name = v[1]
-			tree.node.children[v[2]] = node
-			-- set the next node to work on
-			tree.node = node
+			map[v[1]] = v[2]
+			if cfg.tree then
+				-- child of the current match
+				local node = {name=nil, children={}}
+				-- fill the current node
+				tree.node.name = v[1]
+				tree.node.children[v[2]] = node
+				-- set the next node to work on
+				tree.node = node
+			end
+			if cfg.dot then
+				self = v[1]..v[2].."_"..tostring(ID)
+				cfg.of:write(par, " -> ", self, "\n")
+				ID,par = ID+cfg.id_inc,self
+			end
 			-- add elements to the remove set
 			rm1[v[1]],rm2[v[2]] = true,true
 		else
@@ -199,34 +210,65 @@ local function handle_fixed(s1,s2,map,tree,des, mb)
 	-- go from top to low to preserve to be removed indices
 	for i=#s1,1,-1 do if rm1[s1[i]] then table.remove(s1,i) end end
 	for i=#s2,1,-1 do if rm2[s2[i]] then table.remove(s2,i) end end
+	return self
 end
 
-function _M.run(file, rev)
-	local s1,s2,des,mb = parse_file(file, rev)
-	local map={cnt=0, m={}}
+
+local _M = {}
+
+function _M.print_map(m)
+	for k,v in pairs(m) do
+		io.write(k, " -> ", v, "\n")
+	end
+end
+
+-- cfg.id_inc
+-- cfg.fn
+-- cfg.rev
+-- cfg.cnt
+-- cfg.dot
+-- cfg.tree
+-- cfg.of
+function _M.run(file, cfg)
+	if cfg.cnt then
+		CNT = 0
+	end
+	if cfg.dot then
+		assert(cfg.ofn)
+		ID = 0
+		cfg.of = io.open(cfg.ofn, "w")
+		cfg.of:write("digraph D {")
+	end
+	local s1,s2,des,mb = parse_file(file, cfg.rev)
+	local map = {}
 	local tree = {node={name=nil, children={}}}
-	handle_fixed(s1, s2, map, tree, des, mb)
+	local par = handle_fixed(s1, s2, map, tree, des, mb, "root", cfg)
 	-- for _,v in ipairs(s1) do io.write(v, " ") end io.write("\n")
 	-- for _,v in ipairs(s2) do io.write(v, " ") end io.write("\n")
-	local r = backtrack(map, s1, s2, function(map) return check_des(map, des) end, nil)
+	local r = backtrack(map, s1, s2, function(map) return check_des(map, des) end, nil, cfg, par)
+	if cfg.dot then
+		cfg.of:write("}\n")
+		cfg.of:close()
+	end
 	if r then
 		-- add to tree as the current node
 		tree.node.name,tree.node.children = r.name,r.children
-		return tree.root
+		return cfg.tree and tree.root or nil, cfg.cnt and CNT or nil
 	end
-	return nil
+	return nil, cfg.cnt and CNT or nil
 end
 
-function _M.to_dot(par, node, fn, f_inc)
+-- TODO is being resolved by creating dot in the fly
+function _M.to_dot(par, node, fn, id_inc)
 	assert(not fn:match("[/]"), "fn should contain no '/'")
 	local file = io.open(fn, "w")
-	local f = 0
+	local id = 0
 	local function foo(par, node)
 		if node == nil then return end
-		if node == true then file:write(par, " -> ", "fin_",tostring(f), "\n") f=f+f_inc return end
+		if node == true then file:write(par, " -> ", "fin_",tostring(id), "\n") id=id+id_inc return end
 		for k,v in pairs(node.children) do
-			local self = node.name..k.."_"..tostring(f)
-			f = f+f_inc
+			local self = node.name..k.."_"..tostring(id)
+			id = id+id_inc
 			file:write(par, " -> ", self, "\n")
 			foo(self, v)
 		end
