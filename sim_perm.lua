@@ -1,3 +1,8 @@
+-- TODO how effectively insert:
+-- insert to be later added persons at the total back even behind savely known ones (exclude them from permutations) -> translate constraints
+-- constraints -> instructions (constraint, add_person)
+-- perm -> conv ->> don't copy the last to be added elements (constrained table copy)
+-- TODO merge constr and constr_app together to onw (addfield, apply) -> permgen applies all instructions until the first which shouldn't be applied or the first add instruction
 local perm = require("perm")
 local colors = require"term.colors"
 local _M = {}
@@ -26,6 +31,20 @@ local function table_contains(t, ele)
 	return false
 end
 
+-- TODO testing
+local function explode(poss, i2)
+	local len = #poss
+	for i=1,len do
+		local len2 = #poss[i]+1
+		for j=1,len2 do
+			local new = table_copy(poss[i])
+			table.insert(new, j, i2)
+			table.insert(poss, new)
+		end
+	end
+	return poss
+end
+
 local function poss_to_dot(ps, s1,s2, file)
 	local nodes = {}
 	for _,p in ipairs(ps) do
@@ -48,7 +67,7 @@ end
 local function parse_file(file, rev)
 	local s1,s2,constr_app,constr,swap_idx,dup1,dup2 = {},{},{},{},-1,-1,-1
 	-- real local
-	local lut1,lut2,apply,state = {},{},true,0
+	local lut1,lut2,apply,state,use_additional = {},{},true,0,false
 
 	local function next_line(line)
 		line = file:read("l")
@@ -90,7 +109,7 @@ local function parse_file(file, rev)
 		end
 	end
 	local function parse_constraint(line)
-		local d = {num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0}
+		local d = {num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0, use_additional=use_additional}
 		line = next_line(line)
 		while line and line ~= "" do
 			local e1,e2
@@ -164,6 +183,8 @@ local function parse_file(file, rev)
 				state = state + 1
 		elseif line == "apply to here" then
 			apply = false
+		elseif line == "additional persons" then
+			use_additional = true
 		else
 			if state >= 4 and swap_idx < 0 then
 				lut1,lut2 = gen_lut(s1), gen_lut(s2)
@@ -257,7 +278,7 @@ local function check_all(map, c, dup1, dup2, pr)
 		print("map")
 		_M.print_map(map, S1, S2)
 	end
-	assert(c.cnt == #map or c.cnt == #map-1)
+	-- assert(c.cnt == #map or c.cnt == #map-1)
 		-- if c.num == 1 and c.cnt == 1 then pr=1 end
 		local cnt = 0
 		if pr and pr > 0 then
@@ -282,8 +303,10 @@ local function check_all(map, c, dup1, dup2, pr)
 		end
 		-- handle overhang
 		local r
-		print(dup1, dup2, dup2_idx)
-		if dup2_idx and map[dup1] ~= dup2 then
+		if pr and pr > 1 then
+			print(dup1, dup2, dup2_idx)
+		end
+		if not c.use_additional and dup2_idx and map[dup1] ~= dup2 then
 			map[dup1],map[dup2_idx] = map[dup2_idx],map[dup1]
 			assert(map[dup1] == dup2)
 			if not check_all(map, c, dup1, dup2, pr) then
@@ -444,6 +467,250 @@ local function prob_tab(p, s1, s2, t)
 	return tab
 end
 
+local function dbg(map)
+	local valid = {
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Dana",
+			["Dustin"]="Marie",
+			["Jordi"]="Estelle",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Monami",
+			["Mike"]="Joelina",
+			["Tim"]="Kerstin",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Dana",
+			["Antonino"]="Joelina",
+			["Dustin"]="Zaira",
+			["Jordi"]="Desiree",
+			["Leon"]="Jessica",
+			["Marius"]="Isabelle",
+			["Max"]="Marie",
+			["Mike"]="Estelle",
+			["Tim"]="Kerstin",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Desiree",
+			["Antonino"]="Dana",
+			["Dustin"]="Marie",
+			["Jordi"]="Estelle",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Monami",
+			["Mike"]="Joelina",
+			["Tim"]="Kerstin",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Dana",
+			["Dustin"]="Desiree",
+			["Jordi"]="Estelle",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Monami",
+			["Mike"]="Joelina",
+			["Tim"]="Kerstin",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Dana",
+			["Dustin"]="Marie",
+			["Jordi"]="Estelle",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Monami",
+			["Mike"]="Desiree",
+			["Tim"]="Kerstin",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Dana",
+			["Dustin"]="Zaira",
+			["Jordi"]="Monami",
+			["Leon"]="Joelina",
+			["Marius"]="Jessica",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Desiree",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Jessica",
+			["Dustin"]="Zaira",
+			["Jordi"]="Desiree",
+			["Leon"]="Raphaela",
+			["Marius"]="Marie",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Joelina",
+			["William"]="Dana",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Kerstin",
+			["Dustin"]="Dana",
+			["Jordi"]="Desiree",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Marie",
+			["Mike"]="Joelina",
+			["Tim"]="Monami",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Kerstin",
+			["Dustin"]="Monami",
+			["Jordi"]="Desiree",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Marie",
+			["Mike"]="Joelina",
+			["Tim"]="Dana",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Marie",
+			["Dustin"]="Dana",
+			["Jordi"]="Desiree",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Monami",
+			["Mike"]="Joelina",
+			["Tim"]="Kerstin",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Desiree",
+			["Dustin"]="Marie",
+			["Jordi"]="Jessica",
+			["Leon"]="Raphaela",
+			["Marius"]="Zaira",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Joelina",
+			["William"]="Dana",
+		},
+		{
+			["Andre"]="Isabelle",
+			["Antonino"]="Desiree",
+			["Dustin"]="Raphaela",
+			["Jordi"]="Jessica",
+			["Leon"]="Marie",
+			["Marius"]="Zaira",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Joelina",
+			["William"]="Dana",
+		},
+		{
+			["Andre"]="Marie",
+			["Antonino"]="Dana",
+			["Dustin"]="Zaira",
+			["Jordi"]="Isabelle",
+			["Leon"]="Jessica",
+			["Marius"]="Monami",
+			["Max"]="Estelle",
+			["Mike"]="Joelina",
+			["Tim"]="Desiree",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Marie",
+			["Antonino"]="Dana",
+			["Dustin"]="Zaira",
+			["Jordi"]="Monami",
+			["Leon"]="Jessica",
+			["Marius"]="Estelle",
+			["Max"]="Isabelle",
+			["Mike"]="Joelina",
+			["Tim"]="Desiree",
+			["William"]="Raphaela",
+		},
+		{
+			["Andre"]="Marie",
+			["Antonino"]="Estelle",
+			["Dustin"]="Isabelle",
+			["Jordi"]="Monami",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Raphaela",
+			["Mike"]="Joelina",
+			["Tim"]="Kerstin",
+			["William"]="Desiree",
+		},
+		{
+			["Andre"]="Marie",
+			["Antonino"]="Isabelle",
+			["Dustin"]="Zaira",
+			["Jordi"]="Desiree",
+			["Leon"]="Joelina",
+			["Marius"]="Monami",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Jessica",
+			["William"]="Dana",
+		},
+		{
+			["Andre"]="Marie",
+			["Antonino"]="Joelina",
+			["Dustin"]="Zaira",
+			["Jordi"]="Desiree",
+			["Leon"]="Isabelle",
+			["Marius"]="Monami",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Jessica",
+			["William"]="Dana",
+		},
+		{
+			["Andre"]="Marie",
+			["Antonino"]="Raphaela",
+			["Dustin"]="Isabelle",
+			["Jordi"]="Monami",
+			["Leon"]="Jessica",
+			["Marius"]="Zaira",
+			["Max"]="Estelle",
+			["Mike"]="Joelina",
+			["Tim"]="Kerstin",
+			["William"]="Desiree",
+		},
+		{
+			["Andre"]="Monami",
+			["Antonino"]="Jessica",
+			["Dustin"]="Zaira",
+			["Jordi"]="Desiree",
+			["Leon"]="Isabelle",
+			["Marius"]="Marie",
+			["Max"]="Kerstin",
+			["Mike"]="Estelle",
+			["Tim"]="Joelina",
+			["William"]="Dana",
+		}
+	}
+	for _,x in ipairs(valid) do
+		local match = true
+		for i1,i2 in pairs(map) do
+			if S1[i1] ~= x[S2[i2]] then
+				match = false
+				break
+			end
+		end
+		if match then return true end
+	end
+	return false
+end
+
 -- parsing
 local file = io.open(arg[1])
 local s1,s2,constr_app,constr,perm_num,dup1,dup2 = parse_file(file, false)
@@ -474,7 +741,6 @@ for _,c in ipairs(constr) do
 	-- local g,h,h_real
 	if c.cnt > 1 then
 		-- all
-		poss = perm.filter_pred(poss, function(map) return check_all(map, c, dup1, dup2) end)
 		-- calculating the max entropy is very expensive (10(lights) *
 		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
 		-- -> only do this if the possibilities narrow down a bit
@@ -488,7 +754,6 @@ for _,c in ipairs(constr) do
 		-- pr_time("entropy all end")
 	else
 		-- single
-		poss = perm.filter_pred(poss, function(map) return check_single(map, c) end)
 		-- local g1,g2
 		-- if #poss <= 3628800 then
 		-- 	h,g1,g2 = entropy_single_max(poss, #poss)
@@ -505,6 +770,12 @@ for _,c in ipairs(constr) do
 		-- end
 		-- g = {[g1]=g2}
 	end
+	poss = perm.filter_pred(poss, function(map)
+		if dbg(map) then
+			return check_all(map, c, dup1, dup2, 3)
+		end
+		return check_all(map, c, dup1, dup2)
+	end)
 	-- write_entro_guess(h,g, s1,s2)
 	write_matches(c.matches, s1,s2)
 	print(#poss)
