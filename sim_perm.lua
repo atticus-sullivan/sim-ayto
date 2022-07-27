@@ -290,55 +290,58 @@ local function check_single(map, c, pr)
 	return true
 end
 local function check_all(map, c, dup, pr)
-	local function handle_dup() -- TODO swap constraint as well?
+	if pr and pr > 1 then print(dup) end
+	local function count_lights()
+		local cnt = 0
+		for i1,i2 in pairs(c.matches) do
+			if not map[i1] then
+				error("map is not fully defined")
+			elseif map[i1] == i2 then
+				cnt = cnt+1
+			end
+		end
+		return cnt
+	end
+	local function count_pendant()
 		-- handle dup (1)
 		-- find the index which maps to dup[2]
 		local dup2_idx
+		if pr and pr > 1 then print(dup) end
 		for i1,i2 in pairs(map) do
 			if i2 == dup[2] then dup2_idx = i1 end
 		end
-		local pendant = false -- decides if based on the pendant the map should be kept
+		local cnt
 		if pr and pr > 1 then print(dup[1], dup[2], dup2_idx) end
 		-- if the additional person is mapped to another person, we know who the second match is and who has two matches -> use this Information
 		if dup2_idx and map[dup[1]] ~= dup[2] then
 			-- swap
 			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
 			assert(map[dup[1]] == dup[2])
-			if check_all(map, c, dup, pr) then
-				pendant = true
-			end
+			cnt = count_lights()
 			-- restore map
 			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
 		end
-		return pendant
+		return cnt
 	end
 	if pr and pr > 2 then print("map") _M.print_map(map, S1, S2) end
 	if pr and pr > 0 then print("matches") _M.print_map(c.matches, S1, S2) print(#map, c.cnt) end
 
 	-- count lights if the given map would be the solution
-	local cnt = 0
-	for i1,i2 in pairs(c.matches) do
-		if not map[i1] then
-			error("map is not fully defined")
-		elseif map[i1] == i2 then
-			cnt = cnt+1
-		end
-	end
+	local cnt = count_lights()
 
-	local pendant
 	if pr and pr > 1 then print(c.added) end
 	if c.cnt > 1 and c.added then
-		pendant = handle_dup()
-	else
-		pendant = false
+		cnt = math.max(cnt, count_pendant() or 0)
 	end
 
 	local c_num = c.num
-	if pr and pr > 1 then print(cnt, c_num) end
-	if not pendant and cnt ~= c_num then
+	if pr and pr > 1 then print(cnt, cntP, c_num) end
+
+	if cnt ~= c_num then
 		if pr and pr > 1 then print("false") end
 		return false
 	end
+
 	if pr and pr > 1 then print("true") end
 	return true
 end
@@ -551,7 +554,7 @@ for _,c in ipairs(instructions) do
 		end
 		poss = perm.filter_pred(poss, function(map)
 			if dbg(map) and not check_all(map, c, dup) then
-				return check_all(map, c, dbg, 3)
+				return check_all(map, c, dup, 3)
 			end
 			return check_all(map, c, dup)
 		end)
