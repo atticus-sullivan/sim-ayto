@@ -1,21 +1,81 @@
--- TODO how effectively insert:
--- insert to be later added persons at the total back even behind savely known ones (exclude them from permutations) -> translate constraints
--- constraints -> instructions (constraint, add_person)
--- perm -> conv ->> don't copy the last to be added elements (constrained table copy)
--- TODO merge constr and constr_app together to onw (addfield, apply) -> permgen applies all instructions until the first which shouldn't be applied or the first add instruction
 local perm = require("perm")
 local colors = require"term.colors"
 local _M = {}
 
 S1,S2 = {},{}
 
+local function dbg(map)
+	local function gen_lut(s)
+		local r = {}
+		for i,v in ipairs(s) do
+			r[v] = i
+		end
+		return r
+	end
+	local lut1,lut2 = gen_lut(S1), gen_lut(S2)
+	local sol1 = {
+		["Dana"]     = "Antonino",
+		["Estelle"]  = "Jordi",
+		["Isabelle"] = "Andre",
+		["Jessica"]  = "Leon",
+		["Joelina"]  = "Mike",
+		["Kerstin"]  = "Tim",
+		["Marie"]    = "Dustin",
+		["Monami"]   = "Max",
+		["Raphaela"] = "William",
+		["Zaira"]    = "Marius",
+		["Desiree"]  = "Dummy",
+	}
+	local sol2 = {
+		["Dana"]     = "Antonino",
+		["Estelle"]  = "Jordi",
+		["Isabelle"] = "Andre",
+		["Jessica"]  = "Leon",
+		["Joelina"]  = "Mike",
+		["Kerstin"]  = "Tim",
+		["Marie"]    = "Dustin",
+		["Monami"]   = "Max",
+		["Raphaela"] = "Dummy",
+		["Zaira"]    = "Marius",
+		["Desiree"]  = "William",
+	}
+	local sol = sol2
+
+	for k,v in pairs(map) do
+		if sol[S1[k]] ~= S2[v]  then return false end
+	end
+	for k,v in pairs(sol) do
+		if map[lut1[k]] ~= lut2[v]  then return false end
+	end
+	return true
+end
+
+-------------------
+--  HELPER STUFF --
+-------------------
 local function pr_time(s)
 	print(os.date("%Y-%m-%d %H:%M:%S"), s)
 end
 pr_time("start")
-
 local function dot_node(par, self, e1, e2, file)
 	file:write('"',par,'"', " -> {", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr><tr><td>',e2,'</td></tr></table>>]', "}\n")
+end
+local function poss_to_dot(ps, s1,s2, file)
+	local nodes = {}
+	for _,p in ipairs(ps) do
+		local par = "root"
+		for i1,i2 in ipairs(p) do
+			local co = string.format("%s|%d,%d", par, i1,i2)
+			nodes[co] = {par, i1,i2}
+			par = co
+		end
+	end
+	file:write("digraph D {\n")
+	for co,x in pairs(nodes) do
+		local par,i1,i2 = table.unpack(x)
+		dot_node(par, co, s1[i1], s2[i2], file)
+	end
+	file:write("}\n")
 end
 local function table_copy(t)
 	local r = {}
@@ -30,49 +90,45 @@ local function table_contains(t, ele)
 	end
 	return false
 end
+local function hash_len(x)
+	local r = 0
+	for _,_ in pairs(x) do r=r+1 end
+	return r
+end
 
--- TODO testing
-local function explode(poss, i2)
+
+-- TODO -> perm
+local function poss_append(poss, i2)
+	local poss_new = {}
 	local len = #poss
 	for i=1,len do
 		local len2 = #poss[i]+1
 		for j=1,len2 do
 			local new = table_copy(poss[i])
-			table.insert(new, j, i2)
-			table.insert(poss, new)
+			table.insert(new, i2)
+			new[#new],new[j] = new[j],new[#new]
+			table.insert(poss_new, new)
 		end
 	end
-	return poss
-end
-
-local function poss_to_dot(ps, s1,s2, file)
-	local nodes = {}
-	for _,p in ipairs(ps) do
-		local par = "root"
-		for i1,i2 in ipairs(p) do
-			local co = string.format("%s|%d,%d", par, i1,i2)
-			-- if nodes[co] then print(nodes[co][1], par) end -- TODO only debugging
-			nodes[co] = {par, i1,i2}
-			par = co
-		end
-	end
-	file:write("digraph D {\n")
-	for co,x in pairs(nodes) do
-		local par,i1,i2 = table.unpack(x)
-		dot_node(par, co, s1[i1], s2[i2], file)
-	end
-	file:write("}\n")
+	return poss_new
 end
 
 local function parse_file(file, rev)
-	local s1,s2,constr_app,constr,swap_idx,dup1,dup2 = {},{},{},{},-1,-1,-1
+	local s1,s2,instructions,swap_idx,dup,added = {},{},{},-1,nil,nil
 	-- real local
-	local lut1,lut2,apply,state,use_additional = {},{},true,0,false
+	local lut1,lut2,apply,state = {},{},true,0
 
 	local function next_line(line)
 		line = file:read("l")
 		while line and line:match("^#") do line = file:read("l") end
 		return line
+	end
+	local function gen_lut(s)
+		local r = {}
+		for i,v in ipairs(s) do
+			r[v] = i
+		end
+		return r
 	end
 	local function parse_set(line, s)
 		table.insert(s, line:match("%s*([^%->,%s]+)%s*.*"))
@@ -84,32 +140,40 @@ local function parse_file(file, rev)
 		lut1[i1a],lut1[i1b] = lut1[i1b],lut1[i1a]
 		lut2[i2a],lut2[i2b] = lut2[i2b],lut2[i2a]
 
-		if i1a == dup1 then dup1 = i1b end
-		if i2a == dup2 then dup2 = i2b end
+		if i1a == dup[1] then dup[1] = i1b end
+		if i2a == dup[2] then dup[2] = i2b end
 
-		for _,v in ipairs(constr) do
-			v.matches[i1a],v.matches[i1b] = v.matches[i1b],v.matches[i1a]
-			local ia,ib
-			for i,c in pairs(v.matches) do
-				if c == i2a then ia = i end
-				if c == i2b then ib = i end
+		for _,v in ipairs(instructions) do
+			if v.constraint then
+				v.matches[i1a],v.matches[i1b] = v.matches[i1b],v.matches[i1a]
+				local ia,ib
+				for i,c in pairs(v.matches) do
+					if c == i2a then ia = i end
+					if c == i2b then ib = i end
+				end
+				if ia then v.matches[ia] = i2b end
+				if ib then v.matches[ib] = i2a end
 			end
-			if ia then v.matches[ia] = i2b end
-			if ib then v.matches[ib] = i2a end
-		end
-		for _,v in ipairs(constr_app) do
-			v.matches[i1a],v.matches[i1b] = v.matches[i1b],v.matches[i1a]
-			local ia,ib
-			for i,c in pairs(v.matches) do
-				if c == i2a then ia = i end
-				if c == i2b then ib = i end
-			end
-			if ia then v.matches[ia] = i2b end
-			if ib then v.matches[ib] = i2a end
 		end
 	end
-	local function parse_constraint(line)
-		local d = {num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0, use_additional=use_additional}
+	local function parse_instruction(line)
+		if line == "add" then
+			-- add instruction
+			-- elements will be added at the end -> obmit from permutations
+			added = (added or 0)+1
+			line = next_line(line)
+			if rev then parse_set(line, s2) else parse_set(line, s1) end
+			line = next_line(line)
+			if rev then parse_set(line, s1) else parse_set(line, s2) end
+			lut1,lut2 = gen_lut(s1), gen_lut(s2)
+			table.insert(instructions, {add=true, i1=#s1, i2=#s2})
+			assert(dup == nil)
+			dup = {#s1, #s2}
+			return
+		end
+
+		-- constraint
+		local d = {constraint=true, num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0, added=added~=nil, apply=apply}
 		line = next_line(line)
 		while line and line ~= "" do
 			local e1,e2
@@ -121,58 +185,27 @@ local function parse_file(file, rev)
 			local i1,i2 = lut1[e1], lut2[e2]
 			assert(i1, "invalid constraint "..line)
 			assert(i2, "invalid constraint "..line)
-			local found = false
-			for _,v in ipairs(constr_app) do
-				if v.save then
-					if v[i1] == e2 then
-						found = true
-						-- if a save match is omitted, the number of matches decreases
-						if v.num == 1 then d.num = d.num -1 end
-					end
-				end
-			end
-			for _,v in ipairs(constr) do
-				if v.save then
-					if v[i1] == e2 then
-						found = true
-						-- if a save match is omitted, the number of matches decreases
-						if v.num == 1 then d.num = d.num -1 end
-					end
-				end
-			end
-			--omit already save known stuff
-			if not found then
-				d.matches[lut1[e1]] = lut2[e2]
-				d.cnt = d.cnt+1
-			end
+			-- TODO micro optimization: obmit already known stuff (safe)
+			d.matches[i1] = i2 -- ATTENTION: d.matches might be hash-map
+			d.cnt = d.cnt+1
 			line = next_line(line)
 		end
 		-- assert(d.cnt == 10 or d.cnt == 1, "matching should always contain 1 or 10 pairs")
-		if apply then
-			table.insert(constr_app, d)
-		else
-			table.insert(constr, d)
-		end
 		assert(d.num >= 0 and d.num <= d.cnt, "invalid num "..tostring(d.num).." vs cnt "..tostring(d.cnt))
-		if d.cnt == 1 and apply then
-			d.save = true
-			assert(d.num == 1 or d.num == 0)
-			if d.num == 1 then
-				for i1,i2 in pairs(d.matches) do
-					assert(swap_idx >= 0)
-					translate(i1, swap_idx, i2, swap_idx)
-					swap_idx = swap_idx -1
-					break -- only one element in d.matches
-				end
-			end
-		end
-	end
-	local function gen_lut(s)
-		local r = {}
-		for i,v in ipairs(s) do
-			r[v] = i
-		end
-		return r
+		table.insert(instructions, d)
+		-- TODO micro-optimization: obmit save known stuff from permutations
+		-- if d.cnt == 1 and apply and not added then
+		-- 	d.save = true
+		-- 	assert(d.num == 1 or d.num == 0)
+		-- 	if d.num == 1 then
+		-- 		for i1,i2 in pairs(d.matches) do
+		-- 			assert(swap_idx >= 0)
+		-- 			translate(i1, swap_idx, i2, swap_idx)
+		-- 			swap_idx = swap_idx -1
+		-- 			break -- only one element in d.matches
+		-- 		end
+		-- 	end
+		-- end
 	end
 
 	local line = file:read("l")
@@ -183,48 +216,31 @@ local function parse_file(file, rev)
 				state = state + 1
 		elseif line == "apply to here" then
 			apply = false
-		elseif line == "additional persons" then
-			use_additional = true
 		else
-			if state >= 4 and swap_idx < 0 then
+			if state >= 2 and swap_idx < 0 then
 				lut1,lut2 = gen_lut(s1), gen_lut(s2)
 				swap_idx = #s1
 			end
 			if state == 0 then
 				if rev then parse_set(line, s2) else parse_set(line, s1) end
 			elseif state == 1 then
-				if rev then
-					assert(dup2 == -1) parse_set(line, s2) dup2 = #s2
-				else
-					assert(dup1 == -1) parse_set(line, s1) dup1 = #s1
-				end
-			elseif state == 2 then
 				if rev then parse_set(line, s1) else parse_set(line, s2) end
-			elseif state == 3 then
-				if rev then
-					assert(dup1 == -1) parse_set(line, s1) dup1 = #s1
-				else
-					assert(dup2 == -1) parse_set(line, s2) dup2 = #s2
-				end
-			elseif state >= 4 then
-				parse_constraint(line)
+			elseif state >= 2 then
+				parse_instruction(line)
 			end
 		end
 		line = file:read("l")
 	end
 	if swap_idx < 0 then
+		lut1,lut2 = gen_lut(s1), gen_lut(s2)
 		swap_idx = #s1
 	end
 	-- swap idx determines upt to which position should be permutated
-	return s1,s2,constr_app,constr,swap_idx,dup1,dup2
+	return s1,s2,instructions,swap_idx,dup,added
 end
 
-local function hash_len(x)
-	local r = 0
-	for _,_ in pairs(x) do r=r+1 end
-	return r
-end
-
+-- https://medium.com/@dirk_32686/are-you-the-one-deutschland-staffel-3-folge-9-und-10-142cfc4696ac
+-- zu wenige Möglichkeiten nachdem alles raus ist
 local function check_single(map, c, pr)
 	if pr and pr > 2 then
 		_M.print_map(map, S1, S2)
@@ -273,79 +289,65 @@ local function check_single(map, c, pr)
 	end
 	return true
 end
-local function check_all(map, c, dup1, dup2, pr)
-	if pr and pr > 2 then
-		print("map")
-		_M.print_map(map, S1, S2)
-	end
-	-- assert(c.cnt == #map or c.cnt == #map-1)
-		-- if c.num == 1 and c.cnt == 1 then pr=1 end
-		local cnt = 0
-		if pr and pr > 0 then
-			print("matches")
-			_M.print_map(c.matches, S1, S2)
-			print(#map, c.cnt)
-		end
-		-- go through information provided by d and count how may mappings are
-		-- not set aka free and how many mappings are the same in d and the map
+local function check_all(map, c, dup, pr)
+	local function handle_dup() -- TODO swap constraint as well?
+		-- handle dup (1)
+		-- find the index which maps to dup[2]
 		local dup2_idx
 		for i1,i2 in pairs(map) do
-			if i2 == dup2 then dup2_idx = i1 end
+			if i2 == dup[2] then dup2_idx = i1 end
 		end
-		for i1,i2 in pairs(c.matches) do
-			-- print("checking if", s1[i1], "maps to", s2[i2])
-			if not map[i1] then
-				error("map is not fully defined")
-				-- free = free+1
-			elseif map[i1] == i2 then
-				cnt = cnt+1
+		local pendant = false -- decides if based on the pendant the map should be kept
+		if pr and pr > 1 then print(dup[1], dup[2], dup2_idx) end
+		-- if the additional person is mapped to another person, we know who the second match is and who has two matches -> use this Information
+		if dup2_idx and map[dup[1]] ~= dup[2] then
+			-- swap
+			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
+			assert(map[dup[1]] == dup[2])
+			if check_all(map, c, dup, pr) then
+				pendant = true
 			end
+			-- restore map
+			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
 		end
-		-- handle overhang
-		local r
-		if pr and pr > 1 then
-			print(dup1, dup2, dup2_idx)
-		end
-		if not c.use_additional and dup2_idx and map[dup1] ~= dup2 then
-			map[dup1],map[dup2_idx] = map[dup2_idx],map[dup1]
-			assert(map[dup1] == dup2)
-			if not check_all(map, c, dup1, dup2, pr) then
-				return false
-			else
-				r = true
-			end
-			map[dup1],map[dup2_idx] = map[dup2_idx],map[dup1]
-		end
-		-- if there are more matches between d and mapping, then d has right
-		-- matches then map is no valid mapping (otherwise d.num would be
-		-- higher)
-		-- if there are fewer matches between d and the current mapping as are
-		-- right in d, then the mapping isn't valid as well (at d.num has to be
-		-- right, thus at least d.num have to match). Exceptions are mappings
-		-- which are not fully decided yet, here there are free matchings which
-		-- still can match with d
-		if pr and pr > 1 then
-			print(cnt, c.num)
-		end
-		local c_num = c.num
-		if not r and (cnt < c_num or cnt > c.num) then
-			if pr and pr > 1 then
-				print("false")
-			end
-			return false
-		end
-	-- only if all constraints are met, the mapping can be valid
-	if pr and pr > 1 then
-		print("true")
+		return pendant
 	end
+	if pr and pr > 2 then print("map") _M.print_map(map, S1, S2) end
+	if pr and pr > 0 then print("matches") _M.print_map(c.matches, S1, S2) print(#map, c.cnt) end
+
+	-- count lights if the given map would be the solution
+	local cnt = 0
+	for i1,i2 in pairs(c.matches) do
+		if not map[i1] then
+			error("map is not fully defined")
+		elseif map[i1] == i2 then
+			cnt = cnt+1
+		end
+	end
+
+	local pendant
+	if pr and pr > 1 then print(c.added) end
+	if c.cnt > 1 and c.added then
+		pendant = handle_dup()
+	else
+		pendant = false
+	end
+
+	local c_num = c.num
+	if pr and pr > 1 then print(cnt, c_num) end
+	if not pendant and cnt ~= c_num then
+		if pr and pr > 1 then print("false") end
+		return false
+	end
+	if pr and pr > 1 then print("true") end
 	return true
 end
-local function check(map, constr, dup1, dup2, pr)
+local function check(map, constr, dup, pr)
 	for _,c in ipairs(constr) do
 		if c.cnt == 1 then
 			return check_single(map, c, pr)
 		else
-			return check_all(map, c, dup1, dup2, pr)
+			return check_all(map, c, dup, pr)
 		end
 	end
 end
@@ -467,254 +469,11 @@ local function prob_tab(p, s1, s2, t)
 	return tab
 end
 
-local function dbg(map)
-	local valid = {
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Dana",
-			["Dustin"]="Marie",
-			["Jordi"]="Estelle",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Monami",
-			["Mike"]="Joelina",
-			["Tim"]="Kerstin",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Dana",
-			["Antonino"]="Joelina",
-			["Dustin"]="Zaira",
-			["Jordi"]="Desiree",
-			["Leon"]="Jessica",
-			["Marius"]="Isabelle",
-			["Max"]="Marie",
-			["Mike"]="Estelle",
-			["Tim"]="Kerstin",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Desiree",
-			["Antonino"]="Dana",
-			["Dustin"]="Marie",
-			["Jordi"]="Estelle",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Monami",
-			["Mike"]="Joelina",
-			["Tim"]="Kerstin",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Dana",
-			["Dustin"]="Desiree",
-			["Jordi"]="Estelle",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Monami",
-			["Mike"]="Joelina",
-			["Tim"]="Kerstin",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Dana",
-			["Dustin"]="Marie",
-			["Jordi"]="Estelle",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Monami",
-			["Mike"]="Desiree",
-			["Tim"]="Kerstin",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Dana",
-			["Dustin"]="Zaira",
-			["Jordi"]="Monami",
-			["Leon"]="Joelina",
-			["Marius"]="Jessica",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Desiree",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Jessica",
-			["Dustin"]="Zaira",
-			["Jordi"]="Desiree",
-			["Leon"]="Raphaela",
-			["Marius"]="Marie",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Joelina",
-			["William"]="Dana",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Kerstin",
-			["Dustin"]="Dana",
-			["Jordi"]="Desiree",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Marie",
-			["Mike"]="Joelina",
-			["Tim"]="Monami",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Kerstin",
-			["Dustin"]="Monami",
-			["Jordi"]="Desiree",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Marie",
-			["Mike"]="Joelina",
-			["Tim"]="Dana",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Marie",
-			["Dustin"]="Dana",
-			["Jordi"]="Desiree",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Monami",
-			["Mike"]="Joelina",
-			["Tim"]="Kerstin",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Desiree",
-			["Dustin"]="Marie",
-			["Jordi"]="Jessica",
-			["Leon"]="Raphaela",
-			["Marius"]="Zaira",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Joelina",
-			["William"]="Dana",
-		},
-		{
-			["Andre"]="Isabelle",
-			["Antonino"]="Desiree",
-			["Dustin"]="Raphaela",
-			["Jordi"]="Jessica",
-			["Leon"]="Marie",
-			["Marius"]="Zaira",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Joelina",
-			["William"]="Dana",
-		},
-		{
-			["Andre"]="Marie",
-			["Antonino"]="Dana",
-			["Dustin"]="Zaira",
-			["Jordi"]="Isabelle",
-			["Leon"]="Jessica",
-			["Marius"]="Monami",
-			["Max"]="Estelle",
-			["Mike"]="Joelina",
-			["Tim"]="Desiree",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Marie",
-			["Antonino"]="Dana",
-			["Dustin"]="Zaira",
-			["Jordi"]="Monami",
-			["Leon"]="Jessica",
-			["Marius"]="Estelle",
-			["Max"]="Isabelle",
-			["Mike"]="Joelina",
-			["Tim"]="Desiree",
-			["William"]="Raphaela",
-		},
-		{
-			["Andre"]="Marie",
-			["Antonino"]="Estelle",
-			["Dustin"]="Isabelle",
-			["Jordi"]="Monami",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Raphaela",
-			["Mike"]="Joelina",
-			["Tim"]="Kerstin",
-			["William"]="Desiree",
-		},
-		{
-			["Andre"]="Marie",
-			["Antonino"]="Isabelle",
-			["Dustin"]="Zaira",
-			["Jordi"]="Desiree",
-			["Leon"]="Joelina",
-			["Marius"]="Monami",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Jessica",
-			["William"]="Dana",
-		},
-		{
-			["Andre"]="Marie",
-			["Antonino"]="Joelina",
-			["Dustin"]="Zaira",
-			["Jordi"]="Desiree",
-			["Leon"]="Isabelle",
-			["Marius"]="Monami",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Jessica",
-			["William"]="Dana",
-		},
-		{
-			["Andre"]="Marie",
-			["Antonino"]="Raphaela",
-			["Dustin"]="Isabelle",
-			["Jordi"]="Monami",
-			["Leon"]="Jessica",
-			["Marius"]="Zaira",
-			["Max"]="Estelle",
-			["Mike"]="Joelina",
-			["Tim"]="Kerstin",
-			["William"]="Desiree",
-		},
-		{
-			["Andre"]="Monami",
-			["Antonino"]="Jessica",
-			["Dustin"]="Zaira",
-			["Jordi"]="Desiree",
-			["Leon"]="Isabelle",
-			["Marius"]="Marie",
-			["Max"]="Kerstin",
-			["Mike"]="Estelle",
-			["Tim"]="Joelina",
-			["William"]="Dana",
-		}
-	}
-	for _,x in ipairs(valid) do
-		local match = true
-		for i1,i2 in pairs(map) do
-			if S1[i1] ~= x[S2[i2]] then
-				match = false
-				break
-			end
-		end
-		if match then return true end
-	end
-	return false
-end
-
 -- parsing
 local file = io.open(arg[1])
-local s1,s2,constr_app,constr,perm_num,dup1,dup2 = parse_file(file, false)
+local s1,s2,instructions,perm_num,dup,added = parse_file(file, false)
 file:close()
+pr_time("parsing done")
 S1,S2 = s1,s2 -- TODO only used for debug
 -- for _,v in ipairs(s1) do io.write(v, " ") end io.write("\n")
 -- for _,v in ipairs(s2) do io.write(v, " ") end io.write("\n")
@@ -722,11 +481,25 @@ S1,S2 = s1,s2 -- TODO only used for debug
 -- for _,c in ipairs(constr_app) do _M.print_map(c.matches,s1,s2) end
 -- print()
 
-pr_time("parsing done")
 -- permgen
 local a = {}
 for i=1,#s1 do a[i] = i end
-local poss = perm.permgen(a, perm_num, {}, function(map) return true end)
+local poss = perm.permgen(
+	a,
+	perm_num,
+	{},
+	function(map)
+		return true
+	end,
+	function(map)
+		local r = {}
+		local a = added or 0
+		-- obmit later added stuff
+		for i=1,#map-a do
+			r[i] = map[i]
+		end
+		return r
+	end)
 print("total", #poss)
 print(os.date("%Y-%m-%d %H:%M:%S"))
 pr_time("permgen done")
@@ -737,58 +510,66 @@ print()
 -- for i,e in ipairs(s2) do lut2[e] = i end
 
 local tabSingle,tabAll
-for _,c in ipairs(constr) do
-	-- local g,h,h_real
-	if c.cnt > 1 then
-		-- all
-		-- calculating the max entropy is very expensive (10(lights) *
-		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
-		-- -> only do this if the possibilities narrow down a bit
-		-- if #poss <= 0 then
-		-- 	h,g = entropy_all_max(poss, #poss, 10)
-		-- else
-		-- 	h,g = 0,{}
-		-- end
-		-- pr_time("entropy all start")
-		-- h_real = entropy_all(poss, c, #poss, 10)
-		-- pr_time("entropy all end")
-	else
-		-- single
-		-- local g1,g2
-		-- if #poss <= 3628800 then
-		-- 	h,g1,g2 = entropy_single_max(poss, #poss)
-		-- else
-		-- 	h,g1,g2 = 0,1,1
-		-- end
-		-- for e1,e2 in pairs(c.matches) do
-		-- 	pr_time("entropy single start")
-		-- 	print("non parallel")
-		-- 	h_real = entropy_single(poss, e1,e2, #poss)
-		-- 	pr_time("entropy single end")
+for _,c in ipairs(instructions) do
+	if c.add then
+		assert(#poss[1]+1 == dup[1], string.format("%d %d %d", #poss[1], dup[1], dup[2]))
+		poss = poss_append(poss, dup[2])
+		print(#poss)
+	elseif c.constraint then
+		-- entropy stuff
+		-- local g,h,h_real
+		if c.cnt > 1 then
+			-- all
+			-- calculating the max entropy is very expensive (10(lights) *
+			-- #poss(possible matchings) * #poss(count_pred) constraints checken)
+			-- -> only do this if the possibilities narrow down a bit
+			-- if #poss <= 0 then
+			-- 	h,g = entropy_all_max(poss, #poss, 10)
+			-- else
+			-- 	h,g = 0,{}
+			-- end
+			-- pr_time("entropy all start")
+			-- h_real = entropy_all(poss, c, #poss, 10)
+			-- pr_time("entropy all end")
+		else
+			-- single
+			-- local g1,g2
+			-- if #poss <= 3628800 then
+			-- 	h,g1,g2 = entropy_single_max(poss, #poss)
+			-- else
+			-- 	h,g1,g2 = 0,1,1
+			-- end
+			-- for e1,e2 in pairs(c.matches) do
+			-- 	pr_time("entropy single start")
+			-- 	print("non parallel")
+			-- 	h_real = entropy_single(poss, e1,e2, #poss)
+			-- 	pr_time("entropy single end")
 			-- os.exit()
 			-- break -- is only one
-		-- end
-		-- g = {[g1]=g2}
-	end
-	poss = perm.filter_pred(poss, function(map)
-		if dbg(map) then
-			return check_all(map, c, dup1, dup2, 3)
+			-- end
+			-- g = {[g1]=g2}
 		end
-		return check_all(map, c, dup1, dup2)
-	end)
-	-- write_entro_guess(h,g, s1,s2)
-	write_matches(c.matches, s1,s2)
-	print(#poss)
-	if #poss <= 3628800 then
-		if c.cnt > 1 then
-			tabSingle = prob_tab(poss, s1, s2, tabSingle)
-		else
-			tabAll = prob_tab(poss, s1, s2, tabAll)
+		poss = perm.filter_pred(poss, function(map)
+			if dbg(map) and not check_all(map, c, dup) then
+				return check_all(map, c, dbg, 3)
+			end
+			return check_all(map, c, dup)
+		end)
+		-- write_entro_guess(h,g, s1,s2)
+		write_matches(c.matches, s1,s2)
+		print(#poss)
+		if #poss < 3265920 then
+			if c.cnt > 1 then
+				tabSingle = prob_tab(poss, s1, s2, tabSingle)
+			else
+				tabAll = prob_tab(poss, s1, s2, tabAll)
+			end
 		end
+		print()
+	else
+		error("invalid instruction")
 	end
-	-- poss_print(poss, s1, s2)
 	pr_time("iter")
-	print()
 end
 
 if #poss <= 40 then
