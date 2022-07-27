@@ -1,0 +1,205 @@
+# swap elements via
+# ve"yd$vb"xd"yp0"xPj0
+# set 1
+Aaron
+Dario
+Dominic
+Germain
+Marc
+Marcel
+Marko
+Marvin
+Maximilian
+Sascha
+
+# set 2
+Christin
+Jill
+Kathleen
+Laura
+Leonie
+Melissa
+Mirjam
+Sabrina
+Vanessa
+Victoria
+
+
+0 # E02
+Maximilian -> Jill
+
+
+2 # E02
+Aaron     -> Kathleen
+Dario     -> Victoria
+Dominic   -> Melissa
+Germain   -> Leonie
+Marc      -> Mirjam
+Marcel    -> Laura
+Marko     -> Sabrina
+Marvin    -> Jill
+Maximilian-> Christin
+Sascha    -> Vanessa
+
+
+# ? # E04
+# Germain -> Victoria
+
+
+2 # E04
+Aaron      -> Kathleen
+Dario      -> Laura
+Dominic    -> Melissa
+Germain    -> Victoria
+Marc       -> Mirjam
+Marcel     -> Leonie
+Marko      -> Sabrina
+Marvin     -> Vanessa
+Maximilian -> Christin
+Sascha     -> Jill
+
+
+0 # E06
+Aaron -> Kathleen
+
+
+3 # E06
+Aaron      -> Melissa
+Dario      -> Victoria
+Dominic    -> Vanessa
+Germain    -> Christin
+Marc       -> Leonie
+Marcel     -> Laura
+Marko      -> Mirjam
+Marvin     -> Kathleen
+Maximilian -> Jill
+Sascha     -> Sabrina
+
+
+0 # E08
+Marcel -> Laura
+
+
+3 # E08
+Aaron      -> Melissa
+Dario      -> Kathleen
+Dominic    -> Laura
+Germain    -> Victoria
+Marc       -> Mirjam
+Marcel     -> Leonie
+Marko      -> Sabrina
+Marvin     -> Christin
+Maximilian -> Jill
+Sascha     -> Vanessa
+
+add
+Dummy
+VanessaM
+
+
+1 # E10
+Marcel -> Leonie
+
+
+3 # E10
+Aaron      -> Mirjam
+Dario      -> Victoria
+Dominic    -> Vanessa
+Germain    -> Christin
+Marc       -> Melissa
+Marcel     -> Leonie
+Marko      -> VanessaM
+Marvin     -> Kathleen
+Maximilian -> Laura
+Sascha     -> Jill
+# Sabrina - Dummy
+
+
+# ? # E12
+# Marc -> Mirjam
+
+
+4 # E12
+Aaron      -> Melissa
+Dario      -> VanessaM
+Dominic    -> Vanessa
+Germain    -> Victoria
+Marc       -> Mirjam
+Marcel     -> Leonie
+Marko      -> Sabrina
+Marvin     -> Laura
+Maximilian -> Christin
+Sascha     -> Jill
+# Kathleen -> Dummy
+
+
+0 # E14
+Dario -> Laura
+
+
+4 # E14
+Aaron      -> Melissa
+Dario      -> Sabrina
+Dominic    -> Laura
+Germain    -> VanessaM
+Marc       -> Mirjam
+Marcel     -> Leonie
+Marko      -> Victoria
+Marvin     -> Kathleen
+Maximilian -> Christin
+Sascha     -> Jill
+# Vanessa -> Dummy
+
+
+0 # E16
+Marko -> Sabrina
+
+
+1 # E16
+Aaron      -> Vanessa
+Dario      -> Victoria
+Dominic    -> Melissa
+Germain    -> Jill
+Marc       -> VanessaM
+Marcel     -> Leonie
+Marko      -> Laura
+Marvin     -> Kathleen
+Maximilian -> Mirjam
+Sascha     -> Sabrina
+# Christin -> Dummy
+
+
+1 # E18
+Aaron -> Melissa
+
+
+3 # E18
+Aaron      -> Melissa
+Dario      -> Kathleen
+Dominic    -> Sabrina
+Germain    -> Laura
+Marc       -> Mirjam
+Marcel     -> Leonie
+Marko      -> Victoria
+Marvin     -> Vanessa
+Maximilian -> Christin
+Sascha     -> Jill
+# VanessaM -> Dummy
+
+
+1 # E20
+Marc -> Mirjam
+
+
+10 # E20
+Aaron      -> Melissa
+Dario      -> Sabrina
+Dominic    -> Vanessa
+Germain    -> Christin
+Marc       -> Mirjam
+Marcel     -> Leonie
+Marko      -> Kathleen
+Marvin     -> Jill
+Maximilian -> Victoria
+Sascha     -> Laura
+# VanessaM -> Dummy

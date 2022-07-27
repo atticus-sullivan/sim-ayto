@@ -1,0 +1,210 @@
+# s1
+Dana
+Estelle
+Isabelle
+Jessica
+Joelina
+Kerstin
+Marie
+Monami
+Raphaela
+Zaira
+
+# s2
+Andre
+Antonino
+Dustin
+Jordi
+Leon
+Marius
+Max
+Mike
+Tim
+William
+
+
+apply to here
+
+
+0 # E02
+Jessica  -> Mike
+
+
+3 # E02
+Dana     -> William
+Estelle  -> Jordi
+Isabelle -> Marius
+Jessica  -> Leon
+Joelina  -> Mike
+Kerstin  -> Max
+Marie    -> Tim
+Monami   -> Antonino
+Raphaela -> Andre
+Zaira    -> Dustin
+
+
+0 # E04
+Monami   -> Leon
+
+
+2 # E04
+Dana     -> Andre
+Estelle  -> Leon
+Isabelle -> Dustin
+Jessica  -> Tim
+Joelina  -> Mike
+Kerstin  -> Max
+Marie    -> Marius
+Monami   -> Antonino
+Raphaela -> William
+Zaira    -> Jordi
+
+
+0 # E05
+Raphaela -> Andre
+
+
+2 # E06
+Dana     -> William
+Estelle  -> Leon
+Isabelle -> Marius
+Jessica  -> Jordi
+Joelina  -> Mike
+Kerstin  -> Antonino
+Marie    -> Tim
+Monami   -> Max
+Raphaela -> Andre
+Zaira    -> Dustin
+
+
+# ? # E07
+# Dana -> William
+
+
+3 # E08
+Dana     -> William
+Estelle  -> Leon
+Isabelle -> Andre
+Jessica  -> Marius
+Joelina  -> Mike
+Kerstin  -> Tim
+Marie    -> Max
+Monami   -> Antonino
+Raphaela -> Jordi
+Zaira    -> Dustin
+
+
+add
+Desiree
+Dummy
+
+# 1
+# Desiree -> Dummy
+
+
+0 # E10
+Monami -> Antonino # ab hier zu viel nach https://medium.com/@dirk_32686/are-you-the-one-deutschland-staffel-3-folge-9-und-10-142cfc4696ac
+
+
+2 # E10
+Dana     -> William
+Desiree  -> Tim
+Estelle  -> Mike
+Isabelle -> Dustin
+Jessica  -> Leon # right
+Joelina  -> Andre
+Kerstin  -> Antonino
+Monami   -> Max # right
+Raphaela -> Marius
+Zaira    -> Jordi
+# Marie    -> Dummy
+
+
+0 # E12
+Jessica -> Max
+
+
+4 # E12
+Dana     -> Antonino #right
+Desiree  -> Jordi
+Estelle  -> Mike
+Isabelle -> Dustin
+Jessica  -> Leon # right
+Joelina  -> Tim
+Kerstin  -> Max
+Marie    -> Andre
+Raphaela -> William # right
+Zaira    -> Marius # right
+# Monami   -> Dummy
+
+
+1 # E14
+Zaira -> Marius
+
+
+6 # E14
+Dana     -> Antonino # right
+Desiree  -> Andre
+Isabelle -> Dustin
+Jessica  -> Leon # right
+Joelina  -> Mike # right
+Kerstin  -> Tim # right
+Marie    -> Max
+Monami   -> Jordi
+Raphaela -> William # right
+Zaira    -> Marius # right
+# Estelle  -> Dummy
+
+
+0 # E16
+Raphaela -> Jordi
+
+
+4 # E16
+Dana     -> Antonino # right
+Estelle  -> Mike
+Isabelle -> Dustin
+Jessica  -> Leon # right
+Joelina  -> Tim
+Kerstin  -> Max
+Marie    -> Andre
+Monami   -> Jordi
+Raphaela -> William # right
+Zaira    -> Marius # right
+# Desiree  -> Dummy
+
+
+0 # E18
+Kerstin -> Max
+
+
+2 # E18
+Dana     -> Dustin
+Desiree  -> Andre
+Estelle  -> Mike
+Isabelle -> Antonino
+Jessica  -> Leon # right
+Joelina  -> Tim
+Marie    -> William
+Monami   -> Jordi
+Raphaela -> Max
+Zaira    -> Marius # right
+# Kerstin  -> Dummy
+
+
+0 # E20
+Isabelle -> Dustin
+
+
+10 # E20
+Dana     -> Antonino
+Estelle  -> Jordi
+Isabelle -> Andre
+Jessica  -> Leon
+Joelina  -> Mike
+Kerstin  -> Tim
+Marie    -> Dustin
+Monami   -> Max
+Raphaela -> William
+Zaira    -> Marius
+# Desiree  -> Dummy # William wäre es gewesen
