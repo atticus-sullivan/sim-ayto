@@ -1,20 +1,24 @@
-local perm = require("perm")
-local colors = require"term.colors"
-local _M = {}
+local perm      = require("perm")
+local colors    = require"term.colors"
+local prompt    = require"prompt"
+prompt.colorize = true
+prompt.name     = "sim"
+prompt.history  = "sim.hist" -- otherwise no history
 
-S1,S2 = {},{}
+local _M = {}
 
 -------------------
 --  HELPER STUFF --
 -------------------
 local function pr_time(s)
-	print(os.date("%Y-%m-%d %H:%M:%S"), s)
+	-- print(os.date("%Y-%m-%d %H:%M:%S"), s)
 end
 pr_time("start")
+
 local function dot_node(par, self, e1, e2, file)
 	file:write('"',par,'"', " -> {", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr><tr><td>',e2,'</td></tr></table>>]', "}\n")
 end
-local function poss_to_dot(ps, s1,s2, file)
+function _M.poss_to_dot(ps, s1,s2, file)
 	local nodes = {}
 	for _,p in ipairs(ps) do
 		local par = "root"
@@ -38,33 +42,12 @@ local function table_copy(t)
 	end
 	return r
 end
-local function table_contains(t, ele)
-	for _,v in ipairs(t) do
-		if v == ele then return true end
+function _M.gen_lut(s)
+	local r = {}
+	for i,v in ipairs(s) do
+		r[v] = i
 	end
-	return false
-end
-local function hash_len(x)
-	local r = 0
-	for _,_ in pairs(x) do r=r+1 end
 	return r
-end
-
-
--- TODO -> perm
-local function poss_append(poss, i2)
-	local poss_new = {}
-	local len = #poss
-	for i=1,len do
-		local len2 = #poss[i]+1
-		for j=1,len2 do
-			local new = table_copy(poss[i])
-			table.insert(new, i2)
-			new[#new],new[j] = new[j],new[#new]
-			table.insert(poss_new, new)
-		end
-	end
-	return poss_new
 end
 
 local function parse_file(file, rev)
@@ -76,13 +59,6 @@ local function parse_file(file, rev)
 		line = file:read("l")
 		while line and line:match("^#") do line = file:read("l") end
 		return line
-	end
-	local function gen_lut(s)
-		local r = {}
-		for i,v in ipairs(s) do
-			r[v] = i
-		end
-		return r
 	end
 	local function parse_set(line, s)
 		table.insert(s, line:match("%s*([^%->,%s]+)%s*.*"))
@@ -119,7 +95,7 @@ local function parse_file(file, rev)
 			if rev then parse_set(line, s2) else parse_set(line, s1) end
 			line = next_line(line)
 			if rev then parse_set(line, s1) else parse_set(line, s2) end
-			lut1,lut2 = gen_lut(s1), gen_lut(s2)
+			lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
 			table.insert(instructions, {add=true, i1=#s1, i2=#s2})
 			assert(dup == nil)
 			dup = {#s1, #s2}
@@ -172,7 +148,7 @@ local function parse_file(file, rev)
 			apply = false
 		else
 			if state >= 2 and swap_idx < 0 then
-				lut1,lut2 = gen_lut(s1), gen_lut(s2)
+				lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
 				swap_idx = #s1
 			end
 			if state == 0 then
@@ -186,14 +162,14 @@ local function parse_file(file, rev)
 		line = file:read("l")
 	end
 	if swap_idx < 0 then
-		lut1,lut2 = gen_lut(s1), gen_lut(s2)
+		lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
 		swap_idx = #s1
 	end
 	-- swap idx determines upt to which position should be permutated
 	return s1,s2,instructions,swap_idx,dup,added
 end
 
-local function check_all(map, c, dup, pr)
+function _M.check_all(map, c, dup, pr)
 	if pr and pr > 1 then print(dup) end
 	local function count_lights()
 		local cnt = 0
@@ -228,9 +204,6 @@ local function check_all(map, c, dup, pr)
 		return cnt
 	end
 
-	if pr and pr > 2 then print("map") _M.print_map(map, S1, S2) end
-	if pr and pr > 0 then print("matches") _M.print_map(c.matches, S1, S2) print(#map, c.cnt) end
-
 	-- count lights if the given map would be the solution
 	local cnt = count_lights()
 
@@ -240,7 +213,7 @@ local function check_all(map, c, dup, pr)
 	end
 
 	local c_num = c.num
-	if pr and pr > 1 then print(cnt, cntP, c_num) end
+	if pr and pr > 1 then print(cnt, c_num) end
 
 	if cnt ~= c_num then
 		if pr and pr > 1 then print("false") end
@@ -250,15 +223,15 @@ local function check_all(map, c, dup, pr)
 	if pr and pr > 1 then print("true") end
 	return true
 end
-local function check(map, constr, dup, pr)
+function _M.check(map, constr, dup, pr)
 	local r = true
 	for _,c in ipairs(constr) do
-		r = r and check_all(map, c, dup, pr) -- if one of both is false, r will stay false forever
+		r = r and _M.check_all(map, c, dup, pr) -- if one of both is false, r will stay false forever
 	end
 	return r
 end
 
-local function entropy_single(l, i1,i2, is_match, total)
+function _M.entropy_single(l, i1,i2, is_match, total)
 	local info
 	local t = perm.count_pred(l, function(map) return map[i1] == i2 end)
 	local f = perm.count_pred(l, function(map) return map[i1] ~= i2 end)
@@ -273,11 +246,11 @@ local function entropy_single(l, i1,i2, is_match, total)
 		return - f/total * math.log(f/total,2) - t/total*math.log(t/total,2), info
 	end
 end
-local function entropy_single_max(l, total)
+function _M.entropy_single_max(l, total)
 	local r,e1,e2 = -1,-1,-1
 	for i1=1,#l[1] do
 		for i2=1,#l[1] do
-			local e = entropy_single(l, i1,i2, false, total)
+			local e = _M.entropy_single(l, i1,i2, false, total)
 			if e > r then
 				r,e1,e2 = e,i1,i2
 			end
@@ -285,12 +258,12 @@ local function entropy_single_max(l, total)
 	end
 	return r,e1,e2
 end
-local function entropy_all(l, constr, total, dup, lights)
+function _M.entropy_all(l, constr, total, dup, lights)
 	local e,info = 0,-1
 	local lights_real = constr.num
 	for i=0,lights do
 		constr.num = i
-		local c = perm.count_pred(l, function(map2) return check_all(map2,constr,dup) end)
+		local c = perm.count_pred(l, function(map2) return _M.check_all(map2,constr,dup) end)
 		if i == lights_real then info = -math.log(c/total, 2) end
 		if c ~= 0 then
 			e = e - c/total * math.log(c/total, 2)
@@ -299,10 +272,10 @@ local function entropy_all(l, constr, total, dup, lights)
 	constr.num = lights_real
 	return e,info
 end
-local function entropy_all_max(l, total, dup, lights)
+function _M.entropy_all_max(l, total, dup, lights)
 	local r,mi = -1,-1
 	for ei,map in ipairs(l) do
-		local e = entropy_all(l, {matching=map}, total, dup, lights)
+		local e = _M.entropy_all(l, {matching=map}, total, dup, lights)
 		if e > r then
 			r,mi = e,ei
 		end
@@ -310,7 +283,7 @@ local function entropy_all_max(l, total, dup, lights)
 	return r,l[mi]
 end
 
-local function entropy(poss, c, dup)
+function _M.entropy(poss, c, dup)
 	local g,h,h_real,info
 	if c.cnt > 1 then
 		-- all
@@ -318,24 +291,24 @@ local function entropy(poss, c, dup)
 		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
 		-- -> only do this if the possibilities narrow down a bit
 		if #poss <= 0 then
-			h,g = entropy_all_max(poss, #poss, dup, 10)
+			h,g = _M.entropy_all_max(poss, #poss, dup, 10)
 		else
 			h,g = 0,{}
 		end
 		pr_time("entropy all start")
-		h_real,info = entropy_all(poss, c, #poss, dup, 10)
+		h_real,info = _M.entropy_all(poss, c, #poss, dup, 10)
 		pr_time("entropy all end")
 	else
 		-- single
 		local g1,g2
 		if #poss <= 3628800 then
-			h,g1,g2 = entropy_single_max(poss, #poss)
+			h,g1,g2 = _M.entropy_single_max(poss, #poss)
 		else
 			h,g1,g2 = 0,1,1
 		end
 		for i1,i2 in pairs(c.matches) do
 			pr_time("entropy single start")
-			h_real,info = entropy_single(poss, i1,i2, c.num==1, #poss)
+			h_real,info = _M.entropy_single(poss, i1,i2, c.num==1, #poss)
 			pr_time("entropy single end")
 			break -- is only one
 		end
@@ -344,18 +317,18 @@ local function entropy(poss, c, dup)
 	return g,h,h_real,info
 end
 
-local function write_entro_guess(h,g,s1,s2, num, info)
+function _M.write_entro_guess(h,g,s1,s2, num, info)
 	io.write(h)
 	for e1,e2 in pairs(g) do
 		io.write(" ", s1[e1], "->", s2[e2])
 	end
 	if num and info then
-		io.write(" | -> ", num, " -> ", info)
+		io.write(" |-> ", num, " -> ", info)
 	end
 	io.write("\n")
 end
 
-local function write_matches(g,s1,s2)
+function _M.write_matches(g,s1,s2)
 	for e1,e2 in pairs(g) do
 		io.write(" ", s1[e1], "->", s2[e2])
 	end
@@ -368,14 +341,15 @@ function _M.print_map(m, s1,s2)
 	end
 end
 
-local function poss_print(p, s1,s2)
+function _M.poss_print(p, s1,s2)
 	for _,map in ipairs(p) do
 		_M.print_map(map, s1,s2)
 		print()
 	end
 end
 
-local function prob_tab(p, s1, s2, t)
+local epsilon = 0.00005
+function _M.prob_tab(p, s1, s2, t)
 	local tab = {}
 	local ml = 0
 	for _,v in ipairs(s1) do if #v > ml then ml = #v end end
@@ -389,29 +363,46 @@ local function prob_tab(p, s1, s2, t)
 		io.write(string.format("%"..tostring(ml).."s|", s1[i]))
 		for j=1,#s2 do
 			local co = string.format("%d|%d", i,j)
-			tab[co] = perm.count_pred(p, function(map) return map[i] == j end)/(#p/100)
-			-- print(t, t and t[co] or "")
-			if t and t[co] then
-				if tab[co] > t[co] then
-					io.write(tostring(colors.green), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-				elseif tab[co] < t[co] then
-					io.write(tostring(colors.red), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-				else
-					io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
-				end
+			tab[co] = perm.count_pred(p, function(map) return map[i] == j end)
+			-- print("\n", tab[co])
+			tab[co] = tab[co]/(#p/100)
+			if 100-epsilon < tab[co] and tab[co] < 100+epsilon then
+				io.write(tostring(colors.green), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
+			elseif 0-epsilon < tab[co] and tab[co] < 0+epsilon then
+				io.write(tostring(colors.dim),tostring(colors.red), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
+			elseif t and t[co] and tab[co] > t[co]-epsilon and tab[co] < t[co]+epsilon then
+				io.write(tostring(colors.bright),tostring(colors.black), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
 			else
-				if tab[co] == 100 then
-					io.write(tostring(colors.ongreen), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-				elseif tab[co] == 0 then
-					io.write(tostring(colors.onred), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-				else
-					io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
-				end
+				io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
 			end
 		end
 		io.write("\n")
 	end
 	return tab
+end
+
+-- local cli   = require 'cliargs'
+-- local function isNumber(key, value)
+-- 	if not tonumber(value) then print("Option " .. key .. " must be a number (was "..value..")") return nil, "" end
+-- 	return value
+-- end
+--
+-- cli:set_name("aoc_cli.lua")
+-- cli:splat("date", "day and year to read from (default: today)", nil, 2)
+-- cli:option("-s, --solution=SOLUTION", "send a solution to the server")
+-- cli:option("-p, --part=PART", "set the part of the exercise", "1")
+-- cli:flag("-f, --fetch", "fetch the problem statement")
+-- cli:flag("-i, --input", "get the input file")
+-- cli:flag("--print-problem", "print the problem statement after fetching")
+-- cli:option("-k, --key=KEY", "the line in the .sess file to use", "1", isNumber)
+-- TODO -x should be interactive on the xth but least run, nil should disable this completely
+local interactive = -1
+if arg[2] and arg[2] == "-i" then
+	if arg[3] then
+		interactive = tonumber(arg[3])
+	else
+		interactive = 0
+	end
 end
 
 -- parsing
@@ -447,36 +438,76 @@ local tabSingle,tabAll
 for _,c in ipairs(instructions) do
 	if c.add then
 		assert(#poss[1]+1 == dup[1], string.format("%d %d %d", #poss[1], dup[1], dup[2]))
-		poss = poss_append(poss, dup[2])
+		poss = perm.poss_append(poss, dup[2])
 		print("add "..s1[dup[1]].." "..s2[dup[2]].." to the possibilities")
 		print(#poss, "poss left")
 	elseif c.constraint then
 		-- entropy stuff
-		local g,h,h_real,info = entropy(poss, c, dup)
-		write_entro_guess(h,g, s1,s2)
-		write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
+		local g,h,h_real,info = _M.entropy(poss, c, dup)
+		_M.write_entro_guess(h,g, s1,s2)
+		_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
 		poss = perm.filter_pred(poss, function(map)
-			return check_all(map, c, dup)
+			return _M.check_all(map, c, dup)
 		end)
 		print(#poss, "poss left")
 		if #poss < 3265920 then
 			if c.cnt > 1 then
-				tabSingle = prob_tab(poss, s1, s2, tabSingle)
+				tabSingle = _M.prob_tab(poss, s1, s2, tabSingle)
 			else
-				tabAll = prob_tab(poss, s1, s2, tabAll)
+				tabAll = _M.prob_tab(poss, s1, s2, tabAll)
 			end
 		end
 		print()
 	else
 		error("invalid instruction")
 	end
-	pr_time("iter")
+	if interactive == 0 then
+		local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
+		M = {
+			entropy_single = function(e1,e2, is_match)
+				return _M.entropy_single(poss, lut1[e1], lut2[e2], is_match, #poss)
+			end,
+			entropy_all    = function(c, rev)
+				local c = {apply=false, added=1}
+				for e1,e2 in pairs(co.matches) do
+					assert(lut1[e1]) assert(lut2[e2])
+					if not rev then
+						c[lut1[e1]] = lut2[e2]
+					else
+						c[lut2[e2]] = lut1[e1]
+					end
+				end
+				return _M.entropy_app(poss, c, #poss, dup, 10)
+			end,
+			count_applied  = function(co,rev)
+				local c = {apply=false, added=1}
+				for e1,e2 in pairs(co.matches) do
+					assert(lut1[e1]) assert(lut2[e2])
+					if not rev then
+						c[lut1[e1]] = lut2[e2]
+					else
+						c[lut2[e2]] = lut1[e1]
+					end
+				end
+				return perm.count_pred(poss, function(map) return _M.check(map, c, dup) end)
+			end
+		}
+		print("M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={num=%d, matches={...}, cnt=%d}")
+		prompt.enter()
+		M = nil
+	else
+		interactive = interactive > 0 and interactive-1 or -1
+	end
 end
 
 if #poss <= 40 then
 	local of = io.open("test.dot", "w")
-	poss_to_dot(poss, s1,s2, of)
+	pr_time("generate dot")
+	_M.poss_to_dot(poss, s1,s2, of)
 	of:close()
+	pr_time("generate pdf")
+	os.execute(string.format("dot -Tpdf -o 'test.pdf' 'test.dot'"))
 end
 
-return
+pr_time("end")
+return _M

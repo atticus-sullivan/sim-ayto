@@ -57,6 +57,21 @@ function _M.count_pred(l, pred)
 	return r
 end
 
+function _M.poss_append(poss, i2)
+	local poss_new = {}
+	local len = #poss
+	for i=1,len do
+		local len2 = #poss[i]+1
+		for j=1,len2 do
+			local new = table_copy(poss[i])
+			table.insert(new, i2)
+			new[#new],new[j] = new[j],new[#new]
+			table.insert(poss_new, new)
+		end
+	end
+	return poss_new
+end
+
 -- ATTENTION: no deep copy is returned
 function _M.filter_pred(l, pred)
 	local r = {}
