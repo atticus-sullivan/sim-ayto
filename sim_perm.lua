@@ -4,52 +4,6 @@ local _M = {}
 
 S1,S2 = {},{}
 
-local function dbg(map)
-	local function gen_lut(s)
-		local r = {}
-		for i,v in ipairs(s) do
-			r[v] = i
-		end
-		return r
-	end
-	local lut1,lut2 = gen_lut(S1), gen_lut(S2)
-	local sol1 = {
-		["Dana"]     = "Antonino",
-		["Estelle"]  = "Jordi",
-		["Isabelle"] = "Andre",
-		["Jessica"]  = "Leon",
-		["Joelina"]  = "Mike",
-		["Kerstin"]  = "Tim",
-		["Marie"]    = "Dustin",
-		["Monami"]   = "Max",
-		["Raphaela"] = "William",
-		["Zaira"]    = "Marius",
-		["Desiree"]  = "Dummy",
-	}
-	local sol2 = {
-		["Dana"]     = "Antonino",
-		["Estelle"]  = "Jordi",
-		["Isabelle"] = "Andre",
-		["Jessica"]  = "Leon",
-		["Joelina"]  = "Mike",
-		["Kerstin"]  = "Tim",
-		["Marie"]    = "Dustin",
-		["Monami"]   = "Max",
-		["Raphaela"] = "Dummy",
-		["Zaira"]    = "Marius",
-		["Desiree"]  = "William",
-	}
-	local sol = sol2
-
-	for k,v in pairs(map) do
-		if sol[S1[k]] ~= S2[v]  then return false end
-	end
-	for k,v in pairs(sol) do
-		if map[lut1[k]] ~= lut2[v]  then return false end
-	end
-	return true
-end
-
 -------------------
 --  HELPER STUFF --
 -------------------
@@ -239,56 +193,6 @@ local function parse_file(file, rev)
 	return s1,s2,instructions,swap_idx,dup,added
 end
 
--- https://medium.com/@dirk_32686/are-you-the-one-deutschland-staffel-3-folge-9-und-10-142cfc4696ac
--- zu wenige Möglichkeiten nachdem alles raus ist
-local function check_single(map, c, pr)
-	if pr and pr > 2 then
-		_M.print_map(map, S1, S2)
-	end
-	assert(c.cnt == 1)
-	-- if c.num == 1 and c.cnt == 1 then pr=1 end
-	local cnt = 0
-	if pr and pr > 0 then
-		print()
-		_M.print_map(c.matches, S1, S2)
-		print(#map, c.cnt)
-	end
-	-- go through information provided by d and count how may mappings are
-	-- not set aka free and how many mappings are the same in d and the map
-	for i1,i2 in pairs(c.matches) do
-		-- print("checking if", s1[i1], "maps to", s2[i2])
-		if not map[i1] then
-			error("map is not fully defined")
-			-- free = free+1
-		elseif map[i1] == i2 then
-			cnt = cnt+1
-		end
-	end
-	-- if there are more matches between d and mapping, then d has right
-	-- matches then map is no valid mapping (otherwise d.num would be
-	-- higher)
-	-- if there are fewer matches between d and the current mapping as are
-	-- right in d, then the mapping isn't valid as well (at d.num has to be
-	-- right, thus at least d.num have to match). Exceptions are mappings
-	-- which are not fully decided yet, here there are free matchings which
-	-- still can match with d
-	if pr and pr > 1 then
-		print(cnt, c.num)
-	end
-	-- local c_num = c.num <= 1 and c.num or c.num -1
-	local c_num = c.num
-	if cnt < c_num or cnt > c.num then
-		if pr and pr > 1 then
-			print("false")
-		end
-		return false
-	end
-	-- only if all constraints are met, the mapping can be valid
-	if pr and pr > 1 then
-		print("true")
-	end
-	return true
-end
 local function check_all(map, c, dup, pr)
 	if pr and pr > 1 then print(dup) end
 	local function count_lights()
@@ -323,6 +227,7 @@ local function check_all(map, c, dup, pr)
 		end
 		return cnt
 	end
+
 	if pr and pr > 2 then print("map") _M.print_map(map, S1, S2) end
 	if pr and pr > 0 then print("matches") _M.print_map(c.matches, S1, S2) print(#map, c.cnt) end
 
@@ -346,78 +251,109 @@ local function check_all(map, c, dup, pr)
 	return true
 end
 local function check(map, constr, dup, pr)
+	local r = true
 	for _,c in ipairs(constr) do
-		if c.cnt == 1 then
-			return check_single(map, c, pr)
-		else
-			return check_all(map, c, dup, pr)
-		end
+		r = r and check_all(map, c, dup, pr) -- if one of both is false, r will stay false forever
 	end
+	return r
 end
 
--- local function entropy_single(l, e1,e2, total)
--- 	local t = perm.count_pred(l, function(map) return map[e1] == e2 end)
--- 	local f = perm.count_pred(l, function(map) return map[e1] ~= e2 end)
--- 	return - f/total * math.log(f/total,2) - t/total*math.log(t/total,2)
--- end
--- local function entropy_single_max(l, total)
--- 	local r,e1,e2 = -1,-1
--- 	for i1=1,#l[1] do
--- 		for i2=1,#l[1] do
--- 			local e = entropy_single(l, i1,i2, total)
--- 			if e > r then
--- 				r,e1,e2 = e,i1,i2
--- 			end
--- 		end
--- 	end
--- 	return r,e1,e2
--- end
--- local function entropy_all(l, constr, total, lights)
--- 	-- local function filter_map(_map)
--- 	-- 	local map = {}
--- 	-- 	for k,v in ipairs(_map) do
--- 	-- 		if not s1[k]:match("Dummy.*") and not s2[v]:match("Dummy.*") then
--- 	-- 			map[k] = v
--- 	-- 			print(#map)
--- 	-- 		else
--- 	-- 			print("filtered")
--- 	-- 		end
--- 	-- 		print(k, s1[k],s2[v], s2[map[k]])
--- 	-- 	end
--- 	-- 	print(#_map, #map)
--- 	-- 	return map
--- 	-- end
--- 	local e = 0
--- 	local lights_real = constr.num
--- 	for i=0,lights do
--- 		constr.num = i
--- 		local c = perm.count_pred(l, function(map2) return check_des(map2,{constr},nil) end)
--- 		if c ~= 0 then
--- 			e = e - c/total * math.log(c/total, 2)
--- 		end
--- 	end
--- 	constr.num = lights_real
--- 	return e
--- end
--- local function entropy_all_max(l, total, lights)
--- 	local r,mi = -1,-1
--- 	for ei,map in ipairs(l) do
--- 		-- TODO map shouldn't contain dummy elements
--- 		local e = entropy_all(l, map, total, lights)
--- 		if e > r then
--- 			r,mi = e,ei
--- 		end
--- 	end
--- 	return r,l[mi]
--- end
---
--- local function write_entro_guess(h,g,s1,s2)
--- 	io.write(h)
--- 	for e1,e2 in pairs(g) do
--- 		io.write(" ", s1[e1], "->", s2[e2])
--- 	end
--- 	io.write("\n")
--- end
+local function entropy_single(l, i1,i2, is_match, total)
+	local info
+	local t = perm.count_pred(l, function(map) return map[i1] == i2 end)
+	local f = perm.count_pred(l, function(map) return map[i1] ~= i2 end)
+	if is_match then info = -math.log(t/total,2) else info = -math.log(f/total,2) end
+	if f == 0 then
+		assert(t ~= 0)
+		return - t/total*math.log(t/total,2), info
+	elseif t == 0 then
+		assert(f ~= 0)
+		return - f/total * math.log(f/total,2), info
+	else
+		return - f/total * math.log(f/total,2) - t/total*math.log(t/total,2), info
+	end
+end
+local function entropy_single_max(l, total)
+	local r,e1,e2 = -1,-1,-1
+	for i1=1,#l[1] do
+		for i2=1,#l[1] do
+			local e = entropy_single(l, i1,i2, false, total)
+			if e > r then
+				r,e1,e2 = e,i1,i2
+			end
+		end
+	end
+	return r,e1,e2
+end
+local function entropy_all(l, constr, total, dup, lights)
+	local e,info = 0,-1
+	local lights_real = constr.num
+	for i=0,lights do
+		constr.num = i
+		local c = perm.count_pred(l, function(map2) return check_all(map2,constr,dup) end)
+		if i == lights_real then info = -math.log(c/total, 2) end
+		if c ~= 0 then
+			e = e - c/total * math.log(c/total, 2)
+		end
+	end
+	constr.num = lights_real
+	return e,info
+end
+local function entropy_all_max(l, total, dup, lights)
+	local r,mi = -1,-1
+	for ei,map in ipairs(l) do
+		local e = entropy_all(l, {matching=map}, total, dup, lights)
+		if e > r then
+			r,mi = e,ei
+		end
+	end
+	return r,l[mi]
+end
+
+local function entropy(poss, c, dup)
+	local g,h,h_real,info
+	if c.cnt > 1 then
+		-- all
+		-- calculating the max entropy is very expensive (10(lights) *
+		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
+		-- -> only do this if the possibilities narrow down a bit
+		if #poss <= 0 then
+			h,g = entropy_all_max(poss, #poss, dup, 10)
+		else
+			h,g = 0,{}
+		end
+		pr_time("entropy all start")
+		h_real,info = entropy_all(poss, c, #poss, dup, 10)
+		pr_time("entropy all end")
+	else
+		-- single
+		local g1,g2
+		if #poss <= 3628800 then
+			h,g1,g2 = entropy_single_max(poss, #poss)
+		else
+			h,g1,g2 = 0,1,1
+		end
+		for i1,i2 in pairs(c.matches) do
+			pr_time("entropy single start")
+			h_real,info = entropy_single(poss, i1,i2, c.num==1, #poss)
+			pr_time("entropy single end")
+			break -- is only one
+		end
+		g = {[g1]=g2}
+	end
+	return g,h,h_real,info
+end
+
+local function write_entro_guess(h,g,s1,s2, num, info)
+	io.write(h)
+	for e1,e2 in pairs(g) do
+		io.write(" ", s1[e1], "->", s2[e2])
+	end
+	if num and info then
+		io.write(" | -> ", num, " -> ", info)
+	end
+	io.write("\n")
+end
 
 local function write_matches(g,s1,s2)
 	for e1,e2 in pairs(g) do
@@ -455,7 +391,7 @@ local function prob_tab(p, s1, s2, t)
 			local co = string.format("%d|%d", i,j)
 			tab[co] = perm.count_pred(p, function(map) return map[i] == j end)/(#p/100)
 			-- print(t, t and t[co] or "")
-			if t and t[co] and tab[co] ~= 0 then
+			if t and t[co] then
 				if tab[co] > t[co] then
 					io.write(tostring(colors.green), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
 				elseif tab[co] < t[co] then
@@ -464,7 +400,13 @@ local function prob_tab(p, s1, s2, t)
 					io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
 				end
 			else
-				io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
+				if tab[co] == 100 then
+					io.write(tostring(colors.ongreen), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
+				elseif tab[co] == 0 then
+					io.write(tostring(colors.onred), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
+				else
+					io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
+				end
 			end
 		end
 		io.write("\n")
@@ -477,12 +419,6 @@ local file = io.open(arg[1])
 local s1,s2,instructions,perm_num,dup,added = parse_file(file, false)
 file:close()
 pr_time("parsing done")
-S1,S2 = s1,s2 -- TODO only used for debug
--- for _,v in ipairs(s1) do io.write(v, " ") end io.write("\n")
--- for _,v in ipairs(s2) do io.write(v, " ") end io.write("\n")
-
--- for _,c in ipairs(constr_app) do _M.print_map(c.matches,s1,s2) end
--- print()
 
 -- permgen
 local a = {}
@@ -504,63 +440,25 @@ local poss = perm.permgen(
 		return r
 	end)
 print("total", #poss)
-print(os.date("%Y-%m-%d %H:%M:%S"))
 pr_time("permgen done")
 print()
-
--- local lut1,lut2 = {},{}
--- for i,e in ipairs(s1) do lut1[e] = i end
--- for i,e in ipairs(s2) do lut2[e] = i end
 
 local tabSingle,tabAll
 for _,c in ipairs(instructions) do
 	if c.add then
 		assert(#poss[1]+1 == dup[1], string.format("%d %d %d", #poss[1], dup[1], dup[2]))
 		poss = poss_append(poss, dup[2])
-		print(#poss)
+		print("add "..s1[dup[1]].." "..s2[dup[2]].." to the possibilities")
+		print(#poss, "poss left")
 	elseif c.constraint then
 		-- entropy stuff
-		-- local g,h,h_real
-		if c.cnt > 1 then
-			-- all
-			-- calculating the max entropy is very expensive (10(lights) *
-			-- #poss(possible matchings) * #poss(count_pred) constraints checken)
-			-- -> only do this if the possibilities narrow down a bit
-			-- if #poss <= 0 then
-			-- 	h,g = entropy_all_max(poss, #poss, 10)
-			-- else
-			-- 	h,g = 0,{}
-			-- end
-			-- pr_time("entropy all start")
-			-- h_real = entropy_all(poss, c, #poss, 10)
-			-- pr_time("entropy all end")
-		else
-			-- single
-			-- local g1,g2
-			-- if #poss <= 3628800 then
-			-- 	h,g1,g2 = entropy_single_max(poss, #poss)
-			-- else
-			-- 	h,g1,g2 = 0,1,1
-			-- end
-			-- for e1,e2 in pairs(c.matches) do
-			-- 	pr_time("entropy single start")
-			-- 	print("non parallel")
-			-- 	h_real = entropy_single(poss, e1,e2, #poss)
-			-- 	pr_time("entropy single end")
-			-- os.exit()
-			-- break -- is only one
-			-- end
-			-- g = {[g1]=g2}
-		end
+		local g,h,h_real,info = entropy(poss, c, dup)
+		write_entro_guess(h,g, s1,s2)
+		write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
 		poss = perm.filter_pred(poss, function(map)
-			if dbg(map) and not check_all(map, c, dup) then
-				return check_all(map, c, dup, 3)
-			end
 			return check_all(map, c, dup)
 		end)
-		-- write_entro_guess(h,g, s1,s2)
-		write_matches(c.matches, s1,s2)
-		print(#poss)
+		print(#poss, "poss left")
 		if #poss < 3265920 then
 			if c.cnt > 1 then
 				tabSingle = prob_tab(poss, s1, s2, tabSingle)
