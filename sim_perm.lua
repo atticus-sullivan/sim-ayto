@@ -5,6 +5,12 @@ prompt.colorize = true
 prompt.name     = "sim"
 prompt.history  = "sim.hist" -- otherwise no history
 
+----------------
+-- EXIT-CODES --
+----------------
+-- +0 -> success
+-- -1 -> error on argument parsing
+
 local _M = {}
 
 -------------------
@@ -381,33 +387,110 @@ function _M.prob_tab(p, s1, s2, t)
 	return tab
 end
 
--- local cli   = require 'cliargs'
--- local function isNumber(key, value)
--- 	if not tonumber(value) then print("Option " .. key .. " must be a number (was "..value..")") return nil, "" end
--- 	return value
--- end
---
--- cli:set_name("aoc_cli.lua")
--- cli:splat("date", "day and year to read from (default: today)", nil, 2)
--- cli:option("-s, --solution=SOLUTION", "send a solution to the server")
--- cli:option("-p, --part=PART", "set the part of the exercise", "1")
--- cli:flag("-f, --fetch", "fetch the problem statement")
--- cli:flag("-i, --input", "get the input file")
--- cli:flag("--print-problem", "print the problem statement after fetching")
--- cli:option("-k, --key=KEY", "the line in the .sess file to use", "1", isNumber)
--- TODO -x should be interactive on the xth but least run, nil should disable this completely
-local interactive = -1
-if arg[2] and arg[2] == "-i" then
-	if arg[3] then
-		interactive = tonumber(arg[3])
-	else
-		interactive = 0
-	end
+local function interact(s1,s2, poss, dup)
+	local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
+	M = {
+		entropy_single = function(e1,e2, is_match)
+			return _M.entropy_single(poss, lut1[e1], lut2[e2], is_match, #poss)
+		end,
+		entropy_all    = function(co,rev)
+			local c = {apply=false, added=1}
+			for e1,e2 in pairs(co.matches) do
+				assert(lut1[e1]) assert(lut2[e2])
+				if not rev then
+					c[lut1[e1]] = lut2[e2]
+				else
+					c[lut2[e2]] = lut1[e1]
+				end
+			end
+			return _M.entropy_app(poss, c, #poss, dup, 10)
+		end,
+		count_applied  = function(co,rev)
+			local c = {apply=false, added=1}
+			for e1,e2 in pairs(co.matches) do
+				assert(lut1[e1]) assert(lut2[e2])
+				if not rev then
+					c[lut1[e1]] = lut2[e2]
+				else
+					c[lut2[e2]] = lut1[e1]
+				end
+			end
+			return perm.count_pred(poss, function(map) return _M.check(map, c, dup) end)
+		end
+	}
+	print("M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={num=%d, matches={...}, cnt=%d}")
+	prompt.enter()
+	M = nil
 end
 
+local function arguments()
+	local cli   = require 'cliargs'
+	local function isNumber(key, value)
+		local v = tonumber(value)
+		if not v then
+			print("Option " .. key .. " must be a number (was "..value..")")
+			os.exit(-1)
+		end
+	end
+	local function has_ext(ext, key, value)
+		if not value:match("%."..ext.."$") then
+			print("Option " .. key .. " has to end with '."..ext.."' (was '"..value.."')")
+			os.exit(-1)
+		end
+	end
+	local function isChoice(choices, key, value)
+		print(value)
+		for _,v in ipairs(choices) do
+			if v == value then return end
+		end
+		io.write("Option ",key," has to be one of ")
+		for _,v in ipairs(choices) do
+			io.write(v," ")
+		end
+		io.write("(was '",value,"')", "\n")
+		os.exit(-1)
+	end
+	local function file_exists(key,value)
+		local f = io.open(value,"r")
+		if f == nil then
+			io.write("Given file '",value,"' (for",key,") has to exist.")
+			os.exit(-1)
+		end
+		io.close(f)
+	end
+	local function file_not_exists(key,value)
+		local f = io.open(value,"r")
+		if f ~= nil then
+			io.close(f)
+			io.write("Given file '",value,"' (for",key,") shall not exist.")
+			os.exit(-1)
+		end
+	end
+
+	cli
+		:set_name(arg[0])
+		:set_description("Runs a simulation of finding one of the right mappings from one set to another by using some hints")
+		:argument("INPUT", "path to the input .dat file", function(k,v) return has_ext("dat", k,v) and file_exists(k,v) end)
+		:option("-i, --interactive=LEVEL", "sets the level of interaction (x to skip first x runs, -x to start with xth run counted from last)", nil, isNumber)
+		:option("-f, --fast=LEVEL", "Fast run (0->no fast, 1->omit entropy, 2->omit prob table)", 0, function(k,v) isChoice({"0","1","2"}, k,v) end)
+		:flag("-r, --[no]-reverse", "switch/reverse sets", false)
+		:option("-o, --output=OUTPUT", "Output STEM for .dot and .pdf", "test", function(k,v) return file_not_exists(k..".pdf",v) and file_not_exists(k..".dot",v) end)
+
+	local arg,err = cli:parse()
+	if not arg then
+		print(err)
+		os.exit(-1)
+	end
+	arg["i"],arg["f"] = tonumber(arg["i"]), tonumber(arg["f"])
+	for _,k in ipairs{"INPUT", "f", "r", "o"} do assert(arg[k] ~= nil) end
+	return arg
+end
+
+local arg = arguments()
+
 -- parsing
-local file = io.open(arg[1])
-local s1,s2,instructions,perm_num,dup,added = parse_file(file, false)
+local file = io.open(arg["INPUT"])
+local s1,s2,instructions,perm_num,dup,added = parse_file(file, arg["r"])
 file:close()
 pr_time("parsing done")
 
@@ -435,7 +518,7 @@ pr_time("permgen done")
 print()
 
 local tabSingle,tabAll
-for _,c in ipairs(instructions) do
+for i,c in ipairs(instructions) do
 	if c.add then
 		assert(#poss[1]+1 == dup[1], string.format("%d %d %d", #poss[1], dup[1], dup[2]))
 		poss = perm.poss_append(poss, dup[2])
@@ -443,70 +526,40 @@ for _,c in ipairs(instructions) do
 		print(#poss, "poss left")
 	elseif c.constraint then
 		-- entropy stuff
-		local g,h,h_real,info = _M.entropy(poss, c, dup)
-		_M.write_entro_guess(h,g, s1,s2)
-		_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
+		if arg["f"] >= 1 then
+			local g,h,h_real,info = _M.entropy(poss, c, dup)
+			_M.write_entro_guess(h,g, s1,s2)
+			_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
+		end
 		poss = perm.filter_pred(poss, function(map)
 			return _M.check_all(map, c, dup)
 		end)
 		print(#poss, "poss left")
-		if #poss < 3265920 then
-			if c.cnt > 1 then
-				tabSingle = _M.prob_tab(poss, s1, s2, tabSingle)
-			else
-				tabAll = _M.prob_tab(poss, s1, s2, tabAll)
+		if arg["f"] >= 2 then
+			if #poss < 3265920 then
+				if c.cnt > 1 then
+					tabSingle = _M.prob_tab(poss, s1, s2, tabSingle)
+				else
+					tabAll = _M.prob_tab(poss, s1, s2, tabAll)
+				end
 			end
 		end
 		print()
 	else
 		error("invalid instruction")
 	end
-	if interactive == 0 then
-		local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
-		M = {
-			entropy_single = function(e1,e2, is_match)
-				return _M.entropy_single(poss, lut1[e1], lut2[e2], is_match, #poss)
-			end,
-			entropy_all    = function(c, rev)
-				local c = {apply=false, added=1}
-				for e1,e2 in pairs(co.matches) do
-					assert(lut1[e1]) assert(lut2[e2])
-					if not rev then
-						c[lut1[e1]] = lut2[e2]
-					else
-						c[lut2[e2]] = lut1[e1]
-					end
-				end
-				return _M.entropy_app(poss, c, #poss, dup, 10)
-			end,
-			count_applied  = function(co,rev)
-				local c = {apply=false, added=1}
-				for e1,e2 in pairs(co.matches) do
-					assert(lut1[e1]) assert(lut2[e2])
-					if not rev then
-						c[lut1[e1]] = lut2[e2]
-					else
-						c[lut2[e2]] = lut1[e1]
-					end
-				end
-				return perm.count_pred(poss, function(map) return _M.check(map, c, dup) end)
-			end
-		}
-		print("M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={num=%d, matches={...}, cnt=%d}")
-		prompt.enter()
-		M = nil
-	else
-		interactive = interactive > 0 and interactive-1 or -1
+	if arg["i"] and (arg["i"] > i or arg["i"] < i-#instructions) then
+		interact(s1,s2, poss, dup)
 	end
 end
 
 if #poss <= 40 then
-	local of = io.open("test.dot", "w")
+	local of = io.open(arg["o"]..".dot", "w")
 	pr_time("generate dot")
 	_M.poss_to_dot(poss, s1,s2, of)
 	of:close()
 	pr_time("generate pdf")
-	os.execute(string.format("dot -Tpdf -o 'test.pdf' 'test.dot'"))
+	os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", arg["i"],arg["i"]))
 end
 
 pr_time("end")
