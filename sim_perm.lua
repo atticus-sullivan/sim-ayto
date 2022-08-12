@@ -460,6 +460,7 @@ local function interact(s1,s2, poss, dup, last, tabS, tabA)
 	}
 	if last then
 		M.step = function(co)
+			assert(co.num and co.cnt and co.matches, "matches, num and cnt have to be given")
 			local c = translate_constr(co)
 			poss = perm.filter_pred(poss, function(map)
 				return _M.check_all(map, c, dup)
