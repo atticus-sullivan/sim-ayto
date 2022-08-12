@@ -296,7 +296,7 @@ function _M.entropy(poss, c, dup, fast, i)
 		-- calculating the max entropy is very expensive (10(lights) *
 		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
 		-- -> only do this if the possibilities narrow down a bit
-		if #poss <= 10000 then
+		if #poss <= 5000 then
 			print("maximize all")
 			h,g = _M.entropy_all_max(poss, #poss, dup, 10)
 		else
