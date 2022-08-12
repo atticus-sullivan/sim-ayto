@@ -218,21 +218,12 @@ function _M.check_all(map, c, dup, pr)
 		cnt = math.max(cnt, count_pendant() or 0)
 	end
 
-	local c_num = c.num
-	if pr and pr > 1 then print(cnt, c_num) end
-
-	if cnt ~= c_num then
-		if pr and pr > 1 then print("false") end
-		return false
-	end
-
-	if pr and pr > 1 then print("true") end
-	return true
+	return cnt
 end
 function _M.check(map, constr, dup, pr)
 	local r = true
 	for _,c in ipairs(constr) do
-		r = r and _M.check_all(map, c, dup, pr) -- if one of both is false, r will stay false forever
+		r = r and _M.check_all(map, c, dup, pr) == c.num -- if one of both is false, r will stay false forever
 	end
 	return r
 end
@@ -267,9 +258,9 @@ end
 function _M.entropy_all(l, constr, total, dup, lights)
 	local e,info = 0,-1
 	local lights_real = constr.num
+	local map = perm.map(l, function(i,map2) return i, _M.check_all(map2, constr, dup) end)
 	for i=0,lights do
-		constr.num = i
-		local c = perm.count_pred(l, function(map2) return _M.check_all(map2,constr,dup) end)
+		local c = perm.count_pred(map, function(v) return v == i end)
 		if i == lights_real then info = -math.log(c/total, 2) end
 		if c ~= 0 then
 			e = e - c/total * math.log(c/total, 2)
@@ -463,7 +454,7 @@ local function interact(s1,s2, poss, dup, last, tabS, tabA)
 			assert(co.num and co.cnt and co.matches, "matches, num and cnt have to be given")
 			local c = translate_constr(co)
 			poss = perm.filter_pred(poss, function(map)
-				return _M.check_all(map, c, dup)
+				return _M.check_all(map, c, dup) == c.num
 			end)
 		end
 		print("M.step(constr)")
@@ -582,7 +573,7 @@ for i,c in ipairs(instructions) do
 			_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
 		end
 		poss = perm.filter_pred(poss, function(map)
-			return _M.check_all(map, c, dup)
+			return _M.check_all(map, c, dup) == c.num
 		end)
 		print(#poss, "poss left")
 		if arg["f"] < 2 then

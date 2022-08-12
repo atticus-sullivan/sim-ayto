@@ -83,4 +83,13 @@ function _M.filter_pred(l, pred)
 	return r
 end
 
+function _M.map(l, map)
+	local r = {}
+	for i,v in ipairs(l) do
+		local i2,v2 = map(i,v)
+		r[i2] = v2
+	end
+	return r
+end
+
 return _M
