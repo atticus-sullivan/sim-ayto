@@ -281,7 +281,7 @@ end
 function _M.entropy_all_max(l, total, dup, lights)
 	local r,mi = -1,-1
 	for ei,map in ipairs(l) do
-		local e = _M.entropy_all(l, {matching=map}, total, dup, lights)
+		local e = _M.entropy_all(l, {matches=map, cnt=lights}, total, dup, lights)
 		if e > r then
 			r,mi = e,ei
 		end
@@ -289,14 +289,15 @@ function _M.entropy_all_max(l, total, dup, lights)
 	return r,l[mi]
 end
 
-function _M.entropy(poss, c, dup)
+function _M.entropy(poss, c, dup, fast, i)
 	local g,h,h_real,info
 	if c.cnt > 1 then
 		-- all
 		-- calculating the max entropy is very expensive (10(lights) *
 		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
 		-- -> only do this if the possibilities narrow down a bit
-		if #poss <= 0 then
+		if #poss <= 10000 then
+			print("maximize all")
 			h,g = _M.entropy_all_max(poss, #poss, dup, 10)
 		else
 			h,g = 0,{}
@@ -307,7 +308,7 @@ function _M.entropy(poss, c, dup)
 	else
 		-- single
 		local g1,g2
-		if #poss <= 3628800 then
+		if #poss <= 3628800 and i > 1 then
 			h,g1,g2 = _M.entropy_single_max(poss, #poss)
 		else
 			h,g1,g2 = 0,1,1
@@ -372,7 +373,7 @@ function _M.prob_tab(p, s1, s2, t)
 			tab[co] = perm.count_pred(p, function(map) return map[i] == j end)
 			-- print("\n", tab[co])
 			tab[co] = tab[co]/(#p/100)
-			if 100-epsilon < tab[co] and tab[co] < 100+epsilon then
+			if 80-epsilon < tab[co] and tab[co] < 100+epsilon then
 				io.write(tostring(colors.green), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
 			elseif 0-epsilon < tab[co] and tab[co] < 0+epsilon then
 				io.write(tostring(colors.dim),tostring(colors.red), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
@@ -526,8 +527,8 @@ for i,c in ipairs(instructions) do
 		print(#poss, "poss left")
 	elseif c.constraint then
 		-- entropy stuff
-		if arg["f"] >= 1 then
-			local g,h,h_real,info = _M.entropy(poss, c, dup)
+		if arg["f"] < 1 then
+			local g,h,h_real,info = _M.entropy(poss, c, dup, arg.fast, i)
 			_M.write_entro_guess(h,g, s1,s2)
 			_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
 		end
@@ -535,7 +536,7 @@ for i,c in ipairs(instructions) do
 			return _M.check_all(map, c, dup)
 		end)
 		print(#poss, "poss left")
-		if arg["f"] >= 2 then
+		if arg["f"] < 2 then
 			if #poss < 3265920 then
 				if c.cnt > 1 then
 					tabSingle = _M.prob_tab(poss, s1, s2, tabSingle)
