@@ -272,7 +272,7 @@ end
 function _M.entropy_all_max(l, total, dup, lights)
 	local r,mi = -1,-1
 	for ei,map in ipairs(l) do
-		local e = _M.entropy_all(l, {matches=map, cnt=lights}, total, dup, lights)
+		local e = _M.entropy_all(l, {matches=map, cnt=lights, num=#map}, total, dup, lights)
 		if e > r then
 			r,mi = e,ei
 		end
