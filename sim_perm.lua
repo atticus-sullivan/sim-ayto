@@ -388,38 +388,86 @@ function _M.prob_tab(p, s1, s2, t)
 	return tab
 end
 
-local function interact(s1,s2, poss, dup)
+local function hist(instructions, s1, s2, rev)
+	local len = 0
+	for _,v in ipairs(s1) do len = math.max(len, #v) end
+	for _,v in ipairs(s2) do len = math.max(len, #v) end
+	if rev then s1,s2 = s2,s1 end
+	local i,i_=1,0
+	io.write("# |")
+	for i1=1,11 do
+		if not s1[i1]:match("^[dD]ummy$") then
+			io.write(string.format("%"..tostring(len).."s| ", s1[i1]))
+			i_ = i_ + 1
+		end
+	end
+	io.write("\n", string.rep("=", 3+i_*(len+2)), "\n")
+	for _,e in ipairs(instructions) do
+		if e.constraint and e.cnt ~= 1 then
+			local m = {}
+			for k,v in pairs(e.matches) do m[not rev and k or v] = not rev and v or k end
+			io.write(string.format("%02d|", i))
+			for i1=1,11 do
+				if not s1[i1]:match("^[dD]ummy$") then
+					local i2 = m[i1] or 11
+					io.write(string.format("%"..tostring(len).."s| ", s2[i2]))
+				end
+			end
+			io.write("\n")
+			i = i + 1
+		end
+	end
+	io.write("\n")
+end
+
+local function interact(s1,s2, poss, dup, last, tabS, tabA)
 	local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
+	local function translate_constr(co, rev)
+		local c = {apply=false, added=1}
+		for e1,e2 in pairs(co.matches) do
+			assert(lut1[e1]) assert(lut2[e2])
+			if not rev then
+				c[lut1[e1]] = lut2[e2]
+			else
+				c[lut2[e2]] = lut1[e1]
+			end
+		end
+		return c
+	end
 	M = {
 		entropy_single = function(e1,e2, is_match)
 			return _M.entropy_single(poss, lut1[e1], lut2[e2], is_match, #poss)
 		end,
 		entropy_all    = function(co,rev)
-			local c = {apply=false, added=1}
-			for e1,e2 in pairs(co.matches) do
-				assert(lut1[e1]) assert(lut2[e2])
-				if not rev then
-					c[lut1[e1]] = lut2[e2]
-				else
-					c[lut2[e2]] = lut1[e1]
-				end
-			end
+			local c = translate_constr(co, rev)
 			return _M.entropy_app(poss, c, #poss, dup, 10)
 		end,
+		entropy_single_max = function()
+			local h,e1,e2 = _M.entropy_single_max(poss, #poss)
+			_M.write_entro_guess(h, {[e1]=e2})
+		end,
+		entropy_all_max = function()
+			local h,g = _M.entropy_all_max(poss, #poss, dup, 10)
+			_M.write_entro_guess(h, g)
+		end,
 		count_applied  = function(co,rev)
-			local c = {apply=false, added=1}
-			for e1,e2 in pairs(co.matches) do
-				assert(lut1[e1]) assert(lut2[e2])
-				if not rev then
-					c[lut1[e1]] = lut2[e2]
-				else
-					c[lut2[e2]] = lut1[e1]
-				end
-			end
+			local c = translate_constr(co, rev)
 			return perm.count_pred(poss, function(map) return _M.check(map, c, dup) end)
-		end
+		end,
+		tab = function()
+			_M.prob_tab(poss, s1, s2, tabS)
+		end,
 	}
-	print("M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={num=%d, matches={...}, cnt=%d}")
+	if last then
+		M.step = function(co)
+			local c = translate_constr(co)
+			poss = perm.filter_pred(poss, function(map)
+				return _M.check_all(map, c, dup)
+			end)
+		end
+		print("M.step(constr)")
+	end
+	print("M.tab()", "M.entropy_all_max()", "M.entropy_single_max()", "M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={num=%d, matches={...}, cnt=%d}")
 	prompt.enter()
 	M = nil
 end
@@ -550,9 +598,13 @@ for i,c in ipairs(instructions) do
 		error("invalid instruction")
 	end
 	if arg["i"] and (arg["i"] > i or arg["i"] < i-#instructions) then
-		interact(s1,s2, poss, dup)
+		interact(s1,s2, poss, dup, i == #instructions, tabSingle, tabAll)
 	end
 end
+
+hist(instructions, s1, s2, false)
+print()
+hist(instructions, s1, s2, true)
 
 if #poss <= 40 then
 	local of = io.open(arg["o"]..".dot", "w")
