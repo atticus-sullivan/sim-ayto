@@ -298,16 +298,15 @@ function _M.entropy_all_max(l, total, dup, lights)
 	end
 	return r,l[mi]
 end
-
-function _M.entropy(poss, c, dup, fast, i)
+function _M.entropy(poss, c, dup, fast, i, bound)
 	local g,h,h_real,info
 	if c.cnt > 1 then
 		-- all
 		-- calculating the max entropy is very expensive (10(lights) *
 		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
 		-- -> only do this if the possibilities narrow down a bit
-		if #poss <= 5000 then
-			print("maximize all")
+		if #poss <= bound then
+			print("maximize all", #poss, bound)
 			h,g = _M.entropy_all_max(poss, #poss, dup, 10)
 		else
 			h,g = 0,{}
@@ -527,6 +526,7 @@ local function arguments()
 		:set_description("Runs a simulation of finding one of the right mappings from one set to another by using some hints")
 		:argument("INPUT", "path to the input .dat file", function(k,v) return has_ext("dat", k,v) and file_exists(k,v) end)
 		:option("-i, --interactive=LEVEL", "sets the level of interaction (x to skip first x runs, -x to start with xth run counted from last)", nil, isNumber)
+		:option("-b, --bound=BOUND", "entropy bound", 5000, isNumber)
 		:option("-f, --fast=LEVEL", "Fast run (0->no fast, 1->omit entropy, 2->omit prob table)", 0, function(k,v) isChoice({"0","1","2"}, k,v) end)
 		:flag("-r, --[no]-reverse", "switch/reverse sets", false)
 		:option("-o, --output=OUTPUT", "Output STEM for .dot and .pdf", "test", function(k,v) return file_not_exists(k..".pdf",v) and file_not_exists(k..".dot",v) end)
@@ -536,8 +536,8 @@ local function arguments()
 		print(err)
 		os.exit(-1)
 	end
-	arg["i"],arg["f"] = tonumber(arg["i"]), tonumber(arg["f"])
-	for _,k in ipairs{"INPUT", "f", "r", "o"} do assert(arg[k] ~= nil) end
+	arg["i"],arg["f"],arg["b"] = tonumber(arg["i"]), tonumber(arg["f"]), tonumber(arg["b"])
+	for _,k in ipairs{"INPUT", "f", "r", "o", "b"} do assert(arg[k] ~= nil) end
 	return arg
 end
 
@@ -582,14 +582,14 @@ for i,c in ipairs(instructions) do
 	elseif c.constraint then
 		-- entropy stuff
 		if arg["f"] < 1 then
-			local g,h,h_real,info = _M.entropy(poss, c, dup, arg.fast, i)
+			local g,h,h_real,info = _M.entropy(poss, c, dup, arg.f, i, arg.b)
 			_M.write_entro_guess(h,g, s1,s2)
 			_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
 		end
 		poss = perm.filter_pred(poss, function(map)
 			return _M.check_all(map, c, dup) == c.num
 		end)
-		print(#poss, "poss left")
+		print(("%d poss left -> max I %f"):format(#poss, -math.log(1/#poss, 2)))
 		if arg["f"] < 2 then
 			if #poss < 3265920 then
 				if c.cnt > 1 then
