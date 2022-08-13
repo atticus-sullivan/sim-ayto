@@ -227,7 +227,26 @@ function _M.check(map, constr, dup, pr)
 	end
 	return r
 end
+local function group_cnt(l, len)
+	local lut = {}
+	for i=1,len do
+		lut[i] = {}
+		for j=1,len do
+			lut[i][j] = string.format("%d|%d", i, j)
+		end
+	end
 
+	local r = {}
+	for _,v in ipairs(l) do
+		for i1,i2 in ipairs(v) do
+			local co = lut[i1][i2]
+			r[co] = (r[co] or 0) +1
+		end
+	end
+	return r
+end
+
+-- entropy stuff
 function _M.entropy_single(l, i1,i2, is_match, total)
 	local info
 	local t = perm.count_pred(l, function(map) return map[i1] == i2 end)
@@ -315,6 +334,7 @@ function _M.entropy(poss, c, dup, fast, i)
 	return g,h,h_real,info
 end
 
+-- writing/printing functions
 function _M.write_entro_guess(h,g,s1,s2, num, info)
 	io.write(h)
 	for e1,e2 in pairs(g) do
@@ -325,30 +345,26 @@ function _M.write_entro_guess(h,g,s1,s2, num, info)
 	end
 	io.write("\n")
 end
-
 function _M.write_matches(g,s1,s2)
 	for e1,e2 in pairs(g) do
 		io.write(" ", s1[e1], "->", s2[e2])
 	end
 	io.write("\n")
 end
-
 function _M.print_map(m, s1,s2)
 	for k,v in pairs(m) do
 		io.write(s1[k], " -> ", s2[v], "\n")
 	end
 end
-
 function _M.poss_print(p, s1,s2)
 	for _,map in ipairs(p) do
 		_M.print_map(map, s1,s2)
 		print()
 	end
 end
-
 local epsilon = 0.00005
 function _M.prob_tab(p, s1, s2, t)
-	local tab = {}
+	local tab = group_cnt(p, #s1)
 	local ml = 0
 	for _,v in ipairs(s1) do if #v > ml then ml = #v end end
 	for _,v in ipairs(s2) do if #v > ml then ml = #v end end
@@ -361,9 +377,7 @@ function _M.prob_tab(p, s1, s2, t)
 		io.write(string.format("%"..tostring(ml).."s|", s1[i]))
 		for j=1,#s2 do
 			local co = string.format("%d|%d", i,j)
-			tab[co] = perm.count_pred(p, function(map) return map[i] == j end)
-			-- print("\n", tab[co])
-			tab[co] = tab[co]/(#p/100)
+			tab[co] = (tab[co] or 0)/(#p/100)
 			if 80-epsilon < tab[co] and tab[co] < 100+epsilon then
 				io.write(tostring(colors.green), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
 			elseif 0-epsilon < tab[co] and tab[co] < 0+epsilon then
