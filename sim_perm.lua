@@ -391,15 +391,14 @@ function _M.prob_tab(p, s1, s2, t)
 	end
 	return tab
 end
-
-local function hist(instructions, s1, s2, rev)
+function _M.hist(instructions, s1, s2, rev)
 	local len = 0
 	for _,v in ipairs(s1) do len = math.max(len, #v) end
 	for _,v in ipairs(s2) do len = math.max(len, #v) end
 	if rev then s1,s2 = s2,s1 end
 	local i,i_=1,0
 	io.write("# |")
-	for i1=1,11 do
+	for i1=1,#s1 do
 		if not s1[i1]:match("^[dD]ummy$") then
 			io.write(string.format("%"..tostring(len).."s| ", s1[i1]))
 			i_ = i_ + 1
@@ -411,7 +410,7 @@ local function hist(instructions, s1, s2, rev)
 			local m = {}
 			for k,v in pairs(e.matches) do m[not rev and k or v] = not rev and v or k end
 			io.write(string.format("%02d|", i))
-			for i1=1,11 do
+			for i1=1,#s1 do
 				if not s1[i1]:match("^[dD]ummy$") then
 					local i2 = m[i1] or 11
 					io.write(string.format("%"..tostring(len).."s| ", s2[i2]))
@@ -608,9 +607,9 @@ for i,c in ipairs(instructions) do
 	end
 end
 
-hist(instructions, s1, s2, false)
+_M.hist(instructions, s1, s2, false)
 print()
-hist(instructions, s1, s2, true)
+_M.hist(instructions, s1, s2, true)
 
 if #poss <= 40 then
 	local of = io.open(arg["o"]..".dot", "w")
