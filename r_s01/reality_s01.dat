@@ -1,0 +1,222 @@
+# swap elements via
+# ve"yd$vb"xd"yp0"xPj0
+# set 1
+Alexander
+Danilo
+Diogo
+Eugen
+Josua
+Manuel
+Salvatore
+Tommy
+Francesco
+Jamy
+
+# set 2
+Aurelia
+Finnja
+Jacqueline
+Jill
+Kathleen
+Melina
+Sarah
+Stefanie
+Walentina
+Jules
+
+
+0 # E02
+Danilo -> Finnja
+
+
+3 # E02
+Alexander -> Jules
+Danilo    -> Stefanie
+Diogo     -> Aurelia
+Eugen     -> Walentina
+Francesco -> Finnja
+Jamy      -> Jill
+Josua     -> Sarah
+Manuel    -> Kathleen
+Salvatore -> Jacqueline
+Tommy     -> Melina
+
+
+1 # E04 Fancesco muss ausziehen
+Francesco -> Jules
+
+
+0 # E06
+Tommy -> Walentina
+
+3 # E06
+Alexander -> Finnja
+Danilo    -> Sarah
+Diogo     -> Aurelia
+Eugen     -> Stefanie
+Francesco -> Jules
+Jamy      -> Jill
+Josua     -> Walentina
+Manuel    -> Kathleen
+Salvatore -> Jacqueline
+Tommy     -> Melina
+
+# ? S08
+# Diogo -> Aurelia
+
+
+add
+Dummy
+Vanessa
+
+
+1 # E04, muss nochmal hinzugefügt werden
+Francesco -> Jules
+
+
+4 # E08
+Alexander -> Stefanie
+Danilo    -> Melina
+Diogo     -> Aurelia
+Eugen     -> Finnja
+Francesco -> Jules
+Jamy      -> Vanessa
+Josua     -> Sarah
+Manuel    -> Kathleen
+Salvatore -> Walentina
+Tommy     -> Jill
+# Jacqueline
+
+
+# ? # E10
+# Tommy -> Melina
+
+
+3 # E10
+Alexander -> Sarah
+Danilo    -> Aurelia
+Diogo     -> Vanessa
+Eugen     -> Finnja
+Francesco -> Jules
+Jamy      -> Stefanie
+Josua     -> Walentina
+Manuel    -> Jill
+Salvatore -> Kathleen
+Tommy     -> Melina
+# Diogo -> Jacqueline
+
+
+0 # E12
+Salvatore -> Finnja
+
+
+3 # E12
+Alexander -> Stefanie
+Danilo    -> Jill
+Diogo     -> Aurelia
+Eugen     -> Finnja
+Francesco -> Jules
+Jamy      -> Sarah
+Josua     -> Walentina
+Manuel    -> Kathleen
+Salvatore -> Jacqueline
+Tommy     -> Melina
+
+
+0 # E14
+Eugen -> Finnja
+
+
+2 # E14
+Alexander -> Jacqueline
+Danilo    -> Aurelia
+Diogo     -> Vanessa
+Eugen     -> Jill
+Jamy      -> Finnja
+Josua     -> Sarah
+Francesco -> Jules
+Manuel    -> Kathleen
+Salvatore -> Walentina
+Tommy     -> Melina
+
+
+# 1 # wunschdenken
+# Manuel -> Kathleen
+0 # E16
+Eugen -> Stefanie
+
+
+# 5 # wunschdenken
+# Alexander -> Sarah
+# Danilo    -> Vanessa
+# Diogo     -> Aurelia
+# Eugen     -> Walentina
+# Francesco -> Jules
+# Jamy      -> Stefanie
+# Josua     -> Finnja
+# Manuel    -> Kathleen
+# Salvatore -> Jill
+# Tommy     -> Jacqueline
+1 # E16
+Alexander -> Melina
+Danilo    -> Aurelia
+Diogo     -> Vanessa
+Eugen     -> Jacqueline
+Francesco -> Jules
+Jamy      -> Sarah
+Josua     -> Walentina
+Manuel    -> Finnja
+Salvatore -> Jill
+Tommy     -> Stefanie
+
+
+0 # E18
+Josua -> Sarah
+
+
+0 # E15
+Tommy -> Melina
+
+
+4 # E18
+Alexander -> Sarah
+Danilo    -> Jill
+Diogo     -> Aurelia
+Eugen     -> Melina
+Francesco -> Jules
+Jamy      -> Stefanie
+Josua     -> Vanessa
+Manuel    -> Kathleen
+Salvatore -> Walentina
+Tommy     -> Finnja
+# Salvatore -> Jacqueline
+
+
+1 # E20
+Josua -> Aurelia
+
+
+7 # E20
+Alexander -> Vanessa
+Danilo    -> Sarah
+Diogo     -> Jill
+Eugen     -> Walentina
+Francesco -> Jules
+Jamy      -> Stefanie
+Josua     -> Aurelia
+Manuel    -> Kathleen
+Salvatore -> Jacqueline
+Tommy     -> Finnja
+
+
+# 10 # richtiges matching
+# Alexander -> Vanessa,Sarah
+# Danilo    -> Melina
+# Diogo     -> Finnja
+# Eugen     -> Walentina
+# Francesco -> Jules
+# Jamy      -> Stefanie
+# Josua     -> Aurelia
+# Manuel    -> Kathleen
+# Salvatore -> Jacqueline
+# Tommy     -> Jill
