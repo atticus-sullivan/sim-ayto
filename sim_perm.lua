@@ -152,7 +152,7 @@ local function parse_file(file, rev)
 		end
 
 		-- constraint
-		local d = {constraint=true, num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0, added=added~=nil, apply=apply}
+		local d = {constraint=true, num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0, added=added~=nil, apply=apply, leftover=nil}
 		line = next_line(line)
 		while line and line ~= "" do
 			local e1,e2
@@ -226,29 +226,45 @@ function _M.check_all(map, c, dup, pr)
 			if not map[i1] then
 				error("map is not fully defined")
 			elseif map[i1] == i2 then
+				if pr and pr > 1 then print(i1, i2, map[i1]) end
 				cnt = cnt+1
 			end
 		end
 		return cnt
 	end
-	local function count_pendant()
+	local function find(ls, ele)
+		for k,v in pairs(ls) do
+			if v == ele then return k end
+		end
+		return nil
+	end
+	local function count_pendant(cnt)
 		-- handle dup (1)
 		-- find the index which maps to dup[2]
-		local dup2_idx
+		local dup2_idx = find(map, dup[2])
 		if pr and pr > 1 then print(dup) end
-		for i1,i2 in pairs(map) do
-			if i2 == dup[2] then dup2_idx = i1 end
-		end
-		local cnt
 		if pr and pr > 1 then print(dup[1], dup[2], dup2_idx) end
 		-- if the additional person is mapped to another person, we know who the second match is and who has two matches -> use this Information
 		if dup2_idx and map[dup[1]] ~= dup[2] then
+			if pr and pr > 1 then print("swap map") end
 			-- swap
 			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
 			assert(map[dup[1]] == dup[2])
-			cnt = count_lights()
+			cnt = math.max(count_lights(), cnt)
 			-- restore map
 			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
+		else
+			-- dup[2] is not in map or dup[1] is matched to dup[2]
+			-- if dup[2] in constraint, cnt could be cnt+1 due to swapping in map
+			if pr and pr > 1 then print(find(c.matches, dup[2]), cnt-c.num) end
+			if find(c.matches, dup[2]) and c.num-cnt == 1 then
+				-- assume that dup is matched with p
+				local p = find(c.matches, dup[2])
+				-- check if this swap would reduce the amount of matches
+				if map[p] ~= c.matches[p] then
+					cnt = c.num
+				end
+			end
 		end
 		return cnt
 	end
@@ -258,7 +274,7 @@ function _M.check_all(map, c, dup, pr)
 
 	if pr and pr > 1 then print(c.added) end
 	if c.cnt > 1 and c.added then
-		cnt = math.max(cnt, count_pendant() or 0)
+		cnt = count_pendant(cnt)
 	end
 
 	return cnt
