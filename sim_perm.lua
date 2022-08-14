@@ -22,15 +22,44 @@ end
 pr_time("start")
 
 local function dot_node(par, self, e1, e2, file)
-	file:write('"',par,'"', " -> {", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr><tr><td>',e2,'</td></tr></table>>]', "}\n")
+	file:write("{", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr><tr><td>',e2,'</td></tr></table>>]', "}\n")
+	for p,_ in pairs(par) do
+		file:write('"',p,'"', " -> {", '"',self,'"}\n')
+	end
 end
-function _M.poss_to_dot(ps, s1,s2, file)
+local function tree_ordering(ps)
+	local len = #ps[1]
+	local tab = _M.group_cnt(ps, len)
+	local amounts = {}
+	for i=1,len do amounts[i] = {idx=i, cnt=nil} end
+	for co,cnt in pairs(tab) do
+		if cnt > 0 then
+			local i1,i2 = co:match("(%d+)|(%d+)")
+			i1,i2 = tonumber(i1),tonumber(i2)
+			amounts[i1].cnt = (amounts[i1].cnt or 0) + 1 -- TODO use cnt for sorting
+		end
+	end
+	table.sort(amounts, function(a,b) return a.idx < b.idx end)
+	return amounts
+end
+function _M.poss_to_dot(ps, s1,s2, file, collapse)
+	local order = tree_ordering(ps)
 	local nodes = {}
 	for _,p in ipairs(ps) do
 		local par = "root"
-		for i1,i2 in ipairs(p) do
-			local co = string.format("%s|%d,%d", par, i1,i2)
-			nodes[co] = {par, i1,i2}
+		for _,o in ipairs(order) do
+			local i1 = o.idx
+			local i2 = p[i1]
+			local co
+			if collapse then
+				co = string.format("%d,%d", i1,i2)
+			else
+				co = string.format("%s|%d,%d", par, i1,i2)
+			end
+			if not nodes[co] then
+				nodes[co] = {{}, i1,i2}
+			end
+			nodes[co][1][par] = true
 			par = co
 		end
 	end
@@ -41,6 +70,19 @@ function _M.poss_to_dot(ps, s1,s2, file)
 	end
 	file:write("}\n")
 end
+-- just a small wrapper
+local function write_dot(fn, poss, s1,s2, bound, collapse)
+	if #poss <= bound then
+		local of = io.open(fn..".dot", "w")
+		assert(of, "opening '"..fn..".dot' failed")
+		pr_time("generate dot")
+		_M.poss_to_dot(poss, s1,s2, of, collapse)
+		of:close()
+		pr_time("generate pdf")
+		os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
+	end
+end
+
 local function table_copy(t)
 	local r = {}
 	for k,v in pairs(t) do
@@ -51,6 +93,7 @@ end
 function _M.gen_lut(s)
 	local r = {}
 	for i,v in ipairs(s) do
+		assert(r[v] == nil, "value "..v.." occures multiple times")
 		r[v] = i
 	end
 	return r
@@ -227,7 +270,7 @@ function _M.check(map, constr, dup, pr)
 	end
 	return r
 end
-local function group_cnt(l, len)
+function _M.group_cnt(l, len)
 	local lut = {}
 	for i=1,len do
 		lut[i] = {}
@@ -244,6 +287,24 @@ local function group_cnt(l, len)
 		end
 	end
 	return r
+end
+
+local function stats(data)
+	local min,max,sum,count = 0,0,0,0
+	for v,cnt in pairs(data) do
+		count = count + cnt
+		sum = sum + v*cnt
+		min,max = math.min(min, v), math.max(max, v)
+	end
+	if count == 0 then return nil end
+
+	local avg = sum/count
+	local var = 0
+	for v,cnt in pairs(data) do
+		var = var + (avg-v)^2*cnt
+	end
+	local sigma = math.sqrt(var)
+	return {min=min,max=max, sum=sum, count=count, avg=avg, sigma=sigma}
 end
 
 -- entropy stuff
@@ -264,15 +325,17 @@ function _M.entropy_single(l, i1,i2, is_match, total)
 end
 function _M.entropy_single_max(l, total)
 	local r,e1,e2 = -1,-1,-1
+	local entropies = {}
 	for i1=1,#l[1] do
 		for i2=1,#l[1] do
 			local e = _M.entropy_single(l, i1,i2, false, total)
+			entropies[e] = (entropies[e] or 0) +1
 			if e > r then
 				r,e1,e2 = e,i1,i2
 			end
 		end
 	end
-	return r,e1,e2
+	return r,e1,e2, entropies
 end
 function _M.entropy_all(l, constr, total, dup, lights)
 	local e,info = 0,-1
@@ -290,24 +353,28 @@ function _M.entropy_all(l, constr, total, dup, lights)
 end
 function _M.entropy_all_max(l, total, dup, lights)
 	local r,mi = -1,-1
+	local entropies = {}
 	for ei,map in ipairs(l) do
 		local e = _M.entropy_all(l, {matches=map, cnt=lights, num=#map}, total, dup, lights)
+		entropies[e] = (entropies[e] or 0) +1
 		if e > r then
 			r,mi = e,ei
 		end
 	end
-	return r,l[mi]
+	return r,l[mi], entropies
 end
-function _M.entropy(poss, c, dup, fast, i, bound)
+function _M.entropy(poss, c, dup, fast, i, bound, calc_stats)
 	local g,h,h_real,info
+	local stat = {}
 	if c.cnt > 1 then
 		-- all
 		-- calculating the max entropy is very expensive (10(lights) *
-		-- #poss(possible matchings) * #poss(count_pred) constraints checken)
+		-- #poss(possible matchings) * #poss(count_pred) constraint checks)
 		-- -> only do this if the possibilities narrow down a bit
 		if #poss <= bound then
-			print("maximize all", #poss, bound)
-			h,g = _M.entropy_all_max(poss, #poss, dup, 10)
+			pr_time("entropy all max start")
+			h,g,stat = _M.entropy_all_max(poss, #poss, dup, 10)
+			pr_time("entropy all max end")
 		else
 			h,g = 0,{}
 		end
@@ -318,9 +385,11 @@ function _M.entropy(poss, c, dup, fast, i, bound)
 		-- single
 		local g1,g2
 		if #poss <= 3628800 and i > 1 then
-			h,g1,g2 = _M.entropy_single_max(poss, #poss)
+			pr_time("entropy single max start")
+			h,g1,g2,stat = _M.entropy_single_max(poss, #poss)
+			pr_time("entropy single max end")
 		else
-			h,g1,g2 = 0,1,1
+			h,g1,g2,stat = 0,1,1,{}
 		end
 		for i1,i2 in pairs(c.matches) do
 			pr_time("entropy single start")
@@ -330,14 +399,40 @@ function _M.entropy(poss, c, dup, fast, i, bound)
 		end
 		g = {[g1]=g2}
 	end
-	return g,h,h_real,info
+	if calc_stats then
+		stat = stats(stat)
+	else
+		stat = nil
+	end
+	return g,h,stat,h_real,info
 end
 
 -- writing/printing functions
-function _M.write_entro_guess(h,g,s1,s2, num, info)
+function _M.write_entro_guess(o)
+	local h,g,s1,s2, num, info, stat = o.h,o.g,o.s1,o.s2, o.num, o.info, o.stat
 	io.write(h)
 	for e1,e2 in pairs(g) do
 		io.write(" ", s1[e1], "->", s2[e2])
+	end
+	if stat or (num and info) then
+		io.write("\n\t")
+	end
+	if stat then
+		io.write(" (")
+		local trans = {
+			["min"]   = "min",
+			["max"]   = "max",
+			["sum"]   = "sum",
+			["count"] = "count",
+			["avg"]   = "avg",
+			["sigma"] = "sigma",
+		}
+		for _,k in ipairs{"min", "sum", "count", "avg", "sigma"} do
+			if trans[k] then
+				io.write(trans[k], ": ", stat[k], ", ")
+			end
+		end
+		io.write(")")
 	end
 	if num and info then
 		io.write(" |-> ", num, " -> ", info)
@@ -363,7 +458,7 @@ function _M.poss_print(p, s1,s2)
 end
 local epsilon = 0.00005
 function _M.prob_tab(p, s1, s2, t)
-	local tab = group_cnt(p, #s1)
+	local tab = _M.group_cnt(p, #s1)
 	local ml = 0
 	for _,v in ipairs(s1) do if #v > ml then ml = #v end end
 	for _,v in ipairs(s2) do if #v > ml then ml = #v end end
@@ -426,13 +521,13 @@ end
 local function interact(s1,s2, poss, dup, last, tabS, tabA)
 	local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
 	local function translate_constr(co, rev)
-		local c = {apply=false, added=1}
+		local c = {apply=false, added=1, num=co.num, cnt=co.cnt, matches={}}
 		for e1,e2 in pairs(co.matches) do
 			assert(lut1[e1]) assert(lut2[e2])
 			if not rev then
-				c[lut1[e1]] = lut2[e2]
+				c.matches[lut1[e1]] = lut2[e2]
 			else
-				c[lut2[e2]] = lut1[e1]
+				c.matches[lut2[e2]] = lut1[e1]
 			end
 		end
 		return c
@@ -447,15 +542,18 @@ local function interact(s1,s2, poss, dup, last, tabS, tabA)
 		end,
 		entropy_single_max = function()
 			local h,e1,e2 = _M.entropy_single_max(poss, #poss)
-			_M.write_entro_guess(h, {[e1]=e2})
+			_M.write_entro_guess{h=h, g={[e1]=e2}, s1=s1, s2=s2}
 		end,
 		entropy_all_max = function()
 			local h,g = _M.entropy_all_max(poss, #poss, dup, 10)
-			_M.write_entro_guess(h, g)
+			_M.write_entro_guess{h=h, g=g, s1=s1, s2=s2}
 		end,
 		count_applied  = function(co,rev)
 			local c = translate_constr(co, rev)
 			return perm.count_pred(poss, function(map) return _M.check(map, c, dup) end)
+		end,
+		poss_print = function()
+			_M.poss_print(poss, s1, s2)
 		end,
 		tab = function()
 			_M.prob_tab(poss, s1, s2, tabS)
@@ -471,7 +569,7 @@ local function interact(s1,s2, poss, dup, last, tabS, tabA)
 		end
 		print("M.step(constr)")
 	end
-	print("M.tab()", "M.entropy_all_max()", "M.entropy_single_max()", "M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={num=%d, matches={...}, cnt=%d}")
+	print("M.poss_print()", "M.tab()", "M.entropy_all_max()", "M.entropy_single_max()", "M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={added=%b, apply=%b, leftover=%d, num=%d, matches={...}, cnt=%d, }")
 	prompt.enter()
 	M = nil
 end
@@ -492,7 +590,6 @@ local function arguments()
 		end
 	end
 	local function isChoice(choices, key, value)
-		print(value)
 		for _,v in ipairs(choices) do
 			if v == value then return end
 		end
@@ -526,8 +623,10 @@ local function arguments()
 		:argument("INPUT", "path to the input .dat file", function(k,v) return has_ext("dat", k,v) and file_exists(k,v) end)
 		:option("-i, --interactive=LEVEL", "sets the level of interaction (x to skip first x runs, -x to start with xth run counted from last)", nil, isNumber)
 		:option("-b, --bound=BOUND", "entropy bound", 5000, isNumber)
+		:option("-d, --dot-bound=BOUND", "dot bound", 100, isNumber)
 		:option("-f, --fast=LEVEL", "Fast run (0->no fast, 1->omit entropy, 2->omit prob table)", 0, function(k,v) isChoice({"0","1","2"}, k,v) end)
-		:flag("-r, --[no]-reverse", "switch/reverse sets", false)
+		:flag("-r, --[no-]reverse", "switch/reverse sets", false)
+		:flag("-s, --[no-]stats", "collect stats", true)
 		:option("-o, --output=OUTPUT", "Output STEM for .dot and .pdf", "test", function(k,v) return file_not_exists(k..".pdf",v) and file_not_exists(k..".dot",v) end)
 
 	local arg,err = cli:parse()
@@ -535,8 +634,8 @@ local function arguments()
 		print(err)
 		os.exit(-1)
 	end
-	arg["i"],arg["f"],arg["b"] = tonumber(arg["i"]), tonumber(arg["f"]), tonumber(arg["b"])
-	for _,k in ipairs{"INPUT", "f", "r", "o", "b"} do assert(arg[k] ~= nil) end
+	arg["i"],arg["f"],arg["b"],arg["d"] = tonumber(arg["i"]), tonumber(arg["f"]), tonumber(arg["b"]), tonumber(arg["d"])
+	for _,k in ipairs{"INPUT", "f", "r", "o", "b", "s", "d"} do assert(arg[k] ~= nil) end
 	return arg
 end
 
@@ -567,7 +666,7 @@ local poss = perm.permgen(
 		end
 		return r
 	end)
-print("total", #poss)
+print(("total %d -> max I %f"):format(#poss, -math.log(1/#poss, 2)))
 pr_time("permgen done")
 print()
 
@@ -581,12 +680,34 @@ for i,c in ipairs(instructions) do
 	elseif c.constraint then
 		-- entropy stuff
 		if arg["f"] < 1 then
-			local g,h,h_real,info = _M.entropy(poss, c, dup, arg.f, i, arg.b)
-			_M.write_entro_guess(h,g, s1,s2)
-			_M.write_entro_guess(h_real,c.matches, s1,s2, c.num, info)
+			local g,h,stat,h_real,info = _M.entropy(poss, c, dup, arg.f, i, arg.b, arg.s)
+			io.write("opt:  ")
+			_M.write_entro_guess{h=h,g=g, s1=s1,s2=s2, stat=stat}
+			io.write("real: ")
+			_M.write_entro_guess{h=h_real, g=c.matches, s1=s1, s2=s2, num=c.num, info=info}
 		end
 		poss = perm.filter_pred(poss, function(map)
 			return _M.check_all(map, c, dup) == c.num
+			-- local x =  _M.check_all(map, c, dup)
+			-- local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
+			-- if
+			-- 	x ~= c.num and
+			-- 	map[lut1["Alexander"]] == lut2["Sarah"]      and
+			-- 	map[lut1["Danilo"]]    == lut2["Melina"]     and
+			-- 	map[lut1["Diogo"]]     == lut2["Finnja"]     and
+			-- 	map[lut1["Eugen"]]     == lut2["Walentina"]  and
+			-- 	map[lut1["Francesco"]] == lut2["Jules"]      and
+			-- 	map[lut1["Jamy"]]      == lut2["Stefanie"]   and
+			-- 	map[lut1["Josua"]]     == lut2["Aurelia"]    and
+			-- 	map[lut1["Manuel"]]    == lut2["Kathleen"]   and
+			-- 	map[lut1["Salvatore"]] == lut2["Jacqueline"] and
+			-- 	map[lut1["Tommy"]]     == lut2["Jill"]
+			-- then
+			-- 	x =  _M.check_all(map, c, dup, 3)
+			-- 	print(x, c.num)
+			-- 	_M.print_map(c.matches, s1, s2)
+			-- end
+			-- return x == c.num
 		end)
 		print(("%d poss left -> max I %f"):format(#poss, -math.log(1/#poss, 2)))
 		if arg["f"] < 2 then
@@ -602,6 +723,7 @@ for i,c in ipairs(instructions) do
 	else
 		error("invalid instruction")
 	end
+	write_dot(("%s_%d"):format(arg.o,i), poss, s1, s2, arg.d)
 	if arg["i"] and (arg["i"] > i or arg["i"] < i-#instructions) then
 		interact(s1,s2, poss, dup, i == #instructions, tabSingle, tabAll)
 	end
@@ -611,14 +733,9 @@ _M.hist(instructions, s1, s2, false)
 print()
 _M.hist(instructions, s1, s2, true)
 
-if #poss <= 40 then
-	local of = io.open(arg["o"]..".dot", "w")
-	pr_time("generate dot")
-	_M.poss_to_dot(poss, s1,s2, of)
-	of:close()
-	pr_time("generate pdf")
-	os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", arg["i"],arg["i"]))
-end
+write_dot(arg.o, poss, s1, s2, arg.d)
+
+-- TODO store the history of the information contents (see "typical" performance)
 
 pr_time("end")
 return _M
