@@ -327,6 +327,42 @@ real: 1.3609640474437 Alexander->Vanessa Danilo->Sarah Diogo->Jill Eugen->Walent
       Jamy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
      Dummy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|   25.0000|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|   75.0000|
 
+opt:  1.5 Alexander->Jill Danilo->Melina Diogo->Sarah Eugen->Walentina Josua->Aurelia Manuel->Kathleen Salvatore->Jacqueline Tommy->Finnja Francesco->Jules Jamy->Stefanie Dummy->Vanessa
+	 (min: 0, sum: 5, count: 4, avg: 1.25, sigma: 0.5, )
+real: 1.5 Alexander->Sarah Danilo->Melina Diogo->Finnja Eugen->Walentina Josua->Aurelia Manuel->Kathleen Salvatore->Jacqueline Tommy->Jill Francesco->Jules Jamy->Stefanie
+	 |-> 10 -> 1
+2 poss left -> max I 1.000000
+              Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
+ Alexander|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|   50.0000|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|   50.0000|
+    Danilo|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Diogo|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Eugen|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Josua|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+    Manuel|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+ Salvatore|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Tommy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+ Francesco|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|
+      Jamy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Dummy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|   50.0000|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|   50.0000|
+
+opt:  0.5 Alexander->Vanessa Danilo->Melina Diogo->Finnja Eugen->Walentina Josua->Aurelia Manuel->Kathleen Salvatore->Jacqueline Tommy->Jill Francesco->Jules Jamy->Stefanie Dummy->Sarah
+	 (min: 0, sum: 1, count: 2, avg: 0.5, sigma: 0, )
+real: 0 Alexander->Vanessa Danilo->Melina Diogo->Finnja Eugen->Walentina Josua->Aurelia Manuel->Kathleen Salvatore->Jacqueline Tommy->Jill Francesco->Jules Jamy->Stefanie
+	 |-> 10 -> -0
+2 poss left -> max I 1.000000
+              Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
+ Alexander|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[1m[30m   50.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[1m[30m   50.0000[0m|
+    Danilo|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Diogo|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Eugen|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Josua|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+    Manuel|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+ Salvatore|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Tommy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+ Francesco|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|
+      Jamy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[32m  100.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|
+     Dummy|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[1m[30m   50.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[2m[31m    0.0000[0m|[1m[30m   50.0000[0m|
+
 # | Alexander|     Danilo|      Diogo|      Eugen|      Josua|     Manuel|  Salvatore|      Tommy|  Francesco|       Jamy| 
 ===========================================================================================================================
 01|     Jules|   Stefanie|    Aurelia|  Walentina|      Sarah|   Kathleen| Jacqueline|     Melina|     Finnja|       Jill| 
@@ -338,6 +374,8 @@ real: 1.3609640474437 Alexander->Vanessa Danilo->Sarah Diogo->Jill Eugen->Walent
 07|    Melina|    Aurelia|    Vanessa| Jacqueline|  Walentina|     Finnja|       Jill|   Stefanie|      Jules|      Sarah| 
 08|     Sarah|       Jill|    Aurelia|     Melina|    Vanessa|   Kathleen|  Walentina|     Finnja|      Jules|   Stefanie| 
 09|   Vanessa|      Sarah|       Jill|  Walentina|    Aurelia|   Kathleen| Jacqueline|     Finnja|      Jules|   Stefanie| 
+10|     Sarah|     Melina|     Finnja|  Walentina|    Aurelia|   Kathleen| Jacqueline|       Jill|      Jules|   Stefanie| 
+11|   Vanessa|     Melina|     Finnja|  Walentina|    Aurelia|   Kathleen| Jacqueline|       Jill|      Jules|   Stefanie| 
 
 
 # |   Aurelia|     Finnja| Jacqueline|       Jill|   Kathleen|     Melina|      Sarah|   Stefanie|  Walentina|      Jules|    Vanessa| 
@@ -351,4 +389,6 @@ real: 1.3609640474437 Alexander->Vanessa Danilo->Sarah Diogo->Jill Eugen->Walent
 07|    Danilo|     Manuel|      Eugen|  Salvatore|      Dummy|  Alexander|       Jamy|      Tommy|      Josua|  Francesco|      Diogo| 
 08|     Diogo|      Tommy|      Dummy|     Danilo|     Manuel|      Eugen|  Alexander|       Jamy|  Salvatore|  Francesco|      Josua| 
 09|     Josua|      Tommy|  Salvatore|      Diogo|     Manuel|      Dummy|     Danilo|       Jamy|      Eugen|  Francesco|  Alexander| 
+10|     Josua|      Diogo|  Salvatore|      Tommy|     Manuel|     Danilo|  Alexander|       Jamy|      Eugen|  Francesco|      Dummy| 
+11|     Josua|      Diogo|  Salvatore|      Tommy|     Manuel|     Danilo|      Dummy|       Jamy|      Eugen|  Francesco|  Alexander| 
 
