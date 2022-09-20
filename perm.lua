@@ -1,8 +1,9 @@
 local _M = {}
 local function table_copy(t)
+	if type(t) ~= "table" then return t end
 	local r = {}
 	for k,v in ipairs(t) do
-		r[k] = v
+		r[k] = table_copy(v)
 	end
 	return r
 end
@@ -62,10 +63,9 @@ function _M.poss_append(poss, i2)
 	local len = #poss
 	for i=1,len do
 		local len2 = #poss[i]+1
-		for j=1,len2 do
+		for j=1,len2-1 do
 			local new = table_copy(poss[i])
-			table.insert(new, i2)
-			new[#new],new[j] = new[j],new[#new]
+			table.insert(new[j], i2)
 			table.insert(poss_new, new)
 		end
 	end

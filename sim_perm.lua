@@ -254,17 +254,17 @@ function _M.check_all(map, c, dup, pr)
 			-- restore map
 			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
 		else
-			-- dup[2] is not in map or dup[1] is matched to dup[2]
-			-- if dup[2] in constraint, cnt could be cnt+1 due to swapping in map
-			if pr and pr > 1 then print(find(c.matches, dup[2]), cnt-c.num) end
-			if find(c.matches, dup[2]) and c.num-cnt == 1 then
-				-- assume that dup is matched with p
-				local p = find(c.matches, dup[2])
-				-- check if this swap would reduce the amount of matches
-				if map[p] ~= c.matches[p] then
-					cnt = c.num
-				end
-			end
+			-- -- dup[2] is not in map or dup[1] is matched to dup[2]
+			-- -- if dup[2] in constraint, cnt could be cnt+1 due to swapping in map
+			-- if pr and pr > 1 then print(find(c.matches, dup[2]), cnt-c.num) end
+			-- if find(c.matches, dup[2]) and c.num-cnt == 1 then
+			-- 	-- assume that dup is matched with p
+			-- 	local p = find(c.matches, dup[2])
+			-- 	-- check if this swap would reduce the amount of matches
+			-- 	if map[p] ~= c.matches[p] then
+			-- 		cnt = c.num
+			-- 	end
+			-- end
 		end
 		return cnt
 	end
@@ -273,9 +273,9 @@ function _M.check_all(map, c, dup, pr)
 	local cnt = count_lights()
 
 	if pr and pr > 1 then print(c.added) end
-	if c.cnt > 1 and c.added then
+	-- if c.cnt > 1 and c.added then
 		cnt = count_pendant(cnt)
-	end
+	-- end
 
 	return cnt
 end
@@ -628,7 +628,7 @@ local function arguments()
 		local f = io.open(value,"r")
 		if f ~= nil then
 			io.close(f)
-			io.write("Given file '",value,"' (for",key,") shall not exist.")
+			io.write("Given file '",value,"' (for ",key,") shall not exist.")
 			os.exit(-1)
 		end
 	end
@@ -750,6 +750,7 @@ print()
 _M.hist(instructions, s1, s2, true)
 
 write_dot(arg.o, poss, s1, s2, arg.d)
+-- _M.poss_print(poss, s1, s2)
 
 -- TODO store the history of the information contents (see "typical" performance)
 
