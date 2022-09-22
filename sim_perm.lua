@@ -5,6 +5,8 @@ prompt.colorize = true
 prompt.name     = "sim"
 prompt.history  = "sim.hist" -- otherwise no history
 
+-- kinds of TODOs: TODOmoredup
+
 ----------------
 -- EXIT-CODES --
 ----------------
@@ -13,33 +15,189 @@ prompt.history  = "sim.hist" -- otherwise no history
 
 local _M = {}
 
+-----------------
+--  CONSTRAINT --
+-----------------
+-- default values
+local constraint = {table=nil,tablePR=nil, eliminated=0, map=nil,cnt=nil, right=nil}
+constraint.__index = constraint
+-- constructor
+function constraint:new(o)
+	o = o or {}
+	for _,v in ipairs{"map","cnt", "right"} do assert(o[v]) end
+	setmetatable(o, self)
+	return o
+end
+function constraint.gen_table(l1,l2, init)
+	init = init or 0
+	local tab = {}
+	for i1=1,l1 do
+		tab[i1] = {}
+		for i2=1,l2 do
+			tab[i1][i2] = init
+		end
+	end
+	return tab
+end
+function constraint:eliminate(p)
+	assert(self.table)
+	for i1,t2 in pairs(p) do
+		-- for _,i1 in pairs(t1) do
+			for _,i2 in pairs(t2) do
+				self.table[i1][i2] = self.table[i1][i2]+1
+			end
+		-- end
+	end
+	self.eliminated    = self.eliminated + 1
+end
+function constraint:apply_table(tab, total)
+	assert(self.table)
+	self.entro_real = -math.log(1-self.eliminated/total, 2)
+	total = total - self.eliminated
+	if self.cnt == 1 then
+		for k,v in pairs(self.map) do
+			assert(not self.entro)
+			local nomatch, match
+			-- if could be avoided (just added anyways)
+			if self.right == 1 then
+				nomatch = - self.table[k][v]/total * math.log(self.table[k][v]/total, 2)
+				  match = - (total-self.table[k][v])/total * math.log((total-self.table[k][v])/total, 2)
+			else
+				  match = - self.table[k][v]/total * math.log(self.table[k][v]/total, 2)
+				nomatch = - (total-self.table[k][v])/total * math.log((total-self.table[k][v])/total, 2)
+			end
+			self.entro = nomatch + match
+		end
+	end
+	self.tablePR = {}
+	for k1,v1 in ipairs(self.table) do
+		self.tablePR[k1] = {}
+		for k2,v2 in ipairs(v1) do
+			self.tablePR[k1][k2] = (tab[k1][k2] - v2)*100/total
+			tab[k1][k2]          = (tab[k1][k2] - v2)
+		end
+	end
+	if self.cnt == 1 then
+		local min = {p=101,i1=-1,i2=-1} -- percent values
+		for i1,v1 in ipairs(self.tablePR) do
+			for i2,p in ipairs(v1) do
+				assert(p < 101)
+				if p < min.p then
+					min.p = p min.i1 = i1 min.i2 = i2
+				end
+			end
+		end
+		min.H = - min.p * math.log(min.p,2) - (1-min.p) * math.log(1-min.p,2)
+		self.entro_max = min
+	end
+	return total
+end
+local epsilon = 0.00005
+function constraint:print_table(s1,s2)
+	assert(self.tablePR)
+
+	local ml = 0
+	for _,v in ipairs(s1) do if #v > ml then ml = #v end end
+	for _,v in ipairs(s2) do if #v > ml then ml = #v end end
+
+	if self.entro_max then
+		io.write("opt: ", s1[self.entro_max.i1], " -> ", s2[self.entro_max.i2], " => H = ", self.entro_max.H)
+		io.write("\n")
+	end
+
+	if self.map then
+		print(self.right)
+		_M.print_constr_map(self.map, s1, s2)
+	end
+
+	if self.entro then
+		io.write(("H = %.4f bit/X "):format(self.entro))
+	end
+	io.write(("-> I = %.4f bit"):format(self.entro_real))
+	io.write("\n")
+
+	io.write(("%"..tostring(ml).."s|"):format(""))
+	for _,v in ipairs(s2) do
+		io.write(("%"..tostring(ml).."s|"):format(v))
+	end
+	io.write("\n")
+	for k1,v1 in ipairs(self.tablePR) do
+		io.write(("%"..tostring(ml).."s|"):format(s1[k1]))
+		for _,v2 in ipairs(v1) do
+			if 80-epsilon < v2 and v2 < 100+epsilon then
+				io.write(tostring(colors.green))
+			elseif 0-epsilon < v2 and v2 < 0+epsilon then
+				io.write(tostring(colors.dim), tostring(colors.red))
+			-- elseif xyz then
+			-- 	io.write(tostring(colors.bright), tostring(colors.black))
+			end
+			io.write(("%"..tostring(ml)..".4f|"):format(v2), tostring(colors.reset))
+		end
+		io.write("\n")
+	end
+end
 -------------------
 --  HELPER STUFF --
 -------------------
+function math.factorial(n)
+	assert(n >= 0)
+	local prod = 1
+	for i=1,n do
+		prod = prod * i
+	end
+	return prod
+end
 local function pr_time(s)
 	-- print(os.date("%Y-%m-%d %H:%M:%S"), s)
 end
 pr_time("start")
 
-local function dot_node(par, self, e1, e2, file)
-	file:write("{", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr><tr><td>',e2,'</td></tr></table>>]', "}\n")
+local function dot_node(file, par, self, e1, e2s)
+	file:write("{", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr>')
+	for _,v in ipairs(e2s) do
+		file:write('<tr><td>',v,'</td></tr>')
+	end
+	file:write('</table>>]', "}\n")
 	for p,_ in pairs(par) do
 		file:write('"',p,'"', " -> {", '"',self,'"}\n')
 	end
 end
+local function serialize_i2s(i2s)
+	local first = true
+	local i2_string = ""
+	for _,v in ipairs(i2s) do
+		if first then
+			i2_string = v
+			first = false
+		else
+			i2_string = i2_string .. "," .. v
+		end
+	end
+	return i2_string
+end
+local function group_cnt(l)
+	local r = {}
+	for _,v in ipairs(l) do
+		for i1,i2s in ipairs(v) do
+			local co = ("%d|%s"):format(i1, serialize_i2s(i2s))
+			r[co] = (r[co] or 0) +1
+		end
+	end
+	return r
+end
 local function tree_ordering(ps)
 	local len = #ps[1]
-	local tab = _M.group_cnt(ps, len)
+	local tab = group_cnt(ps)
 	local amounts = {}
 	for i=1,len do amounts[i] = {idx=i, cnt=nil} end
 	for co,cnt in pairs(tab) do
 		if cnt > 0 then
-			local i1,i2 = co:match("(%d+)|(%d+)")
-			i1,i2 = tonumber(i1),tonumber(i2)
-			amounts[i1].cnt = (amounts[i1].cnt or 0) + 1 -- TODO use cnt for sorting
+			local i1,_ = co:match("(%d+)|(.+)")
+			i1 = tonumber(i1)
+			amounts[i1].cnt = (amounts[i1].cnt or 0) + 1
 		end
 	end
-	table.sort(amounts, function(a,b) return a.idx < b.idx end)
+	table.sort(amounts, function(a,b) return a.cnt < b.cnt end)
 	return amounts
 end
 function _M.poss_to_dot(ps, s1,s2, file, collapse)
@@ -49,15 +207,26 @@ function _M.poss_to_dot(ps, s1,s2, file, collapse)
 		local par = "root"
 		for _,o in ipairs(order) do
 			local i1 = o.idx
-			local i2 = p[i1]
+			local i2s = p[i1]
+			local first,i2_string = true,""
+			local e2 = {}
+			for _,v in ipairs(i2s) do
+				table.insert(e2, s2[v])
+				if first then
+					i2_string = v
+					first = false
+				else
+					i2_string = i2_string .. "," .. v
+				end
+			end
 			local co
 			if collapse then
-				co = string.format("%d,%d", i1,i2)
+				co = string.format("%d|%s", i1,i2_string)
 			else
-				co = string.format("%s|%d,%d", par, i1,i2)
+				co = string.format("%s|%d|%s", par, i1,i2_string)
 			end
 			if not nodes[co] then
-				nodes[co] = {{}, i1,i2}
+				nodes[co] = {{}, s1[i1],e2}
 			end
 			nodes[co][1][par] = true
 			par = co
@@ -65,12 +234,12 @@ function _M.poss_to_dot(ps, s1,s2, file, collapse)
 	end
 	file:write("digraph D {\n")
 	for co,x in pairs(nodes) do
-		local par,i1,i2 = table.unpack(x)
-		dot_node(par, co, s1[i1], s2[i2], file)
+		local par,e1,e2 = table.unpack(x)
+		dot_node(file, par, co, e1, e2)
 	end
 	file:write("}\n")
 end
--- just a small wrapper
+-- just a small wrapper 
 local function write_dot(fn, poss, s1,s2, bound, collapse)
 	if #poss <= bound then
 		local of = io.open(fn..".dot", "w")
@@ -80,16 +249,10 @@ local function write_dot(fn, poss, s1,s2, bound, collapse)
 		of:close()
 		pr_time("generate pdf")
 		os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
+		os.execute(string.format("dot -Tpng -o '%s.png' '%s.dot'", fn,fn))
 	end
 end
 
-local function table_copy(t)
-	local r = {}
-	for k,v in pairs(t) do
-		r[k] = v
-	end
-	return r
-end
 function _M.gen_lut(s)
 	local r = {}
 	for i,v in ipairs(s) do
@@ -99,10 +262,33 @@ function _M.gen_lut(s)
 	return r
 end
 
+function _M.print_constr_map(m, s1,s2)
+	for k,v in pairs(m) do
+		io.write(s1[k], " -> ", s2[v], "\n")
+	end
+end
+function _M.print_map(m, s1,s2)
+	for k,_v in pairs(m) do
+		io.write(s1[k], " -> {")
+		local first = true
+		for _,v in ipairs(_v) do
+			if not first then io.write(", ") else first = false end
+			io.write(s2[v])
+		end
+		io.write("}\n")
+	end
+end
+function _M.poss_print(ps, s1,s2)
+	for _,p in ipairs(ps) do
+		_M.print_map(p, s1,s2)
+		print()
+	end
+end
+
 local function parse_file(file, rev)
-	local s1,s2,instructions,swap_idx,dup,added = {},{},{},-1,nil,nil
+	local s1,s2,instructions,dup = {},{},{},{{},{}}
 	-- real local
-	local lut1,lut2,apply,state = {},{},true,0
+	local lut1,lut2,state = {},{},0
 
 	local function next_line(line)
 		line = file:read("l")
@@ -112,47 +298,29 @@ local function parse_file(file, rev)
 	local function parse_set(line, s)
 		table.insert(s, line:match("%s*([^%->,%s]+)%s*.*"))
 	end
-	local function translate(i1a, i1b, i2a,i2b)
-		s1[i1a],s1[i1b] = s1[i1b],s1[i1a]
-		s2[i2a],s2[i2b] = s2[i2b],s2[i2a]
-
-		lut1[i1a],lut1[i1b] = lut1[i1b],lut1[i1a]
-		lut2[i2a],lut2[i2b] = lut2[i2b],lut2[i2a]
-
-		if i1a == dup[1] then dup[1] = i1b end
-		if i2a == dup[2] then dup[2] = i2b end
-
-		for _,v in ipairs(instructions) do
-			if v.constraint then
-				v.matches[i1a],v.matches[i1b] = v.matches[i1b],v.matches[i1a]
-				local ia,ib
-				for i,c in pairs(v.matches) do
-					if c == i2a then ia = i end
-					if c == i2b then ib = i end
-				end
-				if ia then v.matches[ia] = i2b end
-				if ib then v.matches[ib] = i2a end
-			end
-		end
-	end
 	local function parse_instruction(line)
 		if line == "add" then
 			-- add instruction
 			-- elements will be added at the end -> obmit from permutations
-			added = (added or 0)+1
 			line = next_line(line)
-			if rev then parse_set(line, s2) else parse_set(line, s1) end
+			if line ~= "" and line ~= "Dummy" then
+				local work = not rev and s1 or s2
+				assert(work ~= s1, "adding is only allowed to the second set")
+				parse_set(line, work)
+				table.insert(dup[1], #work)
+			end
 			line = next_line(line)
-			if rev then parse_set(line, s1) else parse_set(line, s2) end
+			if line ~= "" and line ~= "Dummy" then
+				local work = not rev and s2 or s1
+				assert(work ~= s1, "adding is only allowed to the second set")
+				parse_set(line, work)
+				table.insert(dup[2], #work)
+			end
 			lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
-			table.insert(instructions, {add=true, i1=#s1, i2=#s2})
-			assert(dup == nil)
-			dup = {#s1, #s2}
 			return
 		end
-
 		-- constraint
-		local d = {constraint=true, num=tonumber(line:match("^%s*(%d+)%s*")), matches={}, cnt=0, added=added~=nil, apply=apply, leftover=nil}
+		local d = {right=tonumber(line:match("^%s*(%d+)%s*")), map={}, cnt=0}
 		line = next_line(line)
 		while line and line ~= "" do
 			local e1,e2
@@ -164,27 +332,12 @@ local function parse_file(file, rev)
 			local i1,i2 = lut1[e1], lut2[e2]
 			assert(i1, "invalid constraint "..line)
 			assert(i2, "invalid constraint "..line)
-			-- TODO micro optimization: obmit already known stuff (safe)
-			d.matches[i1] = i2 -- ATTENTION: d.matches might be hash-map
-			d.cnt = d.cnt+1
-			line = next_line(line)
+			d.map[i1] = i2 -- ATTENTION: d.map might be hash-map
+			d.cnt     = d.cnt+1
+			line      = next_line(line)
 		end
-		-- assert(d.cnt == 10 or d.cnt == 1, "matching should always contain 1 or 10 pairs")
-		assert(d.num >= 0 and d.num <= d.cnt, "invalid num "..tostring(d.num).." vs cnt "..tostring(d.cnt))
-		table.insert(instructions, d)
-		-- TODO micro-optimization: obmit save known stuff from permutations
-		-- if d.cnt == 1 and apply and not added then
-		-- 	d.save = true
-		-- 	assert(d.num == 1 or d.num == 0)
-		-- 	if d.num == 1 then
-		-- 		for i1,i2 in pairs(d.matches) do
-		-- 			assert(swap_idx >= 0)
-		-- 			translate(i1, swap_idx, i2, swap_idx)
-		-- 			swap_idx = swap_idx -1
-		-- 			break -- only one element in d.matches
-		-- 		end
-		-- 	end
-		-- end
+		assert(d.right >= 0 and d.right <= d.cnt, "invalid right "..tostring(d.right).." vs cnt "..tostring(d.cnt))
+		table.insert(instructions, constraint:new(d))
 	end
 
 	local line = file:read("l")
@@ -193,12 +346,9 @@ local function parse_file(file, rev)
 			-- print("skip")
 		elseif line == "" then
 				state = state + 1
-		elseif line == "apply to here" then
-			apply = false
 		else
-			if state >= 2 and swap_idx < 0 then
+			if state >= 2 then
 				lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
-				swap_idx = #s1
 			end
 			if state == 0 then
 				if rev then parse_set(line, s2) else parse_set(line, s1) end
@@ -210,298 +360,30 @@ local function parse_file(file, rev)
 		end
 		line = file:read("l")
 	end
-	if swap_idx < 0 then
-		lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
-		swap_idx = #s1
-	end
-	-- swap idx determines upt to which position should be permutated
-	return s1,s2,instructions,swap_idx,dup,added
+	assert(#s1 - #dup[1] == #s2 - #dup[2], "unbalanced starting point")
+	return s1,s2,instructions,dup
 end
 
-function _M.check_all(map, c, dup, pr)
-	if pr and pr > 1 then print(dup) end
-	local function count_lights()
+local function any_map(l, bar)
+	for k,v in ipairs(l) do
+		if bar(k,v) then return true end
+	end
+	return false
+end
+
+function _M.count_lights(matching, c)
 		local cnt = 0
-		for i1,i2 in pairs(c.matches) do
-			if not map[i1] then
+		for i1,i2 in pairs(c.map) do
+			if not matching[i1] then
 				error("map is not fully defined")
-			elseif map[i1] == i2 then
-				if pr and pr > 1 then print(i1, i2, map[i1]) end
+			elseif any_map(matching[i1], function(_,x) return x == i2 end) then
+			-- elseif map[i1] == i2 then
 				cnt = cnt+1
 			end
 		end
 		return cnt
 	end
-	local function find(ls, ele)
-		for k,v in pairs(ls) do
-			if v == ele then return k end
-		end
-		return nil
-	end
-	local function count_pendant(cnt)
-		-- handle dup (1)
-		-- find the index which maps to dup[2]
-		local dup2_idx = find(map, dup[2])
-		if pr and pr > 1 then print(dup) end
-		if pr and pr > 1 then print(dup[1], dup[2], dup2_idx) end
-		-- if the additional person is mapped to another person, we know who the second match is and who has two matches -> use this Information
-		if dup2_idx and map[dup[1]] ~= dup[2] then
-			if pr and pr > 1 then print("swap map") end
-			-- swap
-			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
-			assert(map[dup[1]] == dup[2])
-			cnt = math.max(count_lights(), cnt)
-			-- restore map
-			map[dup[1]],map[dup2_idx] = map[dup2_idx],map[dup[1]]
-		else
-			-- -- dup[2] is not in map or dup[1] is matched to dup[2]
-			-- -- if dup[2] in constraint, cnt could be cnt+1 due to swapping in map
-			-- if pr and pr > 1 then print(find(c.matches, dup[2]), cnt-c.num) end
-			-- if find(c.matches, dup[2]) and c.num-cnt == 1 then
-			-- 	-- assume that dup is matched with p
-			-- 	local p = find(c.matches, dup[2])
-			-- 	-- check if this swap would reduce the amount of matches
-			-- 	if map[p] ~= c.matches[p] then
-			-- 		cnt = c.num
-			-- 	end
-			-- end
-		end
-		return cnt
-	end
 
-	-- count lights if the given map would be the solution
-	local cnt = count_lights()
-
-	if pr and pr > 1 then print(c.added) end
-	-- if c.cnt > 1 and c.added then
-		cnt = count_pendant(cnt)
-	-- end
-
-	return cnt
-end
-function _M.check(map, constr, dup, pr)
-	local r = true
-	for _,c in ipairs(constr) do
-		r = r and _M.check_all(map, c, dup, pr) == c.num -- if one of both is false, r will stay false forever
-	end
-	return r
-end
-function _M.group_cnt(l, len)
-	local lut = {}
-	for i=1,len do
-		lut[i] = {}
-		for j=1,len do
-			lut[i][j] = string.format("%d|%d", i, j)
-		end
-	end
-
-	local r = {}
-	for _,v in ipairs(l) do
-		for i1,i2 in ipairs(v) do
-			local co = lut[i1][i2]
-			r[co] = (r[co] or 0) +1
-		end
-	end
-	return r
-end
-
-local function stats(data)
-	local min,max,sum,count = 0,0,0,0
-	for v,cnt in pairs(data) do
-		count = count + cnt
-		sum = sum + v*cnt
-		min,max = math.min(min, v), math.max(max, v)
-	end
-	if count == 0 then return nil end
-
-	local avg = sum/count
-	local var = 0
-	for v,cnt in pairs(data) do
-		var = var + (avg-v)^2*cnt
-	end
-	local sigma = math.sqrt(var)
-	return {min=min,max=max, sum=sum, count=count, avg=avg, sigma=sigma}
-end
-
--- entropy stuff
-function _M.entropy_single(l, i1,i2, is_match, total)
-	local info
-	local t = perm.count_pred(l, function(map) return map[i1] == i2 end)
-	local f = perm.count_pred(l, function(map) return map[i1] ~= i2 end)
-	if is_match then info = -math.log(t/total,2) else info = -math.log(f/total,2) end
-	if f == 0 then
-		assert(t ~= 0)
-		return - t/total*math.log(t/total,2), info
-	elseif t == 0 then
-		assert(f ~= 0)
-		return - f/total * math.log(f/total,2), info
-	else
-		return - f/total * math.log(f/total,2) - t/total*math.log(t/total,2), info
-	end
-end
-function _M.entropy_single_max(l, total)
-	local r,e1,e2 = -1,-1,-1
-	local entropies = {}
-	for i1=1,#l[1] do
-		for i2=1,#l[1] do
-			local e = _M.entropy_single(l, i1,i2, false, total)
-			entropies[e] = (entropies[e] or 0) +1
-			if e > r then
-				r,e1,e2 = e,i1,i2
-			end
-		end
-	end
-	return r,e1,e2, entropies
-end
-function _M.entropy_all(l, constr, total, dup, lights)
-	local e,info = 0,-1
-	local lights_real = constr.num
-	local map = perm.map(l, function(i,map2) return i, _M.check_all(map2, constr, dup) end)
-	for i=0,lights do
-		local c = perm.count_pred(map, function(v) return v == i end)
-		if i == lights_real then info = -math.log(c/total, 2) end
-		if c ~= 0 then
-			e = e - c/total * math.log(c/total, 2)
-		end
-	end
-	constr.num = lights_real
-	return e,info
-end
-function _M.entropy_all_max(l, total, dup, lights)
-	local r,mi = -1,-1
-	local entropies = {}
-	for ei,map in ipairs(l) do
-		local e = _M.entropy_all(l, {matches=map, cnt=lights, num=#map}, total, dup, lights)
-		entropies[e] = (entropies[e] or 0) +1
-		if e > r then
-			r,mi = e,ei
-		end
-	end
-	return r,l[mi], entropies
-end
-function _M.entropy(poss, c, dup, fast, i, bound, calc_stats)
-	local g,h,h_real,info
-	local stat = {}
-	if c.cnt > 1 then
-		-- all
-		-- calculating the max entropy is very expensive (10(lights) *
-		-- #poss(possible matchings) * #poss(count_pred) constraint checks)
-		-- -> only do this if the possibilities narrow down a bit
-		if #poss <= bound then
-			pr_time("entropy all max start")
-			h,g,stat = _M.entropy_all_max(poss, #poss, dup, 10)
-			pr_time("entropy all max end")
-		else
-			h,g = 0,{}
-		end
-		pr_time("entropy all start")
-		h_real,info = _M.entropy_all(poss, c, #poss, dup, 10)
-		pr_time("entropy all end")
-	else
-		-- single
-		local g1,g2
-		if #poss <= 3628800 and i > 1 then
-			pr_time("entropy single max start")
-			h,g1,g2,stat = _M.entropy_single_max(poss, #poss)
-			pr_time("entropy single max end")
-		else
-			h,g1,g2,stat = 0,1,1,{}
-		end
-		for i1,i2 in pairs(c.matches) do
-			pr_time("entropy single start")
-			h_real,info = _M.entropy_single(poss, i1,i2, c.num==1, #poss)
-			pr_time("entropy single end")
-			break -- is only one
-		end
-		g = {[g1]=g2}
-	end
-	if calc_stats then
-		stat = stats(stat)
-	else
-		stat = nil
-	end
-	return g,h,stat,h_real,info
-end
-
--- writing/printing functions
-function _M.write_entro_guess(o)
-	local h,g,s1,s2, num, info, stat = o.h,o.g,o.s1,o.s2, o.num, o.info, o.stat
-	io.write(h)
-	for e1,e2 in pairs(g) do
-		io.write(" ", s1[e1], "->", s2[e2])
-	end
-	if stat or (num and info) then
-		io.write("\n\t")
-	end
-	if stat then
-		io.write(" (")
-		local trans = {
-			["min"]   = "min",
-			["max"]   = "max",
-			["sum"]   = "sum",
-			["count"] = "count",
-			["avg"]   = "avg",
-			["sigma"] = "sigma",
-		}
-		for _,k in ipairs{"min", "sum", "count", "avg", "sigma"} do
-			if trans[k] then
-				io.write(trans[k], ": ", stat[k], ", ")
-			end
-		end
-		io.write(")")
-	end
-	if num and info then
-		io.write(" |-> ", num, " -> ", info)
-	end
-	io.write("\n")
-end
-function _M.write_matches(g,s1,s2)
-	for e1,e2 in pairs(g) do
-		io.write(" ", s1[e1], "->", s2[e2])
-	end
-	io.write("\n")
-end
-function _M.print_map(m, s1,s2)
-	for k,v in pairs(m) do
-		io.write(s1[k], " -> ", s2[v], "\n")
-	end
-end
-function _M.poss_print(p, s1,s2)
-	for _,map in ipairs(p) do
-		_M.print_map(map, s1,s2)
-		print()
-	end
-end
-local epsilon = 0.00005
-function _M.prob_tab(p, s1, s2, t)
-	local tab = _M.group_cnt(p, #s1)
-	local ml = 0
-	for _,v in ipairs(s1) do if #v > ml then ml = #v end end
-	for _,v in ipairs(s2) do if #v > ml then ml = #v end end
-	io.write(string.rep(" ", ml+0+1))
-	for j=1,#s2 do
-		io.write(string.format("%"..tostring(ml).."s|", s2[j]))
-	end
-	io.write("\n")
-	for i=1,#s1 do
-		io.write(string.format("%"..tostring(ml).."s|", s1[i]))
-		for j=1,#s2 do
-			local co = string.format("%d|%d", i,j)
-			tab[co] = (tab[co] or 0)/(#p/100)
-			if 80-epsilon < tab[co] and tab[co] < 100+epsilon then
-				io.write(tostring(colors.green), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-			elseif 0-epsilon < tab[co] and tab[co] < 0+epsilon then
-				io.write(tostring(colors.dim),tostring(colors.red), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-			elseif t and t[co] and tab[co] > t[co]-epsilon and tab[co] < t[co]+epsilon then
-				io.write(tostring(colors.bright),tostring(colors.black), string.format("%"..tostring(ml)..".4f", tab[co]), tostring(colors.reset), "|")
-			else
-				io.write(string.format("%"..tostring(ml)..".4f|", tab[co]))
-			end
-		end
-		io.write("\n")
-	end
-	return tab
-end
 function _M.hist(instructions, s1, s2, rev)
 	local len = 0
 	for _,v in ipairs(s1) do len = math.max(len, #v) end
@@ -517,9 +399,9 @@ function _M.hist(instructions, s1, s2, rev)
 	end
 	io.write("\n", string.rep("=", 3+i_*(len+2)), "\n")
 	for _,e in ipairs(instructions) do
-		if e.constraint and e.cnt ~= 1 then
+		if e.cnt ~= 1 then
 			local m = {}
-			for k,v in pairs(e.matches) do m[not rev and k or v] = not rev and v or k end
+			for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
 			io.write(string.format("%02d|", i))
 			for i1=1,#s1 do
 				if not s1[i1]:match("^[dD]ummy$") then
@@ -527,67 +409,12 @@ function _M.hist(instructions, s1, s2, rev)
 					io.write(string.format("%"..tostring(len).."s| ", s2[i2]))
 				end
 			end
+			io.write(("|%.4f|"):format(e.entro_real))
 			io.write("\n")
 			i = i + 1
 		end
 	end
 	io.write("\n")
-end
-
-local function interact(s1,s2, poss, dup, last, tabS, tabA)
-	local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
-	local function translate_constr(co, rev)
-		local c = {apply=false, added=1, num=co.num, cnt=co.cnt, matches={}}
-		for e1,e2 in pairs(co.matches) do
-			assert(lut1[e1]) assert(lut2[e2])
-			if not rev then
-				c.matches[lut1[e1]] = lut2[e2]
-			else
-				c.matches[lut2[e2]] = lut1[e1]
-			end
-		end
-		return c
-	end
-	M = {
-		entropy_single = function(e1,e2, is_match)
-			return _M.entropy_single(poss, lut1[e1], lut2[e2], is_match, #poss)
-		end,
-		entropy_all    = function(co,rev)
-			local c = translate_constr(co, rev)
-			return _M.entropy_app(poss, c, #poss, dup, 10)
-		end,
-		entropy_single_max = function()
-			local h,e1,e2 = _M.entropy_single_max(poss, #poss)
-			_M.write_entro_guess{h=h, g={[e1]=e2}, s1=s1, s2=s2}
-		end,
-		entropy_all_max = function()
-			local h,g = _M.entropy_all_max(poss, #poss, dup, 10)
-			_M.write_entro_guess{h=h, g=g, s1=s1, s2=s2}
-		end,
-		count_applied  = function(co,rev)
-			local c = translate_constr(co, rev)
-			return perm.count_pred(poss, function(map) return _M.check(map, c, dup) end)
-		end,
-		poss_print = function()
-			_M.poss_print(poss, s1, s2)
-		end,
-		tab = function()
-			_M.prob_tab(poss, s1, s2, tabS)
-		end,
-	}
-	if last then
-		M.step = function(co)
-			assert(co.num and co.cnt and co.matches, "matches, num and cnt have to be given")
-			local c = translate_constr(co)
-			poss = perm.filter_pred(poss, function(map)
-				return _M.check_all(map, c, dup) == c.num
-			end)
-		end
-		print("M.step(constr)")
-	end
-	print("M.poss_print()", "M.tab()", "M.entropy_all_max()", "M.entropy_single_max()", "M.entropy_single(e1,e2, is_match) -> entropy,info", "M.entropy_all(constr,rev) -> entropy,info", "count_applied(constr,rev) -> count", "constr={added=%b, apply=%b, leftover=%d, num=%d, matches={...}, cnt=%d, }")
-	prompt.enter()
-	M = nil
 end
 
 local function arguments()
@@ -605,17 +432,17 @@ local function arguments()
 			os.exit(-1)
 		end
 	end
-	local function isChoice(choices, key, value)
-		for _,v in ipairs(choices) do
-			if v == value then return end
-		end
-		io.write("Option ",key," has to be one of ")
-		for _,v in ipairs(choices) do
-			io.write(v," ")
-		end
-		io.write("(was '",value,"')", "\n")
-		os.exit(-1)
-	end
+	-- local function isChoice(choices, key, value)
+	-- 	for _,v in ipairs(choices) do
+	-- 		if v == value then return end
+	-- 	end
+	-- 	io.write("Option ",key," has to be one of ")
+	-- 	for _,v in ipairs(choices) do
+	-- 		io.write(v," ")
+	-- 	end
+	-- 	io.write("(was '",value,"')", "\n")
+	-- 	os.exit(-1)
+	-- end
 	local function file_exists(key,value)
 		local f = io.open(value,"r")
 		if f == nil then
@@ -637,12 +464,13 @@ local function arguments()
 		:set_name(arg[0])
 		:set_description("Runs a simulation of finding one of the right mappings from one set to another by using some hints")
 		:argument("INPUT", "path to the input .dat file", function(k,v) return has_ext("dat", k,v) and file_exists(k,v) end)
-		:option("-i, --interactive=LEVEL", "sets the level of interaction (x to skip first x runs, -x to start with xth run counted from last)", nil, isNumber)
-		:option("-b, --bound=BOUND", "entropy bound", 5000, isNumber)
-		:option("-d, --dot-bound=BOUND", "dot bound", 100, isNumber)
-		:option("-f, --fast=LEVEL", "Fast run (0->no fast, 1->omit entropy, 2->omit prob table)", 0, function(k,v) isChoice({"0","1","2"}, k,v) end)
+		-- :option("-i, --interactive=LEVEL", "sets the level of interaction (x to skip first x runs, -x to start with xth run counted from last)", nil, isNumber)
+		:flag("-i, --[no-]interactive", "interactive shell in the end", false)
+		-- :option("-b, --bound=BOUND", "entropy bound", 5000, isNumber)
+		:option("-d, --dot-bound=BOUND", "dot bound", 200, isNumber)
+		-- :option("-f, --fast=LEVEL", "Fast run (0->no fast, 1->omit entropy, 2->omit prob table)", 0, function(k,v) isChoice({"0","1","2"}, k,v) end)
 		:flag("-r, --[no-]reverse", "switch/reverse sets", false)
-		:flag("-s, --[no-]stats", "collect stats", true)
+		-- :flag("-s, --[no-]stats", "collect stats", true)
 		:option("-o, --output=OUTPUT", "Output STEM for .dot and .pdf", "test", function(k,v) return file_not_exists(k..".pdf",v) and file_not_exists(k..".dot",v) end)
 
 	local arg,err = cli:parse()
@@ -650,109 +478,78 @@ local function arguments()
 		print(err)
 		os.exit(-1)
 	end
-	arg["i"],arg["f"],arg["b"],arg["d"] = tonumber(arg["i"]), tonumber(arg["f"]), tonumber(arg["b"]), tonumber(arg["d"])
-	for _,k in ipairs{"INPUT", "f", "r", "o", "b", "s", "d"} do assert(arg[k] ~= nil) end
+	-- tonumber
+	for _,v in ipairs{"d"} do arg[v] = tonumber(arg[v]) end
+	for _,k in ipairs{"INPUT", "d", "r", "o"} do assert(arg[k] ~= nil) end
 	return arg
+end
+-- create a {} -> {} mapping and insert dup elements
+local function conv(p, dup)
+	-- TODOmoredup
+	assert(#dup[1] == 0 and #dup[2] == 1, "not suported -> try reverse")
+	local d = dup[2][1]
+	for k_ref,_ in pairs(p) do
+		local ret = {}
+		for k,v in pairs(p) do
+			ret[k] = k_ref==k and {v,d} or {v}
+		end
+		coroutine.yield(ret)
+	end
 end
 
 local arg = arguments()
 
 -- parsing
 local file = io.open(arg["INPUT"])
-local s1,s2,instructions,perm_num,dup,added = parse_file(file, arg["r"])
+local s1,s2,instructions,dup = parse_file(file, arg["r"])
 file:close()
+for _,c in ipairs(instructions) do c.table = constraint.gen_table(#s1,#s2) end
 pr_time("parsing done")
 
--- permgen
+-- calculate stuff
+local total = 0
+local left = {}
+-- basic map
 local a = {}
-for i=1,#s1 do a[i] = i end
-local poss = perm.permgen(
-	a,
-	perm_num,
-	{},
-	function(map)
-		return true
-	end,
-	function(map)
-		local r = {}
-		local a = added or 0
-		-- obmit later added stuff
-		for i=1,#map-a do
-			r[i] = map[i]
+-- (#s1-#dup[1]) == (#s2-#dup[2])
+for i=1,(#s1-#dup[1]) do a[i] = i end
+for p in perm.permgen(a, #a, function(m) return conv(m, dup) end) do
+	total = total + 1
+	local eliminated = false
+	for _,c in ipairs(instructions) do
+		if _M.count_lights(p, c) ~= c.right then
+			eliminated = true
+			c:eliminate(p)
+			break
 		end
-		return r
-	end)
-print(("total %d -> max I %f"):format(#poss, -math.log(1/#poss, 2)))
-pr_time("permgen done")
-print()
+	end
+	if not eliminated then table.insert(left, p) end
+end
 
-local tabSingle,tabAll
-for i,c in ipairs(instructions) do
-	if c.add then
-		assert(#poss[1]+1 == dup[1], string.format("%d %d %d", #poss[1], dup[1], dup[2]))
-		poss = perm.poss_append(poss, dup[2])
-		print("add "..s1[dup[1]].." "..s2[dup[2]].." to the possibilities")
-		print(#poss, "poss left")
-	elseif c.constraint then
-		-- entropy stuff
-		if arg["f"] < 1 then
-			local g,h,stat,h_real,info = _M.entropy(poss, c, dup, arg.f, i, arg.b, arg.s)
-			io.write("opt:  ")
-			_M.write_entro_guess{h=h,g=g, s1=s1,s2=s2, stat=stat}
-			io.write("real: ")
-			_M.write_entro_guess{h=h_real, g=c.matches, s1=s1, s2=s2, num=c.num, info=info}
-		end
-		poss = perm.filter_pred(poss, function(map)
-			return _M.check_all(map, c, dup) == c.num
-			-- local x =  _M.check_all(map, c, dup)
-			-- local lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
-			-- if
-			-- 	x ~= c.num and
-			-- 	map[lut1["Alexander"]] == lut2["Sarah"]      and
-			-- 	map[lut1["Danilo"]]    == lut2["Melina"]     and
-			-- 	map[lut1["Diogo"]]     == lut2["Finnja"]     and
-			-- 	map[lut1["Eugen"]]     == lut2["Walentina"]  and
-			-- 	map[lut1["Francesco"]] == lut2["Jules"]      and
-			-- 	map[lut1["Jamy"]]      == lut2["Stefanie"]   and
-			-- 	map[lut1["Josua"]]     == lut2["Aurelia"]    and
-			-- 	map[lut1["Manuel"]]    == lut2["Kathleen"]   and
-			-- 	map[lut1["Salvatore"]] == lut2["Jacqueline"] and
-			-- 	map[lut1["Tommy"]]     == lut2["Jill"]
-			-- then
-			-- 	x =  _M.check_all(map, c, dup, 3)
-			-- 	print(x, c.num)
-			-- 	_M.print_map(c.matches, s1, s2)
-			-- end
-			-- return x == c.num
-		end)
-		print(("%d poss left -> max I %f"):format(#poss, -math.log(1/#poss, 2)))
-		if arg["f"] < 2 then
-			if #poss < 3265920 then
-				if c.cnt > 1 then
-					tabSingle = _M.prob_tab(poss, s1, s2, tabSingle)
-				else
-					tabAll = _M.prob_tab(poss, s1, s2, tabAll)
-				end
-			end
-		end
-		print()
-	else
-		error("invalid instruction")
-	end
-	write_dot(("%s_%d"):format(arg.o,i), poss, s1, s2, arg.d)
-	if arg["i"] and (arg["i"] > i or arg["i"] < i-#instructions) then
-		interact(s1,s2, poss, dup, i == #instructions, tabSingle, tabAll)
-	end
+-- evaluate/print stuff
+print(("total %d -> max I %f"):format(total, -math.log(1/total, 2)))
+
+local tab = constraint.gen_table(#s1, #s2, 0) -- TODOmoredup
+
+local tmp = {table=tab, eliminated=0}
+constraint.apply_table(tmp, constraint.gen_table(#s1,#s2, math.factorial(#s1-#dup[1]-1)*(#s1-#dup[1])), total)
+constraint.print_table(tmp,s1,s2)
+
+tab = constraint.gen_table(#s1, #s2, math.factorial(#s1-#dup[1]-1)*(#s1-#dup[1])) -- TODOmoredup
+print()
+for _,instr in ipairs(instructions) do
+	total = instr:apply_table(tab, total)
+	instr:print_table(s1,s2)
+	print(("%d left -> max I %f"):format(total, -math.log(1/total, 2)))
+	print()
 end
 
 _M.hist(instructions, s1, s2, false)
 print()
 _M.hist(instructions, s1, s2, true)
 
-write_dot(arg.o, poss, s1, s2, arg.d)
--- _M.poss_print(poss, s1, s2)
-
--- TODO store the history of the information contents (see "typical" performance)
+write_dot(arg.o, left, s1, s2, arg.d) -- TODO
+-- _M.poss_print(left, s1, s2)
 
 pr_time("end")
 return _M
