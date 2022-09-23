@@ -34,9 +34,6 @@ jobs:
           git switch build
 
       - run: git log --oneline
-      - name: restore modification times
-        run: ./restore-ts.sh
-        
 
       - name: Install graphviz
         run: |
@@ -74,9 +71,11 @@ jobs:
 
       - name: update on master
         run: |
-          git config --global user.email "updater@noreply.github.com"
           git config --global user.name "Updater"
           git rebase main
+
+      - name: restore modification times
+        run: ./restore-ts.sh
 
       - run: git branch
       - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
