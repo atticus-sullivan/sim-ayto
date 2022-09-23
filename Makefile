@@ -20,7 +20,7 @@ $(ALIAS):
 # 	lua sim_perm.lua -o $(basename $<) $< > $(basename $<).out
 # 	@date
 
-$(OUT): perm.lua sim_perm.lua %.out: %.dat
+$(OUT): %.out: %.dat perm.lua sim_perm.lua
 	@date
 	# lua5.4 sim_perm.lua -o $(basename $<) $< > $(basename $<).out
 	lua sim_perm.lua -c -o $(basename $<) $< > $(basename $<).out
