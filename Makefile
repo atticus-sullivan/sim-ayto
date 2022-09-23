@@ -14,7 +14,7 @@ all: $(OUT)
 $(ALIAS):
 	make $(wildcard */$@)
 
-$(OUT): %.out: %.dat
+$(OUT): perm.lua sim_perm.lua %.out: %.dat
 	@date
 	# lua5.4 sim_perm.lua -o $(basename $<) $< > $(basename $<).out
 	lua sim_perm.lua -o $(basename $<) $< > $(basename $<).out
