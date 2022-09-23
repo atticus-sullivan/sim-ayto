@@ -16,5 +16,6 @@ $(ALIAS):
 
 $(OUT): %.out: %.dat
 	@date
-	lua5.4 sim_perm.lua -o $(basename $<) $< > $(basename $<).out
+	# lua5.4 sim_perm.lua -o $(basename $<) $< > $(basename $<).out
+	lua sim_perm.lua -o $(basename $<) $< > $(basename $<).out
 	@date
