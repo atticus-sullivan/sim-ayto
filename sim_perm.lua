@@ -106,14 +106,22 @@ function constraint:print_table(s1,s2)
 	end
 
 	if self.map then
-		print(self.right)
+		io.write(self.right)
+		if self.noNight then
+			io.write("\tMN#", self.noNight)
+		end
+		if self.noBox then
+			io.write("\tMB#", self.noBox)
+		end
+		io.write("\t", self.name and self.name or "")
+		io.write("\n")
 		_M.print_constr_map(self.map, s1, s2)
 	end
 
 	if self.entro then
 		io.write(("H = %.4f bit/X "):format(self.entro))
 	end
-	io.write(("-> I = %.4f bit"):format(self.entro_real))
+	io.write(("-> I = %.4f bit"):format(math.abs(self.entro_real)))
 	io.write("\n")
 
 	io.write(("%"..tostring(ml).."s|"):format(""))
@@ -135,6 +143,42 @@ function constraint:print_table(s1,s2)
 		end
 		io.write("\n")
 	end
+end
+function constraint:write_dot_tab(s1,s2, fn)
+	local of = io.open(fn..".dot", "w")
+	assert(of, "opening '"..fn..".dot' failed")
+	of:write("digraph structs { node[shape=plaintext] struct[label=<\n")
+	of:write('<table cellspacing="2" border="0" rows="*" columns="*">\n')
+
+	of:write("<tr>")
+	-- pr_time("generate dot tab")
+	of:write("<td></td>")
+	for _,v in ipairs(s2) do
+		of:write("<td><B>", v, "</B></td>")
+	end
+	of:write("</tr>\n")
+	for k1,v1 in ipairs(self.tablePR) do
+		of:write("<tr>")
+		of:write("<td><B>", s1[k1], "</B></td>")
+		for _,v2 in ipairs(v1) do
+			of:write("<td>")
+			if 80-epsilon < v2 and v2 < 100+epsilon then
+				of:write('<font color="darkgreen">')
+			elseif 0-epsilon < v2 and v2 < 0+epsilon then
+				of:write('<font color="red">')
+			else
+				of:write('<font color="black">')
+			end
+			of:write(("%.4f"):format(v2), "</font></td>")
+		end
+		of:write("</tr>\n")
+	end
+	of:write("</table>")
+	of:write(">];}")
+	of:close()
+	-- pr_time("generate pdf")
+	os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
+	os.execute(string.format("dot -Tpng -o '%s.png' '%s.dot'", fn,fn))
 end
 -------------------
 --  HELPER STUFF --
@@ -200,7 +244,7 @@ local function tree_ordering(ps)
 	table.sort(amounts, function(a,b) return a.cnt < b.cnt end)
 	return amounts
 end
-function _M.poss_to_dot(ps, s1,s2, file, collapse)
+function _M.poss_to_dot_tree(ps, s1,s2, file, collapse)
 	local order = tree_ordering(ps)
 	local nodes = {}
 	for _,p in ipairs(ps) do
@@ -240,12 +284,12 @@ function _M.poss_to_dot(ps, s1,s2, file, collapse)
 	file:write("}\n")
 end
 -- just a small wrapper 
-local function write_dot(fn, poss, s1,s2, bound, collapse)
+local function write_dot_tree(fn, poss, s1,s2, bound, collapse)
 	if #poss <= bound then
 		local of = io.open(fn..".dot", "w")
 		assert(of, "opening '"..fn..".dot' failed")
-		pr_time("generate dot")
-		_M.poss_to_dot(poss, s1,s2, of, collapse)
+		pr_time("generate dot tree")
+		_M.poss_to_dot_tree(poss, s1,s2, of, collapse)
 		of:close()
 		pr_time("generate pdf")
 		os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
@@ -555,7 +599,8 @@ _M.hist(instructions, s1, s2, false)
 print()
 _M.hist(instructions, s1, s2, true)
 
-write_dot(arg.o, left, s1, s2, arg.d) -- TODO
+write_dot_tree(arg.o, left, s1, s2, arg.d)
+instructions[#instructions]:write_dot_tab(s1, s2, arg.o.."_tab")
 -- _M.poss_print(left, s1, s2)
 
 pr_time("end")
