@@ -56,7 +56,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build results files
-        run: make all
+        run: make -f Makefile.action all
         
       - name: ls
         run: ls -al ./*

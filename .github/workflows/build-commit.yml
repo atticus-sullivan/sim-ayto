@@ -29,9 +29,9 @@ jobs:
           ref: build
           fetch-depth: 0
       - run: |
-          git fetch --no-tags --depth=1 origin main
-          git checkout -b main
-          git checkout build
+          git fetch --no-tags origin main
+          git checkout -b main origin/main
+          git switch build
 
       - run: git log --oneline
       - name: restore modification times
@@ -66,16 +66,27 @@ jobs:
           luarocks install luaprompt
           luarocks install lua_cliargs
 
+      - name: ls
+        run: ls -al ./*
+
+      - run: git branch
+      - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
+
       - name: update on master
         run: |
+          git config --global user.email "updater@noreply.github.com"
+          git config --global user.name "Updater"
           git rebase main
+
+      - run: git branch
+      - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
 
       - name: ls
         run: ls -al ./*
 
       # Runs a single command using the runners shell
       - name: Build results files
-        run: make all
+        run: make -f Makefile.action all
         
       - name: ls
         run: ls -al ./*
