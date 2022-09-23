@@ -466,6 +466,7 @@ local function arguments()
 		:argument("INPUT", "path to the input .dat file", function(k,v) return has_ext("dat", k,v) and file_exists(k,v) end)
 		-- :option("-i, --interactive=LEVEL", "sets the level of interaction (x to skip first x runs, -x to start with xth run counted from last)", nil, isNumber)
 		:flag("-i, --[no-]interactive", "interactive shell in the end", false)
+		:flag("-c, --[no-]color", "use color in shell output", false)
 		-- :option("-b, --bound=BOUND", "entropy bound", 5000, isNumber)
 		:option("-d, --dot-bound=BOUND", "dot bound", 200, isNumber)
 		-- :option("-f, --fast=LEVEL", "Fast run (0->no fast, 1->omit entropy, 2->omit prob table)", 0, function(k,v) isChoice({"0","1","2"}, k,v) end)
@@ -480,7 +481,7 @@ local function arguments()
 	end
 	-- tonumber
 	for _,v in ipairs{"d"} do arg[v] = tonumber(arg[v]) end
-	for _,k in ipairs{"INPUT", "d", "r", "o"} do assert(arg[k] ~= nil) end
+	for _,k in ipairs{"INPUT", "d", "r", "o", "c"} do assert(arg[k] ~= nil) end
 	return arg
 end
 -- create a {} -> {} mapping and insert dup elements
@@ -498,6 +499,12 @@ local function conv(p, dup)
 end
 
 local arg = arguments()
+
+if not arg.c then
+	colors = setmetatable({}, {
+		__index = function(_,_) return "" end
+	})
+end
 
 -- parsing
 local file = io.open(arg["INPUT"])
