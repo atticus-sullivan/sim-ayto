@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: build
 
 # Controls when the workflow will run
 on:
@@ -26,9 +26,41 @@ jobs:
       # see https://github.com/actions/checkout#usage for reference
       - uses: actions/checkout@v3
 
+      - name: Install graphviz
+        run: |
+          sudo apt-get update
+          sudo apt install graphviz
+
+      # Runs multiple commands using the runners shell
+      # - name: install lua
+      #   run: |
+      #     curl -R -O https://www.lua.org/ftp/lua-5.4.4.tar.gz
+      #     tar zxf lua-5.4.4.tar.gz
+      #     cd lua-5.4.4
+      #     make all
+      #     sudo make install
+      #     ls -al /usr/local/bin/
+
+      - name: Install lua
+        uses: leafo/gh-actions-lua@v9
+
+      - name: Install LuaRocks
+        # You may pin to the exact commit or the version.
+        uses: leafo/gh-actions-luarocks@v4.3.0
+
+      - name: install luarocks deps
+        run: |
+          luarocks install lua-term
+          luarocks install luaprompt
+          luarocks install lua_cliargs
+
       # Runs a single command using the runners shell
       - name: Build results files
         run: make all
-      - uses: stefanzweifel/git-auto-commit-action@v4
+        
+      - name: ls
+        run: ls -al ./*
+        
+      - uses: actions/upload-artifact@v3.1.0
         with:
-          commit_message: "Update results"
+          path: ./s*/*.out
