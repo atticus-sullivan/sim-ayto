@@ -25,10 +25,8 @@ Max
 Micha
 Pharrell
 
-
 0 # E03
 Zoe -> Martin
-
 
 3 # E03
 Anna     -> Micha
@@ -41,7 +39,6 @@ Karina   -> Pharrell
 Luisa    -> Fabio
 Ricarda  -> Maurice
 Zoe      -> Luca
-
 
 0 # E05
 Karina -> Pharrell
@@ -58,11 +55,9 @@ Luisa    -> Calvin
 Ricarda  -> Maurice
 Zoe      -> Lukas
 
-
 0 # E07
 Celina -> Lukas
 # Calvin -> Isabelle
-
 
 3 # E07
 Anna     -> Martin
@@ -76,19 +71,15 @@ Luisa    -> Pharrell
 Ricarda  -> Maurice
 Zoe      -> Max
 
-
 # ? # E09
 # Amadu -> Isabelle
-
 
 1 # E09 Lukas will die Villa verlassen
 Luisa -> Lukas
 
-
 add
 Dummy
 Felix
-
 
 1 # E09 Lukas will die Villa verlassen
 Luisa -> Lukas
@@ -96,10 +87,8 @@ Luisa -> Lukas
 0 # E09 Lukas will die Villa verlassen
 Luisa -> Felix
 
-
 0 # E11
 Ricarda -> Felix
-
 
 3 # E12
 Anna     -> Pharrell
@@ -114,11 +103,9 @@ Ricarda  -> Max
 Zoe      -> Luca
 # Calvin
 
-
 0 # E13
 # Max -> Karina
 Isabelle -> Pharrell
-
 
 3 # E14
 Anna     -> Micha
@@ -133,14 +120,12 @@ Ricarda  -> Pharrell
 Zoe      -> Luca
 # Amadu -> Isabelle
 
-
 1 # E15
 Cecilia -> Amadu
 # Gina    -> Fabio
 
 0 # E15
 Cecilia -> Felix
-
 
 4 # E16
 Anna     -> Micha
@@ -154,7 +139,6 @@ Luisa    -> Lukas
 Ricarda  -> Pharrell
 Zoe      -> Luca
 # Ricarda  -> Maurice
-
 
 # ? # E17
 # Anna -> Micha
