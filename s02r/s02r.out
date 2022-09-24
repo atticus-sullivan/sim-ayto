@@ -1,5 +1,5 @@
-total 36288000 -> max I 25.112989
--> I = -0.0000 bit
+total 36288000 -> 25.112989 bit left
+-> I = 0.0000 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
     Anna| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000|
  Cecilia| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000|
@@ -12,8 +12,8 @@ Isabelle| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000
  Ricarda| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000|
      Zoe| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000|
 
-opt: Zoe -> Martin => H = -nan
-0
+opt: Anna -> Amadu => H = 0.46899559358928
+0	MB#1	E03 
 Zoe -> Martin
 H = 0.5033 bit/X -> I = 0.1520 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -27,9 +27,9 @@ Isabelle|  9.8765|  9.8765|  9.8765|  9.8765|  9.8765| 11.1111|  9.8765|  9.8765
    Luisa|  9.8765|  9.8765|  9.8765|  9.8765|  9.8765| 11.1111|  9.8765|  9.8765|  9.8765|  9.8765| 10.0000|
  Ricarda|  9.8765|  9.8765|  9.8765|  9.8765|  9.8765| 11.1111|  9.8765|  9.8765|  9.8765|  9.8765| 10.0000|
      Zoe| 11.1111| 11.1111| 11.1111| 11.1111| 11.1111|  0.0000| 11.1111| 11.1111| 11.1111| 11.1111| 10.0000|
-32659200 left -> max I 24.960986
+32659200 left -> 24.960986 bit left
 
-3
+3	MN#1	E04 
 Anna -> Micha
 Cecilia -> Amadu
 Celina -> Martin
@@ -52,10 +52,10 @@ Isabelle|  7.8099|  7.8099|  7.8099|  7.5296| 29.3675|  8.4337|  7.8099|  7.8099
    Luisa|  7.8099|  7.8099| 29.3675|  7.5296|  7.8099|  8.4337|  7.8099|  7.8099|  7.8099|  7.8099| 10.0000|
  Ricarda|  7.8099|  7.8099|  7.8099|  7.5296|  7.8099|  8.4337| 29.3675|  7.8099|  7.8099|  7.8099| 10.0000|
      Zoe|  8.4337|  8.4337|  8.4337| 32.5301|  8.4337|  0.0000|  8.4337|  8.4337|  8.4337|  8.4337| 10.0000|
-2051760 left -> max I 20.968431
+2051760 left -> 20.968431 bit left
 
-opt: Karina -> Pharrell => H = -nan
-0
+opt: Celina -> Martin => H = 0.91005342901392
+0	MB#2	E05 
 Karina -> Pharrell
 H = 0.9794 bit/X -> I = 0.5016 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -69,9 +69,9 @@ Isabelle|  7.0211|  7.0211|  7.0211|  6.7313| 32.6226|  7.4627|  7.0211|  7.0211
    Luisa|  7.0211|  7.0211| 32.6226|  6.7313|  7.0211|  7.4627|  7.0211|  7.0211|  7.0211| 11.0571| 10.0000|
  Ricarda|  7.0211|  7.0211|  7.0211|  6.7313|  7.0211|  7.4627| 32.6226|  7.0211|  7.0211| 11.0571| 10.0000|
      Zoe|  7.4627|  7.4627|  7.4627| 35.8209|  7.4627|  0.0000|  7.4627|  7.4627|  7.4627| 11.9403| 10.0000|
-1449210 left -> max I 20.466835
+1449210 left -> 20.466835 bit left
 
-2
+2	MN#2	E06 
 Anna -> Micha
 Cecilia -> Pharrell
 Celina -> Max
@@ -94,10 +94,10 @@ Isabelle|  7.8364|  7.7237|  7.4433|  7.5589| 27.9202| 11.6433|  5.5962|  7.7583
    Luisa|  7.8046| 10.9900| 27.0819|  7.5329|  7.8364|  8.4347|  5.7494|  7.7873|  5.7494| 11.0334| 10.0000|
  Ricarda|  5.7494|  5.6367|  5.3707|  5.4025|  5.5962|  6.0038| 49.6748|  5.6106|  2.8559|  8.0994| 10.0000|
      Zoe|  8.4347|  8.3365|  8.0185| 31.1548| 11.6433|  0.0000|  6.0038|  8.4261|  6.0038| 11.9786| 10.0000|
-345950 left -> max I 18.400204
+345950 left -> 18.400204 bit left
 
-opt: Celina -> Lukas => H = -nan
-0
+opt: Anna -> Micha => H = 0.99996948692536
+0	MB#3	E07 
 Celina -> Lukas
 H = 0.4084 bit/X -> I = 0.1134 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -111,9 +111,9 @@ Isabelle|  7.6517|  7.5141|  7.2921|  7.4547| 30.2033| 10.7036|  5.5003|  7.5547
    Luisa|  7.7642| 11.2101| 26.4916|  7.5704|  8.4772|  8.1801|  5.7942|  7.8174|  5.7942| 10.9006| 10.0000|
  Ricarda|  5.7942|  5.6879|  5.4409|  5.4816|  6.0538|  5.8755| 48.9837|  5.6379|  2.9518|  8.0926| 10.0000|
      Zoe|  8.4459|  8.3615|  8.0238| 30.2533| 12.5954|  0.0000|  6.0225|  8.4740|  6.0225| 11.8011| 10.0000|
-319800 left -> max I 18.286810
+319800 left -> 18.286810 bit left
 
-3
+3	MN#3	E08 
 Anna -> Martin
 Cecilia -> Amadu
 Celina -> Fabio
@@ -136,10 +136,10 @@ Isabelle|  5.5772|  6.9994|  7.7245| 18.8232| 22.3369| 11.0151|  1.8963|  7.7803
    Luisa|  5.1590|  9.5371| 19.1299|  7.4456|  8.3659|  8.5053|  1.8405|  7.6408|  6.9158| 25.4601| 10.0000|
  Ricarda|  0.6414|  1.6174|  1.8126|  2.0636|  2.2309|  2.3982| 83.8818|  1.9799|  0.5577|  2.8165| 10.0000|
      Zoe|  5.8840|  7.8360|  8.3380| 22.3926| 12.7440|  0.0000|  2.1751| 21.2772|  8.0870| 11.2660| 10.0000|
-35860 left -> max I 15.130088
+35860 left -> 15.130088 bit left
 
-opt: Anna -> Lukas => H = -nan
-1
+opt: Cecilia -> Amadu => H = 0.99614598331292
+1	MB#4	E09_Lukas-will-die-Villa-verlassen 
 Luisa -> Lukas
 H = -nan bit/X -> I = 3.5793 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -153,27 +153,10 @@ Isabelle|  5.6667|  8.0000|  9.0000| 26.3333|  0.0000| 17.3333|  1.0000|  9.0000
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000| 10.0000|
  Ricarda|  0.0000|  0.6667|  0.6667|  1.0000|  0.0000|  1.0000| 93.3333|  0.6667|  0.0000|  2.6667| 10.0000|
      Zoe|  4.6667|  7.3333| 10.3333| 25.3333|  0.0000|  0.0000|  0.6667| 24.6667| 11.3333| 15.6667| 10.0000|
-3000 left -> max I 11.550747
+3000 left -> 11.550747 bit left
 
-opt: Anna -> Lukas => H = -nan
-1
-Luisa -> Lukas
-H = -nan bit/X -> I = -0.0000 bit
-        |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
-    Anna|  3.3333|  7.0000| 11.0000|  5.0000|  0.0000| 17.3333|  0.0000|  6.6667| 36.3333| 13.3333| 10.0000|
- Cecilia| 68.6667|  3.3333|  5.0000|  3.0000|  0.0000|  5.0000|  0.0000|  3.3333|  2.6667|  9.0000| 10.0000|
-  Celina|  3.0000|  8.3333| 23.6667|  6.3333|  0.0000| 25.0000|  0.6667|  9.3333|  8.6667| 15.0000| 10.0000|
-  Franzi|  6.6667|  8.3333| 10.3333| 12.3333|  0.0000| 11.3333|  1.6667| 25.6667|  8.3333| 15.3333| 10.0000|
-    Gina|  2.6667| 25.6667| 10.3333|  9.6667|  0.0000|  9.3333|  2.0000| 10.6667| 14.6667| 15.0000| 10.0000|
-Isabelle|  5.6667|  8.0000|  9.0000| 26.3333|  0.0000| 17.3333|  1.0000|  9.0000|  9.6667| 14.0000| 10.0000|
-  Karina|  5.3333| 31.3333| 19.6667| 11.0000|  0.0000| 13.6667|  0.6667| 10.0000|  8.3333|  0.0000| 10.0000|
-   Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000| 10.0000|
- Ricarda|  0.0000|  0.6667|  0.6667|  1.0000|  0.0000|  1.0000| 93.3333|  0.6667|  0.0000|  2.6667| 10.0000|
-     Zoe|  4.6667|  7.3333| 10.3333| 25.3333|  0.0000|  0.0000|  0.6667| 24.6667| 11.3333| 15.6667| 10.0000|
-3000 left -> max I 11.550747
-
-opt: Anna -> Lukas => H = -nan
-0
+opt: Anna -> Micha => H = 0.94541536531084
+0	E09_Lukas-will-die-Villa-verlassen 
 Luisa -> Felix
 H = 0.5033 bit/X -> I = 0.1520 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -187,10 +170,10 @@ Isabelle|  5.6667|  8.0000|  9.0000| 26.3333|  0.0000| 17.3333|  1.0000|  9.0000
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  0.6667|  0.6667|  1.0000|  0.0000|  1.0000| 93.3333|  0.6667|  0.0000|  2.6667| 11.1111|
      Zoe|  4.6667|  7.3333| 10.3333| 25.3333|  0.0000|  0.0000|  0.6667| 24.6667| 11.3333| 15.6667| 11.1111|
-2700 left -> max I 11.398744
+2700 left -> 11.398744 bit left
 
-opt: Anna -> Lukas => H = -nan
-0
+opt: Anna -> Micha => H = 0.94541536531084
+0	MB#5	E11 
 Ricarda -> Felix
 H = 0.5436 bit/X -> I = 0.1699 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -204,9 +187,9 @@ Isabelle|  5.6667|  8.0000|  9.0000| 26.3333|  0.0000| 17.3333|  1.0000|  9.0000
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  0.6667|  0.6667|  1.0000|  0.0000|  1.0000| 93.3333|  0.6667|  0.0000|  2.6667|  0.0000|
      Zoe|  4.6667|  7.3333| 10.3333| 25.3333|  0.0000|  0.0000|  0.6667| 24.6667| 11.3333| 15.6667| 12.5000|
-2400 left -> max I 11.228819
+2400 left -> 11.228819 bit left
 
-3
+3	MN#4	E12 
 Anna -> Pharrell
 Cecilia -> Amadu
 Celina -> Fabio
@@ -229,10 +212,10 @@ Isabelle|  4.3424| 11.2903|  7.8164| 16.9975|  0.0000| 22.4566|  1.7370|  9.3052
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  0.2481|  0.9926|  2.6055|  0.0000|  1.1166| 92.0596|  0.0000|  0.0000|  2.9777|  0.0000|
      Zoe|  2.3573|  8.9330|  8.9330| 29.4045|  0.0000|  0.0000|  1.7370| 25.6824| 11.1663| 11.7866| 12.1588|
-806 left -> max I 9.654636
+806 left -> 9.654636 bit left
 
-opt: Anna -> Lukas => H = -nan
-0
+opt: Anna -> Micha => H = 0.9603906311596
+0	MB#6	E13 
 Isabelle -> Pharrell
 H = 0.6878 bit/X -> I = 0.2431 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -246,9 +229,9 @@ Isabelle|  5.1395| 13.3627|  9.2511| 20.1175|  0.0000| 26.5786|  2.0558| 11.0132
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  0.2937|  1.0279|  3.0837|  0.0000|  0.2937| 91.7768|  0.0000|  0.0000|  3.5242|  0.0000|
      Zoe|  2.4963|  8.2232|  9.1043| 28.3407|  0.0000|  0.0000|  2.0558| 23.2012| 12.6285| 13.9501| 12.1880|
-681 left -> max I 9.411511
+681 left -> 9.411511 bit left
 
-3
+3	MN#5	E14 
 Anna -> Micha
 Cecilia -> Maurice
 Celina -> Fabio
@@ -271,10 +254,10 @@ Isabelle|  4.0000| 10.8571|  2.2857| 21.1429|  0.0000| 25.7143|  4.0000| 16.5714
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  1.1429|  4.0000|  0.0000|  0.0000|  1.1429| 93.7143|  0.0000|  0.0000|  0.0000|  0.0000|
      Zoe|  4.5714| 10.2857|  6.2857| 28.0000|  0.0000|  0.0000|  0.0000| 16.0000| 14.8571| 20.0000| 11.4286|
-175 left -> max I 7.451211
+175 left -> 7.451211 bit left
 
-opt: Anna -> Amadu => H = -nan
-1
+opt: Celina -> Fabio => H = 0.9988455359952
+1	MB#7	E15 
 Cecilia -> Amadu
 H = -nan bit/X -> I = 0.4288 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -288,10 +271,10 @@ Isabelle|  0.0000| 14.6154|  3.0769| 10.0000|  0.0000| 34.6154|  5.3846| 16.9231
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  1.5385|  5.3846|  0.0000|  0.0000|  1.5385| 91.5385|  0.0000|  0.0000|  0.0000|  0.0000|
      Zoe|  0.0000| 13.8462|  8.4615| 26.9231|  0.0000|  0.0000|  0.0000| 14.6154| 14.6154| 21.5385| 10.7692|
-130 left -> max I 7.022368
+130 left -> 7.022368 bit left
 
-opt: Anna -> Amadu => H = -nan
-0
+opt: Anna -> Micha => H = 0.9916178297881
+0	E15 
 Cecilia -> Felix
 H = 0.5313 bit/X -> I = 0.1644 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -305,9 +288,9 @@ Isabelle|  0.0000| 14.6552|  3.4483| 11.2069|  0.0000| 33.6207|  5.1724| 16.3793
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  1.7241|  5.1724|  0.0000|  0.0000|  1.7241| 91.3793|  0.0000|  0.0000|  0.0000|  0.0000|
      Zoe|  0.0000| 13.7931|  8.6207| 25.8621|  0.0000|  0.0000|  0.0000| 15.5172| 14.6552| 21.5517| 12.0690|
-116 left -> max I 6.857981
+116 left -> 6.857981 bit left
 
-4
+4	MN#6	E16 
 Anna -> Micha
 Cecilia -> Amadu
 Celina -> Fabio
@@ -318,7 +301,7 @@ Karina -> Calvin
 Luisa -> Lukas
 Ricarda -> Pharrell
 Zoe -> Luca
--> I = -0.0000 bit
+-> I = 0.0000 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
     Anna|  0.0000|  6.8966| 24.1379|  6.0345|  0.0000|  5.1724|  0.0000|  7.7586| 44.8276|  5.1724| 12.0690|
  Cecilia|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
@@ -330,24 +313,42 @@ Isabelle|  0.0000| 14.6552|  3.4483| 11.2069|  0.0000| 33.6207|  5.1724| 16.3793
    Luisa|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|
  Ricarda|  0.0000|  1.7241|  5.1724|  0.0000|  0.0000|  1.7241| 91.3793|  0.0000|  0.0000|  0.0000|  0.0000|
      Zoe|  0.0000| 13.7931|  8.6207| 25.8621|  0.0000|  0.0000|  0.0000| 15.5172| 14.6552| 21.5517| 12.0690|
-116 left -> max I 6.857981
+116 left -> 6.857981 bit left
 
-# |    Anna|  Cecilia|   Celina|   Franzi|     Gina| Isabelle|   Karina|    Luisa|  Ricarda|      Zoe| 
-=======================================================================================================
-01|   Micha|    Amadu|   Martin|      Max|   Calvin|    Lukas| Pharrell|    Fabio|  Maurice|     Luca| |3.9926|
-02|   Micha| Pharrell|      Max|     Luca|    Amadu|   Martin|    Fabio|   Calvin|  Maurice|    Lukas| |2.0666|
-03|  Martin|    Amadu|    Fabio|    Lukas|    Micha|     Luca|   Calvin| Pharrell|  Maurice|      Max| |3.1567|
-04|Pharrell|    Amadu|    Fabio|    Micha|    Felix|  Maurice|   Martin|    Lukas|      Max|     Luca| |1.5742|
-05|   Micha|  Maurice|    Fabio|      Max|    Felix|   Martin|   Calvin|    Lukas| Pharrell|     Luca| |1.9603|
-06|   Micha|    Amadu|    Fabio|      Max|    Felix|   Martin|   Calvin|    Lukas| Pharrell|     Luca| |-0.0000|
+  #  |R |    Anna|  Cecilia|   Celina|   Franzi|     Gina| Isabelle|   Karina|    Luisa|  Ricarda|      Zoe|   I   
+=====================================================================================================================
+MB#01|00|        |         |         |         |         |         |         |         |         |   Martin| |0.1520|
+MN#01|03|   Micha|    Amadu|   Martin|      Max|   Calvin|    Lukas| Pharrell|    Fabio|  Maurice|     Luca| |3.9926|
+MB#02|00|        |         |         |         |         |         | Pharrell|         |         |         | |0.5016|
+MN#02|02|   Micha| Pharrell|      Max|     Luca|    Amadu|   Martin|    Fabio|   Calvin|  Maurice|    Lukas| |2.0666|
+MB#03|00|        |         |    Lukas|         |         |         |         |         |         |         | |0.1134|
+MN#03|03|  Martin|    Amadu|    Fabio|    Lukas|    Micha|     Luca|   Calvin| Pharrell|  Maurice|      Max| |3.1567|
+MB#04|01|        |         |         |         |         |         |         |    Lukas|         |         | |3.5793|
+  -  |00|        |         |         |         |         |         |         |    Felix|         |         | |0.1520|
+MB#05|00|        |         |         |         |         |         |         |         |    Felix|         | |0.1699|
+MN#04|03|Pharrell|    Amadu|    Fabio|    Micha|    Felix|  Maurice|   Martin|    Lukas|      Max|     Luca| |1.5742|
+MB#06|00|        |         |         |         |         | Pharrell|         |         |         |         | |0.2431|
+MN#05|03|   Micha|  Maurice|    Fabio|      Max|    Felix|   Martin|   Calvin|    Lukas| Pharrell|     Luca| |1.9603|
+MB#07|01|        |    Amadu|         |         |         |         |         |         |         |         | |0.4288|
+  -  |00|        |    Felix|         |         |         |         |         |         |         |         | |0.1644|
+MN#06|04|   Micha|    Amadu|    Fabio|      Max|    Felix|   Martin|   Calvin|    Lukas| Pharrell|     Luca| |0.0000|
 
 
-# |   Amadu|   Calvin|    Fabio|     Luca|    Lukas|   Martin|  Maurice|      Max|    Micha| Pharrell|    Felix| 
-=================================================================================================================
-01| Cecilia|     Gina|    Luisa|      Zoe| Isabelle|   Celina|  Ricarda|   Franzi|     Anna|   Karina|      nil| |3.9926|
-02|    Gina|    Luisa|   Karina|   Franzi|      Zoe| Isabelle|  Ricarda|   Celina|     Anna|  Cecilia|      nil| |2.0666|
-03| Cecilia|   Karina|   Celina| Isabelle|   Franzi|     Anna|  Ricarda|      Zoe|     Gina|    Luisa|      nil| |3.1567|
-04| Cecilia|      nil|   Celina|      Zoe|    Luisa|   Karina| Isabelle|  Ricarda|   Franzi|     Anna|     Gina| |1.5742|
-05|     nil|   Karina|   Celina|      Zoe|    Luisa| Isabelle|  Cecilia|   Franzi|     Anna|  Ricarda|     Gina| |1.9603|
-06| Cecilia|   Karina|   Celina|      Zoe|    Luisa| Isabelle|      nil|   Franzi|     Anna|  Ricarda|     Gina| |-0.0000|
+  #  |R |   Amadu|   Calvin|    Fabio|     Luca|    Lukas|   Martin|  Maurice|      Max|    Micha| Pharrell|    Felix|   I   
+===============================================================================================================================
+MB#01|00|        |         |         |         |         |      Zoe|         |         |         |         |         | |0.1520|
+MN#01|03| Cecilia|     Gina|    Luisa|      Zoe| Isabelle|   Celina|  Ricarda|   Franzi|     Anna|   Karina|         | |3.9926|
+MB#02|00|        |         |         |         |         |         |         |         |         |   Karina|         | |0.5016|
+MN#02|02|    Gina|    Luisa|   Karina|   Franzi|      Zoe| Isabelle|  Ricarda|   Celina|     Anna|  Cecilia|         | |2.0666|
+MB#03|00|        |         |         |         |   Celina|         |         |         |         |         |         | |0.1134|
+MN#03|03| Cecilia|   Karina|   Celina| Isabelle|   Franzi|     Anna|  Ricarda|      Zoe|     Gina|    Luisa|         | |3.1567|
+MB#04|01|        |         |         |         |    Luisa|         |         |         |         |         |         | |3.5793|
+  -  |00|        |         |         |         |         |         |         |         |         |         |    Luisa| |0.1520|
+MB#05|00|        |         |         |         |         |         |         |         |         |         |  Ricarda| |0.1699|
+MN#04|03| Cecilia|         |   Celina|      Zoe|    Luisa|   Karina| Isabelle|  Ricarda|   Franzi|     Anna|     Gina| |1.5742|
+MB#06|00|        |         |         |         |         |         |         |         |         | Isabelle|         | |0.2431|
+MN#05|03|        |   Karina|   Celina|      Zoe|    Luisa| Isabelle|  Cecilia|   Franzi|     Anna|  Ricarda|     Gina| |1.9603|
+MB#07|01| Cecilia|         |         |         |         |         |         |         |         |         |         | |0.4288|
+  -  |00|        |         |         |         |         |         |         |         |         |         |  Cecilia| |0.1644|
+MN#06|04| Cecilia|   Karina|   Celina|      Zoe|    Luisa| Isabelle|         |   Franzi|     Anna|  Ricarda|     Gina| |0.0000|
 
