@@ -73,7 +73,7 @@ function constraint:apply_table(tab, total)
 		local max = {H=0,i1=-1,i2=-1} -- percent values
 		for i1,v1 in ipairs(tab) do
 			for i2,c in ipairs(v1) do
-				c = c/(total+self.eliminate) -- use old total
+				c = c/(total+self.eliminated) -- use old total
 				assert(c < 1.1)
 				local H = - c * math.log(c,2) - (1-c) * math.log(1-c,2)
 				if H > max.H then
@@ -462,15 +462,15 @@ function _M.hist(instructions, s1, s2, rev)
 			i_ = i_ + 1
 		end
 	end
-	io.write(("|%4s|"):format("I"))
-	io.write("\n", string.rep("=", 3+i_*(len+2)), "\n")
+	io.write("  I   ")
+	io.write("\n", string.rep("=",6 + 3 + 5 + 3 + i_*(len+2)), "\n")
 	for _,e in ipairs(instructions) do
 		local m = {}
 		for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
-		if e.noMN and e.cnt ~= 1 then
-			io.write(string.format("MN#%02d|", e.noMN))
-		elseif e.noMB and e.cnt == 1 then
-			io.write(string.format("MB#%02d|", e.noMB))
+		if e.noNight and e.cnt ~= 1 then
+			io.write(string.format("MN#%02d|", e.noNight))
+		elseif e.noBox and e.cnt == 1 then
+			io.write(string.format("MB#%02d|", e.noBox))
 		else
 			io.write("  -  |")
 		end
