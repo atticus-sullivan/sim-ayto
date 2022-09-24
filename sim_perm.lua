@@ -19,7 +19,7 @@ local _M = {}
 --  CONSTRAINT --
 -----------------
 -- default values
-local constraint = {table=nil,tablePR=nil, eliminated=0, map=nil,cnt=nil, right=nil}
+local constraint = {table=nil,tablePR=nil, eliminated=0, map=nil,cnt=nil, right=nil, name=nil,flags=nil, noNight=nil,noBox=nil}
 constraint.__index = constraint
 -- constructor
 function constraint:new(o)
@@ -56,9 +56,9 @@ function constraint:apply_table(tab, total)
 	total = total - self.eliminated
 	if self.cnt == 1 then
 		for k,v in pairs(self.map) do
-			assert(not self.entro)
+			assert(not self.entro) -- ensure loop is only run once
 			local nomatch, match
-			-- if could be avoided (just added anyways)
+			-- the if could be avoided (just added anyways)
 			if self.right == 1 then
 				nomatch = - self.table[k][v]/total * math.log(self.table[k][v]/total, 2)
 				  match = - (total-self.table[k][v])/total * math.log((total-self.table[k][v])/total, 2)
@@ -69,6 +69,20 @@ function constraint:apply_table(tab, total)
 			self.entro = nomatch + match
 		end
 	end
+	if self.cnt == 1 then
+		local max = {H=0,i1=-1,i2=-1} -- percent values
+		for i1,v1 in ipairs(tab) do
+			for i2,c in ipairs(v1) do
+				c = c/(total+self.eliminate) -- use old total
+				assert(c < 1.1)
+				local H = - c * math.log(c,2) - (1-c) * math.log(1-c,2)
+				if H > max.H then
+					max.H=H max.i1=i1 max.i2=i2 max.p=c
+				end
+			end
+		end
+		self.entro_max = max
+	end
 	self.tablePR = {}
 	for k1,v1 in ipairs(self.table) do
 		self.tablePR[k1] = {}
@@ -76,19 +90,6 @@ function constraint:apply_table(tab, total)
 			self.tablePR[k1][k2] = (tab[k1][k2] - v2)*100/total
 			tab[k1][k2]          = (tab[k1][k2] - v2)
 		end
-	end
-	if self.cnt == 1 then
-		local min = {p=101,i1=-1,i2=-1} -- percent values
-		for i1,v1 in ipairs(self.tablePR) do
-			for i2,p in ipairs(v1) do
-				assert(p < 101)
-				if p < min.p then
-					min.p = p min.i1 = i1 min.i2 = i2
-				end
-			end
-		end
-		min.H = - min.p * math.log(min.p,2) - (1-min.p) * math.log(1-min.p,2)
-		self.entro_max = min
 	end
 	return total
 end
@@ -332,7 +333,7 @@ end
 local function parse_file(file, rev)
 	local s1,s2,instructions,dup = {},{},{},{{},{}}
 	-- real local
-	local lut1,lut2,state = {},{},0
+	local lut1,lut2,state,final,noNight,noBox = {},{},0,false,1,1
 
 	local function next_line(line)
 		line = file:read("l")
@@ -364,7 +365,17 @@ local function parse_file(file, rev)
 			return
 		end
 		-- constraint
-		local d = {right=tonumber(line:match("^%s*(%d+)%s*")), map={}, cnt=0}
+		local tmp = {}
+		for ele in (line:gsub("#.*", "") .. " "):gmatch("[^%s]* ") do table.insert(tmp, ele) end
+		assert(1 <= #tmp and #tmp <= 3, "Error on parsing '" .. line .. "'")
+		local d = {right=tonumber(tmp[1]), name=tmp[2], flags=tmp[3], map={}, cnt=0}
+		if d.flags and d.flags:match("f") then
+			if not final then
+				final = true
+			else
+				d.flags = d.flags:gsub("f", "")
+			end
+		end
 		line = next_line(line)
 		while line and line ~= "" do
 			local e1,e2
@@ -379,6 +390,15 @@ local function parse_file(file, rev)
 			d.map[i1] = i2 -- ATTENTION: d.map might be hash-map
 			d.cnt     = d.cnt+1
 			line      = next_line(line)
+		end
+		if not d.flags or not d.flags:match("c") then
+			if d.cnt == 1 then
+				d.noBox = noBox
+				noBox = noBox + 1
+			else
+				d.noNight = noNight
+				noNight = noNight + 1
+			end
 		end
 		assert(d.right >= 0 and d.right <= d.cnt, "invalid right "..tostring(d.right).." vs cnt "..tostring(d.cnt))
 		table.insert(instructions, constraint:new(d))
@@ -433,30 +453,36 @@ function _M.hist(instructions, s1, s2, rev)
 	for _,v in ipairs(s1) do len = math.max(len, #v) end
 	for _,v in ipairs(s2) do len = math.max(len, #v) end
 	if rev then s1,s2 = s2,s1 end
-	local i,i_=1,0
-	io.write("# |")
+	local i_ = 0
+	io.write("  #  |")
+	io.write("R |")
 	for i1=1,#s1 do
 		if not s1[i1]:match("^[dD]ummy$") then
 			io.write(string.format("%"..tostring(len).."s| ", s1[i1]))
 			i_ = i_ + 1
 		end
 	end
+	io.write(("|%4s|"):format("I"))
 	io.write("\n", string.rep("=", 3+i_*(len+2)), "\n")
 	for _,e in ipairs(instructions) do
-		if e.cnt ~= 1 then
-			local m = {}
-			for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
-			io.write(string.format("%02d|", i))
-			for i1=1,#s1 do
-				if not s1[i1]:match("^[dD]ummy$") then
-					local i2 = m[i1] or 11
-					io.write(string.format("%"..tostring(len).."s| ", s2[i2]))
-				end
-			end
-			io.write(("|%.4f|"):format(e.entro_real))
-			io.write("\n")
-			i = i + 1
+		local m = {}
+		for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
+		if e.noMN and e.cnt ~= 1 then
+			io.write(string.format("MN#%02d|", e.noMN))
+		elseif e.noMB and e.cnt == 1 then
+			io.write(string.format("MB#%02d|", e.noMB))
+		else
+			io.write("  -  |")
 		end
+		io.write(string.format("%02d|", e.right))
+		for i1=1,#s1 do
+			if not s1[i1]:match("^[dD]ummy$") then
+				local i2 = m[i1]
+				io.write(string.format("%"..tostring(len).."s| ", s2[i2 or -1] or ""))
+			end
+		end
+		io.write(("|%.4f|"):format(math.abs(e.entro_real)))
+		io.write("\n")
 	end
 	io.write("\n")
 end
@@ -578,7 +604,7 @@ for p in perm.permgen(a, #a, function(m) return conv(m, dup) end) do
 end
 
 -- evaluate/print stuff
-print(("total %d -> max I %f"):format(total, -math.log(1/total, 2)))
+print(("total %d -> %f bit left"):format(total, -math.log(1/total, 2)))
 
 local tab = constraint.gen_table(#s1, #s2, 0) -- TODOmoredup
 
@@ -590,8 +616,11 @@ tab = constraint.gen_table(#s1, #s2, math.factorial(#s1-#dup[1]-1)*(#s1-#dup[1])
 print()
 for _,instr in ipairs(instructions) do
 	total = instr:apply_table(tab, total)
+	if instr.flags and instr.flags:match("f") then
+		print(("="):rep(80))
+	end
 	instr:print_table(s1,s2)
-	print(("%d left -> max I %f"):format(total, -math.log(1/total, 2)))
+	print(("%d left -> %f bit left"):format(total, -math.log(1/total, 2)))
 	print()
 end
 
