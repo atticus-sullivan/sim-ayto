@@ -58,7 +58,7 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
    ![status](./img/05_actions1_dark.png)
    ![status](./img/06_actions2_dark.png)
    ![status](./img/07_actions3_dark.png)
-   Das kann ein wenig dauern (~9-10 min)
+   Das kann ein wenig dauern (~1 min)
    ![status fin](./img/08_actions4_dark.png)
    Fertig (war erfolgreich, falls hier n rotes `x` ist, ist was schief gelaufen, wenn 
    ihr auf `build` klickt und `build results files` aufmacht seht ihr vielleicht wo der
