@@ -15,6 +15,15 @@ prompt.history  = "sim.hist" -- otherwise no history
 
 local _M = {}
 
+local function table_copy(t)
+	if type(t) ~= "table" then return t end
+	local r = {}
+	for k,v in ipairs(t) do
+		r[k] = table_copy(v)
+	end
+	return r
+end
+
 -----------------
 --  CONSTRAINT --
 -----------------
@@ -39,16 +48,21 @@ function constraint.gen_table(l1,l2, init)
 	end
 	return tab
 end
-function constraint:eliminate(p)
+function constraint:eliminate(p, num, ds)
+	num = num or 1
+	ds  = ds or {}
 	assert(self.table)
 	for i1,t2 in pairs(p) do
 		-- for _,i1 in pairs(t1) do
 			for _,i2 in pairs(t2) do
-				self.table[i1][i2] = self.table[i1][i2]+1
+				self.table[i1][i2] = self.table[i1][i2]+num
 			end
 		-- end
+			for _,d in ipairs(ds) do
+				self.table[i1][d] = self.table[i1][d]+1 --TODOmoredup
+			end
 	end
-	self.eliminated    = self.eliminated + 1
+	self.eliminated    = self.eliminated + num
 end
 function constraint:apply_table(tab, total)
 	assert(self.table)
@@ -73,8 +87,9 @@ function constraint:apply_table(tab, total)
 		local max = {H=0,i1=-1,i2=-1} -- percent values
 		for i1,v1 in ipairs(tab) do
 			for i2,c in ipairs(v1) do
+				-- print(string.format("i1:%d i2:%d \t c:%f -> %f el:%d t:%d", i1,i2, c, c/(total+self.eliminated), self.eliminated, total))
 				c = c/(total+self.eliminated) -- use old total
-				assert(c < 1.1)
+				assert(c < 1.1, string.format("c:%f el:%d t:%d", c, self.eliminated, total))
 				local H = - c * math.log(c,2) - (1-c) * math.log(1-c,2)
 				if H > max.H then
 					max.H=H max.i1=i1 max.i2=i2 max.p=c
@@ -331,7 +346,7 @@ function _M.poss_print(ps, s1,s2)
 end
 
 local function parse_file(file, rev)
-	local s1,s2,instructions,dup = {},{},{},{{},{}}
+	local s1,s2,instructions,instrs,dup = {},{},{},{},{{},{}}
 	-- real local
 	local lut1,lut2,state,final,noNight,noBox = {},{},0,false,1,1
 
@@ -345,6 +360,7 @@ local function parse_file(file, rev)
 	end
 	local function parse_instruction(line)
 		if line == "add" then
+			assert(#dup[1] == 0 and #dup[2] == 0, "currently only one can be dupped")
 			-- add instruction
 			-- elements will be added at the end -> obmit from permutations
 			line = next_line(line)
@@ -362,6 +378,8 @@ local function parse_file(file, rev)
 				table.insert(dup[2], #work)
 			end
 			lut1,lut2 = _M.gen_lut(s1), _M.gen_lut(s2)
+			table.insert(instructions, instrs)
+			instrs = {}
 			return
 		end
 		-- constraint
@@ -401,7 +419,7 @@ local function parse_file(file, rev)
 			end
 		end
 		assert(d.right >= 0 and d.right <= d.cnt, "invalid right "..tostring(d.right).." vs cnt "..tostring(d.cnt))
-		table.insert(instructions, constraint:new(d))
+		table.insert(instrs, constraint:new(d))
 	end
 
 	local line = file:read("l")
@@ -425,6 +443,7 @@ local function parse_file(file, rev)
 		line = file:read("l")
 	end
 	assert(#s1 - #dup[1] == #s2 - #dup[2], "unbalanced starting point")
+	if #instrs > 0 then table.insert(instructions, instrs) end
 	return s1,s2,instructions,dup
 end
 
@@ -464,25 +483,27 @@ function _M.hist(instructions, s1, s2, rev)
 	end
 	io.write("  I   ")
 	io.write("\n", string.rep("=",6 + 3 + 5 + 3 + i_*(len+2)), "\n")
-	for _,e in ipairs(instructions) do
-		local m = {}
-		for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
-		if e.noNight and e.cnt ~= 1 then
-			io.write(string.format("MN#%02d|", e.noNight))
-		elseif e.noBox and e.cnt == 1 then
-			io.write(string.format("MB#%02d|", e.noBox))
-		else
-			io.write("  -  |")
-		end
-		io.write(string.format("%02d|", e.right))
-		for i1=1,#s1 do
-			if not s1[i1]:match("^[dD]ummy$") then
-				local i2 = m[i1]
-				io.write(string.format("%"..tostring(len).."s| ", s2[i2 or -1] or ""))
+	for _,instrs in ipairs(instructions) do
+		for _,e in ipairs(instrs) do
+			local m = {}
+			for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
+			if e.noNight and e.cnt ~= 1 then
+				io.write(string.format("MN#%02d|", e.noNight))
+			elseif e.noBox and e.cnt == 1 then
+				io.write(string.format("MB#%02d|", e.noBox))
+			else
+				io.write("  -  |")
 			end
+			io.write(string.format("%02d|", e.right))
+			for i1=1,#s1 do
+				if not s1[i1]:match("^[dD]ummy$") then
+					local i2 = m[i1]
+					io.write(string.format("%"..tostring(len).."s| ", s2[i2 or -1] or ""))
+				end
+			end
+			io.write(("|%.4f|"):format(math.abs(e.entro_real)))
+			io.write("\n")
 		end
-		io.write(("|%.4f|"):format(math.abs(e.entro_real)))
-		io.write("\n")
 	end
 	io.write("\n")
 end
@@ -555,17 +576,40 @@ local function arguments()
 	return arg
 end
 -- create a {} -> {} mapping and insert dup elements
-local function conv(p, dup)
+local function conv(p)
+	local ret = {}
+	for k,v in pairs(p) do
+		ret[k] = {v}
+	end
+	coroutine.yield(ret)
+end
+local function _filter(iter, foo)
+	for k,v in table.unpack(iter) do
+		if foo(k,v) then
+			coroutine.yield(k,v)
+		end
+	end
+end
+local function filter(iter, foo)
+	return coroutine.wrap(function() _filter(iter, foo) end)
+end
+local function _explode(iter, dup)
 	-- TODOmoredup
 	assert(#dup[1] == 0 and #dup[2] == 1, "not suported -> try reverse")
 	local d = dup[2][1]
-	for k_ref,_ in pairs(p) do
-		local ret = {}
-		for k,v in pairs(p) do
-			ret[k] = k_ref==k and {v,d} or {v}
+	for v1 in table.unpack(iter) do
+		for k_ref,_ in pairs(v1) do
+			local ret = {}
+			for k,v in pairs(v1) do
+				if k_ref == k then v=table_copy(v) table.insert(v, d) end
+				ret[k] = v
+			end
+			coroutine.yield(ret)
 		end
-		coroutine.yield(ret)
 	end
+end
+local function explode(iter, dup)
+	return coroutine.wrap(function() _explode(iter, dup) end)
 end
 
 local arg = arguments()
@@ -580,27 +624,42 @@ end
 local file = io.open(arg["INPUT"])
 local s1,s2,instructions,dup = parse_file(file, arg["r"])
 file:close()
-for _,c in ipairs(instructions) do c.table = constraint.gen_table(#s1,#s2) end
+for _,instrs in ipairs(instructions) do for _,c in ipairs(instrs) do c.table = constraint.gen_table(#s1,#s2) end end
 pr_time("parsing done")
 
 -- calculate stuff
-local total = 0
+local total = math.factorial(10)*10
 local left = {}
 -- basic map
 local a = {}
 -- (#s1-#dup[1]) == (#s2-#dup[2])
 for i=1,(#s1-#dup[1]) do a[i] = i end
-for p in perm.permgen(a, #a, function(m) return conv(m, dup) end) do
-	total = total + 1
-	local eliminated = false
-	for _,c in ipairs(instructions) do
+
+-- TODOmoredup
+local iter = {perm.permgen(a, #a, function(m) return conv(m) end)}
+iter = {filter(iter, function(p)
+	for _,c in ipairs(instructions[1]) do
 		if _M.count_lights(p, c) ~= c.right then
-			eliminated = true
-			c:eliminate(p)
-			break
+			c:eliminate(p, 10, dup[2]) -- TODOmoredup
+			return false
 		end
 	end
-	if not eliminated then table.insert(left, p) end
+	return true
+end)}
+if instructions[2] then
+	iter = {explode(iter, dup)}
+	iter = {filter(iter, function(p)
+		for _,c in ipairs(instructions[2]) do
+			if _M.count_lights(p, c) ~= c.right then
+				c:eliminate(p)
+				return false
+			end
+		end
+		return true
+	end)}
+end
+for p in table.unpack(iter) do
+	table.insert(left, p)
 end
 
 -- evaluate/print stuff
@@ -614,14 +673,16 @@ constraint.print_table(tmp,s1,s2)
 
 tab = constraint.gen_table(#s1, #s2, math.factorial(#s1-#dup[1]-1)*(#s1-#dup[1])) -- TODOmoredup
 print()
-for _,instr in ipairs(instructions) do
-	total = instr:apply_table(tab, total)
-	if instr.flags and instr.flags:match("f") then
-		print(("="):rep(80))
+for _,instrs in ipairs(instructions) do
+	for _,instr in ipairs(instrs) do
+		total = instr:apply_table(tab, total)
+		if instr.flags and instr.flags:match("f") then
+			print(("="):rep(80))
+		end
+		instr:print_table(s1,s2)
+		print(("%d left -> %f bit left"):format(total, -math.log(1/total, 2)))
+		print()
 	end
-	instr:print_table(s1,s2)
-	print(("%d left -> %f bit left"):format(total, -math.log(1/total, 2)))
-	print()
 end
 
 _M.hist(instructions, s1, s2, false)
@@ -629,7 +690,7 @@ print()
 _M.hist(instructions, s1, s2, true)
 
 write_dot_tree(arg.o, left, s1, s2, arg.d)
-instructions[#instructions]:write_dot_tab(s1, s2, arg.o.."_tab")
+instructions[#instructions][#instructions[#instructions]]:write_dot_tab(s1, s2, arg.o.."_tab")
 -- _M.poss_print(left, s1, s2)
 
 pr_time("end")
