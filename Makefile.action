@@ -12,10 +12,10 @@ all: $(OUT)
 	make stats.pdf
 
 clean_tex:
-	rm statsMN.tex
-	rm statsMB.tex
-	rm statsInfo.tex
-	rm -r tex-aux
+	- rm statsMN.tex
+	- rm statsMB.tex
+	- rm statsInfo.tex
+	- rm -r tex-aux
 
 $(ALIAS):
 	make $(wildcard */$@)
