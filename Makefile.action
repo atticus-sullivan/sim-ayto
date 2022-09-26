@@ -31,4 +31,4 @@ $(OUT): %.out: %.dat perm.lua sim_perm.lua
 
 stats.pdf: stats.tex statsMN.tex statsMB.tex
 	test -d tex-aux || mkdir tex-aux
-	lualatex "$<"
+	pdflatex "$<"

@@ -31,4 +31,4 @@ $(OUT): %.out: %.dat perm.lua sim_perm.lua
 
 stats.pdf: stats.tex statsMN.tex statsMB.tex
 	test -d tex-aux || mkdir tex-aux
-	~/programme/cluttex_fork/bin/cluttex --output-directory=tex-aux --change-directory --shell-escape -e lualatex "$<"
+	~/programme/cluttex_fork/bin/cluttex --output-directory=tex-aux --change-directory --shell-escape -e pdflatex "$<"
