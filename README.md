@@ -38,7 +38,14 @@ Dann sind die Tabellen/Bäume unter `<Staffel>/<Staffel>*.{png,pdf,out}` zu find
 - `stats.pdf`: Ein paar Statistiken wann in den bisherigen Saffeln wieviel
   Information gewonnen wurde (Informationsgehalt). (Gedacht um vergleichen zu
   können wie sie sich so schlagen, aber Achtung: die Synchronisation an dieser
-  Stelle ist nicht ganz einfach, und stimmt daher manchmal nicht ganz)
+  Stelle ist nicht ganz einfach, und stimmt daher manchmal nicht ganz)<br>
+  Der vertikale orangene Strich zeigt an, wann die Staffel vorbei war/ist
+  (dahinter idR nur noch das richtige Ergebnis eingegeben).Der horizontale zeigt
+  an, ab wieviel unbekannten Bits gewonnen werden kann (10 Möglichkeiten über
+  normal)<br>
+  Achtung: Die Punkte beziehen sich immer auf nach der MB/MN (d.h. wenn nach
+  MN#10 nur noch 0 bit übrig sind wüssten sie das Ergebnis danach sicher, können
+  es aber quasi nicht mehr einloggen)
 
 # Selbst rumprobieren
 Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspielen
@@ -89,6 +96,15 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
 	  ausgegeben um das ganze vom bisherigen zu Trennen. Idee ist wenn sie es
 	  nicht geschafft haben kann man das/die echte/-n rightige/-n Matching/-s angeben
   	- `c` (count): Verhindert, dass der Constraint mitgezählt wird (bei #MN/#MB)
+	  (für Einträge die logisch zum folgenden gehören)
+  	- `h` (hide): Wie `c` aber verhindert Übertrag der Information in den stats
+	  (für wirklich garnicht auftretende Einträge)
+  	- `s` (skip): Skippt counter für #MB/#MN um 1 je `s` (vor diesem Eintrag)
+	- `S`: Skip Schrittweite ist `1/(<Anzahl S>+1)`. Hinweis: für die globalen
+	  Stats: #MB -> 2*#MB-1 und #MN -> 2*#MN
+    Die Flags `s` und `S` sind mehr Spielerei um die Sendungs-verläufe der
+	verschiednen Staffeln halbwegs zu synchronisieren, damit die man sie im
+	Graphen vergleichen kann.
 
 ## Anmerkungen
 - Damit die Statistik stimmt, darauf achten, dass falls mehrere Einträge

@@ -124,10 +124,10 @@ function constraint:print_table(s1,s2)
 	if self.map then
 		io.write(self.right)
 		if self.noNight then
-			io.write("\tMN#", self.noNight)
+			io.write(("\tMN#%.1f"):format(self.noNight))
 		end
 		if self.noBox then
-			io.write("\tMB#", self.noBox)
+			io.write(("\tMB#%.1f"):format(self.noBox))
 		end
 		io.write("\t", self.name and self.name or "")
 		io.write("\n")
@@ -409,13 +409,27 @@ local function parse_file(file, rev)
 			d.cnt     = d.cnt+1
 			line      = next_line(line)
 		end
+		if d.flags and d.flags:match("h") then
+			d.hide = true
+			d.flags = d.flags:gsub("h", "c")
+		end
+		local skip, skip_fac = 1,0
+		if d.flags then
+			_,skip     = d.flags:gsub("s", "")
+			_,skip_fac = d.flags:gsub("S", "")
+			if d.flags:match("c") then skip = 0 end
+			if not d.flags:match("c") and skip == 0 then skip = 1 end
+		end
+		if d.cnt == 1 then
+			noBox = noBox + skip/(skip_fac+1)
+		else
+			noNight = noNight + skip/(skip_fac+1)
+		end
 		if not d.flags or not d.flags:match("c") then
 			if d.cnt == 1 then
 				d.noBox = noBox
-				noBox = noBox + 1
 			else
 				d.noNight = noNight
-				noNight = noNight + 1
 			end
 		end
 		assert(d.right >= 0 and d.right <= d.cnt, "invalid right "..tostring(d.right).." vs cnt "..tostring(d.cnt))
@@ -467,7 +481,7 @@ function _M.count_lights(matching, c)
 		return cnt
 	end
 
-function _M.hist(instructions, s1, s2, rev, mno, mbo)
+function _M.hist(instructions, s1, s2, rev, mbo, mno)
 	local len = 0
 	local overflow = 0
 	for _,v in ipairs(s1) do len = math.max(len, #v) end
@@ -489,11 +503,11 @@ function _M.hist(instructions, s1, s2, rev, mno, mbo)
 			local m = {}
 			for k,v in pairs(e.map) do m[not rev and k or v] = not rev and v or k end
 			if e.noNight and e.cnt ~= 1 then
-				io.write(string.format("MN#%02d|", e.noNight))
+				io.write(string.format("MN#%02.1f|", e.noNight))
 			elseif e.noBox and e.cnt == 1 then
-				io.write(string.format("MB#%02d|", e.noBox))
+				io.write(string.format("MB#%02.1f|", e.noBox))
 			else
-				io.write("  -  |")
+				io.write("   -  |")
 			end
 			io.write(string.format("%02d|", e.right))
 			for i1=1,#s1 do
@@ -503,13 +517,15 @@ function _M.hist(instructions, s1, s2, rev, mno, mbo)
 				end
 			end
 			if e.noNight and mno then
-				mno:write(("%d %.4f\n"):format(e.noNight, math.abs(e.entro_real)+overflow))
+				mno:write(("%.1f %.4f\n"):format(e.noNight, math.abs(e.entro_real)+overflow))
 				overflow = 0
 			elseif e.noBox and mbo then
-				mbo:write(("%d %.4f\n"):format(e.noBox, math.abs(e.entro_real)+overflow))
+				mbo:write(("%.1f %.4f\n"):format(e.noBox, math.abs(e.entro_real)+overflow))
 				overflow = 0
+			elseif not e.hide then
+				overflow = math.abs(e.entro_real)
 			else
-				overflow = math.abs(s.entro_real)
+				overflow = 0
 			end
 			io.write(("|%.4f|"):format(math.abs(e.entro_real)))
 			io.write("\n")
@@ -694,9 +710,9 @@ for _,instrs in ipairs(instructions) do
 		print(("%d left -> %f bit left"):format(total, -math.log(1/total, 2)))
 		if info then
 			if instr.noNight then
-				info:write(("%d %.4f\n"):format(instr.noNight, -math.log(1/total, 2)))
+				info:write(("%.1f %.4f\n"):format(instr.noNight*2, -math.log(1/total, 2)))
 			elseif instr.noBox then
-				info:write(("%d %.4f\n"):format(instr.noBox-0.5, -math.log(1/total, 2)))
+				info:write(("%.1f %.4f\n"):format(instr.noBox*2-1, -math.log(1/total, 2)))
 			end
 		end
 		print()
