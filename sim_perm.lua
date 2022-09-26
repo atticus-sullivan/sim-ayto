@@ -467,7 +467,7 @@ function _M.count_lights(matching, c)
 		return cnt
 	end
 
-function _M.hist(instructions, s1, s2, rev)
+function _M.hist(instructions, s1, s2, rev, mno, mbo)
 	local len = 0
 	for _,v in ipairs(s1) do len = math.max(len, #v) end
 	for _,v in ipairs(s2) do len = math.max(len, #v) end
@@ -500,6 +500,12 @@ function _M.hist(instructions, s1, s2, rev)
 					local i2 = m[i1]
 					io.write(string.format("%"..tostring(len).."s| ", s2[i2 or -1] or ""))
 				end
+			end
+			if e.noNight and mno then
+				mno:write(("%d %.4f\n"):format(e.noNight, math.abs(e.entro_real)))
+			end
+			if e.noBox and mbo then
+				mbo:write(("%d %.4f\n"):format(e.noBox, math.abs(e.entro_real)))
 			end
 			io.write(("|%.4f|"):format(math.abs(e.entro_real)))
 			io.write("\n")
@@ -673,6 +679,7 @@ constraint.print_table(tmp,s1,s2)
 
 tab = constraint.gen_table(#s1, #s2, math.factorial(#s1-#dup[1]-1)*(#s1-#dup[1])) -- TODOmoredup
 print()
+local info,info_ctr = io.open(arg.o.."_statInfo.out", "w"),1
 for _,instrs in ipairs(instructions) do
 	for _,instr in ipairs(instrs) do
 		total = instr:apply_table(tab, total)
@@ -681,13 +688,22 @@ for _,instrs in ipairs(instructions) do
 		end
 		instr:print_table(s1,s2)
 		print(("%d left -> %f bit left"):format(total, -math.log(1/total, 2)))
+		if info and (instr.noNight or instr.noBox) then
+			info:write(("%d %.4f\n"):format(info_ctr, -math.log(1/total, 2)))
+			info_ctr = info_ctr + 1
+		end
 		print()
 	end
 end
+info:close()
 
 _M.hist(instructions, s1, s2, false)
 print()
-_M.hist(instructions, s1, s2, true)
+local mbo = io.open(arg.o.."_statMB.out", "w")
+local mno = io.open(arg.o.."_statMN.out", "w")
+_M.hist(instructions, s1, s2, true, mbo, mno)
+mno:close()
+mbo:close()
 
 write_dot_tree(arg.o, left, s1, s2, arg.d)
 instructions[#instructions][#instructions[#instructions]]:write_dot_tab(s1, s2, arg.o.."_tab")

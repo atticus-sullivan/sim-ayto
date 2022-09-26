@@ -7,3 +7,11 @@
 *.mkv
 *.mp4
 *.hist
+tex-aux
+statsMB.tex
+statsMN.tex
+statsInfo.tex
+*.aux
+*.toc
+*.fls
+*.log

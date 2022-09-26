@@ -85,7 +85,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build results files
-        run: make -j4 -f Makefile.action all
+        run: |
+          make -f Makefile.action clean_tex
+          make -f Makefile.action all
         
       - name: ls
         run: ls -al ./*
