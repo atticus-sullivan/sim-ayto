@@ -469,6 +469,7 @@ function _M.count_lights(matching, c)
 
 function _M.hist(instructions, s1, s2, rev, mno, mbo)
 	local len = 0
+	local overflow = 0
 	for _,v in ipairs(s1) do len = math.max(len, #v) end
 	for _,v in ipairs(s2) do len = math.max(len, #v) end
 	if rev then s1,s2 = s2,s1 end
@@ -502,10 +503,13 @@ function _M.hist(instructions, s1, s2, rev, mno, mbo)
 				end
 			end
 			if e.noNight and mno then
-				mno:write(("%d %.4f\n"):format(e.noNight, math.abs(e.entro_real)))
-			end
-			if e.noBox and mbo then
-				mbo:write(("%d %.4f\n"):format(e.noBox, math.abs(e.entro_real)))
+				mno:write(("%d %.4f\n"):format(e.noNight, math.abs(e.entro_real)+overflow))
+				overflow = 0
+			elseif e.noBox and mbo then
+				mbo:write(("%d %.4f\n"):format(e.noBox, math.abs(e.entro_real)+overflow))
+				overflow = 0
+			else
+				overflow = math.abs(s.entro_real)
 			end
 			io.write(("|%.4f|"):format(math.abs(e.entro_real)))
 			io.write("\n")
@@ -679,7 +683,7 @@ constraint.print_table(tmp,s1,s2)
 
 tab = constraint.gen_table(#s1, #s2, math.factorial(#s1-#dup[1]-1)*(#s1-#dup[1])) -- TODOmoredup
 print()
-local info,info_ctr = io.open(arg.o.."_statInfo.out", "w"),1
+local info = io.open(arg.o.."_statInfo.out", "w")
 for _,instrs in ipairs(instructions) do
 	for _,instr in ipairs(instrs) do
 		total = instr:apply_table(tab, total)
@@ -688,9 +692,12 @@ for _,instrs in ipairs(instructions) do
 		end
 		instr:print_table(s1,s2)
 		print(("%d left -> %f bit left"):format(total, -math.log(1/total, 2)))
-		if info and (instr.noNight or instr.noBox) then
-			info:write(("%d %.4f\n"):format(info_ctr, -math.log(1/total, 2)))
-			info_ctr = info_ctr + 1
+		if info then
+			if instr.noNight then
+				info:write(("%d %.4f\n"):format(instr.noNight, -math.log(1/total, 2)))
+			elseif instr.noBox then
+				info:write(("%d %.4f\n"):format(instr.noBox-0.5, -math.log(1/total, 2)))
+			end
 		end
 		print()
 	end
