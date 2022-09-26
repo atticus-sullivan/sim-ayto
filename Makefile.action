@@ -24,9 +24,9 @@ $(OUT): %.out: %.dat perm.lua sim_perm.lua
 	@date
 	# lua5.4 sim_perm.lua -o $(basename $<) $< > $(basename $<).out
 	lua sim_perm.lua -o $(basename $<) $< > $(basename $<).out
-	echo "\\addplot table {$(basename $<)_statMN.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
-	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
-	echo "\\addplot table {$(basename $<)_statInfo.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
+	echo "\\\\addplot table {$(basename $<)_statMN.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
+	echo "\\\\addplot table {$(basename $<)_statMB.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
+	echo "\\\\addplot table {$(basename $<)_statInfo.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
 	@date
 
 stats.pdf: stats.tex statsMN.tex statsMB.tex statsInfo.tex
