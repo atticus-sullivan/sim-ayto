@@ -292,7 +292,7 @@ function _M.poss_to_dot_tree(ps, s1,s2, file, collapse)
 			par = co
 		end
 	end
-	file:write("digraph D {\n")
+	file:write("digraph D {\nranksep=0.8;\n")
 	for co,x in pairs(nodes) do
 		local par,e1,e2 = table.unpack(x)
 		dot_node(file, par, co, e1, e2)
