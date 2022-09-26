@@ -25,11 +25,11 @@ Vanessa
 Victoria
 
 
-0 # E02
+0 E02
 Maximilian -> Jill
 
 
-2 # E02
+2 E02
 Aaron     -> Kathleen
 Dario     -> Victoria
 Dominic   -> Melissa
@@ -46,7 +46,7 @@ Sascha    -> Vanessa
 # Germain -> Victoria
 
 
-2 # E04
+2 E04
 Aaron      -> Kathleen
 Dario      -> Laura
 Dominic    -> Melissa
@@ -59,11 +59,11 @@ Maximilian -> Christin
 Sascha     -> Jill
 
 
-0 # E06
+0 E06 ss
 Aaron -> Kathleen
 
 
-3 # E06
+3 E06
 Aaron      -> Melissa
 Dario      -> Victoria
 Dominic    -> Vanessa
@@ -76,11 +76,11 @@ Maximilian -> Jill
 Sascha     -> Sabrina
 
 
-0 # E08
+0 E08
 Marcel -> Laura
 
 
-3 # E08
+3 E08
 Aaron      -> Melissa
 Dario      -> Kathleen
 Dominic    -> Laura
@@ -97,11 +97,11 @@ Dummy
 VanessaM
 
 
-1 # E10
+1 E10
 Marcel -> Leonie
 
 
-3 # E10
+3 E10
 Aaron      -> Mirjam
 Dario      -> Victoria
 Dominic    -> Vanessa
@@ -119,7 +119,7 @@ Sascha     -> Jill
 # Marc -> Mirjam
 
 
-4 # E12
+4 E12
 Aaron      -> Melissa
 Dario      -> VanessaM
 Dominic    -> Vanessa
@@ -133,11 +133,11 @@ Sascha     -> Jill
 # Kathleen -> Dummy
 
 
-0 # E14
+0 E14 ss
 Dario -> Laura
 
 
-4 # E14
+4 E14
 Aaron      -> Melissa
 Dario      -> Sabrina
 Dominic    -> Laura
@@ -151,11 +151,11 @@ Sascha     -> Jill
 # Vanessa -> Dummy
 
 
-0 # E16
+0 E16
 Marko -> Sabrina
 
 
-1 # E16
+1 E16
 Aaron      -> Vanessa
 Dario      -> Victoria
 Dominic    -> Melissa
@@ -169,11 +169,11 @@ Sascha     -> Sabrina
 # Christin -> Dummy
 
 
-1 # E18
+1 E18
 Aaron -> Melissa
 
 
-3 # E18
+3 E18
 Aaron      -> Melissa
 Dario      -> Kathleen
 Dominic    -> Sabrina
@@ -187,11 +187,11 @@ Sascha     -> Jill
 # VanessaM -> Dummy
 
 
-1 # E20
+1 E20
 Marc -> Mirjam
 
 
-10 # E20
+10 E20
 Aaron      -> Melissa
 Dario      -> Sabrina
 Dominic    -> Vanessa

@@ -24,12 +24,10 @@ Stefanie
 Walentina
 Jules
 
-
-0 # E02
+0 E02
 Danilo -> Finnja
 
-
-3 # E02
+3 E02
 Alexander -> Jules
 Danilo    -> Stefanie
 Diogo     -> Aurelia
@@ -41,15 +39,13 @@ Manuel    -> Kathleen
 Salvatore -> Jacqueline
 Tommy     -> Melina
 
-
-1 # E04 Fancesco muss ausziehen
+1 E04_Fancesco_muss_ausziehen sssssssSSSSS
 Francesco -> Jules
 
-
-0 # E06
+0 E06 sSSSSS
 Tommy -> Walentina
 
-3 # E06
+3 E06
 Alexander -> Finnja
 Danilo    -> Sarah
 Diogo     -> Aurelia
@@ -64,17 +60,14 @@ Tommy     -> Melina
 # ? S08
 # Diogo -> Aurelia
 
-
 add
 Dummy
 Vanessa
 
+0 E04 h
+Francesco -> Vanessa
 
-1 # E04, muss nochmal hinzugefügt werden
-Francesco -> Jules
-
-
-4 # E08
+4 E08
 Alexander -> Stefanie
 Danilo    -> Melina
 Diogo     -> Aurelia
@@ -87,12 +80,10 @@ Salvatore -> Walentina
 Tommy     -> Jill
 # Jacqueline
 
-
 # ? # E10
 # Tommy -> Melina
 
-
-3 # E10
+3 E10
 Alexander -> Sarah
 Danilo    -> Aurelia
 Diogo     -> Vanessa
@@ -105,12 +96,10 @@ Salvatore -> Kathleen
 Tommy     -> Melina
 # Diogo -> Jacqueline
 
-
-0 # E12
+0 E12 SSSSSssssssssssssssss
 Salvatore -> Finnja
 
-
-3 # E12
+3 E12
 Alexander -> Stefanie
 Danilo    -> Jill
 Diogo     -> Aurelia
@@ -122,12 +111,10 @@ Manuel    -> Kathleen
 Salvatore -> Jacqueline
 Tommy     -> Melina
 
-
-0 # E14
+0 E14
 Eugen -> Finnja
 
-
-2 # E14
+2 E14
 Alexander -> Jacqueline
 Danilo    -> Aurelia
 Diogo     -> Vanessa
@@ -139,25 +126,10 @@ Manuel    -> Kathleen
 Salvatore -> Walentina
 Tommy     -> Melina
 
-
-# 1 # wunschdenken
-# Manuel -> Kathleen
-0 # E16
+0 E16
 Eugen -> Stefanie
 
-
-# 5 # wunschdenken
-# Alexander -> Sarah
-# Danilo    -> Vanessa
-# Diogo     -> Aurelia
-# Eugen     -> Walentina
-# Francesco -> Jules
-# Jamy      -> Stefanie
-# Josua     -> Finnja
-# Manuel    -> Kathleen
-# Salvatore -> Jill
-# Tommy     -> Jacqueline
-1 # E16
+1 E16
 Alexander -> Melina
 Danilo    -> Aurelia
 Diogo     -> Vanessa
@@ -169,16 +141,13 @@ Manuel    -> Finnja
 Salvatore -> Jill
 Tommy     -> Stefanie
 
-
-0 # E18
+0 E18
 Josua -> Sarah
 
-
-0 # E15
+0 E15 sSSS
 Tommy -> Melina
 
-
-4 # E18
+4 E18
 Alexander -> Sarah
 Danilo    -> Jill
 Diogo     -> Aurelia
@@ -191,12 +160,10 @@ Salvatore -> Walentina
 Tommy     -> Finnja
 # Salvatore -> Jacqueline
 
-
-1 # E20
+1 E20 sssSSS
 Josua -> Aurelia
 
-
-7 # E20
+7 E20
 Alexander -> Vanessa
 Danilo    -> Sarah
 Diogo     -> Jill
@@ -208,8 +175,7 @@ Manuel    -> Kathleen
 Salvatore -> Jacqueline
 Tommy     -> Finnja
 
-
-10 # richtiges matching
+10 richtiges_matching1 f
 Alexander -> Sarah
 Danilo    -> Melina
 Diogo     -> Finnja
@@ -221,8 +187,7 @@ Manuel    -> Kathleen
 Salvatore -> Jacqueline
 Tommy     -> Jill
 
-
-10 # richtiges matching
+10 richtiges_matching2 f
 Alexander -> Vanessa
 Danilo    -> Melina
 Diogo     -> Finnja

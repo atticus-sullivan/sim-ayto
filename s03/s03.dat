@@ -22,12 +22,10 @@ Monami
 Raphaela
 Zaira
 
-
-0 # E02
+0 E02
 Mike  -> Jessica
 
-
-3 # E02
+3 E02
 William  -> Dana
 Jordi    -> Estelle
 Marius   -> Isabelle
@@ -39,12 +37,10 @@ Antonino -> Monami
 Andre    -> Raphaela
 Dustin   -> Zaira
 
-
-0 # E04
+0 E04
 Leon   -> Monami
 
-
-2 # E04
+2 E04
 Andre    -> Dana
 Leon     -> Estelle
 Dustin   -> Isabelle
@@ -56,12 +52,10 @@ Antonino -> Monami
 William  -> Raphaela
 Jordi    -> Zaira
 
-
-0 # E05
+0 E05
 Andre -> Raphaela
 
-
-2 # E06
+2 E06
 William  -> Dana
 Leon     -> Estelle
 Marius   -> Isabelle
@@ -73,12 +67,10 @@ Max      -> Monami
 Andre    -> Raphaela
 Dustin   -> Zaira
 
-
 # ? # E07
 # Dana -> William
 
-
-3 # E08
+3 E08
 William  -> Dana
 Leon     -> Estelle
 Andre    -> Isabelle
@@ -90,17 +82,14 @@ Antonino -> Monami
 Jordi    -> Raphaela
 Dustin   -> Zaira
 
-
 add
 Dummy
 Desiree
 
-
-0 # E10
+0 E10 ss
 Antonino -> Monami
 
-
-2 # E10
+2 E10
 William  -> Dana
 Tim      -> Desiree
 Mike     -> Estelle
@@ -112,12 +101,10 @@ Max      -> Monami
 Marius   -> Raphaela
 Jordi    -> Zaira
 
-
-0 # E12
+0 E12
 Max -> Jessica
 
-
-4 # E12
+4 E12
 Antonino -> Dana
 Jordi    -> Desiree
 Mike     -> Estelle
@@ -129,12 +116,10 @@ Andre    -> Marie
 William  -> Raphaela
 Marius   -> Zaira
 
-
-1 # E14
+1 E14
 Marius -> Zaira
 
-
-6 # E14
+6 E14
 Antonino -> Dana
 Andre    -> Desiree
 Dustin   -> Isabelle
@@ -146,12 +131,10 @@ Jordi    -> Monami
 William  -> Raphaela
 Marius   -> Zaira
 
-
-0 # E16
+0 E16
 Jordi -> Raphaela
 
-
-4 # E16
+4 E16
 Antonino -> Dana
 Mike     -> Estelle
 Dustin   -> Isabelle
@@ -163,12 +146,10 @@ Jordi    -> Monami
 William  -> Raphaela
 Marius   -> Zaira
 
-
-0 # E18
+0 E18
 Max -> Kerstin
 
-
-2 # E18
+2 E18
 Dustin   -> Dana
 Andre    -> Desiree
 Mike     -> Estelle
@@ -180,12 +161,10 @@ Jordi    -> Monami
 Max      -> Raphaela
 Marius   -> Zaira
 
-
-0 # E20
+0 E20
 Dustin -> Isabelle
 
-
-10 # E20
+10 E20
 Antonino -> Dana
 Jordi    -> Estelle
 Andre    -> Isabelle
@@ -197,9 +176,7 @@ Max      -> Monami
 William  -> Raphaela
 Marius   -> Zaira
 
-
-# give information about double match as well
-10 # reunion
+10 reunion
 Antonino -> Dana
 Jordi    -> Estelle
 Andre    -> Isabelle
