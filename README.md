@@ -35,6 +35,10 @@ Dann sind die Tabellen/Bäume unter `<Staffel>/<Staffel>*.{png,pdf,out}` zu find
 - `<Staffel>.{pdf,png}`: Baum mit den noch übrigen Möglichkeiten. Die erste
   Zeile im Knoten ist immer der "Key" der auf der Ebene angeschaut wird
 - `<Staffel>_tab.{pdf,png}`: Tabelle mit den noch übrigen Möglichkeiten
+- `stats.pdf`: Ein paar Statistiken wann in den bisherigen Saffeln wieviel
+  Information gewonnen wurde (Informationsgehalt). (Gedacht um vergleichen zu
+  können wie sie sich so schlagen, aber Achtung: die Synchronisation an dieser
+  Stelle ist nicht ganz einfach, und stimmt daher manchmal nicht ganz)
 
 # Selbst rumprobieren
 Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspielen
@@ -58,7 +62,8 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
    ![status](./img/05_actions1_dark.png)
    ![status](./img/06_actions2_dark.png)
    ![status](./img/07_actions3_dark.png)
-   Das kann ein wenig dauern (~1 min)
+   Das kann ein wenig dauern (~1 min + paar min die ganzen Sachen immer neu
+   installieren)
    ![status fin](./img/08_actions4_dark.png)
    Fertig (war erfolgreich, falls hier n rotes `x` ist, ist was schief gelaufen, wenn 
    ihr auf `build` klickt und `build results files` aufmacht seht ihr vielleicht wo der
@@ -76,7 +81,8 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
 	immer aus `<Lichter> [<Name>] [<flags>]` in der ersten Zeile (Name und flags
 	sind optional) und anschließend die jeweiligen Mappings (`nameA -> nameB`)
   - Boxes werden genau gleich wie Nights eingetragen, nur dass es nur ein Mapping
-	gibt und die Lichter 0 -> noMatch oder 1 -> Match ist
+	gibt und die Lichter 0 -> noMatch oder 1 -> Match ist<br>
+	Wenn Match gefunden, auch zusätzliches (no-)Match (falls vorhanden) eintragen
   - Flags: zur Zeit gibt es folgende Flags:
   	<!-- - `t` (tree):  -->
   	- `f` (final): beim ersten final wird im output ein Marker `====` vorher
@@ -85,6 +91,9 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
   	- `c` (count): Verhindert, dass der Constraint mitgezählt wird (bei #MN/#MB)
 
 ## Anmerkungen
+- Damit die Statistik stimmt, darauf achten, dass falls mehrere Einträge
+  zusammen gehören die ersten die sind, die geskippt werden beim zählen
+  (Informationsgehalt etc werden dem folgenden Eintrag zugeschrieben)
 - Beim Eingeben von neuen Nights, vergisst man gerne die schon fest bekannten
   Matches. Einfach am Ende nochmal schaun ob es wirklich 10 Zeilen sind ;)
 - An die Git(hub) Kenner, die Actions laufen nur mit dem `main` und `build`
