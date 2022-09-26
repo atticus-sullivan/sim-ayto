@@ -3,31 +3,55 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 
+\pgfplotsset{
+	def_axis/.style = {
+		grid=major,
+		grid style={gray!30},
+		axis lines = middle,
+		axis line style={->},
+		% transpose legend=true,
+		legend columns=-1,
+		legend style={
+			at={(0.5,-0.1)},anchor=north,
+			/tikz/every even column/.append style={column sep=0.5cm}
+		},
+	},
+	ending/.style={orange,thick},
+}
+
 \begin{document}
 
 \begin{tikzpicture}
 	\begin{axis}[
+		def_axis,
 		ylabel={Informationsgewinn/Bit},
 		xlabel={MN},
 		]
-		\input{statsMN.tex}
+		\input{statsMN.tex.sort}
+		\addplot[ending] coordinates {(10,0) (10,25)};
 	\end{axis}
 \end{tikzpicture}
 \begin{tikzpicture}
 	\begin{axis}[
+		def_axis,
 		ylabel={Informationsgewinn/Bit},
 		xlabel={MB},
 		]
-		\input{statsMB.tex}
+		\input{statsMB.tex.sort}
+		\addplot[ending] coordinates {(10,0) (10,4)};
 	\end{axis}
 \end{tikzpicture}
 \\
 \begin{tikzpicture}
 	\begin{axis}[
+		def_axis,
 		ylabel={fehlende Information/Bit},
 		xlabel={MB/MN},
+		width=15cm,
 		]
-		\input{statsInfo.tex}
+		\input{statsInfo.tex.sort}
+		\addplot[ending] coordinates {(20,0) (20,27)};
+		\addplot[ending] coordinates {(0,3.3219280948874) (25,3.3219280948874)};
 	\end{axis}
 \end{tikzpicture}
 

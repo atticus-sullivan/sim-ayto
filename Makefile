@@ -12,9 +12,9 @@ all: $(OUT)
 	make stats.pdf
 
 clean_tex:
-	- rm statsMN.tex
-	- rm statsMB.tex
-	- rm statsInfo.tex
+	- rm statsMN.tex{,sort}
+	- rm statsMB.tex{,sort}
+	- rm statsInfo.tex{,sort}
 	- rm -r tex-aux
 
 $(ALIAS):
@@ -29,6 +29,9 @@ $(OUT): %.out: %.dat perm.lua sim_perm.lua
 	echo "\\addplot table {$(basename $<)_statInfo.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
 	@date
 
-stats.pdf: stats.tex statsMN.tex statsMB.tex
+stats.pdf: stats.tex statsMN.tex statsMB.tex statsInfo.tex
+	sort -u statsInfo.tex > statsInfo.tex.sort
+	sort -u statsMB.tex > statsMB.tex.sort
+	sort -u statsMN.tex > statsMN.tex.sort
 	test -d tex-aux || mkdir tex-aux
 	~/programme/cluttex_fork/bin/cluttex --output-directory=tex-aux --change-directory --shell-escape -e pdflatex "$<"
