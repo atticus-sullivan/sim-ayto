@@ -102,6 +102,7 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
   	- `s` (skip): Skippt counter für #MB/#MN um 1 je `s` (vor diesem Eintrag)
 	- `S`: Skip Schrittweite ist `1/(<Anzahl S>+1)`. Hinweis: für die globalen
 	  Stats: #MB -> 2*#MB-1 und #MN -> 2*#MN
+	  
     Die Flags `s` und `S` sind mehr Spielerei um die Sendungs-verläufe der
 	verschiednen Staffeln halbwegs zu synchronisieren, damit die man sie im
 	Graphen vergleichen kann.
