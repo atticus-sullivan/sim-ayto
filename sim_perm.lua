@@ -5,7 +5,8 @@ prompt.colorize = true
 prompt.name     = "sim"
 prompt.history  = "sim.hist" -- otherwise no history
 
--- kinds of TODOs: TODOmoredup
+-- kinds of TODOs:
+-- - TODOmoredup
 
 ----------------
 -- EXIT-CODES --
