@@ -7,7 +7,6 @@ prompt.history  = "sim.hist" -- otherwise no history
 
 -- kinds of TODOs:
 -- - TODOmoredup
-
 ----------------
 -- EXIT-CODES --
 ----------------
