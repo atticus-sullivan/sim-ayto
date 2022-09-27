@@ -304,11 +304,13 @@ local function tree_ordering(ps)
 	table.sort(amounts, function(a,b) return a.cnt < b.cnt end)
 	return amounts
 end
-function _M.poss_to_dot_tree(ps, s1,s2, file, collapse)
+function _M.poss_to_dot_tree(ps, s1,s2, file, file_cp)
 	local order = tree_ordering(ps)
-	local nodes = {}
+	local nodes    = {}
+	local nodes_cp = {}
 	for _,p in ipairs(ps) do
-		local par = "root"
+		local par    = "root"
+		local par_cp = "root"
 		for _,o in ipairs(order) do
 			local i1 = o.idx
 			local i2s = p[i1]
@@ -324,11 +326,17 @@ function _M.poss_to_dot_tree(ps, s1,s2, file, collapse)
 				end
 			end
 			local co
-			if collapse then
+			-- collapsed
+			if file_cp then
 				co = string.format("%d|%s", i1,i2_string)
-			else
-				co = string.format("%s|%d|%s", par, i1,i2_string)
+				if not nodes_cp[co] then
+					nodes_cp[co] = {{}, s1[i1],e2}
+				end
+				nodes_cp[co][1][par_cp] = true
+				par_cp = co
 			end
+			-- not collapsed
+			co = string.format("%s|%d|%s", par, i1,i2_string)
 			if not nodes[co] then
 				nodes[co] = {{}, s1[i1],e2}
 			end
@@ -336,8 +344,20 @@ function _M.poss_to_dot_tree(ps, s1,s2, file, collapse)
 			par = co
 		end
 	end
+	local color_set
+	-- collapsed
+	if file_cp then
+	file_cp:write("digraph D {\nranksep=0.8;\n")
+	color_set = {}
+	for co,x in pairs(nodes_cp) do
+		local par,e1,e2 = table.unpack(x)
+		dot_node(file_cp, par, co, co:match(".*|(.*)"), e1, e2, color_set)
+	end
+	file_cp:write("}\n")
+	end
+	-- not collapsed
 	file:write("digraph D {\nranksep=0.8;\n")
-	local color_set = {}
+	color_set = {}
 	for co,x in pairs(nodes) do
 		local par,e1,e2 = table.unpack(x)
 		dot_node(file, par, co, co:match(".*|.*|(.*)"), e1, e2, color_set)
@@ -349,12 +369,22 @@ local function write_dot_tree(fn, poss, s1,s2, bound, collapse)
 	if #poss <= bound then
 		local of = io.open(fn..".dot", "w")
 		assert(of, "opening '"..fn..".dot' failed")
+		local of_cp
+		if collapse then
+			of_cp = io.open(fn.."_cp.dot", "w")
+			assert(of_cp, "opening '"..fn.."_cp.dot' failed")
+		end
 		pr_time("generate dot tree")
-		_M.poss_to_dot_tree(poss, s1,s2, of, collapse)
+		_M.poss_to_dot_tree(poss, s1,s2, of, of_cp)
 		of:close()
+		if of_cp then of_cp:close() end
 		pr_time("generate pdf")
 		os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
 		os.execute(string.format("dot -Tpng -o '%s.png' '%s.dot'", fn,fn))
+		if collapse and of_cp then
+			os.execute(string.format("dot -Tpdf -o '%s_cp.pdf' '%s_cp.dot'", fn,fn))
+			os.execute(string.format("dot -Tpng -o '%s_cp.png' '%s_cp.dot'", fn,fn))
+		end
 	end
 end
 
