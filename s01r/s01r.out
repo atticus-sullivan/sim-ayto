@@ -407,57 +407,6 @@ Jamy -> Stefanie
       Jamy|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|
 1 left -> -0.000000 bit left
 
-================================================================================
-10	MN#11.0	richtiges_matching1 
-Alexander -> Sarah
-Danilo -> Melina
-Diogo -> Finnja
-Eugen -> Walentina
-Josua -> Aurelia
-Manuel -> Kathleen
-Salvatore -> Jacqueline
-Tommy -> Jill
-Francesco -> Jules
-Jamy -> Stefanie
--> I = 0.0000 bit
-          |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
- Alexander|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|  100.0000|
-    Danilo|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-     Diogo|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-     Eugen|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|
-     Josua|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-    Manuel|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
- Salvatore|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-     Tommy|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
- Francesco|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|
-      Jamy|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|
-1 left -> -0.000000 bit left
-
-10	MN#12.0	richtiges_matching2 
-Alexander -> Vanessa
-Danilo -> Melina
-Diogo -> Finnja
-Eugen -> Walentina
-Josua -> Aurelia
-Manuel -> Kathleen
-Salvatore -> Jacqueline
-Tommy -> Jill
-Francesco -> Jules
-Jamy -> Stefanie
--> I = 0.0000 bit
-          |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
- Alexander|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|  100.0000|
-    Danilo|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-     Diogo|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-     Eugen|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|
-     Josua|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-    Manuel|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
- Salvatore|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
-     Tommy|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|
- Francesco|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|
-      Jamy|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|
-1 left -> -0.000000 bit left
-
   #  |R | Alexander|     Danilo|      Diogo|      Eugen|      Josua|     Manuel|  Salvatore|      Tommy|  Francesco|       Jamy|   I   
 =========================================================================================================================================
 MB#2.0|00|          |     Finnja|           |           |           |           |           |           |           |           | |0.1520|
@@ -479,8 +428,6 @@ MB#9.2|00|          |           |           |           |           |           
 MN#9.0|04|     Sarah|       Jill|    Aurelia|     Melina|    Vanessa|   Kathleen|  Walentina|     Finnja|      Jules|   Stefanie| |1.2479|
 MB#10.0|01|          |           |           |           |    Aurelia|           |           |           |           |           | |0.4150|
 MN#10.0|07|   Vanessa|      Sarah|       Jill|  Walentina|    Aurelia|   Kathleen| Jacqueline|     Finnja|      Jules|   Stefanie| |2.5850|
-MN#11.0|10|     Sarah|     Melina|     Finnja|  Walentina|    Aurelia|   Kathleen| Jacqueline|       Jill|      Jules|   Stefanie| |0.0000|
-MN#12.0|10|   Vanessa|     Melina|     Finnja|  Walentina|    Aurelia|   Kathleen| Jacqueline|       Jill|      Jules|   Stefanie| |0.0000|
 
 
   #  |R |   Aurelia|     Finnja| Jacqueline|       Jill|   Kathleen|     Melina|      Sarah|   Stefanie|  Walentina|      Jules|    Vanessa|   I   
@@ -504,6 +451,4 @@ MB#9.2|00|          |           |           |           |           |      Tommy
 MN#9.0|04|     Diogo|      Tommy|           |     Danilo|     Manuel|      Eugen|  Alexander|       Jamy|  Salvatore|  Francesco|      Josua| |1.2479|
 MB#10.0|01|     Josua|           |           |           |           |           |           |           |           |           |           | |0.4150|
 MN#10.0|07|     Josua|      Tommy|  Salvatore|      Diogo|     Manuel|           |     Danilo|       Jamy|      Eugen|  Francesco|  Alexander| |2.5850|
-MN#11.0|10|     Josua|      Diogo|  Salvatore|      Tommy|     Manuel|     Danilo|  Alexander|       Jamy|      Eugen|  Francesco|           | |0.0000|
-MN#12.0|10|     Josua|      Diogo|  Salvatore|      Tommy|     Manuel|     Danilo|           |       Jamy|      Eugen|  Francesco|  Alexander| |0.0000|
 
