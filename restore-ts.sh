@@ -8,7 +8,7 @@ fi
 
 for file in "$@"; do
   time="$(git log --pretty=format:%cd -n 1 \
-                  --date=format:%Y%m%d%H%M.%S --date-order -- "$file")"
+                  --date=format-local:%Y%m%d%H%M.%S --date-order -- "$file")"
   if [ -z "$time" ]; then
     echo "ERROR: skipping '$file' -- no git log found" >&2
     continue
