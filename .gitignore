@@ -17,3 +17,4 @@ statsInfo.tex
 *.log
 *.tex.sort
 dot_colors_check.bash
+ts.dat

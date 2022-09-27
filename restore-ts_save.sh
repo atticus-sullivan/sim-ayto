@@ -6,6 +6,7 @@ if [ $# = 0 ]; then
   exit $?
 fi
 
+rm ts.dat
 for file in "$@"; do
   time="$(git log --pretty=format:%cd -n 1 \
                   --date=format-local:%Y%m%d%H%M.%S --date-order -- "$file")"
@@ -13,6 +14,5 @@ for file in "$@"; do
     echo "ERROR: skipping '$file' -- no git log found" >&2
     continue
   fi
-  echo $time $file
-  touch -m -t "$time" "$file"
+  echo "$time $file" >> ts.dat
 done
