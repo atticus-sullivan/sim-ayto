@@ -72,19 +72,24 @@ jobs:
       - run: git branch
       - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
 
-      - name: restore modification times -- save
-        run: ./restore-ts_save.sh
-
-      - name: update on master
+      - name: update on main + old modifiaction times
         run: |
           git config --global user.name "Updater"
+          ./restore-ts_save.sh
           git rebase main
+          ./restore-ts_exec.sh
+
+      - name: modifiaction times from main for .dat
+        run: |
+          git stash
+          git switch main
+          ./restore-ts_save.sh
+          git switch build
+          git stash pop
+          ./restore-ts_exec.sh
 
       - run: git branch
       - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
-
-      - name: restore modification times -- exec
-        run: ./restore-ts_exec.sh
 
       - name: ls
         run: ls -al ./*
