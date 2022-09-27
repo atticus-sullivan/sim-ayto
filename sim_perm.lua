@@ -15,6 +15,13 @@ prompt.history  = "sim.hist" -- otherwise no history
 
 local _M = {}
 
+-------------------
+--  HELPER STUFF --
+-------------------
+local function pr_time(s)
+	-- print(os.date("%Y-%m-%d %H:%M:%S"), s)
+end
+pr_time("start")
 local function table_copy(t)
 	if type(t) ~= "table" then return t end
 	local r = {}
@@ -22,6 +29,44 @@ local function table_copy(t)
 		r[k] = table_copy(v)
 	end
 	return r
+end
+function math.factorial(n)
+	assert(n >= 0)
+	local prod = 1
+	for i=1,n do
+		prod = prod * i
+	end
+	return prod
+end
+function _M.gen_lut(s)
+	local r = {}
+	for i,v in ipairs(s) do
+		assert(r[v] == nil, "value "..v.." occures multiple times")
+		r[v] = i
+	end
+	return r
+end
+function _M.print_constr_map(m, s1,s2)
+	for k,v in pairs(m) do
+		io.write(s1[k], " -> ", s2[v], "\n")
+	end
+end
+function _M.print_map(m, s1,s2)
+	for k,_v in pairs(m) do
+		io.write(s1[k], " -> {")
+		local first = true
+		for _,v in ipairs(_v) do
+			if not first then io.write(", ") else first = false end
+			io.write(s2[v])
+		end
+		io.write("}\n")
+	end
+end
+function _M.poss_print(ps, s1,s2)
+	for _,p in ipairs(ps) do
+		_M.print_map(p, s1,s2)
+		print()
+	end
 end
 
 -----------------
@@ -196,24 +241,23 @@ function constraint:write_dot_tab(s1,s2, fn)
 	os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
 	os.execute(string.format("dot -Tpng -o '%s.png' '%s.dot'", fn,fn))
 end
--------------------
---  HELPER STUFF --
--------------------
-function math.factorial(n)
-	assert(n >= 0)
-	local prod = 1
-	for i=1,n do
-		prod = prod * i
-	end
-	return prod
-end
-local function pr_time(s)
-	-- print(os.date("%Y-%m-%d %H:%M:%S"), s)
-end
-pr_time("start")
 
-local function dot_node(file, par, self, e1, e2s)
-	file:write("{", '"',self,'"', '[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr>')
+---------------
+-- DOT STUFF --
+---------------
+-- local dot_col = require"dot_colors"
+local function dot_node(file, par, self, self_ser, e1, e2s, color_set)
+	-- if not color_set[e1] then
+	-- 	color_set[e1] = {idx=1}
+	-- end
+	-- local color_idx = color_set[e1][self_ser]
+	-- if not color_idx then
+	-- 	color_idx = color_set[e1].idx
+	-- 	color_set[e1].idx = color_set[e1].idx + 1
+	-- end
+	-- local color = dot_col[color_idx]
+	local color = "black"
+	file:write("{", '"',self,'"', '[shape="record" penwidth=4.0 color="', color, '" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>',e1,'</td></tr>')
 	for _,v in ipairs(e2s) do
 		file:write('<tr><td>',v,'</td></tr>')
 	end
@@ -293,9 +337,10 @@ function _M.poss_to_dot_tree(ps, s1,s2, file, collapse)
 		end
 	end
 	file:write("digraph D {\nranksep=0.8;\n")
+	local color_set = {}
 	for co,x in pairs(nodes) do
 		local par,e1,e2 = table.unpack(x)
-		dot_node(file, par, co, e1, e2)
+		dot_node(file, par, co, co:match(".*|.*|(.*)"), e1, e2, color_set)
 	end
 	file:write("}\n")
 end
@@ -310,38 +355,6 @@ local function write_dot_tree(fn, poss, s1,s2, bound, collapse)
 		pr_time("generate pdf")
 		os.execute(string.format("dot -Tpdf -o '%s.pdf' '%s.dot'", fn,fn))
 		os.execute(string.format("dot -Tpng -o '%s.png' '%s.dot'", fn,fn))
-	end
-end
-
-function _M.gen_lut(s)
-	local r = {}
-	for i,v in ipairs(s) do
-		assert(r[v] == nil, "value "..v.." occures multiple times")
-		r[v] = i
-	end
-	return r
-end
-
-function _M.print_constr_map(m, s1,s2)
-	for k,v in pairs(m) do
-		io.write(s1[k], " -> ", s2[v], "\n")
-	end
-end
-function _M.print_map(m, s1,s2)
-	for k,_v in pairs(m) do
-		io.write(s1[k], " -> {")
-		local first = true
-		for _,v in ipairs(_v) do
-			if not first then io.write(", ") else first = false end
-			io.write(s2[v])
-		end
-		io.write("}\n")
-	end
-end
-function _M.poss_print(ps, s1,s2)
-	for _,p in ipairs(ps) do
-		_M.print_map(p, s1,s2)
-		print()
 	end
 end
 
