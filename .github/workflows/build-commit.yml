@@ -35,26 +35,18 @@ jobs:
 
       - run: git log --oneline
 
-      - name: Install graphviz
-        run: |
-          sudo apt-get update
-          sudo apt install graphviz
+      - run: sudo apt-get update
 
-      # Runs multiple commands using the runners shell
-      # - name: install lua
-      #   run: |
-      #     curl -R -O https://www.lua.org/ftp/lua-5.4.4.tar.gz
-      #     tar zxf lua-5.4.4.tar.gz
-      #     cd lua-5.4.4
-      #     make all
-      #     sudo make install
-      #     ls -al /usr/local/bin/
+      - name: Install graphviz
+        run: sudo apt install graphviz
+
+      - name: Install TeXLive
+        run: sudo apt-get install -y texlive texlive-latex-extra
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v9
 
       - name: Install LuaRocks
-        # You may pin to the exact commit or the version.
         uses: leafo/gh-actions-luarocks@v4.3.0
 
       - name: install luarocks deps
@@ -62,9 +54,6 @@ jobs:
           luarocks install lua-term
           luarocks install luaprompt
           luarocks install lua_cliargs
-
-      - name: Install TeXLive
-        run: sudo apt-get install -y texlive texlive-latex-extra
 
       - name: ls
         run: ls -al ./*
@@ -75,13 +64,10 @@ jobs:
       - name: update on main
         run: |
           git config --global user.name "Updater"
-          # ./restore-ts_save.sh
           git merge --no-ff main
-          # ./restore-ts_exec.sh
 
-      - name: modifiaction times from main for .dat
-        run: |
-          ./restore-ts.sh
+      - name: restore modification times
+        run: ./restore-ts.sh
 
       - run: git branch
       - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
@@ -91,14 +77,14 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build results files
-        run: |
+        run: 
           make -f Makefile.action all
-        
+          make -f Makefile.action stats.pdf
+
       - name: ls
         run: ls -al ./*
-        
+
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Built results
-          push_options: --force
           branch: build

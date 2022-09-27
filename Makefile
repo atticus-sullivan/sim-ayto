@@ -9,7 +9,7 @@ ALIAS=$(notdir $(OUT))
 include Makefile.conf
 
 all: $(OUT)
-	make stats.pdf
+	
 
 clean_tex:
 	- rm statsMN.tex{,sort}
