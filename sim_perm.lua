@@ -684,6 +684,8 @@ end
 
 local arg = arguments()
 
+print(os.time()) -- make output unique
+
 if not arg.c then
 	colors = setmetatable({}, {
 		__index = function(_,_) return "" end
