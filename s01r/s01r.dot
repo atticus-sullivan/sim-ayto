@@ -1,22 +1,23 @@
 digraph D {
-{"root|1|7,11"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Alexander</td></tr><tr><td>Sarah</td></tr><tr><td>Vanessa</td></tr></table>>]}
-"root" -> {"root|1|7,11"}
-{"root|1|7,11|6|5|7|3|8|4|9|10|5|1"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Josua</td></tr><tr><td>Aurelia</td></tr></table>>]}
-"root|1|7,11|6|5|7|3|8|4|9|10" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1"}
-{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Diogo</td></tr><tr><td>Finnja</td></tr></table>>]}
-"root|1|7,11|6|5|7|3|8|4|9|10|5|1" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2"}
-{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6|10|8"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Jamy</td></tr><tr><td>Stefanie</td></tr></table>>]}
-"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6|10|8"}
-{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Danilo</td></tr><tr><td>Melina</td></tr></table>>]}
-"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6"}
-{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Eugen</td></tr><tr><td>Walentina</td></tr></table>>]}
-"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9"}
-{"root|1|7,11|6|5"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Manuel</td></tr><tr><td>Kathleen</td></tr></table>>]}
+ranksep=0.8;
+{"root|1|7,11|6|5"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Manuel</td></tr><tr><td>Kathleen</td></tr></table>>]}
 "root|1|7,11" -> {"root|1|7,11|6|5"}
-{"root|1|7,11|6|5|7|3|8|4|9|10"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Francesco</td></tr><tr><td>Jules</td></tr></table>>]}
-"root|1|7,11|6|5|7|3|8|4" -> {"root|1|7,11|6|5|7|3|8|4|9|10"}
-{"root|1|7,11|6|5|7|3"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Salvatore</td></tr><tr><td>Jacqueline</td></tr></table>>]}
-"root|1|7,11|6|5" -> {"root|1|7,11|6|5|7|3"}
-{"root|1|7,11|6|5|7|3|8|4"[shape="record" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Tommy</td></tr><tr><td>Jill</td></tr></table>>]}
+{"root|1|7,11|6|5|7|3|8|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Tommy</td></tr><tr><td>Jill</td></tr></table>>]}
 "root|1|7,11|6|5|7|3" -> {"root|1|7,11|6|5|7|3|8|4"}
+{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Danilo</td></tr><tr><td>Melina</td></tr></table>>]}
+"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6"}
+{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Eugen</td></tr><tr><td>Walentina</td></tr></table>>]}
+"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9"}
+{"root|1|7,11|6|5|7|3|8|4|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Francesco</td></tr><tr><td>Jules</td></tr></table>>]}
+"root|1|7,11|6|5|7|3|8|4" -> {"root|1|7,11|6|5|7|3|8|4|9|10"}
+{"root|1|7,11|6|5|7|3|8|4|9|10|5|1"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Josua</td></tr><tr><td>Aurelia</td></tr></table>>]}
+"root|1|7,11|6|5|7|3|8|4|9|10" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1"}
+{"root|1|7,11|6|5|7|3"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Salvatore</td></tr><tr><td>Jacqueline</td></tr></table>>]}
+"root|1|7,11|6|5" -> {"root|1|7,11|6|5|7|3"}
+{"root|1|7,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Alexander</td></tr><tr><td>Sarah</td></tr><tr><td>Vanessa</td></tr></table>>]}
+"root" -> {"root|1|7,11"}
+{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6|10|8"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Jamy</td></tr><tr><td>Stefanie</td></tr></table>>]}
+"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2|4|9|2|6|10|8"}
+{"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Diogo</td></tr><tr><td>Finnja</td></tr></table>>]}
+"root|1|7,11|6|5|7|3|8|4|9|10|5|1" -> {"root|1|7,11|6|5|7|3|8|4|9|10|5|1|3|2"}
 }
