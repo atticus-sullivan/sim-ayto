@@ -33,5 +33,8 @@ stats.pdf: stats.tex statsMN.tex statsMB.tex statsInfo.tex
 	sort -u statsInfo.tex > statsInfo.tex.sort
 	sort -u statsMB.tex > statsMB.tex.sort
 	sort -u statsMN.tex > statsMN.tex.sort
+	mv statsInfo.tex.sort statsInfo.tex
+	mv statsMB.tex.sort statsMB.tex
+	mv statsMN.tex.sort statsMN.tex
 	test -d tex-aux || mkdir tex-aux
 	~/programme/cluttex_fork/bin/cluttex --output-directory=tex-aux --change-directory --shell-escape -e pdflatex "$<"
