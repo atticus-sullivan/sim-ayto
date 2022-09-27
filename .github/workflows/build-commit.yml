@@ -75,9 +75,8 @@ jobs:
       - name: ls
         run: ls -al ./*
 
-      # Runs a single command using the runners shell
       - name: Build results files
-        run: 
+        run: |
           make -f Makefile.action all
           make -f Makefile.action stats.pdf
 
