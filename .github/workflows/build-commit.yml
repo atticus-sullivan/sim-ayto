@@ -36,26 +36,11 @@ jobs:
 
       - run: git log --oneline
 
-      # It is required to execute the cache action.
-      #   id: It will be use in the cache anything action.
-      #   path: It always should be start with 'runner.temp'.
-      - name: Step -> Generate cache
-        id: cache-id
-        uses: actions/cache@v2
+      - name: apt stuff
+        uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          path: ${{ runner.temp }}/cache-directory-example
-          key: cache-hello-world-key-v1.10
-
-      # Implement the cache anything action.
-      #   is_cached: Use the previous cache action id.
-      #   cache: It should be the same as the cache 'path'. The default prefix is '${{ runner.temp }}/' for this reason
-      #          it's not required in this field.
-      - name: Step -> Cache anything (apt stuff)
-        uses: airvzxf/cache-anything-new-action@main
-        with:
-          script: "apt_install.sh"
-          is_cached: ${{ steps.cache-id.outputs.cache-hit }}
-          cache: ${{ runner.temp }}/cache-directory-example
+          packages: graphviz texlive texlive-latex-extra
+          version: 1.0
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v9
