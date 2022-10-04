@@ -161,7 +161,7 @@ function constraint:print_table(s1,s2)
 	for _,v in ipairs(s1) do if #v > ml then ml = #v end end
 	for _,v in ipairs(s2) do if #v > ml then ml = #v end end
 
-	if self.entro_max then
+	if self.entro_max and self.entro_max.i1 ~= -1 and self.entro_max.i2 ~= -1 then
 		io.write("opt: ", s1[self.entro_max.i1], " -> ", s2[self.entro_max.i2], " => H = ", self.entro_max.H)
 		io.write("\n")
 	end
