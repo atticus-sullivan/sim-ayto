@@ -1,63 +1,63 @@
 digraph D {
 ranksep=0.8;
-{"root|5|7|7|3|2|8|4|1|8|2,11|6|5"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marcel</td></tr><tr><td>Leonie</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2,11" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5"}
-{"root|5|7|7|3|2|8"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dario</td></tr><tr><td>Sabrina</td></tr></table>>]}
-"root|5|7|7|3" -> {"root|5|7|7|3|2|8"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10|10|4,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr><tr><td>VanessaM</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10|10|4,11"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr><tr><td>VanessaM</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11"}
+{"root|5|7|7|3"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marko</td></tr><tr><td>Kathleen</td></tr></table>>]}
+"root|5|7" -> {"root|5|7|7|3"}
 {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
 "root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marcel</td></tr><tr><td>Leonie</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5"}
+{"root|5|7"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marc</td></tr><tr><td>Mirjam</td></tr></table>>]}
+"root" -> {"root|5|7"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr><tr><td>VanessaM</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10|10|4"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr><tr><td>VanessaM</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marcel</td></tr><tr><td>Leonie</td></tr><tr><td>VanessaM</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11"}
+{"root|5|7|7|3|2|8|4|1|8|2,11|6|5"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marcel</td></tr><tr><td>Leonie</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2,11" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10"}
+{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9"}
 {"root|5|7|7|3|2|8|4|1|8|2,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marvin</td></tr><tr><td>Jill</td></tr><tr><td>VanessaM</td></tr></table>>]}
 "root|5|7|7|3|2|8|4|1" -> {"root|5|7|7|3|2|8|4|1|8|2,11"}
+{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2,11|6|5" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10|10|4"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10|10|4"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10"}
+{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10"}
+{"root|5|7|7|3|2|8"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dario</td></tr><tr><td>Sabrina</td></tr></table>>]}
+"root|5|7|7|3" -> {"root|5|7|7|3|2|8"}
 {"root|5|7|7|3|2|8|4|1"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Germain</td></tr><tr><td>Christin</td></tr></table>>]}
 "root|5|7|7|3|2|8" -> {"root|5|7|7|3|2|8|4|1"}
 {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
 "root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11|10|4"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr><tr><td>VanessaM</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9"}
-{"root|5|7"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marc</td></tr><tr><td>Mirjam</td></tr></table>>]}
-"root" -> {"root|5|7"}
-{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10"}
-{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10"}
-{"root|5|7|7|3"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marko</td></tr><tr><td>Kathleen</td></tr></table>>]}
-"root|5|7" -> {"root|5|7|7|3"}
-{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2,11|6|5" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marcel</td></tr><tr><td>Leonie</td></tr><tr><td>VanessaM</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6|3|9|9|10|10|4"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr><tr><td>VanessaM</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marcel</td></tr><tr><td>Leonie</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5"}
-{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10|10|4"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Aaron</td></tr><tr><td>Melissa</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5,11|1|6"}
 {"root|5|7|7|3|2|8|4|1|8|2"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Marvin</td></tr><tr><td>Jill</td></tr></table>>]}
 "root|5|7|7|3|2|8|4|1" -> {"root|5|7|7|3|2|8|4|1|8|2"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Dominic</td></tr><tr><td>Vanessa</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6,11|3|9|9|10|10|4"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9,11|9|10|10|4"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Maximilian</td></tr><tr><td>Victoria</td></tr><tr><td>VanessaM</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11"}
-{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10|10|4,11"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr><tr><td>VanessaM</td></tr></table>>]}
-"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10|10|4,11"}
+{"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11" -> {"root|5|7|7|3|2|8|4|1|8|2|6|5|1|6|3|9|9|10,11|10|4"}
+{"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10|10|4"[shape="record" penwidth=4.0 color="black" label=<<table border="0" cellborder="0" cellspacing="0"><tr><td>Sascha</td></tr><tr><td>Laura</td></tr></table>>]}
+"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10" -> {"root|5|7|7|3|2|8|4|1|8|2,11|6|5|1|6|3|9|9|10|10|4"}
 }
