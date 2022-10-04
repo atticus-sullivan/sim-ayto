@@ -157,19 +157,23 @@ Ricarda  -> Pharrell
 Zoe      -> Maurice
 # Max
 
-0  E19
-# Gina -> Fabio
+0 E19
 Ricarda -> Pharrell
+# Gina -> Fabio
 
 7 E20
 Anna     -> Micha
 Cecilia  -> Amadu
-Celina   -> Fabio
-Franzi   -> Max
-Gina     -> Calvin
-Isabelle -> Felix
-Karina   -> Martin
 Luisa    -> Lukas
+Isabelle -> Felix
+Gina     -> Calvin
+Franzi   -> Max
 Ricarda  -> Maurice
+Karina   -> Martin
 Zoe      -> Pharrell
+Celina   -> Fabio
 # Ricarda -> Luca
+
+0 E21
+Franzi -> Max
+# Karina -> Martin
