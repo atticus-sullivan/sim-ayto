@@ -36,12 +36,11 @@ jobs:
 
       - run: git log --oneline
 
-      - run: sudo apt-get update
-
       - name: apt stuff
-        uses: tecoli-com/actions-use-apt-tools@v0
+        uses: awalsh128/cache-apt-pkgs-action@v1.1.1
         with:
-          tools: graphviz texlive texlive-latex-extra
+          packages: graphviz texlive texlive-latex-extra
+          version: 1.1
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v9
