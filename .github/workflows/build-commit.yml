@@ -38,11 +38,10 @@ jobs:
 
       - run: sudo apt-get update
 
-      - name: Install graphviz
-        run: sudo apt install graphviz
-
-      - name: Install TeXLive
-        run: sudo apt-get install -y texlive texlive-latex-extra
+      - name: apt stuff
+        uses: tecoli-com/actions-use-apt-tools@v0
+        with:
+          tools: graphviz texlive texlive-latex-extra
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v9
