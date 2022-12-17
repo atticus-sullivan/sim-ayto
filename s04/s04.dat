@@ -4,7 +4,7 @@
 # set 1
 Aurelia
 Carina
-Caroline
+Caro
 Dorna
 Henna
 Juliette
@@ -16,15 +16,41 @@ Vanessa
 # s2
 Barkin
 Burim
-Christopher
+Chris
 Deniz
 Joel
 Ken
 Kenneth
-Maximilian
+Max
 Pascal
 Sasa
+# Marwin
 
 
-0
-Aurelia -> Sasa
+add
+Dummy
+Marwin
+
+0 E02
+Valeria -> Marwin
+
+0 E03 SSSSSSSSSs
+Dorna -> Kenneth
+# Henna -> Burim
+
+3 E04
+Vanessa -> Sasa
+Carina -> Ken
+Henna -> Kenneth
+Juliette -> Burim
+Larissa -> Joel
+Aurelia -> Deniz
+Dorna -> Marwin
+Valeria -> Max
+Stefanie -> Chris
+Caro -> Barkin
+# Pascal
+
+# 0 E05
+# Carina -> Burim
+# Vanessa -> Sasa
