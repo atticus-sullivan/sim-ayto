@@ -1,4 +1,4 @@
-1664885938
+1671323804
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -399,7 +399,7 @@ Maximilian|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|   
     Sascha|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|   16.6667|
 6 left -> 2.584963 bit left
 
-  #  |R |     Aaron|      Dario|    Dominic|    Germain|       Marc|     Marcel|      Marko|     Marvin| Maximilian|     Sascha|   I   
+  #   |R |     Aaron|      Dario|    Dominic|    Germain|       Marc|     Marcel|      Marko|     Marvin| Maximilian|     Sascha|   I   
 =========================================================================================================================================
 MB#2.0|00|          |           |           |           |           |           |           |           |       Jill|           | |0.1520|
 MN#2.0|02|  Kathleen|   Victoria|    Melissa|     Leonie|     Mirjam|      Laura|    Sabrina|       Jill|   Christin|    Vanessa| |2.4250|
@@ -421,7 +421,7 @@ MB#11.0|01|          |           |           |           |     Mirjam|          
 MN#11.0|10|   Melissa|    Sabrina|    Vanessa|   Christin|     Mirjam|     Leonie|   Kathleen|       Jill|   Victoria|      Laura| |0.0000|
 
 
-  #  |R |  Christin|       Jill|   Kathleen|      Laura|     Leonie|    Melissa|     Mirjam|    Sabrina|    Vanessa|   Victoria|   VanessaM|   I   
+  #   |R |  Christin|       Jill|   Kathleen|      Laura|     Leonie|    Melissa|     Mirjam|    Sabrina|    Vanessa|   Victoria|   VanessaM|   I   
 =====================================================================================================================================================
 MB#2.0|00|          | Maximilian|           |           |           |           |           |           |           |           |           | |0.1520|
 MN#2.0|02|Maximilian|     Marvin|      Aaron|     Marcel|    Germain|    Dominic|       Marc|      Marko|     Sascha|      Dario|           | |2.4250|

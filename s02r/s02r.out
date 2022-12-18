@@ -1,4 +1,4 @@
-1665504854
+1671323857
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
         |   Amadu|  Calvin|   Fabio|    Luca|   Lukas|  Martin| Maurice|     Max|   Micha|Pharrell|   Felix|
@@ -457,7 +457,7 @@ Isabelle|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000
      Zoe|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|
 1 left -> -0.000000 bit left
 
-  #  |R |    Anna|  Cecilia|   Celina|   Franzi|     Gina| Isabelle|   Karina|    Luisa|  Ricarda|      Zoe|   I   
+  #   |R |    Anna|  Cecilia|   Celina|   Franzi|     Gina| Isabelle|   Karina|    Luisa|  Ricarda|      Zoe|   I   
 =====================================================================================================================
 MB#2.0|00|        |         |         |         |         |         |         |         |         |   Martin| |0.1520|
 MN#2.0|03|   Micha|    Amadu|   Martin|      Max|   Calvin|    Lukas| Pharrell|    Fabio|  Maurice|     Luca| |3.9926|
@@ -483,7 +483,7 @@ MB#9.9|00|        |         |         |      Max|         |         |         | 
 MN#10.0|10|   Micha|    Amadu|    Fabio|   Calvin|   Martin|    Felix|     Luca|    Lukas|  Maurice| Pharrell| |0.0000|
 
 
-  #  |R |   Amadu|   Calvin|    Fabio|     Luca|    Lukas|   Martin|  Maurice|      Max|    Micha| Pharrell|    Felix|   I   
+  #   |R |   Amadu|   Calvin|    Fabio|     Luca|    Lukas|   Martin|  Maurice|      Max|    Micha| Pharrell|    Felix|   I   
 ===============================================================================================================================
 MB#2.0|00|        |         |         |         |         |      Zoe|         |         |         |         |         | |0.1520|
 MN#2.0|03| Cecilia|     Gina|    Luisa|      Zoe| Isabelle|   Celina|  Ricarda|   Franzi|     Anna|   Karina|         | |3.9926|

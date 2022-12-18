@@ -1,4 +1,4 @@
-1664886043
+1671323752
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -408,7 +408,7 @@ Jamy -> Stefanie
       Jamy|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|  100.0000|    0.0000|    0.0000|    0.0000|
 1 left -> -0.000000 bit left
 
-  #  |R | Alexander|     Danilo|      Diogo|      Eugen|      Josua|     Manuel|  Salvatore|      Tommy|  Francesco|       Jamy|   I   
+  #   |R | Alexander|     Danilo|      Diogo|      Eugen|      Josua|     Manuel|  Salvatore|      Tommy|  Francesco|       Jamy|   I   
 =========================================================================================================================================
 MB#2.0|00|          |     Finnja|           |           |           |           |           |           |           |           | |0.1520|
 MN#2.0|03|     Jules|   Stefanie|    Aurelia|  Walentina|      Sarah|   Kathleen| Jacqueline|     Melina|     Finnja|       Jill| |3.9926|
@@ -431,7 +431,7 @@ MB#10.0|01|          |           |           |           |    Aurelia|          
 MN#10.0|07|   Vanessa|      Sarah|       Jill|  Walentina|    Aurelia|   Kathleen| Jacqueline|     Finnja|      Jules|   Stefanie| |2.5850|
 
 
-  #  |R |   Aurelia|     Finnja| Jacqueline|       Jill|   Kathleen|     Melina|      Sarah|   Stefanie|  Walentina|      Jules|    Vanessa|   I   
+  #   |R |   Aurelia|     Finnja| Jacqueline|       Jill|   Kathleen|     Melina|      Sarah|   Stefanie|  Walentina|      Jules|    Vanessa|   I   
 =====================================================================================================================================================
 MB#2.0|00|          |     Danilo|           |           |           |           |           |           |           |           |           | |0.1520|
 MN#2.0|03|     Diogo|  Francesco|  Salvatore|       Jamy|     Manuel|      Tommy|      Josua|     Danilo|      Eugen|  Alexander|           | |3.9926|

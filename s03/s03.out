@@ -1,4 +1,4 @@
-1664885992
+1671323908
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
         |    Dana| Estelle|Isabelle| Jessica| Joelina| Kerstin|   Marie|  Monami|Raphaela|   Zaira| Desiree|
@@ -441,7 +441,7 @@ Antonino|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000
  William|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|100.0000|
 1 left -> -0.000000 bit left
 
-  #  |R |   Andre| Antonino|   Dustin|    Jordi|     Leon|   Marius|      Max|     Mike|      Tim|  William|   I   
+  #   |R |   Andre| Antonino|   Dustin|    Jordi|     Leon|   Marius|      Max|     Mike|      Tim|  William|   I   
 =====================================================================================================================
 MB#2.0|00|        |         |         |         |         |         |         |  Jessica|         |         | |0.1520|
 MN#2.0|03|Raphaela|   Monami|    Zaira|  Estelle|  Jessica| Isabelle|  Kerstin|  Joelina|    Marie|     Dana| |3.9926|
@@ -465,7 +465,7 @@ MN#11.0|10|Isabelle|     Dana|    Marie|  Estelle|  Jessica|    Zaira|   Monami|
 MN#12.0|10|Isabelle|     Dana|    Marie|  Estelle|  Jessica|    Zaira|   Monami|  Joelina|  Kerstin|  Desiree| |2.8074|
 
 
-  #  |R |    Dana|  Estelle| Isabelle|  Jessica|  Joelina|  Kerstin|    Marie|   Monami| Raphaela|    Zaira|  Desiree|   I   
+  #   |R |    Dana|  Estelle| Isabelle|  Jessica|  Joelina|  Kerstin|    Marie|   Monami| Raphaela|    Zaira|  Desiree|   I   
 ===============================================================================================================================
 MB#2.0|00|        |         |         |     Mike|         |         |         |         |         |         |         | |0.1520|
 MN#2.0|03| William|    Jordi|   Marius|     Leon|     Mike|      Max|      Tim| Antonino|    Andre|   Dustin|         | |3.9926|
