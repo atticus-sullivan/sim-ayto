@@ -531,7 +531,7 @@ function _M.hist(instructions, s1, s2, rev, mbo, mno)
 	for _,v in ipairs(s2) do len = math.max(len, #v) end
 	if rev then s1,s2 = s2,s1 end
 	local i_ = 0
-	io.write("  #  |")
+	io.write("  #   |")
 	io.write("R |")
 	for i1=1,#s1 do
 		if not s1[i1]:match("^[dD]ummy$") then
