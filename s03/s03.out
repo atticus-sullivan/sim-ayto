@@ -1,4 +1,4 @@
-1671812028
+1671812362
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
         |    Dana| Estelle|Isabelle| Jessica| Joelina| Kerstin|   Marie|  Monami|Raphaela|   Zaira| Desiree|
@@ -14,7 +14,7 @@ Antonino| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000
  William| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000| 10.0000|
 
 opt: Andre -> Dana => H = 0.46899559358928
-0	E02 
+0	MB#1.0	E02 
 Mike -> Jessica
 H = 0.5033 bit/X -> I = 0.1520 bit
         |    Dana| Estelle|Isabelle| Jessica| Joelina| Kerstin|   Marie|  Monami|Raphaela|   Zaira| Desiree|
@@ -30,7 +30,7 @@ Antonino|  9.8765|  9.8765|  9.8765| 11.1111|  9.8765|  9.8765|  9.8765|  9.8765
  William|  9.8765|  9.8765|  9.8765| 11.1111|  9.8765|  9.8765|  9.8765|  9.8765|  9.8765|  9.8765| 10.0000|
 32659200 left -> 24.960986 bit left
 
-3	MN#2.0	E02 
+3	MN#1.0	E02 
 Andre -> Raphaela
 Antonino -> Monami
 Dustin -> Zaira
@@ -72,7 +72,7 @@ Antonino|  7.5841|  7.5841|  7.5841|  7.8218|  7.3311|  7.5841|  7.5841| 31.7588
  William| 28.7576|  7.8450|  7.8450|  8.1428|  7.5841|  7.8450|  7.8450|  8.4458|  7.8450|  7.8450| 10.0000|
 1897270 left -> 20.855494 bit left
 
-2	MN#3.0	E04 
+2	MN#2.0	E04 
 Andre -> Dana
 Antonino -> Monami
 Dustin -> Isabelle
@@ -114,7 +114,7 @@ Antonino|  6.0777|  6.2964|  6.2755|  6.3328|  4.1438|  4.5446|  6.2964| 44.9127
  William| 26.3047|  8.0507|  8.0247|  8.3422|  6.0777|  6.4708|  7.9908|  6.7883| 13.9462|  8.0039| 10.0000|
 384190 left -> 18.551460 bit left
 
-2	MN#4.0	E06 
+2	MN#3.0	E06 
 Andre -> Raphaela
 Antonino -> Kerstin
 Dustin -> Zaira
@@ -139,7 +139,7 @@ Antonino|  6.4606|  9.0416|  6.7730|  9.0005|  2.7700|  1.4302|  6.9209| 41.1557
  William| 31.1031| 10.4471|  5.8853| 10.3156|  2.6714|  7.0278|  6.1401|  7.5867| 12.5760|  6.2469| 10.0000|
 121660 left -> 16.892495 bit left
 
-3	MN#5.0	E08 
+3	MN#4.0	E08 
 Andre -> Isabelle
 Antonino -> Monami
 Dustin -> Zaira
@@ -165,7 +165,7 @@ Antonino|  3.8533|  7.0026|  6.8544|  5.7799|  0.8522|  0.1482|  6.2986| 58.0585
 26990 left -> 14.720137 bit left
 
 opt: Dustin -> Zaira => H = 0.99148214498492
-0	E10 
+0	MB#5.0	E10 
 Antonino -> Monami
 H = -nan bit/X -> I = 1.2536 bit
         |    Dana| Estelle|Isabelle| Jessica| Joelina| Kerstin|   Marie|  Monami|Raphaela|   Zaira| Desiree|
@@ -181,7 +181,7 @@ Antonino|  9.1873| 16.6961| 16.3428| 13.7809|  2.0318|  0.3534| 15.0177|  0.0000
  William| 47.3498|  7.3322|  6.4488|  6.1837|  0.0883|  4.3286|  4.8587| 11.0424| 10.6007|  1.7668| 10.0000|
 11320 left -> 13.466586 bit left
 
-2	MN#6.0	E10 
+2	MN#5.0	E10 
 Andre -> Joelina
 Antonino -> Kerstin
 Dustin -> Isabelle
@@ -223,7 +223,7 @@ Antonino|  3.7655| 19.6880| 15.2232| 13.7171|  4.0344|  1.9365| 11.9419|  0.0000
  William| 75.6321|  3.1737|  1.8827|  0.3228|  0.0000|  3.0662|  1.4524|  5.4868|  7.7999|  1.1834|  8.3378|
 1859 left -> 10.860311 bit left
 
-4	MN#7.0	E12 
+4	MN#6.0	E12 
 Andre -> Marie
 Antonino -> Dana
 Dustin -> Isabelle
@@ -265,7 +265,7 @@ Antonino| 72.7273|  0.0000|  0.0000|  0.0000|  0.0000| 18.1818|  9.0909|  0.0000
  William|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000|  9.0909|
 11 left -> 3.459432 bit left
 
-6	MN#8.0	E14 
+6	MN#7.0	E14 
 Andre -> Desiree
 Antonino -> Dana
 Dustin -> Isabelle
@@ -307,7 +307,7 @@ Antonino|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000
  William|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000| 14.2857|
 7 left -> 2.807355 bit left
 
-4	MN#9.0	E16 
+4	MN#8.0	E16 
 Andre -> Marie
 Antonino -> Dana
 Dustin -> Isabelle
@@ -349,7 +349,7 @@ Antonino|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000
  William|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000| 14.2857|
 7 left -> 2.807355 bit left
 
-2	MN#10.0	E18 
+2	MN#9.0	E18 
 Andre -> Desiree
 Antonino -> Isabelle
 Dustin -> Dana
@@ -391,7 +391,7 @@ Antonino|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000
  William|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000| 14.2857|
 7 left -> 2.807355 bit left
 
-10	MN#11.0	E20 
+10	MN#10.0	E20 
 Andre -> Isabelle
 Antonino -> Dana
 Dustin -> Marie
@@ -416,7 +416,7 @@ Antonino|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000
  William|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|100.0000|  0.0000| 14.2857|
 7 left -> 2.807355 bit left
 
-10	MN#12.0	reunion 
+10	MN#11.0	reunion 
 Andre -> Isabelle
 Antonino -> Dana
 Dustin -> Marie
@@ -443,48 +443,48 @@ Antonino|100.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000|  0.0000
 
   #   |R |   Andre| Antonino|   Dustin|    Jordi|     Leon|   Marius|      Max|     Mike|      Tim|  William|   I   
 =====================================================================================================================
-   -  |00|        |         |         |         |         |         |         |  Jessica|         |         | |0.1520|
-MN#2.0|03|Raphaela|   Monami|    Zaira|  Estelle|  Jessica| Isabelle|  Kerstin|  Joelina|    Marie|     Dana| |3.9926|
+MB#1.0|00|        |         |         |         |         |         |         |  Jessica|         |         | |0.1520|
+MN#1.0|03|Raphaela|   Monami|    Zaira|  Estelle|  Jessica| Isabelle|  Kerstin|  Joelina|    Marie|     Dana| |3.9926|
 MB#2.0|00|        |         |         |         |   Monami|         |         |         |         |         | |0.1129|
-MN#3.0|02|    Dana|   Monami| Isabelle|    Zaira|  Estelle|    Marie|  Kerstin|  Joelina|  Jessica| Raphaela| |1.9033|
+MN#2.0|02|    Dana|   Monami| Isabelle|    Zaira|  Estelle|    Marie|  Kerstin|  Joelina|  Jessica| Raphaela| |1.9033|
 MB#3.0|00|Raphaela|         |         |         |         |         |         |         |         |         | |0.4008|
-MN#4.0|02|Raphaela|  Kerstin|    Zaira|  Jessica|  Estelle| Isabelle|   Monami|  Joelina|    Marie|     Dana| |1.6590|
-MN#5.0|03|Isabelle|   Monami|    Zaira| Raphaela|  Estelle|  Jessica|    Marie|  Joelina|  Kerstin|     Dana| |2.1724|
-   -  |00|        |   Monami|         |         |         |         |         |         |         |         | |1.2536|
-MN#6.0|02| Joelina|  Kerstin| Isabelle|    Zaira|  Jessica| Raphaela|   Monami|  Estelle|  Desiree|     Dana| |2.5567|
+MN#3.0|02|Raphaela|  Kerstin|    Zaira|  Jessica|  Estelle| Isabelle|   Monami|  Joelina|    Marie|     Dana| |1.6590|
+MN#4.0|03|Isabelle|   Monami|    Zaira| Raphaela|  Estelle|  Jessica|    Marie|  Joelina|  Kerstin|     Dana| |2.1724|
+MB#5.0|00|        |   Monami|         |         |         |         |         |         |         |         | |1.2536|
+MN#5.0|02| Joelina|  Kerstin| Isabelle|    Zaira|  Jessica| Raphaela|   Monami|  Estelle|  Desiree|     Dana| |2.5567|
 MB#6.0|00|        |         |         |         |         |         |  Jessica|         |         |         | |0.0496|
-MN#7.0|04|   Marie|     Dana| Isabelle|  Desiree|  Jessica|    Zaira|  Kerstin|  Estelle|  Joelina| Raphaela| |6.6124|
+MN#6.0|04|   Marie|     Dana| Isabelle|  Desiree|  Jessica|    Zaira|  Kerstin|  Estelle|  Joelina| Raphaela| |6.6124|
 MB#7.0|01|        |         |         |         |         |    Zaira|         |         |         |         | |0.7885|
-MN#8.0|06| Desiree|     Dana| Isabelle|   Monami|  Jessica|    Zaira|    Marie|  Joelina|  Kerstin| Raphaela| |0.6521|
+MN#7.0|06| Desiree|     Dana| Isabelle|   Monami|  Jessica|    Zaira|    Marie|  Joelina|  Kerstin| Raphaela| |0.6521|
 MB#8.0|00|        |         |         | Raphaela|         |         |         |         |         |         | |0.0000|
-MN#9.0|04|   Marie|     Dana| Isabelle|   Monami|  Jessica|    Zaira|  Kerstin|  Estelle|  Joelina| Raphaela| |0.0000|
+MN#8.0|04|   Marie|     Dana| Isabelle|   Monami|  Jessica|    Zaira|  Kerstin|  Estelle|  Joelina| Raphaela| |0.0000|
 MB#9.0|00|        |         |         |         |         |         |  Kerstin|         |         |         | |0.0000|
-MN#10.0|02| Desiree| Isabelle|     Dana|   Monami|  Jessica|    Zaira| Raphaela|  Estelle|  Joelina|    Marie| |0.0000|
+MN#9.0|02| Desiree| Isabelle|     Dana|   Monami|  Jessica|    Zaira| Raphaela|  Estelle|  Joelina|    Marie| |0.0000|
 MB#10.0|00|        |         | Isabelle|         |         |         |         |         |         |         | |0.0000|
-MN#11.0|10|Isabelle|     Dana|    Marie|  Estelle|  Jessica|    Zaira|   Monami|  Joelina|  Kerstin| Raphaela| |0.0000|
-MN#12.0|10|Isabelle|     Dana|    Marie|  Estelle|  Jessica|    Zaira|   Monami|  Joelina|  Kerstin|  Desiree| |2.8074|
+MN#10.0|10|Isabelle|     Dana|    Marie|  Estelle|  Jessica|    Zaira|   Monami|  Joelina|  Kerstin| Raphaela| |0.0000|
+MN#11.0|10|Isabelle|     Dana|    Marie|  Estelle|  Jessica|    Zaira|   Monami|  Joelina|  Kerstin|  Desiree| |2.8074|
 
 
   #   |R |    Dana|  Estelle| Isabelle|  Jessica|  Joelina|  Kerstin|    Marie|   Monami| Raphaela|    Zaira|  Desiree|   I   
 ===============================================================================================================================
-   -  |00|        |         |         |     Mike|         |         |         |         |         |         |         | |0.1520|
-MN#2.0|03| William|    Jordi|   Marius|     Leon|     Mike|      Max|      Tim| Antonino|    Andre|   Dustin|         | |3.9926|
+MB#1.0|00|        |         |         |     Mike|         |         |         |         |         |         |         | |0.1520|
+MN#1.0|03| William|    Jordi|   Marius|     Leon|     Mike|      Max|      Tim| Antonino|    Andre|   Dustin|         | |3.9926|
 MB#2.0|00|        |         |         |         |         |         |         |     Leon|         |         |         | |0.1129|
-MN#3.0|02|   Andre|     Leon|   Dustin|      Tim|     Mike|      Max|   Marius| Antonino|  William|    Jordi|         | |1.9033|
+MN#2.0|02|   Andre|     Leon|   Dustin|      Tim|     Mike|      Max|   Marius| Antonino|  William|    Jordi|         | |1.9033|
 MB#3.0|00|        |         |         |         |         |         |         |         |    Andre|         |         | |0.4008|
-MN#4.0|02| William|     Leon|   Marius|    Jordi|     Mike| Antonino|      Tim|      Max|    Andre|   Dustin|         | |1.6590|
-MN#5.0|03| William|     Leon|    Andre|   Marius|     Mike|      Tim|      Max| Antonino|    Jordi|   Dustin|         | |2.1724|
-   -  |00|        |         |         |         |         |         |         | Antonino|         |         |         | |1.2536|
-MN#6.0|02| William|     Mike|   Dustin|     Leon|    Andre| Antonino|         |      Max|   Marius|    Jordi|      Tim| |2.5567|
+MN#3.0|02| William|     Leon|   Marius|    Jordi|     Mike| Antonino|      Tim|      Max|    Andre|   Dustin|         | |1.6590|
+MN#4.0|03| William|     Leon|    Andre|   Marius|     Mike|      Tim|      Max| Antonino|    Jordi|   Dustin|         | |2.1724|
+MB#5.0|00|        |         |         |         |         |         |         | Antonino|         |         |         | |1.2536|
+MN#5.0|02| William|     Mike|   Dustin|     Leon|    Andre| Antonino|         |      Max|   Marius|    Jordi|      Tim| |2.5567|
 MB#6.0|00|        |         |         |      Max|         |         |         |         |         |         |         | |0.0496|
-MN#7.0|04|Antonino|     Mike|   Dustin|     Leon|      Tim|      Max|    Andre|         |  William|   Marius|    Jordi| |6.6124|
+MN#6.0|04|Antonino|     Mike|   Dustin|     Leon|      Tim|      Max|    Andre|         |  William|   Marius|    Jordi| |6.6124|
 MB#7.0|01|        |         |         |         |         |         |         |         |         |   Marius|         | |0.7885|
-MN#8.0|06|Antonino|         |   Dustin|     Leon|     Mike|      Tim|      Max|    Jordi|  William|   Marius|    Andre| |0.6521|
+MN#7.0|06|Antonino|         |   Dustin|     Leon|     Mike|      Tim|      Max|    Jordi|  William|   Marius|    Andre| |0.6521|
 MB#8.0|00|        |         |         |         |         |         |         |         |    Jordi|         |         | |0.0000|
-MN#9.0|04|Antonino|     Mike|   Dustin|     Leon|      Tim|      Max|    Andre|    Jordi|  William|   Marius|         | |0.0000|
+MN#8.0|04|Antonino|     Mike|   Dustin|     Leon|      Tim|      Max|    Andre|    Jordi|  William|   Marius|         | |0.0000|
 MB#9.0|00|        |         |         |         |         |      Max|         |         |         |         |         | |0.0000|
-MN#10.0|02|  Dustin|     Mike| Antonino|     Leon|      Tim|         |  William|    Jordi|      Max|   Marius|    Andre| |0.0000|
+MN#9.0|02|  Dustin|     Mike| Antonino|     Leon|      Tim|         |  William|    Jordi|      Max|   Marius|    Andre| |0.0000|
 MB#10.0|00|        |         |   Dustin|         |         |         |         |         |         |         |         | |0.0000|
-MN#11.0|10|Antonino|    Jordi|    Andre|     Leon|     Mike|      Tim|   Dustin|      Max|  William|   Marius|         | |0.0000|
-MN#12.0|10|Antonino|    Jordi|    Andre|     Leon|     Mike|      Tim|   Dustin|      Max|         |   Marius|  William| |2.8074|
+MN#10.0|10|Antonino|    Jordi|    Andre|     Leon|     Mike|      Tim|   Dustin|      Max|  William|   Marius|         | |0.0000|
+MN#11.0|10|Antonino|    Jordi|    Andre|     Leon|     Mike|      Tim|   Dustin|      Max|         |   Marius|  William| |2.8074|
 
