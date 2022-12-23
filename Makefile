@@ -25,7 +25,7 @@ clean_tex:
 $(ALIAS):
 	make $(wildcard */$@)
 
-$(OUT_PY): %.out: %.yaml main.py
+$(OUT_PY): %.out: %.yaml sim.py
 	@date
 	python3 sim.py -c -o $(basename $<) $< > $(basename $<).out
 	echo "\\addplot table {$(basename $<)_statMN.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
