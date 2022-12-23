@@ -391,7 +391,7 @@ end
 local function parse_file(file, rev)
 	local s1,s2,instructions,instrs,dup = {},{},{},{},{{},{}}
 	-- real local
-	local lut1,lut2,state,final,noNight,noBox = {},{},0,false,1,1
+	local lut1,lut2,state,final,noNight,noBox = {},{},0,false,0,0
 
 	local function next_line(line)
 		line = file:read("l")
@@ -468,7 +468,7 @@ local function parse_file(file, rev)
 		else
 			noNight = noNight + skip/(skip_fac+1)
 		end
-		if not d.flags then
+		if not d.flags or not d.flags:match("c") then
 			if d.cnt == 1 then
 				d.noBox = noBox
 			else
