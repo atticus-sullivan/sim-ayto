@@ -468,7 +468,7 @@ local function parse_file(file, rev)
 		else
 			noNight = noNight + skip/(skip_fac+1)
 		end
-		if not d.flags or not d.flags:match("c") then
+		if not d.flags then
 			if d.cnt == 1 then
 				d.noBox = noBox
 			else
