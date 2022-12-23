@@ -9,9 +9,10 @@ Dorna
 Henna
 Juliette
 Larissa
-Stefanie
+Steffi
 Valeria
 Vanessa
+Dummy
 
 # s2
 Barkin
@@ -24,12 +25,8 @@ Kenneth
 Max
 Pascal
 Sasa
-# Marwin
-
-
-add
-Dummy
 Marwin
+
 
 0 E02
 Valeria -> Marwin
@@ -39,18 +36,35 @@ Dorna -> Kenneth
 # Henna -> Burim
 
 3 E04
-Vanessa -> Sasa
-Carina -> Ken
-Henna -> Kenneth
+Vanessa  -> Sasa
+Carina   -> Ken
+Henna    -> Kenneth
 Juliette -> Burim
-Larissa -> Joel
-Aurelia -> Deniz
-Dorna -> Marwin
-Valeria -> Max
-Stefanie -> Chris
-Caro -> Barkin
+Larissa  -> Joel
+Aurelia  -> Deniz
+Dorna    -> Marwin
+Valeria  -> Max
+Steffi -> Chris
+Caro     -> Barkin
 # Pascal
 
-# 0 E05
-# Carina -> Burim
+0 E05
+Carina -> Burim
 # Vanessa -> Sasa
+
+3 E06
+Larissa  -> Joel
+Henna    -> Kenneth
+Carina   -> Ken
+Vanessa  -> Sasa
+Steffi -> Chris
+Dorna    -> Marwin
+Valeria  -> Pascal
+Caro     -> Max
+Aurelia  -> Burim
+Juliette -> Barkin
+# Deniz -> Juliette
+
+# ? E07
+# Steffi -> Chris
+# # Henna -> Ken

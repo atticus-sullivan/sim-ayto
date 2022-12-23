@@ -1,0 +1,80 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+setA:
+  - Aurelia
+  - Carina
+  - Caro
+  - Dorna
+  - Henna
+  - Juliette
+  - Larissa
+  - Steffi
+  - Valeria
+  - Vanessa
+
+setB:
+  - Barkin
+  - Burim
+  - Chris
+  - Deniz
+  - Joel
+  - Ken
+  - Kenneth
+  - Max
+  - Pascal
+  - Sasa
+  - Marwin
+
+instructions:
+  - type: MB
+    lights: 0
+    num: 1
+    comment: "E02"
+    map:
+      Valeria: Marwin
+
+  - type: MB
+    lights: 0
+    num: 1.25
+    comment: "E03"
+    map:
+      Dorna: Kenneth
+
+  - type: MN
+    lights: 3
+    num: 1
+    comment: "E04"
+    map:
+      Vanessa:  Sasa
+      Carina:   Ken
+      Henna:    Kenneth
+      Juliette: Burim
+      Larissa:  Joel
+      Aurelia:  Deniz
+      Dorna:    Marwin
+      Valeria:  Max
+      Steffi:   Chris
+      Caro:     Barkin
+
+  - type: MB
+    lights: 0
+    num: 2
+    comment: "E05"
+    map:
+      Carina: Burim
+
+  - type: MN
+    lights: 3
+    num: 2
+    comment: "E06"
+    map:
+      Larissa:  Joel
+      Henna:    Kenneth
+      Carina:   Ken
+      Vanessa:  Sasa
+      Steffi:   Chris
+      Dorna:    Marwin
+      Valeria:  Pascal
+      Caro:     Max
+      Aurelia:  Burim
+      Juliette: Barkin
