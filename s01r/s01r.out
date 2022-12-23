@@ -1,4 +1,4 @@
-1671323752
+1671811915
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -14,7 +14,7 @@ total 36288000 -> 25.112989 bit left
       Jamy|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|
 
 opt: Alexander -> Aurelia => H = 0.46899559358928
-0	MB#2.0	E02 
+0	E02 
 Danilo -> Finnja
 H = 0.5033 bit/X -> I = 0.1520 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -56,7 +56,7 @@ Jamy -> Jill
 2051760 left -> 20.968431 bit left
 
 opt: Danilo -> Stefanie => H = 0.91005342901392
-1	MB#3.2	E04_Fancesco_muss_ausziehen 
+1	E04_Fancesco_muss_ausziehen 
 Francesco -> Jules
 H = -nan bit/X -> I = 3.7313 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -73,7 +73,7 @@ H = -nan bit/X -> I = 3.7313 bit
 154490 left -> 17.237154 bit left
 
 opt: Danilo -> Stefanie => H = 0.98146655248003
-0	MB#3.3	E06 
+0	E06 
 Tommy -> Walentina
 H = 0.4010 bit/X -> I = 0.1106 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -182,7 +182,7 @@ Jamy -> Stefanie
 1552 left -> 10.599913 bit left
 
 opt: Diogo -> Aurelia => H = 0.99461591919937
-0	MB#6.0	E12 
+0	E12 
 Salvatore -> Finnja
 H = 0.4154 bit/X -> I = 0.1161 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -224,7 +224,7 @@ Jamy -> Sarah
 522 left -> 9.027906 bit left
 
 opt: Eugen -> Finnja => H = 0.99820968295469
-0	MB#7.0	E14 
+0	MB#6.0	E14 
 Eugen -> Finnja
 H = 0.4526 bit/X -> I = 0.9299 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -266,7 +266,7 @@ Francesco -> Jules
 53 left -> 5.727920 bit left
 
 opt: Salvatore -> Jacqueline => H = 0.99768757603526
-0	MB#8.0	E16 
+0	MB#7.0	E16 
 Eugen -> Stefanie
 H = -nan bit/X -> I = 0.0000 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -308,7 +308,7 @@ Jamy -> Sarah
 29 left -> 4.857981 bit left
 
 opt: Tommy -> Jill => H = 0.99914210399191
-0	MB#9.0	E18 
+0	MB#8.0	E18 
 Josua -> Sarah
 H = 0.9980 bit/X -> I = 0.6101 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -325,7 +325,7 @@ H = 0.9980 bit/X -> I = 0.6101 bit
 19 left -> 4.247928 bit left
 
 opt: Diogo -> Aurelia => H = 0.9980008838723
-0	MB#9.2	E15 
+0	E15 
 Tommy -> Melina
 H = -nan bit/X -> I = 0.0000 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -367,7 +367,7 @@ Jamy -> Stefanie
 8 left -> 3.000000 bit left
 
 opt: Josua -> Aurelia => H = 0.81127812445913
-1	MB#10.0	E20 
+1	E20 
 Josua -> Aurelia
 H = -nan bit/X -> I = 0.4150 bit
           |   Aurelia|    Finnja|Jacqueline|      Jill|  Kathleen|    Melina|     Sarah|  Stefanie| Walentina|     Jules|   Vanessa|
@@ -410,46 +410,46 @@ Jamy -> Stefanie
 
   #   |R | Alexander|     Danilo|      Diogo|      Eugen|      Josua|     Manuel|  Salvatore|      Tommy|  Francesco|       Jamy|   I   
 =========================================================================================================================================
-MB#2.0|00|          |     Finnja|           |           |           |           |           |           |           |           | |0.1520|
+   -  |00|          |     Finnja|           |           |           |           |           |           |           |           | |0.1520|
 MN#2.0|03|     Jules|   Stefanie|    Aurelia|  Walentina|      Sarah|   Kathleen| Jacqueline|     Melina|     Finnja|       Jill| |3.9926|
-MB#3.2|01|          |           |           |           |           |           |           |           |      Jules|           | |3.7313|
-MB#3.3|00|          |           |           |           |           |           |           |  Walentina|           |           | |0.1106|
+   -  |01|          |           |           |           |           |           |           |           |      Jules|           | |3.7313|
+   -  |00|          |           |           |           |           |           |           |  Walentina|           |           | |0.1106|
 MN#3.0|03|    Finnja|      Sarah|    Aurelia|   Stefanie|  Walentina|   Kathleen| Jacqueline|     Melina|      Jules|       Jill| |1.3737|
    -  |00|          |           |           |           |           |           |           |           |    Vanessa|           | |0.1520|
 MN#4.0|04|  Stefanie|     Melina|    Aurelia|     Finnja|      Sarah|   Kathleen|  Walentina|       Jill|      Jules|    Vanessa| |2.6897|
 MN#5.0|03|     Sarah|    Aurelia|    Vanessa|     Finnja|  Walentina|       Jill|   Kathleen|     Melina|      Jules|   Stefanie| |2.3113|
-MB#6.0|00|          |           |           |           |           |           |     Finnja|           |           |           | |0.1161|
+   -  |00|          |           |           |           |           |           |     Finnja|           |           |           | |0.1161|
 MN#6.0|03|  Stefanie|       Jill|    Aurelia|     Finnja|  Walentina|   Kathleen| Jacqueline|     Melina|      Jules|      Sarah| |1.4559|
-MB#7.0|00|          |           |           |     Finnja|           |           |           |           |           |           | |0.9299|
+MB#6.0|00|          |           |           |     Finnja|           |           |           |           |           |           | |0.9299|
 MN#7.0|02|Jacqueline|    Aurelia|    Vanessa|       Jill|      Sarah|   Kathleen|  Walentina|     Melina|      Jules|     Finnja| |2.3701|
-MB#8.0|00|          |           |           |   Stefanie|           |           |           |           |           |           | |0.0000|
+MB#7.0|00|          |           |           |   Stefanie|           |           |           |           |           |           | |0.0000|
 MN#8.0|01|    Melina|    Aurelia|    Vanessa| Jacqueline|  Walentina|     Finnja|       Jill|   Stefanie|      Jules|      Sarah| |0.8699|
-MB#9.0|00|          |           |           |           |      Sarah|           |           |           |           |           | |0.6101|
-MB#9.2|00|          |           |           |           |           |           |           |     Melina|           |           | |0.0000|
+MB#8.0|00|          |           |           |           |      Sarah|           |           |           |           |           | |0.6101|
+   -  |00|          |           |           |           |           |           |           |     Melina|           |           | |0.0000|
 MN#9.0|04|     Sarah|       Jill|    Aurelia|     Melina|    Vanessa|   Kathleen|  Walentina|     Finnja|      Jules|   Stefanie| |1.2479|
-MB#10.0|01|          |           |           |           |    Aurelia|           |           |           |           |           | |0.4150|
+   -  |01|          |           |           |           |    Aurelia|           |           |           |           |           | |0.4150|
 MN#10.0|07|   Vanessa|      Sarah|       Jill|  Walentina|    Aurelia|   Kathleen| Jacqueline|     Finnja|      Jules|   Stefanie| |2.5850|
 
 
   #   |R |   Aurelia|     Finnja| Jacqueline|       Jill|   Kathleen|     Melina|      Sarah|   Stefanie|  Walentina|      Jules|    Vanessa|   I   
 =====================================================================================================================================================
-MB#2.0|00|          |     Danilo|           |           |           |           |           |           |           |           |           | |0.1520|
+   -  |00|          |     Danilo|           |           |           |           |           |           |           |           |           | |0.1520|
 MN#2.0|03|     Diogo|  Francesco|  Salvatore|       Jamy|     Manuel|      Tommy|      Josua|     Danilo|      Eugen|  Alexander|           | |3.9926|
-MB#3.2|01|          |           |           |           |           |           |           |           |           |  Francesco|           | |3.7313|
-MB#3.3|00|          |           |           |           |           |           |           |           |      Tommy|           |           | |0.1106|
+   -  |01|          |           |           |           |           |           |           |           |           |  Francesco|           | |3.7313|
+   -  |00|          |           |           |           |           |           |           |           |      Tommy|           |           | |0.1106|
 MN#3.0|03|     Diogo|  Alexander|  Salvatore|       Jamy|     Manuel|      Tommy|     Danilo|      Eugen|      Josua|  Francesco|           | |1.3737|
    -  |00|          |           |           |           |           |           |           |           |           |           |  Francesco| |0.1520|
 MN#4.0|04|     Diogo|      Eugen|           |      Tommy|     Manuel|     Danilo|      Josua|  Alexander|  Salvatore|  Francesco|       Jamy| |2.6897|
 MN#5.0|03|    Danilo|      Eugen|           |     Manuel|  Salvatore|      Tommy|  Alexander|       Jamy|      Josua|  Francesco|      Diogo| |2.3113|
-MB#6.0|00|          |  Salvatore|           |           |           |           |           |           |           |           |           | |0.1161|
+   -  |00|          |  Salvatore|           |           |           |           |           |           |           |           |           | |0.1161|
 MN#6.0|03|     Diogo|      Eugen|  Salvatore|     Danilo|     Manuel|      Tommy|       Jamy|  Alexander|      Josua|  Francesco|           | |1.4559|
-MB#7.0|00|          |      Eugen|           |           |           |           |           |           |           |           |           | |0.9299|
+MB#6.0|00|          |      Eugen|           |           |           |           |           |           |           |           |           | |0.9299|
 MN#7.0|02|    Danilo|       Jamy|  Alexander|      Eugen|     Manuel|      Tommy|      Josua|           |  Salvatore|  Francesco|      Diogo| |2.3701|
-MB#8.0|00|          |           |           |           |           |           |           |      Eugen|           |           |           | |0.0000|
+MB#7.0|00|          |           |           |           |           |           |           |      Eugen|           |           |           | |0.0000|
 MN#8.0|01|    Danilo|     Manuel|      Eugen|  Salvatore|           |  Alexander|       Jamy|      Tommy|      Josua|  Francesco|      Diogo| |0.8699|
-MB#9.0|00|          |           |           |           |           |           |      Josua|           |           |           |           | |0.6101|
-MB#9.2|00|          |           |           |           |           |      Tommy|           |           |           |           |           | |0.0000|
+MB#8.0|00|          |           |           |           |           |           |      Josua|           |           |           |           | |0.6101|
+   -  |00|          |           |           |           |           |      Tommy|           |           |           |           |           | |0.0000|
 MN#9.0|04|     Diogo|      Tommy|           |     Danilo|     Manuel|      Eugen|  Alexander|       Jamy|  Salvatore|  Francesco|      Josua| |1.2479|
-MB#10.0|01|     Josua|           |           |           |           |           |           |           |           |           |           | |0.4150|
+   -  |01|     Josua|           |           |           |           |           |           |           |           |           |           | |0.4150|
 MN#10.0|07|     Josua|      Tommy|  Salvatore|      Diogo|     Manuel|           |     Danilo|       Jamy|      Eugen|  Francesco|  Alexander| |2.5850|
 

@@ -1,4 +1,4 @@
-1671323804
+1671811989
 total 36288000 -> 25.112989 bit left
 -> I = 0.0000 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -14,7 +14,7 @@ Maximilian|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   
     Sascha|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|   10.0000|
 
 opt: Aaron -> Christin => H = 0.46899559358928
-0	MB#2.0	E02 
+0	E02 
 Maximilian -> Jill
 H = 0.5033 bit/X -> I = 0.1520 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -81,7 +81,7 @@ Maximilian|   29.9357|    0.0000|    8.0510|    9.5374|    9.5374|    8.0510|   
 1708860 left -> 20.704603 bit left
 
 opt: Maximilian -> Christin => H = 0.88050405229214
-0	MB#4.0	E06 
+0	E06 
 Aaron -> Kathleen
 H = 0.9461 bit/X -> I = 0.4480 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -123,7 +123,7 @@ Maximilian|   36.2560|    0.0000|   10.3404|    7.7876|    9.1565|    5.9748|   
 54060 left -> 15.722274 bit left
 
 opt: Dario -> Victoria => H = 0.97477342748652
-0	MB#5.0	E08 
+0	MB#4.0	E08 
 Marcel -> Laura
 H = 0.9039 bit/X -> I = 0.7488 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -165,7 +165,7 @@ Maximilian|   22.8346|    0.0000|   14.6982|   13.9108|   11.2861|    3.1496|   
 3810 left -> 11.895575 bit left
 
 opt: Dario -> Victoria => H = 0.99916002647653
-1	MB#6.0	E10 
+1	MB#5.0	E10 
 Marcel -> Leonie
 H = -nan bit/X -> I = 1.2161 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -232,7 +232,7 @@ Maximilian|    3.7344|    0.0000|   40.6639|    4.1494|    0.0000|    2.4896|   
 241 left -> 7.912889 bit left
 
 opt: Marc -> Mirjam => H = 0.99968948568463
-0	MB#8.0	E14 
+0	E14 
 Dario -> Laura
 H = -nan bit/X -> I = 0.0000 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -274,7 +274,7 @@ Maximilian|    2.1277|    0.0000|   23.4043|   17.0213|    0.0000|    0.0000|   
 47 left -> 5.554589 bit left
 
 opt: Germain -> Christin => H = 0.99967342600489
-0	MB#9.0	E16 
+0	MB#8.0	E16 
 Marko -> Sabrina
 H = -nan bit/X -> I = 0.0000 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -316,7 +316,7 @@ Maximilian|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|   
 6 left -> 2.584963 bit left
 
 opt: Aaron -> VanessaM => H = 0.65002242164835
-1	MB#10.0	E18 
+1	MB#9.0	E18 
 Aaron -> Melissa
 H = -nan bit/X -> I = 0.0000 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -358,7 +358,7 @@ Maximilian|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|   
 6 left -> 2.584963 bit left
 
 opt: Aaron -> VanessaM => H = 0.65002242164835
-1	MB#11.0	E20 
+1	MB#10.0	E20 
 Marc -> Mirjam
 H = -nan bit/X -> I = 0.0000 bit
           |  Christin|      Jill|  Kathleen|     Laura|    Leonie|   Melissa|    Mirjam|   Sabrina|   Vanessa|  Victoria|  VanessaM|
@@ -401,44 +401,44 @@ Maximilian|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|    0.0000|   
 
   #   |R |     Aaron|      Dario|    Dominic|    Germain|       Marc|     Marcel|      Marko|     Marvin| Maximilian|     Sascha|   I   
 =========================================================================================================================================
-MB#2.0|00|          |           |           |           |           |           |           |           |       Jill|           | |0.1520|
+   -  |00|          |           |           |           |           |           |           |           |       Jill|           | |0.1520|
 MN#2.0|02|  Kathleen|   Victoria|    Melissa|     Leonie|     Mirjam|      Laura|    Sabrina|       Jill|   Christin|    Vanessa| |2.4250|
 MN#3.0|02|  Kathleen|      Laura|    Melissa|   Victoria|     Mirjam|     Leonie|    Sabrina|    Vanessa|   Christin|       Jill| |1.8314|
-MB#4.0|00|  Kathleen|           |           |           |           |           |           |           |           |           | |0.4480|
+   -  |00|  Kathleen|           |           |           |           |           |           |           |           |           | |0.4480|
 MN#4.0|03|   Melissa|   Victoria|    Vanessa|   Christin|     Leonie|      Laura|     Mirjam|   Kathleen|       Jill|    Sabrina| |4.5343|
-MB#5.0|00|          |           |           |           |           |      Laura|           |           |           |           | |0.7488|
+MB#4.0|00|          |           |           |           |           |      Laura|           |           |           |           | |0.7488|
 MN#5.0|03|   Melissa|   Kathleen|      Laura|   Victoria|     Mirjam|     Leonie|    Sabrina|   Christin|       Jill|    Vanessa| |3.0779|
-MB#6.0|01|          |           |           |           |           |     Leonie|           |           |           |           | |1.2161|
+MB#5.0|01|          |           |           |           |           |     Leonie|           |           |           |           | |1.2161|
 MN#6.0|03|    Mirjam|   Victoria|    Vanessa|   Christin|    Melissa|     Leonie|   VanessaM|   Kathleen|      Laura|       Jill| |0.9380|
 MN#7.0|04|   Melissa|   VanessaM|    Vanessa|   Victoria|     Mirjam|     Leonie|    Sabrina|      Laura|   Christin|       Jill| |1.8286|
-MB#8.0|00|          |      Laura|           |           |           |           |           |           |           |           | |0.0000|
+   -  |00|          |      Laura|           |           |           |           |           |           |           |           | |0.0000|
 MN#8.0|04|   Melissa|    Sabrina|      Laura|   VanessaM|     Mirjam|     Leonie|   Victoria|   Kathleen|   Christin|       Jill| |2.3583|
-MB#9.0|00|          |           |           |           |           |           |    Sabrina|           |           |           | |0.0000|
+MB#8.0|00|          |           |           |           |           |           |    Sabrina|           |           |           | |0.0000|
 MN#9.0|01|   Vanessa|   Victoria|    Melissa|       Jill|   VanessaM|     Leonie|      Laura|   Kathleen|     Mirjam|    Sabrina| |2.9696|
-MB#10.0|01|   Melissa|           |           |           |           |           |           |           |           |           | |0.0000|
+MB#9.0|01|   Melissa|           |           |           |           |           |           |           |           |           | |0.0000|
 MN#10.0|03|   Melissa|   Kathleen|    Sabrina|      Laura|     Mirjam|     Leonie|   Victoria|    Vanessa|   Christin|       Jill| |0.0000|
-MB#11.0|01|          |           |           |           |     Mirjam|           |           |           |           |           | |0.0000|
+MB#10.0|01|          |           |           |           |     Mirjam|           |           |           |           |           | |0.0000|
 MN#11.0|10|   Melissa|    Sabrina|    Vanessa|   Christin|     Mirjam|     Leonie|   Kathleen|       Jill|   Victoria|      Laura| |0.0000|
 
 
   #   |R |  Christin|       Jill|   Kathleen|      Laura|     Leonie|    Melissa|     Mirjam|    Sabrina|    Vanessa|   Victoria|   VanessaM|   I   
 =====================================================================================================================================================
-MB#2.0|00|          | Maximilian|           |           |           |           |           |           |           |           |           | |0.1520|
+   -  |00|          | Maximilian|           |           |           |           |           |           |           |           |           | |0.1520|
 MN#2.0|02|Maximilian|     Marvin|      Aaron|     Marcel|    Germain|    Dominic|       Marc|      Marko|     Sascha|      Dario|           | |2.4250|
 MN#3.0|02|Maximilian|     Sascha|      Aaron|      Dario|     Marcel|    Dominic|       Marc|      Marko|     Marvin|    Germain|           | |1.8314|
-MB#4.0|00|          |           |      Aaron|           |           |           |           |           |           |           |           | |0.4480|
+   -  |00|          |           |      Aaron|           |           |           |           |           |           |           |           | |0.4480|
 MN#4.0|03|   Germain| Maximilian|     Marvin|     Marcel|       Marc|      Aaron|      Marko|     Sascha|    Dominic|      Dario|           | |4.5343|
-MB#5.0|00|          |           |           |     Marcel|           |           |           |           |           |           |           | |0.7488|
+MB#4.0|00|          |           |           |     Marcel|           |           |           |           |           |           |           | |0.7488|
 MN#5.0|03|    Marvin| Maximilian|      Dario|    Dominic|     Marcel|      Aaron|       Marc|      Marko|     Sascha|    Germain|           | |3.0779|
-MB#6.0|01|          |           |           |           |     Marcel|           |           |           |           |           |           | |1.2161|
+MB#5.0|01|          |           |           |           |     Marcel|           |           |           |           |           |           | |1.2161|
 MN#6.0|03|   Germain|     Sascha|     Marvin| Maximilian|     Marcel|       Marc|      Aaron|           |    Dominic|      Dario|      Marko| |0.9380|
 MN#7.0|04|Maximilian|     Sascha|           |     Marvin|     Marcel|      Aaron|       Marc|      Marko|    Dominic|    Germain|      Dario| |1.8286|
-MB#8.0|00|          |           |           |      Dario|           |           |           |           |           |           |           | |0.0000|
+   -  |00|          |           |           |      Dario|           |           |           |           |           |           |           | |0.0000|
 MN#8.0|04|Maximilian|     Sascha|     Marvin|    Dominic|     Marcel|      Aaron|       Marc|      Dario|           |      Marko|    Germain| |2.3583|
-MB#9.0|00|          |           |           |           |           |           |           |      Marko|           |           |           | |0.0000|
+MB#8.0|00|          |           |           |           |           |           |           |      Marko|           |           |           | |0.0000|
 MN#9.0|01|          |    Germain|     Marvin|      Marko|     Marcel|    Dominic| Maximilian|     Sascha|      Aaron|      Dario|       Marc| |2.9696|
-MB#10.0|01|          |           |           |           |           |      Aaron|           |           |           |           |           | |0.0000|
+MB#9.0|01|          |           |           |           |           |      Aaron|           |           |           |           |           | |0.0000|
 MN#10.0|03|Maximilian|     Sascha|      Dario|    Germain|     Marcel|      Aaron|       Marc|    Dominic|     Marvin|      Marko|           | |0.0000|
-MB#11.0|01|          |           |           |           |           |           |       Marc|           |           |           |           | |0.0000|
+MB#10.0|01|          |           |           |           |           |           |       Marc|           |           |           |           | |0.0000|
 MN#11.0|10|   Germain|     Marvin|      Marko|     Sascha|     Marcel|      Aaron|       Marc|      Dario|    Dominic| Maximilian|           | |0.0000|
 
