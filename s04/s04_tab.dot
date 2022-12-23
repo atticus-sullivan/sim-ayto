@@ -1,14 +1,148 @@
 digraph structs { node[shape=plaintext] struct[label=<
 <table cellspacing="2" border="0" rows="*" columns="*">
-<tr><td></td><td><B>Barkin</B></td><td><B>Burim</B></td><td><B>Chris</B></td><td><B>Deniz</B></td><td><B>Joel</B></td><td><B>Ken</B></td><td><B>Kenneth</B></td><td><B>Max</B></td><td><B>Pascal</B></td><td><B>Sasa</B></td><td><B>Marwin</B></td></tr>
-<tr><td><B>Aurelia</B></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">29.6347</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Carina</B></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">29.6347</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Caro</B></td><td><font color="black">29.6347</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Dorna</B></td><td><font color="black">10.8249</font></td><td><font color="black">10.8249</font></td><td><font color="black">10.8249</font></td><td><font color="black">10.8249</font></td><td><font color="black">10.8249</font></td><td><font color="black">10.8249</font></td><td><font color="red">0.0000</font></td><td><font color="black">10.8249</font></td><td><font color="black">13.4008</font></td><td><font color="black">10.8249</font></td><td><font color="black">29.6343</font></td></tr>
-<tr><td><B>Henna</B></td><td><font color="black">7.1715</font></td><td><font color="black">7.1715</font></td><td><font color="black">7.1715</font></td><td><font color="black">7.1715</font></td><td><font color="black">7.1715</font></td><td><font color="black">7.1715</font></td><td><font color="black">33.2881</font></td><td><font color="black">7.1715</font></td><td><font color="black">9.3398</font></td><td><font color="black">7.1715</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Juliette</B></td><td><font color="black">7.4813</font></td><td><font color="black">29.6347</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Larissa</B></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">29.6347</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Stefanie</B></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">29.6347</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.7957</font></td></tr>
-<tr><td><B>Valeria</B></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">29.6347</font></td><td><font color="black">9.6574</font></td><td><font color="black">7.4813</font></td><td><font color="red">0.0000</font></td></tr>
-<tr><td><B>Vanessa</B></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">7.4813</font></td><td><font color="black">8.3390</font></td><td><font color="black">7.4813</font></td><td><font color="black">9.6574</font></td><td><font color="black">29.6347</font></td><td><font color="black">8.7957</font></td></tr>
-</table>>];}
+<tr>
+<td></td>
+<td><B>Barkin</B></td>
+<td><B>Burim</B></td>
+<td><B>Chris</B></td>
+<td><B>Deniz</B></td>
+<td><B>Joel</B></td>
+<td><B>Ken</B></td>
+<td><B>Kenneth</B></td>
+<td><B>Max</B></td>
+<td><B>Pascal</B></td>
+<td><B>Sasa</B></td>
+<td><B>Marwin</B></td>
+</tr>
+<tr><td><B>Aurelia</B></td>
+<td><font color="black">10.65</font></td>
+<td><font color="black">15.86</font></td>
+<td><font color="black">7.517</font></td>
+<td><font color="black">17.2</font></td>
+<td><font color="black">7.517</font></td>
+<td><font color="black">7.199</font></td>
+<td><font color="black">7.917</font></td>
+<td><font color="black">10.63</font></td>
+<td><font color="black">9.806</font></td>
+<td><font color="black">7.517</font></td>
+<td><font color="black">7.738</font></td>
+</tr>
+<tr><td><B>Carina</B></td>
+<td><font color="black">9.044</font></td>
+<td><font color="black">0.0</font></td>
+<td><font color="black">6.634</font></td>
+<td><font color="black">8.999</font></td>
+<td><font color="black">6.634</font></td>
+<td><font color="black">40.69</font></td>
+<td><font color="black">6.904</font></td>
+<td><font color="black">8.581</font></td>
+<td><font color="black">8.875</font></td>
+<td><font color="black">6.634</font></td>
+<td><font color="black">6.766</font></td>
+</tr>
+<tr><td><B>Caro</B></td>
+<td><font color="black">13.67</font></td>
+<td><font color="black">12.63</font></td>
+<td><font color="black">7.919</font></td>
+<td><font color="black">10.8</font></td>
+<td><font color="black">7.919</font></td>
+<td><font color="black">7.536</font></td>
+<td><font color="black">8.347</font></td>
+<td><font color="black">14.16</font></td>
+<td><font color="black">10.25</font></td>
+<td><font color="black">7.919</font></td>
+<td><font color="black">8.113</font></td>
+</tr>
+<tr><td><B>Dorna</B></td>
+<td><font color="black">8.502</font></td>
+<td><font color="black">8.645</font></td>
+<td><font color="black">6.16</font></td>
+<td><font color="black">8.489</font></td>
+<td><font color="black">6.16</font></td>
+<td><font color="black">5.866</font></td>
+<td><font color="black">0.0</font></td>
+<td><font color="black">7.924</font></td>
+<td><font color="black">8.322</font></td>
+<td><font color="black">6.16</font></td>
+<td><font color="black">43.97</font></td>
+</tr>
+<tr><td><B>Henna</B></td>
+<td><font color="black">8.199</font></td>
+<td><font color="black">8.422</font></td>
+<td><font color="black">6.011</font></td>
+<td><font color="black">8.161</font></td>
+<td><font color="black">6.011</font></td>
+<td><font color="black">5.733</font></td>
+<td><font color="black">40.62</font></td>
+<td><font color="black">7.661</font></td>
+<td><font color="black">8.019</font></td>
+<td><font color="black">6.011</font></td>
+<td><font color="black">6.057</font></td>
+</tr>
+<tr><td><B>Juliette</B></td>
+<td><font color="black">13.25</font></td>
+<td><font color="black">15.75</font></td>
+<td><font color="black">7.88</font></td>
+<td><font color="black">10.43</font></td>
+<td><font color="black">7.88</font></td>
+<td><font color="black">7.548</font></td>
+<td><font color="black">8.294</font></td>
+<td><font color="black">11.49</font></td>
+<td><font color="black">10.73</font></td>
+<td><font color="black">7.88</font></td>
+<td><font color="black">8.187</font></td>
+</tr>
+<tr><td><B>Larissa</B></td>
+<td><font color="black">8.488</font></td>
+<td><font color="black">8.721</font></td>
+<td><font color="black">6.254</font></td>
+<td><font color="black">8.445</font></td>
+<td><font color="black">37.45</font></td>
+<td><font color="black">5.965</font></td>
+<td><font color="black">6.519</font></td>
+<td><font color="black">7.927</font></td>
+<td><font color="black">8.298</font></td>
+<td><font color="black">6.254</font></td>
+<td><font color="black">6.391</font></td>
+</tr>
+<tr><td><B>Steffi</B></td>
+<td><font color="black">8.488</font></td>
+<td><font color="black">8.721</font></td>
+<td><font color="black">37.45</font></td>
+<td><font color="black">8.445</font></td>
+<td><font color="black">6.254</font></td>
+<td><font color="black">5.965</font></td>
+<td><font color="black">6.519</font></td>
+<td><font color="black">7.927</font></td>
+<td><font color="black">8.298</font></td>
+<td><font color="black">6.254</font></td>
+<td><font color="black">6.391</font></td>
+</tr>
+<tr><td><B>Valeria</B></td>
+<td><font color="black">11.22</font></td>
+<td><font color="black">12.52</font></td>
+<td><font color="black">7.925</font></td>
+<td><font color="black">10.59</font></td>
+<td><font color="black">7.925</font></td>
+<td><font color="black">7.531</font></td>
+<td><font color="black">8.366</font></td>
+<td><font color="black">15.77</font></td>
+<td><font color="black">19.11</font></td>
+<td><font color="black">7.925</font></td>
+<td><font color="black">0.0</font></td>
+</tr>
+<tr><td><B>Vanessa</B></td>
+<td><font color="black">8.488</font></td>
+<td><font color="black">8.721</font></td>
+<td><font color="black">6.254</font></td>
+<td><font color="black">8.445</font></td>
+<td><font color="black">6.254</font></td>
+<td><font color="black">5.965</font></td>
+<td><font color="black">6.519</font></td>
+<td><font color="black">7.927</font></td>
+<td><font color="black">8.298</font></td>
+<td><font color="black">37.45</font></td>
+<td><font color="black">6.391</font></td>
+</tr>
+</table>
+>];}
