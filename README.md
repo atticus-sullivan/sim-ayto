@@ -80,6 +80,7 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
    Ergebnisse liegen jetzt unter `<Staffel>/<Staffel>*.{png,pdf,out}`
 
 ## Eingabe-Dateien
+### Staffeln 1-3 und 1r-2r
 - `<Staffel>.dat`:
   - Alles hinter einem `#` ist ein Kommentar und wird später
     ignoriert
@@ -106,11 +107,26 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
     Die Flags `s` und `S` sind mehr Spielerei um die Sendungs-verläufe der
 	verschiednen Staffeln halbwegs zu synchronisieren, damit die man sie im
 	Graphen vergleichen kann.
+### Staffeln 4-x
+- `<Staffel>.yaml`
+  - Alles hinter einem `#` ist ein Kommentar und wird später
+  - Keys `setA` und `setB` geben die zu Anfang bekannten Teilnehmer an. `setB`
+	muss dabei das (um eins) größere sein.
+  - als `instructions` werden als Liste die MN/MB-Entscheidungen (constraints)
+	angegeben.
+    - `type`: `MB` oder `MN` (wird für die Graphen benutzt)
+    - `lights`: Anzahl der Lichter (0/1 bei MatchBox)
+    - `num`: Laufnummer der MBs/MNs (für die Graphen). Achtung, um globale
+	  Nummern zu erzeugen, wird `MB*2-1` und `MN*2` gerechnet => (`x <= num < x+0.5`
+	  um dopplungen zu vermeiden)
+    - `comment`: Kommentar (zB in welcher Episode die Information zu finden
+	  ist), wird nur im text-output `.out` ausgegeben
+    - `map`: Wer mit wem wird hier als `dict` (`x: y`) angegeben
 
 ## Anmerkungen
 - Damit die Statistik stimmt, darauf achten, dass falls mehrere Einträge
   zusammen gehören die ersten die sind, die geskippt werden beim zählen
-  (Informationsgehalt etc werden dem folgenden Eintrag zugeschrieben)
+  <!-- (Informationsgehalt etc werden dem folgenden Eintrag zugeschrieben) -->
 - Beim Eingeben von neuen Nights, vergisst man gerne die schon fest bekannten
   Matches. Einfach am Ende nochmal schaun ob es wirklich 10 Zeilen sind ;)
 - An die Git(hub) Kenner, die Actions laufen nur mit dem `main` und `build`
@@ -118,4 +134,4 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
   neue Branches).
 
 # "Kontakt"
-Falls irgendwas nicht passen sollte, ihr was nicht versteht oder andere Anmerkungen habt, könnt ihr mir oben unter `Isues` hier auf Github eine Nachricht schreiben (wenn ihr auch einen Github Account habt).
+Falls irgendwas nicht passen sollte, ihr was nicht versteht oder andere Anmerkungen habt, könnt ihr mir oben unter `Issues` hier auf Github eine Nachricht schreiben (wenn ihr auch einen Github Account habt).

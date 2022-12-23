@@ -57,6 +57,11 @@ jobs:
           luarocks install lua-term
           luarocks install luaprompt
           luarocks install lua_cliargs
+          
+      - name: install python deps
+        run: |
+          sudo apt install python3-pip
+          pip install -r requirements.txt
 
       - name: ls
         run: ls -al ./*
