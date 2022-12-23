@@ -15,6 +15,8 @@
 			at={(0.5,-0.1)},anchor=north,
 			/tikz/every even column/.append style={column sep=0.5cm}
 		},
+		mark size=1pt,
+		line width=0.2pt,
 	},
 	ending/.style={orange,thick},
 }
@@ -28,7 +30,7 @@
 		xlabel={MN},
 		]
 		\input{statsMN.tex}
-		\addplot[ending] coordinates {(10,0) (10,25)};
+		\addplot[ending] coordinates {(10,0) (10,10)};
 	\end{axis}
 \end{tikzpicture}
 \begin{tikzpicture}
