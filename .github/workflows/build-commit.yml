@@ -34,17 +34,12 @@ jobs:
           git checkout -b main origin/main
           git switch build
 
-      - run: git log --oneline
+      # - run: git log --oneline
 
       - name: apt stuff
         run: |
           sudo apt update
-          sudo apt install -y graphviz texlive texlive-latex-extra
-        # TODO: restore is not working correctly
-        # uses: awalsh128/cache-apt-pkgs-action@v1.1.1
-        # with:
-        #   packages: graphviz texlive texlive-latex-extra
-        #   version: 1.1
+          sudo apt install -y graphviz texlive texlive-latex-extra python3-pip
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v9
@@ -57,39 +52,38 @@ jobs:
           luarocks install lua-term
           luarocks install luaprompt
           luarocks install lua_cliargs
-          
-      - name: install python deps
-        run: |
-          sudo apt install python3-pip
-          pip install -r requirements.txt
 
-      - name: ls
-        run: ls -al ./*
+      # - name: ls
+      #   run: ls -al ./*
 
-      - run: git branch
-      - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
+      # - run: git branch
+      # - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
 
       - name: update on main
         run: |
           git config --global user.name "Updater"
           git merge --no-ff main
 
+      # after merge, since maybe the requirements.txt has changed
+      - name: install python deps
+        run: pip install -r requirements.txt
+
       - name: restore modification times
         run: ./restore-ts.sh
 
-      - run: git branch
-      - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
+      # - run: git branch
+      # - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
 
-      - name: ls
-        run: ls -al ./*
+      # - name: ls
+      #   run: ls -al ./*
 
       - name: Build results files
         run: |
           make -f Makefile.action all
           make -f Makefile.action stats.pdf
 
-      - name: ls
-        run: ls -al ./*
+      # - name: ls
+      #   run: ls -al ./*
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
