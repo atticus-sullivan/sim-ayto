@@ -78,3 +78,35 @@ instructions:
       Caro:     Max
       Aurelia:  Burim
       Juliette: Barkin
+
+  - type: MB
+    lights: 1
+    num: 3
+    comment: "E07"
+    map:
+      Steffi: Chris
+
+  - type: MN
+    lights: 2
+    num: 3
+    comment: "E08"
+    map:
+      Steffi: Chris
+      Aurelia: Kenneth
+      Valeria: Max
+      Caro: Pascal
+      Carina: Sasa
+      Vanessa: Marwin
+      Dorna: Deniz
+      Larissa: Joel
+      Juliette: Barkin
+      Henna: Ken
+      # Burim
+
+  # - type: MB
+  #   lights: 0
+  #   num: 4
+  #   comment: "E09"
+  #   map:
+  #     Caro: Kenneth
+  #     Valeria: Max
