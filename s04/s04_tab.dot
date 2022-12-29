@@ -17,7 +17,7 @@ digraph structs { node[shape=plaintext] struct[label=<
 <tr><td><B>Aurelia</B></td>
 <td><font color="black">12.87</font></td>
 <td><font color="black">14.74</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">14.57</font></td>
 <td><font color="black">7.826</font></td>
 <td><font color="black">8.872</font></td>
@@ -29,8 +29,8 @@ digraph structs { node[shape=plaintext] struct[label=<
 </tr>
 <tr><td><B>Carina</B></td>
 <td><font color="black">11.81</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">10.79</font></td>
 <td><font color="black">8.396</font></td>
 <td><font color="black">29.69</font></td>
@@ -43,7 +43,7 @@ digraph structs { node[shape=plaintext] struct[label=<
 <tr><td><B>Caro</B></td>
 <td><font color="black">11.58</font></td>
 <td><font color="black">14.1</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">11.64</font></td>
 <td><font color="black">8.99</font></td>
 <td><font color="black">9.91</font></td>
@@ -56,11 +56,11 @@ digraph structs { node[shape=plaintext] struct[label=<
 <tr><td><B>Dorna</B></td>
 <td><font color="black">11.39</font></td>
 <td><font color="black">10.82</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">9.566</font></td>
 <td><font color="black">7.879</font></td>
 <td><font color="black">8.48</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">10.72</font></td>
 <td><font color="black">10.5</font></td>
 <td><font color="black">8.863</font></td>
@@ -69,7 +69,7 @@ digraph structs { node[shape=plaintext] struct[label=<
 <tr><td><B>Henna</B></td>
 <td><font color="black">10.62</font></td>
 <td><font color="black">10.34</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">9.73</font></td>
 <td><font color="black">7.659</font></td>
 <td><font color="black">6.645</font></td>
@@ -82,7 +82,7 @@ digraph structs { node[shape=plaintext] struct[label=<
 <tr><td><B>Juliette</B></td>
 <td><font color="black">6.878</font></td>
 <td><font color="black">13.79</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">12.24</font></td>
 <td><font color="black">9.553</font></td>
 <td><font color="black">9.892</font></td>
@@ -95,7 +95,7 @@ digraph structs { node[shape=plaintext] struct[label=<
 <tr><td><B>Larissa</B></td>
 <td><font color="black">10.36</font></td>
 <td><font color="black">9.849</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">9.061</font></td>
 <td><font color="black">31.88</font></td>
 <td><font color="black">7.755</font></td>
@@ -106,22 +106,22 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="black">8.547</font></td>
 </tr>
 <tr><td><B>Steffi</B></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">100.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="darkgreen">100.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Valeria</B></td>
 <td><font color="black">13.63</font></td>
 <td><font color="black">15.72</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">12.48</font></td>
 <td><font color="black">9.952</font></td>
 <td><font color="black">10.33</font></td>
@@ -129,12 +129,12 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="black">9.163</font></td>
 <td><font color="black">15.96</font></td>
 <td><font color="black">10.75</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Vanessa</B></td>
 <td><font color="black">10.86</font></td>
 <td><font color="black">10.65</font></td>
-<td><font color="black">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="black">9.927</font></td>
 <td><font color="black">7.865</font></td>
 <td><font color="black">8.428</font></td>
