@@ -85,6 +85,60 @@ instructions:
     comment: "E07"
     map:
       Steffi: Chris
+  - type: MB
+    lights: 0
+    num: 3.01
+    comment: "E07"
+    map:
+      Steffi: Kenneth
+  - type: MB
+    lights: 0
+    num: 3.02
+    comment: "E07"
+    map:
+      Steffi: Max
+  - type: MB
+    lights: 0
+    num: 3.03
+    comment: "E07"
+    map:
+      Steffi: Pascal
+  - type: MB
+    lights: 0
+    num: 3.04
+    comment: "E07"
+    map:
+      Steffi: Sasa
+  - type: MB
+    lights: 0
+    num: 3.05
+    comment: "E07"
+    map:
+      Steffi: Marwin
+  - type: MB
+    lights: 0
+    num: 3.06
+    comment: "E07"
+    map:
+      Steffi: Deniz
+  - type: MB
+    lights: 0
+    num: 3.07
+    comment: "E07"
+    map:
+      Steffi: Joel
+  - type: MB
+    lights: 0
+    num: 3.09
+    comment: "E07"
+    map:
+      Steffi: Ken
+  - type: MB
+    lights: 0
+    num: 3.10
+    comment: "E07"
+    map:
+      Steffi: Burim
 
   - type: MN
     lights: 2
@@ -108,5 +162,5 @@ instructions:
   #   num: 4
   #   comment: "E09"
   #   map:
-  #     Caro: Kenneth
   #     Valeria: Max
+  # #     Caro: Kenneth
