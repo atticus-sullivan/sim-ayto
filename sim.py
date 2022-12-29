@@ -218,7 +218,7 @@ class Game:
             print()
 
         with open(f"{output_stem}_tab.dot", "w") as dotTab:
-            print_map_dot((tuple(map(lambda x: x/rem[1]*100, rem[0])),rem[1]), len(self.lutB), self.lutA, self.lutB, color, dotTab)
+            print_map_dot((tuple(map(lambda x: x/rem[1]*100, rem[0])),rem[1]), len(self.lutB), self.lutA, self.lutB, True, dotTab)
         Popen(["dot", "-Tpdf", "-o", f"{output_stem}_tab.pdf", f"{output_stem}_tab.dot"])
         Popen(["dot", "-Tpng", "-o", f"{output_stem}_tab.png", f"{output_stem}_tab.dot"])
 
