@@ -6,17 +6,17 @@ import time
 import argparse
 from subprocess import Popen
 from colorama import Fore, Style
+from contextlib import ExitStack
 # import sys
 
 def binomial(a,b):
     return math.factorial(a) // math.factorial(b) // math.factorial(a-b)
 
-# TODO tuple of tuples not tuple of lists faster?
 def gen_poss(num):
     for ele in itertools.permutations(range(num)):
         yield tuple([e] for e in ele)
 
-# TODO not imp,implemented
+# TODO not implemented
 def add_dup(g, d):
     # somewhat similar like someone_is_dup but the last element is always the same
     for ele in g:
@@ -25,7 +25,6 @@ def add_dup(g, d):
             yield ele
             p.pop()
 
-# TODO tuple of tuples not tuple of lists faster?
 def someone_is_dup(g):
     for ele in g:
         # iterate over the positions for the duplication
@@ -83,12 +82,12 @@ def print_map_dot(x:tuple[tuple[float,...],int], stride:int, lutA:list[str], lut
     print(">];}", file=dotTab)
 
 class Constraint:
-    def __init__(self, type:str, num:int, comment:str, lights:int, map:dict[int,int], sizeA:int, sizeB:int, init:int=0):
+    def __init__(self, type:str, num:int|float, comment:str, lights:int, map:dict[int,int], sizeA:int, sizeB:int, init:int=0):
         self.type           = type
         self.num            = num
         self.comment        = comment
         self.lights         = lights
-        self.map            = map # TODO better type for this than a map?
+        self.map            = map # TODO better type for this than a map? (probably a list)
         self.eliminated     = 0
         self.eliminated_tab = [init] * sizeB*sizeA
         self.stride = sizeB
@@ -186,25 +185,28 @@ class Game:
                 return False
         return True
 
-    def sim(self, color:bool, dot_bound:int, output_stem:str):
+    def sim(self, color:bool, dot_bound:int, output_stem:str, print_matchings:str|None):
         assert len(self.lutA) == len(self.lutB)-1
 
         remaining,total,each = 0,0,0
         g = gen_poss(len(self.lutB))
         g = someone_is_dup(g)
 
-        # with open("rem", "w") as r_out:
         left_poss = []
-        for matching in g:
-            if 0 in matching[0]: each += 1
-            total += 1
-            if self.filter_pred(matching):
-                remaining += 1
-                left_poss.append(matching)
-                # dump all remaining matches only for debugging purpose
-                # print_matching(matching, self.lutA, self.lutB, file=sys.stdout)
-            # else:
-            #     print_matching(matching, self.lutA, self.lutB, file=sys.stderr)
+        with ExitStack() as stack:
+            if print_matchings:
+                r_out = stack.enter_context(open(print_matchings, "w"))
+            else:
+                r_out = None
+            for matching in g:
+                if 0 in matching[0]: each += 1
+                total += 1
+                if self.filter_pred(matching):
+                    remaining += 1
+                    left_poss.append(matching)
+                    # dump all remaining matches only for debugging purpose
+                    if r_out:
+                        print_matching_to_file(matching, self.lutA, self.lutB, file=r_out)
 
         rem = (tuple(each for _ in range(len(self.lutB)*len(self.lutA))),total)
         print_map((tuple(map(lambda x: x/rem[1]*100, rem[0])),rem[1]), len(self.lutB), self.lutA, self.lutB, color)
@@ -260,6 +262,8 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--color", help="use color in shell output", default=False, action="store_true")
     parser.add_argument("-d", "--dot-bound", help="dot bound", default=200, type=int)
     parser.add_argument("-o", "--output", help="Output STEM for .dot and .pdf", default="test")
+    # if not given, this is None, if given without value this is the const value, if giben with value this is the value
+    parser.add_argument("-m", "--matchings", help="Print out the matchings which are left in ordered fashion (especially for debugging)", args='?', const="match.dat")
     # parser.add_argument("-r", "--[no-]reverse", help="use color in shell output", default=False, action="store_true")
 
     args = parser.parse_args()
@@ -267,4 +271,4 @@ if __name__ == "__main__":
     g = Game.parse(filename=args.input)
 
     print(time.time()) # make output unique
-    g.sim(color=args.color, dot_bound=args.dot_bound, output_stem=args.output)
+    g.sim(color=args.color, dot_bound=args.dot_bound, output_stem=args.output, print_matchings=args.matchings)
