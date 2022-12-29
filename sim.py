@@ -263,7 +263,7 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--dot-bound", help="dot bound", default=200, type=int)
     parser.add_argument("-o", "--output", help="Output STEM for .dot and .pdf", default="test")
     # if not given, this is None, if given without value this is the const value, if giben with value this is the value
-    parser.add_argument("-m", "--matchings", help="Print out the matchings which are left in ordered fashion (especially for debugging)", args='?', const="match.dat")
+    parser.add_argument("-m", "--matchings", help="Print out the matchings which are left in ordered fashion (especially for debugging)", nargs='?', const="match.dat")
     # parser.add_argument("-r", "--[no-]reverse", help="use color in shell output", default=False, action="store_true")
 
     args = parser.parse_args()
