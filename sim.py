@@ -82,7 +82,7 @@ def print_map_dot(x:tuple[tuple[float,...],int], stride:int, lutA:list[str], lut
     print(">];}", file=dotTab)
 
 class Constraint:
-    def __init__(self, type:str, num:int|float, comment:str, lights:int, map:dict[int,int], sizeA:int, sizeB:int, init:int=0):
+    def __init__(self, type:str, num:int|float, comment:str, lights:int, map:dict[int,int], sizeA:int, sizeB:int, init:int=0, hidden:bool=False):
         self.type           = type
         self.num            = num
         self.comment        = comment
@@ -90,7 +90,8 @@ class Constraint:
         self.map            = map # TODO better type for this than a map? (probably a list)
         self.eliminated     = 0
         self.eliminated_tab = [init] * sizeB*sizeA
-        self.stride = sizeB
+        self.stride         = sizeB
+        self.hidden         = hidden
 
     def fits(self, matching:tuple):
         l = 0
@@ -141,6 +142,7 @@ class Constraint:
                 ]
 
     def write_stats(self, mno, mbo, info):
+        if self.hidden: return
         if self.type == "MB":
             print(f"{self.num*2-1} {math.log2(self.total_left)}", file=info)
             print(f"{self.num} {self.entro if self.entro else 'inf'}", file=mbo)
@@ -161,6 +163,7 @@ class Constraint:
         assert isinstance(data["lights"], int)
         assert isinstance(data["comment"], str)
         assert isinstance(data["map"], dict)
+        assert isinstance(data.get("hidden",False), bool)
 
         if data["type"] == "MB":
             assert data["lights"] == 0 or data["lights"] == 1, ""
@@ -168,7 +171,7 @@ class Constraint:
 
         m = {lutAr[v1] : lutBr[v2] for v1,v2 in data["map"].items()}
 
-        return cls(type=data["type"], num=data["num"], comment=data["comment"], lights=data["lights"], map=m, sizeA=len(lutAr), sizeB=len(lutBr))
+        return cls(type=data["type"], num=data["num"], comment=data["comment"], lights=data["lights"], map=m, sizeA=len(lutAr), sizeB=len(lutBr), hidden=data.get("hidden",False))
 
 class Game:
     def __init__(self, constraints:list[Constraint], lutA, lutAr, lutB, lutBr):
@@ -212,8 +215,10 @@ class Game:
         print_map((tuple(map(lambda x: x/rem[1]*100, rem[0])),rem[1]), len(self.lutB), self.lutA, self.lutB, color)
         print()
 
+        # tables of the constraints
         for c in self.constraints:
             rem = c.apply_to_rem(rem)
+            if c.hidden: continue
             c.print_left(self.lutA, self.lutB, color)
             print()
 
@@ -222,6 +227,7 @@ class Game:
         Popen(["dot", "-Tpdf", "-o", f"{output_stem}_tab.pdf", f"{output_stem}_tab.dot"])
         Popen(["dot", "-Tpng", "-o", f"{output_stem}_tab.png", f"{output_stem}_tab.dot"])
 
+        # print stats
         t = PrettyTable()
         t.field_names = [" ", "R", *self.lutA, "", "I"]
         with (open(f"{output_stem}_statMB.out", "w") as mbo,
@@ -229,7 +235,8 @@ class Game:
               open(f"{output_stem}_statInfo.out", "w") as info):
             for c in self.constraints:
                 c.write_stats(mno, mbo, info)
-                t.add_row(c.row(self.lutA, self.lutB))
+                if c.hidden:
+                    t.add_row(c.row(self.lutA, self.lutB))
             print(t.get_string())
 
         if len(left_poss) <= dot_bound:

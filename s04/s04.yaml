@@ -89,60 +89,70 @@ instructions:
     lights: 0
     num: 3.01
     comment: "E07"
+    hidden: True
     map:
       Steffi: Kenneth
   - type: MB
     lights: 0
     num: 3.02
     comment: "E07"
+    hidden: True
     map:
       Steffi: Max
   - type: MB
     lights: 0
     num: 3.03
     comment: "E07"
+    hidden: True
     map:
       Steffi: Pascal
   - type: MB
     lights: 0
     num: 3.04
     comment: "E07"
+    hidden: True
     map:
       Steffi: Sasa
   - type: MB
     lights: 0
     num: 3.05
     comment: "E07"
+    hidden: True
     map:
       Steffi: Marwin
   - type: MB
     lights: 0
     num: 3.06
     comment: "E07"
+    hidden: True
     map:
       Steffi: Deniz
   - type: MB
     lights: 0
     num: 3.07
     comment: "E07"
+    hidden: True
     map:
       Steffi: Joel
   - type: MB
     lights: 0
     num: 3.09
     comment: "E07"
+    hidden: True
     map:
       Steffi: Ken
   - type: MB
     lights: 0
     num: 3.10
     comment: "E07"
+    hidden: True
     map:
       Steffi: Burim
   - type: MB
     lights: 0
     num: 3.11
     comment: "E07"
+    hidden: True
     map:
       Steffi: Barkin
 
