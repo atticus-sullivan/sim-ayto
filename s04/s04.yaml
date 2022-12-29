@@ -139,6 +139,12 @@ instructions:
     comment: "E07"
     map:
       Steffi: Burim
+  - type: MB
+    lights: 0
+    num: 3.11
+    comment: "E07"
+    map:
+      Steffi: Barkin
 
   - type: MN
     lights: 2
