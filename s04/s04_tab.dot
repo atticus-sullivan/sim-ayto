@@ -15,95 +15,95 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><B>Marwin</B></td>
 </tr>
 <tr><td><B>Aurelia</B></td>
-<td><font color="black">12.87</font></td>
-<td><font color="black">14.74</font></td>
+<td><font color="black">12.71</font></td>
+<td><font color="black">5.737</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">14.57</font></td>
-<td><font color="black">7.826</font></td>
+<td><font color="black">15.99</font></td>
+<td><font color="black">7.825</font></td>
 <td><font color="black">8.872</font></td>
-<td><font color="black">9.752</font></td>
-<td><font color="black">12.93</font></td>
-<td><font color="black">10.15</font></td>
-<td><font color="black">9.193</font></td>
-<td><font color="black">10.04</font></td>
+<td><font color="black">12.07</font></td>
+<td><font color="black">12.38</font></td>
+<td><font color="black">9.293</font></td>
+<td><font color="black">5.732</font></td>
+<td><font color="black">20.1</font></td>
 </tr>
 <tr><td><B>Carina</B></td>
-<td><font color="black">11.81</font></td>
+<td><font color="black">11.97</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">10.79</font></td>
-<td><font color="black">8.396</font></td>
-<td><font color="black">29.69</font></td>
-<td><font color="black">9.865</font></td>
-<td><font color="black">11.54</font></td>
-<td><font color="black">10.95</font></td>
-<td><font color="black">7.836</font></td>
-<td><font color="black">9.854</font></td>
+<td><font color="black">9.626</font></td>
+<td><font color="black">8.361</font></td>
+<td><font color="black">24.81</font></td>
+<td><font color="black">9.802</font></td>
+<td><font color="black">11.35</font></td>
+<td><font color="black">18.99</font></td>
+<td><font color="black">6.092</font></td>
+<td><font color="black">9.433</font></td>
 </tr>
 <tr><td><B>Caro</B></td>
-<td><font color="black">11.58</font></td>
-<td><font color="black">14.1</font></td>
+<td><font color="black">11.76</font></td>
+<td><font color="black">13.4</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">11.64</font></td>
-<td><font color="black">8.99</font></td>
-<td><font color="black">9.91</font></td>
-<td><font color="black">10.7</font></td>
-<td><font color="black">11.52</font></td>
-<td><font color="black">10.85</font></td>
-<td><font color="black">10.14</font></td>
-<td><font color="black">11.03</font></td>
+<td><font color="black">9.723</font></td>
+<td><font color="black">6.838</font></td>
+<td><font color="black">8.832</font></td>
+<td><font color="black">8.823</font></td>
+<td><font color="black">22.72</font></td>
+<td><font color="black">13.47</font></td>
+<td><font color="black">6.287</font></td>
+<td><font color="black">9.365</font></td>
 </tr>
 <tr><td><B>Dorna</B></td>
-<td><font color="black">11.39</font></td>
-<td><font color="black">10.82</font></td>
+<td><font color="black">10.84</font></td>
+<td><font color="black">21.91</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">9.566</font></td>
-<td><font color="black">7.879</font></td>
-<td><font color="black">8.48</font></td>
+<td><font color="black">11.96</font></td>
+<td><font color="black">6.799</font></td>
+<td><font color="black">8.681</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">10.72</font></td>
-<td><font color="black">10.5</font></td>
-<td><font color="black">8.863</font></td>
-<td><font color="black">33.05</font></td>
+<td><font color="black">10.42</font></td>
+<td><font color="black">9.025</font></td>
+<td><font color="black">5.517</font></td>
+<td><font color="black">26.36</font></td>
 </tr>
 <tr><td><B>Henna</B></td>
-<td><font color="black">10.62</font></td>
-<td><font color="black">10.34</font></td>
+<td><font color="black">10.9</font></td>
+<td><font color="black">10.63</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">9.73</font></td>
-<td><font color="black">7.659</font></td>
-<td><font color="black">6.645</font></td>
-<td><font color="black">29.48</font></td>
-<td><font color="black">10.21</font></td>
-<td><font color="black">9.961</font></td>
-<td><font color="black">8.29</font></td>
-<td><font color="black">9.055</font></td>
+<td><font color="black">8.839</font></td>
+<td><font color="black">7.22</font></td>
+<td><font color="black">12.95</font></td>
+<td><font color="black">23.96</font></td>
+<td><font color="black">11.1</font></td>
+<td><font color="black">10.62</font></td>
+<td><font color="black">6.0</font></td>
+<td><font color="black">9.319</font></td>
 </tr>
 <tr><td><B>Juliette</B></td>
-<td><font color="black">6.878</font></td>
-<td><font color="black">13.79</font></td>
+<td><font color="black">6.009</font></td>
+<td><font color="black">17.2</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">12.24</font></td>
-<td><font color="black">9.553</font></td>
-<td><font color="black">9.892</font></td>
-<td><font color="black">11.03</font></td>
-<td><font color="black">13.53</font></td>
-<td><font color="black">12.29</font></td>
-<td><font color="black">10.18</font></td>
-<td><font color="black">10.99</font></td>
+<td><font color="black">9.622</font></td>
+<td><font color="black">8.521</font></td>
+<td><font color="black">9.17</font></td>
+<td><font color="black">19.44</font></td>
+<td><font color="black">13.72</font></td>
+<td><font color="black">11.43</font></td>
+<td><font color="black">5.923</font></td>
+<td><font color="black">9.499</font></td>
 </tr>
 <tr><td><B>Larissa</B></td>
-<td><font color="black">10.36</font></td>
-<td><font color="black">9.849</font></td>
+<td><font color="black">10.19</font></td>
+<td><font color="black">9.887</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">9.061</font></td>
-<td><font color="black">31.88</font></td>
-<td><font color="black">7.755</font></td>
-<td><font color="black">8.33</font></td>
-<td><font color="black">9.913</font></td>
-<td><font color="black">9.183</font></td>
-<td><font color="black">7.943</font></td>
-<td><font color="black">8.547</font></td>
+<td><font color="black">14.46</font></td>
+<td><font color="black">29.76</font></td>
+<td><font color="black">7.63</font></td>
+<td><font color="black">7.746</font></td>
+<td><font color="black">9.955</font></td>
+<td><font color="black">9.093</font></td>
+<td><font color="black">5.59</font></td>
+<td><font color="black">8.244</font></td>
 </tr>
 <tr><td><B>Steffi</B></td>
 <td><font color="red">0.0</font></td>
@@ -119,30 +119,30 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Valeria</B></td>
-<td><font color="black">13.63</font></td>
-<td><font color="black">15.72</font></td>
+<td><font color="black">16.9</font></td>
+<td><font color="black">14.47</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">12.48</font></td>
-<td><font color="black">9.952</font></td>
-<td><font color="black">10.33</font></td>
-<td><font color="black">11.64</font></td>
-<td><font color="black">9.163</font></td>
-<td><font color="black">15.96</font></td>
-<td><font color="black">10.75</font></td>
+<td><font color="black">13.04</font></td>
+<td><font color="black">19.25</font></td>
+<td><font color="black">12.45</font></td>
+<td><font color="black">12.28</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">10.48</font></td>
+<td><font color="black">8.679</font></td>
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Vanessa</B></td>
-<td><font color="black">10.86</font></td>
-<td><font color="black">10.65</font></td>
+<td><font color="black">8.723</font></td>
+<td><font color="black">6.772</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">9.927</font></td>
-<td><font color="black">7.865</font></td>
-<td><font color="black">8.428</font></td>
-<td><font color="black">9.202</font></td>
-<td><font color="black">10.48</font></td>
-<td><font color="black">10.15</font></td>
-<td><font color="black">26.8</font></td>
-<td><font color="black">7.434</font></td>
+<td><font color="black">6.733</font></td>
+<td><font color="black">5.432</font></td>
+<td><font color="black">6.603</font></td>
+<td><font color="black">5.877</font></td>
+<td><font color="black">8.356</font></td>
+<td><font color="black">7.602</font></td>
+<td><font color="black">50.18</font></td>
+<td><font color="black">7.68</font></td>
 </tr>
 </table>
 >];}
