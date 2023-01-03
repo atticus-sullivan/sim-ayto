@@ -173,10 +173,27 @@ instructions:
       Henna: Ken
       # Burim
 
-  # - type: MB
-  #   lights: 0
-  #   num: 4
-  #   comment: "E09"
-  #   map:
-  #     Valeria: Max
-  # #     Caro: Kenneth
+  - type: MB
+    lights: 0
+    num: 4
+    comment: "E09"
+    map:
+      Valeria: Max
+  #     Caro: Kenneth
+
+  - type: MN
+    lights: 3
+    num: 4
+    comment: "E10"
+    map:
+      Steffi: Chris
+      Henna: Ken
+      Carina: Pascal
+      Vanessa: Sasa
+      Larissa: Deniz
+      Dorna: Burim
+      Aurelia: Marwin
+      Valeria: Joel
+      Caro: Max
+      Juliette: Kenneth
+      # Juliette: Barkin
