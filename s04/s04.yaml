@@ -197,3 +197,35 @@ instructions:
       Caro: Max
       Juliette: Kenneth
       # Juliette: Barkin
+
+  - type: MB
+    lights: 1
+    num: 5
+    comment: "E11"
+    map:
+      Caro: Kenneth
+      # Carina: Max
+  - type: MB
+    lights: 1
+    num: 5.1
+    hidden: True
+    comment: "E11 -- Doppelmatch"
+    map:
+      Caro: Max
+
+  - type: MN
+    lights: 4
+    num: 5
+    comment: "E12"
+    map:
+      Steffi: Chris
+      Caro: Ken
+      Carina: Pascal
+      Vanessa: Sasa
+      Larissa: Deniz
+      Dorna: Burim
+      Valeria: Joel
+      Juliette: Barkin
+      Aurelia: Marwin
+      Henna: Kenneth
+      # Max
