@@ -229,3 +229,11 @@ instructions:
       Aurelia: Marwin
       Henna: Kenneth
       # Max
+
+  # - type: MN
+  #   lights: 0
+  #   num: 6
+  #   comment: "E13"
+  #   map:
+  #     Dorna: Burim
+  #       # Larissa: Marwin
