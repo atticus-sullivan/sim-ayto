@@ -203,7 +203,7 @@ instructions:
     num: 5
     comment: "E11"
     map:
-      Caro: Kenneth
+      Caro: Ken
       # Carina: Max
   - type: MB
     lights: 1
