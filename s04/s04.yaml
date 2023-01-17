@@ -238,7 +238,7 @@ instructions:
       Dorna: Burim
         # Larissa: Marwin
   - type: MN
-    lights: 1
+    lights: 3
     num: 6
     comment: "E14"
     map:
@@ -252,6 +252,14 @@ instructions:
       Larissa: Marwin
       Aurelia: Burim
       Valeria: Pascal
+
+  # - type: MN
+  #   lights: 0
+  #   num: 7
+  #   comment: "E15"
+  #   map:
+  #     Juliette: Joel
+  #     Vanessa: Marwin
 
   # - type: MN
   #   lights: 4
