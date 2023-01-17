@@ -230,13 +230,14 @@ instructions:
       Henna: Kenneth
       # Max
 
-  - type: MN
+  - type: MB
     lights: 0
     num: 6
     comment: "E13"
     map:
       Dorna: Burim
         # Larissa: Marwin
+
   - type: MN
     lights: 3
     num: 6
@@ -252,6 +253,7 @@ instructions:
       Larissa: Marwin
       Aurelia: Burim
       Valeria: Pascal
+      # Max
 
   # - type: MN
   #   lights: 0
@@ -259,7 +261,8 @@ instructions:
   #   comment: "E15"
   #   map:
   #     Juliette: Joel
-  #     Vanessa: Marwin
+  ##     Vanessa: Marwin
+
 
   # - type: MN
   #   lights: 4
@@ -267,7 +270,7 @@ instructions:
   #   comment: "E12"
   #   map:
 
-  # - type: MN
+  # - type: MB
   #   lights: 0
   #   num: 6
   #   comment: "E13"
