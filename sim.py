@@ -235,7 +235,7 @@ class Game:
               open(f"{output_stem}_statInfo.out", "w") as info):
             for c in self.constraints:
                 c.write_stats(mno, mbo, info)
-                if c.hidden:
+                if not c.hidden:
                     t.add_row(c.row(self.lutA, self.lutB))
             print(t.get_string())
 

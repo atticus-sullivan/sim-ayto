@@ -230,10 +230,45 @@ instructions:
       Henna: Kenneth
       # Max
 
+  - type: MN
+    lights: 0
+    num: 6
+    comment: "E13"
+    map:
+      Dorna: Burim
+        # Larissa: Marwin
+  - type: MN
+    lights: 3
+    num: 6
+    comment: "E14"
+    map:
+      Steffi: Chris
+      Caro: Ken
+      Vanessa: Joel
+      Carina: Sasa
+      Juliette: Barkin
+      Henna: Kenneth
+      Dorna: Deniz
+      Larissa: Marwin
+      Aurelia: Burim
+      Valeria: Pascal
+
+  # - type: MN
+  #   lights: 0
+  #   num: 7
+  #   comment: "E15"
+  #   map:
+  #     Juliette: Joel
+  #     Vanessa: Marwin
+
+  # - type: MN
+  #   lights: 4
+  #   num: 5
+  #   comment: "E12"
+  #   map:
+
   # - type: MN
   #   lights: 0
   #   num: 6
   #   comment: "E13"
   #   map:
-  #     Dorna: Burim
-  #       # Larissa: Marwin
