@@ -255,14 +255,29 @@ instructions:
       Valeria: Pascal
       # Max
 
-  # - type: MN
-  #   lights: 0
-  #   num: 7
-  #   comment: "E15"
-  #   map:
-  #     Juliette: Joel
-  ##     Vanessa: Marwin
+  - type: MN
+    lights: 0
+    num: 7
+    comment: "E15"
+    map:
+      Juliette: Joel
+ #     Vanessa: Marwin
 
+  - type: MN
+    lights: 2
+    num: 7
+    comment: "E16 - Blackout"
+    map:
+     Steffi: Chris
+     Caro: Ken
+     Juliette: Kenneth
+     Vanessa: Deniz
+     Dorna: Barkin
+     Henna: Burim
+     Carina: Marwin
+     Aurelia: Joel
+     Valeria: Pascal
+     Larissa: Sasa
 
   # - type: MN
   #   lights: 4
