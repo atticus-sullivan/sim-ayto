@@ -19,24 +19,24 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="black">33.33</font></td>
-<td><font color="black">12.5</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">20.83</font></td>
-<td><font color="black">16.67</font></td>
-<td><font color="red">0.0</font></td>
-</tr>
-<tr><td><B>Carina</B></td>
-<td><font color="black">16.67</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="black">25.0</font></td>
-<td><font color="black">16.67</font></td>
+<td><font color="black">25.0</font></td>
+<td><font color="red">0.0</font></td>
+</tr>
+<tr><td><B>Carina</B></td>
+<td><font color="black">25.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">25.0</font></td>
+<td><font color="black">25.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">41.67</font></td>
+<td><font color="black">25.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 </tr>
@@ -54,16 +54,16 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Dorna</B></td>
-<td><font color="black">25.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">20.83</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">33.33</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">25.0</font></td>
-<td><font color="black">29.17</font></td>
+<td><font color="black">33.33</font></td>
+<td><font color="black">33.33</font></td>
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Henna</B></td>
@@ -84,25 +84,25 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="black">66.67</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
-<td><font color="black">16.67</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">4.167</font></td>
-<td><font color="black">12.5</font></td>
-<td><font color="red">0.0</font></td>
-</tr>
-<tr><td><B>Larissa</B></td>
-<td><font color="black">25.0</font></td>
-<td><font color="black">20.83</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">25.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="black">8.333</font></td>
-<td><font color="black">20.83</font></td>
+<td><font color="black">25.0</font></td>
+<td><font color="red">0.0</font></td>
+</tr>
+<tr><td><B>Larissa</B></td>
+<td><font color="black">33.33</font></td>
+<td><font color="black">25.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">33.33</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">8.333</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Steffi</B></td>
@@ -119,16 +119,16 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Valeria</B></td>
-<td><font color="black">16.67</font></td>
-<td><font color="black">12.5</font></td>
+<td><font color="black">25.0</font></td>
+<td><font color="black">8.333</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">8.333</font></td>
+<td><font color="black">41.67</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="red">0.0</font></td>
 <td><font color="red">0.0</font></td>
 <td><font color="black">16.67</font></td>
-<td><font color="black">33.33</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">20.83</font></td>
 <td><font color="red">0.0</font></td>
 </tr>
 <tr><td><B>Vanessa</B></td>
