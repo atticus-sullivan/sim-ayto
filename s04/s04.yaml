@@ -255,7 +255,7 @@ instructions:
       Valeria: Pascal
       # Max
 
-  - type: MN
+  - type: MB
     lights: 0
     num: 7
     comment: "E15"
