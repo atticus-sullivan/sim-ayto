@@ -279,6 +279,29 @@ instructions:
      Valeria: Pascal
      Larissa: Sasa
 
+  - type: MB
+    lights: 0
+    num: 7
+    comment: "E17"
+    map:
+      Dorna: Marwin
+
+  - type: MN
+    lights: 5
+    num: 7
+    comment: "E18"
+    map:
+      Steffi: Chris
+      Caro: Ken
+      Burim: Valeria
+      Kenneth: Carina
+      Barkin: Juliette
+      Pascal: Larissa
+      Deniz: Henna
+      Joel: Dorna
+      Sasa: Vanessa
+      Marwin: Aurelia
+
   # - type: MN
   #   lights: 4
   #   num: 5
