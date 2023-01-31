@@ -287,7 +287,7 @@ instructions:
       Dorna: Marwin
 
   - type: MN
-    lights: 2
+    lights: 5
     num: 8
     comment: "E18 -- blackout"
     map:
