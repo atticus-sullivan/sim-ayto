@@ -281,26 +281,26 @@ instructions:
 
   - type: MB
     lights: 0
-    num: 7
+    num: 8
     comment: "E17"
     map:
       Dorna: Marwin
 
   - type: MN
     lights: 2
-    num: 7
+    num: 8
     comment: "E18 -- blackout"
     map:
       Steffi: Chris
       Caro: Ken
       Burim: Valeria
-      Kenneth: Carina
-      Barkin: Juliette
-      Pascal: Larissa
-      Deniz: Henna
-      Joel: Dorna
-      Sasa: Vanessa
-      Marwin: Aurelia
+      Carina: Kenneth
+      Juliette: Barkin
+      Larissa: Pascal
+      Henna: Deniz
+      Dorna: Joel
+      Vanessa: Sasa
+      Aurelia: Marwin
 
   # - type: MN
   #   lights: 4
