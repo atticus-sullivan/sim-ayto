@@ -287,9 +287,9 @@ instructions:
       Dorna: Marwin
 
   - type: MN
-    lights: 5
+    lights: 2
     num: 7
-    comment: "E18"
+    comment: "E18 -- blackout"
     map:
       Steffi: Chris
       Caro: Ken
