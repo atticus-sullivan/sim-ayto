@@ -302,6 +302,14 @@ instructions:
       Vanessa: Sasa
       Aurelia: Marwin
 
+  - type: MB
+    lights: 0
+    num: 9
+    comment: "E19"
+    map:
+      Carina: Pascal
+      # Burim: Aurelia
+
   # - type: MN
   #   lights: 4
   #   num: 5
