@@ -310,6 +310,23 @@ instructions:
       Carina: Pascal
       # Burim: Aurelia
 
+  - type: MN
+    lights: 10
+    num: 10
+    comment: "E21 -- finale"
+    map:
+      Steffi: Chris
+      Caro: Ken
+      Dorna: Sasa
+      Vanessa: Marwin
+      Aurelia: Pascal
+      Henna: Kenneth
+      Juliette: Burim
+      Larissa: Barkin
+      Valeria: Joel
+      Carina: Deniz
+
+
   # - type: MN
   #   lights: 4
   #   num: 5
