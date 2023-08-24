@@ -3,7 +3,7 @@ DAT = $(wildcard s*/*.dat)
 DAT_LUA = s01r/s01r.dat s02r/s02r.dat s02/s02.dat s03/s03.dat
 OUT_LUA = $(addsuffix .out, $(basename $(DAT_LUA)))
 
-DAT_PY = s04/s04.yaml
+DAT_PY = s04/s04.yaml s03r/s03r.yaml
 OUT_PY = $(addsuffix .out, $(basename $(DAT_PY)))
 
 OUT   = $(OUT_LUA) $(OUT_PY)
