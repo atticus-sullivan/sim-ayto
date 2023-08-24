@@ -189,11 +189,13 @@ class Game:
         return True
 
     def sim(self, color:bool, dot_bound:int, output_stem:str, print_matchings:str|None):
-        assert len(self.lutA) == len(self.lutB)-1
 
         remaining,total,each = 0,0,0
         g = gen_poss(len(self.lutB))
-        g = someone_is_dup(g)
+        if len(self.lutA) == len(self.lutB)-1:
+            g = someone_is_dup(g)
+        else:
+            assert len(self.lutA) == len(self.lutB)
 
         left_poss = []
         with ExitStack() as stack:

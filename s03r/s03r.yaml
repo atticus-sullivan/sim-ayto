@@ -1,0 +1,50 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+setA:
+  - Mike
+  - Danilo
+  - Steffen
+  - Teezy
+  - Elia
+  - Emanuell
+  - Fabio
+  - Marvin
+  - Peter
+  - Paco
+
+setB:
+  - Sabrina
+  - Sandra
+  - Shakira
+  - Paulina
+  - Marie
+  - Jenny
+  - Steffi
+  - Alicia
+  - Kim
+  - Darya
+
+instructions:
+  - type: MB
+    lights: 0
+    num: 1
+    comment: "E03"
+    map:
+      Danilo: Jenny
+
+  - type: MN
+    lights: 3
+    num: 2
+    comment: "E04"
+    map:
+      Danilo: Darya
+      Paco: Sandra
+      Steffen: Paulina
+      Marvin: Shakira
+      Mike: Kim
+      Emanuell: Sabrina
+      Elia: Jenny
+      Fabio: Marie
+      Teezy: Steffi
+      Peter: Alicia
