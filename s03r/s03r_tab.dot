@@ -1,0 +1,137 @@
+digraph structs { node[shape=plaintext] struct[label=<
+<table cellspacing="2" border="0" rows="*" columns="*">
+<tr>
+<td></td>
+<td><B>Sabrina</B></td>
+<td><B>Sandra</B></td>
+<td><B>Shakira</B></td>
+<td><B>Paulina</B></td>
+<td><B>Marie</B></td>
+<td><B>Jenny</B></td>
+<td><B>Steffi</B></td>
+<td><B>Alicia</B></td>
+<td><B>Kim</B></td>
+<td><B>Darya</B></td>
+</tr>
+<tr><td><B>Mike</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Danilo</B></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="red">0.0</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">32.53</font></td>
+</tr>
+<tr><td><B>Steffen</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Teezy</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Elia</B></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">32.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.53</font></td>
+<td><font color="black">7.233</font></td>
+</tr>
+<tr><td><B>Emanuell</B></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Fabio</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Marvin</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Peter</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+<tr><td><B>Paco</B></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">29.37</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">8.434</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.81</font></td>
+<td><font color="black">7.53</font></td>
+</tr>
+</table>
+>];}
