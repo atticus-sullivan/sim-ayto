@@ -35,7 +35,7 @@ instructions:
 
   - type: MN
     lights: 3
-    num: 2
+    num: 1
     comment: "E04"
     map:
       Danilo: Darya
@@ -48,3 +48,26 @@ instructions:
       Fabio: Marie
       Teezy: Steffi
       Peter: Alicia
+
+  - type: MB
+    lights: 0
+    num: 2
+    comment: "E05"
+    map:
+      Elia: Jenny
+
+  - type: MN
+    lights: 2
+    num: 2
+    comment: "E06"
+    map:
+      Mike: Sabrina
+      Danilo: Paulina
+      Paco: Kim
+      Steffen: Alicia
+      Marvin: Jenny
+      Teezy: Steffi
+      Emanuell: Darya
+      Fabio: Marie
+      Peter: Shakira
+      Elia: Sandra
