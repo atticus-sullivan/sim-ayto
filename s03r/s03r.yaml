@@ -71,3 +71,26 @@ instructions:
       Fabio: Marie
       Peter: Shakira
       Elia: Sandra
+
+  - type: MB
+    lights: 0
+    num: 3
+    comment: "E07"
+    map:
+      Elia: Darya
+
+  - type: MN
+    lights: 2
+    num: 3
+    comment: "E08"
+    map:
+      Steffen: Alicia
+      Peter: Sabrina
+      Paco: Sandra
+      Fabio: Shakira
+      Elia: Marie
+      Danilo: Darya
+      Marvin: Steffi
+      Mike: Paulina
+      Teezy: Kim
+      Emanuell: Paulina
