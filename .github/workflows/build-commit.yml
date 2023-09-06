@@ -62,6 +62,7 @@ jobs:
       - name: update on main
         run: |
           git config --global user.name "Updater"
+          git config --global user.email "updater@example.com"
           git merge --no-ff main
 
       # after merge, since maybe the requirements.txt has changed
