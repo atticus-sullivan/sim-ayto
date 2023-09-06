@@ -174,12 +174,13 @@ class Constraint:
         return cls(type=data["type"], num=data["num"], comment=data["comment"], lights=data["lights"], map=m, sizeA=len(lutAr), sizeB=len(lutBr), hidden=data.get("hidden",False))
 
 class Game:
-    def __init__(self, constraints:list[Constraint], lutA, lutAr, lutB, lutBr):
+    def __init__(self, constraints:list[Constraint], lutA, lutAr, lutB, lutBr, dup=None):
         self.constraints = constraints
         self.lutA        = lutA
         self.lutAr       = lutAr
         self.lutB        = lutB
         self.lutBr       = lutBr
+        self.dup         = dup
 
     def filter_pred(self, matching:tuple):
         for c in self.constraints:
@@ -193,7 +194,12 @@ class Game:
         remaining,total,each = 0,0,0
         g = gen_poss(len(self.lutB))
         if len(self.lutA) == len(self.lutB)-1:
-            g = someone_is_dup(g)
+            if self.dup:
+                g = add_dup(g, self.dup)
+            else:
+                g = someone_is_dup(g)
+        # elif len(self.lutA)-1 == len(self.lutB):
+        #     g = add_dup(g, len(self.lutA))
         else:
             assert len(self.lutA) == len(self.lutB)
 
@@ -258,12 +264,18 @@ class Game:
         lutB = y["setB"]
         lutBr = {v:i for i,v in enumerate(lutB)}
 
+        if "dup" in y:
+            assert isinstance(y["dup"], str) and y["dup"] in lutB, "'dup' must be a string and the name of the person which is the duplicate (Name in setB)"
+            dup = y["dup"]
+        else:
+            dup = None
+
         assert len(lutA) <= len(lutB), ""
 
         assert "instructions" in y and isinstance(y["instructions"], list), ""
         constraints = [Constraint.parse(x, lutAr, lutBr) for x in y["instructions"]]
 
-        return cls(constraints=constraints, lutA=lutA, lutAr=lutAr, lutB=lutB, lutBr=lutBr)
+        return cls(constraints=constraints, lutA=lutA, lutAr=lutAr, lutB=lutB, lutBr=lutBr, dup=dup)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
