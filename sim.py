@@ -2,6 +2,7 @@ from prettytable import PrettyTable
 import itertools
 import math
 import yaml
+# import sys
 import time
 import argparse
 from subprocess import Popen
@@ -104,7 +105,7 @@ class Constraint:
             # print(matching)
             for i1,v in enumerate(matching):
                 for i2 in v:
-                    # print(i1,i2)
+                    # print(i1, i2, file=sys.stderr)
                     self.eliminated_tab[i1*self.stride+i2] += 1
             self.eliminated += 1
 
@@ -192,10 +193,13 @@ class Game:
     def sim(self, color:bool, dot_bound:int, output_stem:str, print_matchings:str|None):
 
         remaining,total,each = 0,0,0
-        g = gen_poss(len(self.lutB))
+        if self.dup:
+            g = gen_poss(len(self.lutB)-1)
+        else:
+            g = gen_poss(len(self.lutB))
         if len(self.lutA) == len(self.lutB)-1:
             if self.dup:
-                g = add_dup(g, self.dup)
+                g = add_dup(g, self.lutBr[self.dup])
             else:
                 g = someone_is_dup(g)
         # elif len(self.lutA)-1 == len(self.lutB):
