@@ -2,18 +2,6 @@
 # 0wvedwvep0wPj
 
 setA:
-  - Mike
-  - Danilo
-  - Steffen
-  - Teezy
-  - Elia
-  - Emanuell
-  - Fabio
-  - Marvin
-  - Peter
-  - Paco
-
-setB:
   - Sabrina
   - Sandra
   - Shakira
@@ -25,72 +13,94 @@ setB:
   - Kim
   - Darya
 
+dup: Max
+
+setB:
+  - Mike
+  - Danilo
+  - Steffen
+  - Teezy
+  - Elia
+  - Emanuell
+  - Fabio
+  - Marvin
+  - Peter
+  - Paco
+  - Max
+
 instructions:
   - type: MB
     lights: 0
     num: 1
     comment: "E03"
     map:
-      Danilo: Jenny
+      Jenny: Danilo
 
   - type: MN
     lights: 3
     num: 1
     comment: "E04"
     map:
-      Danilo: Darya
-      Paco: Sandra
-      Steffen: Paulina
-      Marvin: Shakira
-      Mike: Kim
-      Emanuell: Sabrina
-      Elia: Jenny
-      Fabio: Marie
-      Teezy: Steffi
-      Peter: Alicia
+      Darya: Danilo
+      Sandra: Paco
+      Paulina: Steffen
+      Shakira: Marvin
+      Kim: Mike
+      Sabrina: Emanuell
+      Jenny: Elia
+      Marie: Fabio
+      Steffi: Teezy
+      Alicia: Peter
 
   - type: MB
     lights: 0
     num: 2
     comment: "E05"
     map:
-      Elia: Jenny
+      Jenny: Elia
 
   - type: MN
     lights: 2
     num: 2
     comment: "E06"
     map:
-      Mike: Sabrina
-      Danilo: Paulina
-      Paco: Kim
-      Steffen: Alicia
-      Marvin: Jenny
-      Teezy: Steffi
-      Emanuell: Darya
-      Fabio: Marie
-      Peter: Shakira
-      Elia: Sandra
+      Sabrina: Mike
+      Paulina: Danilo
+      Kim: Paco
+      Alicia: Steffen
+      Jenny: Marvin
+      Steffi: Teezy
+      Darya: Emanuell
+      Marie: Fabio
+      Shakira: Peter
+      Sandra: Elia
 
   - type: MB
     lights: 0
     num: 3
     comment: "E07"
     map:
-      Elia: Darya
+      Darya: Elia
 
   - type: MN
     lights: 2
     num: 3
     comment: "E08"
     map:
-      Steffen: Alicia
-      Peter: Sabrina
-      Paco: Sandra
-      Fabio: Shakira
-      Elia: Marie
-      Danilo: Darya
-      Marvin: Steffi
-      Mike: Paulina
-      Teezy: Kim
-      Emanuell: Paulina
+      Alicia: Steffen
+      Sabrina: Peter
+      Sandra: Paco
+      Shakira: Fabio
+      Marie: Elia
+      Darya: Danilo
+      Steffi: Marvin
+      Paulina: Mike
+      Kim: Teezy
+      Paulina: Emanuell
+
+  # - type: MB
+  #   lights: 
+  #   num: 4
+  #   comment: "E09"
+  #   map:
+  #     Kim: Mike
