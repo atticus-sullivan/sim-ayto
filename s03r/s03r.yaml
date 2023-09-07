@@ -88,15 +88,15 @@ instructions:
     comment: "E08"
     map:
       Alicia: Steffen
+      Darya: Danilo
+      Kim: Teezy
+      Marie: Elia
+      Jenny: Emanuell
+      Paulina: Mike
       Sabrina: Peter
       Sandra: Paco
       Shakira: Fabio
-      Marie: Elia
-      Darya: Danilo
       Steffi: Marvin
-      Paulina: Mike
-      Kim: Teezy
-      Paulina: Emanuell
 
   # - type: MB
   #   lights: 
