@@ -2,30 +2,30 @@
 # 0wvedwvep0wPj
 
 setA:
+  - Alicia
+  - Darya
+  - Jenny
+  - Kim
+  - Marie
+  - Paulina
   - Sabrina
   - Sandra
   - Shakira
-  - Paulina
-  - Marie
-  - Jenny
   - Steffi
-  - Alicia
-  - Kim
-  - Darya
 
 dup: Max
 
 setB:
-  - Mike
   - Danilo
-  - Steffen
-  - Teezy
   - Elia
   - Emanuell
   - Fabio
   - Marvin
-  - Peter
+  - Mike
   - Paco
+  - Peter
+  - Steffen
+  - Teezy
   - Max
 
 instructions:
