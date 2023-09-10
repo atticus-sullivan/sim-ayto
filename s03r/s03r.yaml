@@ -98,9 +98,9 @@ instructions:
       Shakira: Fabio
       Steffi: Marvin
 
-  - type: MB
-    lights: 
-    num: 4
-    comment: "E09"
-    map:
-      Kim: Mike
+  # - type: MB
+  #   lights: 
+  #   num: 4
+  #   comment: "E09"
+  #   map:
+  #     Kim: Mike
