@@ -104,3 +104,20 @@ instructions:
     comment: "E09"
     map:
       Kim: Mike
+
+  - type: MN
+    lights: 4
+    num: 4
+    comment: "E10"
+    map:
+      Sandra: Steffen
+      Paulina: Max
+      Marie: Elia
+      Darya: Danilo
+      Shakira: Fabio
+      Sabrina: Paco
+      Kim: Peter
+      Steffi: Emanuell
+      Jenny: Marvin
+      Alicia: Teezy
+      # Alicia: Mike
