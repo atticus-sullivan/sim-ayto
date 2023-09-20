@@ -121,3 +121,10 @@ instructions:
       Jenny: Marvin
       Alicia: Teezy
       # Alicia: Mike
+
+  - type: MB
+    lights: 1
+    num: 5
+    comment: "E11"
+    map:
+      Darya: Danilo
