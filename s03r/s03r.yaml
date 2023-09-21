@@ -129,15 +129,75 @@ instructions:
     comment: "E11"
     map:
       Darya: Danilo
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Elia
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Emanuell
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Fabio
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Marvin
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Mike
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Paco
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Peter
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Steffen
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Teezy
+  - type: MB
+    lights: 0
+    num: 5
+    hidden: true
+    comment: "E11"
+    map:
       Darya: Max
 
   - type: MB
