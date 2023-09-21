@@ -129,6 +129,24 @@ instructions:
     map:
       Darya: Danilo
 
+  - type: MB
+    lights: 0
+    num: 5.1
+    hidden: true
+    comment: "E11"
+    map:
+      Darya: Danilo
+      Darya: Elia
+      Darya: Emanuell
+      Darya: Fabio
+      Darya: Marvin
+      Darya: Mike
+      Darya: Paco
+      Darya: Peter
+      Darya: Steffen
+      Darya: Teezy
+      Darya: Max
+
   - type: MN
     lights: 3
     num: 5
@@ -145,3 +163,11 @@ instructions:
       Shakira: Paco
       Steffi: Elia
       # Dummy: Peter
+
+  # - type: MB
+  #   lights: 
+  #   num: 6
+  #   comment: "E14"
+  #   map:
+  #     Sandra: Paco
+  #     Alicia: Teezy
