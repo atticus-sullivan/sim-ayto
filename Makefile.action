@@ -27,7 +27,8 @@ $(ALIAS):
 
 $(OUT_PY): %.out: %.yaml sim.py
 	@date
-	python3 sim.py -o $(basename $<) $< > $(basename $<).out
+	python3 sim.py -c -o $(basename $<) $< > $(basename $<).col.out
+	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	echo "\\\\addplot table {$(basename $<)_statMN.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
 	echo "\\\\addplot table {$(basename $<)_statMB.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
 	echo "\\\\addplot table {$(basename $<)_statInfo.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
