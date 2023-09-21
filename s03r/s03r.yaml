@@ -128,13 +128,6 @@ instructions:
     hidden: true
     comment: "E11"
     map:
-      Darya: Danilo
-  - type: MB
-    lights: 0
-    num: 5
-    hidden: true
-    comment: "E11"
-    map:
       Darya: Elia
   - type: MB
     lights: 0
