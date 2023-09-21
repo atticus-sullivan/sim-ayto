@@ -228,9 +228,15 @@ class Game:
         print()
 
         # tables of the constraints
+        collected_entro = 0
         for c in self.constraints:
-            rem = c.apply_to_rem(rem)
-            if c.hidden: continue
+            rem = c.apply_to_rem(rem) # TODO collect hidden stuff and apply to next not hidden constraint for stats
+            if c.hidden:
+                collected_entro += c.entro if c.entro else 0
+                continue
+            if c.entro:
+                c.entro += collected_entro
+            collected_entro = 0
             c.print_left(self.lutA, self.lutB, color)
             print()
 
