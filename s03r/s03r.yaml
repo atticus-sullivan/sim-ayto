@@ -123,15 +123,8 @@ instructions:
       # Alicia: Mike
 
   - type: MB
-    lights: 1
-    num: 5
-    comment: "E11"
-    map:
-      Darya: Danilo
-
-  - type: MB
     lights: 0
-    num: 5.1
+    num: 5
     hidden: true
     comment: "E11"
     map:
@@ -146,6 +139,13 @@ instructions:
       Darya: Steffen
       Darya: Teezy
       Darya: Max
+
+  - type: MB
+    lights: 1
+    num: 5.1
+    comment: "E11"
+    map:
+      Darya: Danilo
 
   - type: MN
     lights: 3
