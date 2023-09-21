@@ -1,4 +1,4 @@
-1695265346.954896
+1695293565.4194272
 +----------+--------+-------+-------+-------+------+------+---------+------+--------+------+--------+
 |          | Barkin | Burim | Chris | Deniz | Joel | Ken  | Kenneth | Max  | Pascal | Sasa | Marwin |
 +----------+--------+-------+-------+-------+------+------+---------+------+--------+------+--------+
@@ -158,7 +158,7 @@ Larissa -> Joel
 Steffi -> Chris
 Valeria -> Max
 Vanessa -> Marwin
--> I = 1.7556990905883052
+-> I = 1.755699090588305
 +----------+--------+-------+-------+-------+-------+-------+---------+-------+--------+-------+--------+
 |          | Barkin | Burim | Chris | Deniz |  Joel |  Ken  | Kenneth |  Max  | Pascal |  Sasa | Marwin |
 +----------+--------+-------+-------+-------+-------+-------+---------+-------+--------+-------+--------+
@@ -252,7 +252,7 @@ Larissa -> Deniz
 Steffi -> Chris
 Valeria -> Joel
 Vanessa -> Sasa
--> I = 6.193771743396681
+-> I = 6.193771743396678
 +----------+--------+-------+-------+-------+-------+-------+---------+-------+--------+-------+--------+
 |          | Barkin | Burim | Chris | Deniz |  Joel |  Ken  | Kenneth |  Max  | Pascal |  Sasa | Marwin |
 +----------+--------+-------+-------+-------+-------+-------+---------+-------+--------+-------+--------+
@@ -466,11 +466,11 @@ Vanessa -> Marwin
 |  MB#2.0 | 0  |         |  Burim  |        |         |         |          |         |        |         |         |  | 0.11781991711387982 |
 |  MN#2.0 | 3  |  Burim  |   Ken   |  Max   |  Marwin | Kenneth |  Barkin  |   Joel  | Chris  |  Pascal |   Sasa  |  |  2.099208936927085  |
 |  MB#3.0 | 1  |         |         |        |         |         |          |         | Chris  |         |         |  |  1.417093573571294  |
-|  MN#3.0 | 2  | Kenneth |   Sasa  | Pascal |  Deniz  |   Ken   |  Barkin  |   Joel  | Chris  |   Max   |  Marwin |  |  1.7556990905883052 |
+|  MN#3.0 | 2  | Kenneth |   Sasa  | Pascal |  Deniz  |   Ken   |  Barkin  |   Joel  | Chris  |   Max   |  Marwin |  |  1.755699090588305  |
 |  MB#4.0 | 0  |         |         |        |         |         |          |         |        |   Max   |         |  | 0.13865348844493983 |
 |  MN#4.0 | 3  |  Marwin |  Pascal |  Max   |  Burim  |   Ken   | Kenneth  |  Deniz  | Chris  |   Joel  |   Sasa  |  |  2.2963254061632217 |
 |  MB#5.0 | 1  |         |         |  Ken   |         |         |          |         |        |         |         |  |  3.5010767999012464 |
-|  MN#5.0 | 4  |  Marwin |  Pascal |  Ken   |  Burim  | Kenneth |  Barkin  |  Deniz  | Chris  |   Joel  |   Sasa  |  |  6.193771743396681  |
+|  MN#5.0 | 4  |  Marwin |  Pascal |  Ken   |  Burim  | Kenneth |  Barkin  |  Deniz  | Chris  |   Joel  |   Sasa  |  |  6.193771743396678  |
 |  MB#6.0 | 0  |         |         |        |  Burim  |         |          |         |        |         |         |  |  0.1963972128035033 |
 |  MN#6.0 | 3  |  Burim  |   Sasa  |  Ken   |  Deniz  | Kenneth |  Barkin  |  Marwin | Chris  |  Pascal |   Joel  |  |         1.0         |
 |  MB#7.0 | 0  |         |         |        |         |         |   Joel   |         |        |         |         |  |  0.2630344058337938 |
