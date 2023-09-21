@@ -13,6 +13,12 @@ from contextlib import ExitStack
 def binomial(a,b):
     return math.factorial(a) // math.factorial(b) // math.factorial(a-b)
 
+def calc_entro(eliminated:int, total_left:int, add_eliminated:int=0):
+    eliminated += add_eliminated
+    tmp = 1-eliminated/(total_left+eliminated)
+    # print(self.eliminated, self.total_left, tmp)
+    return -math.log2(tmp) if tmp > 0 else None
+
 def gen_poss(num):
     for ele in itertools.permutations(range(num)):
         yield tuple([e] for e in ele)
@@ -110,20 +116,22 @@ class Constraint:
             self.eliminated += 1
 
     def apply_to_rem(self, rem:tuple[tuple,int]):
-            tab,total = rem
-            total -= self.eliminated
-            # tab = list(map(lambda x: list(map(lambda y: (y[0] - y[1]), zip(*x))), zip(tab, self.eliminated_tab)))
-            tab = tuple(map(lambda y: y[0]-y[1], zip(tab, self.eliminated_tab)))
+        tab,total = rem
+        total -= self.eliminated
+        # tab = list(map(lambda x: list(map(lambda y: (y[0] - y[1]), zip(*x))), zip(tab, self.eliminated_tab)))
+        tab = tuple(map(lambda y: y[0]-y[1], zip(tab, self.eliminated_tab)))
 
-            # self.tab_left   = list(map(lambda r: list(map(lambda x: x/total*100, r)), tab))
-            self.tab_left = tuple(map(lambda r: r/total*100, tab))
-            self.total_left = total
+        # self.tab_left   = list(map(lambda r: list(map(lambda x: x/total*100, r)), tab))
+        self.tab_left = tuple(map(lambda r: r/total*100, tab))
+        self.total_left = total
 
-            tmp = 1-self.eliminated/(self.total_left+self.eliminated)
-            # print(self.eliminated, self.total_left, tmp)
-            self.entro = -math.log2(tmp) if tmp > 0 else None
+        calc_entro(self.eliminated, self.total_left)
+        return tab,total
 
-            return tab,total
+
+    def calc_entro(self, add_eliminated:int=0):
+        self.entro = calc_entro(self.eliminated, self.total_left, add_eliminated)
+
 
     def print_left(self, lutA, lutB, color):
         print(f"{self.lights} {self.type}#{self.num:02.1f} {self.comment}")
@@ -228,15 +236,14 @@ class Game:
         print()
 
         # tables of the constraints
-        collected_entro = 0
+        collected_eliminated = 0
         for c in self.constraints:
             rem = c.apply_to_rem(rem) # TODO collect hidden stuff and apply to next not hidden constraint for stats
             if c.hidden:
-                collected_entro += c.entro if c.entro else 0
+                collected_eliminated += c.eliminated
                 continue
-            if c.entro:
-                c.entro += collected_entro
-            collected_entro = 0
+            c.calc_entro(collected_eliminated)
+            collected_eliminated = 0
             c.print_left(self.lutA, self.lutB, color)
             print()
 
