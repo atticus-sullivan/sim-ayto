@@ -128,3 +128,20 @@ instructions:
     comment: "E11"
     map:
       Darya: Danilo
+
+  - type: MN
+    lights: 3
+    num: 5
+    comment: "E12"
+    map:
+      Alicia: Steffen
+      Darya: Danilo
+      Jenny: Marvin
+      Kim: Teezy
+      Marie: Fabio
+      Paulina: Mike
+      Sabrina: Emanuell
+      Sandra: Max
+      Shakira: Paco
+      Steffi: Elia
+      # Dummy: Peter
