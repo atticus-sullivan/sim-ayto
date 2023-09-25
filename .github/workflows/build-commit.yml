@@ -55,8 +55,8 @@ jobs:
       - name: apt stuff
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: graphviz texlive texlive-latex-extra
-          version: 0.1
+          packages: graphviz
+          version: 0.2
 
       - name: setup rust
         uses: actions-rs/toolchain@v1
@@ -100,7 +100,11 @@ jobs:
       - name: Build results files
         run: |
           make -f Makefile.action all
-          make -f Makefile.action stats.pdf
+
+      - name: latex stuff
+        uses: dante-ev/latex-action@latest
+        with:
+          entrypoint: make -f Makefile.action stats.pdf
 
       # - name: ls
       #   run: ls -al ./*
