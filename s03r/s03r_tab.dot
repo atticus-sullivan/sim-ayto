@@ -14,135 +14,145 @@ digraph structs { node[shape=plaintext] struct[label=<
 <td><B>Teezy</B></td>
 <td><B>Max</B></td>
 </tr>
-<tr><td><B>Alicia</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">8.591</font></td>
-<td><font color="black">5.899</font></td>
-<td><font color="black">3.761</font></td>
-<td><font color="black">2.257</font></td>
-<td><font color="black">15.48</font></td>
-<td><font color="black">8.868</font></td>
-<td><font color="black">23.87</font></td>
-<td><font color="black">4.434</font></td>
-<td><font color="black">28.58</font></td>
-<td><font color="black">8.274</font></td>
+<tr>
+<td><B>Alicia</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">8.5907</font></td>
+<td><font color="black">5.8987</font></td>
+<td><font color="black">3.7609</font></td>
+<td><font color="black">2.2565</font></td>
+<td><font color="black">15.4790</font></td>
+<td><font color="black">8.8678</font></td>
+<td><font color="black">23.8717</font></td>
+<td><font color="black">4.4339</font></td>
+<td><font color="black">28.5827</font></td>
+<td><font color="black">8.2740</font></td>
 </tr>
-<tr><td><B>Darya</B></td>
-<td><font color="darkgreen">100.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
+<tr>
+<td><B>Darya</B></td>
+<td><font color="darkgreen">100.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
 </tr>
-<tr><td><B>Jenny</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">3.207</font></td>
-<td><font color="black">1.544</font></td>
-<td><font color="black">77.63</font></td>
-<td><font color="black">7.047</font></td>
-<td><font color="black">4.513</font></td>
-<td><font color="black">5.107</font></td>
-<td><font color="black">4.592</font></td>
-<td><font color="black">3.721</font></td>
-<td><font color="black">4.869</font></td>
+<tr>
+<td><B>Jenny</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">3.2067</font></td>
+<td><font color="black">1.5439</font></td>
+<td><font color="black">77.6326</font></td>
+<td><font color="black">7.0467</font></td>
+<td><font color="black">4.5131</font></td>
+<td><font color="black">5.1069</font></td>
+<td><font color="black">4.5922</font></td>
+<td><font color="black">3.7213</font></td>
+<td><font color="black">4.8694</font></td>
 </tr>
-<tr><td><B>Kim</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">13.7</font></td>
-<td><font color="black">6.849</font></td>
-<td><font color="black">7.878</font></td>
-<td><font color="black">1.584</font></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">14.05</font></td>
-<td><font color="black">38.84</font></td>
-<td><font color="black">10.02</font></td>
-<td><font color="black">3.563</font></td>
-<td><font color="black">11.08</font></td>
+<tr>
+<td><B>Kim</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">13.6975</font></td>
+<td><font color="black">6.8488</font></td>
+<td><font color="black">7.8781</font></td>
+<td><font color="black">1.5835</font></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">14.0538</font></td>
+<td><font color="black">38.8361</font></td>
+<td><font color="black">10.0158</font></td>
+<td><font color="black">3.5629</font></td>
+<td><font color="black">11.0847</font></td>
 </tr>
-<tr><td><B>Marie</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">28.07</font></td>
-<td><font color="black">3.84</font></td>
-<td><font color="black">44.97</font></td>
+<tr>
+<td><B>Marie</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">28.0681</font></td>
+<td><font color="black">3.8401</font></td>
+<td><font color="black">44.9723</font></td>
 <td><font color="red">0.4751</font></td>
-<td><font color="black">11.08</font></td>
-<td><font color="black">5.661</font></td>
-<td><font color="black">4.988</font></td>
-<td><font color="black">5.107</font></td>
-<td><font color="black">4.553</font></td>
-<td><font color="black">6.097</font></td>
+<td><font color="black">11.0847</font></td>
+<td><font color="black">5.6611</font></td>
+<td><font color="black">4.9881</font></td>
+<td><font color="black">5.1069</font></td>
+<td><font color="black">4.5527</font></td>
+<td><font color="black">6.0966</font></td>
 </tr>
-<tr><td><B>Paulina</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">10.97</font></td>
-<td><font color="black">6.255</font></td>
-<td><font color="black">4.434</font></td>
-<td><font color="black">1.227</font></td>
-<td><font color="black">8.709</font></td>
-<td><font color="black">6.809</font></td>
-<td><font color="black">7.759</font></td>
-<td><font color="black">24.74</font></td>
-<td><font color="black">6.374</font></td>
-<td><font color="black">33.37</font></td>
+<tr>
+<td><B>Paulina</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">10.9660</font></td>
+<td><font color="black">6.2549</font></td>
+<td><font color="black">4.4339</font></td>
+<td><font color="black">1.2272</font></td>
+<td><font color="black">8.7094</font></td>
+<td><font color="black">6.8092</font></td>
+<td><font color="black">7.7593</font></td>
+<td><font color="black">24.7427</font></td>
+<td><font color="black">6.3737</font></td>
+<td><font color="black">33.3729</font></td>
 </tr>
-<tr><td><B>Sabrina</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">11.6</font></td>
-<td><font color="black">37.09</font></td>
-<td><font color="black">4.632</font></td>
-<td><font color="black">1.465</font></td>
-<td><font color="black">8.076</font></td>
-<td><font color="black">21.22</font></td>
-<td><font color="black">1.742</font></td>
-<td><font color="black">9.699</font></td>
-<td><font color="black">6.572</font></td>
-<td><font color="black">8.709</font></td>
+<tr>
+<td><B>Sabrina</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">11.5994</font></td>
+<td><font color="black">37.0942</font></td>
+<td><font color="black">4.6318</font></td>
+<td><font color="black">1.4648</font></td>
+<td><font color="black">8.0760</font></td>
+<td><font color="black">21.2193</font></td>
+<td><font color="black">1.7419</font></td>
+<td><font color="black">9.6991</font></td>
+<td><font color="black">6.5717</font></td>
+<td><font color="black">8.7094</font></td>
 </tr>
-<tr><td><B>Sandra</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">12.63</font></td>
-<td><font color="black">4.117</font></td>
-<td><font color="black">5.661</font></td>
-<td><font color="black">1.227</font></td>
-<td><font color="black">15.99</font></td>
-<td><font color="black">24.9</font></td>
-<td><font color="black">6.849</font></td>
-<td><font color="black">23.91</font></td>
-<td><font color="black">6.374</font></td>
-<td><font color="black">10.17</font></td>
+<tr>
+<td><B>Sandra</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">12.6287</font></td>
+<td><font color="black">4.1172</font></td>
+<td><font color="black">5.6611</font></td>
+<td><font color="black">1.2272</font></td>
+<td><font color="black">15.9937</font></td>
+<td><font color="black">24.9010</font></td>
+<td><font color="black">6.8488</font></td>
+<td><font color="black">23.9113</font></td>
+<td><font color="black">6.3737</font></td>
+<td><font color="black">10.1742</font></td>
 </tr>
-<tr><td><B>Shakira</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">9.541</font></td>
-<td><font color="black">6.968</font></td>
-<td><font color="black">22.6</font></td>
-<td><font color="black">11.36</font></td>
-<td><font color="black">18.37</font></td>
-<td><font color="black">8.511</font></td>
-<td><font color="black">5.146</font></td>
-<td><font color="black">9.976</font></td>
-<td><font color="black">7.205</font></td>
-<td><font color="black">9.699</font></td>
+<tr>
+<td><B>Shakira</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">9.5408</font></td>
+<td><font color="black">6.9675</font></td>
+<td><font color="black">22.6049</font></td>
+<td><font color="black">11.3618</font></td>
+<td><font color="black">18.3690</font></td>
+<td><font color="black">8.5115</font></td>
+<td><font color="black">5.1465</font></td>
+<td><font color="black">9.9762</font></td>
+<td><font color="black">7.2051</font></td>
+<td><font color="black">9.6991</font></td>
 </tr>
-<tr><td><B>Steffi</B></td>
-<td><font color="red">0.0</font></td>
-<td><font color="black">4.909</font></td>
-<td><font color="black">25.77</font></td>
-<td><font color="black">4.513</font></td>
-<td><font color="black">2.771</font></td>
-<td><font color="black">15.24</font></td>
-<td><font color="black">5.463</font></td>
-<td><font color="black">5.701</font></td>
-<td><font color="black">7.522</font></td>
-<td><font color="black">33.06</font></td>
-<td><font color="black">7.72</font></td>
+<tr>
+<td><B>Steffi</B></td>
+<td><font color="red">0.0000</font></td>
+<td><font color="black">4.9089</font></td>
+<td><font color="black">25.7720</font></td>
+<td><font color="black">4.5131</font></td>
+<td><font color="black">2.7712</font></td>
+<td><font color="black">15.2415</font></td>
+<td><font color="black">5.4632</font></td>
+<td><font color="black">5.7007</font></td>
+<td><font color="black">7.5218</font></td>
+<td><font color="black">33.0562</font></td>
+<td><font color="black">7.7197</font></td>
 </tr>
 </table>
 >];}
