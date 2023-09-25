@@ -52,11 +52,23 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-luarocks-
 
-      - name: apt stuff
-        uses: awalsh128/cache-apt-pkgs-action@latest
+      - name: Cache LaTeX packages
+        uses: actions/cache@v2
         with:
-          packages: graphviz
-          version: 0.2
+          path: |
+            /usr/share/texlive
+          key: texlive-packages-${{ runner.os }}
+          restore-keys: texlive-packages-
+
+      - name: apt stuff
+        run: |
+          sudo apt update
+          sudo apt install -y graphviz
+          if ! dpkg -l | grep -q texlive-latex-extra; then
+                sudo apt install -y graphviz texlive texlive-latex-extra
+          else
+            echo "TeX Live packages are already installed."
+          fi
 
       - name: setup rust
         uses: actions-rs/toolchain@v1
@@ -100,11 +112,7 @@ jobs:
       - name: Build results files
         run: |
           make -f Makefile.action all
-
-      - name: latex stuff
-        uses: dante-ev/latex-action@latest
-        with:
-          entrypoint: make -f Makefile.action stats.pdf
+          make -f Makefile.action stats.pdf
 
       # - name: ls
       #   run: ls -al ./*
