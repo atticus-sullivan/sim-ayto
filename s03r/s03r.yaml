@@ -179,3 +179,9 @@ constraints:
       Shakira: Paco
       Steffi: Elia
       # Dummy: Peter
+
+  # - type: !Box {num: 6, comment: "E13"}
+  #   lights: 
+  #   map:
+  #     Alicia: Teezy
+  #    # Sandra: Paco
