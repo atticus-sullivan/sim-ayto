@@ -34,12 +34,42 @@ jobs:
           git checkout -b main origin/main
           git switch build
 
-      # - run: git log --oneline
+      # - name: Cache Rust dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.cargo
+      #     key: ${{ runner.os }}-rust-${{ hashFiles('**/Cargo.toml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-rust-
+      #
+      # - name: Cache apt packages
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       /var/cache/apt/archives
+      #     key: ${{ runner.os }}-apt-${{ hashFiles('**/apt-packages.txt') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-apt-
+      #
+      # - name: Cache LuaRocks dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.luarocks
+      #     key: ${{ runner.os }}-luarocks-${{ hashFiles('**/luarocks.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-luarocks-
 
       - name: apt stuff
         run: |
           sudo apt update
           sudo apt install -y graphviz texlive texlive-latex-extra python3-pip
+
+      - name: setup rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
 
       - name: Install lua
         uses: leafo/gh-actions-lua@v9
@@ -53,12 +83,6 @@ jobs:
           luarocks install luaprompt
           luarocks install lua_cliargs
 
-      # - name: ls
-      #   run: ls -al ./*
-
-      # - run: git branch
-      # - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
-
       - name: update on main
         run: |
           git config --global user.name "Updater"
@@ -66,17 +90,20 @@ jobs:
           git merge --no-ff main
 
       # after merge, since maybe the requirements.txt has changed
+      - name: setup python/pip
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
       - name: install python deps
         run: pip install -r requirements.txt
 
       - name: restore modification times
         run: ./restore-ts.sh
 
-      # - run: git branch
-      # - run: git log --branches --remotes --tags --graph --pretty=oneline --abbrev-commit --date=relative --decorate
-
-      # - name: ls
-      #   run: ls -al ./*
+      - name: Build rust
+        run: |
+          cd rust && cargo build --release
 
       - name: Build results files
         run: |
