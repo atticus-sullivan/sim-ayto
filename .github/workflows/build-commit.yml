@@ -62,9 +62,13 @@ jobs:
       #       ${{ runner.os }}-luarocks-
 
       - name: apt stuff
-        run: |
-          sudo apt update
-          sudo apt install -y graphviz texlive texlive-latex-extra python3-pip
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: graphviz texlive texlive-latex-extra
+          version: 0.1
+        # run: |
+        #   sudo apt update
+        #   sudo apt install -y graphviz texlive texlive-latex-extra python3-pip
 
       - name: setup rust
         uses: actions-rs/toolchain@v1
