@@ -1,0 +1,6 @@
+# Ignore binary executables
+/target/
+
+Cargo.lock
+Makefile
+*yaml
