@@ -1,6 +1,8 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+rule_set: !SomeoneIsDup
+
 setA:
   - Alicia
   - Darya
@@ -28,18 +30,14 @@ setB:
   - Teezy
   - Max
 
-instructions:
-  - type: MB
+constraints:
+  - type: !Box {num: 1, comment: "E03"}
     lights: 0
-    num: 1
-    comment: "E03"
     map:
       Jenny: Danilo
 
-  - type: MN
+  - type: !Night {num: 1, comment: "E04"}
     lights: 3
-    num: 1
-    comment: "E04"
     map:
       Darya: Danilo
       Sandra: Paco
@@ -52,17 +50,14 @@ instructions:
       Steffi: Teezy
       Alicia: Peter
 
-  - type: MB
+
+  - type: !Box {num: 2, comment: "E05"}
     lights: 0
-    num: 2
-    comment: "E05"
     map:
       Jenny: Elia
 
-  - type: MN
+  - type: !Night {num: 2, comment: "E06"}
     lights: 2
-    num: 2
-    comment: "E06"
     map:
       Sabrina: Mike
       Paulina: Danilo
@@ -75,17 +70,13 @@ instructions:
       Shakira: Peter
       Sandra: Elia
 
-  - type: MB
+  - type: !Box {num: 3, comment: "E07"}
     lights: 0
-    num: 3
-    comment: "E07"
     map:
       Darya: Elia
 
-  - type: MN
+  - type: !Night {num: 3, comment: "E08"}
     lights: 2
-    num: 3
-    comment: "E08"
     map:
       Alicia: Steffen
       Darya: Danilo
@@ -98,17 +89,13 @@ instructions:
       Shakira: Fabio
       Steffi: Marvin
 
-  - type: MB
+  - type: !Box {num: 4, comment: "E09"}
     lights: 0
-    num: 4
-    comment: "E09"
     map:
       Kim: Mike
 
-  - type: MN
+  - type: !Night {num: 4, comment: "E10"}
     lights: 4
-    num: 4
-    comment: "E10"
     map:
       Sandra: Steffen
       Paulina: Max
@@ -122,88 +109,64 @@ instructions:
       Alicia: Teezy
       # Alicia: Mike
 
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Elia
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Emanuell
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Fabio
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Marvin
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Mike
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Paco
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Peter
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Steffen
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Teezy
-  - type: MB
+  - type: !Box {num: 5, comment: "E11"}
     lights: 0
-    num: 5
     hidden: true
-    comment: "E11"
     map:
       Darya: Max
 
-  - type: MB
+  - type: !Box {num: 5.1, comment: "E11"}
     lights: 1
-    num: 5.1
-    comment: "E11"
     map:
       Darya: Danilo
 
-  - type: MN
+  - type: !Night {num: 5, comment: "E12"}
     lights: 3
-    num: 5
-    comment: "E12"
     map:
       Alicia: Steffen
       Darya: Danilo
@@ -216,11 +179,3 @@ instructions:
       Shakira: Paco
       Steffi: Elia
       # Dummy: Peter
-
-  # - type: MB
-  #   lights: 
-  #   num: 6
-  #   comment: "E14"
-  #   map:
-  #     Sandra: Paco
-  #     Alicia: Teezy
