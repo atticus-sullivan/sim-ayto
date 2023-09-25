@@ -34,31 +34,31 @@ jobs:
           git checkout -b main origin/main
           git switch build
 
-      - name: Cache Rust dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cargo
-          key: ${{ runner.os }}-rust-${{ hashFiles('**/Cargo.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-rust-
-
-      - name: Cache LuaRocks dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.luarocks
-          key: ${{ runner.os }}-luarocks-${{ hashFiles('**/luarocks.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-luarocks-
-
-      - name: Cache LaTeX packages
-        uses: actions/cache@v2
-        with:
-          path: |
-            /usr/share/texlive
-          key: texlive-packages-${{ runner.os }}
-          restore-keys: texlive-packages-
+      # - name: Cache Rust dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.cargo
+      #     key: ${{ runner.os }}-rust-${{ hashFiles('**/Cargo.toml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-rust-
+      #
+      # - name: Cache LuaRocks dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.luarocks
+      #     key: ${{ runner.os }}-luarocks-${{ hashFiles('**/luarocks.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-luarocks-
+      #
+      # - name: Cache LaTeX packages
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       /usr/share/texlive
+      #     key: texlive-packages-${{ runner.os }}
+      #     restore-keys: texlive-packages-
 
       - name: apt stuff
         run: |
