@@ -412,10 +412,10 @@ impl Game {
             c.write_stats(&mut mbo, &mut mno, &mut info)?;
         }
 
-        let mut hdr = vec![String::from(""), String::from("L")];
-        hdr.append(&mut self.map_a.clone());
-        hdr.push(String::from(""));
-        hdr.push(String::from("I"));
+        let mut hdr = vec![Cell::new(""), Cell::new("L").set_alignment(comfy_table::CellAlignment::Center)];
+        hdr.extend(self.map_a.iter().map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)));
+        hdr.push(Cell::new("").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("I").set_alignment(comfy_table::CellAlignment::Center));
 
         let mut table = Table::new();
         table
@@ -471,8 +471,8 @@ impl Game {
     }
 
     fn print_rem(&self, rem: &Rem) -> Option<()> {
-        let mut hdr = vec![String::from("")];
-        hdr.append(&mut self.map_b.clone());
+        let mut hdr = vec![Cell::new("")];
+        hdr.extend(self.map_b.iter().map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)));
         let mut table = Table::new();
         table
             .force_no_tty()
