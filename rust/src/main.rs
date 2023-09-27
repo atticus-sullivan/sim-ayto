@@ -419,6 +419,8 @@ impl Game {
 
         let mut table = Table::new();
         table
+            .force_no_tty()
+            .enforce_styling()
             .load_preset(UTF8_FULL_CONDENSED)
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
@@ -473,6 +475,8 @@ impl Game {
         hdr.append(&mut self.map_b.clone());
         let mut table = Table::new();
         table
+            .force_no_tty()
+            .enforce_styling()
             .load_preset(UTF8_FULL_CONDENSED)
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
