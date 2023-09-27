@@ -108,6 +108,7 @@ jobs:
       - name: Build rust
         run: |
           cd rust && cargo build --release
+          # cd rust && RUSTFLAGS="-C target-cpu=skylake" cargo build --settings profile.release.codegen-units=1 --settings profile.release.lto=true --release
 
       - name: Build results files
         run: |
