@@ -34,16 +34,16 @@ Jenny -> Danilo
 179625600 left -> 27.420417734796562 bits left
 
 3 MN#1.0 E04
-Jenny -> Elia
-Shakira -> Marvin
-Darya -> Danilo
-Paulina -> Steffen
-Marie -> Fabio
-Steffi -> Teezy
-Alicia -> Peter
 Sandra -> Paco
-Kim -> Mike
+Alicia -> Peter
+Shakira -> Marvin
+Marie -> Fabio
 Sabrina -> Emanuell
+Steffi -> Teezy
+Paulina -> Steffen
+Darya -> Danilo
+Jenny -> Elia
+Kim -> Mike
 -> I = 4.005645285128453
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -82,15 +82,15 @@ Jenny -> Elia
 
 2 MN#2.0 E06
 Paulina -> Danilo
-Darya -> Emanuell
-Shakira -> Peter
-Sandra -> Elia
-Sabrina -> Mike
-Kim -> Paco
-Marie -> Fabio
 Alicia -> Steffen
-Jenny -> Marvin
+Marie -> Fabio
+Shakira -> Peter
+Darya -> Emanuell
+Sandra -> Elia
+Kim -> Paco
+Sabrina -> Mike
 Steffi -> Teezy
+Jenny -> Marvin
 -> I = 2.036690095634471
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -128,16 +128,16 @@ Darya -> Elia
 1653951 left -> 20.65748506314161 bits left
 
 2 MN#3.0 E08
+Sandra -> Paco
+Sabrina -> Peter
+Kim -> Teezy
+Darya -> Danilo
+Paulina -> Mike
+Steffi -> Marvin
+Jenny -> Emanuell
 Shakira -> Fabio
 Alicia -> Steffen
-Paulina -> Mike
-Darya -> Danilo
-Jenny -> Emanuell
-Kim -> Teezy
-Steffi -> Marvin
-Sabrina -> Peter
 Marie -> Elia
-Sandra -> Paco
 -> I = 2.0888126591304843
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -176,15 +176,15 @@ Kim -> Mike
 
 4 MN#4.0 E10
 Jenny -> Marvin
-Sabrina -> Paco
 Darya -> Danilo
+Marie -> Elia
+Steffi -> Emanuell
+Alicia -> Teezy
+Kim -> Peter
 Shakira -> Fabio
 Sandra -> Steffen
-Alicia -> Teezy
-Steffi -> Emanuell
-Kim -> Peter
+Sabrina -> Paco
 Paulina -> Max
-Marie -> Elia
 -> I = 5.098651965697764
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -222,16 +222,16 @@ Darya -> Danilo
 7257 left -> 12.82515755470108 bits left
 
 3 MN#5.0 E12
-Sandra -> Max
-Shakira -> Paco
 Sabrina -> Emanuell
-Jenny -> Marvin
-Kim -> Teezy
 Marie -> Fabio
+Kim -> Teezy
 Steffi -> Elia
 Paulina -> Mike
 Alicia -> Steffen
 Darya -> Danilo
+Jenny -> Marvin
+Sandra -> Max
+Shakira -> Paco
 -> I = 1.5225186309135288
 ╭─────────┬─────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo  ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -263,6 +263,6 @@ Darya -> Danilo
 │ MB#5.1 ┆ 1 ┆         ┆ Danilo   ┆          ┆       ┆        ┆         ┆          ┆         ┆         ┆          ┆     ┆ 0.2666083838157214  ┆   │
 │ MN#5.0 ┆ 3 ┆ Steffen ┆ Danilo   ┆ Marvin   ┆ Teezy ┆ Fabio  ┆ Mike    ┆ Emanuell ┆ Max     ┆ Paco    ┆ Elia     ┆     ┆ 1.5225186309135288  ┆   │
 ╰────────┴───┴─────────┴──────────┴──────────┴───────┴────────┴─────────┴──────────┴─────────┴─────────┴──────────┴─────┴─────────────────────┴───╯
-Total permutations: 199584000 amount left 202706457 initial combinations for each pair 19958400
+Total permutations: 199584000  Permutations left: 202706457  Initial combinations for each pair: 19958400
 
-Ran in 89.27507302 seconds
+Ran in 88.09s
