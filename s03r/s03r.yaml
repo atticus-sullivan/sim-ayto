@@ -185,3 +185,18 @@ constraints:
     map:
       Alicia: Teezy
      # Sandra: Paco
+
+  - type: !Night {num: 6, comment: "E14"}
+    lights: 4
+    map:
+      Darya: Danilo
+      Alicia: Paco
+      Sandra: Steffen
+      Paulina: Mike
+      Shakira: Fabio
+      Marie: Elia
+      Sabrina: Peter
+      Steffi: Emanuell
+      Kim: Teezy
+      Jenny: Marvin
+      # Jenny: Max
