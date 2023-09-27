@@ -312,11 +312,11 @@ struct Game {
 }
 
 impl Game {
-    fn new_from_yaml(yaml_path: &PathBuf, stem: &str) -> Result<Game> {
+    fn new_from_yaml(yaml_path: &PathBuf, stem: &PathBuf) -> Result<Game> {
         let mut g: Game = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
-        g.dir = yaml_path.parent().context("parent dir of yaml path not found")?.to_path_buf();
-        g.stem = String::from(stem);
+        g.dir = stem.parent().context("parent dir of stem not found")?.to_path_buf();
+        g.stem = stem.file_stem().context("No filename provided in stem")?.to_string_lossy().into_owned();
 
         for (lut, map) in [(&mut g.lut_a, &g.map_a), (&mut g.lut_b, &g.map_b)] {
             for (index, name) in map.iter().enumerate() {
@@ -376,24 +376,21 @@ impl Game {
             }
         }
 
-        let mut dot_path = self.dir.clone();
-        dot_path.set_file_name(self.stem.clone() + "_tab");
-        dot_path.set_extension("dot");
+        let dot_path = self.dir.join(self.stem.clone() + "_tab").with_extension("dot");
         self.write_rem_dot(&rem, &mut File::create(dot_path.clone())?)?;
 
-        let mut pdf_path = dot_path.clone();
-        pdf_path.set_extension("pdf");
+        let pdf_path = dot_path.with_extension("pdf");
         Command::new("dot")
             .args(["-Tpdf", "-o", pdf_path.to_str().context("pdf_path failed")?, dot_path.to_str().context("dot_path failed")?])
             .output()
             .expect("dot command failed");
 
-        let mut png_path = dot_path.clone();
-        png_path.set_extension("png");
+        let png_path = dot_path.with_extension("png");
         Command::new("dot")
             .args(["-Tpng", "-o", png_path.to_str().context("png_path failed")?, dot_path.to_str().context("dot_path failed")?])
             .output()
             .expect("dot command failed");
+        // println!("dir: {:?} dot_path: {:?} png_path: {:?} pdf_path: {:?}", self.dir, dot_path, png_path, pdf_path);
 
         self.do_statistics(&constr)?;
 
@@ -402,17 +399,9 @@ impl Game {
     }
 
     fn do_statistics(&self, merged_constraints: &Vec<Constraint>) -> Result<()> {
-        let mut out_mb_path = self.dir.clone();
-        out_mb_path.set_file_name(self.stem.clone() + "_statMB");
-        out_mb_path.set_extension("out");
-
-        let mut out_mn_path = self.dir.clone();
-        out_mn_path.set_file_name(self.stem.clone() + "_statMN");
-        out_mn_path.set_extension("out");
-
-        let mut out_info_path = self.dir.clone();
-        out_info_path.set_file_name(self.stem.clone() + "_statInfo");
-        out_info_path.set_extension("out");
+        let out_mb_path = self.dir.join(self.stem.clone() + "_statMB").with_extension("out");
+        let out_mn_path = self.dir.join(self.stem.clone() + "_statMN").with_extension("out");
+        let out_info_path = self.dir.join(self.stem.clone() + "_statInfo").with_extension("out");
 
         let (mut mbo, mut mno, mut info) = (
             File::create(out_mb_path)?,
@@ -512,13 +501,13 @@ impl Game {
 #[command(author, version, about, long_about = None)]
 struct Cli {
     /// The path to the file to read
-    yaml_path: std::path::PathBuf,
+    yaml_path: PathBuf,
 
     #[arg(short = 'c', long = "color")]
     colored: bool,
 
     #[arg(short = 'o', long = "output")]
-    stem: String,
+    stem: PathBuf,
 }
 
 fn main() {
