@@ -338,7 +338,7 @@ impl Game {
 
         let mut each = 0;
         let mut total = 0;
-        let mut remaining = 0;
+        let mut eliminated = 0;
         // let mut left_poss = vec![];
         for (_i,p) in perm.enumerate() {
             if p[0].contains(&0) {each += 1;}
@@ -346,11 +346,11 @@ impl Game {
             for c in &mut self.constraints {
                 if !c.fits(&p)? {
                     c.eliminate(&p)?;
+                    eliminated += 1;
                     break;
                 }
                 // left_poss.push(p.clone()); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
             }
-            remaining += 1;
         }
 
         let mut rem:Rem = (vec![vec![each; self.map_b.len()]; self.map_a.len()], total);
@@ -394,7 +394,7 @@ impl Game {
 
         self.do_statistics(&constr)?;
 
-        println!("Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}", total, remaining, each);
+        println!("Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}", total, total-eliminated, each);
         Ok(())
     }
 
