@@ -348,9 +348,9 @@ impl Game {
                     c.eliminate(&p)?;
                     break;
                 }
-                remaining += 1;
                 // left_poss.push(p.clone()); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
             }
+            remaining += 1;
         }
 
         let mut rem:Rem = (vec![vec![each; self.map_b.len()]; self.map_a.len()], total);
