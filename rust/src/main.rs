@@ -234,8 +234,8 @@ impl Constraint {
             ConstraintType::Box { num,.. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
         }
         ret.push(Cell::new(self.lights));
-        ret.extend(map_a.iter().map(|b| {
-            Cell::new(self.map_s.get(b).unwrap_or(&String::from("")))
+        ret.extend(map_a.iter().map(|a| {
+            Cell::new(self.map_s.get(a).unwrap_or(&String::from("")))
         }));
         ret.push(Cell::new(String::from("")));
         ret.push(Cell::new(self.entropy.unwrap_or(std::f64::INFINITY)));
@@ -413,7 +413,7 @@ impl Game {
         }
 
         let mut hdr = vec![String::from(""), String::from("L")];
-        hdr.append(&mut self.map_b.clone());
+        hdr.append(&mut self.map_a.clone());
         hdr.push(String::from(""));
         hdr.push(String::from("I"));
 
