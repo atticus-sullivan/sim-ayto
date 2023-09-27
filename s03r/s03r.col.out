@@ -34,16 +34,16 @@ Jenny -> Danilo
 179625600 left -> 27.420417734796562 bits left
 
 3 MN#1.0 E04
+Kim -> Mike
+Shakira -> Marvin
 Marie -> Fabio
 Paulina -> Steffen
-Alicia -> Peter
-Sabrina -> Emanuell
-Sandra -> Paco
-Kim -> Mike
-Jenny -> Elia
-Shakira -> Marvin
 Darya -> Danilo
+Alicia -> Peter
+Jenny -> Elia
 Steffi -> Teezy
+Sandra -> Paco
+Sabrina -> Emanuell
 -> I = 4.005645285128453
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -82,15 +82,15 @@ Jenny -> Elia
 
 2 MN#2.0 E06
 Alicia -> Steffen
-Jenny -> Marvin
-Sabrina -> Mike
-Steffi -> Teezy
+Marie -> Fabio
 Darya -> Emanuell
 Kim -> Paco
+Jenny -> Marvin
 Paulina -> Danilo
-Marie -> Fabio
-Sandra -> Elia
+Steffi -> Teezy
+Sabrina -> Mike
 Shakira -> Peter
+Sandra -> Elia
 -> I = 2.036690095634471
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -128,16 +128,16 @@ Darya -> Elia
 1653951 left -> 20.65748506314161 bits left
 
 2 MN#3.0 E08
-Jenny -> Emanuell
-Sabrina -> Peter
 Sandra -> Paco
-Shakira -> Fabio
+Sabrina -> Peter
 Alicia -> Steffen
-Steffi -> Marvin
-Marie -> Elia
-Paulina -> Mike
 Darya -> Danilo
+Paulina -> Mike
 Kim -> Teezy
+Marie -> Elia
+Shakira -> Fabio
+Steffi -> Marvin
+Jenny -> Emanuell
 -> I = 2.0888126591304843
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -175,16 +175,16 @@ Kim -> Mike
 299131 left -> 18.190417904214566 bits left
 
 4 MN#4.0 E10
-Marie -> Elia
-Sabrina -> Paco
-Kim -> Peter
-Paulina -> Max
-Steffi -> Emanuell
-Alicia -> Teezy
 Jenny -> Marvin
-Darya -> Danilo
+Paulina -> Max
+Alicia -> Teezy
+Sabrina -> Paco
 Shakira -> Fabio
+Marie -> Elia
+Steffi -> Emanuell
+Darya -> Danilo
 Sandra -> Steffen
+Kim -> Peter
 -> I = 5.098651965697764
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
@@ -222,15 +222,15 @@ Darya -> Danilo
 7257 left -> 12.82515755470108 bits left
 
 3 MN#5.0 E12
-Marie -> Fabio
+Steffi -> Elia
 Sandra -> Max
 Paulina -> Mike
-Shakira -> Paco
+Marie -> Fabio
 Alicia -> Steffen
-Steffi -> Elia
-Darya -> Danilo
-Jenny -> Marvin
+Shakira -> Paco
 Sabrina -> Emanuell
+Jenny -> Marvin
+Darya -> Danilo
 Kim -> Teezy
 -> I = 1.5225186309135288
 ╭─────────┬─────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
@@ -249,6 +249,25 @@ Kim -> Teezy
 ╰─────────┴─────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────╯
 2526 left -> 11.302638923787553 bits left
 
+0 MB#6.0 E13
+Alicia -> Teezy
+-> I = 0.48565530053217126
+╭─────────┬─────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
+│         ┆ Danilo  ┆ Elia   ┆ Emanuell ┆ Fabio  ┆ Marvin ┆ Mike   ┆ Paco   ┆ Peter  ┆ Steffen ┆ Teezy  ┆ Max    │
+╞═════════╪═════════╪════════╪══════════╪════════╪════════╪════════╪════════╪════════╪═════════╪════════╪════════╡
+│ Alicia  ┆ 0.000   ┆ 11.142 ┆ 7.761    ┆ 4.823  ┆ 3.104  ┆ 20.288 ┆ 11.752 ┆ 32.095 ┆ 5.377   ┆ 0.000  ┆ 10.865 │
+│ Darya   ┆ 100.000 ┆ 0.000  ┆ 0.000    ┆ 0.000  ┆ 0.000  ┆ 0.000  ┆ 0.000  ┆ 0.000  ┆ 0.000   ┆ 0.000  ┆ 0.000  │
+│ Jenny   ┆ 0.000   ┆ 0.000  ┆ 2.993    ┆ 1.608  ┆ 80.987 ┆ 6.208  ┆ 3.548  ┆ 3.825  ┆ 3.880   ┆ 5.211  ┆ 4.268  │
+│ Kim     ┆ 0.000   ┆ 12.971 ┆ 6.596    ┆ 8.592  ┆ 1.441  ┆ 0.000  ┆ 12.306 ┆ 41.685 ┆ 9.867   ┆ 4.989  ┆ 9.257  │
+│ Marie   ┆ 0.000   ┆ 32.982 ┆ 4.213    ┆ 36.142 ┆ 0.610  ┆ 11.530 ┆ 6.541  ┆ 4.878  ┆ 5.211   ┆ 6.375  ┆ 6.319  │
+│ Paulina ┆ 0.000   ┆ 10.754 ┆ 4.601    ┆ 5.100  ┆ 1.109  ┆ 7.761  ┆ 7.871  ┆ 6.264  ┆ 23.282  ┆ 8.925  ┆ 35.366 │
+│ Sabrina ┆ 0.000   ┆ 9.701  ┆ 36.863   ┆ 5.820  ┆ 1.608  ┆ 7.262  ┆ 25.942 ┆ 0.831  ┆ 7.428   ┆ 9.202  ┆ 6.984  │
+│ Sandra  ┆ 0.000   ┆ 10.310 ┆ 4.490    ┆ 5.987  ┆ 1.164  ┆ 16.796 ┆ 16.075 ┆ 6.375  ┆ 28.215  ┆ 8.925  ┆ 13.082 │
+│ Shakira ┆ 0.000   ┆ 8.592  ┆ 5.931    ┆ 28.271 ┆ 9.257  ┆ 17.018 ┆ 11.253 ┆ 1.330  ┆ 10.144  ┆ 10.089 ┆ 8.038  │
+│ Steffi  ┆ 0.000   ┆ 3.548  ┆ 26.552   ┆ 3.659  ┆ 0.721  ┆ 13.137 ┆ 4.712  ┆ 2.716  ┆ 6.596   ┆ 46.286 ┆ 5.820  │
+╰─────────┴─────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────╯
+1804 left -> 10.81698362325538 bits left
+
 ╭────────┬───┬─────────┬──────────┬──────────┬───────┬────────┬─────────┬──────────┬─────────┬─────────┬──────────┬─────┬─────────────────────┬───╮
 │        ┆ L ┆ Danilo  ┆ Elia     ┆ Emanuell ┆ Fabio ┆ Marvin ┆ Mike    ┆ Paco     ┆ Peter   ┆ Steffen ┆ Teezy    ┆ Max ┆                     ┆ I │
 ╞════════╪═══╪═════════╪══════════╪══════════╪═══════╪════════╪═════════╪══════════╪═════════╪═════════╪══════════╪═════╪═════════════════════╪═══╡
@@ -262,7 +281,8 @@ Kim -> Teezy
 │ MN#4.0 ┆ 4 ┆ Teezy   ┆ Danilo   ┆ Marvin   ┆ Peter ┆ Elia   ┆ Max     ┆ Paco     ┆ Steffen ┆ Fabio   ┆ Emanuell ┆     ┆ 5.098651965697764   ┆   │
 │ MB#5.1 ┆ 1 ┆         ┆ Danilo   ┆          ┆       ┆        ┆         ┆          ┆         ┆         ┆          ┆     ┆ 0.2666083838157214  ┆   │
 │ MN#5.0 ┆ 3 ┆ Steffen ┆ Danilo   ┆ Marvin   ┆ Teezy ┆ Fabio  ┆ Mike    ┆ Emanuell ┆ Max     ┆ Paco    ┆ Elia     ┆     ┆ 1.5225186309135288  ┆   │
+│ MB#6.0 ┆ 0 ┆ Teezy   ┆          ┆          ┆       ┆        ┆         ┆          ┆         ┆         ┆          ┆     ┆ 0.48565530053217126 ┆   │
 ╰────────┴───┴─────────┴──────────┴──────────┴───────┴────────┴─────────┴──────────┴─────────┴─────────┴──────────┴─────┴─────────────────────┴───╯
-Total permutations: 199584000  Permutations left: 202706457  Initial combinations for each pair: 19958400
+Total permutations: 199584000  Permutations left: 202708261  Initial combinations for each pair: 19958400
 
-Ran in 88.36s
+Ran in 87.53s
