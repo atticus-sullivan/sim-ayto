@@ -9,6 +9,10 @@ use std::io::Write;
 use clap::Parser;
 use comfy_table::{modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Table, Cell, Color};
 
+// TODO cleanup (multiple files?)
+// TODO code review (try with chatGPT)
+// TODO implement multi-threading (really needed with a few min runtime?)
+
 #[cfg(test)]
 mod tests {
     use std::collections::HashMap;
@@ -154,18 +158,19 @@ impl Constraint {
         for _ in 0..lut_a.len() {
             self.eliminated_tab.push(vec![0;lut_b.len()])
         }
+
+        self.map.reserve(self.map_s.len());
         for (k,v) in &self.map_s {
             self.map.insert(*lut_a.get(k).context("Invalid Key")? as u8, *lut_b.get(v).context("Invalid Value")? as u8);
         }
-        // self.map_s.clear();
+
         Ok(())
     }
 
     fn eliminate(&mut self, m: &Matching) -> Result<()>{
         for (i1,v) in m.iter().enumerate() {
-            for i2 in v {
-                *self.eliminated_tab.get_mut(i1).context("i1 is invalid")?
-                    .get_mut(*i2 as usize).context("i2 is invalid")? += 1
+            for &i2 in v {
+                self.eliminated_tab[i1][i2 as usize] += 1
             }
         }
         self.eliminated += 1;
@@ -174,9 +179,10 @@ impl Constraint {
 
     fn fits(&self, m: &Matching) -> Result<bool> {
         let mut l = 0;
-        for (i1, i2) in &self.map {
-            if m.get(*i1 as usize).context("Invalid index provided")?.contains(i2) {
-                l += 1
+        for (i1,i2) in self.map.iter() {
+            if m[*i1 as usize].contains(i2) {
+                if l >= self.lights {return Ok(false);}
+                l += 1;
             }
         }
         Ok(l == self.lights)
@@ -228,9 +234,9 @@ impl Constraint {
             ConstraintType::Box { num,.. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
         }
         ret.push(Cell::new(self.lights));
-        for b in map_a {
-            ret.push(Cell::new(self.map_s.get(b).unwrap_or(&String::from(""))));
-        }
+        ret.extend(map_a.iter().map(|b| {
+            Cell::new(self.map_s.get(b).unwrap_or(&String::from("")))
+        }));
         ret.push(Cell::new(String::from("")));
         ret.push(Cell::new(self.entropy.unwrap_or(std::f64::INFINITY)));
 
@@ -334,7 +340,7 @@ impl Game {
         let mut total = 0;
         let mut remaining = 0;
         // let mut left_poss = vec![];
-        for p in perm {
+        for (_i,p) in perm.enumerate() {
             if p[0].contains(&0) {each += 1;}
             total += 1;
             for c in &mut self.constraints {
@@ -391,7 +397,7 @@ impl Game {
 
         self.do_statistics(&constr)?;
 
-        println!("Total permutations: {} amount left {} initial combinations for each pair {}", total, remaining, each);
+        println!("Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}", total, remaining, each);
         Ok(())
     }
 
@@ -452,7 +458,7 @@ impl Game {
             writeln!(writer, "<tr>")?;
             writeln!(writer, "<td><B>{a}</B></td>")?;
 
-            let i = rem.0.get(i).context("Indexing rem with map failed")?.into_iter().map(|x| {
+            let i = rem.0.get(i).context("Indexing rem with map failed")?.iter().map(|x| {
                 let val = (*x as f64)/(rem.1 as f64)*100.0;
                 if 79.0 < val && val < 101.0 {
                     (val, "darkgreen")
@@ -482,8 +488,7 @@ impl Game {
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
         for (i,a) in self.map_a.iter().enumerate() {
-            let mut row = vec![Cell::new(a)];
-            let i = rem.0.get(i)?.into_iter().map(|x| {
+            let i = rem.0.get(i)?.iter().map(|x| {
                 let val = (*x as f64)/(rem.1 as f64)*100.0;
                 if 79.0 < val && val < 101.0 {
                     Cell::new(format!("{:02.3}", val)).fg(Color::Green)
@@ -493,6 +498,7 @@ impl Game {
                     Cell::new(format!("{:02.3}", val))
                 }
             });
+            let mut row = vec![Cell::new(a)];
             row.extend(i);
             table.add_row(row);
         }
@@ -521,5 +527,5 @@ fn main() {
 
     let start = Instant::now();
     g.sim().unwrap();
-    println!("\nRan in {} seconds", start.elapsed().as_secs_f64());
+    println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
 }

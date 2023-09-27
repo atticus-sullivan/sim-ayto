@@ -4,3 +4,6 @@
 Cargo.lock
 Makefile
 *yaml
+perf.data
+flamegraph.svg
+bench.bash
