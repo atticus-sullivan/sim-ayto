@@ -19,3 +19,4 @@ permutator = "0.4"
 comfy-table = "7.0"
 anyhow = "1.0"
 clap = { version = "4.4", features = ["derive"] }
+indicatif = "0.17"

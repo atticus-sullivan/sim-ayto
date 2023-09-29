@@ -8,10 +8,10 @@ use anyhow::{Result,anyhow, Context};
 use std::io::Write;
 use clap::Parser;
 use comfy_table::{modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Table, Cell, Color};
+use indicatif::ProgressBar;
 
 // TODO cleanup (multiple files?)
 // TODO code review (try with chatGPT)
-// TODO implement multi-threading (really needed with a few min runtime?)
 
 #[cfg(test)]
 mod tests {
@@ -68,6 +68,12 @@ mod tests {
         rem = c.apply_to_rem(rem).unwrap();
         assert_eq!(rem.1, 5*4*3*2*1 * 4 / 2 - 1);
         assert_eq!(rem.0, vec![vec![14, 15, 15, 15, 15], vec![15, 14, 15, 15, 15], vec![15, 15, 14, 15, 15], vec![15, 15, 15, 14, 14]]);
+    }
+
+    #[test]
+    fn test_factorial() {
+        assert_eq!(factorial(3).unwrap(), 6);
+        assert_eq!(factorial(4).unwrap(), 24);
     }
 }
 
@@ -275,6 +281,10 @@ impl Constraint {
     }
 }
 
+pub fn factorial(n: usize) -> Result<usize> {
+    (1..=n).try_fold(1, usize::checked_mul).context("factorial failed. Probably too large")
+}
+
 #[derive(Deserialize, Debug)]
 enum RuleSet {
     SomeoneIsDup,
@@ -294,6 +304,13 @@ impl RuleSet {
             RuleSet::SomeoneIsDup => Ok(Box::new(someone_is_dup(perm))),
             RuleSet::FixedDup(s) => Ok(Box::new(add_dup(perm, *lut_b.get(s).context("Invalid index")? as u8))),
             RuleSet::Eq => Ok(Box::new(perm)),
+        }
+    }
+    fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> Result<usize> {
+        match self {
+            RuleSet::SomeoneIsDup => Ok(factorial(size_map_b)? * size_map_a / 2),
+            RuleSet::FixedDup(_) => Ok(factorial(size_map_a)? * size_map_a),
+            RuleSet::Eq => Ok(factorial(size_map_a)?),
         }
     }
 }
@@ -343,11 +360,18 @@ impl Game {
         let perm = x.permutation();
         let perm = self.rule_set.get_perms(perm, &self.lut_a, &self.lut_b)?;
 
+        let perm_amount = self.rule_set.get_perms_amount(self.map_a.len(), self.map_b.len())?;
+        let cnt_update = perm_amount / 20;
+        let progress = ProgressBar::new(100);
+
         let mut each = 0;
         let mut total = 0;
         let mut eliminated = 0;
         // let mut left_poss = vec![];
-        for (_i,p) in perm.enumerate() {
+        for (i,p) in perm.enumerate() {
+            if i % cnt_update == 0 {
+                progress.inc(5);
+            }
             if p[0].contains(&0) {each += 1;}
             total += 1;
             for c in &mut self.constraints {
