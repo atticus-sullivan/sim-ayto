@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{PathBuf,Path};
 use std::process::Command;
 use std::time::Instant;
 use std::{collections::HashMap, fs::File};
@@ -227,7 +227,7 @@ impl Constraint {
         Some(rem)
     }
 
-    fn stat_row(&self, map_a: &Vec<String>) -> Vec<Cell> {
+    fn stat_row(&self, map_a: &[String]) -> Vec<Cell> {
         let mut ret = vec![];
         match self.r#type {
             ConstraintType::Night { num,.. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
@@ -265,7 +265,7 @@ impl Constraint {
             ConstraintType::Night {num, comment, ..} => print!("MN#{:02.1} {}", num, comment),
             ConstraintType::Box {num, comment, ..} => print!("MB#{:02.1} {}", num, comment),
         }
-        print!("\n");
+        println!();
 
         for (k,v) in &self.map_s {
             println!("{} -> {}", k, v);
@@ -312,7 +312,7 @@ struct Game {
 }
 
 impl Game {
-    fn new_from_yaml(yaml_path: &PathBuf, stem: &PathBuf) -> Result<Game> {
+    fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
         let mut g: Game = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
         g.dir = stem.parent().context("parent dir of stem not found")?.to_path_buf();
@@ -355,7 +355,7 @@ impl Game {
 
         let mut rem:Rem = (vec![vec![each; self.map_b.len()]; self.map_a.len()], total);
         self.print_rem(&rem).context("Error printing")?;
-        println!("");
+        println!();
 
         let mut constr = vec![];
         let mut to_merge = vec![]; // collect hidden constraints to merge them down
@@ -372,7 +372,7 @@ impl Game {
                 c.print_hdr();
                 self.print_rem(&rem).context("Error printing")?;
                 constr.push(c);
-                println!("");
+                println!();
             }
         }
 
