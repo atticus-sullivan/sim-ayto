@@ -1,41 +1,51 @@
-use std::path::{PathBuf,Path};
+use anyhow::{anyhow, Context, Result};
+use clap::Parser;
+use comfy_table::{
+    modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Cell, Color, Table,
+};
+use indicatif::ProgressBar;
+use permutator::Permutation;
+use serde::Deserialize;
+use std::io::Write;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::Instant;
 use std::{collections::HashMap, fs::File};
-use permutator::Permutation;
-use serde::Deserialize;
-use anyhow::{Result,anyhow, Context};
-use std::io::Write;
-use clap::Parser;
-use comfy_table::{modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Table, Cell, Color};
-use indicatif::ProgressBar;
 
 // TODO cleanup (multiple files?)
 // TODO code review (try with chatGPT)
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashMap;
     use super::*;
+    use std::collections::HashMap;
 
     fn constraint_def() -> Constraint {
-        Constraint{
+        Constraint {
             map_s: HashMap::new(),
             lights: 2,
-            map: HashMap::from([(0,1), (1,2), (2,0), (3,3)]),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 0,
-            eliminated_tab: vec![vec![0,0,0,0,0], vec![0,0,0,0,0], vec![0,0,0,0,0], vec![0,0,0,0,0]],
+            eliminated_tab: vec![
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+            ],
             entropy: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Night {num: 1.0, comment: String::from("")},
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from(""),
+            },
         }
     }
 
     #[test]
     fn test_constraint_fits() {
         let mut c = constraint_def();
-        let m:Matching = vec![vec![0], vec![1], vec![2], vec![3,4]];
+        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
         assert!(!c.fits(&m).unwrap());
         c.lights = 1;
         assert!(c.fits(&m).unwrap());
@@ -44,30 +54,54 @@ mod tests {
     #[test]
     fn test_constraint_eliminate() {
         let mut c = constraint_def();
-        let m:Matching = vec![vec![0], vec![1], vec![2], vec![3,4]];
+        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
 
         c.eliminate(&m).unwrap();
         assert_eq!(c.eliminated, 1);
-        assert_eq!(c.eliminated_tab, vec![vec![1,0,0,0,0], vec![0,1,0,0,0], vec![0,0,1,0,0], vec![0,0,0,1,1]]);
+        assert_eq!(
+            c.eliminated_tab,
+            vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 0, 0],
+                vec![0, 0, 1, 0, 0],
+                vec![0, 0, 0, 1, 1]
+            ]
+        );
 
         c.eliminate(&m).unwrap();
         assert_eq!(c.eliminated, 2);
-        assert_eq!(c.eliminated_tab, vec![vec![2,0,0,0,0], vec![0,2,0,0,0], vec![0,0,2,0,0], vec![0,0,0,2,2]]);
+        assert_eq!(
+            c.eliminated_tab,
+            vec![
+                vec![2, 0, 0, 0, 0],
+                vec![0, 2, 0, 0, 0],
+                vec![0, 0, 2, 0, 0],
+                vec![0, 0, 0, 2, 2]
+            ]
+        );
     }
 
     #[test]
     fn test_constraint_apply() {
         let mut c = constraint_def();
-        let m:Matching = vec![vec![0], vec![1], vec![2], vec![3,4]];
+        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
 
         c.eliminate(&m).unwrap();
         assert_eq!(c.eliminated, 1);
 
-        let mut rem: Rem = (vec![vec![15; 5]; 4], 5*4*3*2*1 * 4 / 2);
+        let mut rem: Rem = (vec![vec![15; 5]; 4], 5 * 4 * 3 * 2 * 1 * 4 / 2);
 
         rem = c.apply_to_rem(rem).unwrap();
-        assert_eq!(rem.1, 5*4*3*2*1 * 4 / 2 - 1);
-        assert_eq!(rem.0, vec![vec![14, 15, 15, 15, 15], vec![15, 14, 15, 15, 15], vec![15, 15, 14, 15, 15], vec![15, 15, 15, 14, 14]]);
+        assert_eq!(rem.1, 5 * 4 * 3 * 2 * 1 * 4 / 2 - 1);
+        assert_eq!(
+            rem.0,
+            vec![
+                vec![14, 15, 15, 15, 15],
+                vec![15, 14, 15, 15, 15],
+                vec![15, 15, 14, 15, 15],
+                vec![15, 15, 15, 14, 14]
+            ]
+        );
     }
 
     #[test]
@@ -79,7 +113,10 @@ mod tests {
 
 // TODO where to put this
 // TODO write tests for this
-fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I, add: u8) -> impl Iterator<Item = Vec<Vec<u8>>> {
+fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
+    vals: I,
+    add: u8,
+) -> impl Iterator<Item = Vec<Vec<u8>>> {
     vals.flat_map(move |perm| {
         (0..perm.len()).map(move |idx| {
             let mut c = perm.clone();
@@ -93,12 +130,12 @@ fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I, add: u8) -> impl Iterator<
 // TODO write tests for this
 fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<Item = Vec<Vec<u8>>> {
     vals.flat_map(move |perm| {
-        (0..perm.len()-1).filter_map(move |idx| {
-            if perm[idx][0] < perm[perm.len()-1][0] {
-                return None
+        (0..perm.len() - 1).filter_map(move |idx| {
+            if perm[idx][0] < perm[perm.len() - 1][0] {
+                return None;
             }
             let mut c = perm.clone();
-            c[idx].push(perm[perm.len()-1][0]);
+            c[idx].push(perm[perm.len() - 1][0]);
             c.pop();
             Some(c)
         })
@@ -107,14 +144,8 @@ fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<It
 
 #[derive(Deserialize, Debug, Clone)]
 enum ConstraintType {
-    Night {
-        num:f32,
-        comment:String,
-    },
-    Box {
-        num:f32,
-        comment:String,
-    },
+    Night { num: f32, comment: String },
+    Box { num: f32, comment: String },
 }
 
 type Matching = Vec<Vec<u8>>;
@@ -127,11 +158,11 @@ type Rem = (Vec<Vec<u128>>, u128);
 #[derive(Deserialize, Debug, Clone)]
 struct Constraint {
     r#type: ConstraintType,
-    #[serde(rename="map")]
+    #[serde(rename = "map")]
     map_s: MapS,
     lights: u8,
     #[serde(default)]
-    hidden:bool,
+    hidden: bool,
 
     #[serde(skip)]
     map: Map,
@@ -149,32 +180,39 @@ struct Constraint {
 impl Constraint {
     fn finalize_parsing(&mut self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
         // check if map size is valid
-        match self.r#type{
-            ConstraintType::Night {..} =>
+        match self.r#type {
+            ConstraintType::Night { .. } => {
                 if self.map_s.len() != lut_a.len() {
-                    return Err(anyhow!("Map in a night must contain exactly as many entries as set_a"));
-                },
-            ConstraintType::Box {..} =>
+                    return Err(anyhow!(
+                        "Map in a night must contain exactly as many entries as set_a"
+                    ));
+                }
+            }
+            ConstraintType::Box { .. } => {
                 if self.map_s.len() != 1 {
                     return Err(anyhow!("Map in a Box must exactly contain one entry"));
-                },
+                }
+            }
         }
 
         self.eliminated_tab.reserve_exact(lut_a.len());
         for _ in 0..lut_a.len() {
-            self.eliminated_tab.push(vec![0;lut_b.len()])
+            self.eliminated_tab.push(vec![0; lut_b.len()])
         }
 
         self.map.reserve(self.map_s.len());
-        for (k,v) in &self.map_s {
-            self.map.insert(*lut_a.get(k).context("Invalid Key")? as u8, *lut_b.get(v).context("Invalid Value")? as u8);
+        for (k, v) in &self.map_s {
+            self.map.insert(
+                *lut_a.get(k).context("Invalid Key")? as u8,
+                *lut_b.get(v).context("Invalid Value")? as u8,
+            );
         }
 
         Ok(())
     }
 
-    fn eliminate(&mut self, m: &Matching) -> Result<()>{
-        for (i1,v) in m.iter().enumerate() {
+    fn eliminate(&mut self, m: &Matching) -> Result<()> {
+        for (i1, v) in m.iter().enumerate() {
             for &i2 in v {
                 self.eliminated_tab[i1][i2 as usize] += 1
             }
@@ -185,9 +223,11 @@ impl Constraint {
 
     fn fits(&self, m: &Matching) -> Result<bool> {
         let mut l = 0;
-        for (i1,i2) in self.map.iter() {
+        for (i1, i2) in self.map.iter() {
             if m[*i1 as usize].contains(i2) {
-                if l >= self.lights {return Ok(false);}
+                if l >= self.lights {
+                    return Ok(false);
+                }
                 l += 1;
             }
         }
@@ -199,11 +239,11 @@ impl Constraint {
         if self.eliminated_tab.len() != other.eliminated_tab.len() {
             return Err(anyhow!("eliminated_tab lengths do not match"));
         }
-        for (i,es) in self.eliminated_tab.iter_mut().enumerate() {
+        for (i, es) in self.eliminated_tab.iter_mut().enumerate() {
             if es.len() != other.eliminated_tab[i].len() {
                 return Err(anyhow!("eliminated_tab lengths do not match"));
             }
-            for (j,e) in es.iter_mut().enumerate() {
+            for (j, e) in es.iter_mut().enumerate() {
                 *e += other.eliminated_tab[i][j];
             }
         }
@@ -215,8 +255,8 @@ impl Constraint {
     fn apply_to_rem(&mut self, mut rem: Rem) -> Option<Rem> {
         rem.1 -= self.eliminated;
 
-        for (i,rs) in rem.0.iter_mut().enumerate() {
-            for (j,r) in rs.iter_mut().enumerate() {
+        for (i, rs) in rem.0.iter_mut().enumerate() {
+            for (j, r) in rs.iter_mut().enumerate() {
                 *r -= self.eliminated_tab.get(i)?.get(j)?;
             }
         }
@@ -224,11 +264,7 @@ impl Constraint {
         self.left_after = Some(rem.1);
 
         let tmp = 1.0 - (self.eliminated as f64) / (rem.1 + self.eliminated) as f64;
-        self.entropy = if tmp > 0.0 {
-            Some(-tmp.log2())
-        } else {
-                None
-            };
+        self.entropy = if tmp > 0.0 { Some(-tmp.log2()) } else { None };
 
         Some(rem)
     }
@@ -236,13 +272,15 @@ impl Constraint {
     fn stat_row(&self, map_a: &[String]) -> Vec<Cell> {
         let mut ret = vec![];
         match self.r#type {
-            ConstraintType::Night { num,.. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
-            ConstraintType::Box { num,.. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
+            ConstraintType::Night { num, .. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
+            ConstraintType::Box { num, .. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
         }
         ret.push(Cell::new(self.lights));
-        ret.extend(map_a.iter().map(|a| {
-            Cell::new(self.map_s.get(a).unwrap_or(&String::from("")))
-        }));
+        ret.extend(
+            map_a
+                .iter()
+                .map(|a| Cell::new(self.map_s.get(a).unwrap_or(&String::from("")))),
+        );
         ret.push(Cell::new(String::from("")));
         ret.push(Cell::new(self.entropy.unwrap_or(std::f64::INFINITY)));
 
@@ -250,16 +288,38 @@ impl Constraint {
     }
 
     fn write_stats(&self, mbo: &mut File, mno: &mut File, info: &mut File) -> Result<()> {
-        if self.hidden {return Ok(());}
+        if self.hidden {
+            return Ok(());
+        }
 
         match self.r#type {
             ConstraintType::Night { num, .. } => {
-                writeln!(info, "{} {}", num*2.0, (self.left_after.context("total_left unset")? as f64).log2())?;
-                writeln!(mno,  "{} {}", num, self.entropy.unwrap_or(std::f64::INFINITY))?;
+                writeln!(
+                    info,
+                    "{} {}",
+                    num * 2.0,
+                    (self.left_after.context("total_left unset")? as f64).log2()
+                )?;
+                writeln!(
+                    mno,
+                    "{} {}",
+                    num,
+                    self.entropy.unwrap_or(std::f64::INFINITY)
+                )?;
             }
             ConstraintType::Box { num, .. } => {
-                writeln!(info, "{} {}", num*2.0-1.0, (self.left_after.context("total_left unset")? as f64).log2())?;
-                writeln!(mbo,  "{} {}", num, self.entropy.unwrap_or(std::f64::INFINITY))?;
+                writeln!(
+                    info,
+                    "{} {}",
+                    num * 2.0 - 1.0,
+                    (self.left_after.context("total_left unset")? as f64).log2()
+                )?;
+                writeln!(
+                    mbo,
+                    "{} {}",
+                    num,
+                    self.entropy.unwrap_or(std::f64::INFINITY)
+                )?;
             }
         }
         Ok(())
@@ -268,12 +328,12 @@ impl Constraint {
     fn print_hdr(&self) {
         print!("{} ", self.lights);
         match &self.r#type {
-            ConstraintType::Night {num, comment, ..} => print!("MN#{:02.1} {}", num, comment),
-            ConstraintType::Box {num, comment, ..} => print!("MB#{:02.1} {}", num, comment),
+            ConstraintType::Night { num, comment, .. } => print!("MN#{:02.1} {}", num, comment),
+            ConstraintType::Box { num, comment, .. } => print!("MB#{:02.1} {}", num, comment),
         }
         println!();
 
-        for (k,v) in &self.map_s {
+        for (k, v) in &self.map_s {
             println!("{} -> {}", k, v);
         }
 
@@ -282,7 +342,9 @@ impl Constraint {
 }
 
 pub fn factorial(n: usize) -> Result<usize> {
-    (1..=n).try_fold(1, usize::checked_mul).context("factorial failed. Probably too large")
+    (1..=n)
+        .try_fold(1, usize::checked_mul)
+        .context("factorial failed. Probably too large")
 }
 
 #[derive(Deserialize, Debug)]
@@ -299,10 +361,18 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
-    fn get_perms<'a, I: 'a+Iterator<Item = Vec<Vec<u8>>>>(&self, perm: I, _lut_a: &Lut, lut_b: &Lut) -> Result<Box<dyn 'a+Iterator<Item = Vec<Vec<u8>>>>> {
+    fn get_perms<'a, I: 'a + Iterator<Item = Vec<Vec<u8>>>>(
+        &self,
+        perm: I,
+        _lut_a: &Lut,
+        lut_b: &Lut,
+    ) -> Result<Box<dyn 'a + Iterator<Item = Vec<Vec<u8>>>>> {
         match self {
             RuleSet::SomeoneIsDup => Ok(Box::new(someone_is_dup(perm))),
-            RuleSet::FixedDup(s) => Ok(Box::new(add_dup(perm, *lut_b.get(s).context("Invalid index")? as u8))),
+            RuleSet::FixedDup(s) => Ok(Box::new(add_dup(
+                perm,
+                *lut_b.get(s).context("Invalid index")? as u8,
+            ))),
             RuleSet::Eq => Ok(Box::new(perm)),
         }
     }
@@ -320,9 +390,9 @@ struct Game {
     constraints: Vec<Constraint>,
     rule_set: RuleSet,
 
-    #[serde(rename="setA")]
+    #[serde(rename = "setA")]
     map_a: Vec<String>,
-    #[serde(rename="setB")]
+    #[serde(rename = "setB")]
     map_b: Vec<String>,
 
     #[serde(skip)]
@@ -339,8 +409,15 @@ impl Game {
     fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
         let mut g: Game = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
-        g.dir = stem.parent().context("parent dir of stem not found")?.to_path_buf();
-        g.stem = stem.file_stem().context("No filename provided in stem")?.to_string_lossy().into_owned();
+        g.dir = stem
+            .parent()
+            .context("parent dir of stem not found")?
+            .to_path_buf();
+        g.stem = stem
+            .file_stem()
+            .context("No filename provided in stem")?
+            .to_string_lossy()
+            .into_owned();
 
         for (lut, map) in [(&mut g.lut_a, &g.map_a), (&mut g.lut_b, &g.map_b)] {
             for (index, name) in map.iter().enumerate() {
@@ -356,11 +433,13 @@ impl Game {
     }
     fn sim(&mut self) -> Result<()> {
         let num = self.lut_b.len();
-        let mut x:Matching = (0..num as u8).map(|i| vec!(i)).collect();
+        let mut x: Matching = (0..num as u8).map(|i| vec![i]).collect();
         let perm = x.permutation();
         let perm = self.rule_set.get_perms(perm, &self.lut_a, &self.lut_b)?;
 
-        let perm_amount = self.rule_set.get_perms_amount(self.map_a.len(), self.map_b.len())?;
+        let perm_amount = self
+            .rule_set
+            .get_perms_amount(self.map_a.len(), self.map_b.len())?;
         let cnt_update = perm_amount / 20;
         let progress = ProgressBar::new(100);
 
@@ -368,11 +447,13 @@ impl Game {
         let mut total = 0;
         let mut eliminated = 0;
         // let mut left_poss = vec![];
-        for (i,p) in perm.enumerate() {
+        for (i, p) in perm.enumerate() {
             if i % cnt_update == 0 {
                 progress.inc(5);
             }
-            if p[0].contains(&0) {each += 1;}
+            if p[0].contains(&0) {
+                each += 1;
+            }
             total += 1;
             for c in &mut self.constraints {
                 if !c.fits(&p)? {
@@ -384,7 +465,7 @@ impl Game {
             }
         }
 
-        let mut rem:Rem = (vec![vec![each; self.map_b.len()]; self.map_a.len()], total);
+        let mut rem: Rem = (vec![vec![each; self.map_b.len()]; self.map_a.len()], total);
         self.print_rem(&rem).context("Error printing")?;
         println!();
 
@@ -407,32 +488,59 @@ impl Game {
             }
         }
 
-        let dot_path = self.dir.join(self.stem.clone() + "_tab").with_extension("dot");
+        let dot_path = self
+            .dir
+            .join(self.stem.clone() + "_tab")
+            .with_extension("dot");
         self.write_rem_dot(&rem, &mut File::create(dot_path.clone())?)?;
 
         let pdf_path = dot_path.with_extension("pdf");
         Command::new("dot")
-            .args(["-Tpdf", "-o", pdf_path.to_str().context("pdf_path failed")?, dot_path.to_str().context("dot_path failed")?])
+            .args([
+                "-Tpdf",
+                "-o",
+                pdf_path.to_str().context("pdf_path failed")?,
+                dot_path.to_str().context("dot_path failed")?,
+            ])
             .output()
             .expect("dot command failed");
 
         let png_path = dot_path.with_extension("png");
         Command::new("dot")
-            .args(["-Tpng", "-o", png_path.to_str().context("png_path failed")?, dot_path.to_str().context("dot_path failed")?])
+            .args([
+                "-Tpng",
+                "-o",
+                png_path.to_str().context("png_path failed")?,
+                dot_path.to_str().context("dot_path failed")?,
+            ])
             .output()
             .expect("dot command failed");
         // println!("dir: {:?} dot_path: {:?} png_path: {:?} pdf_path: {:?}", self.dir, dot_path, png_path, pdf_path);
 
         self.do_statistics(&constr)?;
 
-        println!("Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}", total, total-eliminated, each);
+        println!(
+            "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",
+            total,
+            total - eliminated,
+            each
+        );
         Ok(())
     }
 
     fn do_statistics(&self, merged_constraints: &Vec<Constraint>) -> Result<()> {
-        let out_mb_path = self.dir.join(self.stem.clone() + "_statMB").with_extension("out");
-        let out_mn_path = self.dir.join(self.stem.clone() + "_statMN").with_extension("out");
-        let out_info_path = self.dir.join(self.stem.clone() + "_statInfo").with_extension("out");
+        let out_mb_path = self
+            .dir
+            .join(self.stem.clone() + "_statMB")
+            .with_extension("out");
+        let out_mn_path = self
+            .dir
+            .join(self.stem.clone() + "_statMN")
+            .with_extension("out");
+        let out_info_path = self
+            .dir
+            .join(self.stem.clone() + "_statInfo")
+            .with_extension("out");
 
         let (mut mbo, mut mno, mut info) = (
             File::create(out_mb_path)?,
@@ -443,8 +551,15 @@ impl Game {
             c.write_stats(&mut mbo, &mut mno, &mut info)?;
         }
 
-        let mut hdr = vec![Cell::new(""), Cell::new("L").set_alignment(comfy_table::CellAlignment::Center)];
-        hdr.extend(self.map_a.iter().map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)));
+        let mut hdr = vec![
+            Cell::new(""),
+            Cell::new("L").set_alignment(comfy_table::CellAlignment::Center),
+        ];
+        hdr.extend(
+            self.map_a
+                .iter()
+                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
+        );
         hdr.push(Cell::new("").set_alignment(comfy_table::CellAlignment::Center));
         hdr.push(Cell::new("I").set_alignment(comfy_table::CellAlignment::Center));
 
@@ -465,8 +580,14 @@ impl Game {
     }
 
     fn write_rem_dot(&self, rem: &Rem, writer: &mut File) -> Result<()> {
-        writeln!(writer, "digraph structs {{ node[shape=plaintext] struct[label=<")?;
-        writeln!(writer, "<table cellspacing=\"2\" border=\"0\" rows=\"*\" columns=\"*\">")?;
+        writeln!(
+            writer,
+            "digraph structs {{ node[shape=plaintext] struct[label=<"
+        )?;
+        writeln!(
+            writer,
+            "<table cellspacing=\"2\" border=\"0\" rows=\"*\" columns=\"*\">"
+        )?;
 
         // header row
         writeln!(writer, "<tr>")?;
@@ -476,22 +597,31 @@ impl Game {
         }
         writeln!(writer, "</tr>")?;
 
-        for (i,a) in self.map_a.iter().enumerate() {
+        for (i, a) in self.map_a.iter().enumerate() {
             writeln!(writer, "<tr>")?;
             writeln!(writer, "<td><B>{a}</B></td>")?;
 
-            let i = rem.0.get(i).context("Indexing rem with map failed")?.iter().map(|x| {
-                let val = (*x as f64)/(rem.1 as f64)*100.0;
-                if 79.0 < val && val < 101.0 {
-                    (val, "darkgreen")
-                } else if -1.0 < val && val < 1.0 {
-                    (val, "red")
-                } else {
-                    (val, "black")
-                }
-            });
-            for (v,font) in i {
-                writeln!(writer, "<td><font color=\"{}\">{:03.4}</font></td>", font, v)?;
+            let i = rem
+                .0
+                .get(i)
+                .context("Indexing rem with map failed")?
+                .iter()
+                .map(|x| {
+                    let val = (*x as f64) / (rem.1 as f64) * 100.0;
+                    if 79.0 < val && val < 101.0 {
+                        (val, "darkgreen")
+                    } else if -1.0 < val && val < 1.0 {
+                        (val, "red")
+                    } else {
+                        (val, "black")
+                    }
+                });
+            for (v, font) in i {
+                writeln!(
+                    writer,
+                    "<td><font color=\"{}\">{:03.4}</font></td>",
+                    font, v
+                )?;
             }
             writeln!(writer, "</tr>")?;
         }
@@ -503,7 +633,11 @@ impl Game {
 
     fn print_rem(&self, rem: &Rem) -> Option<()> {
         let mut hdr = vec![Cell::new("")];
-        hdr.extend(self.map_b.iter().map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)));
+        hdr.extend(
+            self.map_b
+                .iter()
+                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
+        );
         let mut table = Table::new();
         table
             .force_no_tty()
@@ -511,9 +645,9 @@ impl Game {
             .load_preset(UTF8_FULL_CONDENSED)
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
-        for (i,a) in self.map_a.iter().enumerate() {
+        for (i, a) in self.map_a.iter().enumerate() {
             let i = rem.0.get(i)?.iter().map(|x| {
-                let val = (*x as f64)/(rem.1 as f64)*100.0;
+                let val = (*x as f64) / (rem.1 as f64) * 100.0;
                 if 79.0 < val && val < 101.0 {
                     Cell::new(format!("{:02.3}", val)).fg(Color::Green)
                 } else if -1.0 < val && val < 1.0 {
