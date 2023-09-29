@@ -46,11 +46,11 @@ mod tests {
         let mut c = constraint_def();
         let m:Matching = vec![vec![0], vec![1], vec![2], vec![3,4]];
 
-        c.eliminate(&m);
+        c.eliminate(&m).unwrap();
         assert_eq!(c.eliminated, 1);
         assert_eq!(c.eliminated_tab, vec![vec![1,0,0,0,0], vec![0,1,0,0,0], vec![0,0,1,0,0], vec![0,0,0,1,1]]);
 
-        c.eliminate(&m);
+        c.eliminate(&m).unwrap();
         assert_eq!(c.eliminated, 2);
         assert_eq!(c.eliminated_tab, vec![vec![2,0,0,0,0], vec![0,2,0,0,0], vec![0,0,2,0,0], vec![0,0,0,2,2]]);
     }
