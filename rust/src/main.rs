@@ -279,14 +279,21 @@ impl Constraint {
 enum RuleSet {
     SomeoneIsDup,
     FixedDup(String),
+    Eq,
+}
+
+impl std::default::Default for RuleSet {
+    fn default() -> Self {
+        RuleSet::Eq
+    }
 }
 
 impl RuleSet {
     fn get_perms<'a, I: 'a+Iterator<Item = Vec<Vec<u8>>>>(&self, perm: I, _lut_a: &Lut, lut_b: &Lut) -> Result<Box<dyn 'a+Iterator<Item = Vec<Vec<u8>>>>> {
-
         match self {
             RuleSet::SomeoneIsDup => Ok(Box::new(someone_is_dup(perm))),
             RuleSet::FixedDup(s) => Ok(Box::new(add_dup(perm, *lut_b.get(s).context("Invalid index")? as u8))),
+            RuleSet::Eq => Ok(Box::new(perm)),
         }
     }
 }
