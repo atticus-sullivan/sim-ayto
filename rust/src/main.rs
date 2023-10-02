@@ -212,6 +212,20 @@ impl Constraint {
         Ok(())
     }
 
+    fn comment(&self) -> &str {
+        match &self.r#type {
+            ConstraintType::Night{num:_, comment} => &comment,
+            ConstraintType::Box{num:_, comment} => &comment,
+        }
+    }
+
+    fn type_str(&self) -> String {
+        match &self.r#type {
+            ConstraintType::Night{num, comment:_} => format!("MN#{}", num),
+            ConstraintType::Box{num, comment:_} => format!("MB^{}", num),
+        }
+    }
+
     fn eliminate(&mut self, m: &Matching) -> Result<()> {
         for (i1, v) in m.iter().enumerate() {
             for &i2 in v {
@@ -528,7 +542,7 @@ impl Game {
         if self.gen_tree {
             let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
             let ordering = self.tree_ordering(&left_poss);
-            self.dot_tree(&left_poss, &ordering, &mut File::create(dot_path.clone())?)?;
+            self.dot_tree(&left_poss, &ordering, &(constr[constr.len()-1].type_str() + " / " + constr[constr.len()-1].comment()), &mut File::create(dot_path.clone())?)?;
 
             let pdf_path = dot_path.with_extension("pdf");
             Command::new("dot")
@@ -557,7 +571,7 @@ impl Game {
             .dir
             .join(self.stem.clone() + "_tab")
             .with_extension("dot");
-        self.write_rem_dot(&rem, &mut File::create(dot_path.clone())?)?;
+        self.write_rem_dot(&rem, &(constr[constr.len()-1].type_str() + " / " + constr[constr.len()-1].comment()), &mut File::create(dot_path.clone())?)?;
 
         let pdf_path = dot_path.with_extension("pdf");
         Command::new("dot")
@@ -644,11 +658,10 @@ impl Game {
         Ok(())
     }
 
-    fn write_rem_dot(&self, rem: &Rem, writer: &mut File) -> Result<()> {
+    fn write_rem_dot(&self, rem: &Rem, title: &str, writer: &mut File) -> Result<()> {
         writeln!(
             writer,
-            "digraph structs {{ node[shape=plaintext] struct[label=<"
-        )?;
+            "digraph structs {{ labelloc=\"b\"; label=\"Stand: {}\"; node[shape=plaintext] struct[label=<", title)?;
         writeln!(
             writer,
             "<table cellspacing=\"2\" border=\"0\" rows=\"*\" columns=\"*\">"
@@ -734,10 +747,11 @@ impl Game {
         &self,
         data: &Vec<Matching>,
         ordering: &Vec<(usize, usize)>,
+        title: &str,
         writer: &mut File,
     ) -> Result<()> {
         let mut nodes: HashSet<String> = HashSet::new();
-        writeln!(writer, "digraph D {{ ranksep=0.8;")?;
+        writeln!(writer, "digraph D {{ labelloc=\"b\"; label=\"Stand: {}\"; ranksep=0.8;", title)?;
         for p in data {
             let mut parent = String::from("root");
             for (i, _) in ordering {
