@@ -214,15 +214,15 @@ impl Constraint {
 
     fn comment(&self) -> &str {
         match &self.r#type {
-            ConstraintType::Night{num:_, comment} => &comment,
-            ConstraintType::Box{num:_, comment} => &comment,
+            ConstraintType::Night { num: _, comment } => &comment,
+            ConstraintType::Box { num: _, comment } => &comment,
         }
     }
 
     fn type_str(&self) -> String {
         match &self.r#type {
-            ConstraintType::Night{num, comment:_} => format!("MN#{}", num),
-            ConstraintType::Box{num, comment:_} => format!("MB^{}", num),
+            ConstraintType::Night { num, comment: _ } => format!("MN#{}", num),
+            ConstraintType::Box { num, comment: _ } => format!("MB^{}", num),
         }
     }
 
@@ -542,7 +542,12 @@ impl Game {
         if self.gen_tree {
             let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
             let ordering = self.tree_ordering(&left_poss);
-            self.dot_tree(&left_poss, &ordering, &(constr[constr.len()-1].type_str() + " / " + constr[constr.len()-1].comment()), &mut File::create(dot_path.clone())?)?;
+            self.dot_tree(
+                &left_poss,
+                &ordering,
+                &(constr[constr.len() - 1].type_str() + " / " + constr[constr.len() - 1].comment()),
+                &mut File::create(dot_path.clone())?,
+            )?;
 
             let pdf_path = dot_path.with_extension("pdf");
             Command::new("dot")
@@ -571,7 +576,11 @@ impl Game {
             .dir
             .join(self.stem.clone() + "_tab")
             .with_extension("dot");
-        self.write_rem_dot(&rem, &(constr[constr.len()-1].type_str() + " / " + constr[constr.len()-1].comment()), &mut File::create(dot_path.clone())?)?;
+        self.write_rem_dot(
+            &rem,
+            &(constr[constr.len() - 1].type_str() + " / " + constr[constr.len() - 1].comment()),
+            &mut File::create(dot_path.clone())?,
+        )?;
 
         let pdf_path = dot_path.with_extension("pdf");
         Command::new("dot")
@@ -751,7 +760,11 @@ impl Game {
         writer: &mut File,
     ) -> Result<()> {
         let mut nodes: HashSet<String> = HashSet::new();
-        writeln!(writer, "digraph D {{ labelloc=\"b\"; label=\"Stand: {}\"; ranksep=0.8;", title)?;
+        writeln!(
+            writer,
+            "digraph D {{ labelloc=\"b\"; label=\"Stand: {}\"; ranksep=0.8;",
+            title
+        )?;
         for p in data {
             let mut parent = String::from("root");
             for (i, _) in ordering {
