@@ -34,16 +34,16 @@ Jenny -> Danilo
 32659200 left -> 24.960986116159265 bits left
 
 3 MN#1.0 E04
+Darya -> Danilo
+Kim -> Mike
+Shakira -> Marvin
 Paulina -> Steffen
-Sandra -> Paco
 Jenny -> Elia
 Marie -> Fabio
-Alicia -> Peter
-Darya -> Danilo
 Steffi -> Teezy
-Shakira -> Marvin
+Alicia -> Peter
+Sandra -> Paco
 Sabrina -> Emanuell
-Kim -> Mike
 -> I = 3.9925555620206055
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆  Elia  ┆ Emanuell ┆  Fabio ┆ Marvin ┆  Mike  ┆  Paco  ┆  Peter ┆ Steffen ┆  Teezy ┆   Max  │
@@ -81,16 +81,16 @@ Jenny -> Elia
 1384320 left -> 20.400746044849342 bits left
 
 2 MN#2.0 E06
-Paulina -> Danilo
-Alicia -> Steffen
 Sabrina -> Mike
 Sandra -> Elia
-Darya -> Emanuell
-Marie -> Fabio
-Kim -> Paco
-Jenny -> Marvin
 Steffi -> Teezy
+Darya -> Emanuell
+Paulina -> Danilo
+Marie -> Fabio
 Shakira -> Peter
+Alicia -> Steffen
+Jenny -> Marvin
+Kim -> Paco
 -> I = 2.0531592770184797
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆  Elia  ┆ Emanuell ┆  Fabio ┆ Marvin ┆  Mike  ┆  Paco  ┆  Peter ┆ Steffen ┆  Teezy ┆   Max  │
@@ -128,16 +128,16 @@ Darya -> Elia
 297310 left -> 18.181608463440128 bits left
 
 2 MN#3.0 E08
-Paulina -> Mike
-Shakira -> Fabio
 Alicia -> Steffen
-Sandra -> Paco
-Marie -> Elia
-Sabrina -> Peter
 Steffi -> Marvin
-Kim -> Teezy
+Shakira -> Fabio
+Paulina -> Mike
 Jenny -> Emanuell
+Marie -> Elia
+Kim -> Teezy
+Sabrina -> Peter
 Darya -> Danilo
+Sandra -> Paco
 -> I = 2.095638151246178
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆  Elia  ┆ Emanuell ┆  Fabio ┆ Marvin ┆  Mike  ┆  Paco  ┆  Peter ┆ Steffen ┆  Teezy ┆   Max  │
@@ -175,16 +175,16 @@ Kim -> Mike
 53720 left -> 15.713171684314805 bits left
 
 4 MN#4.0 E10
-Darya -> Danilo
-Steffi -> Emanuell
-Sabrina -> Paco
-Jenny -> Marvin
-Sandra -> Steffen
 Marie -> Elia
-Paulina -> Max
-Shakira -> Fabio
+Steffi -> Emanuell
+Jenny -> Marvin
+Sabrina -> Paco
+Darya -> Danilo
 Kim -> Peter
+Sandra -> Steffen
+Shakira -> Fabio
 Alicia -> Teezy
+Paulina -> Max
 -> I = 5.081085271479625
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆ Danilo ┆  Elia  ┆ Emanuell ┆  Fabio ┆ Marvin ┆  Mike  ┆  Paco  ┆  Peter ┆ Steffen ┆  Teezy ┆   Max  │
@@ -222,16 +222,16 @@ Darya -> Danilo
 1376 left -> 10.426264754702098 bits left
 
 3 MN#5.0 E12
-Sabrina -> Emanuell
-Jenny -> Marvin
 Sandra -> Max
+Shakira -> Paco
+Jenny -> Marvin
+Alicia -> Steffen
+Steffi -> Elia
+Paulina -> Mike
+Darya -> Danilo
+Sabrina -> Emanuell
 Marie -> Fabio
 Kim -> Teezy
-Shakira -> Paco
-Darya -> Danilo
-Paulina -> Mike
-Steffi -> Elia
-Alicia -> Steffen
 -> I = 1.5839144112882901
 ╭─────────┬─────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆  Danilo ┆  Elia  ┆ Emanuell ┆  Fabio ┆ Marvin ┆  Mike  ┆  Paco  ┆  Peter ┆ Steffen ┆  Teezy ┆   Max  │
@@ -269,16 +269,16 @@ Alicia -> Teezy
 329 left -> 8.361943773735241 bits left
 
 4 MN#6.0 E14
-Alicia -> Paco
-Sandra -> Steffen
-Jenny -> Marvin
-Marie -> Elia
-Paulina -> Mike
 Darya -> Danilo
-Steffi -> Emanuell
 Kim -> Teezy
-Shakira -> Fabio
 Sabrina -> Peter
+Shakira -> Fabio
+Alicia -> Paco
+Marie -> Elia
+Sandra -> Steffen
+Paulina -> Mike
+Steffi -> Emanuell
+Jenny -> Marvin
 -> I = 1.7037322909834467
 ╭─────────┬─────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
 │         ┆  Danilo ┆  Elia  ┆ Emanuell ┆  Fabio ┆ Marvin ┆  Mike  ┆  Paco  ┆  Peter ┆ Steffen ┆  Teezy ┆   Max  │
@@ -314,4 +314,4 @@ Sabrina -> Peter
 ╰────────┴───┴─────────┴──────────┴──────────┴───────┴───────┴─────────┴──────────┴─────────┴─────────┴──────────┴───┴─────────────────────╯
 Total permutations: 36288000  Permutations left: 101  Initial combinations for each pair: 3628800
 
-Ran in 16.47s
+Ran in 18.28s

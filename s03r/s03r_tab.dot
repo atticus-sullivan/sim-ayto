@@ -1,4 +1,4 @@
-digraph structs { node[shape=plaintext] struct[label=<
+digraph structs { labelloc="b"; label="Stand: MN#6 / E14"; node[shape=plaintext] struct[label=<
 <table cellspacing="2" border="0" rows="*" columns="*">
 <tr>
 <td></td>
