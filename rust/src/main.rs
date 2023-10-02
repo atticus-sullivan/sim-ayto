@@ -399,6 +399,7 @@ impl RuleSet {
 struct Game {
     constraints: Vec<Constraint>,
     rule_set: RuleSet,
+    gen_tree: bool,
 
     #[serde(rename = "setA")]
     map_a: Vec<String>,
@@ -442,7 +443,7 @@ impl Game {
         Ok(g)
     }
 
-    fn sim(&mut self, collect: bool) -> Result<()> {
+    fn sim(&mut self) -> Result<()> {
         let mut x: Matching = self
             .rule_set
             .get_perm_base(self.map_a.len(), self.map_b.len());
@@ -460,7 +461,7 @@ impl Game {
         let mut eliminated = 0;
         let mut left_poss = vec![];
 
-        if !collect {
+        if !self.gen_tree {
             for (i, p) in perm.enumerate() {
                 if i % cnt_update == 0 {
                     progress.inc(5);
@@ -524,31 +525,33 @@ impl Game {
             }
         }
 
-        let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
-        let ordering = self.tree_ordering(&left_poss);
-        self.dot_tree(&left_poss, &ordering, &mut File::create(dot_path.clone())?)?;
+        if self.gen_tree {
+            let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
+            let ordering = self.tree_ordering(&left_poss);
+            self.dot_tree(&left_poss, &ordering, &mut File::create(dot_path.clone())?)?;
 
-        let pdf_path = dot_path.with_extension("pdf");
-        Command::new("dot")
-            .args([
-                "-Tpdf",
-                "-o",
-                pdf_path.to_str().context("pdf_path failed")?,
-                dot_path.to_str().context("dot_path failed")?,
-            ])
-            .output()
-            .expect("dot command failed");
+            let pdf_path = dot_path.with_extension("pdf");
+            Command::new("dot")
+                .args([
+                    "-Tpdf",
+                    "-o",
+                    pdf_path.to_str().context("pdf_path failed")?,
+                    dot_path.to_str().context("dot_path failed")?,
+                ])
+                .output()
+                .expect("dot command failed");
 
-        let png_path = dot_path.with_extension("png");
-        Command::new("dot")
-            .args([
-                "-Tpng",
-                "-o",
-                png_path.to_str().context("png_path failed")?,
-                dot_path.to_str().context("dot_path failed")?,
-            ])
-            .output()
-            .expect("dot command failed");
+            let png_path = dot_path.with_extension("png");
+            Command::new("dot")
+                .args([
+                    "-Tpng",
+                    "-o",
+                    png_path.to_str().context("png_path failed")?,
+                    dot_path.to_str().context("dot_path failed")?,
+                ])
+                .output()
+                .expect("dot command failed");
+        }
 
         let dot_path = self
             .dir
@@ -795,9 +798,6 @@ struct Cli {
 
     #[arg(short = 'o', long = "output")]
     stem: PathBuf,
-
-    #[arg(short = 't', long = "tree")]
-    tree: bool,
 }
 
 fn main() {
@@ -805,6 +805,6 @@ fn main() {
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
 
     let start = Instant::now();
-    g.sim(args.tree).unwrap();
+    g.sim().unwrap();
     println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
 }
