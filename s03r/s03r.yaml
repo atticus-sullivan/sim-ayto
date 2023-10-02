@@ -1,7 +1,10 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-rule_set: !SomeoneIsDup
+gen_tree: true
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Max
 
 setA:
   - Alicia
@@ -14,8 +17,6 @@ setA:
   - Sandra
   - Shakira
   - Steffi
-
-# dup: Max
 
 setB:
   - Danilo
@@ -200,3 +201,9 @@ constraints:
       Kim: Teezy
       Jenny: Marvin
       # Jenny: Max
+
+  # - type: !Box {num: 7, comment: "E15"}
+  #   lights: 
+  #   map:
+  #     Kim: Peter
+  #     Jenny: Mike

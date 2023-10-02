@@ -6,6 +6,7 @@ use comfy_table::{
 use indicatif::ProgressBar;
 use permutator::Permutation;
 use serde::Deserialize;
+use std::collections::HashSet;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -376,6 +377,15 @@ impl RuleSet {
             RuleSet::Eq => Ok(Box::new(perm)),
         }
     }
+
+    fn get_perm_base(&self, size_map_a: usize, size_map_b: usize) -> Matching {
+        match self {
+            RuleSet::SomeoneIsDup => (0..size_map_b as u8).map(|i| vec![i]).collect(),
+            RuleSet::FixedDup(_) => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+            RuleSet::Eq => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+        }
+    }
+
     fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> Result<usize> {
         match self {
             RuleSet::SomeoneIsDup => Ok(factorial(size_map_b)? * size_map_a / 2),
@@ -389,6 +399,7 @@ impl RuleSet {
 struct Game {
     constraints: Vec<Constraint>,
     rule_set: RuleSet,
+    gen_tree: bool,
 
     #[serde(rename = "setA")]
     map_a: Vec<String>,
@@ -431,9 +442,11 @@ impl Game {
 
         Ok(g)
     }
+
     fn sim(&mut self) -> Result<()> {
-        let num = self.lut_b.len();
-        let mut x: Matching = (0..num as u8).map(|i| vec![i]).collect();
+        let mut x: Matching = self
+            .rule_set
+            .get_perm_base(self.map_a.len(), self.map_b.len());
         let perm = x.permutation();
         let perm = self.rule_set.get_perms(perm, &self.lut_a, &self.lut_b)?;
 
@@ -446,22 +459,46 @@ impl Game {
         let mut each = 0;
         let mut total = 0;
         let mut eliminated = 0;
-        // let mut left_poss = vec![];
-        for (i, p) in perm.enumerate() {
-            if i % cnt_update == 0 {
-                progress.inc(5);
-            }
-            if p[0].contains(&0) {
-                each += 1;
-            }
-            total += 1;
-            for c in &mut self.constraints {
-                if !c.fits(&p)? {
-                    c.eliminate(&p)?;
-                    eliminated += 1;
-                    break;
+        let mut left_poss = vec![];
+
+        if !self.gen_tree {
+            for (i, p) in perm.enumerate() {
+                if i % cnt_update == 0 {
+                    progress.inc(5);
                 }
-                // left_poss.push(p.clone()); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
+                if p[0].contains(&0) {
+                    each += 1;
+                }
+                total += 1;
+                for c in &mut self.constraints {
+                    if !c.fits(&p)? {
+                        c.eliminate(&p)?;
+                        eliminated += 1;
+                        break;
+                    }
+                }
+            }
+        } else {
+            for (i, p) in perm.enumerate() {
+                if i % cnt_update == 0 {
+                    progress.inc(5);
+                }
+                if p[0].contains(&0) {
+                    each += 1;
+                }
+                total += 1;
+                let mut left = true;
+                for c in &mut self.constraints {
+                    if !c.fits(&p)? {
+                        left = false;
+                        c.eliminate(&p)?;
+                        eliminated += 1;
+                        break;
+                    }
+                }
+                if left {
+                    left_poss.push(p); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
+                }
             }
         }
 
@@ -486,6 +523,34 @@ impl Game {
                 constr.push(c);
                 println!();
             }
+        }
+
+        if self.gen_tree {
+            let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
+            let ordering = self.tree_ordering(&left_poss);
+            self.dot_tree(&left_poss, &ordering, &mut File::create(dot_path.clone())?)?;
+
+            let pdf_path = dot_path.with_extension("pdf");
+            Command::new("dot")
+                .args([
+                    "-Tpdf",
+                    "-o",
+                    pdf_path.to_str().context("pdf_path failed")?,
+                    dot_path.to_str().context("dot_path failed")?,
+                ])
+                .output()
+                .expect("dot command failed");
+
+            let png_path = dot_path.with_extension("png");
+            Command::new("dot")
+                .args([
+                    "-Tpng",
+                    "-o",
+                    png_path.to_str().context("png_path failed")?,
+                    dot_path.to_str().context("dot_path failed")?,
+                ])
+                .output()
+                .expect("dot command failed");
         }
 
         let dot_path = self
@@ -663,6 +728,62 @@ impl Game {
         println!("{table}");
         println!("{} left -> {} bits left", rem.1, (rem.1 as f64).log2());
         Some(())
+    }
+
+    fn dot_tree(
+        &self,
+        data: &Vec<Matching>,
+        ordering: &Vec<(usize, usize)>,
+        writer: &mut File,
+    ) -> Result<()> {
+        let mut nodes: HashSet<String> = HashSet::new();
+        writeln!(writer, "digraph D {{ ranksep=0.8;")?;
+        for p in data {
+            let mut parent = String::from("root");
+            for (i, _) in ordering {
+                let mut node = parent.clone();
+                node.push('/');
+                node.push_str(
+                    &p[*i]
+                        .iter()
+                        .map(|b| b.to_string())
+                        .collect::<Vec<_>>()
+                        .join(","),
+                );
+
+                if nodes.insert(node.clone()) {
+                    writeln!(
+                        writer,
+                        "\"{node}\"[label=\"{}\"]",
+                        self.map_a[*i].clone()
+                            + "\\n"
+                            + &p[*i]
+                                .iter()
+                                .map(|b| self.map_b[*b as usize].clone())
+                                .collect::<Vec<_>>()
+                                .join("\\n")
+                    )?;
+                    writeln!(writer, "\"{parent}\" -> \"{node}\";")?;
+                }
+
+                parent = node;
+            }
+        }
+        writeln!(writer, "}}")?;
+        Ok(())
+    }
+
+    fn tree_ordering(&self, data: &Vec<Matching>) -> Vec<(usize, usize)> {
+        let mut tab = vec![HashSet::new(); self.map_a.len()];
+        for p in data {
+            for (i, js) in p.iter().enumerate() {
+                tab[i].insert(js);
+            }
+        }
+
+        let mut ordering: Vec<_> = tab.iter().enumerate().map(|(i, x)| (i, x.len())).collect();
+        ordering.sort_unstable_by_key(|(_, x)| *x);
+        ordering
     }
 }
 
