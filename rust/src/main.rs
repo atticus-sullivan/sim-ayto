@@ -6,6 +6,7 @@ use comfy_table::{
 use indicatif::ProgressBar;
 use permutator::Permutation;
 use serde::Deserialize;
+use std::collections::HashSet;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -431,7 +432,7 @@ impl Game {
 
         Ok(g)
     }
-    fn sim(&mut self) -> Result<()> {
+    fn sim(&mut self, collect: bool) -> Result<()> {
         let num = self.lut_b.len();
         let mut x: Matching = (0..num as u8).map(|i| vec![i]).collect();
         let perm = x.permutation();
@@ -446,22 +447,46 @@ impl Game {
         let mut each = 0;
         let mut total = 0;
         let mut eliminated = 0;
-        // let mut left_poss = vec![];
-        for (i, p) in perm.enumerate() {
-            if i % cnt_update == 0 {
-                progress.inc(5);
-            }
-            if p[0].contains(&0) {
-                each += 1;
-            }
-            total += 1;
-            for c in &mut self.constraints {
-                if !c.fits(&p)? {
-                    c.eliminate(&p)?;
-                    eliminated += 1;
-                    break;
+        let mut left_poss = vec![];
+
+        if !collect {
+            for (i, p) in perm.enumerate() {
+                if i % cnt_update == 0 {
+                    progress.inc(5);
                 }
-                // left_poss.push(p.clone()); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
+                if p[0].contains(&0) {
+                    each += 1;
+                }
+                total += 1;
+                for c in &mut self.constraints {
+                    if !c.fits(&p)? {
+                        c.eliminate(&p)?;
+                        eliminated += 1;
+                        break;
+                    }
+                }
+            }
+        } else {
+            for (i, p) in perm.enumerate() {
+                if i % cnt_update == 0 {
+                    progress.inc(5);
+                }
+                if p[0].contains(&0) {
+                    each += 1;
+                }
+                total += 1;
+                let mut left = true;
+                for c in &mut self.constraints {
+                    if !c.fits(&p)? {
+                        left = false;
+                        c.eliminate(&p)?;
+                        eliminated += 1;
+                        break;
+                    }
+                }
+                if left {
+                    left_poss.push(p); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
+                }
             }
         }
 
@@ -487,6 +512,32 @@ impl Game {
                 println!();
             }
         }
+
+        let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
+        let ordering = self.tree_ordering(&left_poss);
+        self.dot_tree(&left_poss, &ordering, &mut File::create(dot_path.clone())?)?;
+
+        let pdf_path = dot_path.with_extension("pdf");
+        Command::new("dot")
+            .args([
+                "-Tpdf",
+                "-o",
+                pdf_path.to_str().context("pdf_path failed")?,
+                dot_path.to_str().context("dot_path failed")?,
+            ])
+            .output()
+            .expect("dot command failed");
+
+        let png_path = dot_path.with_extension("png");
+        Command::new("dot")
+            .args([
+                "-Tpng",
+                "-o",
+                png_path.to_str().context("png_path failed")?,
+                dot_path.to_str().context("dot_path failed")?,
+            ])
+            .output()
+            .expect("dot command failed");
 
         let dot_path = self
             .dir
@@ -664,6 +715,62 @@ impl Game {
         println!("{} left -> {} bits left", rem.1, (rem.1 as f64).log2());
         Some(())
     }
+
+    fn dot_tree(
+        &self,
+        data: &Vec<Matching>,
+        ordering: &Vec<(usize, usize)>,
+        writer: &mut File,
+    ) -> Result<()> {
+        let mut nodes: HashSet<String> = HashSet::new();
+        writeln!(writer, "digraph D {{ ranksep=0.8;")?;
+        for p in data {
+            let mut parent = String::from("root");
+            for (i, _) in ordering {
+                let mut node = parent.clone();
+                node.push('/');
+                node.push_str(
+                    &p[*i]
+                        .iter()
+                        .map(|b| b.to_string())
+                        .collect::<Vec<_>>()
+                        .join(","),
+                );
+
+                if nodes.insert(node.clone()) {
+                    writeln!(
+                        writer,
+                        "\"{node}\"[label=\"{}\"]",
+                        self.map_a[*i].clone()
+                            + "\\n"
+                            + &p[*i]
+                                .iter()
+                                .map(|b| self.map_b[*b as usize].clone())
+                                .collect::<Vec<_>>()
+                                .join("\\n")
+                    )?;
+                    writeln!(writer, "\"{parent}\" -> \"{node}\";")?;
+                }
+
+                parent = node;
+            }
+        }
+        writeln!(writer, "}}")?;
+        Ok(())
+    }
+
+    fn tree_ordering(&self, data: &Vec<Matching>) -> Vec<(usize, usize)> {
+        let mut tab = vec![HashSet::new(); self.map_a.len()];
+        for p in data {
+            for (i, js) in p.iter().enumerate() {
+                tab[i].insert(js);
+            }
+        }
+
+        let mut ordering: Vec<_> = tab.iter().enumerate().map(|(i, x)| (i, x.len())).collect();
+        ordering.sort_unstable_by_key(|(_, x)| *x);
+        ordering
+    }
 }
 
 #[derive(Parser)]
@@ -677,6 +784,9 @@ struct Cli {
 
     #[arg(short = 'o', long = "output")]
     stem: PathBuf,
+
+    #[arg(short = 't', long = "tree")]
+    tree: bool,
 }
 
 fn main() {
@@ -684,6 +794,6 @@ fn main() {
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
 
     let start = Instant::now();
-    g.sim().unwrap();
+    g.sim(args.tree).unwrap();
     println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
 }
