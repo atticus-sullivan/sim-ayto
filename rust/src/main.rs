@@ -377,6 +377,15 @@ impl RuleSet {
             RuleSet::Eq => Ok(Box::new(perm)),
         }
     }
+
+    fn get_perm_base(&self, size_map_a: usize, size_map_b: usize) -> Matching {
+        match self {
+            RuleSet::SomeoneIsDup => (0..size_map_b as u8).map(|i| vec![i]).collect(),
+            RuleSet::FixedDup(_) => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+            RuleSet::Eq => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+        }
+    }
+
     fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> Result<usize> {
         match self {
             RuleSet::SomeoneIsDup => Ok(factorial(size_map_b)? * size_map_a / 2),
@@ -432,9 +441,11 @@ impl Game {
 
         Ok(g)
     }
+
     fn sim(&mut self, collect: bool) -> Result<()> {
-        let num = self.lut_b.len();
-        let mut x: Matching = (0..num as u8).map(|i| vec![i]).collect();
+        let mut x: Matching = self
+            .rule_set
+            .get_perm_base(self.map_a.len(), self.map_b.len());
         let perm = x.permutation();
         let perm = self.rule_set.get_perms(perm, &self.lut_a, &self.lut_b)?;
 
