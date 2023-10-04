@@ -413,7 +413,8 @@ impl RuleSet {
 struct Game {
     constraints: Vec<Constraint>,
     rule_set: RuleSet,
-    gen_tree: bool,
+    tree_gen: bool,
+    tree_top: Option<String>,
 
     #[serde(rename = "setA")]
     map_a: Vec<String>,
@@ -475,7 +476,7 @@ impl Game {
         let mut eliminated = 0;
         let mut left_poss = vec![];
 
-        if !self.gen_tree {
+        if !self.tree_gen {
             for (i, p) in perm.enumerate() {
                 if i % cnt_update == 0 {
                     progress.inc(5);
@@ -539,7 +540,7 @@ impl Game {
             }
         }
 
-        if self.gen_tree {
+        if self.tree_gen {
             let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
             let ordering = self.tree_ordering(&left_poss);
             self.dot_tree(
@@ -809,7 +810,28 @@ impl Game {
         }
 
         let mut ordering: Vec<_> = tab.iter().enumerate().map(|(i, x)| (i, x.len())).collect();
-        ordering.sort_unstable_by_key(|(_, x)| *x);
+        match &self.tree_top {
+            Some(ts) => {
+                let t = self.lut_a[ts];
+                ordering.sort_unstable_by_key(|(i, x)| {
+                    // x values will always be positive, 1 will be the minimum / value for already
+                    // fixed matches
+                    // with (x-1)*2 we move that minimum to 0 and spread the values.
+                    // In effect the value 1 will be unused. To sort the specified tree_top right
+                    // below the already fixed matches this level is mapped to the value 1
+                    // Why so complicated? To avoid using floats here, while still ensuring the
+                    // order as specified.
+                    if *i == t {
+                        1
+                    } else {
+                        ((*x) - 1) * 2
+                    }
+                })
+            }
+            None => {
+                ordering.sort_unstable_by_key(|(_, x)| *x);
+            }
+        }
         ordering
     }
 }
