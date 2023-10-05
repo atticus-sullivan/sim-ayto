@@ -24,7 +24,7 @@ mod tests {
     fn constraint_def() -> Constraint {
         Constraint {
             map_s: HashMap::new(),
-            lights: 2,
+            check: CheckType::Lights(2),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 0,
             eliminated_tab: vec![
@@ -48,7 +48,10 @@ mod tests {
         let mut c = constraint_def();
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
         assert!(!c.fits(&m).unwrap());
-        c.lights = 1;
+        match &mut c.check {
+            CheckType::Eq => {}
+            CheckType::Lights(l) => *l = 1,
+        }
         assert!(c.fits(&m).unwrap());
     }
 
@@ -144,6 +147,12 @@ fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<It
 }
 
 #[derive(Deserialize, Debug, Clone)]
+enum CheckType {
+    Eq,
+    Lights(u8)
+}
+
+#[derive(Deserialize, Debug, Clone)]
 enum ConstraintType {
     Night { num: f32, comment: String },
     Box { num: f32, comment: String },
@@ -161,7 +170,7 @@ struct Constraint {
     r#type: ConstraintType,
     #[serde(rename = "map")]
     map_s: MapS,
-    lights: u8,
+    check: CheckType,
     #[serde(default)]
     hidden: bool,
 
@@ -190,9 +199,9 @@ impl Constraint {
                 }
             }
             ConstraintType::Box { .. } => {
-                if self.map_s.len() != 1 {
-                    return Err(anyhow!("Map in a Box must exactly contain one entry"));
-                }
+                // if self.map_s.len() != 1 {
+                //     return Err(anyhow!("Map in a Box must exactly contain one entry"));
+                // }
             }
         }
 
@@ -237,16 +246,30 @@ impl Constraint {
     }
 
     fn fits(&self, m: &Matching) -> Result<bool> {
-        let mut l = 0;
-        for (i1, i2) in self.map.iter() {
-            if m[*i1 as usize].contains(i2) {
-                if l >= self.lights {
-                    return Ok(false);
+        match &self.check {
+            CheckType::Eq => {
+                Ok(m.iter().enumerate().all(|(_,js)| {
+                    self.map.iter().map(|(_,i2)| js.contains(i2)).fold(None, |acc, b| {
+                        match acc {
+                            Some(a) => Some(a == b),
+                            None => Some(b),
+                        }
+                    }).unwrap()
+                }))
+            }
+            CheckType::Lights(lights) => {
+                let mut l = 0;
+                for (i1, i2) in self.map.iter() {
+                    if m[*i1 as usize].contains(i2) {
+                        if l >= *lights {
+                            return Ok(false);
+                        }
+                        l += 1;
+                    }
                 }
-                l += 1;
+                Ok(l == *lights)
             }
         }
-        Ok(l == self.lights)
     }
 
     fn merge(&mut self, other: &Self) -> Result<()> {
@@ -290,7 +313,10 @@ impl Constraint {
             ConstraintType::Night { num, .. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
             ConstraintType::Box { num, .. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
         }
-        ret.push(Cell::new(self.lights));
+        match &self.check {
+            CheckType::Eq => ret.push(Cell::new("E")),
+            CheckType::Lights(lights) => ret.push(Cell::new(lights)),
+        }
         ret.extend(
             map_a
                 .iter()
@@ -341,7 +367,10 @@ impl Constraint {
     }
 
     fn print_hdr(&self) {
-        print!("{} ", self.lights);
+        match &self.check {
+            CheckType::Eq => print!("Eq "),
+            CheckType::Lights(l) => print!("{} ", l),
+        }
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => print!("MN#{:02.1} {}", num, comment),
             ConstraintType::Box { num, comment, .. } => print!("MB#{:02.1} {}", num, comment),
