@@ -202,8 +202,11 @@ constraints:
       Jenny: Marvin
       # Jenny: Max
 
-  # - type: !Box {num: 7, comment: "E15"}
-  #   lights: 
-  #   map:
-  #     Kim: Peter
-  #     Jenny: Mike
+  # Max hat sein "double" verkauft => das "double" wurde bekannt
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Eq
+    map:
+      Alicia: Peter
+      Darya: Max
+
+# tree_top: Kim
