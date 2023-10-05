@@ -209,4 +209,18 @@ constraints:
       Alicia: Peter
       Darya: Max
 
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights 3
+    map:
+      Darya: Danilo
+      Steffi: Elia
+      Marie: Steffen
+      Kim: Teezy
+      Sabrina: Emanuell
+      Shakira: Max
+      Paulina: Marvin
+      Jenny: Paco
+      Alicia: Fabio
+      Sandra: Mike
+
 # tree_top: Kim
