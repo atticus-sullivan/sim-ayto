@@ -223,4 +223,10 @@ constraints:
       Alicia: Fabio
       Sandra: Mike
 
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights 0
+    map:
+      # Sandra: Mike
+      Sabrina: Max
+
 # tree_top: Kim
