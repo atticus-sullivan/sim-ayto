@@ -229,4 +229,18 @@ constraints:
       # Sandra: Mike
       Sabrina: Max
 
+  - type: !Night {num: 8, comment: "E18 -- Blackout"}
+    check: !Lights 1
+    map:
+      Darya: Danilo
+      Sandra: Fabio
+      Steffi: Mike
+      Alicia: Paco
+      Jenny: Marvin
+      Kim: Max
+      Shakira: Steffen
+      Sabrina: Emanuell
+      Paulina: Teezy
+      Marie: Elia
+
 # tree_top: Kim
