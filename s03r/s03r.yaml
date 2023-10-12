@@ -243,4 +243,10 @@ constraints:
       Paulina: Teezy
       Marie: Elia
 
+  - type: !Box {num: 9, comment: "E19"}
+    check: !Lights 1
+    map:
+      # Sabrina: Mike
+      Steffi: Emanuell
+
 # tree_top: Kim
