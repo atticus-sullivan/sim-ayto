@@ -231,7 +231,7 @@ impl Constraint {
     fn type_str(&self) -> String {
         match &self.r#type {
             ConstraintType::Night { num, comment: _ } => format!("MN#{}", num),
-            ConstraintType::Box { num, comment: _ } => format!("MB^{}", num),
+            ConstraintType::Box { num, comment: _ } => format!("MB#{}", num),
         }
     }
 
