@@ -249,4 +249,18 @@ constraints:
       # Sabrina: Mike
       Steffi: Emanuell
 
+  - type: !Night {num: 9, comment: "E20"}
+    check: !Lights 6
+    map:
+      Steffi: Emanuell
+      Darya: Danilo
+      Sabrina: Mike
+      Marie: Fabio
+      Shakira: Marvin
+      Kim: Teezy
+      Jenny: Max
+      Paulina: Paco
+      Alicia: Steffen
+      Sandra: Elia
+
 # tree_top: Kim
