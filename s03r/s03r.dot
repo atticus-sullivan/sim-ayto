@@ -1,4 +1,4 @@
-digraph D { labelloc="b"; label="Stand: MB#9 / E19"; ranksep=0.8;
+digraph D { labelloc="b"; label="Stand: MN#9 / E20"; ranksep=0.8;
 "root/1"[label="Alicia\nElia"]
 "root" -> "root/1";
 "root/1/0"[label="Darya\nDanilo"]
