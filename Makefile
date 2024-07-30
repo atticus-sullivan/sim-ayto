@@ -4,12 +4,18 @@ OUT_RUST = $(addsuffix .out, $(basename $(DAT_RUST)))
 OUT   = $(OUT_RUST)
 ALIAS = $(notdir $(OUT))
 
-.PHONY: all clean_tex $(ALIAS)
+.PHONY: all clean_tex clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) $(ALIAS)
 
 include Makefile.conf
 
 all: $(OUT)
 	
+
+clean: clean_tex $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
+	
+
+$(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
+	-rm "$(<)/$(<)"*.{out,pdf,png,dot}
 
 clean_tex:
 	- rm statsMN.tex{,sort}
