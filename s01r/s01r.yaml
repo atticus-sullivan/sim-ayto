@@ -75,14 +75,10 @@ constraints:
       Salvatore: Jacqueline
       Tommy: Melina
 
-# ? S08
-# Diogo -> Aurelia
-
-# add vanessa => not paired with Francesco
-  - type: !Box {num: 3.1, comment: "E06 -- Vanessa nicht mit bisherigem \"match\""}
-    check: !Lights 0
-    map:
-      Francesco: Vanessa
+  # - type: !Box {num: 3, comment: "E08"}
+  #   check: !Lights ?
+  #   map:
+  #     Diogo: Aurelia
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights 4
@@ -117,7 +113,7 @@ constraints:
       Manuel: Jill
       Salvatore: Kathleen
       Tommy: Melina
-      # Diogo -> Jacqueline
+      # Diogo: Jacqueline
 
   - type: !Box {num: 5, comment: "E12"}
     check: !Lights 0
@@ -181,7 +177,7 @@ constraints:
     map:
       Josua: Sarah
 
-  - type: !Box {num: 8.5, comment: "E15"}
+  - type: !Box {num: 8.5, comment: "E15 -- geschenkte Matchbox"}
     check: !Lights 0
     map:
       Tommy: Melina
@@ -199,7 +195,7 @@ constraints:
       Manuel: Kathleen
       Salvatore: Walentina
       Tommy: Finnja
-      # Salvatore -> Jacqueline
+      # Salvatore: Jacqueline
 
   - type: !Box {num: 9, comment: "E20"}
     check: !Lights 1

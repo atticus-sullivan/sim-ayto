@@ -191,9 +191,15 @@ struct Constraint {
     check: CheckType,
     #[serde(default)]
     hidden: bool,
+    #[serde(default)]
+    noExclude: bool,
+    #[serde(rename = "exclude")]
+    exclude_s: Option<(String, Vec<String>)>,
 
     #[serde(skip)]
     map: Map,
+    #[serde(skip)]
+    exclude: Option<(u8, HashSet<u8>)>,
     #[serde(skip)]
     eliminated: u128,
     #[serde(skip)]
@@ -215,6 +221,11 @@ impl Constraint {
                         "Map in a night must contain exactly as many entries as set_a"
                     ));
                 }
+                if self.exclude_s.is_some() {
+                    return Err(anyhow!(
+                        "Exclude is not yet supported for nights"
+                    ));
+                }
             }
             ConstraintType::Box { .. } => {
                 // if self.map_s.len() != 1 {
@@ -234,6 +245,16 @@ impl Constraint {
                 *lut_a.get(k).context("Invalid Key")? as u8,
                 *lut_b.get(v).context("Invalid Value")? as u8,
             );
+        }
+
+        if let Some(ex) = &self.exclude_s {
+            let (ex_a,ex_b) = ex;
+            let mut bs = HashSet::with_capacity(ex_b.len());
+            let a = *lut_a.get(ex_a).context("Invalid Key")? as u8;
+            for x in ex_b {
+                bs.insert(*lut_b.get(x).context("Invalid Value")? as u8);
+            }
+            self.exclude = Some((a, bs));
         }
 
         Ok(())
@@ -283,6 +304,13 @@ impl Constraint {
                             return Ok(false);
                         }
                         l += 1;
+                    }
+                }
+                if let Some(ex) = &self.exclude {
+                    for i in &m[ex.0 as usize] {
+                        if ex.1.contains(i) {
+                            return Ok(false)
+                        }
                     }
                 }
                 Ok(l == *lights)
@@ -496,6 +524,27 @@ impl Game {
             for (index, name) in map.iter().enumerate() {
                 lut.insert(name.clone(), index);
             }
+        }
+
+        match &g.rule_set {
+            RuleSet::SomeoneIsDup | RuleSet::FixedDup(_) => {
+                for c in &mut g.constraints {
+                    if c.noExclude {continue}
+                    if let CheckType::Lights(l) = c.check {
+                        if !(l == 1 && c.map_s.len() == 1 && c.exclude_s.is_none()) {continue}
+                        if let ConstraintType::Box { .. } = c.r#type {
+                            for (k,v) in &c.map_s {
+                                let bs: Vec<String> = g.map_b.iter()
+                                    .filter(|&i| i != v)
+                                    .map(|i| i.to_string())
+                                    .collect();
+                                c.exclude_s = Some((k.to_string(), bs));
+                            }
+                        }
+                    }
+                }
+            },
+            RuleSet::Eq => {},
         }
 
         for c in &mut g.constraints {

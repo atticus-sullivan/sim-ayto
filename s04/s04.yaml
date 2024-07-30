@@ -78,56 +78,6 @@ constraints:
     check: !Lights 1
     map:
       Steffi: Chris
-  - type: !Box {num: 3.01, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Kenneth
-  - type: !Box {num: 3.02, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Max
-  - type: !Box {num: 3.03, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Pascal
-  - type: !Box {num: 3.04, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Sasa
-  - type: !Box {num: 3.05, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Marwin
-  - type: !Box {num: 3.06, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Deniz
-  - type: !Box {num: 3.07, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Joel
-  - type: !Box {num: 3.08, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Ken
-  - type: !Box {num: 3.09, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Burim
-  - type: !Box {num: 3.10, comment: "E07"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Steffi: Barkin
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights 2
@@ -148,7 +98,7 @@ constraints:
     check: !Lights 0
     map:
       Valeria: Max
-  #     Caro: Kenneth
+      # Caro: Kenneth
 
   - type: !Night {num: 4, comment: "E10"}
     check: !Lights 3
@@ -165,16 +115,18 @@ constraints:
       Juliette: Kenneth
       # Juliette: Barkin
 
+  - type: !Box {num: 5.1, comment: "E11 -- Doppelmatch"}
+    check: !Lights 1
+    hidden: True
+    noExclude: true
+    map:
+      Caro: Max
   - type: !Box {num: 5, comment: "E11"}
     check: !Lights 1
     map:
       Caro: Ken
+    noExclude: true
       # Carina: Max
-  - type: !Box {num: 5.1, comment: "E11 -- Doppelmatch"}
-    check: !Lights 1
-    hidden: True
-    map:
-      Caro: Max
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights 4
@@ -216,7 +168,7 @@ constraints:
     check: !Lights 0
     map:
       Juliette: Joel
- #     Vanessa: Marwin
+     # Vanessa: Marwin
 
   - type: !Night {num: 7, comment: "E16 -- Blackout"}
     check: !Lights 2

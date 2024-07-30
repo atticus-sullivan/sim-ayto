@@ -111,57 +111,6 @@ constraints:
       # Alicia: Mike
 
   - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Elia
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Emanuell
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Fabio
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Marvin
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Mike
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Paco
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Peter
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Steffen
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Teezy
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 0
-    hidden: true
-    map:
-      Darya: Max
-
-  - type: !Box {num: 5.1, comment: "E11"}
     check: !Lights 1
     map:
       Darya: Danilo

@@ -112,11 +112,6 @@ constraints:
     check: !Lights 1
     map:
       Marcel: Leonie
-  # - type: !Box {num: 5.1, comment: "E10 -- dup ist fix => vanessaM+marcel nicht"}
-  #   hidden: true
-  #   check: !Lights 0
-  #   map:
-  #     Marcel: VanessaM
 
   - type: !Night {num: 5, comment: "E10"}
     check: !Lights 3
@@ -193,10 +188,6 @@ constraints:
     check: !Lights 1
     map:
       Aaron: Melissa
-  # - type: !Box {num: 9.1, comment: "E18 -- dup ist fix => vanessaM+Aaron nicht"}
-  #   check: !Lights 0
-  #   map:
-  #     Aaron: VanessaM
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights 3
@@ -216,10 +207,6 @@ constraints:
     check: !Lights 1
     map:
       Marc: Mirjam
-  # - type: !Box {num: 10.1, comment: "E20 -- dup ist fix => vanessaM+Marc nicht"}
-  #   check: !Lights 0
-  #   map:
-  #     Marc: VanessaM
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights 10
