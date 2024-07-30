@@ -564,7 +564,7 @@ impl Game {
         let perm_amount = self
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len())?;
-        let cnt_update = perm_amount / 20;
+        let cnt_update = perm_amount / 50;
         let progress = ProgressBar::new(100);
 
         let mut each = 0;
@@ -575,7 +575,7 @@ impl Game {
         if !self.tree_gen {
             for (i, p) in perm.enumerate() {
                 if i % cnt_update == 0 {
-                    progress.inc(5);
+                    progress.inc(2);
                 }
                 if p[0].contains(&0) {
                     each += 1;
@@ -592,7 +592,7 @@ impl Game {
         } else {
             for (i, p) in perm.enumerate() {
                 if i % cnt_update == 0 {
-                    progress.inc(5);
+                    progress.inc(2);
                 }
                 if p[0].contains(&0) {
                     each += 1;
