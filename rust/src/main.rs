@@ -191,8 +191,8 @@ struct Constraint {
     check: CheckType,
     #[serde(default)]
     hidden: bool,
-    #[serde(default)]
-    noExclude: bool,
+    #[serde(default, rename = "exclude")]
+    no_exclude: bool,
     #[serde(rename = "exclude")]
     exclude_s: Option<(String, Vec<String>)>,
 
@@ -529,7 +529,7 @@ impl Game {
         match &g.rule_set {
             RuleSet::SomeoneIsDup | RuleSet::FixedDup(_) => {
                 for c in &mut g.constraints {
-                    if c.noExclude {continue}
+                    if c.no_exclude {continue}
                     if let CheckType::Lights(l) = c.check {
                         if !(l == 1 && c.map_s.len() == 1 && c.exclude_s.is_none()) {continue}
                         if let ConstraintType::Box { .. } = c.r#type {
