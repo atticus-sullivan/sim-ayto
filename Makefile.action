@@ -4,7 +4,7 @@ OUT_LUA = $(addsuffix .out, $(basename $(DAT_LUA)))
 DAT_PY = s04/s04.yaml
 OUT_PY = $(addsuffix .out, $(basename $(DAT_PY)))
 
-DAT_RUST = s03r/s03r.yaml
+DAT_RUST = s03r/s03r.yaml s04r/s04r.yaml
 OUT_RUST = $(addsuffix .out, $(basename $(DAT_RUST)))
 
 OUT   = $(OUT_LUA) $(OUT_PY) $(OUT_RUST)

@@ -1,0 +1,53 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: false
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup Max
+rule_set: !Eq
+
+setA:
+  - Anastasia
+  - Asena
+  - Emmy
+  - Gabriela
+  - Jennifer
+  - LauraL
+  - LauraM
+  - Linda
+  - Nadja
+  - Tara
+
+setB:
+  - Alex
+  - Antonino
+  - Chris
+  - Kaan
+  - Lars
+  - Lukas
+  - Marc-Robin
+  - Niko
+  - Ozan
+  - Tim
+
+constraints:
+  - type: !Box {num: 1, comment: "E03"}
+    check: !Lights 0
+    map:
+      # Tara: Niko
+      LauraL: Marc-Robin
+
+  # - type: !Night {num: 1, comment: "E04"}
+  #   check: !Lights 3
+  #   map:
+  #     Darya: Danilo
+  #     Sandra: Paco
+  #     Paulina: Steffen
+  #     Shakira: Marvin
+  #     Kim: Mike
+  #     Sabrina: Emanuell
+  #     Jenny: Elia
+  #     Marie: Fabio
+  #     Steffi: Teezy
+  #     Alicia: Peter
