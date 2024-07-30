@@ -1,0 +1,237 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Desiree
+
+setA:
+  - Andre
+  - Antonino
+  - Dustin
+  - Jordi
+  - Leon
+  - Marius
+  - Max
+  - Mike
+  - Tim
+  - William
+
+setB:
+  - Dana
+  - Estelle
+  - Isabelle
+  - Jessica
+  - Joelina
+  - Kerstin
+  - Marie
+  - Monami
+  - Raphaela
+  - Zaira
+  - Desiree
+
+constraints:
+  - type: !Box {num: 1, comment: "E02"}
+    check: !Lights 0
+    map:
+      Mike: Jessica
+
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights 3
+    map:
+      William: Dana
+      Jordi: Estelle
+      Marius: Isabelle
+      Leon: Jessica
+      Mike: Joelina
+      Max: Kerstin
+      Tim: Marie
+      Antonino: Monami
+      Andre: Raphaela
+      Dustin: Zaira
+
+  - type: !Box {num: 2, comment: "E04"}
+    check: !Lights 0
+    map:
+      Leon: Monami
+
+  - type: !Night {num: 2, comment: "E04"}
+    check: !Lights 2
+    map:
+      Andre: Dana
+      Leon: Estelle
+      Dustin: Isabelle
+      Tim: Jessica
+      Mike: Joelina
+      Max: Kerstin
+      Marius: Marie
+      Antonino: Monami
+      William: Raphaela
+      Jordi: Zaira
+
+  - type: !Box {num: 3, comment: "E06"}
+    check: !Lights 0
+    map:
+      Andre: Raphaela
+
+  - type: !Night {num: 3, comment: "E06"}
+    check: !Lights 2
+    map:
+      William: Dana
+      Leon: Estelle
+      Marius: Isabelle
+      Jordi: Jessica
+      Mike: Joelina
+      Antonino: Kerstin
+      Tim: Marie
+      Max: Monami
+      Andre: Raphaela
+      Dustin: Zaira
+
+  # - type: !Box {num: 4, comment: "E08"}
+  #   check: !Lights ?
+  #   map:
+  #     Dana: William
+
+  - type: !Night {num: 4, comment: "E08"}
+    check: !Lights 3
+    map:
+      William: Dana
+      Leon: Estelle
+      Andre: Isabelle
+      Marius: Jessica
+      Mike: Joelina
+      Tim: Kerstin
+      Max: Marie
+      Antonino: Monami
+      Jordi: Raphaela
+      Dustin: Zaira
+
+  - type: !Box {num: 5, comment: "E10"}
+    check: !Lights 0
+    map:
+      Antonino: Monami
+
+  - type: !Night {num: 5, comment: "E10"}
+    check: !Lights 2
+    map:
+      William: Dana
+      Tim: Desiree
+      Mike: Estelle
+      Dustin: Isabelle
+      Leon: Jessica
+      Andre: Joelina
+      Antonino: Kerstin
+      Max: Monami
+      Marius: Raphaela
+      Jordi: Zaira
+
+  - type: !Box {num: 6, comment: "E12"}
+    check: !Lights 0
+    map:
+      Max: Jessica
+
+  - type: !Night {num: 6, comment: "E12"}
+    check: !Lights 4
+    map:
+      Antonino: Dana
+      Jordi: Desiree
+      Mike: Estelle
+      Dustin: Isabelle
+      Leon: Jessica
+      Tim: Joelina
+      Max: Kerstin
+      Andre: Marie
+      William: Raphaela
+      Marius: Zaira
+
+  - type: !Box {num: 7, comment: "E14"}
+    check: !Lights 1
+    map:
+      Marius: Zaira
+
+  - type: !Night {num: 7, comment: "E14"}
+    check: !Lights 6
+    map:
+      Antonino: Dana
+      Andre: Desiree
+      Dustin: Isabelle
+      Leon: Jessica
+      Mike: Joelina
+      Tim: Kerstin
+      Max: Marie
+      Jordi: Monami
+      William: Raphaela
+      Marius: Zaira
+
+  - type: !Box {num: 8, comment: "E16"}
+    check: !Lights 0
+    map:
+      Jordi: Raphaela
+
+  - type: !Night {num: 8, comment: "E16"}
+    check: !Lights 4
+    map:
+      Antonino: Dana
+      Mike: Estelle
+      Dustin: Isabelle
+      Leon: Jessica
+      Tim: Joelina
+      Max: Kerstin
+      Andre: Marie
+      Jordi: Monami
+      William: Raphaela
+      Marius: Zaira
+
+  - type: !Box {num: 9, comment: "E18"}
+    check: !Lights 0
+    map:
+      Max: Kerstin
+
+  - type: !Night {num: 9, comment: "E18"}
+    check: !Lights 2
+    map:
+      Dustin: Dana
+      Andre: Desiree
+      Mike: Estelle
+      Antonino: Isabelle
+      Leon: Jessica
+      Tim: Joelina
+      William: Marie
+      Jordi: Monami
+      Max: Raphaela
+      Marius: Zaira
+
+  - type: !Box {num: 10, comment: "E20"}
+    check: !Lights 0
+    map:
+      Dustin: Isabelle
+
+  - type: !Night {num: 10, comment: "E20"}
+    check: !Lights 10
+    map:
+      Antonino: Dana
+      Jordi: Estelle
+      Andre: Isabelle
+      Leon: Jessica
+      Mike: Joelina
+      Tim: Kerstin
+      Dustin: Marie
+      Max: Monami
+      William: Raphaela
+      Marius: Zaira
+
+  - type: !Night {num: 10.5, comment: "reunion"}
+    check: !Lights 10
+    map:
+      Antonino: Dana
+      Jordi: Estelle
+      Andre: Isabelle
+      Leon: Jessica
+      Mike: Joelina
+      Tim: Kerstin
+      Dustin: Marie
+      Max: Monami
+      William: Desiree
+      Marius: Zaira

@@ -11,6 +11,7 @@ tex-aux
 statsMB.tex
 statsMN.tex
 statsInfo.tex
+stats.tex
 *.aux
 *.toc
 *.fls

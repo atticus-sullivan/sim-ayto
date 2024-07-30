@@ -1,0 +1,238 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Felix
+
+setA:
+  - Anna
+  - Cecilia
+  - Celina
+  - Franzi
+  - Gina
+  - Isabelle
+  - Karina
+  - Luisa
+  - Ricarda
+  - Zoe
+
+setB:
+  - Amadu
+  - Calvin
+  - Fabio
+  - Luca
+  - Lukas
+  - Martin
+  - Maurice
+  - Max
+  - Micha
+  - Pharrell
+  - Felix
+
+constraints:
+  - type: !Box {num: 1, comment: "E03"}
+    check: !Lights 0
+    map:
+      Zoe: Martin
+
+  - type: !Night {num: 1, comment: "E04"}
+    check: !Lights 3
+    map:
+      Anna: Micha
+      Cecilia: Amadu
+      Celina: Martin
+      Franzi: Max
+      Gina: Calvin
+      Isabelle: Lukas
+      Karina: Pharrell
+      Luisa: Fabio
+      Ricarda: Maurice
+      Zoe: Luca
+
+  - type: !Box {num: 2, comment: "E05"}
+    check: !Lights 0
+    map:
+      Karina: Pharrell
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights 2
+    map:
+      Anna: Micha
+      Cecilia: Pharrell
+      Celina: Max
+      Franzi: Luca
+      Gina: Amadu
+      Isabelle: Martin
+      Karina: Fabio
+      Luisa: Calvin
+      Ricarda: Maurice
+      Zoe: Lukas
+
+  - type: !Box {num: 3, comment: "E07"}
+    check: !Lights 0
+    map:
+      Celina: Lukas
+# Calvin -> Isabelle
+
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights 3
+    map:
+      Anna: Martin
+      Cecilia: Amadu
+      Celina: Fabio
+      Franzi: Lukas
+      Gina: Micha
+      Isabelle: Luca
+      Karina: Calvin
+      Luisa: Pharrell
+      Ricarda: Maurice
+      Zoe: Max
+
+# ? # E09
+# Amadu -> Isabelle
+
+  - type: !Box {num: 4.10, comment: "E09 -- Lukas will gehen"}
+    check: !Lights 1
+    map:
+      Luisa: Lukas
+  - type: !Box {num: 4.11, comment: "E09 -- Lukas will gehen"}
+    check: !Lights 0
+    map:
+      Luisa: Felix
+
+  - type: !Box {num: 5, comment: "E11"}
+    check: !Lights 0
+    map:
+      Ricarda: Felix
+
+  - type: !Night {num: 4, comment: "E12"}
+    check: !Lights 3
+    map:
+      Anna: Pharrell
+      Cecilia: Amadu
+      Celina: Fabio
+      Franzi: Micha
+      Gina: Felix
+      Isabelle: Maurice
+      Karina: Martin
+      Luisa: Lukas
+      Ricarda: Max
+      Zoe: Luca
+# Calvin
+
+  - type: !Box {num: 6, comment: "E13"}
+    check: !Lights 0
+    map:
+# Max -> Karina
+      Isabelle: Pharrell
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights 3
+    map:
+      Anna: Micha
+      Cecilia: Maurice
+      Celina: Fabio
+      Franzi: Max
+      Gina: Felix
+      Isabelle: Martin
+      Karina: Calvin
+      Luisa: Lukas
+      Ricarda: Pharrell
+      Zoe: Luca
+# Amadu -> Isabelle
+
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights 0
+    hidden: true
+    map:
+      Cecilia: Felix
+  - type: !Box {num: 7.1, comment: "E15"}
+    check: !Lights 1
+    map:
+      Cecilia: Amadu
+# Gina    -> Fabio
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights 4
+    map:
+      Anna: Micha
+      Cecilia: Amadu
+      Celina: Fabio
+      Franzi: Max
+      Gina: Felix
+      Isabelle: Martin
+      Karina: Calvin
+      Luisa: Lukas
+      Ricarda: Pharrell
+      Zoe: Luca
+# Ricarda  -> Maurice
+
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights 0
+    hidden: true
+    map:
+      Anna: Felix
+  - type: !Box {num: 8.1, comment: "E17"}
+    check: !Lights 1
+    map:
+      Anna: Micha
+# Ricarda -> Pharrell
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights 5
+    map:
+      Anna: Micha
+      Cecilia: Amadu
+      Celina: Luca
+      Franzi: Calvin
+      Gina: Fabio
+      Isabelle: Felix
+      Karina: Martin
+      Luisa: Lukas
+      Ricarda: Pharrell
+      Zoe: Maurice
+# Max
+
+  - type: !Box {num: 9, comment: "E19"}
+    check: !Lights 0
+    map:
+      Ricarda: Pharrell
+# Gina -> Fabio
+
+  - type: !Night {num: 9, comment: "E20"}
+    check: !Lights 7
+    map:
+      Anna: Micha
+      Cecilia: Amadu
+      Luisa: Lukas
+      Isabelle: Felix
+      Gina: Calvin
+      Franzi: Max
+      Ricarda: Maurice
+      Karina: Martin
+      Zoe: Pharrell
+      Celina: Fabio
+# Ricarda -> Luca
+
+  - type: !Box {num: 10, comment: "E21"}
+    check: !Lights 0
+    map:
+      Franzi: Max
+# Karina -> Martin
+
+  - type: !Night {num: 10, comment: "E21"}
+    check: !Lights 10
+    map:
+      Anna: Micha
+      Cecilia: Amadu
+      Celina: Fabio
+      Franzi: Calvin
+      Gina: Martin
+      Isabelle: Felix
+      Karina: Luca
+      Luisa: Lukas
+      Ricarda: Maurice
+      Zoe: Pharrell
+# Max

@@ -1,0 +1,236 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup VanessaM
+
+setA:
+  - Aaron
+  - Dario
+  - Dominic
+  - Germain
+  - Marc
+  - Marcel
+  - Marko
+  - Marvin
+  - Maximilian
+  - Sascha
+
+setB:
+  - Christin
+  - Jill
+  - Kathleen
+  - Laura
+  - Leonie
+  - Melissa
+  - Mirjam
+  - Sabrina
+  - Vanessa
+  - Victoria
+  - VanessaM
+
+constraints:
+  - type: !Box {num: 1, comment: "E02"}
+    check: !Lights 0
+    map:
+      Maximilian: Jill
+
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights 2
+    map:
+      Aaron: Kathleen
+      Dario: Victoria
+      Dominic: Melissa
+      Germain: Leonie
+      Marc: Mirjam
+      Marcel: Laura
+      Marko: Sabrina
+      Marvin: Jill
+      Maximilian: Christin
+      Sascha: Vanessa
+
+  # - type: !Box {num: 2, comment: "E04"}
+  #   check: !Lights ?
+  #   map:
+  #     Victoria: Germain
+
+  - type: !Night {num: 2, comment: "E04"}
+    check: !Lights 2
+    map:
+      Aaron: Kathleen
+      Dario: Laura
+      Dominic: Melissa
+      Germain: Victoria
+      Marc: Mirjam
+      Marcel: Leonie
+      Marko: Sabrina
+      Marvin: Vanessa
+      Maximilian: Christin
+      Sascha: Jill
+
+  - type: !Box {num: 3, comment: "E06"}
+    check: !Lights 0
+    map:
+      Aaron: Kathleen
+
+  - type: !Night {num: 3, comment: "E06"}
+    check: !Lights 3
+    map:
+      Aaron: Melissa
+      Dario: Victoria
+      Dominic: Vanessa
+      Germain: Christin
+      Marc: Leonie
+      Marcel: Laura
+      Marko: Mirjam
+      Marvin: Kathleen
+      Maximilian: Jill
+      Sascha: Sabrina
+
+  - type: !Box {num: 4, comment: "E08"}
+    check: !Lights 0
+    map:
+      Marcel: Laura
+
+  - type: !Night {num: 4, comment: "E08"}
+    check: !Lights 3
+    map:
+      Aaron: Melissa
+      Dario: Kathleen
+      Dominic: Laura
+      Germain: Victoria
+      Marc: Mirjam
+      Marcel: Leonie
+      Marko: Sabrina
+      Marvin: Christin
+      Maximilian: Jill
+      Sascha: Vanessa
+
+  - type: !Box {num: 5, comment: "E10"}
+    check: !Lights 1
+    map:
+      Marcel: Leonie
+  # - type: !Box {num: 5.1, comment: "E10 -- dup ist fix => vanessaM+marcel nicht"}
+  #   hidden: true
+  #   check: !Lights 0
+  #   map:
+  #     Marcel: VanessaM
+
+  - type: !Night {num: 5, comment: "E10"}
+    check: !Lights 3
+    map:
+      Aaron: Mirjam
+      Dario: Victoria
+      Dominic: Vanessa
+      Germain: Christin
+      Marc: Melissa
+      Marcel: Leonie
+      Marko: VanessaM
+      Marvin: Kathleen
+      Maximilian: Laura
+      Sascha: Jill
+
+  # - type: !Box {num: 6, comment: "E12"}
+  #   check: !Lights ?
+  #   map:
+  #     Mirjam: Marc
+
+  - type: !Night {num: 6, comment: "E12"}
+    check: !Lights 4
+    map:
+      Aaron: Melissa
+      Dario: VanessaM
+      Dominic: Vanessa
+      Germain: Victoria
+      Marc: Mirjam
+      Marcel: Leonie
+      Marko: Sabrina
+      Marvin: Laura
+      Maximilian: Christin
+      Sascha: Jill
+
+  - type: !Box {num: 7, comment: "E14"}
+    check: !Lights 0
+    map:
+      Dario: Laura
+
+  - type: !Night {num: 7, comment: "E14"}
+    check: !Lights 4
+    map:
+      Aaron: Melissa
+      Dario: Sabrina
+      Dominic: Laura
+      Germain: VanessaM
+      Marc: Mirjam
+      Marcel: Leonie
+      Marko: Victoria
+      Marvin: Kathleen
+      Maximilian: Christin
+      Sascha: Jill
+
+  - type: !Box {num: 8, comment: "E16"}
+    check: !Lights 0
+    map:
+      Marko: Sabrina
+
+  - type: !Night {num: 8, comment: "E16"}
+    check: !Lights 1
+    map:
+      Aaron: Vanessa
+      Dario: Victoria
+      Dominic: Melissa
+      Germain: Jill
+      Marc: VanessaM
+      Marcel: Leonie
+      Marko: Laura
+      Marvin: Kathleen
+      Maximilian: Mirjam
+      Sascha: Sabrina
+
+  - type: !Box {num: 9, comment: "E18"}
+    check: !Lights 1
+    map:
+      Aaron: Melissa
+  # - type: !Box {num: 9.1, comment: "E18 -- dup ist fix => vanessaM+Aaron nicht"}
+  #   check: !Lights 0
+  #   map:
+  #     Aaron: VanessaM
+
+  - type: !Night {num: 9, comment: "E18"}
+    check: !Lights 3
+    map:
+      Aaron: Melissa
+      Dario: Kathleen
+      Dominic: Sabrina
+      Germain: Laura
+      Marc: Mirjam
+      Marcel: Leonie
+      Marko: Victoria
+      Marvin: Vanessa
+      Maximilian: Christin
+      Sascha: Jill
+
+  - type: !Box {num: 10, comment: "E20"}
+    check: !Lights 1
+    map:
+      Marc: Mirjam
+  # - type: !Box {num: 10.1, comment: "E20 -- dup ist fix => vanessaM+Marc nicht"}
+  #   check: !Lights 0
+  #   map:
+  #     Marc: VanessaM
+
+  - type: !Night {num: 10, comment: "E20"}
+    check: !Lights 10
+    map:
+      Aaron: Melissa
+      Dario: Sabrina
+      Dominic: Vanessa
+      Germain: Christin
+      Marc: Mirjam
+      Marcel: Leonie
+      Marko: Kathleen
+      Marvin: Jill
+      Maximilian: Victoria
+      Sascha: Laura

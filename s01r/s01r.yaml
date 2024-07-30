@@ -1,0 +1,245 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Vanessa
+
+setA:
+  - Alexander
+  - Danilo
+  - Diogo
+  - Eugen
+  - Josua
+  - Manuel
+  - Salvatore
+  - Tommy
+  - Francesco
+  - Jamy
+
+setB:
+  - Aurelia
+  - Finnja
+  - Jacqueline
+  - Jill
+  - Kathleen
+  - Melina
+  - Sarah
+  - Stefanie
+  - Walentina
+  - Jules
+  - Vanessa
+
+constraints:
+  - type: !Box {num: 1, comment: "E02"}
+    check: !Lights 0
+    map:
+      Danilo: Finnja
+
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights 3
+    map:
+      Alexander: Jules
+      Danilo: Stefanie
+      Diogo: Aurelia
+      Eugen: Walentina
+      Francesco: Finnja
+      Jamy: Jill
+      Josua: Sarah
+      Manuel: Kathleen
+      Salvatore: Jacqueline
+      Tommy: Melina
+
+  - type: !Box {num: 1.9, comment: "E04 -- Francesco muss ausziehen"}
+    check: !Lights 1
+    map:
+      Francesco: Jules
+
+  - type: !Box {num: 2, comment: "E06"}
+    check: !Lights 0
+    map:
+      Tommy: Walentina
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights 3
+    map:
+      Alexander: Finnja
+      Danilo: Sarah
+      Diogo: Aurelia
+      Eugen: Stefanie
+      Francesco: Jules
+      Jamy: Jill
+      Josua: Walentina
+      Manuel: Kathleen
+      Salvatore: Jacqueline
+      Tommy: Melina
+
+# ? S08
+# Diogo -> Aurelia
+
+# add vanessa => not paired with Francesco
+  - type: !Box {num: 3.1, comment: "E06 -- Vanessa nicht mit bisherigem \"match\""}
+    check: !Lights 0
+    map:
+      Francesco: Vanessa
+
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights 4
+    map:
+      Alexander: Stefanie
+      Danilo: Melina
+      Diogo: Aurelia
+      Eugen: Finnja
+      Francesco: Jules
+      Jamy: Vanessa
+      Josua: Sarah
+      Manuel: Kathleen
+      Salvatore: Walentina
+      Tommy: Jill
+      # Jacqueline
+
+  # - type: !Box {num: 4, comment: "E10"}
+  #   check: !Lights ?
+  #   map:
+  #     Melina: Tommy
+
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights 3
+    map:
+      Alexander: Sarah
+      Danilo: Aurelia
+      Diogo: Vanessa
+      Eugen: Finnja
+      Francesco: Jules
+      Jamy: Stefanie
+      Josua: Walentina
+      Manuel: Jill
+      Salvatore: Kathleen
+      Tommy: Melina
+      # Diogo -> Jacqueline
+
+  - type: !Box {num: 5, comment: "E12"}
+    check: !Lights 0
+    map:
+      Salvatore: Finnja
+
+  - type: !Night {num: 5, comment: "E12"}
+    check: !Lights 3
+    map:
+      Alexander: Stefanie
+      Danilo: Jill
+      Diogo: Aurelia
+      Eugen: Finnja
+      Francesco: Jules
+      Jamy: Sarah
+      Josua: Walentina
+      Manuel: Kathleen
+      Salvatore: Jacqueline
+      Tommy: Melina
+
+  - type: !Box {num: 6, comment: "E14"}
+    check: !Lights 0
+    map:
+      Eugen: Finnja
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights 2
+    map:
+      Alexander: Jacqueline
+      Danilo: Aurelia
+      Diogo: Vanessa
+      Eugen: Jill
+      Jamy: Finnja
+      Josua: Sarah
+      Francesco: Jules
+      Manuel: Kathleen
+      Salvatore: Walentina
+      Tommy: Melina
+
+  - type: !Box {num: 7, comment: "E16"}
+    check: !Lights 0
+    map:
+      Eugen: Stefanie
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights 1
+    map:
+      Alexander: Melina
+      Danilo: Aurelia
+      Diogo: Vanessa
+      Eugen: Jacqueline
+      Francesco: Jules
+      Jamy: Sarah
+      Josua: Walentina
+      Manuel: Finnja
+      Salvatore: Jill
+      Tommy: Stefanie
+
+  - type: !Box {num: 8, comment: "E18"}
+    check: !Lights 0
+    map:
+      Josua: Sarah
+
+  - type: !Box {num: 8.5, comment: "E15"}
+    check: !Lights 0
+    map:
+      Tommy: Melina
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights 4
+    map:
+      Alexander: Sarah
+      Danilo: Jill
+      Diogo: Aurelia
+      Eugen: Melina
+      Francesco: Jules
+      Jamy: Stefanie
+      Josua: Vanessa
+      Manuel: Kathleen
+      Salvatore: Walentina
+      Tommy: Finnja
+      # Salvatore -> Jacqueline
+
+  - type: !Box {num: 9, comment: "E20"}
+    check: !Lights 1
+    map:
+      Josua: Aurelia
+
+  - type: !Night {num: 9, comment: "E20"}
+    check: !Lights 7
+    map:
+      Alexander: Vanessa
+      Danilo: Sarah
+      Diogo: Jill
+      Eugen: Walentina
+      Francesco: Jules
+      Jamy: Stefanie
+      Josua: Aurelia
+      Manuel: Kathleen
+      Salvatore: Jacqueline
+      Tommy: Finnja
+
+# 10 richtiges_matching1 f
+# Alexander -> Sarah
+# Danilo    -> Melina
+# Diogo     -> Finnja
+# Eugen     -> Walentina
+# Francesco -> Jules
+# Jamy      -> Stefanie
+# Josua     -> Aurelia
+# Manuel    -> Kathleen
+# Salvatore -> Jacqueline
+# Tommy     -> Jill
+#
+# 10 richtiges_matching2 f
+# Alexander -> Vanessa
+# Danilo    -> Melina
+# Diogo     -> Finnja
+# Eugen     -> Walentina
+# Francesco -> Jules
+# Jamy      -> Stefanie
+# Josua     -> Aurelia
+# Manuel    -> Kathleen
+# Salvatore -> Jacqueline
+# Tommy     -> Jill

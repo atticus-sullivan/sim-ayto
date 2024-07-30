@@ -1,5 +1,10 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
+
+tree_gen: true
+
+rule_set: !SomeoneIsDup
+
 setA:
   - Aurelia
   - Carina
@@ -25,25 +30,19 @@ setB:
   - Sasa
   - Marwin
 
-instructions:
-  - type: MB
-    lights: 0
-    num: 1
-    comment: "E02"
+constraints:
+  - type: !Box {num: 1, comment: "E02"}
+    check: !Lights 0
     map:
       Valeria: Marwin
 
-  - type: MB
-    lights: 0
-    num: 1.25
-    comment: "E03"
+  - type: !Box {num: 1.25, comment: "E03"}
+    check: !Lights 0
     map:
       Dorna: Kenneth
 
-  - type: MN
-    lights: 3
-    num: 1
-    comment: "E04"
+  - type: !Night {num: 1, comment: "E04"}
+    check: !Lights 3
     map:
       Vanessa:  Sasa
       Carina:   Ken
@@ -56,17 +55,13 @@ instructions:
       Steffi:   Chris
       Caro:     Barkin
 
-  - type: MB
-    lights: 0
-    num: 2
-    comment: "E05"
+  - type: !Box {num: 2, comment: "E05"}
+    check: !Lights 0
     map:
       Carina: Burim
 
-  - type: MN
-    lights: 3
-    num: 2
-    comment: "E06"
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights 3
     map:
       Larissa:  Joel
       Henna:    Kenneth
@@ -79,87 +74,63 @@ instructions:
       Aurelia:  Burim
       Juliette: Barkin
 
-  - type: MB
-    lights: 1
-    num: 3
-    comment: "E07"
+  - type: !Box {num: 3, comment: "E07"}
+    check: !Lights 1
     map:
       Steffi: Chris
-  - type: MB
-    lights: 0
-    num: 3.01
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.01, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Kenneth
-  - type: MB
-    lights: 0
-    num: 3.02
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.02, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Max
-  - type: MB
-    lights: 0
-    num: 3.03
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.03, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Pascal
-  - type: MB
-    lights: 0
-    num: 3.04
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.04, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Sasa
-  - type: MB
-    lights: 0
-    num: 3.05
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.05, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Marwin
-  - type: MB
-    lights: 0
-    num: 3.06
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.06, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Deniz
-  - type: MB
-    lights: 0
-    num: 3.07
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.07, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Joel
-  - type: MB
-    lights: 0
-    num: 3.09
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.08, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Ken
-  - type: MB
-    lights: 0
-    num: 3.10
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.09, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Burim
-  - type: MB
-    lights: 0
-    num: 3.11
-    comment: "E07"
-    hidden: True
+  - type: !Box {num: 3.10, comment: "E07"}
+    check: !Lights 0
+    hidden: true
     map:
       Steffi: Barkin
 
-  - type: MN
-    lights: 2
-    num: 3
-    comment: "E08"
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights 2
     map:
       Steffi: Chris
       Aurelia: Kenneth
@@ -173,18 +144,14 @@ instructions:
       Henna: Ken
       # Burim
 
-  - type: MB
-    lights: 0
-    num: 4
-    comment: "E09"
+  - type: !Box {num: 4, comment: "E09"}
+    check: !Lights 0
     map:
       Valeria: Max
   #     Caro: Kenneth
 
-  - type: MN
-    lights: 3
-    num: 4
-    comment: "E10"
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights 3
     map:
       Steffi: Chris
       Henna: Ken
@@ -198,25 +165,19 @@ instructions:
       Juliette: Kenneth
       # Juliette: Barkin
 
-  - type: MB
-    lights: 1
-    num: 5
-    comment: "E11"
+  - type: !Box {num: 5, comment: "E11"}
+    check: !Lights 1
     map:
       Caro: Ken
       # Carina: Max
-  - type: MB
-    lights: 1
-    num: 5.1
+  - type: !Box {num: 5.1, comment: "E11 -- Doppelmatch"}
+    check: !Lights 1
     hidden: True
-    comment: "E11 -- Doppelmatch"
     map:
       Caro: Max
 
-  - type: MN
-    lights: 4
-    num: 5
-    comment: "E12"
+  - type: !Night {num: 5, comment: "E12"}
+    check: !Lights 4
     map:
       Steffi: Chris
       Caro: Ken
@@ -230,18 +191,14 @@ instructions:
       Henna: Kenneth
       # Max
 
-  - type: MB
-    lights: 0
-    num: 6
-    comment: "E13"
+  - type: !Box {num: 6, comment: "E13"}
+    check: !Lights 0
     map:
       Dorna: Burim
         # Larissa: Marwin
 
-  - type: MN
-    lights: 3
-    num: 6
-    comment: "E14"
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights 3
     map:
       Steffi: Chris
       Caro: Ken
@@ -255,18 +212,14 @@ instructions:
       Valeria: Pascal
       # Max
 
-  - type: MB
-    lights: 0
-    num: 7
-    comment: "E15"
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights 0
     map:
       Juliette: Joel
  #     Vanessa: Marwin
 
-  - type: MN
-    lights: 2
-    num: 7
-    comment: "E16 - Blackout"
+  - type: !Night {num: 7, comment: "E16 -- Blackout"}
+    check: !Lights 2
     map:
      Steffi: Chris
      Caro: Ken
@@ -279,17 +232,13 @@ instructions:
      Valeria: Pascal
      Larissa: Sasa
 
-  - type: MB
-    lights: 0
-    num: 8
-    comment: "E17"
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights 0
     map:
       Dorna: Marwin
 
-  - type: MN
-    lights: 2
-    num: 8
-    comment: "E18 -- blackout"
+  - type: !Night {num: 8, comment: "E18 -- Blackout"}
+    check: !Lights 2
     map:
       Steffi: Chris
       Caro: Ken
@@ -302,18 +251,14 @@ instructions:
       Vanessa: Sasa
       Aurelia: Marwin
 
-  - type: MB
-    lights: 0
-    num: 9
-    comment: "E19"
+  - type: !Box {num: 9, comment: "E19"}
+    check: !Lights 0
     map:
       Carina: Pascal
       # Burim: Aurelia
 
-  - type: MN
-    lights: 10
-    num: 10
-    comment: "E21 -- finale"
+  - type: !Night {num: 10, comment: "E21 -- finale"}
+    check: !Lights 10
     map:
       Steffi: Chris
       Caro: Ken
@@ -325,16 +270,3 @@ instructions:
       Larissa: Barkin
       Valeria: Joel
       Carina: Deniz
-
-
-  # - type: MN
-  #   lights: 4
-  #   num: 5
-  #   comment: "E12"
-  #   map:
-
-  # - type: MB
-  #   lights: 0
-  #   num: 6
-  #   comment: "E13"
-  #   map:
