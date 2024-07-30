@@ -191,7 +191,7 @@ struct Constraint {
     check: CheckType,
     #[serde(default)]
     hidden: bool,
-    #[serde(default, rename = "exclude")]
+    #[serde(default, rename = "noExclude")]
     no_exclude: bool,
     #[serde(rename = "exclude")]
     exclude_s: Option<(String, Vec<String>)>,
