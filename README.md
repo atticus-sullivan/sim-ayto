@@ -80,48 +80,28 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
    Ergebnisse liegen jetzt unter `<Staffel>/<Staffel>*.{png,pdf,out}`
 
 ## Eingabe-Dateien
-### Staffeln 1-3 und 1r-2r
-- `<Staffel>.dat`:
+- `<Staffel>.yaml`:
   - Alles hinter einem `#` ist ein Kommentar und wird später
     ignoriert
-  - Fängt an mit den Teilnehmern
-  - Dann mit leeren Zeilen getrennte Einschränkungen/Constraints. Die bestehen
-	immer aus `<Lichter> [<Name>] [<flags>]` in der ersten Zeile (Name und flags
-	sind optional) und anschließend die jeweiligen Mappings (`nameA -> nameB`)
-  - Boxes werden genau gleich wie Nights eingetragen, nur dass es nur ein Mapping
-	gibt und die Lichter 0 -> noMatch oder 1 -> Match ist<br>
-	Wenn Match gefunden, auch zusätzliches (no-)Match (falls vorhanden) eintragen
-  - Flags: zur Zeit gibt es folgende Flags:
-  	<!-- - `t` (tree):  -->
-  	- `f` (final): beim ersten final wird im output ein Marker `====` vorher
-	  ausgegeben um das ganze vom bisherigen zu Trennen. Idee ist wenn sie es
-	  nicht geschafft haben kann man das/die echte/-n rightige/-n Matching/-s angeben
-  	- `c` (count): Verhindert, dass der Constraint mitgezählt wird (bei #MN/#MB)
-	  (für Einträge die logisch zum folgenden gehören)
-  	- `h` (hide): Wie `c` aber verhindert Übertrag der Information in den stats
-	  (für wirklich garnicht auftretende Einträge)
-  	- `s` (skip): Skippt counter für #MB/#MN um 1 je `s` (vor diesem Eintrag)
-	- `S`: Skip Schrittweite ist `1/(<Anzahl S>+1)`. Hinweis: für die globalen
-	  Stats: #MB -> 2*#MB-1 und #MN -> 2*#MN
-	  
-    Die Flags `s` und `S` sind mehr Spielerei um die Sendungs-verläufe der
-	verschiednen Staffeln halbwegs zu synchronisieren, damit die man sie im
-	Graphen vergleichen kann.
-### Staffeln 4-x
-- `<Staffel>.yaml`
-  - Alles hinter einem `#` ist ein Kommentar und wird später
   - Keys `setA` und `setB` geben die zu Anfang bekannten Teilnehmer an. `setB`
-	muss dabei das (um eins) größere sein.
-  - als `instructions` werden als Liste die MN/MB-Entscheidungen (constraints)
-	angegeben.
-    - `type`: `MB` oder `MN` (wird für die Graphen benutzt)
-    - `lights`: Anzahl der Lichter (0/1 bei MatchBox)
-    - `num`: Laufnummer der MBs/MNs (für die Graphen). Achtung, um globale
-	  Nummern zu erzeugen, wird `MB*2-1` und `MN*2` gerechnet => (`x <= num < x+0.5`
-	  um dopplungen zu vermeiden)
-    - `comment`: Kommentar (zB in welcher Episode die Information zu finden
-	  ist), wird nur im text-output `.out` ausgegeben
-    - `map`: Wer mit wem wird hier als `dict` (`x: y`) angegeben
+  muss dabei das (um eins) größere sein.
+  - Matchboxen und Matchingnights werden beide als `constraint` eingegeben mit
+  der jeweiligen Anzahl an Lichtern.
+      - Wenn für eine Modellierung eine Entscheidung mehrere Einschränkungen
+      herbeiführt, kann ein Constraint als `hidden` markiert werden.
+      - Mit dem hinzufügen von Doppelten Matches, kann ein Perfect-Match auch
+      bedeuten, dass andere Matches explizit nicht mehr stattfinden. Daher werden bei
+      einer Matchbox mit "einem Licht" (aka Perfect-Match) über den `exclude` key
+      automatisch Paare ausgeschlossen werden. Sollte dies unerwünscht sein, kann
+      der entwerder `noExclude: true` gesetzt werden oder der `exclude` manuell
+      gesetzt werden.
+      - `type`: `MB` oder `MN` (wird für die Graphen benutzt)
+      - `num`: Laufnummer der MBs/MNs (für die Graphen). Achtung, um globale
+      Nummern zu erzeugen, wird `MB*2-1` und `MN*2` gerechnet => (`x <= num < x+0.5`
+      um dopplungen zu vermeiden)
+      - `comment`: Kommentar (zB in welcher Episode die Information zu finden
+      ist), wird nur im text-output `.out` ausgegeben
+      - `map`: Wer mit wem wird hier als `dict` (`x: y`) angegeben
 
 ## Anmerkungen
 - Damit die Statistik stimmt, darauf achten, dass falls mehrere Einträge
