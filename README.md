@@ -80,11 +80,17 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
    Ergebnisse liegen jetzt unter `<Staffel>/<Staffel>*.{png,pdf,out}`
 
 ## Eingabe-Dateien
+Zusätzlich zu der folgenden "Dokumentation" ist es sinnvoll (evtl reicht es sogar aus) sich die Eingabedateien `*.yaml` vergangener Staffeln anzuschauen.
+
 - `<Staffel>.yaml`:
   - Alles hinter einem `#` ist ein Kommentar und wird später
     ignoriert
   - Keys `setA` und `setB` geben die zu Anfang bekannten Teilnehmer an. `setB`
   muss dabei das (um eins) größere sein.
+  - Mittels `rule_set` kann angegeben werden mit welchen Regeln die Sendung verläuft.
+  Gibt es (noch) kein Doppelmatch (`!Eq`), ist die zusätzliche Person bekannt
+  (`!FixedDup <name aus setB>`) oder ist irgendjemand (aus `setB`) die zusätzliche
+  Person (`!SomeoneIsDup`).
   - Matchboxen und Matchingnights werden beide als `constraint` eingegeben mit
   der jeweiligen Anzahl an Lichtern.
       - Wenn für eine Modellierung eine Entscheidung mehrere Einschränkungen
@@ -94,7 +100,7 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
       einer Matchbox mit "einem Licht" (aka Perfect-Match) über den `exclude` key
       automatisch Paare ausgeschlossen werden. Sollte dies unerwünscht sein, kann
       der entwerder `noExclude: true` gesetzt werden oder der `exclude` manuell
-      gesetzt werden.
+      gesetzt werden (bei letzterem ist ist die syntax aber etwas komplizierter).
       - `type`: `MB` oder `MN` (wird für die Graphen benutzt)
       - `num`: Laufnummer der MBs/MNs (für die Graphen). Achtung, um globale
       Nummern zu erzeugen, wird `MB*2-1` und `MN*2` gerechnet => (`x <= num < x+0.5`
