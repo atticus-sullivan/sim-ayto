@@ -3,7 +3,8 @@
 
 tree_gen: false
 
-rule_set: !SomeoneIsTrip
+# rule_set: !SomeoneIsTrip
+rule_set: !FixedTrip Melanie
 # rule_set: !FixedDup Max
 # rule_set: !FixedDup 
 
@@ -13,7 +14,7 @@ setA:
   - Kevin
   - Martin
   - Paddy
-  - Paul
+  - Paolo
   - Ryan
   - Sandro
   - Sidar
@@ -31,13 +32,13 @@ setB:
   - Edda
   - Maja
   - Lina
-  # - Melanie
+  - Melanie
 
 constraints:
   - type: !Box {num: 1, comment: "E03"}
     check: !Lights 0
     map:
-      Paul: Jana
+      Paolo: Jana
       # Lina: Kevin
 
   - type: !Night {num: 1, comment: "E04"}
@@ -45,7 +46,7 @@ constraints:
     map:
       Ryan: Lina
       Kevin: Sina
-      Paul: Tais
+      Paolo: Tais
       Sidar: Jana
       Martin: Julia
       Gerrit: Pia
@@ -60,3 +61,29 @@ constraints:
     map:
       # Sandro: Julia
       Ryan: Lina
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights 2
+    map:
+      Martin: Lina
+      Ryan: Pia
+      Sandro: Edda
+      Sidar: Jana
+      Paddy: Shelly
+      Kevin: Sina
+      Gerrit: Tais
+      Paolo: Lisa-Marie
+      Eti: Afra
+      Wilson: Maja
+      # Julia
+
+  - type: !Box {num: 3, comment: "E06"}
+    check: !Lights 0
+    map:
+      # Paolo: Edda
+      Kevin: Maja
+
+  - type: !Box {num: 3.5, comment: "E07"}
+    check: !Lights 0
+    map:
+      Eti: Melanie
