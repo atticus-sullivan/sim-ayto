@@ -103,3 +103,25 @@ constraints:
       Ryan: Jana
       Gerrit: Tais
       # Gerrit: # Lina
+
+  - type: !Box {num: 4, comment: "E09"}
+    check: !Lights 1
+    map:
+      Wilson: Shelly
+      # Eti: Maja
+
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights 3
+    map:
+      Wilson: Shelly
+      Gerrit: Tais
+      Paddy: Lina
+      Eti: Afra
+      Paolo: Lisa-Marie
+      Ryan: Edda
+      Kevin: Sina
+      Martin: Julia
+      Sandro: Pia
+      Sidar: Jana
+      # Melanie
+      # Maja
