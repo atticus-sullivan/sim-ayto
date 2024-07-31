@@ -87,3 +87,19 @@ constraints:
     check: !Lights 0
     map:
       Eti: Melanie
+
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights 4
+    map:
+      Kevin: Melanie
+      Paolo: Edda
+      Eti: Maja
+      Paddy: Julia
+      Wilson: Shelly
+      Sandro: Sina
+      Sidar: Afra
+      Martin: Lisa-Marie
+      # Ryan: # Pia
+      Ryan: Jana
+      Gerrit: Tais
+      # Gerrit: # Lina
