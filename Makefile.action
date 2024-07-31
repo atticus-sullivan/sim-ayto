@@ -24,7 +24,7 @@ clean_tex:
 	- rm -r tex-aux
 
 $(ALIAS):
-	make $(wildcard */$@)
+	make $(patsubst %.out,%,$@)/$@
 
 $(OUT_RUST): %.out: %.yaml ./rust/src/*
 	@date
