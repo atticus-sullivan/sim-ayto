@@ -203,6 +203,28 @@ mod tests {
         assert_eq!(i, ground_truth.len());
     }
 
+    #[test]
+    fn test_add_trip() {
+        let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2]];
+        let perm = x.permutation();
+        let perm = Box::new(add_trip(perm, 3));
+
+        let ground_truth = vec![
+            vec![vec![2,1,3], vec![0]],
+            vec![vec![0], vec![2,1,3]],
+            vec![vec![1,0,3], vec![2]],
+            vec![vec![1], vec![2,0,3]],
+            vec![vec![2,0,3], vec![1]],
+            vec![vec![2], vec![1,0,3]],
+        ];
+        let mut i = 0;
+        for p in perm {
+            assert_eq!(p, ground_truth[i]);
+            i+=1;
+        }
+        assert_eq!(i, ground_truth.len());
+    }
+
 }
 
 // TODO where to put this
@@ -215,6 +237,25 @@ fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
             let mut c = perm.clone();
             c[idx].push(add);
             c
+        })
+    })
+}
+
+// TODO where to put this
+fn add_trip<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I, add: u8) -> impl Iterator<Item = Vec<Vec<u8>>> {
+    vals.flat_map(move |perm| {
+        // select who has the dup
+        (0..perm.len() - 1).filter_map(move |idx| {
+            // only count once regardless the ordering
+            if perm[idx][0] < perm[perm.len() - 1][0] {
+                return None;
+            }
+            // the element at perm[len-1] is the dup => add it
+            let mut c = perm.clone();
+            let x = c.pop()?;
+            c[idx].push(x[0]);
+            c[idx].push(add);
+            Some(c)
         })
     })
 }
@@ -538,6 +579,7 @@ enum RuleSet {
     SomeoneIsDup,
     SomeoneIsTrip,
     FixedDup(String),
+    FixedTrip(String),
     Eq,
 }
 
@@ -561,6 +603,10 @@ impl RuleSet {
                 perm,
                 *lut_b.get(s).context("Invalid index")? as u8,
             ))),
+            RuleSet::FixedTrip(s) => Ok(Box::new(add_trip(
+                perm,
+                *lut_b.get(s).context("Invalid index")? as u8,
+            ))),
             RuleSet::Eq => Ok(Box::new(perm)),
         }
     }
@@ -575,17 +621,25 @@ impl RuleSet {
                     *i != (*lut_b.get(s).unwrap() as u8)
                 ).map(|i| vec![i]).collect()
             },
+            RuleSet::FixedTrip(s) => {
+                (0..size_map_b as u8).filter(|i|
+                    *i != (*lut_b.get(s).unwrap() as u8)
+                ).map(|i| vec![i]).collect()
+            },
             RuleSet::Eq => (0..size_map_a as u8).map(|i| vec![i]).collect(),
         }
     }
 
     fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> Result<usize> {
         match self {
-            // choose one of set a to have the dups (a) and distribute the remaining ones (b!/2!)
+            // choose one of setA to have the dups (a) and distribute the remaining ones (b!/2!)
             RuleSet::SomeoneIsDup => Ok(size_map_a * factorial(size_map_b)? / 2),
-            // choose one of set a to have the dups (a) and distribute the remaining ones (b!/3!)
+            // choose one of setA to have the triple (a) and distribute the remaining ones (b!/3!)
             RuleSet::SomeoneIsTrip => Ok(size_map_a * factorial(size_map_b)? / 6),
             RuleSet::FixedDup(_) => Ok(factorial(size_map_a)? * size_map_a),
+            // chose one of setA to have the triple (a) and distribute the remaining ones without
+            // the fixed one ((b-1)!/2!)
+            RuleSet::FixedTrip(_) => Ok(size_map_a * factorial(size_map_b-1)? / 2),
             RuleSet::Eq => Ok(factorial(size_map_a)?),
         }
     }
@@ -634,7 +688,7 @@ impl Game {
         }
 
         match &g.rule_set {
-            RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) => {
+            RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => {
                 for c in &mut g.constraints {
                     if c.no_exclude {continue}
                     if let CheckType::Lights(l) = c.check {
@@ -1055,8 +1109,6 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
-
-    println!("{}", g.rule_set.get_perms_amount(g.map_a.len(), g.map_b.len()).unwrap());
 
     let start = Instant::now();
     g.sim().unwrap();
