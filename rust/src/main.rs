@@ -36,11 +36,16 @@ use std::{collections::HashMap, fs::File};
 
 #[cfg(test)]
 mod tests {
+    use permutator::Permutation;
+
     use super::*;
     use std::collections::HashMap;
 
     fn constraint_def() -> Constraint {
         Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Lights(2),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
@@ -131,10 +136,76 @@ mod tests {
         assert_eq!(factorial(3).unwrap(), 6);
         assert_eq!(factorial(4).unwrap(), 24);
     }
+
+    #[test]
+    fn test_someone_is_dup() {
+        let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2]];
+        let perm = x.permutation();
+        let perm = Box::new(someone_is_dup(perm));
+
+        let ground_truth = vec![
+            vec![vec![2,1], vec![0]],
+            vec![vec![0], vec![2,1]],
+            vec![vec![1,0], vec![2]],
+            vec![vec![1], vec![2,0]],
+            vec![vec![2,0], vec![1]],
+            vec![vec![2], vec![1,0]],
+        ];
+        let mut i = 0;
+        for p in perm {
+            assert_eq!(p, ground_truth[i]);
+            i+=1;
+        }
+        assert_eq!(i, ground_truth.len());
+    }
+
+    #[test]
+    fn test_someone_is_trip() {
+        let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2], vec![3]];
+        let perm = x.permutation();
+        let perm = Box::new(someone_is_trip(perm));
+
+        let ground_truth = vec![
+            vec![vec![1,2,3], vec![0]],
+            vec![vec![1], vec![0,2,3]],
+            vec![vec![0,2,3], vec![1]],
+            vec![vec![0], vec![1,2,3]],
+            vec![vec![0,1,3], vec![2]],
+            vec![vec![2], vec![0,1,3]],
+            vec![vec![3], vec![0,1,2]],
+            vec![vec![0,1,2], vec![3]],
+        ];
+        let mut i = 0;
+        for p in perm {
+            assert_eq!(p, ground_truth[i]);
+            i+=1;
+        }
+        assert_eq!(i, ground_truth.len());
+    }
+
+    #[test]
+    fn test_add_dup() {
+        let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1]];
+        let perm = x.permutation();
+        let perm = Box::new(add_dup(perm, 2));
+
+        let ground_truth = vec![
+            vec![vec![0,2], vec![1]],
+            vec![vec![0], vec![1,2]],
+            vec![vec![1,2], vec![0]],
+            vec![vec![1], vec![0,2]],
+        ];
+        let mut i = 0;
+        for p in perm {
+            assert_eq!(p, ground_truth[i]);
+            i+=1;
+        }
+        assert_eq!(i, ground_truth.len());
+    }
+
 }
 
 // TODO where to put this
-// TODO write tests for this
 fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
     vals: I,
     add: u8,
@@ -149,16 +220,18 @@ fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
 }
 
 // TODO where to put this
-// TODO write tests for this
 fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<Item = Vec<Vec<u8>>> {
     vals.flat_map(move |perm| {
+        // select who has the dup
         (0..perm.len() - 1).filter_map(move |idx| {
+            // only count once regardless the ordering
             if perm[idx][0] < perm[perm.len() - 1][0] {
                 return None;
             }
+            // the element at perm[len-1] is the dup => add it
             let mut c = perm.clone();
-            c[idx].push(perm[perm.len() - 1][0]);
-            c.pop();
+            let x = c.pop()?;
+            c[idx].push(x[0]);
             Some(c)
         })
     })
