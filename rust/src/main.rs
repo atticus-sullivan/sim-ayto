@@ -237,6 +237,29 @@ fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<It
     })
 }
 
+// TODO where to put this
+fn someone_is_trip<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<Item = Vec<Vec<u8>>> {
+    vals.flat_map(move |perm| {
+        // if perm[perm.len() - 1][0] < perm[perm.len() - 2][0] {
+        //     return;
+        // }
+        // select who has the trip
+        (0..perm.len() - 2).filter_map(move |idx| {
+            // only count once regardless the ordering
+            if !(perm[idx][0] < perm[perm.len() - 1][0] && perm[perm.len() - 1][0] < perm[perm.len() - 2][0]) {
+                return None;
+            }
+            // the element at perm[len-2],perm[len-1] are the trip => add them
+            let mut c = perm.clone();
+            let x = c.pop()?;
+            c[idx].push(x[0]);
+            let x = c.pop()?;
+            c[idx].push(x[0]);
+            Some(c)
+        })
+    })
+}
+
 #[derive(Deserialize, Debug, Clone)]
 enum CheckType {
     Eq,
@@ -513,6 +536,7 @@ pub fn factorial(n: usize) -> Result<usize> {
 #[derive(Deserialize, Debug)]
 enum RuleSet {
     SomeoneIsDup,
+    SomeoneIsTrip,
     FixedDup(String),
     Eq,
 }
@@ -532,6 +556,7 @@ impl RuleSet {
     ) -> Result<Box<dyn 'a + Iterator<Item = Vec<Vec<u8>>>>> {
         match self {
             RuleSet::SomeoneIsDup => Ok(Box::new(someone_is_dup(perm))),
+            RuleSet::SomeoneIsTrip => Ok(Box::new(someone_is_trip(perm))),
             RuleSet::FixedDup(s) => Ok(Box::new(add_dup(
                 perm,
                 *lut_b.get(s).context("Invalid index")? as u8,
@@ -540,17 +565,26 @@ impl RuleSet {
         }
     }
 
-    fn get_perm_base(&self, size_map_a: usize, size_map_b: usize) -> Matching {
+    fn get_perm_base(&self, size_map_a: usize, size_map_b: usize, _lut_a: &Lut, lut_b: &Lut) -> Matching {
         match self {
             RuleSet::SomeoneIsDup => (0..size_map_b as u8).map(|i| vec![i]).collect(),
-            RuleSet::FixedDup(_) => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+            RuleSet::SomeoneIsTrip => (0..size_map_b as u8).map(|i| vec![i]).collect(),
+            RuleSet::FixedDup(s) => {
+                // size_map_a + 1 = size_map_b
+                (0..size_map_b as u8).filter(|i|
+                    *i != (*lut_b.get(s).unwrap() as u8)
+                ).map(|i| vec![i]).collect()
+            },
             RuleSet::Eq => (0..size_map_a as u8).map(|i| vec![i]).collect(),
         }
     }
 
     fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> Result<usize> {
         match self {
-            RuleSet::SomeoneIsDup => Ok(factorial(size_map_b)? * size_map_a / 2),
+            // choose one of set a to have the dups (a) and distribute the remaining ones (b!/2!)
+            RuleSet::SomeoneIsDup => Ok(size_map_a * factorial(size_map_b)? / 2),
+            // choose one of set a to have the dups (a) and distribute the remaining ones (b!/3!)
+            RuleSet::SomeoneIsTrip => Ok(size_map_a * factorial(size_map_b)? / 6),
             RuleSet::FixedDup(_) => Ok(factorial(size_map_a)? * size_map_a),
             RuleSet::Eq => Ok(factorial(size_map_a)?),
         }
@@ -600,7 +634,7 @@ impl Game {
         }
 
         match &g.rule_set {
-            RuleSet::SomeoneIsDup | RuleSet::FixedDup(_) => {
+            RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) => {
                 for c in &mut g.constraints {
                     if c.no_exclude {continue}
                     if let CheckType::Lights(l) = c.check {
@@ -630,7 +664,7 @@ impl Game {
     fn sim(&mut self) -> Result<()> {
         let mut x: Matching = self
             .rule_set
-            .get_perm_base(self.map_a.len(), self.map_b.len());
+            .get_perm_base(self.map_a.len(), self.map_b.len(), &self.lut_a, &self.lut_b);
         let perm = x.permutation();
         let perm = self.rule_set.get_perms(perm, &self.lut_a, &self.lut_b)?;
 
@@ -1021,6 +1055,8 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
+
+    println!("{}", g.rule_set.get_perms_amount(g.map_a.len(), g.map_b.len()).unwrap());
 
     let start = Instant::now();
     g.sim().unwrap();

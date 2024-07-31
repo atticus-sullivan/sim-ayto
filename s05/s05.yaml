@@ -3,7 +3,7 @@
 
 tree_gen: false
 
-rule_set: !SomeoneIsDup
+rule_set: !SomeoneIsTrip
 # rule_set: !FixedDup Max
 # rule_set: !FixedDup 
 
