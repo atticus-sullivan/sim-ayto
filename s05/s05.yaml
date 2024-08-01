@@ -246,30 +246,30 @@ constraints:
       # Sidar: Sina
       # Paddy: Edda
 
-  - type: !Night {num: 10, comment: "E20"}
-    check: !Lights 7
-    map:
-      Gerrit: Tais
-      Wilson: Shelly
-      Kevin: Lina
-      Eti: Maja
-      Sandro: Julia
-      Paddy: Edda
-      Paulo: Lisa-Marie
-      Martin: Afra
-      Sidar: Sina
-      Ryan: Jana
-
-  - type: !Night {num: 11, comment: "E21 -- Reunion"}
-    check: !Lights 10
-    map:
-      Gerrit: Tais
-      Wilson: Shelly
-      Kevin: Lina
-      Eti: Maja
-      Sandro: Julia
-      Paddy: Afra
-      Paulo: Lisa-Marie
-      Martin: Sina
-      Sidar: Edda
-      Ryan: Jana
+  # - type: !Night {num: 10, comment: "E20"}
+  #   check: !Lights 7
+  #   map:
+  #     Gerrit: Tais
+  #     Wilson: Shelly
+  #     Kevin: Lina
+  #     Eti: Maja
+  #     Sandro: Julia
+  #     Paddy: Edda
+  #     Paulo: Lisa-Marie
+  #     Martin: Afra
+  #     Sidar: Sina
+  #     Ryan: Jana
+  #
+  # - type: !Night {num: 11, comment: "E21 -- Reunion"}
+  #   check: !Lights 10
+  #   map:
+  #     Gerrit: Tais
+  #     Wilson: Shelly
+  #     Kevin: Lina
+  #     Eti: Maja
+  #     Sandro: Julia
+  #     Paddy: Afra
+  #     Paulo: Lisa-Marie
+  #     Martin: Sina
+  #     Sidar: Edda
+  #     Ryan: Jana
