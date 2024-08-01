@@ -26,7 +26,7 @@ clean_tex:
 $(ALIAS):
 	make $(patsubst %.out,%,$@)/$@
 
-$(OUT_RUST): %.out: %.yaml ./rust/src/*
+$(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	@date
 	./rust/target/release/ayto -c -o $(basename $<) $< > $(basename $<).col.out
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
@@ -34,6 +34,9 @@ $(OUT_RUST): %.out: %.yaml ./rust/src/*
 	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
 	echo "\\addplot table {$(basename $<)_statInfo.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
 	@date
+
+rust/target/release/ayto:
+	make -C rust buildRelease
 
 stats.pdf: stats.tex statsMN.tex statsMB.tex statsInfo.tex
 	sort -u statsInfo.tex > statsInfo.tex.sort
