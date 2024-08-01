@@ -14,7 +14,7 @@ setA:
   - Kevin
   - Martin
   - Paddy
-  - Paolo
+  - Paulo
   - Ryan
   - Sandro
   - Sidar
@@ -38,7 +38,7 @@ constraints:
   - type: !Box {num: 1, comment: "E03"}
     check: !Lights 0
     map:
-      Paolo: Jana
+      Paulo: Jana
       # Lina: Kevin
 
   - type: !Night {num: 1, comment: "E04"}
@@ -46,7 +46,7 @@ constraints:
     map:
       Ryan: Lina
       Kevin: Sina
-      Paolo: Tais
+      Paulo: Tais
       Sidar: Jana
       Martin: Julia
       Gerrit: Pia
@@ -72,7 +72,7 @@ constraints:
       Paddy: Shelly
       Kevin: Sina
       Gerrit: Tais
-      Paolo: Lisa-Marie
+      Paulo: Lisa-Marie
       Eti: Afra
       Wilson: Maja
       # Julia
@@ -80,7 +80,7 @@ constraints:
   - type: !Box {num: 3, comment: "E06"}
     check: !Lights 0
     map:
-      # Paolo: Edda
+      # Paulo: Edda
       Kevin: Maja
 
   - type: !Box {num: 3.5, comment: "E07"}
@@ -92,7 +92,7 @@ constraints:
     check: !Lights 4
     map:
       Kevin: Melanie
-      Paolo: Edda
+      Paulo: Edda
       Eti: Maja
       Paddy: Julia
       Wilson: Shelly
@@ -117,7 +117,7 @@ constraints:
       Gerrit: Tais
       Paddy: Lina
       Eti: Afra
-      Paolo: Lisa-Marie
+      Paulo: Lisa-Marie
       Ryan: Edda
       Kevin: Sina
       Martin: Julia
@@ -132,7 +132,7 @@ constraints:
     hidden: true
     map:
       Gerrit: Melanie
-  - type: !Box {num: 5, comment: "E11"}
+  - type: !Box {num: 5, comment: "E12"}
     check: !Lights 1
     noExclude: true
     hidden: true
@@ -157,4 +157,119 @@ constraints:
       Eti: Maja
       Sidar: Afra
       Paddy: Lina
-      Paolo: Edda
+      Paulo: Edda
+
+  - type: !Box {num: 6, comment: "E13"}
+    check: !Lights 0
+    map:
+      # Paulo: Maja
+      Sandro: Sina
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights 5
+    map:
+      Gerrit: Tais
+      Wilson: Shelly
+      Martin: Lisa-Marie
+      Paulo: Sina
+      Kevin: Lina
+      Eti: Maja
+      Sandro: Afra
+      Sidar: Julia
+      Ryan: Jana
+      Paddy: Edda
+
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights 0
+    map:
+      # Sandro: Afra
+      Paulo: Julia
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights 5
+    map:
+      Gerrit: Tais
+      Wilson: Shelly
+      Eti: Maja
+      Kevin: Lina
+      Martin: Afra
+      Sandro: Julia
+      Paddy: Jana
+      Sidar: Lisa-Marie
+      Paulo: Sina
+      Ryan: Edda
+
+  # - type: !Box {num: 8, comment: "E17"}
+  #   check: !Lights ? # wäre 1 gewesen
+  #   map:
+  #     Eti: Maja
+  #     # Paddy: Edda
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights 4
+    map:
+      Gerrit: Tais
+      Wilson: Shelly
+      Eti: Afra
+      Kevin: Lina
+      Ryan: Edda
+      Paddy: Jana
+      Paulo: Sina
+      Martin: Lisa-Marie
+      Sandro: Julia
+      Sidar: Maja
+
+  - type: !Box {num: 9, comment: "E18"}
+    check: !Lights 0
+    map:
+      # Sidar: Julia
+      Sandro: Afra
+
+  - type: !Night {num: 9, comment: "E19"}
+    check: !Lights 6
+    map:
+      Gerrit: Tais
+      Wilson: Shelly
+      Paddy: Sina
+      Sandro: Julia
+      Paulo: Edda
+      Ryan: Jana
+      Sidar: Afra
+      Eti: Maja
+      Kevin: Lina
+      Martin: Lisa-Marie
+
+  - type: !Box {num: 10, comment: "E19"}
+    check: !Lights 1
+    map:
+      Kevin: Lina
+      # Sidar: Sina
+      # Paddy: Edda
+
+  - type: !Night {num: 10, comment: "E20"}
+    check: !Lights 7
+    map:
+      Gerrit: Tais
+      Wilson: Shelly
+      Kevin: Lina
+      Eti: Maja
+      Sandro: Julia
+      Paddy: Edda
+      Paulo: Lisa-Marie
+      Martin: Afra
+      Sidar: Sina
+      Ryan: Jana
+
+  - type: !Night {num: 11, comment: "E21 -- Reunion"}
+    check: !Lights 10
+    map:
+      Gerrit: Tais
+      Wilson: Shelly
+      Kevin: Lina
+      Eti: Maja
+      Sandro: Julia
+      Paddy: Afra
+      Paulo: Lisa-Marie
+      Martin: Sina
+      Sidar: Edda
+      Ryan: Jana
