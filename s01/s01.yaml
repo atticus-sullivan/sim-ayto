@@ -1,0 +1,230 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: false
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Edin
+# rule_set: !Eq
+
+setA:
+  - Aline
+  - Ivana
+  - Kathi
+  - Laura
+  - Luisa
+  - Madleine
+  - Melissa
+  - Michelle
+  - Nadine
+  - Sabrina
+
+
+setB:
+  - Aleks
+  - Axel
+  - Dominic
+  - Edin
+  - Elisha
+  - Ferhat
+  - Juliano
+  - Kevin
+  - Laurin
+  - Mo
+  - Rene
+
+constraints:
+  - type: !Box {num: 1, comment: "E02"}
+    check: !Lights 0
+    map:
+     Ivana: Mo
+
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights 1
+    map:
+      Luisa: Axel
+      Kathi: Rene
+      Nadine: Elisha
+      Laura: Ferhat
+      Madleine: Laurin
+      Michelle: Mo
+      Aline: Kevin
+      Ivana: Juliano
+      Melissa: Dominic
+      Sabrina: Aleks
+
+  - type: !Box {num: 2, comment: "E04"}
+    check: !Lights 0
+    map:
+      Melissa: Dominic
+
+  - type: !Night {num: 2, comment: "E04"}
+    check: !Lights 2
+    map:
+      Ivana: Elisha
+      Kathi: Kevin
+      Michelle: Mo
+      Melissa: Laurin
+      Nadine: Aleks
+      Aline: Ferhat
+      Luisa: Rene
+      Sabrina: Dominic
+      Laura: Juliano
+      Madleine: Axel
+
+  - type: !Box {num: 3, comment: "E06"}
+    check: !Lights 1
+    map:
+      Aline: Mo
+
+  - type: !Night {num: 3, comment: "E06"}
+    check: !Lights 3
+    map:
+      Aline: Mo
+      Kathi: Kevin
+      Sabrina: Dominic
+      Nadine: Aleks
+      Melissa: Laurin
+      Madleine: Axel
+      Michelle: Ferhat
+      Luisa: Rene
+      Ivana: Elisha
+      Laura: Juliano
+
+  - type: !Box {num: 4, comment: "E08"}
+    check: !Lights 1
+    map:
+      Melissa: Laurin
+
+  - type: !Night {num: 4, comment: "E08 -- Blackout"}
+    check: !Lights 2
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Laura: Kevin
+      Michelle: Elisha
+      Kathi: Juliano
+      Nadine: Dominic
+      Sabrina: Aleks
+      Ivana: Axel
+      Madleine: Ferhat
+      Luisa: Rene
+
+  - type: !Box {num: 5, comment: "E10"}
+    check: !Lights 0
+    map:
+      Ivana: Elisha
+
+  - type: !Night {num: 5, comment: "E10"}
+    check: !Lights 5
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Luisa: Ferhat
+      Sabrina: Elisha
+      Nadine: Rene
+      Kathi: Kevin
+      Laura: Juliano
+      Madleine: Aleks
+      Michelle: Axel
+      Ivana: Dominic
+
+  - type: !Box {num: 6, comment: "E12"}
+    check: !Lights 1
+    map:
+      Michelle: Rene
+
+  - type: !Night {num: 6, comment: "E12"}
+    check: !Lights 5
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Michelle: Rene
+      Nadine: Elisha
+      Luisa: Axel
+      Laura: Edin
+      Kathi: Kevin
+      Ivana: Juliano
+      Madleine: Aleks
+      Sabrina: Dominic
+      # Ferhat
+
+  - type: !Box {num: 7, comment: "E14"}
+    check: !Lights 0
+    map:
+      Ivana: Edin
+
+  - type: !Night {num: 7, comment: "E14"}
+    check: !Lights 5
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Michelle: Rene
+      Nadine: Ferhat
+      Kathi: Elisha
+      Laura: Juliano
+      Sabrina: Dominic
+      Madleine: Aleks
+      Luisa: Axel
+      Ivana: Kevin
+      # Edin
+
+  - type: !Box {num: 8, comment: "E16"}
+    check: !Lights 0
+    map:
+      Sabrina: Axel
+
+  - type: !Night {num: 8, comment: "E16"}
+    check: !Lights 6
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Michelle: Rene
+      Laura: Juliano
+      Nadine: Ferhat
+      Madleine: Edin
+      Kathi: Aleks
+      Luisa: Axel
+      Ivana: Kevin
+      Sabrina: Dominic
+      # Elisha
+
+  - type: !Box {num: 9, comment: "E18"}
+    check: !Lights 0
+    map:
+      Luisa: Ferhat
+
+  - type: !Night {num: 9, comment: "E18"}
+    check: !Lights 7
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Michelle: Rene
+      Sabrina: Elisha
+      Ivana: Dominic
+      Madleine: Kevin
+      Luisa: Axel
+      Kathi: Aleks
+      Nadine: Ferhat
+      Laura: Juliano
+      # Edin
+
+  - type: !Box {num: 10, comment: "E20"}
+    check: !Lights 1
+    map:
+      Kathi: Kevin
+
+  - type: !Night {num: 10, comment: "E20"}
+    check: !Lights 10
+    map:
+      Aline: Mo
+      Melissa: Laurin
+      Michelle: Rene
+      Kathi: Kevin
+      Luisa: Axel
+      Nadine: Ferhat
+      Madleine: Edin
+      Sabrina: Elisha
+      Ivana: Dominic
+      Laura: Aleks
+      # Madleine: Juliano
