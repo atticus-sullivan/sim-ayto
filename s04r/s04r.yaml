@@ -4,22 +4,10 @@
 tree_gen: false
 
 # rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Max
-rule_set: !Eq
+rule_set: !FixedDup Dana
+# rule_set: !Eq
 
 setA:
-  - Anastasia
-  - Asena
-  - Emmy
-  - Gabriela
-  - Jennifer
-  - LauraL
-  - LauraM
-  - Linda
-  - Nadja
-  - Tara
-
-setB:
   - Alex
   - Antonino
   - Chris
@@ -27,27 +15,46 @@ setB:
   - Lars
   - Lukas
   - Marc-Robin
-  - Niko
+  - Nikola
   - Ozan
   - Tim
+
+setB:
+  - Anastasia
+  - Asena
+  - Emmy
+  - Gabriela
+  - Jenny
+  - LauraL # blond
+  - LauraM
+  - Linda
+  - Nadja
+  - Tara
+  - Dana
 
 constraints:
   - type: !Box {num: 1, comment: "E03"}
     check: !Lights 0
     map:
-      # Tara: Niko
-      LauraL: Marc-Robin
+      # Tara: Nikola
+      Marc-Robin: LauraL
 
-  # - type: !Night {num: 1, comment: "E04"}
-  #   check: !Lights 3
+  - type: !Night {num: 1, comment: "E04"}
+    check: !Lights 2
+    map:
+      Tim: Linda
+      Lukas: Jenny
+      Nikola: Tara
+      Lars: Nadja
+      Kaan: Asena
+      Chris: Emmy
+      Alex: LauraL
+      Ozan: Gabriela
+      Antonino: LauraM
+      Marc-Robin: Anastasia
+
+  # - type: !Box {num: 2, comment: "E05"}
+  #   check: !Lights ?
   #   map:
-  #     Darya: Danilo
-  #     Sandra: Paco
-  #     Paulina: Steffen
-  #     Shakira: Marvin
-  #     Kim: Mike
-  #     Sabrina: Emanuell
-  #     Jenny: Elia
-  #     Marie: Fabio
-  #     Steffi: Teezy
-  #     Alicia: Peter
+  #     Chris: Emmy
+  #     # Lukas: Dana
