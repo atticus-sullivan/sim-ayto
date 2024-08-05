@@ -15,13 +15,13 @@ clean: clean_tex $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
 	
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
-	-rm "$(<)/$(<)"*.{out,pdf,png,dot}
+	- $(RM) "$(<)/$(<)"*.{out,pdf,png,dot}
 
 clean_tex:
-	- rm statsMN.tex{,sort}
-	- rm statsMB.tex{,sort}
-	- rm statsInfo.tex{,sort}
-	- rm -r tex-aux
+	- $(RM) statsMN.tex{,sort}
+	- $(RM) statsMB.tex{,sort}
+	- $(RM) statsInfo.tex{,sort}
+	- $(RM) -r tex-aux
 
 $(ALIAS):
 	make $(patsubst %.out,%,$@)/$@
@@ -34,6 +34,7 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
 	echo "\\addplot table {$(basename $<)_statInfo.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
 	@date
+	@cd "$(dir $<)" && if test -e "$(patsubst %/,%.tape,$(dir $<))" ; then vhs "$(patsubst %/,%.tape,$(dir $<))" ; $(RM) .not_needed.gif 2>/dev/null ; date ; fi
 
 rust/target/release/ayto:
 	make -C rust buildRelease
