@@ -20,8 +20,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    container:
-      image: blang/latex:ubuntu
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,15 +34,6 @@ jobs:
           git checkout -b main origin/main
           git switch build
 
-      # - name: Cache Rust dependencies
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: |
-      #       ~/.cargo
-      #     key: ${{ runner.os }}-rust-${{ hashFiles('**/Cargo.toml') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-rust-
-      #
       # - name: Cache LaTeX packages
       #   uses: actions/cache@v2
       #   with:
@@ -57,11 +46,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y graphviz
-          # if ! dpkg -l | grep -q texlive-latex-extra; then
-          #       sudo apt install -y graphviz texlive texlive-latex-extra
-          # else
-          #   echo "TeX Live packages are already installed."
-          # fi
+          if ! dpkg -l | grep -q texlive-latex-extra; then
+                sudo apt install -y texlive texlive-latex-extra
+          else
+            echo "TeX Live packages are already installed."
+          fi
 
       - name: Cache Rust cargo registry
         uses: actions/cache@v3
