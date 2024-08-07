@@ -204,6 +204,37 @@ mod tests {
     }
 
     #[test]
+    fn test_add_nn() {
+        let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2],vec![3], vec![4], vec![5]];
+        let perm = x.permutation();
+        let perm = Box::new(add_nn(perm));
+
+        let ground_truth = vec![
+            vec![vec![255], vec![0], vec![255], vec![2], vec![255], vec![4]],
+            vec![vec![255], vec![255], vec![0], vec![1], vec![255], vec![4]],
+            vec![vec![255], vec![255], vec![1], vec![0], vec![255], vec![4]],
+            vec![vec![255], vec![255], vec![0], vec![255], vec![3], vec![1]],
+            vec![vec![255], vec![255], vec![255], vec![0], vec![2], vec![1]],
+            vec![vec![255], vec![255], vec![255], vec![2], vec![0], vec![1]],
+            vec![vec![255], vec![255], vec![255], vec![0], vec![1], vec![2]],
+            vec![vec![255], vec![255], vec![255], vec![1], vec![0], vec![2]],
+            vec![vec![255], vec![0], vec![255], vec![255], vec![3], vec![2]],
+            vec![vec![255], vec![0], vec![255], vec![255], vec![2], vec![3]],
+            vec![vec![255], vec![255], vec![0], vec![255], vec![1], vec![3]],
+            vec![vec![255], vec![255], vec![1], vec![255], vec![0], vec![3]],
+            vec![vec![255], vec![255], vec![255], vec![2], vec![1], vec![0]],
+            vec![vec![255], vec![255], vec![1], vec![255], vec![3], vec![0]],
+            vec![vec![255], vec![255], vec![255], vec![1], vec![2], vec![0]],
+        ];
+        let mut i = 0;
+        for p in perm {
+            assert_eq!(p, ground_truth[i]);
+            i+=1;
+        }
+        assert_eq!(i, ground_truth.len());
+    }
+
+    #[test]
     fn test_add_trip() {
         let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2]];
         let perm = x.permutation();
@@ -238,6 +269,27 @@ fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
             c[idx].push(add);
             c
         })
+    })
+}
+
+// TODO where to put this
+fn add_nn<I: Iterator<Item = Vec<Vec<u8>>>>(
+    vals: I
+) -> impl Iterator<Item = Vec<Vec<u8>>> {
+    vals.filter_map(move |perm| {
+        let mut c = vec![vec![u8::MAX]; perm.len()];
+        let mut bar = 0;
+        for i in 0..c.len()/2 {
+            let i1 = (2*i) as usize;
+            let i2 = (2*i+1) as usize;
+            if perm[i1][0] < perm[i2][0] || perm[i1][0] < bar {
+                return None
+            }
+            bar = perm[i1][0];
+            c[perm[i1][0] as usize] = perm[i2].clone()
+        }
+        println!("{:?} -> {:?}", perm, c);
+        Some(c)
     })
 }
 
@@ -578,6 +630,7 @@ pub fn factorial(n: usize) -> Result<usize> {
 enum RuleSet {
     SomeoneIsDup,
     SomeoneIsTrip,
+    NToN,
     FixedDup(String),
     FixedTrip(String),
     Eq,
@@ -599,6 +652,7 @@ impl RuleSet {
         match self {
             RuleSet::SomeoneIsDup => Ok(Box::new(someone_is_dup(perm))),
             RuleSet::SomeoneIsTrip => Ok(Box::new(someone_is_trip(perm))),
+            RuleSet::NToN => Ok(Box::new(add_nn(perm))),
             RuleSet::FixedDup(s) => Ok(Box::new(add_dup(
                 perm,
                 *lut_b.get(s).context("Invalid index")? as u8,
@@ -611,10 +665,18 @@ impl RuleSet {
         }
     }
 
+    // fn perm_or_comb(&self) -> bool {
+    //     match self {
+    //         RuleSet::NToN => false,
+    //         RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => true
+    //     }
+    // }
+
     fn get_perm_base(&self, size_map_a: usize, size_map_b: usize, _lut_a: &Lut, lut_b: &Lut) -> Matching {
         match self {
             RuleSet::SomeoneIsDup => (0..size_map_b as u8).map(|i| vec![i]).collect(),
             RuleSet::SomeoneIsTrip => (0..size_map_b as u8).map(|i| vec![i]).collect(),
+            RuleSet::NToN => (0..size_map_a as u8).map(|i| vec![i]).collect(),
             RuleSet::FixedDup(s) => {
                 // size_map_a + 1 = size_map_b
                 (0..size_map_b as u8).filter(|i|
@@ -641,6 +703,9 @@ impl RuleSet {
             // the fixed one ((b-1)!/2!)
             RuleSet::FixedTrip(_) => Ok(size_map_a * factorial(size_map_b-1)? / 2),
             RuleSet::Eq => Ok(factorial(size_map_a)?),
+            // first choose the items for the first set, then distribute the rest. Avoid double
+            // counting. binom(X,2X) * X! / 2
+            RuleSet::NToN => Ok(permutator::divide_factorial(2*size_map_a, size_map_a) / (1<<size_map_a)),
         }
     }
 }
@@ -687,6 +752,7 @@ impl Game {
             }
         }
 
+        // post postprocessing -> add exclude mapping list (with names)
         match &g.rule_set {
             RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => {
                 for c in &mut g.constraints {
@@ -705,11 +771,27 @@ impl Game {
                     }
                 }
             },
-            RuleSet::Eq => {},
+            RuleSet::Eq | RuleSet::NToN => {},
         }
 
         for c in &mut g.constraints {
             c.finalize_parsing(&g.lut_a, &g.lut_b)?;
+        }
+
+        // post postprocessing -> sort map if needed
+        match &g.rule_set {
+            RuleSet::NToN => {
+                for c in &mut g.constraints {
+                    c.map = c.map.drain().map(|(k, v)| {
+                        if k < v {
+                            (v, k)
+                        } else {
+                            (k, v)
+                        }
+                    }).collect();
+                }
+            },
+            RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => {}
         }
 
         Ok(g)
