@@ -34,13 +34,16 @@ jobs:
           git checkout -b main origin/main
           git switch build
 
-      # - name: Cache LaTeX packages
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: |
-      #       /usr/share/texlive
-      #     key: texlive-packages-${{ runner.os }}
-      #     restore-keys: texlive-packages-
+      - name: Cache TeX Live packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            /usr/share/texlive
+            /usr/share/texmf
+            /var/lib/texmf
+            /etc/texmf
+          key: texlive-packages-${{ runner.os }}
+          restore-keys: texlive-packages-
 
       - name: apt stuff
         run: |
