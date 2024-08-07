@@ -3,9 +3,7 @@
 
 tree_gen: false
 
-# rule_set: !SomeoneIsDup
 rule_set: !FixedDup Dana
-# rule_set: !Eq
 
 setA:
   - Alex
