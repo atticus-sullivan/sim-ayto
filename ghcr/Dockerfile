@@ -9,7 +9,10 @@ RUN apt-get update && \
     git \
     curl \
     make \
-    build-essential
+    build-essential \
+    python3 python3-pip
+
+RUN pip install --break-system-packages ansitoimg
 
 # Set up the working directory
 WORKDIR /workspace
