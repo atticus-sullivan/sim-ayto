@@ -191,7 +191,7 @@ constraints:
     check: !Lights 3
     map:
       Brandon: Aasha
-      Jasmin: Nour
+      Jasmine: Nour
       Jonathan: Basit
       Max: Justin
       Kylie: Danny
