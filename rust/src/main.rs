@@ -868,6 +868,13 @@ impl Game {
                         (k, v)
                     }
                 }).collect();
+                c.map_s = c.map_s.drain().map(|(k, v)| {
+                    if g.lut_a[&k] > g.lut_b[&v] {
+                        (v, k)
+                    } else {
+                        (k, v)
+                    }
+                }).collect();
             }
         }
 
