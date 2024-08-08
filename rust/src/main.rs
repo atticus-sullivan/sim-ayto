@@ -617,6 +617,13 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
+    fn show_in_table(&self, a: usize, b: usize) -> bool {
+        match self {
+            RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => true,
+            RuleSet::NToN => a > b,
+        }
+    }
+
     fn iter_perms(&self, lut_a: &Lut, lut_b: &Lut, is: &mut IterState) -> Result<()> {
         match self {
             RuleSet::Eq => {
@@ -665,7 +672,7 @@ impl RuleSet {
                     for p in vs.permutation().filter_map(|x| {
                         let mut c = vec![vec![u8::MAX]; lut_a.len()];
                         for (k,v) in zip(ks.clone(), x) {
-                            if k > &v {
+                            if k <= &v {
                                 return None
                             }
                             c[*k as usize] = vec![v];
@@ -729,7 +736,7 @@ impl IterState {
         if i % self.cnt_update == 0 {
             self.progress.inc(2);
         }
-        if p[0].contains(&1) {
+        if p[1].contains(&0) {
             self.each += 1;
         }
         self.total += 1;
@@ -823,7 +830,7 @@ impl Game {
             RuleSet::NToN => {
                 for c in &mut g.constraints_orig {
                     c.map = c.map.drain().map(|(k, v)| {
-                        if k > v {
+                        if k < v {
                             (v, k)
                         } else {
                             (k, v)
@@ -1065,14 +1072,18 @@ impl Game {
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
         for (i, a) in self.map_a.iter().enumerate() {
-            let i = rem.0.get(i)?.iter().map(|x| {
-                let val = (*x as f64) / (rem.1 as f64) * 100.0;
-                if 79.0 < val && val < 101.0 {
-                    Cell::new(format!("{:02.3}", val)).fg(Color::Green)
-                } else if -1.0 < val && val < 1.0 {
-                    Cell::new(format!("{:02.3}", val)).fg(Color::Red)
+            let i = rem.0.get(i)?.iter().enumerate().map(|(j,x)| {
+                if !self.rule_set.show_in_table(i,j) {
+                    Cell::new("")
                 } else {
-                    Cell::new(format!("{:02.3}", val))
+                    let val = (*x as f64) / (rem.1 as f64) * 100.0;
+                    if 79.0 < val && val < 101.0 {
+                        Cell::new(format!("{:02.3}", val)).fg(Color::Green)
+                    } else if -1.0 < val && val < 1.0 {
+                        Cell::new(format!("{:02.3}", val)).fg(Color::Red)
+                    } else {
+                        Cell::new(format!("{:02.3}", val))
+                    }
                 }
             });
             let mut row = vec![Cell::new(a)];
