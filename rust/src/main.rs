@@ -22,10 +22,11 @@ use comfy_table::{
     modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Cell, Color, Table,
 };
 use indicatif::ProgressBar;
-use permutator::Permutation;
+use permutator::{Combination, Permutation};
 use serde::Deserialize;
 use std::collections::HashSet;
 use std::io::Write;
+use std::iter::zip;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::Instant;
@@ -132,12 +133,6 @@ mod tests {
     }
 
     #[test]
-    fn test_factorial() {
-        assert_eq!(factorial(3).unwrap(), 6);
-        assert_eq!(factorial(4).unwrap(), 24);
-    }
-
-    #[test]
     fn test_someone_is_dup() {
         let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2]];
         let perm = x.permutation();
@@ -204,37 +199,6 @@ mod tests {
     }
 
     #[test]
-    fn test_add_nn() {
-        let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2],vec![3], vec![4], vec![5]];
-        let perm = x.permutation();
-        let perm = Box::new(add_nn(perm));
-
-        let ground_truth = vec![
-            vec![vec![255], vec![0], vec![255], vec![2], vec![255], vec![4]],
-            vec![vec![255], vec![255], vec![0], vec![1], vec![255], vec![4]],
-            vec![vec![255], vec![255], vec![1], vec![0], vec![255], vec![4]],
-            vec![vec![255], vec![255], vec![0], vec![255], vec![3], vec![1]],
-            vec![vec![255], vec![255], vec![255], vec![0], vec![2], vec![1]],
-            vec![vec![255], vec![255], vec![255], vec![2], vec![0], vec![1]],
-            vec![vec![255], vec![255], vec![255], vec![0], vec![1], vec![2]],
-            vec![vec![255], vec![255], vec![255], vec![1], vec![0], vec![2]],
-            vec![vec![255], vec![0], vec![255], vec![255], vec![3], vec![2]],
-            vec![vec![255], vec![0], vec![255], vec![255], vec![2], vec![3]],
-            vec![vec![255], vec![255], vec![0], vec![255], vec![1], vec![3]],
-            vec![vec![255], vec![255], vec![1], vec![255], vec![0], vec![3]],
-            vec![vec![255], vec![255], vec![255], vec![2], vec![1], vec![0]],
-            vec![vec![255], vec![255], vec![1], vec![255], vec![3], vec![0]],
-            vec![vec![255], vec![255], vec![255], vec![1], vec![2], vec![0]],
-        ];
-        let mut i = 0;
-        for p in perm {
-            assert_eq!(p, ground_truth[i]);
-            i+=1;
-        }
-        assert_eq!(i, ground_truth.len());
-    }
-
-    #[test]
     fn test_add_trip() {
         let mut x: Vec<Vec<u8>> = vec![vec![0],vec![1],vec![2]];
         let perm = x.permutation();
@@ -256,6 +220,40 @@ mod tests {
         assert_eq!(i, ground_truth.len());
     }
 
+    #[test]
+    fn test_iter_perms_nn() {
+        let mut is = IterState::new(true, 15, vec![]);
+        let ground_truth:HashSet<Vec<u8>> = HashSet::from([
+            vec![(255), (0),   (255), (255), (2),   (3)],
+            vec![(255), (0),   (255), (255), (3),   (2)],
+            vec![(255), (0),   (255), (2),   (255), (4)],
+            vec![(255), (255), (0),   (1),   (255), (4)],
+            vec![(255), (255), (0),   (255), (1),   (3)],
+            vec![(255), (255), (0),   (255), (3),   (1)],
+            vec![(255), (255), (1),   (0),   (255), (4)],
+            vec![(255), (255), (1),   (255), (0),   (3)],
+            vec![(255), (255), (1),   (255), (3),   (0)],
+            vec![(255), (255), (255), (0),   (1),   (2)],
+            vec![(255), (255), (255), (0),   (2),   (1)],
+            vec![(255), (255), (255), (1),   (0),   (2)],
+            vec![(255), (255), (255), (1),   (2),   (0)],
+            vec![(255), (255), (255), (2),   (0),   (1)],
+            vec![(255), (255), (255), (2),   (1),   (0)],
+        ]);
+        let nn_rule = RuleSet::NToN;
+        let lut = HashMap::from([("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4), ("F", 5)].map(|(k,v)| (k.to_string(), v)));
+        nn_rule.iter_perms(&lut, &lut, &mut is).unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &is.left_poss {
+            let x:Vec<_> = x.iter().map(|i| i[0]).collect();
+            assert!(ground_truth.contains(&x));
+        }
+        // check if the lengths fit
+        assert_eq!(is.left_poss.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(is.left_poss.len(), is.left_poss.drain(..).collect::<HashSet<_>>().len());
+    }
 }
 
 // TODO where to put this
@@ -269,27 +267,6 @@ fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
             c[idx].push(add);
             c
         })
-    })
-}
-
-// TODO where to put this
-fn add_nn<I: Iterator<Item = Vec<Vec<u8>>>>(
-    vals: I
-) -> impl Iterator<Item = Vec<Vec<u8>>> {
-    vals.filter_map(move |perm| {
-        let mut c = vec![vec![u8::MAX]; perm.len()];
-        let mut bar = 0;
-        for i in 0..c.len()/2 {
-            let i1 = (2*i) as usize;
-            let i2 = (2*i+1) as usize;
-            if perm[i1][0] < perm[i2][0] || perm[i1][0] < bar {
-                return None
-            }
-            bar = perm[i1][0];
-            c[perm[i1][0] as usize] = perm[i2].clone()
-        }
-        println!("{:?} -> {:?}", perm, c);
-        Some(c)
     })
 }
 
@@ -466,6 +443,9 @@ impl Constraint {
     fn eliminate(&mut self, m: &Matching) -> Result<()> {
         for (i1, v) in m.iter().enumerate() {
             for &i2 in v {
+                if i2 == 255 {
+                    continue
+                }
                 self.eliminated_tab[i1][i2 as usize] += 1
             }
         }
@@ -620,12 +600,6 @@ impl Constraint {
     }
 }
 
-pub fn factorial(n: usize) -> Result<usize> {
-    (1..=n)
-        .try_fold(1, usize::checked_mul)
-        .context("factorial failed. Probably too large")
-}
-
 #[derive(Deserialize, Debug)]
 enum RuleSet {
     SomeoneIsDup,
@@ -643,76 +617,142 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
-    fn get_perms<'a, I: 'a + Iterator<Item = Vec<Vec<u8>>>>(
-        &self,
-        perm: I,
-        _lut_a: &Lut,
-        lut_b: &Lut,
-    ) -> Result<Box<dyn 'a + Iterator<Item = Vec<Vec<u8>>>>> {
+    fn iter_perms(&self, lut_a: &Lut, lut_b: &Lut, is: &mut IterState) -> Result<()> {
         match self {
-            RuleSet::SomeoneIsDup => Ok(Box::new(someone_is_dup(perm))),
-            RuleSet::SomeoneIsTrip => Ok(Box::new(someone_is_trip(perm))),
-            RuleSet::NToN => Ok(Box::new(add_nn(perm))),
-            RuleSet::FixedDup(s) => Ok(Box::new(add_dup(
-                perm,
-                *lut_b.get(s).context("Invalid index")? as u8,
-            ))),
-            RuleSet::FixedTrip(s) => Ok(Box::new(add_trip(
-                perm,
-                *lut_b.get(s).context("Invalid index")? as u8,
-            ))),
-            RuleSet::Eq => Ok(Box::new(perm)),
-        }
-    }
-
-    // fn perm_or_comb(&self) -> bool {
-    //     match self {
-    //         RuleSet::NToN => false,
-    //         RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => true
-    //     }
-    // }
-
-    fn get_perm_base(&self, size_map_a: usize, size_map_b: usize, _lut_a: &Lut, lut_b: &Lut) -> Matching {
-        match self {
-            RuleSet::SomeoneIsDup => (0..size_map_b as u8).map(|i| vec![i]).collect(),
-            RuleSet::SomeoneIsTrip => (0..size_map_b as u8).map(|i| vec![i]).collect(),
-            RuleSet::NToN => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+            RuleSet::Eq => {
+                for (i,p) in (0..lut_a.len() as u8).map(|i| vec![i]).collect::<Vec<_>>().permutation().enumerate() {
+                    is.step(i, p)?;
+                }
+                Ok(())
+            },
             RuleSet::FixedDup(s) => {
-                // size_map_a + 1 = size_map_b
-                (0..size_map_b as u8).filter(|i|
-                    *i != (*lut_b.get(s).unwrap() as u8)
-                ).map(|i| vec![i]).collect()
+                let mut x = (0..lut_b.len() as u8).filter(|i| *i != (*lut_b.get(s).unwrap() as u8)).map(|i| vec![i]).collect::<Vec<_>>();
+                let x = x.permutation();
+                for (i,p) in add_dup(x, *lut_b.get(s).context("Invalid index")? as u8).enumerate() {
+                    is.step(i, p)?;
+                }
+                Ok(())
+            },
+            RuleSet::SomeoneIsDup => {
+                let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
+                let x = x.permutation();
+                for (i,p) in someone_is_dup(x).enumerate() {
+                    is.step(i, p)?;
+                }
+                Ok(())
+            },
+            RuleSet::SomeoneIsTrip => {
+                let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
+                let x = x.permutation();
+                for (i,p) in someone_is_trip(x).enumerate() {
+                    is.step(i, p)?;
+                }
+                Ok(())
             },
             RuleSet::FixedTrip(s) => {
-                (0..size_map_b as u8).filter(|i|
-                    *i != (*lut_b.get(s).unwrap() as u8)
-                ).map(|i| vec![i]).collect()
+                let mut x = (0..lut_b.len() as u8).filter(|i| *i != (*lut_b.get(s).unwrap() as u8)).map(|i| vec![i]).collect::<Vec<_>>();
+                let x = x.permutation();
+                for (i,p) in add_trip(x, *lut_b.get(s).context("Invalid index")? as u8).enumerate() {
+                    is.step(i, p)?;
+                }
+                Ok(())
             },
-            RuleSet::Eq => (0..size_map_a as u8).map(|i| vec![i]).collect(),
+            RuleSet::NToN => {
+                let len = lut_a.len()/2;
+                let mut i = 0 as usize;
+                for ks in (0..lut_a.len() as u8).collect::<Vec<_>>().combination(len) {
+                    let mut vs = (0..lut_a.len() as u8).filter(|x| !ks.contains(&x)).collect::<Vec<_>>();
+                    for p in vs.permutation().filter_map(|x| {
+                        let mut c = vec![vec![u8::MAX]; lut_a.len()];
+                        for (k,v) in zip(ks.clone(), x) {
+                            if k > &v {
+                                return None
+                            }
+                            c[*k as usize] = vec![v];
+                        }
+                        Some(c)
+                    }) {
+                        is.step(i,p)?;
+                        i += 1;
+                    }
+                }
+                Ok(())
+            },
         }
     }
 
-    fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> Result<usize> {
+    fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> usize {
         match self {
             // choose one of setA to have the dups (a) and distribute the remaining ones (b!/2!)
-            RuleSet::SomeoneIsDup => Ok(size_map_a * factorial(size_map_b)? / 2),
+            RuleSet::SomeoneIsDup => size_map_a * permutator::factorial(size_map_b) / 2,
             // choose one of setA to have the triple (a) and distribute the remaining ones (b!/3!)
-            RuleSet::SomeoneIsTrip => Ok(size_map_a * factorial(size_map_b)? / 6),
-            RuleSet::FixedDup(_) => Ok(factorial(size_map_a)? * size_map_a),
+            RuleSet::SomeoneIsTrip => size_map_a * permutator::factorial(size_map_b) / 6,
+            RuleSet::FixedDup(_) => permutator::factorial(size_map_a) * size_map_a,
             // chose one of setA to have the triple (a) and distribute the remaining ones without
             // the fixed one ((b-1)!/2!)
-            RuleSet::FixedTrip(_) => Ok(size_map_a * factorial(size_map_b-1)? / 2),
-            RuleSet::Eq => Ok(factorial(size_map_a)?),
+            RuleSet::FixedTrip(_) => size_map_a * permutator::factorial(size_map_b-1) / 2,
+            RuleSet::Eq => permutator::factorial(size_map_a),
             // first choose the items for the first set, then distribute the rest. Avoid double
             // counting. binom(X,2X) * X! / 2
-            RuleSet::NToN => Ok(permutator::divide_factorial(2*size_map_a, size_map_a) / (1<<size_map_a)),
+            RuleSet::NToN => permutator::divide_factorial(size_map_a, size_map_a/2) / (1<<size_map_a/2),
         }
+    }
+}
+
+struct IterState {
+    constraints: Vec<Constraint>,
+    tree_gen: bool,
+    each: u128,
+    total: u128,
+    eliminated: u128,
+    left_poss: Vec<Matching>,
+    progress: ProgressBar,
+    cnt_update: usize,
+}
+
+impl IterState {
+    fn new(tree_gen: bool, perm_amount: usize, constraints: Vec<Constraint>) -> IterState {
+        IterState{
+            constraints,
+            tree_gen,
+            each: 0,
+            total: 0,
+            eliminated: 0,
+            left_poss: vec![],
+            progress: ProgressBar::new(100),
+            cnt_update: std::cmp::max(perm_amount / 50, 1),
+        }
+    }
+
+    fn step(&mut self, i: usize, p: Matching) -> Result<()> {
+        // eprintln!("{:} {:?}", i, p);
+        if i % self.cnt_update == 0 {
+            self.progress.inc(2);
+        }
+        if p[0].contains(&1) {
+            self.each += 1;
+        }
+        self.total += 1;
+        let mut left = true;
+        for c in &mut self.constraints {
+            if !c.fits(&p)? {
+                left = false;
+                c.eliminate(&p)?;
+                self.eliminated += 1;
+                break;
+            }
+        }
+        if left && self.tree_gen {
+            self.left_poss.push(p);
+        }
+        Ok(())
     }
 }
 
 #[derive(Deserialize, Debug)]
 struct Game {
-    constraints: Vec<Constraint>,
+    #[serde(rename = "constraints")]
+    constraints_orig: Vec<Constraint>,
     rule_set: RuleSet,
     tree_gen: bool,
     tree_top: Option<String>,
@@ -752,10 +792,10 @@ impl Game {
             }
         }
 
-        // post postprocessing -> add exclude mapping list (with names)
+        // postprocessing -> add exclude mapping list (with names)
         match &g.rule_set {
             RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => {
-                for c in &mut g.constraints {
+                for c in &mut g.constraints_orig {
                     if c.no_exclude {continue}
                     if let CheckType::Lights(l) = c.check {
                         if !(l == 1 && c.map_s.len() == 1 && c.exclude_s.is_none()) {continue}
@@ -774,16 +814,16 @@ impl Game {
             RuleSet::Eq | RuleSet::NToN => {},
         }
 
-        for c in &mut g.constraints {
+        for c in &mut g.constraints_orig {
             c.finalize_parsing(&g.lut_a, &g.lut_b)?;
         }
 
-        // post postprocessing -> sort map if needed
+        // postprocessing -> sort map if needed
         match &g.rule_set {
             RuleSet::NToN => {
-                for c in &mut g.constraints {
+                for c in &mut g.constraints_orig {
                     c.map = c.map.drain().map(|(k, v)| {
-                        if k < v {
+                        if k > v {
                             (v, k)
                         } else {
                             (k, v)
@@ -798,71 +838,23 @@ impl Game {
     }
 
     fn sim(&mut self) -> Result<()> {
-        let mut x: Matching = self
-            .rule_set
-            .get_perm_base(self.map_a.len(), self.map_b.len(), &self.lut_a, &self.lut_b);
-        let perm = x.permutation();
-        let perm = self.rule_set.get_perms(perm, &self.lut_a, &self.lut_b)?;
-
         let perm_amount = self
             .rule_set
-            .get_perms_amount(self.map_a.len(), self.map_b.len())?;
-        let cnt_update = perm_amount / 50;
-        let progress = ProgressBar::new(100);
+            .get_perms_amount(self.map_a.len(), self.map_b.len());
 
-        let mut each = 0;
-        let mut total = 0;
-        let mut eliminated = 0;
-        let mut left_poss = vec![];
+        let mut is = IterState::new(self.tree_gen, perm_amount, self.constraints_orig.clone());
+        self.rule_set.iter_perms(&self.lut_a, &self.lut_b, &mut is)?;
 
-        if !self.tree_gen {
-            for (i, p) in perm.enumerate() {
-                if i % cnt_update == 0 {
-                    progress.inc(2);
-                }
-                if p[0].contains(&0) {
-                    each += 1;
-                }
-                total += 1;
-                for c in &mut self.constraints {
-                    if !c.fits(&p)? {
-                        c.eliminate(&p)?;
-                        eliminated += 1;
-                        break;
-                    }
-                }
-            }
-        } else {
-            for (i, p) in perm.enumerate() {
-                if i % cnt_update == 0 {
-                    progress.inc(2);
-                }
-                if p[0].contains(&0) {
-                    each += 1;
-                }
-                total += 1;
-                let mut left = true;
-                for c in &mut self.constraints {
-                    if !c.fits(&p)? {
-                        left = false;
-                        c.eliminate(&p)?;
-                        eliminated += 1;
-                        break;
-                    }
-                }
-                if left {
-                    left_poss.push(p); // is clone really neccecary here? (p should be a new copy on evry iteration anyhow)
-                }
-            }
-        }
+        // fix is so that it can't be mutated anymore
+        let is = &is;
 
-        let mut rem: Rem = (vec![vec![each; self.map_b.len()]; self.map_a.len()], total);
+        let mut rem: Rem = (vec![vec![is.each; self.map_b.len()]; self.map_a.len()], is.total);
         self.print_rem(&rem).context("Error printing")?;
         println!();
 
         let mut constr = vec![];
         let mut to_merge = vec![]; // collect hidden constraints to merge them down
-        for c in &self.constraints {
+        for c in &is.constraints {
             if c.hidden {
                 to_merge.push(c);
             } else {
@@ -881,9 +873,9 @@ impl Game {
 
         if self.tree_gen {
             let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
-            let ordering = self.tree_ordering(&left_poss);
+            let ordering = self.tree_ordering(&is.left_poss);
             self.dot_tree(
-                &left_poss,
+                &is.left_poss,
                 &ordering,
                 &(constr[constr.len() - 1].type_str() + " / " + constr[constr.len() - 1].comment()),
                 &mut File::create(dot_path.clone())?,
@@ -949,9 +941,9 @@ impl Game {
 
         println!(
             "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",
-            total,
-            total - eliminated,
-            each
+            is.total,
+            is.total - is.eliminated,
+            is.each
         );
         Ok(())
     }
