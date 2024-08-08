@@ -1010,57 +1010,6 @@ impl Game {
         Ok(())
     }
 
-    fn write_rem_dot(&self, rem: &Rem, title: &str, writer: &mut File) -> Result<()> {
-        writeln!(
-            writer,
-            "digraph structs {{ labelloc=\"b\"; label=\"Stand: {}\"; node[shape=plaintext] struct[label=<", title)?;
-        writeln!(
-            writer,
-            "<table cellspacing=\"2\" border=\"0\" rows=\"*\" columns=\"*\">"
-        )?;
-
-        // header row
-        writeln!(writer, "<tr>")?;
-        writeln!(writer, "<td></td>")?; // first empty cell
-        for h in &self.map_b {
-            writeln!(writer, "<td><B>{h}</B></td>")?;
-        }
-        writeln!(writer, "</tr>")?;
-
-        for (i, a) in self.map_a.iter().enumerate() {
-            writeln!(writer, "<tr>")?;
-            writeln!(writer, "<td><B>{a}</B></td>")?;
-
-            let i = rem
-                .0
-                .get(i)
-                .with_context(|| format!("Indexing rem with map failed (idx {})", i))?
-                .iter()
-                .map(|x| {
-                    let val = (*x as f64) / (rem.1 as f64) * 100.0;
-                    if 79.0 < val && val < 101.0 {
-                        (val, "darkgreen")
-                    } else if -1.0 < val && val < 1.0 {
-                        (val, "red")
-                    } else {
-                        (val, "black")
-                    }
-                });
-            for (v, font) in i {
-                writeln!(
-                    writer,
-                    "<td><font color=\"{}\">{:03.4}</font></td>",
-                    font, v
-                )?;
-            }
-            writeln!(writer, "</tr>")?;
-        }
-        writeln!(writer, "</table>")?;
-        writeln!(writer, ">];}}")?;
-
-        Ok(())
-    }
-
     fn print_rem(&self, rem: &Rem) -> Option<()> {
         let mut hdr = vec![Cell::new("")];
         hdr.extend(

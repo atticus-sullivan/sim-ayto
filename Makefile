@@ -47,9 +47,9 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	# colored output of the complete log (readable from the web)
 	$(ANSITOIMG_PREFIX) ansitoimg --width "$$(wc -L < "$(basename $<).out")" -p render "$(basename $<).col.out" "$(basename $<).col.png"
 	# colored output of the most recent table
-	awk -v RS='' 'END {print NR-2}' "$(basename $<).out" \
+	$(ANSITOIMG_PREFIX) awk -v RS='' 'END {print NR-2}' "$(basename $<).out" \
 		| xargs -I{} awk -v RS="" 'NR == {} {print $0}' "$(basename $<).col.out" \
-		| $(ANSITOIMG_PREFIX) ansitoimg --width $$(wc -L < "$(basename $<).out") -p render "$(basename $<)_tab.png"
+		| ansitoimg --width $$(wc -L < "$(basename $<).out") -p render "$(basename $<)_tab.png"
 	# generate files to generate latex plots
 	echo "\\addplot table {$(basename $<)_statMN.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
 	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
