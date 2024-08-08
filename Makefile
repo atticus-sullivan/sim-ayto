@@ -1,4 +1,4 @@
-DAT_RUST = s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml
+DAT_RUST = s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
 OUT_RUST = $(addsuffix .out, $(basename $(DAT_RUST)))
 
 OUT   = $(OUT_RUST)
