@@ -32,12 +32,12 @@ $(OUT_RUST): %.out: %.yaml ./rust/src/*
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	# colored output of the complete log (readable from the web)
-	LANG="en_GB.UTF-8" wc -L < "$(basename $<).out"
-	ansitoimg --width "$$(LANG="en_GB.UTF-8" wc -L < "$(basename $<).out")" -p render "$(basename $<).col.out" "$(basename $<).col.png"
+	LC_ALL="en_GB.UTF-8" wc -L < "$(basename $<).out"
+	ansitoimg --width "$$(LC_ALL="en_GB.UTF-8" wc -L < "$(basename $<).out")" -p render "$(basename $<).col.out" "$(basename $<).col.png"
 	# colored output of the most recent table
 	awk -v RS='' 'END {print NR-2}' "$(basename $<).out" \
 		| xargs -I{} awk -v RS="" 'NR == {} {print $0}' "$(basename $<).col.out" \
-		| ansitoimg --width "$$(LANG="en_GB.UTF-8" wc -L < "$(basename $<).out")" -p render "$(basename $<)_tab.png"
+		| ansitoimg --width "$$(LC_ALL="en_GB.UTF-8" wc -L < "$(basename $<).out")" -p render "$(basename $<)_tab.png"
 	# generate files to generate latex plots
 	echo "\\\\addplot table {$(basename $<)_statMN.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
 	echo "\\\\addplot table {$(basename $<)_statMB.out}; \\\\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
