@@ -1,7 +1,7 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-tree_gen: false
+tree_gen: true
 
 # rule_set: !SomeoneIsDup
 rule_set: !NToN
