@@ -1,15 +1,17 @@
-DAT_RUST = s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
-OUT_RUST = $(addsuffix .out, $(basename $(DAT_RUST)))
+DAT_RUST := s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
+OUT_RUST := $(addsuffix .out, $(basename $(DAT_RUST)))
 
-OUT   = $(OUT_RUST)
-ALIAS = $(notdir $(OUT))
+OUT    := $(OUT_RUST)
+ALIAS  := $(notdir $(OUT))
+CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean_tex clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) $(ALIAS)
+.PHONY: all clean_tex clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS)
 
 include Makefile.conf
 
 all: $(OUT)
 	
+
 
 clean: clean_tex $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
 	
@@ -23,8 +25,19 @@ clean_tex:
 	- $(RM) statsInfo.tex{,sort}
 	- $(RM) -r tex-aux
 
+
+check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
+	
+
+$(CALIAS):
+	@make --no-print-directory $@/$(patsubst check_%,%.yaml,$@)
+
+$(addprefix check_,$(DAT_RUST)): check_%: % rust/target/release/ayto
+	./rust/target/release/ayto --only-check -o /tmp/wontBeUsed $<
+
+
 $(ALIAS):
-	make $(patsubst %.out,%,$@)/$@
+	@make --no-print-directory $(patsubst %.out,%,$@)/$@
 
 $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	@date
@@ -36,7 +49,7 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	@date
 	@cd "$(dir $<)" && if test -e "$(patsubst %/,%.tape,$(dir $<))" ; then vhs "$(patsubst %/,%.tape,$(dir $<))" ; $(RM) .not_needed.gif 2>/dev/null ; convert "$(patsubst %/,%_ctab.png,$(dir $<))"  -crop +0+85 "$(patsubst %/,%_ctab.png,$(dir $<))" ; date ; fi
 
-rust/target/release/ayto:
+rust/target/release/ayto: ./rust/src/*
 	make -C rust buildRelease
 
 stats.pdf: stats.tex statsMN.tex statsMB.tex statsInfo.tex
