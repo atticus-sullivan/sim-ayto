@@ -21,7 +21,7 @@ use clap::Parser;
 use comfy_table::{
     modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Cell, Color, Table,
 };
-use indicatif::ProgressBar;
+use indicatif::{ProgressBar, ProgressStyle};
 use permutator::{Combination, Permutation};
 use serde::Deserialize;
 use std::collections::HashSet;
@@ -625,6 +625,7 @@ impl RuleSet {
     }
 
     fn iter_perms(&self, lut_a: &Lut, lut_b: &Lut, is: &mut IterState) -> Result<()> {
+        is.progress.inc(0);
         match self {
             RuleSet::Eq => {
                 for (i,p) in (0..lut_a.len() as u8).map(|i| vec![i]).collect::<Vec<_>>().permutation().enumerate() {
@@ -719,7 +720,7 @@ struct IterState {
 
 impl IterState {
     fn new(tree_gen: bool, perm_amount: usize, constraints: Vec<Constraint>) -> IterState {
-        IterState{
+        let is = IterState{
             constraints,
             tree_gen,
             each: 0,
@@ -728,7 +729,9 @@ impl IterState {
             left_poss: vec![],
             progress: ProgressBar::new(100),
             cnt_update: std::cmp::max(perm_amount / 50, 1),
-        }
+        };
+        is.progress.set_style(ProgressStyle::with_template("[{elapsed_precise}] [{wide_bar}] {pos:>3}/{len:3} (ETA: {eta})").unwrap().progress_chars("#>-"));
+        is
     }
 
     fn step(&mut self, i: usize, p: Matching) -> Result<()> {
