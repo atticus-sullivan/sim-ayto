@@ -8,40 +8,40 @@ rule_set: !NToN
 # rule_set: !Eq
 
 setA:
-- Aasha
-- Amber
-- Basit
-- Brandon
-- Danny
-- Jasmine
-- Jenna
-- Jonathan
-- Justin
-- Kai
-- Kari
-- Kylie
-- Max
-- Nour
-- Paige
-- Remy
+  - Aasha
+  - Amber
+  - Basit
+  - Brandon
+  - Danny
+  - Jasmine
+  - Jenna
+  - Jonathan
+  - Justin
+  - Kai
+  - Kari
+  - Kylie
+  - Max
+  - Nour
+  - Paige
+  - Remy
 
 setB:
-- Aasha
-- Amber
-- Basit
-- Brandon
-- Danny
-- Jasmine
-- Jenna
-- Jonathan
-- Justin
-- Kai
-- Kari
-- Kylie
-- Max
-- Nour
-- Paige
-- Remy
+  - Aasha
+  - Amber
+  - Basit
+  - Brandon
+  - Danny
+  - Jasmine
+  - Jenna
+  - Jonathan
+  - Justin
+  - Kai
+  - Kari
+  - Kylie
+  - Max
+  - Nour
+  - Paige
+  - Remy
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
@@ -51,16 +51,154 @@ constraints:
       Justin: Nour
       # Paige: Jasmine
 
-  # - type: !Night {num: 1, comment: "E04"}
-  #   check: !Lights 2
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights 2
+    map:
+      Nour: Amber
+      Kari: Kylie
+      Max: Justin
+      Basit: Jonathan
+      Aasha: Paige
+      Remy: Brandon
+      Jasmine: Jenna
+      Kai: Danny
+
+      # Justin: 
+      # Jonathan
+      # Jasmine
+      Remy: Brandon
+      # Paige
+
+  - type: !Night {num: 2, comment: "E03"}
+    check: !Lights 2
+    map:
+      Kai: Jenna
+      Basit: Jonathan
+      Justin: Jasmine
+      Amber: Nour
+      Kylie: Kari
+      Brandon: Aasha
+      Remy: Danny
+      Max: Paige
+
+  - type: !Box {num: 3, comment: "E04"}
+    check: !Lights 0
+    map:
+      # Amber: Kari Paige
+      Jenna: Kai
+      # Remy
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights 2
+    map:
+      Jonathan: Brandon
+      Aasha: Max
+      Paige: Amber
+      Kai: Danny
+      Jenna: Justin
+      Remy: Basit
+      Kylie: Kari
+      Nour: Jasmine
+
+  - type: !Box {num: 4, comment: "E05"}
+    check: !Lights 0
+    map:
+      # Kari: Kai
+      Danny: Jenna
+
+  - type: !Night {num: 4, comment: "E05"}
+    check: !Lights 1
+    map:
+      Danny: Basit
+      Kylie: Jonathan
+      Aasha: Remy
+      Kari: Kai
+      Jasmine: Brandon
+      Justin: Max
+      Amber: Nour
+      Jenna: Paige
+
+  - type: !Box {num: 5, comment: "E06"}
+    check: !Lights 0
+    map:
+      # Max: Justin
+      # Remy: Basit
+      Kylie: Kari
+
+  - type: !Night {num: 5, comment: "E06"}
+    check: !Lights 0
+    map:
+      Kylie: Jenna
+      Nour: Amber
+      Jonathan: Justin
+      Max: Brandon
+      Remy: Basit
+      Danny: Kari
+      Paige: Jasmine
+      Kai: Aasha
+
+  - type: !Box {num: 6, comment: "E07"}
+    check: !Lights 1
+    map:
+      # Nour: Kylie Jenna
+      Brandon: Aasha
+      # Basit
+
+  # - type: !Night {num: 5.1, comment: "E07 -- wurde nur den Zuschauern revealed -- war vorher auch schon sicher"}
+  #   check: !Lights 1
   #   map:
-  #     Tim: Linda
-  #     Lukas: Jenny
-  #     Nikola: Tara
-  #     Lars: Nadja
-  #     Kaan: Asena
-  #     Chris: Emmy
-  #     Alex: LauraL
-  #     Ozan: Gabriela
-  #     Antonino: LauraM
-  #     Marc-Robin: Anastasia
+  #     Basit: Jonathan
+
+  - type: !Night {num: 6, comment: "E07"}
+    check: !Lights 3
+    map:
+      Brandon: Aasha
+      Jenna: Amber
+      Basit: Jonathan
+      Jasmine: Kylie
+      Danny: Kai
+      Paige: Kari
+      Max: Justin
+      Nour: Remy
+
+  - type: !Box {num: 7, comment: "E08"}
+    check: !Lights 0
+    map:
+      # Basit: Kai Nour
+      Jenna: Jasmine
+      # Amber
+
+  - type: !Night {num: 7, comment: "E08"}
+    check: !Lights 3
+    map:
+      Brandon: Aasha
+      Kari: Remy
+      Kai: Jasmine
+      Justin: Max
+      Basit: Jonathan
+      Kylie: Nour
+      Danny: Amber
+      Paige: Jenna
+
+  - type: !Box {num: 8, comment: "E09"}
+    check: !Lights 0
+    map:
+      # Amber: Max
+      # Danny: Nour
+      Remy: Paige
+
+  - type: !Night {num: 8, comment: "E10"}
+    check: !Lights 3
+    map:
+      Brandon: Aasha
+      Jasmin: Nour
+      Jonathan: Basit
+      Max: Justin
+      Kylie: Danny
+      Kai: Remy
+      Amber: Paige
+      Jenna: Kari
+
+  # - type: !Box {num: 9, comment: "E10"}
+  #   check: !Lights 0
+  #   map:
