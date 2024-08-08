@@ -617,6 +617,53 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
+    fn sorted_constraint(&self) -> bool {
+        if let RuleSet::NToN = self {
+            true
+        } else {
+            false
+        }
+    }
+
+    fn validate_lut(&self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
+        match self {
+            RuleSet::SomeoneIsDup => {
+                if lut_a.len() != lut_b.len()-1 {
+                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
+                }
+            },
+            RuleSet::FixedDup(_) => {
+                if lut_a.len() != lut_b.len()-1 {
+                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
+                }
+            },
+            RuleSet::SomeoneIsTrip => {
+                if lut_a.len() != lut_b.len()-2 {
+                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
+                }
+            },
+            RuleSet::FixedTrip(_) => {
+                if lut_a.len() != lut_b.len()-2 {
+                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
+                }
+            },
+            RuleSet::Eq => {
+                if lut_a.len() != lut_b.len() {
+                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
+                }
+            },
+            RuleSet::NToN => {
+                if lut_a.len() != lut_b.len() {
+                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
+                }
+                if lut_a != lut_b {
+                    return Err(anyhow!("with the n-to-n rule-set, both sets must be exactly the same"))
+                }
+            },
+        }
+        Ok(())
+    }
+
     fn show_in_table(&self, a: usize, b: usize) -> bool {
         match self {
             RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => true,
@@ -796,11 +843,14 @@ impl Game {
             .to_string_lossy()
             .into_owned();
 
+        // build up the look up tables (LUT)
         for (lut, map) in [(&mut g.lut_a, &g.map_a), (&mut g.lut_b, &g.map_b)] {
             for (index, name) in map.iter().enumerate() {
                 lut.insert(name.clone(), index);
             }
         }
+        // validate the lut in combination with the ruleset
+        g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
         // postprocessing -> add exclude mapping list (with names)
         match &g.rule_set {
@@ -824,24 +874,22 @@ impl Game {
             RuleSet::Eq | RuleSet::NToN => {},
         }
 
+        // eg translates strings to indices (u8)
         for c in &mut g.constraints_orig {
             c.finalize_parsing(&g.lut_a, &g.lut_b)?;
         }
 
-        // postprocessing -> sort map if needed
-        match &g.rule_set {
-            RuleSet::NToN => {
-                for c in &mut g.constraints_orig {
-                    c.map = c.map.drain().map(|(k, v)| {
-                        if k < v {
-                            (v, k)
-                        } else {
-                            (k, v)
-                        }
-                    }).collect();
-                }
-            },
-            RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => {}
+        // postprocessing -> sort map if ruleset demands it
+        if g.rule_set.sorted_constraint() {
+            for c in &mut g.constraints_orig {
+                c.map = c.map.drain().map(|(k, v)| {
+                    if k < v {
+                        (v, k)
+                    } else {
+                        (k, v)
+                    }
+                }).collect();
+            }
         }
 
         Ok(g)
