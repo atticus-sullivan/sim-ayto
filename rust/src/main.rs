@@ -645,10 +645,10 @@ impl RuleSet {
         Ok(())
     }
 
-    fn show_in_table(&self, a: usize, b: usize) -> bool {
+    fn ignore(&self, a: usize, b: usize) -> bool {
         match self {
-            RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => true,
-            RuleSet::NToN => a > b,
+            RuleSet::Eq | RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => false,
+            RuleSet::NToN => a <= b,
         }
     }
 
@@ -1152,17 +1152,25 @@ impl Game {
                 );
 
                 if nodes.insert(node.clone()) {
-                    writeln!(
-                        writer,
-                        "\"{node}\"[label=\"{}\"]",
-                        self.map_a[*i].clone()
+                    // if node is new
+                    if p[*i].iter().filter(|&b| !self.rule_set.ignore(*i, *b as usize)).count() == 0 {
+                        writeln!(writer, "\"{node}\"[label=\"\"]")?;
+                    } else {
+                        // only put content in that node if there is something meaning-full
+                        // don't just skip the whole node since this would mess up the layering
+                        writeln!(
+                            writer,
+                            "\"{node}\"[label=\"{}\"]",
+                            self.map_a[*i].clone()
                             + "\\n"
                             + &p[*i]
                                 .iter()
+                                .filter(|&b| !self.rule_set.ignore(*i, *b as usize))
                                 .map(|b| self.map_b[*b as usize].clone())
                                 .collect::<Vec<_>>()
                                 .join("\\n")
-                    )?;
+                        )?;
+                    }
                     writeln!(writer, "\"{parent}\" -> \"{node}\";")?;
                 }
 
@@ -1177,11 +1185,19 @@ impl Game {
         let mut tab = vec![HashSet::new(); self.map_a.len()];
         for p in data {
             for (i, js) in p.iter().enumerate() {
-                tab[i].insert(js);
+                if !self.rule_set.ignore(i, js[0] as usize) {
+                    tab[i].insert(js);
+                }
             }
         }
 
-        let mut ordering: Vec<_> = tab.iter().enumerate().map(|(i, x)| (i, x.len())).collect();
+        let mut ordering: Vec<_> = tab.iter().enumerate().filter_map(|(i, x)| {
+            if x.len() == 0 {
+                None
+            } else {
+                Some((i, x.len()))
+            }
+        }).collect();
         match &self.tree_top {
             Some(ts) => {
                 let t = self.lut_a[ts];
