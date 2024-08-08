@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use anyhow::{anyhow, Context, Result};
+use anyhow::{ensure, Context, Result};
 use clap::Parser;
 use comfy_table::{
     modifiers::UTF8_ROUND_CORNERS, presets::UTF8_FULL_CONDENSED, Cell, Color, Table,
@@ -378,25 +378,14 @@ struct Constraint {
 }
 
 impl Constraint {
-    fn finalize_parsing(&mut self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
+    fn finalize_parsing(&mut self, lut_a: &Lut, lut_b: &Lut, map_len: usize) -> Result<()> {
         // check if map size is valid
         match self.r#type {
             ConstraintType::Night { .. } => {
-                if self.map_s.len() != lut_a.len() {
-                    return Err(anyhow!(
-                        "Map in a night must contain exactly as many entries as set_a"
-                    ));
-                }
-                if self.exclude_s.is_some() {
-                    return Err(anyhow!(
-                        "Exclude is not yet supported for nights"
-                    ));
-                }
+                ensure!(self.map_s.len() == map_len, "Map in a night must contain exactly as many entries as set_a {} (was: {})", map_len, self.map_s.len());
+                ensure!(self.exclude_s.is_none(), "Exclude is not yet supported for nights");
             }
             ConstraintType::Box { .. } => {
-                // if self.map_s.len() != 1 {
-                //     return Err(anyhow!("Map in a Box must exactly contain one entry"));
-                // }
             }
         }
 
@@ -408,17 +397,17 @@ impl Constraint {
         self.map.reserve(self.map_s.len());
         for (k, v) in &self.map_s {
             self.map.insert(
-                *lut_a.get(k).context("Invalid Key")? as u8,
-                *lut_b.get(v).context("Invalid Value")? as u8,
+                *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8,
+                *lut_b.get(v).with_context(|| format!("Invalid Value {}", v))? as u8,
             );
         }
 
         if let Some(ex) = &self.exclude_s {
             let (ex_a,ex_b) = ex;
             let mut bs = HashSet::with_capacity(ex_b.len());
-            let a = *lut_a.get(ex_a).context("Invalid Key")? as u8;
+            let a = *lut_a.get(ex_a).with_context(|| format!("Invalid Key {}", ex_a))? as u8;
             for x in ex_b {
-                bs.insert(*lut_b.get(x).context("Invalid Value")? as u8);
+                bs.insert(*lut_b.get(x).with_context(|| format!("Invalid Value {}", x))? as u8);
             }
             self.exclude = Some((a, bs));
         }
@@ -489,13 +478,9 @@ impl Constraint {
 
     fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
-        if self.eliminated_tab.len() != other.eliminated_tab.len() {
-            return Err(anyhow!("eliminated_tab lengths do not match"));
-        }
+        ensure!(self.eliminated_tab.len() == other.eliminated_tab.len(), "eliminated_tab lengths do not match (self: {}, other: {})", self.eliminated_tab.len(), other.eliminated_tab.len());
         for (i, es) in self.eliminated_tab.iter_mut().enumerate() {
-            if es.len() != other.eliminated_tab[i].len() {
-                return Err(anyhow!("eliminated_tab lengths do not match"));
-            }
+            ensure!(es.len() == other.eliminated_tab[i].len(), "eliminated_tab lengths do not match (self: {}, other: {})", es.len(), other.eliminated_tab[i].len());
             for (j, e) in es.iter_mut().enumerate() {
                 *e += other.eliminated_tab[i][j];
             }
@@ -617,6 +602,14 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
+    fn night_map_len(&self, a: usize, _b: usize) -> usize {
+        if let RuleSet::NToN = self {
+            a/2
+        } else {
+            a
+        }
+    }
+
     fn sorted_constraint(&self) -> bool {
         if let RuleSet::NToN = self {
             true
@@ -628,37 +621,25 @@ impl RuleSet {
     fn validate_lut(&self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
         match self {
             RuleSet::SomeoneIsDup => {
-                if lut_a.len() != lut_b.len()-1 {
-                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
-                }
+                ensure!(lut_a.len() == lut_b.len()-1, "length of setA ({}) and setB ({}) does not fit to SomeoneIsDup", lut_a.len(), lut_b.len());
             },
-            RuleSet::FixedDup(_) => {
-                if lut_a.len() != lut_b.len()-1 {
-                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
-                }
+            RuleSet::FixedDup(s) => {
+                ensure!(lut_a.len() == lut_b.len()-1, "length of setA ({}) and setB ({}) does not fit to FixedDup", lut_a.len(), lut_b.len());
+                ensure!(lut_b.contains_key(s), "fixed dup ({}) is not contained in setB", s);
             },
             RuleSet::SomeoneIsTrip => {
-                if lut_a.len() != lut_b.len()-2 {
-                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
-                }
+                ensure!(lut_a.len() == lut_b.len()-2, "length of setA ({}) and setB ({}) does not fit to SomeoneIsTrip", lut_a.len(), lut_b.len());
             },
-            RuleSet::FixedTrip(_) => {
-                if lut_a.len() != lut_b.len()-2 {
-                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
-                }
+            RuleSet::FixedTrip(s) => {
+                ensure!(lut_a.len() == lut_b.len()-2, "length of setA ({}) and setB ({}) does not fit to FixedTrip", lut_a.len(), lut_b.len());
+                ensure!(lut_b.contains_key(s), "fixed trip ({}) is not contained in setB", s);
             },
             RuleSet::Eq => {
-                if lut_a.len() != lut_b.len() {
-                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
-                }
+                ensure!(lut_a.len() == lut_b.len(), "length of setA ({}) and setB ({}) does not fit to Eq", lut_a.len(), lut_b.len());
             },
             RuleSet::NToN => {
-                if lut_a.len() != lut_b.len() {
-                    return Err(anyhow!("length of setA and setB does not fit to rule-set"))
-                }
-                if lut_a != lut_b {
-                    return Err(anyhow!("with the n-to-n rule-set, both sets must be exactly the same"))
-                }
+                ensure!(lut_a.len() == lut_b.len(), "length of setA ({}) and setB ({}) does not fit to NToN", lut_a.len(), lut_b.len());
+                ensure!(lut_a == lut_b, "with the n-to-n rule-set, both sets must be exactly the same");
             },
         }
         Ok(())
@@ -678,15 +659,13 @@ impl RuleSet {
                 for (i,p) in (0..lut_a.len() as u8).map(|i| vec![i]).collect::<Vec<_>>().permutation().enumerate() {
                     is.step(i, p)?;
                 }
-                Ok(())
             },
             RuleSet::FixedDup(s) => {
                 let mut x = (0..lut_b.len() as u8).filter(|i| *i != (*lut_b.get(s).unwrap() as u8)).map(|i| vec![i]).collect::<Vec<_>>();
                 let x = x.permutation();
-                for (i,p) in add_dup(x, *lut_b.get(s).context("Invalid index")? as u8).enumerate() {
+                for (i,p) in add_dup(x, *lut_b.get(s).with_context(|| format!("Invalid index {}", s))? as u8).enumerate() {
                     is.step(i, p)?;
                 }
-                Ok(())
             },
             RuleSet::SomeoneIsDup => {
                 let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
@@ -694,7 +673,6 @@ impl RuleSet {
                 for (i,p) in someone_is_dup(x).enumerate() {
                     is.step(i, p)?;
                 }
-                Ok(())
             },
             RuleSet::SomeoneIsTrip => {
                 let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
@@ -702,15 +680,13 @@ impl RuleSet {
                 for (i,p) in someone_is_trip(x).enumerate() {
                     is.step(i, p)?;
                 }
-                Ok(())
             },
             RuleSet::FixedTrip(s) => {
                 let mut x = (0..lut_b.len() as u8).filter(|i| *i != (*lut_b.get(s).unwrap() as u8)).map(|i| vec![i]).collect::<Vec<_>>();
                 let x = x.permutation();
-                for (i,p) in add_trip(x, *lut_b.get(s).context("Invalid index")? as u8).enumerate() {
+                for (i,p) in add_trip(x, *lut_b.get(s).with_context(|| format!("Invalid index {}", s))? as u8).enumerate() {
                     is.step(i, p)?;
                 }
-                Ok(())
             },
             RuleSet::NToN => {
                 let len = lut_a.len()/2;
@@ -731,9 +707,10 @@ impl RuleSet {
                         i += 1;
                     }
                 }
-                Ok(())
             },
         }
+        is.progress.finish();
+        Ok(())
     }
 
     fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> usize {
@@ -849,6 +826,8 @@ impl Game {
                 lut.insert(name.clone(), index);
             }
         }
+        ensure!(g.lut_a.len() == g.map_a.len(), "something is wrong with the sets. There might be duplicates in setA (len: {}, dedup len: {}).", g.lut_a.len(), g.map_a.len());
+        ensure!(g.lut_b.len() == g.map_b.len(), "something is wrong with the sets. There might be duplicates in setB (len: {}, dedup len: {}).", g.lut_b.len(), g.map_b.len());
         // validate the lut in combination with the ruleset
         g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
@@ -876,7 +855,7 @@ impl Game {
 
         // eg translates strings to indices (u8)
         for c in &mut g.constraints_orig {
-            c.finalize_parsing(&g.lut_a, &g.lut_b)?;
+            c.finalize_parsing(&g.lut_a, &g.lut_b, g.rule_set.night_map_len(g.lut_a.len(), g.lut_b.len()))?;
         }
 
         // postprocessing -> sort map if ruleset demands it
@@ -1081,7 +1060,7 @@ impl Game {
             let i = rem
                 .0
                 .get(i)
-                .context("Indexing rem with map failed")?
+                .with_context(|| format!("Indexing rem with map failed (idx {})", i))?
                 .iter()
                 .map(|x| {
                     let val = (*x as f64) / (rem.1 as f64) * 100.0;
@@ -1124,7 +1103,7 @@ impl Game {
             .set_header(hdr);
         for (i, a) in self.map_a.iter().enumerate() {
             let i = rem.0.get(i)?.iter().enumerate().map(|(j,x)| {
-                if !self.rule_set.show_in_table(i,j) {
+                if self.rule_set.ignore(i,j) {
                     Cell::new("")
                 } else {
                     let val = (*x as f64) / (rem.1 as f64) * 100.0;
@@ -1240,11 +1219,18 @@ struct Cli {
 
     #[arg(short = 'o', long = "output")]
     stem: PathBuf,
+
+    #[arg(long = "only-check")]
+    only_check: bool,
 }
 
 fn main() {
     let args = Cli::parse();
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
+
+    if args.only_check {
+        return
+    }
 
     let start = Instant::now();
     g.sim().unwrap();
