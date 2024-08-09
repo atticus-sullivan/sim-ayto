@@ -32,13 +32,13 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E03"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Tara: Nikola
       Marc-Robin: LauraL
 
   - type: !Night {num: 1, comment: "E04"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Tim: Linda
       Lukas: Jenny
@@ -52,13 +52,13 @@ constraints:
       Marc-Robin: Anastasia
 
   - type: !Box {num: 2, comment: "E05"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Chris: Emmy
       # Lukas: Dana
 
   - type: !Night {num: 2, comment: "E06"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Chris: Emmy
       Alex: Jenny

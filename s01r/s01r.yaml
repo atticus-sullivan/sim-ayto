@@ -33,12 +33,12 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Danilo: Finnja
 
   - type: !Night {num: 1, comment: "E02"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Alexander: Jules
       Danilo: Stefanie
@@ -52,17 +52,17 @@ constraints:
       Tommy: Melina
 
   - type: !Box {num: 1.9, comment: "E04 -- Francesco muss ausziehen"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Francesco: Jules
 
   - type: !Box {num: 2, comment: "E06"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Tommy: Walentina
 
   - type: !Night {num: 2, comment: "E06"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Alexander: Finnja
       Danilo: Sarah
@@ -81,7 +81,7 @@ constraints:
   #     Diogo: Aurelia
 
   - type: !Night {num: 3, comment: "E08"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Alexander: Stefanie
       Danilo: Melina
@@ -101,7 +101,7 @@ constraints:
   #     Melina: Tommy
 
   - type: !Night {num: 4, comment: "E10"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Alexander: Sarah
       Danilo: Aurelia
@@ -116,12 +116,12 @@ constraints:
       # Diogo: Jacqueline
 
   - type: !Box {num: 5, comment: "E12"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Salvatore: Finnja
 
   - type: !Night {num: 5, comment: "E12"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Alexander: Stefanie
       Danilo: Jill
@@ -135,12 +135,12 @@ constraints:
       Tommy: Melina
 
   - type: !Box {num: 6, comment: "E14"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Eugen: Finnja
 
   - type: !Night {num: 6, comment: "E14"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Alexander: Jacqueline
       Danilo: Aurelia
@@ -154,12 +154,12 @@ constraints:
       Tommy: Melina
 
   - type: !Box {num: 7, comment: "E16"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Eugen: Stefanie
 
   - type: !Night {num: 7, comment: "E16"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Alexander: Melina
       Danilo: Aurelia
@@ -173,17 +173,17 @@ constraints:
       Tommy: Stefanie
 
   - type: !Box {num: 8, comment: "E18"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Josua: Sarah
 
   - type: !Box {num: 8.5, comment: "E15 -- geschenkte Matchbox"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Tommy: Melina
 
   - type: !Night {num: 8, comment: "E18"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Alexander: Sarah
       Danilo: Jill
@@ -198,12 +198,12 @@ constraints:
       # Salvatore: Jacqueline
 
   - type: !Box {num: 9, comment: "E20"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Josua: Aurelia
 
   - type: !Night {num: 9, comment: "E20"}
-    check: !Lights 7
+    check: !Lights [7]
     map:
       Alexander: Vanessa
       Danilo: Sarah

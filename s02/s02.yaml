@@ -33,12 +33,12 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Maximilian: Jill
 
   - type: !Night {num: 1, comment: "E02"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Aaron: Kathleen
       Dario: Victoria
@@ -57,7 +57,7 @@ constraints:
   #     Victoria: Germain
 
   - type: !Night {num: 2, comment: "E04"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Aaron: Kathleen
       Dario: Laura
@@ -71,12 +71,12 @@ constraints:
       Sascha: Jill
 
   - type: !Box {num: 3, comment: "E06"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Aaron: Kathleen
 
   - type: !Night {num: 3, comment: "E06"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Aaron: Melissa
       Dario: Victoria
@@ -90,12 +90,12 @@ constraints:
       Sascha: Sabrina
 
   - type: !Box {num: 4, comment: "E08"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Marcel: Laura
 
   - type: !Night {num: 4, comment: "E08"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Aaron: Melissa
       Dario: Kathleen
@@ -109,12 +109,12 @@ constraints:
       Sascha: Vanessa
 
   - type: !Box {num: 5, comment: "E10"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Marcel: Leonie
 
   - type: !Night {num: 5, comment: "E10"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Aaron: Mirjam
       Dario: Victoria
@@ -133,7 +133,7 @@ constraints:
   #     Mirjam: Marc
 
   - type: !Night {num: 6, comment: "E12"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Aaron: Melissa
       Dario: VanessaM
@@ -147,12 +147,12 @@ constraints:
       Sascha: Jill
 
   - type: !Box {num: 7, comment: "E14"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Dario: Laura
 
   - type: !Night {num: 7, comment: "E14"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Aaron: Melissa
       Dario: Sabrina
@@ -166,12 +166,12 @@ constraints:
       Sascha: Jill
 
   - type: !Box {num: 8, comment: "E16"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Marko: Sabrina
 
   - type: !Night {num: 8, comment: "E16"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Aaron: Vanessa
       Dario: Victoria
@@ -185,12 +185,12 @@ constraints:
       Sascha: Sabrina
 
   - type: !Box {num: 9, comment: "E18"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Aaron: Melissa
 
   - type: !Night {num: 9, comment: "E18"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Aaron: Melissa
       Dario: Kathleen
@@ -204,12 +204,12 @@ constraints:
       Sascha: Jill
 
   - type: !Box {num: 10, comment: "E20"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Marc: Mirjam
 
   - type: !Night {num: 10, comment: "E20"}
-    check: !Lights 10
+    check: !Lights [10]
     map:
       Aaron: Melissa
       Dario: Sabrina

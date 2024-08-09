@@ -33,12 +33,12 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Mike: Jessica
 
   - type: !Night {num: 1, comment: "E02"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       William: Dana
       Jordi: Estelle
@@ -52,12 +52,12 @@ constraints:
       Dustin: Zaira
 
   - type: !Box {num: 2, comment: "E04"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Leon: Monami
 
   - type: !Night {num: 2, comment: "E04"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Andre: Dana
       Leon: Estelle
@@ -71,12 +71,12 @@ constraints:
       Jordi: Zaira
 
   - type: !Box {num: 3, comment: "E06"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Andre: Raphaela
 
   - type: !Night {num: 3, comment: "E06"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       William: Dana
       Leon: Estelle
@@ -95,7 +95,7 @@ constraints:
   #     Dana: William
 
   - type: !Night {num: 4, comment: "E08"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       William: Dana
       Leon: Estelle
@@ -109,12 +109,12 @@ constraints:
       Dustin: Zaira
 
   - type: !Box {num: 5, comment: "E10"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Antonino: Monami
 
   - type: !Night {num: 5, comment: "E10"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       William: Dana
       Tim: Desiree
@@ -128,12 +128,12 @@ constraints:
       Jordi: Zaira
 
   - type: !Box {num: 6, comment: "E12"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Max: Jessica
 
   - type: !Night {num: 6, comment: "E12"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Antonino: Dana
       Jordi: Desiree
@@ -147,12 +147,12 @@ constraints:
       Marius: Zaira
 
   - type: !Box {num: 7, comment: "E14"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Marius: Zaira
 
   - type: !Night {num: 7, comment: "E14"}
-    check: !Lights 6
+    check: !Lights [6]
     map:
       Antonino: Dana
       Andre: Desiree
@@ -166,12 +166,12 @@ constraints:
       Marius: Zaira
 
   - type: !Box {num: 8, comment: "E16"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Jordi: Raphaela
 
   - type: !Night {num: 8, comment: "E16"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Antonino: Dana
       Mike: Estelle
@@ -185,12 +185,12 @@ constraints:
       Marius: Zaira
 
   - type: !Box {num: 9, comment: "E18"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Max: Kerstin
 
   - type: !Night {num: 9, comment: "E18"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Dustin: Dana
       Andre: Desiree
@@ -204,12 +204,12 @@ constraints:
       Marius: Zaira
 
   - type: !Box {num: 10, comment: "E20"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Dustin: Isabelle
 
   - type: !Night {num: 10, comment: "E20"}
-    check: !Lights 10
+    check: !Lights [10]
     map:
       Antonino: Dana
       Jordi: Estelle
@@ -223,7 +223,7 @@ constraints:
       Marius: Zaira
 
   - type: !Night {num: 10.5, comment: "reunion"}
-    check: !Lights 10
+    check: !Lights [10]
     map:
       Antonino: Dana
       Jordi: Estelle

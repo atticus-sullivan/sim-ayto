@@ -24,13 +24,12 @@ use comfy_table::{
 use indicatif::{ProgressBar, ProgressStyle};
 use permutator::{Combination, Permutation};
 use serde::Deserialize;
-use std::collections::HashSet;
 use std::io::Write;
 use std::iter::zip;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::Instant;
-use std::{collections::HashMap, fs::File};
+use std::{collections::{HashMap,BTreeMap,HashSet}, fs::File};
 
 // TODO cleanup (multiple files?)
 // TODO code review (try with chatGPT)
@@ -48,7 +47,7 @@ mod tests {
             exclude_s: None,
             no_exclude: false,
             map_s: HashMap::new(),
-            check: CheckType::Lights(2),
+            check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 0,
             eliminated_tab: vec![
@@ -68,15 +67,15 @@ mod tests {
     }
 
     #[test]
-    fn test_constraint_fits() {
+    fn test_constraint_process() {
         let mut c = constraint_def();
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
-        assert!(!c.fits(&m).unwrap());
+        assert!(!c.process(&m).unwrap());
         match &mut c.check {
             CheckType::Eq => {}
-            CheckType::Lights(l) => *l = 1,
+            CheckType::Lights(l, _) => *l = 1,
         }
-        assert!(c.fits(&m).unwrap());
+        assert!(c.process(&m).unwrap());
     }
 
     #[test]
@@ -84,7 +83,7 @@ mod tests {
         let mut c = constraint_def();
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
 
-        c.eliminate(&m).unwrap();
+        c.eliminate(&m);
         assert_eq!(c.eliminated, 1);
         assert_eq!(
             c.eliminated_tab,
@@ -96,7 +95,7 @@ mod tests {
             ]
         );
 
-        c.eliminate(&m).unwrap();
+        c.eliminate(&m);
         assert_eq!(c.eliminated, 2);
         assert_eq!(
             c.eliminated_tab,
@@ -114,7 +113,7 @@ mod tests {
         let mut c = constraint_def();
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
 
-        c.eliminate(&m).unwrap();
+        c.eliminate(&m);
         assert_eq!(c.eliminated, 1);
 
         let mut rem: Rem = (vec![vec![15; 5]; 4], 5 * 4 * 3 * 2 * 1 * 4 / 2);
@@ -333,7 +332,11 @@ fn someone_is_trip<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I) -> impl Iterator<I
 #[derive(Deserialize, Debug, Clone)]
 enum CheckType {
     Eq,
-    Lights(u8)
+    Lights(
+        u8,
+        #[serde(skip)]
+        BTreeMap<u8,u128>,
+    )
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -415,6 +418,20 @@ impl Constraint {
         Ok(())
     }
 
+    fn show_expected_lights(&self) -> bool {
+        match &self.r#type {
+            ConstraintType::Night {..} => true,
+            ConstraintType::Box {..} => false,
+        }
+    }
+
+    fn show_pr_lights(&self) -> bool {
+        match &self.r#type {
+            ConstraintType::Night {..} => true,
+            ConstraintType::Box {..} => true,
+        }
+    }
+
     fn comment(&self) -> &str {
         match &self.r#type {
             ConstraintType::Night { num: _, comment } => &comment,
@@ -429,7 +446,7 @@ impl Constraint {
         }
     }
 
-    fn eliminate(&mut self, m: &Matching) -> Result<()> {
+    fn eliminate(&mut self, m: &Matching) {
         for (i1, v) in m.iter().enumerate() {
             for &i2 in v {
                 if i2 == 255 {
@@ -439,41 +456,53 @@ impl Constraint {
             }
         }
         self.eliminated += 1;
-        Ok(())
     }
 
-    fn fits(&self, m: &Matching) -> Result<bool> {
-        match &self.check {
+    // returns if the matching fits the constraint (is not eliminated)
+    fn process(&mut self, m: &Matching) -> Result<bool> {
+        // first step is to check if the constraint filters out this matching
+        let mut fits = None;
+        match &mut self.check {
             CheckType::Eq => {
-                Ok(m.iter().enumerate().all(|(_,js)| {
+                fits = Some(m.iter().enumerate().all(|(_,js)| {
                     self.map.iter().map(|(_,i2)| js.contains(i2)).fold(None, |acc, b| {
                         match acc {
                             Some(a) => Some(a == b),
                             None => Some(b),
                         }
                     }).unwrap()
-                }))
+                }));
             }
-            CheckType::Lights(lights) => {
+            CheckType::Lights(ref lights, ref mut light_count) => {
                 let mut l = 0;
                 for (i1, i2) in self.map.iter() {
                     if m[*i1 as usize].contains(i2) {
-                        if l >= *lights {
-                            return Ok(false);
-                        }
                         l += 1;
                     }
                 }
                 if let Some(ex) = &self.exclude {
                     for i in &m[ex.0 as usize] {
                         if ex.1.contains(i) {
-                            return Ok(false)
+                            fits = Some(false);
+                            break
                         }
                     }
                 }
-                Ok(l == *lights)
+                // might be already set due to exclude
+                fits.get_or_insert(l == *lights);
+                // use calculated lights to collect stats on based on the matching possible until
+                // here, how many lights are calculated how often for this map
+                *light_count.entry(l).or_insert(0) += 1;
             }
+        };
+
+        // check fits actually has a value and make it immutable
+        let fits = fits.with_context(|| format!("failure in calculating wether matching {:?} fits constraint {:?}", m, self))?;
+        if !fits {
+            self.eliminate(m);
         }
+
+        Ok(fits)
     }
 
     fn merge(&mut self, other: &Self) -> Result<()> {
@@ -515,7 +544,7 @@ impl Constraint {
         }
         match &self.check {
             CheckType::Eq => ret.push(Cell::new("E")),
-            CheckType::Lights(lights) => ret.push(Cell::new(lights)),
+            CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
         }
         ret.extend(
             map_a
@@ -567,10 +596,6 @@ impl Constraint {
     }
 
     fn print_hdr(&self) {
-        match &self.check {
-            CheckType::Eq => print!("Eq "),
-            CheckType::Lights(l) => print!("{} ", l),
-        }
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => print!("MN#{:02.1} {}", num, comment),
             ConstraintType::Box { num, comment, .. } => print!("MB#{:02.1} {}", num, comment),
@@ -581,7 +606,23 @@ impl Constraint {
             println!("{} -> {}", k, v);
         }
 
-        println!("-> I = {}", self.entropy.unwrap_or(std::f64::INFINITY));
+        println!("---");
+        match &self.check {
+            CheckType::Eq => print!("Eq "),
+            CheckType::Lights(l, ls) => {
+                let total = ls.values().sum::<u128>() as f64;
+                if self.show_pr_lights() {
+                    println!("-> Pr[lights]: {{{}}}", ls.iter().map(|(l,c)| format!("{}: {:.1}%", l, (c*100)as f64/total)).collect::<Vec<_>>().join(", "));
+                }
+                if self.show_expected_lights() {
+                    let expected:f64 = ls.iter().map(|(l,c)| *l as f64* *c as f64/total).sum();
+                    println!("->  E[lights]: {:.3}", expected);
+                }
+                print!("{} lights ", l);
+            },
+        }
+
+        println!("=> I = {:.4} bits", self.entropy.unwrap_or(std::f64::INFINITY));
     }
 }
 
@@ -769,11 +810,10 @@ impl IterState {
         self.total += 1;
         let mut left = true;
         for c in &mut self.constraints {
-            if !c.fits(&p)? {
+            if !c.process(&p)? {
                 left = false;
-                c.eliminate(&p)?;
                 self.eliminated += 1;
-                break;
+                break
             }
         }
         if left && self.tree_gen {
@@ -836,7 +876,7 @@ impl Game {
             RuleSet::SomeoneIsDup | RuleSet::SomeoneIsTrip | RuleSet::FixedDup(_) | RuleSet::FixedTrip(_) => {
                 for c in &mut g.constraints_orig {
                     if c.no_exclude {continue}
-                    if let CheckType::Lights(l) = c.check {
+                    if let CheckType::Lights(l, _) = c.check {
                         if !(l == 1 && c.map_s.len() == 1 && c.exclude_s.is_none()) {continue}
                         if let ConstraintType::Box { .. } = c.r#type {
                             for (k,v) in &c.map_s {
@@ -1055,7 +1095,7 @@ impl Game {
             table.add_row(row);
         }
         println!("{table}");
-        println!("{} left -> {} bits left", rem.1, (rem.1 as f64).log2());
+        println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
         Some(())
     }
 
@@ -1096,7 +1136,7 @@ impl Game {
             table.add_row(row);
         }
         println!("{table}");
-        println!("{} left -> {} bits left", rem.1, (rem.1 as f64).log2());
+        println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
         Some(())
     }
 

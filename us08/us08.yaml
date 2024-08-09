@@ -45,14 +45,14 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Basit: Kylie
       Justin: Nour
       # Paige: Jasmine
 
   - type: !Night {num: 1, comment: "E02"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Nour: Amber
       Kari: Kylie
@@ -70,7 +70,7 @@ constraints:
       # Paige
 
   - type: !Night {num: 2, comment: "E03"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Kai: Jenna
       Basit: Jonathan
@@ -82,14 +82,14 @@ constraints:
       Max: Paige
 
   - type: !Box {num: 3, comment: "E04"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Amber: Kari Paige
       Jenna: Kai
       # Remy
 
   - type: !Night {num: 3, comment: "E03"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Jonathan: Brandon
       Aasha: Max
@@ -101,13 +101,13 @@ constraints:
       Nour: Jasmine
 
   - type: !Box {num: 4, comment: "E05"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Kari: Kai
       Danny: Jenna
 
   - type: !Night {num: 4, comment: "E05"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Danny: Basit
       Kylie: Jonathan
@@ -119,14 +119,14 @@ constraints:
       Jenna: Paige
 
   - type: !Box {num: 5, comment: "E06"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Max: Justin
       # Remy: Basit
       Kylie: Kari
 
   - type: !Night {num: 5, comment: "E06"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Kylie: Jenna
       Nour: Amber
@@ -138,19 +138,19 @@ constraints:
       Kai: Aasha
 
   - type: !Box {num: 6, comment: "E07"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       # Nour: Kylie Jenna
       Brandon: Aasha
       # Basit
 
   # - type: !Night {num: 5.1, comment: "E07 -- wurde nur den Zuschauern revealed -- war vorher auch schon sicher"}
-  #   check: !Lights 1
+  #   check: !Lights [1]
   #   map:
   #     Basit: Jonathan
 
   - type: !Night {num: 6, comment: "E07"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Brandon: Aasha
       Jenna: Amber
@@ -162,14 +162,14 @@ constraints:
       Nour: Remy
 
   - type: !Box {num: 7, comment: "E08"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Basit: Kai Nour
       Jenna: Jasmine
       # Amber
 
   - type: !Night {num: 7, comment: "E08"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Brandon: Aasha
       Kari: Remy
@@ -181,14 +181,14 @@ constraints:
       Paige: Jenna
 
   - type: !Box {num: 8, comment: "E09"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Amber: Max
       # Danny: Nour
       Remy: Paige
 
   - type: !Night {num: 8, comment: "E10"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Brandon: Aasha
       Jasmine: Nour
@@ -200,5 +200,5 @@ constraints:
       Jenna: Kari
 
   # - type: !Box {num: 9, comment: "E10"}
-  #   check: !Lights 0
+  #   check: !Lights [0]
   #   map:

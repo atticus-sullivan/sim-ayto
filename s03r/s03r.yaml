@@ -33,12 +33,12 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E03"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Jenny: Danilo
 
   - type: !Night {num: 1, comment: "E04"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Darya: Danilo
       Sandra: Paco
@@ -53,12 +53,12 @@ constraints:
 
 
   - type: !Box {num: 2, comment: "E05"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Jenny: Elia
 
   - type: !Night {num: 2, comment: "E06"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Sabrina: Mike
       Paulina: Danilo
@@ -72,12 +72,12 @@ constraints:
       Sandra: Elia
 
   - type: !Box {num: 3, comment: "E07"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Darya: Elia
 
   - type: !Night {num: 3, comment: "E08"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Alicia: Steffen
       Darya: Danilo
@@ -91,12 +91,12 @@ constraints:
       Steffi: Marvin
 
   - type: !Box {num: 4, comment: "E09"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Kim: Mike
 
   - type: !Night {num: 4, comment: "E10"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Sandra: Steffen
       Paulina: Max
@@ -111,12 +111,12 @@ constraints:
       # Alicia: Mike
 
   - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Darya: Danilo
 
   - type: !Night {num: 5, comment: "E12"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Alicia: Steffen
       Darya: Danilo
@@ -131,13 +131,13 @@ constraints:
       # Dummy: Peter
 
   - type: !Box {num: 6, comment: "E13"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Alicia: Teezy
      # Sandra: Paco
 
   - type: !Night {num: 6, comment: "E14"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Darya: Danilo
       Alicia: Paco
@@ -159,7 +159,7 @@ constraints:
       Darya: Max
 
   - type: !Night {num: 7, comment: "E16"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Darya: Danilo
       Steffi: Elia
@@ -173,13 +173,13 @@ constraints:
       Sandra: Mike
 
   - type: !Box {num: 8, comment: "E17"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Sandra: Mike
       Sabrina: Max
 
   - type: !Night {num: 8, comment: "E18 -- Blackout"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Darya: Danilo
       Sandra: Fabio
@@ -193,13 +193,13 @@ constraints:
       Marie: Elia
 
   - type: !Box {num: 9, comment: "E19"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       # Sabrina: Mike
       Steffi: Emanuell
 
   - type: !Night {num: 9, comment: "E20"}
-    check: !Lights 6
+    check: !Lights [6]
     map:
       Steffi: Emanuell
       Darya: Danilo
@@ -213,13 +213,13 @@ constraints:
       Sandra: Elia
 
   - type: !Box {num: 10, comment: "E21"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       # Shakira: Marvin
       Alicia: Elia
 
   - type: !Night {num: 10, comment: "E22"}
-    check: !Lights 10
+    check: !Lights [10]
     map:
       Steffi: Emanuell
       Darya: Danilo

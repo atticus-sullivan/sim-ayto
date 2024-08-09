@@ -36,13 +36,13 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E03"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Paulo: Jana
       # Lina: Kevin
 
   - type: !Night {num: 1, comment: "E04"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Ryan: Lina
       Kevin: Sina
@@ -57,13 +57,13 @@ constraints:
       # Paddy: Afra
 
   - type: !Box {num: 2, comment: "E05"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Sandro: Julia
       Ryan: Lina
 
   - type: !Night {num: 2, comment: "E06"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Martin: Lina
       Ryan: Pia
@@ -78,18 +78,18 @@ constraints:
       # Julia
 
   - type: !Box {num: 3, comment: "E06"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Paulo: Edda
       Kevin: Maja
 
   - type: !Box {num: 3.5, comment: "E07"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Eti: Melanie
 
   - type: !Night {num: 3, comment: "E08"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Kevin: Melanie
       Paulo: Edda
@@ -105,13 +105,13 @@ constraints:
       # Gerrit: # Lina
 
   - type: !Box {num: 4, comment: "E09"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Wilson: Shelly
       # Eti: Maja
 
   - type: !Night {num: 4, comment: "E10"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Wilson: Shelly
       Gerrit: Tais
@@ -127,26 +127,26 @@ constraints:
       # Maja
 
   - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 1
+    check: !Lights [1]
     noExclude: true
     hidden: true
     map:
       Gerrit: Melanie
   - type: !Box {num: 5, comment: "E12"}
-    check: !Lights 1
+    check: !Lights [1]
     noExclude: true
     hidden: true
     map:
       Gerrit: Pia
   - type: !Box {num: 5.1, comment: "E11"}
-    check: !Lights 1
+    check: !Lights [1]
     noExclude: true
     map:
       Gerrit: Tais
       # Paddy: Lina
 
   - type: !Night {num: 5, comment: "E12"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -160,13 +160,13 @@ constraints:
       Paulo: Edda
 
   - type: !Box {num: 6, comment: "E13"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Paulo: Maja
       Sandro: Sina
 
   - type: !Night {num: 6, comment: "E14"}
-    check: !Lights 5
+    check: !Lights [5]
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -180,13 +180,13 @@ constraints:
       Paddy: Edda
 
   - type: !Box {num: 7, comment: "E15"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Sandro: Afra
       Paulo: Julia
 
   - type: !Night {num: 7, comment: "E16"}
-    check: !Lights 5
+    check: !Lights [5]
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -206,7 +206,7 @@ constraints:
   #     # Paddy: Edda
 
   - type: !Night {num: 8, comment: "E18"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -220,13 +220,13 @@ constraints:
       Sidar: Maja
 
   - type: !Box {num: 9, comment: "E18"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       # Sidar: Julia
       Sandro: Afra
 
   - type: !Night {num: 9, comment: "E19"}
-    check: !Lights 6
+    check: !Lights [6]
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -240,14 +240,14 @@ constraints:
       Martin: Lisa-Marie
 
   - type: !Box {num: 10, comment: "E19"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Kevin: Lina
       # Sidar: Sina
       # Paddy: Edda
 
   - type: !Night {num: 10, comment: "E20"}
-    check: !Lights 7
+    check: !Lights [7]
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -261,7 +261,7 @@ constraints:
       Ryan: Jana
 
   - type: !Night {num: 11, comment: "E21 -- Reunion"}
-    check: !Lights 10
+    check: !Lights [10]
     map:
       Gerrit: Tais
       Wilson: Shelly

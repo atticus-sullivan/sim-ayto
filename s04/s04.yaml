@@ -32,17 +32,17 @@ setB:
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Valeria: Marwin
 
   - type: !Box {num: 1.25, comment: "E03"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Dorna: Kenneth
 
   - type: !Night {num: 1, comment: "E04"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Vanessa:  Sasa
       Carina:   Ken
@@ -56,12 +56,12 @@ constraints:
       Caro:     Barkin
 
   - type: !Box {num: 2, comment: "E05"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Carina: Burim
 
   - type: !Night {num: 2, comment: "E06"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Larissa:  Joel
       Henna:    Kenneth
@@ -75,12 +75,12 @@ constraints:
       Juliette: Barkin
 
   - type: !Box {num: 3, comment: "E07"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Steffi: Chris
 
   - type: !Night {num: 3, comment: "E08"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Steffi: Chris
       Aurelia: Kenneth
@@ -95,13 +95,13 @@ constraints:
       # Burim
 
   - type: !Box {num: 4, comment: "E09"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Valeria: Max
       # Caro: Kenneth
 
   - type: !Night {num: 4, comment: "E10"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Steffi: Chris
       Henna: Ken
@@ -116,20 +116,20 @@ constraints:
       # Juliette: Barkin
 
   - type: !Box {num: 5.1, comment: "E11 -- Doppelmatch"}
-    check: !Lights 1
+    check: !Lights [1]
     hidden: True
     noExclude: true
     map:
       Caro: Max
   - type: !Box {num: 5, comment: "E11"}
-    check: !Lights 1
+    check: !Lights [1]
     map:
       Caro: Ken
     noExclude: true
       # Carina: Max
 
   - type: !Night {num: 5, comment: "E12"}
-    check: !Lights 4
+    check: !Lights [4]
     map:
       Steffi: Chris
       Caro: Ken
@@ -144,13 +144,13 @@ constraints:
       # Max
 
   - type: !Box {num: 6, comment: "E13"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Dorna: Burim
         # Larissa: Marwin
 
   - type: !Night {num: 6, comment: "E14"}
-    check: !Lights 3
+    check: !Lights [3]
     map:
       Steffi: Chris
       Caro: Ken
@@ -165,13 +165,13 @@ constraints:
       # Max
 
   - type: !Box {num: 7, comment: "E15"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Juliette: Joel
      # Vanessa: Marwin
 
   - type: !Night {num: 7, comment: "E16 -- Blackout"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
      Steffi: Chris
      Caro: Ken
@@ -185,12 +185,12 @@ constraints:
      Larissa: Sasa
 
   - type: !Box {num: 8, comment: "E17"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Dorna: Marwin
 
   - type: !Night {num: 8, comment: "E18 -- Blackout"}
-    check: !Lights 2
+    check: !Lights [2]
     map:
       Steffi: Chris
       Caro: Ken
@@ -204,13 +204,13 @@ constraints:
       Aurelia: Marwin
 
   - type: !Box {num: 9, comment: "E19"}
-    check: !Lights 0
+    check: !Lights [0]
     map:
       Carina: Pascal
       # Burim: Aurelia
 
   - type: !Night {num: 10, comment: "E21 -- finale"}
-    check: !Lights 10
+    check: !Lights [10]
     map:
       Steffi: Chris
       Caro: Ken
