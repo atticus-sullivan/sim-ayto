@@ -881,7 +881,7 @@ impl Game {
         Ok(g)
     }
 
-    fn sim(&mut self) -> Result<()> {
+    fn sim(&mut self, print_transposed: bool) -> Result<()> {
         let perm_amount = self
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len());
@@ -893,7 +893,11 @@ impl Game {
         let is = &is;
 
         let mut rem: Rem = (vec![vec![is.each; self.map_b.len()]; self.map_a.len()], is.total);
-        self.print_rem(&rem).context("Error printing")?;
+        if print_transposed {
+            self.print_rem_transposed(&rem).context("Error printing")?;
+        } else {
+            self.print_rem(&rem).context("Error printing")?;
+        }
         println!();
 
         let mut constr = vec![];
@@ -909,7 +913,11 @@ impl Game {
                 }
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
                 c.print_hdr();
-                self.print_rem(&rem).context("Error printing")?;
+                if print_transposed {
+                    self.print_rem_transposed(&rem).context("Error printing")?;
+                } else {
+                    self.print_rem(&rem).context("Error printing")?;
+                }
                 constr.push(c);
                 println!();
             }
@@ -1010,13 +1018,14 @@ impl Game {
         Ok(())
     }
 
-    fn print_rem(&self, rem: &Rem) -> Option<()> {
+    fn print_rem_transposed(&self, rem: &Rem) -> Option<()> {
         let mut hdr = vec![Cell::new("")];
         hdr.extend(
-            self.map_b
+            self.map_a
                 .iter()
                 .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
         );
+
         let mut table = Table::new();
         table
             .force_no_tty()
@@ -1024,12 +1033,55 @@ impl Game {
             .load_preset(UTF8_FULL_CONDENSED)
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
-        for (i, a) in self.map_a.iter().enumerate() {
-            let i = rem.0.get(i)?.iter().enumerate().map(|(j,x)| {
+
+        for (j, a) in self.map_b.iter().enumerate() {
+            let i = self.map_a.iter().enumerate().map(|(i,_)| {
                 if self.rule_set.ignore(i,j) {
                     Cell::new("")
                 } else {
-                    let val = (*x as f64) / (rem.1 as f64) * 100.0;
+                    let x = rem.0[i][j];
+                    let val = (x as f64) / (rem.1 as f64) * 100.0;
+                    if 79.0 < val && val < 101.0 {
+                        Cell::new(format!("{:02.3}", val)).fg(Color::Green)
+                    } else if -1.0 < val && val < 1.0 {
+                        Cell::new(format!("{:02.3}", val)).fg(Color::Red)
+                    } else {
+                        Cell::new(format!("{:02.3}", val))
+                    }
+                }
+            });
+            let mut row = vec![Cell::new(a)];
+            row.extend(i);
+            table.add_row(row);
+        }
+        println!("{table}");
+        println!("{} left -> {} bits left", rem.1, (rem.1 as f64).log2());
+        Some(())
+    }
+
+    fn print_rem(&self, rem: &Rem) -> Option<()> {
+        let mut hdr = vec![Cell::new("")];
+        hdr.extend(
+            self.map_b
+                .iter()
+                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
+        );
+
+        let mut table = Table::new();
+        table
+            .force_no_tty()
+            .enforce_styling()
+            .load_preset(UTF8_FULL_CONDENSED)
+            .apply_modifier(UTF8_ROUND_CORNERS)
+            .set_header(hdr);
+
+        for (i, a) in self.map_a.iter().enumerate() {
+            let i = self.map_b.iter().enumerate().map(|(j,_)| {
+                if self.rule_set.ignore(i,j) {
+                    Cell::new("")
+                } else {
+                    let x = rem.0[i][j];
+                    let val = (x as f64) / (rem.1 as f64) * 100.0;
                     if 79.0 < val && val < 101.0 {
                         Cell::new(format!("{:02.3}", val)).fg(Color::Green)
                     } else if -1.0 < val && val < 1.0 {
@@ -1156,6 +1208,9 @@ struct Cli {
     #[arg(short = 'c', long = "color")]
     colored: bool,
 
+    #[arg(long = "transpose")]
+    transpose_tabs: bool,
+
     #[arg(short = 'o', long = "output")]
     stem: PathBuf,
 
@@ -1172,6 +1227,6 @@ fn main() {
     }
 
     let start = Instant::now();
-    g.sim().unwrap();
+    g.sim(args.transpose_tabs).unwrap();
     println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
 }
