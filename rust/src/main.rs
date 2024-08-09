@@ -449,7 +449,7 @@ impl Constraint {
     fn eliminate(&mut self, m: &Matching) {
         for (i1, v) in m.iter().enumerate() {
             for &i2 in v {
-                if i2 == 255 {
+                if i2 == u8::MAX {
                     continue
                 }
                 self.eliminated_tab[i1][i2 as usize] += 1
@@ -1168,7 +1168,7 @@ impl Game {
 
                 if nodes.insert(node.clone()) {
                     // if node is new
-                    if p[*i].iter().filter(|&b| !self.rule_set.ignore(*i, *b as usize)).count() == 0 {
+                    if p[*i].iter().filter(|&b| *b != u8::MAX).count() == 0 {
                         writeln!(writer, "\"{node}\"[label=\"\"]")?;
                     } else {
                         // only put content in that node if there is something meaning-full
@@ -1180,7 +1180,7 @@ impl Game {
                             + "\\n"
                             + &p[*i]
                                 .iter()
-                                .filter(|&b| !self.rule_set.ignore(*i, *b as usize))
+                                .filter(|&b| *b != u8::MAX)
                                 .map(|b| self.map_b[*b as usize].clone())
                                 .collect::<Vec<_>>()
                                 .join("\\n")
@@ -1197,22 +1197,25 @@ impl Game {
     }
 
     fn tree_ordering(&self, data: &Vec<Matching>) -> Vec<(usize, usize)> {
+        // tab maps people from set_a -> possible matches (set -> no duplicates)
         let mut tab = vec![HashSet::new(); self.map_a.len()];
         for p in data {
             for (i, js) in p.iter().enumerate() {
-                if !self.rule_set.ignore(i, js[0] as usize) {
+                // if js[0] != u8::MAX {
                     tab[i].insert(js);
-                }
+                // }
             }
         }
 
+        // pairs people of set_a with amount of different matches
         let mut ordering: Vec<_> = tab.iter().enumerate().filter_map(|(i, x)| {
-            if x.len() == 0 {
+            if x.len() == 0 || x.iter().all(|y| y.len() == 1 && y[0] == u8::MAX) {
                 None
             } else {
                 Some((i, x.len()))
             }
         }).collect();
+
         match &self.tree_top {
             Some(ts) => {
                 let t = self.lut_a[ts];
