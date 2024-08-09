@@ -55,7 +55,6 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
 	echo "\\addplot table {$(basename $<)_statInfo.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
 	@date
-	@cd "$(dir $<)" && if test -e "$(patsubst %/,%.tape,$(dir $<))" ; then vhs "$(patsubst %/,%.tape,$(dir $<))" ; $(RM) .not_needed.gif 2>/dev/null ; convert "$(patsubst %/,%_ctab.png,$(dir $<))"  -crop +0+85 "$(patsubst %/,%_ctab.png,$(dir $<))" ; date ; fi
 
 rust/target/release/ayto: ./rust/src/*
 	make -C rust buildRelease
