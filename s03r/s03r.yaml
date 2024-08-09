@@ -153,6 +153,10 @@ constraints:
 
   # Max hat sein "double" verkauft => das "double" wurde bekannt
   - type: !Box {num: 7, comment: "E15"}
+    # Eq meint nur, dass die beiden values gleich sein müssen. Die jeweiligen
+    # keys sind dabei vollkommen egal.
+    # Notwendig für dieses Szenario (es wird bekannt Max und Peter haben
+    # dasselbe match, wer das ist bleibt aber offen)
     check: !Eq
     map:
       Alicia: Peter
