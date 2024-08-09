@@ -187,7 +187,7 @@ constraints:
       # Danny: Nour
       Remy: Paige
 
-  - type: !Night {num: 8, comment: "E10"}
+  - type: !Night {num: 8, comment: "E11"}
     check: !Lights [3]
     map:
       Brandon: Aasha
@@ -199,6 +199,40 @@ constraints:
       Amber: Paige
       Jenna: Kari
 
-  # - type: !Box {num: 9, comment: "E10"}
-  #   check: !Lights [0]
-  #   map:
+  - type: !Box {num: 9, comment: "E11"}
+    check: !Lights [0]
+    map:
+      # Danny: Kai
+      Max: Amber
+      # Justin: Kari
+
+  - type: !Night {num: 9, comment: "E11"}
+    check: !Lights [6]
+    map:
+      Brandon: Aasha
+      Paige: Jenna
+      Amber: Kylie
+      Jasmine: Nour
+      Danny: Kai
+      Max: Kari
+      Justin: Remy
+      Basit: Jonathan
+
+  - type: !Box {num: 10, comment: "E12"}
+    check: !Lights [0]
+    map:
+      Kylie: Amber
+      # Basit: Jonathan
+      # Kari: Max
+
+  - type: !Night {num: 10, comment: "E12"}
+    check: !Lights [8]
+    map:
+      Brandon: Aasha
+      Paige: Jenna
+      Jasmine: Nour
+      Danny: Kai
+      Max: Kari
+      Amber: Remy
+      Justin: Kylie
+      Basit: Jonathan
