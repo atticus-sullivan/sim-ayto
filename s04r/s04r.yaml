@@ -51,8 +51,29 @@ constraints:
       Antonino: LauraM
       Marc-Robin: Anastasia
 
-  # - type: !Box {num: 2, comment: "E05"}
+  - type: !Box {num: 2, comment: "E05"}
+    check: !Lights 1
+    map:
+      Chris: Emmy
+      # Lukas: Dana
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights 3
+    map:
+      Chris: Emmy
+      Alex: Jenny
+      Lars: Anastasia
+      Kaan: Nadja
+      Tim: Linda
+      Marc-Robin: Asena
+      Ozan: LauraL
+      Nikola: Tara
+      Lukas: LauraM
+      Antonino: Dana
+      # Antonino: Gabriela
+
+  # - type: !Box {num: 3, comment: "E07"}
   #   check: !Lights ?
   #   map:
-  #     Chris: Emmy
-  #     # Lukas: Dana
+  #     Alex: Anastasia
+  #     # Lars: Gabriela
