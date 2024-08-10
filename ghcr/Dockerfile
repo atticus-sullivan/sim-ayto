@@ -10,10 +10,7 @@ RUN apt-get update && \
     curl \
     make \
     build-essential \
-    python3 python3-pip \
-    locales
-
-RUN locale-gen en_GB.UTF-8
+    python3 python3-pip
 
 RUN pip install --break-system-packages ansitoimg
 
