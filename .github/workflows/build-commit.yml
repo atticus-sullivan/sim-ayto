@@ -11,10 +11,10 @@ on:
     paths:
       - 'rust/**'
       - '**.yaml'
-    paths-ignore:
-      - 'img/**'
-      - 'README.md'
-      - 'ghcr/**'
+    # paths-ignore:
+    #   - 'img/**'
+    #   - 'README.md'
+    #   - 'ghcr/**'
 
   # pull_request:
   #   branches: [ "main" ]
