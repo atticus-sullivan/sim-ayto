@@ -4,7 +4,7 @@ Berechnet die noch verfügbaren Möglichkeiten
 # Ergebnisse
 <details><summary>Um die Ergebnisse anzusehen, muss man zunächst auf den `build` branch wechseln:</summary>
 
-![Auf `build` Branch wechseln](img/switch_branch.png)
+<img src="img/switch_branch.png" width="800">
 
 Anschließend finden sich in den Ordnern der jeweiligen Staffel die Ausgabedateien
 
@@ -13,11 +13,11 @@ Anschließend finden sich in den Ordnern der jeweiligen Staffel die Ausgabedatei
 ## Ausgabe-Dateien
 <details><summary>Auflistung der (für die meisten) interessanten Ausgabedateien:</summary>
 
-![Verfügbare Ausgabedateien](img/output_files.png)
+<img src="img/output_files.png" width="800">
 
 ### 1. `<Staffel>_tab.png`
 ganz klassisch die Tabelle mit den noch übrigen Möglichkeiten
-#### 2. `<Staffel>.out`
+### 2. `<Staffel>.out`
 Hier findet man die meisten Informationen (u.A. auch der komplette bisherige Verlauf der Tabellen).
 
 Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
@@ -28,15 +28,15 @@ Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Mögl
 
 `E[lights]`: Ist der Erwartungswert, wieviele Lichter im Schnitt angehen sollten.
 
-#### 3. `<Staffel>.col.png`
+### 3. `<Staffel>.col.png`
 Dasselbe wie 2. aber die Tabellen in Farbe.
 
-#### 4./5. `<Staffel>.pdf` `<Staffel>.png`
+### 4./5. `<Staffel>.pdf` `<Staffel>.png`
 Zeigt den Baum mit den noch verbliebenen Möglichkeiten an. Ist nur sinnvoll wenn nicht mehr so viele Möglichkeiten übrig sind (und kann auch nur dann generiert werden).
 
 In diesem Baum ist die erste Zeile auf einer Ebene immer fest.
 
-#### `stats.pdf`
+### `stats.pdf`
 Diese Datei liegt direkt im Hauptverzeichnis und enthält ein paar Statistiken um die Staffeln (basierend auf dem Informationsgewinn durch eine Matchox/einer Matchingnight und der Entropie) zu vergleichen.
 
 </details>
@@ -50,42 +50,50 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
 1. Github Account erstellen
 
 2. Projekt `fork`en sodass ihr euere eigene Kopie von dem Projekt habt an dem ihr arbeiten könnt.
-   ![forken](./img/fork.png)
+   <br>
+   <img src="img/fork.png" width="800">
    
-3. Hier kommt noch eine Seite dazwischen, da könnt ihr z.B. dem Projekt nen andren Namen geben
-   unter dem es bei euch laufen soll. Wichtig dabei ist, dass ihr den Haken bei `copy main branch only` wegmacht.
-   ![forken](./img/fork2.png)
+4. Hier kommt noch eine Seite dazwischen, da könnt ihr z.B. dem Projekt nen andren Namen geben unter dem es bei euch laufen soll. Wichtig dabei ist, dass ihr den Haken bei `copy main branch only` wegmacht.
+   <br>
+   <img src="img/fork2.png" width="400">
    
-4. Github actions aktivieren (das ist der Mechanismus, der die Ergebnisse automatisch generiert)
-   ![GH actions aktivieren](./img/enable-actions.png)
+6. Github actions aktivieren (das ist der Mechanismus, der die Ergebnisse automatisch generiert)
+   <br>
+   <img src="img/enable-actions.png" width="800">
 
-5. Ab jetzt ist alles fertig eingerichtet und sobald ihr eine Datei in dem Projekt ändert, werden die entsprechenden Ergebnisse automatisch generiert.
+8. Ab jetzt ist alles fertig eingerichtet und sobald ihr eine Datei in dem Projekt ändert, werden die entsprechenden Ergebnisse automatisch generiert.
 
-6. Eingabedateien ändern. Hierbei ist es wichtig, dass ihr das auf dem `main` Branch macht. Das wechseln funktioniert genauso wie auf
-   den `build` Branch wechseln beim Ergebnisse anschauen.
-   ![edit1](./img/edit1.png)
-   ![edit2](./img/edit2.png)
-   ![edit3](./img/edit3.png)
+9. Eingabedateien ändern. Hierbei ist es wichtig, dass ihr das auf dem `main` Branch macht. Das wechseln funktioniert genauso wie auf den `build` Branch wechseln beim Ergebnisse anschauen.
+    <br>
+    <img src="img/edit1.png" width="800">
+    <br>
+    <img src="img/edit2.png" width="800">
+    <br>
+    <img src="img/edit3.png" width="800"> 
+
+11. Datei speichern
+    <br>
+    <img src="img/save1.png" width="800">
+    <br>
+    <img src="img/save2.png" width="400">
+
+13. Status vom Ergebnisse generieren anschaun (nicht unbedingt notwendig)
+    <br>
+    <img src="img/status1.png" width="800">
+    <br>
+    Hier seht ihr ein Beispiel von einem erfolgreiehn durchlauf. Normalerweise wird bei euch der Schritt 1 länger dauern (das hängt ganz von den Änderungen ab die ihr gemacht habt). Die Schritte unter 2 brauchen aber nur beim ersten Durchlauf so lange und sind in allen weiteren Durchläufen deutlich schneller.
+    <br>
+    <img src="img/status2.png" width="800">
+    <br>
+    Bei Problemen sollte idR Schritt 1 fehlgeschlagen haben. Wenn ihr das aufklappt, findet ihr evtl raus was genau das Problem war (ihr könnt mir aber auch gerne [hier]([https://github.com/atticus-sullivan/sim-ayto/issues](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a)) schreiben in dem Fall.
    
-
-7. Datei speichern
-   ![save1](./img/save1.png)
-   ![save2](./img/save2.png)
-
-8. Status vom Ergebnisse generieren anschaun (nicht unbedingt notwendig)
-   ![status1](./img/status1.png)
-
-   Hier seht ihr ein Beispiel von einem erfolgreiehn durchlauf. Normalerweise wird bei euch der Schritt 1 länger dauern (das hängt ganz von den Änderungen ab die ihr gemacht habt). Die Schritte unter 2 brauchen aber nur beim ersten Durchlauf so lange und sind in allen weiteren Durchläufen deutlich schneller.
-   ![status2](./img/status2.png)
-
-   Bei Problemen sollte idR Schritt 1 fehlgeschlagen haben. Wenn ihr das aufklappt, findet ihr evtl raus was genau das Problem war (ihr könnt mir aber auch gerne [hier]([https://github.com/atticus-sullivan/sim-ayto/issues](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a)) schreiben in dem Fall.
-   
-9. Nachdem die Ergebnisse erfolgreich generiert wurden, sollte es in etwa so aussehen:
-   ![fertig](./img/finished.png)
-
-   Wenn anstelle des grünen Hakens ein rotes X ist, ist beim generieren etwas schief gelaufen und ihr könnt wie in 8. beschrieben nachschaunen was genau das Problem war.
-   
-   Die Ergebnisse könnt ihr euch jetzt wie oben unter [Ergebnisse](#Ergebnisse) beschrieben anschauen.
+11. Nachdem die Ergebnisse erfolgreich generiert wurden, sollte es in etwa so aussehen:
+    <br>
+    <img src="img/finished.png" width="800">
+    <br>
+    Wenn anstelle des grünen Hakens ein rotes X ist, ist beim generieren etwas schief gelaufen und ihr könnt wie in 8. beschrieben nachschaunen was genau das Problem war.
+    <br>
+    Die Ergebnisse könnt ihr euch jetzt wie oben unter [Ergebnisse](#Ergebnisse) beschrieben anschauen.
 
 </details>
 
@@ -94,7 +102,7 @@ Zusätzlich zu der folgenden "Dokumentation" ist es sinnvoll (evtl reicht es sog
 
 <details><summary>Beschreibung des Dateiformats staffel.yaml </summary>
 
-  Allgemein gilt: Alles hinter einem `#` ist ein Kommentar und wird später ignoriert.
+Allgemein gilt: Alles hinter einem `#` ist ein Kommentar und wird später ignoriert.
 
 ### Allgemeine Eingaben
 #### setA/setB
@@ -152,6 +160,8 @@ Beispiel:
 ```
 
 #### weitere optionale Felder
+<details><summary>Auflistung</summary>
+
 ##### hidden
 - `hidden: true`: verhindert die Ausgabe einer Tabelle für diese Entscheidung.
 - wenn nicht angegeben, ist `hidden: false` der standard.
@@ -164,7 +174,8 @@ Sollte dies unerwünscht sein, kann der entwerder `noExclude: true` gesetzt werd
 
 Wenn nichts angegeben wird ist `noExclude: false` der Standard.
    
-  </details>
+</details>
+</details>
 
 ## Anmerkungen
 - Damit die Statistik stimmt, darauf achten, dass falls mehrere Einträge zusammen gehören die ersten die sind, die geskippt werden (mit `hidden: true`) beim Zählen
