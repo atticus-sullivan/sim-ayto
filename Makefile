@@ -44,12 +44,8 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	./rust/target/release/ayto -c -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
-	# colored output of the complete log (readable from the web)
-	$(ANSITOIMG_PREFIX) ansitoimg --width "$$(LANG="en_GB.UTF-8" wc -L < "$(basename $<).out")" -p render "$(basename $<).col.out" "$(basename $<).col.png"
-	# colored output of the most recent table
-	$(ANSITOIMG_PREFIX) awk -v RS='' 'END {print NR-2}' "$(basename $<).out" \
-		| xargs -I{} awk -v RS="" 'NR == {} {print $0}' "$(basename $<).col.out" \
-		| ansitoimg --width $$(LANG="en_GB.UTF-8" wc -L < "$(basename $<).out") -p render "$(basename $<)_tab.png"
+	# colored output
+	$(ANSITOIMG_PREFIX) ./generate_png "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
 	# generate files to generate latex plots
 	echo "\\addplot table {$(basename $<)_statMN.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
 	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
