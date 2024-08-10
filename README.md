@@ -1,6 +1,8 @@
 # sim-ayto
 Berechnet die noch verfügbaren Möglichkeiten
 
+<img src="img/example.png" width="800">
+
 # Ergebnisse
 <details><summary>Um die Ergebnisse anzusehen, muss man zunächst auf den `build` branch wechseln:</summary>
 
