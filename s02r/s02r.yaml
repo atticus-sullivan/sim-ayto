@@ -100,11 +100,6 @@ constraints:
     map:
       Luisa: Lukas
 
-  - type: !Box {num: 5, comment: "E11"}
-    check: !Lights [0]
-    map:
-      Ricarda: Felix
-
   - type: !Night {num: 4, comment: "E12"}
     check: !Lights [3]
     map:
@@ -120,13 +115,13 @@ constraints:
       Zoe: Luca
       # Calvin
 
-  - type: !Box {num: 6, comment: "E13"}
+  - type: !Box {num: 5, comment: "E13"}
     check: !Lights [0]
     map:
       # Max: Karina
       Isabelle: Pharrell
 
-  - type: !Night {num: 6, comment: "E14"}
+  - type: !Night {num: 5, comment: "E14"}
     check: !Lights [3]
     map:
       Anna: Micha
@@ -141,13 +136,13 @@ constraints:
       Zoe: Luca
       # Amadu: Isabelle
 
-  - type: !Box {num: 7.1, comment: "E15"}
+  - type: !Box {num: 6, comment: "E15"}
     check: !Lights [1]
     map:
       Cecilia: Amadu
       # Gina: Fabio
 
-  - type: !Night {num: 7, comment: "E16"}
+  - type: !Night {num: 6, comment: "E16"}
     check: !Lights [4]
     map:
       Anna: Micha
@@ -162,13 +157,13 @@ constraints:
       Zoe: Luca
       # Ricarda: Maurice
 
-  - type: !Box {num: 8, comment: "E17"}
+  - type: !Box {num: 7, comment: "E17"}
     check: !Lights [1]
     map:
       Anna: Micha
       # Ricarda: Pharrell
 
-  - type: !Night {num: 8, comment: "E18"}
+  - type: !Night {num: 7, comment: "E18"}
     check: !Lights [5]
     map:
       Anna: Micha
@@ -183,13 +178,13 @@ constraints:
       Zoe: Maurice
       # Max
 
-  - type: !Box {num: 9, comment: "E19"}
+  - type: !Box {num: 8, comment: "E19"}
     check: !Lights [0]
     map:
       Ricarda: Pharrell
       # Gina: Fabio
 
-  - type: !Night {num: 9, comment: "E20"}
+  - type: !Night {num: 8, comment: "E20"}
     check: !Lights [7]
     map:
       Anna: Micha
@@ -204,13 +199,13 @@ constraints:
       Celina: Fabio
       # Ricarda: Luca
 
-  - type: !Box {num: 10, comment: "E21"}
+  - type: !Box {num: 9, comment: "E21"}
     check: !Lights [0]
     map:
       Franzi: Max
       # Karina: Martin
 
-  - type: !Night {num: 10, comment: "E21"}
+  - type: !Night {num: 9, comment: "E21"}
     check: !Lights [10]
     map:
       Anna: Micha
