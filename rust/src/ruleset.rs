@@ -109,7 +109,7 @@ impl RuleSet {
         }
     }
 
-    pub fn night_map_len(&self, a: usize, _b: usize) -> usize {
+    pub fn constr_map_len(&self, a: usize, _b: usize) -> usize {
         match &self {
             RuleSet::SomeoneIsDup
             | RuleSet::SomeoneIsTrip

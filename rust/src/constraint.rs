@@ -143,12 +143,17 @@ impl Constraint {
                 );
             }
             ConstraintType::Box { .. } => {
-                ensure!(
-                    self.map_s.len() == 1,
-                    "Map in a box must contain exactly {} entry (was: {})",
-                    1,
-                    self.map_s.len()
-                );
+                match &self.check {
+                    CheckType::Eq => {},
+                    CheckType::Lights(_, _) => {
+                        ensure!(
+                            self.map_s.len() == 1,
+                            "Map in a box must contain exactly {} entry (was: {})",
+                            1,
+                            self.map_s.len()
+                        );
+                    },
+                }
             }
         }
 

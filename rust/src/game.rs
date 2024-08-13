@@ -78,7 +78,7 @@ impl Game {
             c.finalize_parsing(
                 &g.lut_a,
                 &g.lut_b,
-                g.rule_set.night_map_len(g.lut_a.len(), g.lut_b.len()),
+                g.rule_set.constr_map_len(g.lut_a.len(), g.lut_b.len()),
             )?;
         }
 
