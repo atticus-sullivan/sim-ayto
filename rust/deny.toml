@@ -1,0 +1,8 @@
+[licenses]
+allow = [
+	"MIT",
+	"BSD-3-Clause",
+	"Unicode-DFS-2016",
+	"Apache-2.0",
+	"GPL-3.0",
+]
