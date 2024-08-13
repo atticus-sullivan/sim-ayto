@@ -583,7 +583,95 @@ mod tests {
     }
 
     #[test]
-    fn test_finalize_parsing() {
+    fn test_finalize_parsing_night_lights() {
+        let mut constraint = Constraint {
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: "".to_string(),
+            },
+            map_s: HashMap::new(),
+            check: CheckType::Lights(3, BTreeMap::new()),
+            hidden: false,
+            no_exclude: false,
+            exclude_s: None,
+            map: HashMap::new(),
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![],
+            entropy: None,
+            left_after: None,
+        };
+
+        // Initialize the maps with unordered key/value pairs
+        constraint.map_s.insert("A".to_string(), "B".to_string());
+        constraint.map_s.insert("C".to_string(), "B".to_string());
+        constraint.map_s.insert("D".to_string(), "B".to_string());
+
+        // Initialize lookup tables
+        let lut_a = HashMap::from_iter(
+            vec![
+                ("A".to_string(), 0),
+                ("B".to_string(), 1),
+                ("C".to_string(), 2),
+                ("D".to_string(), 3),
+            ]
+            .into_iter(),
+        );
+        let lut_b = lut_a.clone();
+
+        constraint.finalize_parsing(&lut_a, &lut_b, 3).unwrap();
+
+        let map = HashMap::from_iter(vec![(0, 1), (2, 1), (3, 1)].into_iter());
+        assert_eq!(map, constraint.map);
+    }
+
+    #[test]
+    fn test_finalize_parsing_box_lights() {
+        let mut constraint = Constraint {
+            r#type: ConstraintType::Box {
+                num: 1.0,
+                comment: "".to_string(),
+            },
+            map_s: HashMap::new(),
+            check: CheckType::Lights(1, BTreeMap::new()),
+            hidden: false,
+            no_exclude: false,
+            exclude_s: Some(("A".to_string(), vec!["C".to_string(),"D".to_string()])),
+            map: HashMap::new(),
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![],
+            entropy: None,
+            left_after: None,
+        };
+
+        // Initialize the maps with unordered key/value pairs
+        constraint.map_s.insert("A".to_string(), "B".to_string());
+
+        // Initialize lookup tables
+        let lut_a = HashMap::from_iter(
+            vec![
+                ("A".to_string(), 0),
+                ("B".to_string(), 1),
+                ("C".to_string(), 2),
+                ("D".to_string(), 3),
+            ]
+            .into_iter(),
+        );
+        let lut_b = lut_a.clone();
+
+        constraint.finalize_parsing(&lut_a, &lut_b, 20).unwrap();
+
+        let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
+        assert_eq!(map_s, constraint.map_s);
+        let map = HashMap::from_iter(vec![(0, 1)].into_iter());
+        assert_eq!(map, constraint.map);
+        let excl = Some((0, HashSet::from([2,3])));
+        assert_eq!(excl, constraint.exclude);
+    }
+
+    #[test]
+    fn test_finalize_parsing_box_eq() {
         let mut constraint = Constraint {
             r#type: ConstraintType::Box {
                 num: 1.0,
@@ -658,15 +746,6 @@ mod tests {
         );
     }
 
-    // show_expected_lights
-    // show_pr_lights
-    // merge
-    // stat_row
-    // write_stats
-    // print_hdr
-    // comment
-    // type_str
-
     fn constraint_def() -> Constraint {
         Constraint {
             exclude: None,
@@ -693,10 +772,33 @@ mod tests {
     }
 
     #[test]
-    fn test_constraint_process() {
-        let mut c = constraint_def();
+    fn test_process_light() {
+        let mut c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::new(),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 0,
+            eliminated_tab: vec![
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+            ],
+            entropy: None,
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        };
+
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
         assert!(!c.process(&m).unwrap());
+        // change amount of lights
         match &mut c.check {
             CheckType::Eq => {}
             CheckType::Lights(l, _) => *l = 1,
@@ -705,7 +807,74 @@ mod tests {
     }
 
     #[test]
-    fn test_constraint_eliminate() {
+    fn test_process_light_exclude() {
+        let mut c = Constraint {
+            exclude: Some((0, HashSet::from([2,3]))),
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::new(),
+            check: CheckType::Lights(1, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 0,
+            eliminated_tab: vec![
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+            ],
+            entropy: None,
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        };
+
+        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        assert!(c.process(&m).unwrap());
+
+        let m: Matching = vec![vec![0], vec![1], vec![2,3], vec![4]];
+        assert!(!c.process(&m).unwrap());
+
+        let m: Matching = vec![vec![0, 2], vec![1], vec![4], vec![3]];
+        assert!(!c.process(&m).unwrap());
+    }
+
+    #[test]
+    fn test_process_eq() {
+        let mut c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::new(),
+            check: CheckType::Eq,
+            // 1 and 2 have the same match
+            map: HashMap::from([(0, 1), (1, 2)]),
+            eliminated: 0,
+            eliminated_tab: vec![
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+            ],
+            entropy: None,
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        };
+
+        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        assert!(!c.process(&m).unwrap());
+        let m: Matching = vec![vec![0], vec![1, 2], vec![3], vec![4]];
+        assert!(c.process(&m).unwrap());
+    }
+
+    #[test]
+    fn test_eliminate() {
         let mut c = constraint_def();
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
 
@@ -735,7 +904,7 @@ mod tests {
     }
 
     #[test]
-    fn test_constraint_apply() {
+    fn test_apply() {
         let mut c = constraint_def();
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
 
@@ -755,5 +924,301 @@ mod tests {
                 vec![15, 15, 15, 14, 14]
             ]
         );
+    }
+
+    #[test]
+    fn test_merge() {
+        let mut c_a = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::new(),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 200,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(4.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        }
+;
+        let c_b = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::new(),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        };
+
+        c_a.merge(&c_b).unwrap();
+
+        assert_eq!(c_a.eliminated, 300);
+
+        assert_eq!(c_a.eliminated_tab, vec![
+            vec![2, 0, 0, 0, 0],
+            vec![0, 2, 0, 6, 0],
+            vec![0, 0, 4, 0, 6],
+            vec![0, 12, 0, 10, 0],
+        ]);
+
+        assert_eq!(c_a.entropy, None);
+        assert_eq!(c_a.left_after, None);
+    }
+
+    #[test]
+    fn test_stat_row() {
+        let c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        };
+
+        let row = c.stat_row(&vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string(), "E".to_string()]);
+        let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
+        assert_eq!(row, vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5"]);
+    }
+
+    #[test]
+    fn test_stat_row_box_eq() {
+        let c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            check: CheckType::Eq,
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: 1.0,
+                comment: String::from(""),
+            },
+        };
+
+        let row = c.stat_row(&vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string(), "E".to_string()]);
+        let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
+        assert_eq!(row, vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5"]);
+    }
+
+    // #[test]
+    // fn test_print_hdr() {
+    //     let c = Constraint {
+    //         exclude: None,
+    //         exclude_s: None,
+    //         no_exclude: false,
+    //         map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+    //         check: CheckType::Lights(2, BTreeMap::new()),
+    //         map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+    //         eliminated: 100,
+    //         eliminated_tab: vec![
+    //             vec![1, 0, 0, 0, 0],
+    //             vec![0, 1, 0, 3, 0],
+    //             vec![0, 0, 2, 0, 3],
+    //             vec![0, 6, 0, 5, 0],
+    //         ],
+    //         entropy: Some(3.5),
+    //         left_after: None,
+    //         hidden: false,
+    //         r#type: ConstraintType::Night {
+    //             num: 1.0,
+    //             comment: String::from(""),
+    //         },
+    //     };
+    //
+    //     let row = c.print_hdr();
+    // }
+
+    // #[test]
+    // fn test_write_stats() {
+    //     let c = Constraint {
+    //         exclude: None,
+    //         exclude_s: None,
+    //         no_exclude: false,
+    //         map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+    //         check: CheckType::Lights(2, BTreeMap::new()),
+    //         map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+    //         eliminated: 100,
+    //         eliminated_tab: vec![
+    //             vec![1, 0, 0, 0, 0],
+    //             vec![0, 1, 0, 3, 0],
+    //             vec![0, 0, 2, 0, 3],
+    //             vec![0, 6, 0, 5, 0],
+    //         ],
+    //         entropy: Some(3.5),
+    //         left_after: None,
+    //         hidden: false,
+    //         r#type: ConstraintType::Night {
+    //             num: 1.0,
+    //             comment: String::from(""),
+    //         },
+    //     };
+    //
+    //     let row = c.write_stats();
+    // }
+
+    // show_expected_lights
+    // show_pr_lights
+    // comment
+    // type_str
+
+    #[test]
+    fn test_comment_night() {
+        let c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from("comment"),
+            },
+        };
+
+        assert_eq!(c.comment(), "comment");
+    }
+
+    #[test]
+    fn test_comment_box() {
+        let c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: 1.0,
+                comment: String::from("comment"),
+            },
+        };
+
+        assert_eq!(c.comment(), "comment");
+    }
+
+    #[test]
+    fn test_type_str_night() {
+        let c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: 1.0,
+                comment: String::from("comment"),
+            },
+        };
+
+        assert_eq!(c.type_str(), "MN#1");
+    }
+
+    #[test]
+    fn test_type_str_box() {
+        let c = Constraint {
+            exclude: None,
+            exclude_s: None,
+            no_exclude: false,
+            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            entropy: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: 1.0,
+                comment: String::from("comment"),
+            },
+        };
+
+        assert_eq!(c.type_str(), "MB#1");
     }
 }

@@ -37,5 +37,6 @@ cont:
 
 coverage:
 	$(RM) target/profraw/*
-	CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='target/profraw/cargo-test-%p-%m.profraw' cargo test
+	$(RM) -r target/coverage/*
+	RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='target/profraw/cargo-test-%p-%m.profraw' cargo test
 	grcov target/profraw/ --binary-path ./target/debug/deps/ -s . -t html --branch --ignore-not-existing --ignore '../*' --ignore "/*" -o target/coverage
