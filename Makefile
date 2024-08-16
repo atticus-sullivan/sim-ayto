@@ -45,7 +45,7 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	# colored output
-	$(ANSITOIMG_PREFIX) ./generate_png "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
+	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
 	# generate files to generate latex plots
 	echo "\\addplot table {$(basename $<)_statMN.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
 	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
