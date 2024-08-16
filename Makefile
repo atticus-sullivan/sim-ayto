@@ -41,7 +41,7 @@ $(ALIAS):
 
 $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	@date
-	./rust/target/release/ayto -c -o $(basename $<) $< > $(basename $<).col.out
+	./rust/target/release/ayto --transpose -c -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	# colored output
