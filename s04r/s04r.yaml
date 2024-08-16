@@ -72,8 +72,23 @@ constraints:
       Antonino: Dana
       # Antonino: Gabriela
 
-  # - type: !Box {num: 3, comment: "E07"}
+  # - type: !Box {num: 3, comment: "E07 -- verkauft d Jenny"}
   #   check: !Lights ?
   #   map:
   #     Alex: Anastasia
   #     # Lars: Gabriela
+
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights [3]
+    map:
+      Chris: Emmy
+      Kaan: Jenny
+      Alex: Anastasia
+      Marc-Robin: Asena
+      Tim: Dana
+      Antonino: Nadja
+      Lukas: Linda
+      Ozan: LauraM
+      Nikola: LauraL
+      Lars: Gabriela
+      # Tara
