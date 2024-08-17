@@ -22,15 +22,15 @@ mod ruleset;
 
 use crate::game::Game;
 
-use charming::component::{Legend, Toolbox};
 use anyhow::{ensure, Context, Result};
-use charming::element::{Tooltip, Trigger};
 use clap::Parser;
-use std::{collections::HashMap, path::Path};
+use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
+use std::iter::zip;
 
-use charming::{component::Axis, element::AxisType, series::Line, Chart, HtmlRenderer};
+use plotly::common::{Mode, Title};
+use plotly::{Layout, Plot, Scatter};
 
 // TODO code review (try with chatGPT)
 
@@ -60,76 +60,76 @@ struct Cli {
     only_check: bool,
 }
 
-fn test_charming() -> Chart {
-    Chart::new()
-        .x_axis(
-            Axis::new()
-                .type_(AxisType::Category)
-                .data(vec!["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]),
-        )
-        .y_axis(Axis::new().type_(AxisType::Value))
-        .series(Line::new().name("a").data(vec![150, 230, 224, 218, 135, 147, 260]))
-        .series(Line::new().name("b").data(vec![300, 460, 448, 436, 270, 294, 520]))
-        .legend(Legend::new().data(vec!["a", "b"]))
-        .tooltip(Tooltip::new().trigger(Trigger::Axis))
-}
-
 use walkdir::WalkDir;
 
-type OtherDataEntry = (u8, f64);
-struct OtherData {
-    mb: Vec<OtherDataEntry>,
-    mn: Vec<OtherDataEntry>,
-    all: Vec<OtherDataEntry>,
-}
+type OtherDataEntry = (f64, f64);
 
-fn build_stats_graph() -> Result<Chart> {
-    let mut chart = Chart::new()
-        .y_axis(Axis::new().type_(AxisType::Value))
-        .tooltip(Tooltip::new().trigger(Trigger::Axis))
-    ;
+fn build_stats_graph() -> Result<String> {
+    let layout = Layout::new()
+        .hover_mode(plotly::layout::HoverMode::XUnified)
+        .click_mode(plotly::layout::ClickMode::Event);
+
+    let mut plots = [Plot::new(), Plot::new(), Plot::new()];
+    plots[0].set_layout(layout.clone().title("")
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MB")))
+            .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))));
+    plots[1].set_layout(layout.clone().title("")
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN")))
+            .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))));
+    plots[2].set_layout(layout.clone().title("")
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN/#MB")))
+            .y_axis(plotly::layout::Axis::new().title(Title::with_text("H [bit]"))));
 
     for entry in WalkDir::new("../")
-        .max_depth(2)
-        .min_depth(2)
+        .max_depth(1)
+        .min_depth(1)
         .into_iter()
         .filter_entry(|e| {
-            e.file_name().to_str().map_or(false, |e| (e.starts_with("s") || e.starts_with("us")) && e.ends_with(".csv")) &&
-            e.metadata().map_or(false, |e| e.is_file())
-        }).filter_map(|e| e.ok())
+            e.file_name().to_str().map_or(false, |e| (e.starts_with("s") || e.starts_with("us"))) &&
+            e.metadata().map_or(false, |e| e.is_dir())
+        }).filter_map(Result::ok)
     {
-        let mut o = OtherData{mb: Vec::new(), mn: Vec::new(), all: Vec::new()};
-        let field:&mut Vec<OtherDataEntry>;
-        let n = entry.file_name().to_str().unwrap();
-
-        if n.ends_with("_MB.csv") {
-            field = &mut o.mb;
-        } else if n.ends_with("_MN.csv"){
-            field = &mut o.mn;
-        } else {
-            // skip that file
-            continue
+        for (fn_param, plot) in zip(["statMB.csv", "statMN.csv", "statInfo.csv"], &mut plots) {
+            if !entry.path().join(fn_param).exists() {
+                continue
+            }
+            let mut field: Vec<OtherDataEntry> = Vec::new();
+            let mut rdr = csv::ReaderBuilder::new().delimiter(b' ').from_path(entry.path().join(fn_param))?;
+            for result in rdr.deserialize() {
+                let record: OtherDataEntry = result?;
+                field.push(record);
+            }
+            let trace = Scatter::new(field.iter().map(|i| i.0).collect(), field.iter().map(|i| i.1).collect())
+                .name(fn_param)
+                .mode(Mode::Lines);
+            plot.add_trace(trace);
         }
-
-        let mut rdr = csv::Reader::from_path(entry.path())?;
-        for result in rdr.deserialize() {
-            let record: OtherDataEntry = result?;
-            field.push(record);
-        }
-        chart = chart.series(Line::new().name("a").data(field));
-
-        println!("{} {:?}", entry.path().display(), entry.file_name());
     }
-
-    Ok(chart)
+    let dat = plots.iter().map(|i| i.to_inline_html(None)).fold(String::new(), |a,b| a+&b);
+    let complete_html = format!(
+        r#"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plotly Graphs</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    {}
+</body>
+</html>"#,
+        dat
+    );
+    Ok(complete_html)
 }
 
 fn main() {
     let args = Cli::parse();
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
 
-    let mut render = HtmlRenderer::new("title", 500, 500);
-    let _ = render.save(&build_stats_graph().unwrap(), Path::new("./x.html"));
+    let html_content = build_stats_graph().unwrap();
+    std::fs::write("stat.html", html_content).unwrap();
 
     return;
 
