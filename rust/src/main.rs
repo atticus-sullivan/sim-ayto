@@ -22,10 +22,15 @@ mod ruleset;
 
 use crate::game::Game;
 
+use anyhow::{ensure, Context, Result};
 use clap::Parser;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
+use std::iter::zip;
+
+use plotly::common::{Mode, Title};
+use plotly::{Layout, Plot, Scatter};
 
 // TODO code review (try with chatGPT)
 
@@ -55,9 +60,78 @@ struct Cli {
     only_check: bool,
 }
 
+use walkdir::WalkDir;
+
+type OtherDataEntry = (f64, f64);
+
+fn build_stats_graph() -> Result<String> {
+    let layout = Layout::new()
+        .hover_mode(plotly::layout::HoverMode::XUnified)
+        .click_mode(plotly::layout::ClickMode::Event);
+
+    let mut plots = [Plot::new(), Plot::new(), Plot::new()];
+    plots[0].set_layout(layout.clone().title("")
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MB")))
+            .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))));
+    plots[1].set_layout(layout.clone().title("")
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN")))
+            .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))));
+    plots[2].set_layout(layout.clone().title("")
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN/#MB")))
+            .y_axis(plotly::layout::Axis::new().title(Title::with_text("H [bit]"))));
+
+    for entry in WalkDir::new("../")
+        .max_depth(1)
+        .min_depth(1)
+        .into_iter()
+        .filter_entry(|e| {
+            e.file_name().to_str().map_or(false, |e| (e.starts_with("s") || e.starts_with("us"))) &&
+            e.metadata().map_or(false, |e| e.is_dir())
+        }).filter_map(Result::ok)
+    {
+        for (fn_param, plot) in zip(["statMB.csv", "statMN.csv", "statInfo.csv"], &mut plots) {
+            if !entry.path().join(fn_param).exists() {
+                continue
+            }
+            let mut field: Vec<OtherDataEntry> = Vec::new();
+            let mut rdr = csv::ReaderBuilder::new().delimiter(b' ').from_path(entry.path().join(fn_param))?;
+            for result in rdr.deserialize() {
+                let record: OtherDataEntry = result?;
+                field.push(record);
+            }
+            let trace = Scatter::new(field.iter().map(|i| i.0).collect(), field.iter().map(|i| i.1).collect())
+                .name(fn_param)
+                .mode(Mode::Lines);
+            plot.add_trace(trace);
+        }
+    }
+    let dat = plots.iter().map(|i| i.to_inline_html(None)).fold(String::new(), |a,b| a+&b);
+    let complete_html = format!(
+        r#"<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plotly Graphs</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    {}
+</body>
+</html>"#,
+        dat
+    );
+    Ok(complete_html)
+}
+
 fn main() {
     let args = Cli::parse();
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
+
+    let html_content = build_stats_graph().unwrap();
+    std::fs::write("stat.html", html_content).unwrap();
+
+    return;
 
     if args.only_check {
         return;
