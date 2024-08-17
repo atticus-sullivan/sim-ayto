@@ -58,6 +58,9 @@ struct Cli {
 
     #[arg(long = "only-check")]
     only_check: bool,
+
+    #[arg(long = "only-graph")]
+    only_graph: bool,
 }
 
 use walkdir::WalkDir;
@@ -126,12 +129,13 @@ fn build_stats_graph() -> Result<String> {
 
 fn main() {
     let args = Cli::parse();
+    if args.only_graph {
+        let html_content = build_stats_graph().unwrap();
+        std::fs::write("stat.html", html_content).unwrap();
+        return;
+    }
+
     let mut g = Game::new_from_yaml(&args.yaml_path, &args.stem).expect("Parsing failed");
-
-    let html_content = build_stats_graph().unwrap();
-    std::fs::write("stat.html", html_content).unwrap();
-
-    return;
 
     if args.only_check {
         return;
