@@ -5,7 +5,7 @@ OUT    := $(OUT_RUST)
 ALIAS  := $(notdir $(OUT))
 CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean_tex clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS)
+.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS)
 
 include Makefile.conf
 
@@ -13,17 +13,11 @@ all: $(OUT)
 	
 
 
-clean: clean_tex $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
+clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
 	
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
 	- $(RM) "$(<)/$(<)"*.{out,pdf,png,dot}
-
-clean_tex:
-	- $(RM) statsMN.tex{,sort}
-	- $(RM) statsMB.tex{,sort}
-	- $(RM) statsInfo.tex{,sort}
-	- $(RM) -r tex-aux
 
 
 check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
@@ -46,21 +40,7 @@ $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	# colored output
 	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
-	# generate files to generate latex plots
-	echo "\\addplot table {$(basename $<)_statMN.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMN.tex"
-	echo "\\addplot table {$(basename $<)_statMB.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsMB.tex"
-	echo "\\addplot table {$(basename $<)_statInfo.out}; \\addlegendentry{$(basename $(notdir $<))}" >> "statsInfo.tex"
 	@date
 
 rust/target/release/ayto: ./rust/src/*
 	make -C rust buildRelease
-
-stats.pdf: stats.tex statsMN.tex statsMB.tex statsInfo.tex
-	sort -u statsInfo.tex > statsInfo.tex.sort
-	sort -u statsMB.tex > statsMB.tex.sort
-	sort -u statsMN.tex > statsMN.tex.sort
-	mv statsInfo.tex.sort statsInfo.tex
-	mv statsMB.tex.sort statsMB.tex
-	mv statsMN.tex.sort statsMN.tex
-	test -d tex-aux || mkdir tex-aux
-	cluttealtex --output-directory=tex-aux --change-directory --shell-escape -e pdflatex "$<"
