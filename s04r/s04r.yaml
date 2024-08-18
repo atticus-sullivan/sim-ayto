@@ -73,7 +73,7 @@ constraints:
       # Antonino: Gabriela
 
   # - type: !Box {num: 3, comment: "E07 -- verkauft d Jenny"}
-  #   check: !Lights ?
+  #   check: !Lights [?]
   #   map:
   #     Alex: Anastasia
   #     # Lars: Gabriela
@@ -92,3 +92,9 @@ constraints:
       Nikola: LauraL
       Lars: Gabriela
       # Tara
+
+  # - type: !Box {num: 4, comment: "E09"}
+  #   check: !Lights [0]
+  #   map:
+  #     # Ozan: Nadja
+  #     Marc-Robin: Asena
