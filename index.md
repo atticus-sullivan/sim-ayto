@@ -9,7 +9,7 @@ Weise einfärben zu können) und als reiner Text verlinkt.
 <br>
 Da der gesamte Verlauf enthalten ist und man eh nach unten scrollen muss, ist die
 Spoilergefahr hier vielleicht nicht ganz so hoch.
-3.
+3. (in 1. enthalten)
 4. Zusätzlich gibt es jeweils noch die *aktuelle* Tabelle (**Achtung SPOILERGEFAHR!!!**).
 5. Außerdem noch der aktuelle Baum mit den *noch verbleibenden* Möglichkeiten (Achtung
 **SPOILERGEFAHR!!!**), sofern im aktuellen Stadium sinnvoll.
