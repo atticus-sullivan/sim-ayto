@@ -4,7 +4,6 @@ FROM ubuntu:latest
 # Install TeX Live and any additional packages
 RUN apt-get update && \
     apt-get install -y \
-    texlive texlive-latex-extra \
     graphviz \
     git \
     curl \
