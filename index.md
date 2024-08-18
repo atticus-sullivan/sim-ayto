@@ -14,29 +14,6 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 4. Außerdem noch der aktuelle Baum mit den *noch verbleibenden* Möglichkeiten (Achtung
 **SPOILERGEFAHR!!!**), sofern im aktuellen Stadium sinnvoll.
 
-<details><summary>Weitere Erklärungen zu den Ausgaben</summary>
-
-## Normale Ausgaben
-Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
-
-Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Möglichkeiten noch übrig sind) ist der Versuch einzuschätzen wie viel eine Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das ganze kommt aus der Informationstheorie.
-
-`Pr[lights]`: Zeigt an wie Wahrscheinlich welche Anzahl an Lichtern ist nachdem festgelegt wurde wer in die Matchbox geht / miteinander sitzt (aber das Ergebnis eben nocht nicht bekannt ist).
-
-`E[lights]`: Ist der Erwartungswert, wieviele Lichter im Schnitt angehen sollten.
-
-## Baum
-Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
-immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
-Person aus SetB zu der fixen Person aus SetA.
-
-Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
-Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
-die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
-nach unten ansteigt.
-
-</details>
-
 ## AYTO
 
 | Staffel 1 | [mit Farbe](s01/s01.col.png) | [nur Text](s01/s01.txt) | [aktuelle Tabelle](s01/s01_tab.png) | [aktueller Baum](s01/s01.pdf) |
@@ -59,3 +36,25 @@ nach unten ansteigt.
 # Vergleich der Staffeln untereinander
 
 Siehe [stats](stats.html).
+
+# Weitere Erklärungen zu den Ausgaben
+
+## Normale Ausgaben
+Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
+
+Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Möglichkeiten noch übrig sind) ist der Versuch einzuschätzen wie viel eine Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das ganze kommt aus der Informationstheorie.
+
+`Pr[lights]`: Zeigt an wie Wahrscheinlich welche Anzahl an Lichtern ist nachdem festgelegt wurde wer in die Matchbox geht / miteinander sitzt (aber das Ergebnis eben nocht nicht bekannt ist).
+
+`E[lights]`: Ist der Erwartungswert, wieviele Lichter im Schnitt angehen sollten.
+
+## Baum
+Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
+immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
+Person aus SetB zu der fixen Person aus SetA.
+
+Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
+Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
+die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
+nach unten ansteigt.
+
