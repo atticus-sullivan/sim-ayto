@@ -111,7 +111,6 @@ jobs:
       - name: Build results files
         run: |
           make -f Makefile.action all
-          make -f Makefile.action stats.pdf
 
       # - name: ls
       #   run: ls -al ./*
