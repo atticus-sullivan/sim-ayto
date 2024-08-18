@@ -13,7 +13,7 @@ Auf [atticus-sullivan.github.io/sim-ayto/](https://atticus-sullivan.github.io/si
 > Der Abschnitt `Ausgabe-Dateien` ist dennoch möglicherweise interessant um das
 > Format / die Informationen in den Ausgabedateien zu verstehen.
 
-<details><summary>Um die detaillierten Ergebnisse anzusehen, muss man zunächst auf den `build` branch wechseln:</summary>
+<details><summary>Um die Ergebnisse direkt hier anzusehen (aktuell sind aber teils einfach nur ein paar mehr Dateiformate und Hilfsdateien verfügbar, allgemein ist dies vor allem aber immer up-to-date wenn neue Staffeln hinzukommen), muss man zunächst auf den `build` branch wechseln:</summary>
 
 <img src="img/switch_branch.png" width="800">
 
@@ -28,7 +28,7 @@ Anschließend finden sich in den Ordnern der jeweiligen Staffel die Ausgabedatei
 
 ### 1. `<Staffel>_tab.png`
 ganz klassisch die Tabelle mit den noch übrigen Möglichkeiten
-### 2. `<Staffel>.out`
+### 2. `<Staffel>.txt`
 Hier findet man die meisten Informationen (u.A. auch der komplette bisherige Verlauf der Tabellen).
 
 Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
@@ -45,10 +45,17 @@ Dasselbe wie 2. aber die Tabellen in Farbe.
 ### 4./5. `<Staffel>.pdf` `<Staffel>.png`
 Zeigt den Baum mit den noch verbliebenen Möglichkeiten an. Ist nur sinnvoll wenn nicht mehr so viele Möglichkeiten übrig sind (und kann auch nur dann generiert werden).
 
-In diesem Baum ist die erste Zeile auf einer Ebene immer fest.
+Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
+immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
+Person aus SetB zu der fixen Person aus SetA.
 
-### `stats.pdf`
-Diese Datei liegt direkt im Hauptverzeichnis und enthält ein paar Statistiken um die Staffeln (basierend auf dem Informationsgewinn durch eine Matchox/einer Matchingnight und der Entropie) zu vergleichen.
+Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
+Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
+die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
+nach unten ansteigt.
+
+### `stats.html`
+Diese Datei liegt direkt im Hauptverzeichnis und enthält ein paar Statistiken um die Staffeln (basierend auf dem Informationsgewinn durch eine Matchox/einer Matchingnight und der Entropie) zu vergleichen. Am einfachsten kann man sich die Datei auf der [github.io](https://atticus-sullivan.github.io/sim-ayto/stats.html) Seite anschauen
 
 </details>
 
@@ -105,6 +112,9 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
     Wenn anstelle des grünen Hakens ein rotes X ist, ist beim generieren etwas schief gelaufen und ihr könnt wie in 8. beschrieben nachschaunen was genau das Problem war.
     <br>
     Die Ergebnisse könnt ihr euch jetzt wie oben unter [Ergebnisse](#Ergebnisse) beschrieben anschauen.
+
+> [!NOTE]
+> Der ganze github.io teil, erfordert noch weitere Einrichtungsschritte.
 
 </details>
 
