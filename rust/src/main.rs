@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 mod constraint;
 mod game;
-mod ruleset;
 mod graph;
+mod ruleset;
 
 use crate::game::Game;
 
@@ -72,18 +72,24 @@ fn main() {
     let args = Cli::parse();
 
     match args.cmd {
-        Commands::Sim {yaml_path, colored: _, transpose_tabs, stem} => {
+        Commands::Sim {
+            yaml_path,
+            colored: _,
+            transpose_tabs,
+            stem,
+        } => {
             let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
             let start = Instant::now();
             g.sim(transpose_tabs).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
-        },
-        Commands::Check {yaml_path} => {
-            Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash")).expect("Parsing failed");
-        },
-        Commands::Graph {html_path} => {
+        }
+        Commands::Check { yaml_path } => {
+            Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash"))
+                .expect("Parsing failed");
+        }
+        Commands::Graph { html_path } => {
             let html_content = graph::build_stats_graph().unwrap();
             std::fs::write(html_path, html_content).unwrap();
-        },
+        }
     }
 }

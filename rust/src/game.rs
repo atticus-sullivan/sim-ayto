@@ -183,18 +183,9 @@ impl Game {
     }
 
     fn do_statistics(&self, merged_constraints: &Vec<Constraint>) -> Result<()> {
-        let out_mb_path = self
-            .dir
-            .join("statMB")
-            .with_extension("csv");
-        let out_mn_path = self
-            .dir
-            .join("statMN")
-            .with_extension("csv");
-        let out_info_path = self
-            .dir
-            .join("statInfo")
-            .with_extension("csv");
+        let out_mb_path = self.dir.join("statMB").with_extension("csv");
+        let out_mn_path = self.dir.join("statMN").with_extension("csv");
+        let out_info_path = self.dir.join("statInfo").with_extension("csv");
 
         let (mut mbo, mut mno, mut info) = (
             File::create(out_mb_path)?,

@@ -337,125 +337,63 @@ mod tests {
     #[test]
     fn test_validate_lut_nn() {
         let nn_rule = RuleSet::NToN;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         nn_rule.validate_lut(&lut_a, &lut_b).unwrap();
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("A", 0)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0)].map(|(k, v)| (k.to_string(), v)));
         assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
         assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
     }
 
     #[test]
     fn test_validate_lut_eq() {
         let eq_rule = RuleSet::Eq;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
         eq_rule.validate_lut(&lut_a, &lut_b).unwrap();
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0)].map(|(k, v)| (k.to_string(), v)));
         assert!(eq_rule.validate_lut(&lut_a, &lut_b).is_err());
     }
 
     #[test]
     fn test_validate_lut_fixed_dup() {
         let dup_rule = RuleSet::FixedDup("x".to_string());
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("x", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
         assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
         assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
     }
 
     #[test]
     fn test_validate_lut_fixed_trip() {
         let trip_rule = RuleSet::FixedTrip("x".to_string());
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("x", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
+            [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
         );
         trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1), ("c", 2)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
         assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("d", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
+            [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
         );
         assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
     }
@@ -463,67 +401,35 @@ mod tests {
     #[test]
     fn test_validate_lut_someone_is_dup() {
         let dup_rule = RuleSet::SomeoneIsDup;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("x", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
         assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
     }
 
     #[test]
     fn test_validate_lut_soneone_is_trip() {
         let trip_rule = RuleSet::SomeoneIsTrip;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("x", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
+            [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
         );
         trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1), ("c", 2)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
         assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
 
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("d", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
+            [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
         );
         trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
     }
@@ -531,29 +437,28 @@ mod tests {
     #[test]
     fn test_iter_perms_eq() {
         let mut is = IterState::new(true, 0, vec![]);
-        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-            vec![vec![0], vec![1]],
-            vec![vec![1], vec![0]],
-        ]);
+        let ground_truth: HashSet<Vec<Vec<u8>>> =
+            HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
         let eq_rule = RuleSet::Eq;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         eq_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is.left_poss {
-            let x = x.iter().map(|y| {
-                let mut y = y.clone();
-                y.sort();
-                y
-            }).collect::<Vec<_>>();
-            assert!(ground_truth.contains(&x), "generated {:?} which is not in ground truth", x);
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
         }
         // check if the lengths fit
         assert_eq!(is.left_poss.len(), ground_truth.len());
@@ -576,24 +481,25 @@ mod tests {
             vec![vec![2], vec![0, 1]],
         ]);
         let dup_rule = RuleSet::SomeoneIsDup;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("A", 0), ("B", 1), ("C", 2)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is.left_poss {
-            let x = x.iter().map(|y| {
-                let mut y = y.clone();
-                y.sort();
-                y
-            }).collect::<Vec<_>>();
-            assert!(ground_truth.contains(&x), "generated {:?} which is not in ground truth", x);
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
         }
         // check if the lengths fit
         assert_eq!(is.left_poss.len(), ground_truth.len());
@@ -618,24 +524,29 @@ mod tests {
             vec![vec![0, 1, 2], vec![3]],
         ]);
         let trip_rule = RuleSet::SomeoneIsTrip;
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
-            [("A", 0), ("B", 1), ("C", 2), ("D", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
         );
-        trip_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
+        trip_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false)
+            .unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is.left_poss {
-            let x = x.iter().map(|y| {
-                let mut y = y.clone();
-                y.sort();
-                y
-            }).collect::<Vec<_>>();
-            assert!(ground_truth.contains(&x), "generated {:?} which is not in ground truth", x);
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
         }
         // check if the lengths fit
         assert_eq!(is.left_poss.len(), ground_truth.len());
@@ -656,24 +567,25 @@ mod tests {
             vec![vec![1], vec![0, 2]],
         ]);
         let dup_rule = RuleSet::FixedDup("C".to_string());
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
-        let lut_b = HashMap::from(
-            [("A", 0), ("B", 1), ("C", 2)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is.left_poss {
-            let x = x.iter().map(|y| {
-                let mut y = y.clone();
-                y.sort();
-                y
-            }).collect::<Vec<_>>();
-            assert!(ground_truth.contains(&x), "generated {:?} which is not in ground truth", x);
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
         }
         // check if the lengths fit
         assert_eq!(is.left_poss.len(), ground_truth.len());
@@ -696,24 +608,29 @@ mod tests {
             vec![vec![2], vec![0, 1, 3]],
         ]);
         let trip_rule = RuleSet::FixedTrip("D".to_string());
-        let lut_a = HashMap::from(
-            [("A", 0), ("B", 1)]
-                .map(|(k, v)| (k.to_string(), v)),
-        );
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
-            [("A", 0), ("B", 1), ("C", 2), ("D", 3)]
-                .map(|(k, v)| (k.to_string(), v)),
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
         );
-        trip_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
+        trip_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false)
+            .unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is.left_poss {
-            let x = x.iter().map(|y| {
-                let mut y = y.clone();
-                y.sort();
-                y
-            }).collect::<Vec<_>>();
-            assert!(ground_truth.contains(&x), "generated {:?} which is not in ground truth", x);
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
         }
         // check if the lengths fit
         assert_eq!(is.left_poss.len(), ground_truth.len());

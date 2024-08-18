@@ -142,19 +142,17 @@ impl Constraint {
                     "Exclude is not yet supported for nights"
                 );
             }
-            ConstraintType::Box { .. } => {
-                match &self.check {
-                    CheckType::Eq => {},
-                    CheckType::Lights(_, _) => {
-                        ensure!(
-                            self.map_s.len() == 1,
-                            "Map in a box must contain exactly {} entry (was: {})",
-                            1,
-                            self.map_s.len()
-                        );
-                    },
+            ConstraintType::Box { .. } => match &self.check {
+                CheckType::Eq => {}
+                CheckType::Lights(_, _) => {
+                    ensure!(
+                        self.map_s.len() == 1,
+                        "Map in a box must contain exactly {} entry (was: {})",
+                        1,
+                        self.map_s.len()
+                    );
                 }
-            }
+            },
         }
 
         // init eliminated table
@@ -636,7 +634,7 @@ mod tests {
             check: CheckType::Lights(1, BTreeMap::new()),
             hidden: false,
             no_exclude: false,
-            exclude_s: Some(("A".to_string(), vec!["C".to_string(),"D".to_string()])),
+            exclude_s: Some(("A".to_string(), vec!["C".to_string(), "D".to_string()])),
             map: HashMap::new(),
             exclude: None,
             eliminated: 0,
@@ -666,7 +664,7 @@ mod tests {
         assert_eq!(map_s, constraint.map_s);
         let map = HashMap::from_iter(vec![(0, 1)].into_iter());
         assert_eq!(map, constraint.map);
-        let excl = Some((0, HashSet::from([2,3])));
+        let excl = Some((0, HashSet::from([2, 3])));
         assert_eq!(excl, constraint.exclude);
     }
 
@@ -809,7 +807,7 @@ mod tests {
     #[test]
     fn test_process_light_exclude() {
         let mut c = Constraint {
-            exclude: Some((0, HashSet::from([2,3]))),
+            exclude: Some((0, HashSet::from([2, 3]))),
             exclude_s: None,
             no_exclude: false,
             map_s: HashMap::new(),
@@ -834,7 +832,7 @@ mod tests {
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
         assert!(c.process(&m).unwrap());
 
-        let m: Matching = vec![vec![0], vec![1], vec![2,3], vec![4]];
+        let m: Matching = vec![vec![0], vec![1], vec![2, 3], vec![4]];
         assert!(!c.process(&m).unwrap());
 
         let m: Matching = vec![vec![0, 2], vec![1], vec![4], vec![3]];
@@ -949,8 +947,7 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
-        }
-;
+        };
         let c_b = Constraint {
             exclude: None,
             exclude_s: None,
@@ -978,12 +975,15 @@ mod tests {
 
         assert_eq!(c_a.eliminated, 300);
 
-        assert_eq!(c_a.eliminated_tab, vec![
-            vec![2, 0, 0, 0, 0],
-            vec![0, 2, 0, 6, 0],
-            vec![0, 0, 4, 0, 6],
-            vec![0, 12, 0, 10, 0],
-        ]);
+        assert_eq!(
+            c_a.eliminated_tab,
+            vec![
+                vec![2, 0, 0, 0, 0],
+                vec![0, 2, 0, 6, 0],
+                vec![0, 0, 4, 0, 6],
+                vec![0, 12, 0, 10, 0],
+            ]
+        );
 
         assert_eq!(c_a.entropy, None);
         assert_eq!(c_a.left_after, None);
@@ -995,7 +995,12 @@ mod tests {
             exclude: None,
             exclude_s: None,
             no_exclude: false,
-            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 100,
@@ -1014,7 +1019,13 @@ mod tests {
             },
         };
 
-        let row = c.stat_row(&vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string(), "E".to_string()]);
+        let row = c.stat_row(&vec![
+            "A".to_string(),
+            "B".to_string(),
+            "C".to_string(),
+            "D".to_string(),
+            "E".to_string(),
+        ]);
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(row, vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5"]);
     }
@@ -1025,7 +1036,12 @@ mod tests {
             exclude: None,
             exclude_s: None,
             no_exclude: false,
-            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
             check: CheckType::Eq,
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 100,
@@ -1044,7 +1060,13 @@ mod tests {
             },
         };
 
-        let row = c.stat_row(&vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string(), "E".to_string()]);
+        let row = c.stat_row(&vec![
+            "A".to_string(),
+            "B".to_string(),
+            "C".to_string(),
+            "D".to_string(),
+            "E".to_string(),
+        ]);
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(row, vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5"]);
     }
@@ -1116,7 +1138,12 @@ mod tests {
             exclude: None,
             exclude_s: None,
             no_exclude: false,
-            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 100,
@@ -1144,7 +1171,12 @@ mod tests {
             exclude: None,
             exclude_s: None,
             no_exclude: false,
-            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 100,
@@ -1172,7 +1204,12 @@ mod tests {
             exclude: None,
             exclude_s: None,
             no_exclude: false,
-            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 100,
@@ -1200,7 +1237,12 @@ mod tests {
             exclude: None,
             exclude_s: None,
             no_exclude: false,
-            map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
             eliminated: 100,
