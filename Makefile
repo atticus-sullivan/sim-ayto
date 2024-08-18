@@ -1,3 +1,19 @@
+# sim_ayto
+# Copyright (C) 2024  Lukas Heindl
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 DAT_RUST := s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
 OUT_RUST := $(addsuffix .txt, $(basename $(DAT_RUST)))
 
@@ -21,7 +37,7 @@ clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
 	- $(RM) stats.html
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
-	- $(RM) "$(<)/$(<)"*.{txt,out,pdf,png,dot}
+	- $(RM) "$(<)/$(<)"*.{txt,col.out,pdf,png,dot}
 
 
 check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
