@@ -38,6 +38,7 @@ nach unten ansteigt.
 </details>
 
 ## AYTO
+
 | Staffel |   |   |   |   |
 |:-------:|---|---|---|---|
 | 1 | [mit Farbe](s01/s01.col.png) | [nur Text](s01/s01.txt) | [aktuelle Tabelle](s01/s01_tab.png) | [aktueller Baum](s01/s01.pdf) |
@@ -46,17 +47,8 @@ nach unten ansteigt.
 | 4 | [mit Farbe](s04/s04.col.png) | [nur Text](s04/s04.txt) | [aktuelle Tabelle](s04/s04_tab.png) | [aktueller Baum](s04/s04.pdf) |
 | 5 | [mit Farbe](s05/s05.col.png) | [nur Text](s05/s05.txt) | [aktuelle Tabelle](s05/s05_tab.png) | [aktueller Baum](s05/s05.pdf) |
 
-| Header1 | Header2 | Header3 |
-|:--------|:-------:|--------:|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|----
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-|=====
-| Foot1   | Foot2   | Foot3
-
 ## AYTO - RSIL
+
 | Staffel |   |   |   |   |
 |:-------:|---|---|---|---|
 | 1 | [mit Farbe](s01r/s01r.col.png) | [nur Text](s01r/s01r.txt) | [aktuelle Tabelle](s01r/s01r_tab.png) | [aktueller Baum](s01r/s01r.pdf) |
@@ -65,6 +57,7 @@ nach unten ansteigt.
 | 4 | [mit Farbe](s04r/s04r.col.png) | [nur Text](s04r/s04r.txt) | [aktuelle Tabelle](s04r/s04r_tab.png) | |
 
 ## AYTO - US
+
 | Staffel |   |   |   |   |
 |:-------:|---|---|---|---|
 | 8 | [mit Farbe](us08/us08.col.png) | [nur Text](us08/us08.txt) | [aktuelle Tabelle](us08/us08_tab.png) | [aktueller Baum](us08/us08.pdf) |
