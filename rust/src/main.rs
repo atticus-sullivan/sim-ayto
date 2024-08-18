@@ -131,7 +131,7 @@ fn build_stats_graph() -> Result<String> {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plotly Graphs</title>
+    <title>Stats</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
