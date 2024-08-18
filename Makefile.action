@@ -1,30 +1,49 @@
-DAT_RUST = s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
-OUT_RUST = $(addsuffix .out, $(basename $(DAT_RUST)))
+DAT_RUST := s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
+OUT_RUST := $(addsuffix .out, $(basename $(DAT_RUST)))
 
-OUT   = $(OUT_RUST)
-ALIAS = $(notdir $(OUT))
+OUT    := $(OUT_RUST)
+ALIAS  := $(notdir $(OUT))
+CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) $(ALIAS)
+.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats.html graph
 
 include Makefile.conf
 
-all: $(OUT)
+all: $(OUT) graph
 	
+
 
 clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
-	
+	- $(RM) stats.html
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
-	-rm "$(<)/$(<)"*.{out,pdf,png,dot}
+	- $(RM) "$(<)/$(<)"*.{out,pdf,png,dot}
+
+
+check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
+	
+
+$(CALIAS):
+	@make --no-print-directory $@/$(patsubst check_%,%.yaml,$@)
+
+$(addprefix check_,$(DAT_RUST)): check_%: % ./rust/src/*
+	./rust/target/release/ayto check $<
+
 
 $(ALIAS):
-	make $(patsubst %.out,%,$@)/$@
+	@make --no-print-directory $(patsubst %.out,%,$@)/$@
 
 $(OUT_RUST): %.out: %.yaml ./rust/src/*
 	@date
-	./rust/target/release/ayto -c -o $(basename $<) $< > $(basename $<).col.out
+	./rust/target/release/ayto sim --transpose -c -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	# colored output
-	./generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
+	python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
 	@date
+
+
+graph: stats.html
+
+stats.html: ./rust/src/*
+	./rust/target/release/ayto graph ./stats.html

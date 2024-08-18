@@ -12,6 +12,4 @@
 
 # Vergleich
 
-- bzgl Matchingnights
-- bzgl Matchboxes
-- bzgl verbleibende Möglichkeiten
+Siehe [stats](stats.html)

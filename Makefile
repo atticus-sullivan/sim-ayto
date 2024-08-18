@@ -5,16 +5,16 @@ OUT    := $(OUT_RUST)
 ALIAS  := $(notdir $(OUT))
 CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS)
+.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats.html graph
 
 include Makefile.conf
 
-all: $(OUT)
+all: $(OUT) graph
 	
 
 
 clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
-	
+	- $(RM) stats.html
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
 	- $(RM) "$(<)/$(<)"*.{out,pdf,png,dot}
@@ -27,7 +27,7 @@ $(CALIAS):
 	@make --no-print-directory $@/$(patsubst check_%,%.yaml,$@)
 
 $(addprefix check_,$(DAT_RUST)): check_%: % rust/target/release/ayto
-	./rust/target/release/ayto --only-check -o /tmp/wontBeUsed $<
+	./rust/target/release/ayto check $<
 
 
 $(ALIAS):
@@ -35,12 +35,18 @@ $(ALIAS):
 
 $(OUT_RUST): %.out: %.yaml rust/target/release/ayto
 	@date
-	./rust/target/release/ayto --transpose -c -o $(basename $<) $< > $(basename $<).col.out
+	./rust/target/release/ayto sim --transpose -c -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).out
 	# colored output
 	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
 	@date
+
+
+graph: stats.html
+
+stats.html: rust/target/release/ayto
+	./rust/target/release/ayto graph ./stats.html
 
 rust/target/release/ayto: ./rust/src/*
 	make -C rust buildRelease
