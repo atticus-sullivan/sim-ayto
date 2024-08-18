@@ -11,7 +11,7 @@ Weise einfärben zu können) und als reiner Text verlinkt.
 SPOILERGEFAHR!!), sofern im aktuellen Stadium sinnvoll.
 
 ## AYTO
-- Staffel 1: [mit Farbe](s01/s01.col.png) | [nur Text](s01/s01.out) | [aktuelle Tabelle](s01/s01_tab.png)
+- Staffel 1: [mit Farbe](s01/s01.col.png) | [nur Text](s01/s01.out) | [aktuelle Tabelle](s01/s01_tab.png) | [aktueller Baum](s01/s01.pdf)
 - Staffel 2: [mit Farbe](s02/s02.col.png) | [nur Text](s02/s02.out) | [aktuelle Tabelle](s02/s02_tab.png) | [aktueller Baum](s02/s02.pdf)
 - Staffel 3: [mit Farbe](s03/s03.col.png) | [nur Text](s03/s03.out) | [aktuelle Tabelle](s03/s03_tab.png) | [aktueller Baum](s03/s03.pdf)
 - Staffel 4: [mit Farbe](s04/s04.col.png) | [nur Text](s04/s04.out) | [aktuelle Tabelle](s04/s04_tab.png) | [aktueller Baum](s04/s04.pdf)
