@@ -7,7 +7,11 @@ CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
 .PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats.html graph
 
-include Makefile.conf
+GENARGS ?= --transpose -c
+
+-include Makefile.conf
+ANSITOIMG_PREFIX ?= 
+
 
 all: $(OUT) graph
 	
@@ -35,7 +39,7 @@ $(ALIAS):
 
 $(OUT_RUST): %.txt: %.yaml rust/target/release/ayto
 	@date
-	./rust/target/release/ayto sim --transpose -c -o $(basename $<) $< > $(basename $<).col.out
+	./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output

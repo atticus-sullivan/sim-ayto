@@ -110,7 +110,7 @@ jobs:
 
       - name: Build results files
         run: |
-          make -f Makefile.action all
+          make GENARGS="-c" all
 
       # - name: ls
       #   run: ls -al ./*

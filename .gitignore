@@ -24,3 +24,4 @@ pheagan
 local_workflow.bash
 gh.bash
 clean
+*.conf
