@@ -84,13 +84,13 @@ fn build_stats_graph() -> Result<String> {
 
     let mut plots = [Plot::new(), Plot::new(), Plot::new()];
     plots[0].set_layout(layout.clone().title("Matchingbox")
-            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MB")))
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MB")).mirror(true).show_line(true))
             .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))));
     plots[1].set_layout(layout.clone().title("Matchingnight")
-            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN")))
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN")).mirror(true).show_line(true))
             .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))));
     plots[2].set_layout(layout.clone().title("Left possibilities")
-            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MN/#MB")))
+            .x_axis(plotly::layout::Axis::new().title(Title::with_text("#MB/#MN")).mirror(true).show_line(true))
             .y_axis(plotly::layout::Axis::new().title(Title::with_text("H [bit]"))));
 
     for p in &mut plots {
