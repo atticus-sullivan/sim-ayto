@@ -94,7 +94,7 @@ constraints:
       # Tara
 
   # - type: !Box {num: 4, comment: "E09"}
-  #   check: !Lights [0]
+  #   check: !Lights [?]
   #   map:
   #     # Ozan: Nadja
   #     Marc-Robin: Asena
