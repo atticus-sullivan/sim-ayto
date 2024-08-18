@@ -4,7 +4,16 @@ Berechnet die noch verfügbaren Möglichkeiten
 <img src="img/example.png" width="800">
 
 # Ergebnisse
-<details><summary>Um die Ergebnisse anzusehen, muss man zunächst auf den `build` branch wechseln:</summary>
+
+Auf [atticus-sullivan.github.io/sim-ayto/](https://atticus-sullivan.github.io/sim-ayto/) findet ihr die Ergebnisse am einfachsten zugänglich.
+
+> [!NOTE]
+> Funktioniert noch, mittlerweile geht es aber auch einfacher.
+>
+> Der Abschnitt `Ausgabe-Dateien` ist dennoch möglicherweise interessant um das
+> Format / die Informationen in den Ausgabedateien zu verstehen.
+
+<details><summary>Um die detaillierten Ergebnisse anzusehen, muss man zunächst auf den `build` branch wechseln:</summary>
 
 <img src="img/switch_branch.png" width="800">
 
