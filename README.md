@@ -205,5 +205,19 @@ Wenn nichts angegeben wird ist `noExclude: false` der Standard.
 
 - An die Git(hub) Kenner, die Actions laufen nur mit dem `main` und `build` Branch, diese also nicht umbenennen (und nicht wundern wenns nicht klappt für neue Branches).
 
+## Hinweise zur Funktionisweise
+Prinzipiell funktioniert das Tool wie folgt:
+- Es durchläuft alle Möglichkeiten
+- Dabei werden alle Möglichkeiten eliminiert, die nicht mit einem Constraint (Matchingnight/Matchbox) vereinbar sind (dafür wird im Normalfall berechnet gegeben einem Matching, wieviele Lichter müssten an sein und dann überprüft ob das mit der Realität übereinstimmt)
+- Basierend auf den noch übrigen Möglichkeiten könnte man dann die abschließende Tabelle generieren (in der Realität berechnet das Tool die Tabelle ein wenig anders, da auch de ganzen alten Tabellen unterwegs generiert werden sollen und auf die Art und Weise auch der benötigte Speicher (RAM) reduziert werden kann)
+
+> [!NOTE]
+> Eine Matchbox wird intern genauso wie eine Matchingnight gehandhabt (mit x Lichtern), nur dass es andere Checks beim Einlesen der Eingabe gibt um Fehler zu vermeiden
+
+Wie alle Möglichkeiten aufgezählt werden können unterscheidet sich von Ruleset zu Ruleset. Der hierfür relevante Code findet sich in `rust > src > ruleset.rs > iter_perms()`. In der Regel wird folgendes Vorgehen angewandt:
+1. Generiere alle Möglichkeiten die Personen aus set_b anzuordnen
+2. Rechne jede dieser hierbei generierten Möglichkeiten auf keine, eine oder mehrere "echte" Möglichkeiten (je nach Ruleset) um
+- (durch 2. kann die Fortschrittsanzeige teils night ganz korrekt sein. Extrem fällt das aktuell beim `NToN` ruleset auf.)
+
 # Kontakt
 Falls irgendwas nicht passen sollte, ihr was nicht versteht oder andere Anmerkungen habt, könnt ihr mir oben unter [Discussions](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a) hier auf Github eine Nachricht schreiben (wenn ihr auch einen Github Account habt).

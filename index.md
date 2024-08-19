@@ -39,6 +39,17 @@ Siehe [stats](stats.html).
 
 # Weitere Erklärungen zu den Ausgaben
 
+Im Anschluss sind ein paar Erklärungen zu den Ausgaben zu finden. Für noch mehr
+infos (u.A. zu den Eingabedateien oder wie man das Tool mit eigenen Daten
+füttern kann) findet ihr [hier das komplette Repository](https://github.com/atticus-sullivan/sim-ayto)
+inklusive dem ganzen Code und den Daten.
+
+Ebenso findet ihr dort auch eine Möglichkeit
+[Fragen zu stellen](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a),
+[Ideen und Anregungen zu teilen](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/ideas)
+und auf
+[Bugs/Fehler hinzuweisen](https://github.com/atticus-sullivan/sim-ayto/issues).
+
 ## Normale Ausgaben
 Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
 
@@ -57,4 +68,3 @@ Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
 Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
 die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
 nach unten ansteigt.
-
