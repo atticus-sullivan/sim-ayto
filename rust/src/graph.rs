@@ -80,6 +80,7 @@ pub fn build_stats_graph() -> Result<String> {
     for entry in WalkDir::new("./")
         .max_depth(1)
         .min_depth(1)
+        .sort_by_file_name()
         .into_iter()
         .filter_entry(|e| {
             e.file_name()
