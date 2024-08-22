@@ -4,6 +4,7 @@
 *.out
 *.txt
 *.png
+*.csv
 
 *.dot
 *.xopp
