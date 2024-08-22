@@ -1,7 +1,7 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-tree_gen: true
+tree_gen: false
 
 rule_set: !FixedDup Dana
 
@@ -93,8 +93,23 @@ constraints:
       Lars: Gabriela
       # Tara
 
-  # - type: !Box {num: 4, comment: "E09"}
-  #   check: !Lights [?]
-  #   map:
-  #     # Ozan: Nadja
-  #     Marc-Robin: Asena
+  - type: !Box {num: 4, comment: "E09"}
+    check: !Lights [0]
+    map:
+      # Ozan: Nadja
+      Marc-Robin: Asena
+
+  - type: !Night {num: 4, comment: "E10 -- blackout"}
+    check: !Lights [1]
+    map:
+      Chris: Emmy
+      Lars: Tara
+      Ozan: LauraM
+      Antonino: Nadja
+      Nikola: Anastasia
+      Tim: LauraL
+      Lukas: Gabriela
+      Alex: Jenny
+      Marc-Robin: Linda
+      Kaan: Asena
+      # Kaan: Dana
