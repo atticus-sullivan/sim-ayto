@@ -209,7 +209,7 @@ constraints:
       Carina: Pascal
       # Burim: Aurelia
 
-  - type: !Night {num: 10, comment: "E21 -- finale"}
+  - type: !Night {num: 9, comment: "E21 -- finale"}
     check: !Lights [10]
     map:
       Steffi: Chris

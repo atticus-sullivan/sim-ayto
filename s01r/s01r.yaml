@@ -177,7 +177,7 @@ constraints:
     map:
       Josua: Sarah
 
-  - type: !Box {num: 8.5, comment: "E15 -- geschenkte Matchbox"}
+  - type: !Box {num: 8.1, comment: "E18/15 -- geschenkte Matchbox"}
     check: !Lights [0]
     map:
       Tommy: Melina

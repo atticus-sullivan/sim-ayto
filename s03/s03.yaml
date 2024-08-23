@@ -222,7 +222,7 @@ constraints:
       William: Raphaela
       Marius: Zaira
 
-  - type: !Night {num: 10.5, comment: "reunion"}
+  - type: !Night {num: 11, comment: "reunion"}
     check: !Lights [10]
     map:
       Antonino: Dana
