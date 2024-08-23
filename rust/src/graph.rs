@@ -22,7 +22,7 @@ use plotly::{Layout, Plot, Scatter};
 use std::iter::zip;
 use walkdir::WalkDir;
 
-type OtherDataEntry = (f64, f64);
+type OtherDataEntry = (f64, f64, String);
 
 pub fn build_stats_graph() -> Result<String> {
     let layout = Layout::new()
@@ -96,7 +96,7 @@ pub fn build_stats_graph() -> Result<String> {
             }
             let mut field: Vec<OtherDataEntry> = Vec::new();
             let mut rdr = csv::ReaderBuilder::new()
-                .delimiter(b' ')
+                .delimiter(b';')
                 .has_headers(false)
                 .from_path(entry.path().join(fn_param))?;
             for result in rdr.deserialize() {
@@ -108,6 +108,7 @@ pub fn build_stats_graph() -> Result<String> {
                 field.iter().map(|i| i.1).collect(),
             )
             .name(entry.file_name().to_str().unwrap_or("unknown"))
+            .text_array(field.iter().map(|i| i.2.clone()).collect())
             .mode(Mode::Lines);
             plot.add_trace(trace);
         }

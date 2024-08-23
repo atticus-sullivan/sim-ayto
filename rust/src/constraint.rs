@@ -370,29 +370,33 @@ impl Constraint {
             ConstraintType::Night { num, .. } => {
                 writeln!(
                     info,
-                    "{} {}",
+                    "{};{};{}",
                     num * 2.0,
-                    (self.left_after.context("total_left unset")? as f64).log2()
+                    (self.left_after.context("total_left unset")? as f64).log2(),
+                    self.comment(),
                 )?;
                 writeln!(
                     mno,
-                    "{} {}",
+                    "{};{};{}",
                     num,
-                    self.entropy.unwrap_or(std::f64::INFINITY)
+                    self.entropy.unwrap_or(std::f64::INFINITY),
+                    self.comment(),
                 )?;
             }
             ConstraintType::Box { num, .. } => {
                 writeln!(
                     info,
-                    "{} {}",
+                    "{};{};{}",
                     num * 2.0 - 1.0,
-                    (self.left_after.context("total_left unset")? as f64).log2()
+                    (self.left_after.context("total_left unset")? as f64).log2(),
+                    self.comment(),
                 )?;
                 writeln!(
                     mbo,
-                    "{} {}",
+                    "{};{};{}",
                     num,
-                    self.entropy.unwrap_or(std::f64::INFINITY)
+                    self.entropy.unwrap_or(std::f64::INFINITY),
+                    self.comment(),
                 )?;
             }
         }
