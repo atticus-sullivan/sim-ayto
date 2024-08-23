@@ -113,3 +113,9 @@ constraints:
       Marc-Robin: Linda
       Kaan: Asena
       # Kaan: Dana
+
+  # - type: !Box {num: 5, comment: "E11"}
+  #   check: !Lights [?]
+  #   map:
+  #     # Kaan: Tara
+  #     Nikola: LauraM
