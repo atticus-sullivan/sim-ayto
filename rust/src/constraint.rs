@@ -367,7 +367,8 @@ impl Constraint {
             return Ok([None,None,None]);
         }
 
-        let meta = format!("{}-{}", self.type_str(), self.comment());
+        let meta_a = format!("{}", self.comment());
+        let meta_b = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
             ConstraintType::Night { num, .. } => {
                 Ok([
@@ -375,12 +376,12 @@ impl Constraint {
                     Some((
                         num.into(),
                         self.entropy.unwrap_or(std::f64::INFINITY),
-                        meta.clone(),
+                        meta_a,
                     )),
                     Some((
                         (num * 2.0).into(),
                         (self.left_after.context("total_left unset")? as f64).log2(),
-                        meta.clone(),
+                        meta_b,
                     )),
                 ])
             }
@@ -389,13 +390,13 @@ impl Constraint {
                     Some((
                         num.into(),
                         self.entropy.unwrap_or(std::f64::INFINITY),
-                        meta.clone(),
+                        meta_a,
                     )),
                     None,
                     Some((
                         (num * 2.0 - 1.0).into(),
                         (self.left_after.context("total_left unset")? as f64).log2(),
-                        meta.clone(),
+                        meta_b,
                     )),
                 ])
             }
