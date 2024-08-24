@@ -21,10 +21,10 @@ use comfy_table::Cell;
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::collections::HashSet;
-use std::fs::File;
-use std::io::Write;
 
 use crate::{Lut, Map, MapS, Matching, Rem};
+
+pub type CSVEntry = (f64, f64, String);
 
 #[derive(Deserialize, Debug, Clone)]
 enum CheckType {
@@ -361,46 +361,45 @@ impl Constraint {
         ret
     }
 
-    pub fn write_stats(&self, mbo: &mut File, mno: &mut File, info: &mut File) -> Result<()> {
+    // returned array contains mbInfo, mnInfo, info
+    pub fn get_stats(&self) -> Result<[Option<CSVEntry>;3]> {
         if self.hidden {
-            return Ok(());
+            return Ok([None,None,None]);
         }
 
+        let meta = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
             ConstraintType::Night { num, .. } => {
-                writeln!(
-                    info,
-                    "{};{};{}",
-                    num * 2.0,
-                    (self.left_after.context("total_left unset")? as f64).log2(),
-                    self.comment(),
-                )?;
-                writeln!(
-                    mno,
-                    "{};{};{}",
-                    num,
-                    self.entropy.unwrap_or(std::f64::INFINITY),
-                    self.comment(),
-                )?;
+                Ok([
+                    None,
+                    Some((
+                        (num * 2.0).into(),
+                        (self.left_after.context("total_left unset")? as f64).log2(),
+                        meta.clone(),
+                    )),
+                    Some((
+                        num.into(),
+                        self.entropy.unwrap_or(std::f64::INFINITY),
+                        meta.clone(),
+                    )),
+                ])
             }
             ConstraintType::Box { num, .. } => {
-                writeln!(
-                    info,
-                    "{};{};{}",
-                    num * 2.0 - 1.0,
-                    (self.left_after.context("total_left unset")? as f64).log2(),
-                    self.comment(),
-                )?;
-                writeln!(
-                    mbo,
-                    "{};{};{}",
-                    num,
-                    self.entropy.unwrap_or(std::f64::INFINITY),
-                    self.comment(),
-                )?;
+                Ok([
+                    Some((
+                        (num * 2.0 - 1.0).into(),
+                        (self.left_after.context("total_left unset")? as f64).log2(),
+                        meta.clone(),
+                    )),
+                    None,
+                    Some((
+                        num.into(),
+                        self.entropy.unwrap_or(std::f64::INFINITY),
+                        meta.clone(),
+                    )),
+                ])
             }
         }
-        Ok(())
     }
 
     pub fn print_hdr(&self) {

@@ -206,13 +206,25 @@ impl Game {
         let out_info_path = self.dir.join("statInfo").with_extension("csv");
 
         let (mut mbo, mut mno, mut info) = (
-            File::create(out_mb_path)?,
-            File::create(out_mn_path)?,
-            File::create(out_info_path)?,
+            csv::WriterBuilder::new().from_path(out_mb_path)?,
+            csv::WriterBuilder::new().from_path(out_mn_path)?,
+            csv::WriterBuilder::new().from_path(out_info_path)?,
         );
-        for c in merged_constraints {
-            c.write_stats(&mut mbo, &mut mno, &mut info)?;
+        for i in merged_constraints.iter().map(|c| c.get_stats()) {
+            let i = i?;
+            if let Some(j) = &i[0] {
+                mbo.serialize(j)?
+            }
+            if let Some(j) = &i[1] {
+                mno.serialize(j)?
+            }
+            if let Some(j) = &i[1] {
+                info.serialize(j)?
+            }
         }
+        mbo.flush()?;
+        mno.flush()?;
+        info.flush()?;
 
         let mut hdr = vec![
             Cell::new(""),
