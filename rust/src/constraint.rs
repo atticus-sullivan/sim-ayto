@@ -373,13 +373,13 @@ impl Constraint {
                 Ok([
                     None,
                     Some((
-                        (num * 2.0).into(),
-                        (self.left_after.context("total_left unset")? as f64).log2(),
+                        num.into(),
+                        self.entropy.unwrap_or(std::f64::INFINITY),
                         meta.clone(),
                     )),
                     Some((
-                        num.into(),
-                        self.entropy.unwrap_or(std::f64::INFINITY),
+                        (num * 2.0).into(),
+                        (self.left_after.context("total_left unset")? as f64).log2(),
                         meta.clone(),
                     )),
                 ])
@@ -387,14 +387,14 @@ impl Constraint {
             ConstraintType::Box { num, .. } => {
                 Ok([
                     Some((
-                        (num * 2.0 - 1.0).into(),
-                        (self.left_after.context("total_left unset")? as f64).log2(),
+                        num.into(),
+                        self.entropy.unwrap_or(std::f64::INFINITY),
                         meta.clone(),
                     )),
                     None,
                     Some((
-                        num.into(),
-                        self.entropy.unwrap_or(std::f64::INFINITY),
+                        (num * 2.0 - 1.0).into(),
+                        (self.left_after.context("total_left unset")? as f64).log2(),
                         meta.clone(),
                     )),
                 ])

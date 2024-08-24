@@ -218,7 +218,7 @@ impl Game {
             if let Some(j) = &i[1] {
                 mno.serialize(j)?
             }
-            if let Some(j) = &i[1] {
+            if let Some(j) = &i[2] {
                 info.serialize(j)?
             }
         }
