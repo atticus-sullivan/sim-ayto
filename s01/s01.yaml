@@ -24,7 +24,6 @@ setB:
   - Aleks
   - Axel
   - Dominic
-  - Edin
   - Elisha
   - Ferhat
   - Juliano
@@ -32,6 +31,7 @@ setB:
   - Laurin
   - Mo
   - Rene
+  - Edin
 
 constraints:
   - type: !Box {num: 1, comment: "E02"}
@@ -39,7 +39,7 @@ constraints:
     map:
      Ivana: Mo
 
-  - type: !Night {num: 1, comment: "E02"}
+  - type: !Night {num: 1, comment: "E03"}
     check: !Lights [1]
     map:
       Luisa: Axel
@@ -76,6 +76,7 @@ constraints:
     check: !Lights [1]
     map:
       Aline: Mo
+      # Ivana: Laurin
 
   - type: !Night {num: 3, comment: "E06"}
     check: !Lights [3]
@@ -88,13 +89,14 @@ constraints:
       Madleine: Axel
       Michelle: Ferhat
       Luisa: Rene
-      Ivana: Elisha
       Laura: Juliano
+      Ivana: Elisha
 
   - type: !Box {num: 4, comment: "E08"}
     check: !Lights [1]
     map:
       Melissa: Laurin
+      # Madleine: Juliano
 
   - type: !Night {num: 4, comment: "E08 -- Blackout"}
     check: !Lights [2]
@@ -187,7 +189,7 @@ constraints:
       Luisa: Axel
       Ivana: Kevin
       Sabrina: Dominic
-      # Elisha
+      # Nadine: Elisha
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
