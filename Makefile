@@ -38,7 +38,7 @@ all: $(OUT) graph
 clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
 	- $(RM) stats_us.html stats_de.html
 
-$(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
+$(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: data/%
 	- $(RM) "$(<)/$(<)"*.{txt,col.out,pdf,png,dot}
 
 
@@ -48,7 +48,7 @@ check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
 $(CALIAS):
 	@make --no-print-directory $@/$(patsubst check_%,%.yaml,$@)
 
-$(addprefix check_,$(DAT_RUST)): check_%: % rust/target/release/ayto
+$(addprefix check_,$(DAT_RUST)): check_%: data/% rust/target/release/ayto
 	./rust/target/release/ayto check $<
 
 
