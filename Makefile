@@ -39,7 +39,7 @@ clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
 	- $(RM) stats_us.html stats_de.html
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: data/%
-	- $(RM) "$(<)/$(<)"*.{txt,col.out,pdf,png,dot}
+	- $(RM) "$(<)/"*.{txt,col.out,pdf,png,dot,csv}
 
 
 check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
@@ -55,7 +55,7 @@ $(addprefix check_,$(DAT_RUST)): check_%: data/% rust/target/release/ayto
 $(ALIAS):
 	@make --no-print-directory $(patsubst %.txt,%,$@)/$@
 
-$(OUT_RUST): %.txt: %.yaml rust/target/release/ayto
+$(OUT_RUST): %.txt: data/%.yaml rust/target/release/ayto
 	@date
 	./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
