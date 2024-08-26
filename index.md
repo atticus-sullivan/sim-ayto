@@ -16,18 +16,18 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 
 ## AYTO
 
-| Staffel 1 | [mit Farbe](data/de01/s01.col.png) | [nur Text](data/de01/s01.txt) | [aktuelle Tabelle](data/de01/s01_tab.png) | [aktueller Baum](data/de01/s01.pdf) |
-| Staffel 2 | [mit Farbe](data/de02/s02.col.png) | [nur Text](data/de02/s02.txt) | [aktuelle Tabelle](data/de02/s02_tab.png) | [aktueller Baum](data/de02/s02.pdf) |
-| Staffel 3 | [mit Farbe](data/de03/s03.col.png) | [nur Text](data/de03/s03.txt) | [aktuelle Tabelle](data/de03/s03_tab.png) | [aktueller Baum](data/de03/s03.pdf) |
-| Staffel 4 | [mit Farbe](data/de04/s04.col.png) | [nur Text](data/de04/s04.txt) | [aktuelle Tabelle](data/de04/s04_tab.png) | [aktueller Baum](data/de04/s04.pdf) |
-| Staffel 5 | [mit Farbe](data/de05/s05.col.png) | [nur Text](data/de05/s05.txt) | [aktuelle Tabelle](data/de05/s05_tab.png) | [aktueller Baum](data/de05/s05.pdf) |
+| Staffel 1 | [mit Farbe](data/de01/de01.col.png) | [nur Text](data/de01/de01.txt) | [aktuelle Tabelle](data/de01/de01_tab.png) | [aktueller Baum](data/de01/de01.pdf) |
+| Staffel 2 | [mit Farbe](data/de02/de02.col.png) | [nur Text](data/de02/de02.txt) | [aktuelle Tabelle](data/de02/de02_tab.png) | [aktueller Baum](data/de02/de02.pdf) |
+| Staffel 3 | [mit Farbe](data/de03/de03.col.png) | [nur Text](data/de03/de03.txt) | [aktuelle Tabelle](data/de03/de03_tab.png) | [aktueller Baum](data/de03/de03.pdf) |
+| Staffel 4 | [mit Farbe](data/de04/de04.col.png) | [nur Text](data/de04/de04.txt) | [aktuelle Tabelle](data/de04/de04_tab.png) | [aktueller Baum](data/de04/de04.pdf) |
+| Staffel 5 | [mit Farbe](data/de05/de05.col.png) | [nur Text](data/de05/de05.txt) | [aktuelle Tabelle](data/de05/de05_tab.png) | [aktueller Baum](data/de05/de05.pdf) |
 
 ## AYTO - RSIL
 
-| Staffel 1 | [mit Farbe](data/de01r/s01r.col.png) | [nur Text](data/de01r/s01r.txt) | [aktuelle Tabelle](data/de01r/s01r_tab.png) | [aktueller Baum](data/de01r/s01r.pdf) |
-| Staffel 2 | [mit Farbe](data/de02r/s02r.col.png) | [nur Text](data/de02r/s02r.txt) | [aktuelle Tabelle](data/de02r/s02r_tab.png) | [aktueller Baum](data/de02r/s02r.pdf) |
-| Staffel 3 | [mit Farbe](data/de03r/s03r.col.png) | [nur Text](data/de03r/s03r.txt) | [aktuelle Tabelle](data/de03r/s03r_tab.png) | [aktueller Baum](data/de03r/s03r.pdf) |
-| Staffel 4 | [mit Farbe](data/de04r/s04r.col.png) | [nur Text](data/de04r/s04r.txt) | [aktuelle Tabelle](data/de04r/s04r_tab.png) | |
+| Staffel 1 | [mit Farbe](data/de01r/de01r.col.png) | [nur Text](data/de01r/de01r.txt) | [aktuelle Tabelle](data/de01r/de01r_tab.png) | [aktueller Baum](data/de01r/de01r.pdf) |
+| Staffel 2 | [mit Farbe](data/de02r/de02r.col.png) | [nur Text](data/de02r/de02r.txt) | [aktuelle Tabelle](data/de02r/de02r_tab.png) | [aktueller Baum](data/de02r/de02r.pdf) |
+| Staffel 3 | [mit Farbe](data/de03r/de03r.col.png) | [nur Text](data/de03r/de03r.txt) | [aktuelle Tabelle](data/de03r/de03r_tab.png) | [aktueller Baum](data/de03r/de03r.pdf) |
+| Staffel 4 | [mit Farbe](data/de04r/de04r.col.png) | [nur Text](data/de04r/de04r.txt) | [aktuelle Tabelle](data/de04r/de04r_tab.png) | |
 
 ## AYTO - US
 
