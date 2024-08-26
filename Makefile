@@ -16,14 +16,14 @@
 
 DAT_RUST := de01/de01.yaml de01r/de01r.yaml de02/de02.yaml de02r/de02r.yaml de03/de03.yaml de03r/de03r.yaml de04/de04.yaml de04r/de04r.yaml de05/de05.yaml
 DAT_RUST += us08/us08.yaml
-DATA_RUST := $(addprefix data/,$(DATA_RUST))
+DAT_RUST := $(addprefix data/,$(DAT_RUST))
 OUT_RUST := $(addsuffix .txt, $(basename $(DAT_RUST)))
 
 OUT    := $(OUT_RUST)
 ALIAS  := $(notdir $(OUT))
 CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats_de.html stats_us.html graph
+.PHONY: all clean $(patsubst data/%/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats_de.html stats_us.html graph
 
 GENARGS ?= --transpose -c
 
@@ -35,10 +35,10 @@ all: $(OUT) graph
 	
 
 
-clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
+clean: $(patsubst data/%/,clean_%,$(dir $(DAT_RUST)))
 	- $(RM) stats_us.html stats_de.html
 
-$(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: data/%
+$(patsubst data/%/,clean_%,$(dir $(DAT_RUST))): clean_%: data/%
 	- $(RM) "$(<)/"*.{txt,col.out,pdf,png,dot,csv}
 
 
@@ -53,9 +53,9 @@ $(addprefix check_,$(DAT_RUST)): check_%: data/% rust/target/release/ayto
 
 
 $(ALIAS):
-	@make --no-print-directory $(patsubst %.txt,%,$@)/$@
+	@make --no-print-directory data/$(patsubst %.txt,%,$@)/$@
 
-$(OUT_RUST): %.txt: data/%.yaml rust/target/release/ayto
+$(OUT_RUST): data/%.txt: data/%.yaml rust/target/release/ayto
 	@date
 	./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
