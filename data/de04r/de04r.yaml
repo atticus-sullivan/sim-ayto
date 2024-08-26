@@ -115,7 +115,7 @@ constraints:
       # Kaan: Dana
 
   # - type: !Box {num: 5, comment: "E11"}
-  #   check: !Lights [?]
+  #   check: !Lights [0]
   #   map:
   #     # Kaan: Tara
   #     Nikola: LauraM
