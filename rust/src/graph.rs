@@ -24,7 +24,7 @@ use walkdir::WalkDir;
 
 use crate::constraint::CSVEntry;
 
-pub fn build_stats_graph() -> Result<String> {
+pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     let layout = Layout::new()
         .hover_mode(plotly::layout::HoverMode::X)
         .click_mode(plotly::layout::ClickMode::Event)
@@ -77,15 +77,13 @@ pub fn build_stats_graph() -> Result<String> {
         );
     }
 
-    for entry in WalkDir::new("./")
+    for entry in WalkDir::new("./data")
         .max_depth(1)
         .min_depth(1)
         .sort_by_file_name()
         .into_iter()
         .filter_entry(|e| {
-            e.file_name()
-                .to_str()
-                .map_or(false, |e| (e.starts_with("s") || e.starts_with("us")))
+            e.file_name().to_str().map_or(false, |e| filter_dirs(e))
                 && e.metadata().map_or(false, |e| e.is_dir())
         })
         .filter_map(Result::ok)

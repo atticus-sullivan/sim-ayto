@@ -362,44 +362,40 @@ impl Constraint {
     }
 
     // returned array contains mbInfo, mnInfo, info
-    pub fn get_stats(&self) -> Result<[Option<CSVEntry>;3]> {
+    pub fn get_stats(&self) -> Result<[Option<CSVEntry>; 3]> {
         if self.hidden {
-            return Ok([None,None,None]);
+            return Ok([None, None, None]);
         }
 
         let meta_a = format!("{}", self.comment());
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
-            ConstraintType::Night { num, .. } => {
-                Ok([
-                    None,
-                    Some((
-                        num.into(),
-                        self.entropy.unwrap_or(std::f64::INFINITY),
-                        meta_a,
-                    )),
-                    Some((
-                        (num * 2.0).into(),
-                        (self.left_after.context("total_left unset")? as f64).log2(),
-                        meta_b,
-                    )),
-                ])
-            }
-            ConstraintType::Box { num, .. } => {
-                Ok([
-                    Some((
-                        num.into(),
-                        self.entropy.unwrap_or(std::f64::INFINITY),
-                        meta_a,
-                    )),
-                    None,
-                    Some((
-                        (num * 2.0 - 1.0).into(),
-                        (self.left_after.context("total_left unset")? as f64).log2(),
-                        meta_b,
-                    )),
-                ])
-            }
+            ConstraintType::Night { num, .. } => Ok([
+                None,
+                Some((
+                    num.into(),
+                    self.entropy.unwrap_or(std::f64::INFINITY),
+                    meta_a,
+                )),
+                Some((
+                    (num * 2.0).into(),
+                    (self.left_after.context("total_left unset")? as f64).log2(),
+                    meta_b,
+                )),
+            ]),
+            ConstraintType::Box { num, .. } => Ok([
+                Some((
+                    num.into(),
+                    self.entropy.unwrap_or(std::f64::INFINITY),
+                    meta_a,
+                )),
+                None,
+                Some((
+                    (num * 2.0 - 1.0).into(),
+                    (self.left_after.context("total_left unset")? as f64).log2(),
+                    meta_b,
+                )),
+            ]),
         }
     }
 

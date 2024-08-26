@@ -14,14 +14,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-DAT_RUST := s01/s01.yaml s01r/s01r.yaml s02/s02.yaml s02r/s02r.yaml s03/s03.yaml s03r/s03r.yaml s04/s04.yaml s04r/s04r.yaml s05/s05.yaml us08/us08.yaml
+DAT_RUST := de01/de01.yaml de01r/de01r.yaml de02/de02.yaml de02r/de02r.yaml de03/de03.yaml de03r/de03r.yaml de04/de04.yaml de04r/de04r.yaml de05/de05.yaml
+DAT_RUST += us08/us08.yaml
+DATA_RUST := $(addprefix data/,$(DATA_RUST))
 OUT_RUST := $(addsuffix .txt, $(basename $(DAT_RUST)))
 
 OUT    := $(OUT_RUST)
 ALIAS  := $(notdir $(OUT))
 CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats.html graph
+.PHONY: all clean $(patsubst %/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats_de.html stats_us.html graph
 
 GENARGS ?= --transpose -c
 
@@ -34,7 +36,7 @@ all: $(OUT) graph
 
 
 clean: $(patsubst %/,clean_%,$(dir $(DAT_RUST)))
-	- $(RM) stats.html
+	- $(RM) stats_us.html stats_de.html
 
 $(patsubst %/,clean_%,$(dir $(DAT_RUST))): clean_%: %
 	- $(RM) "$(<)/$(<)"*.{txt,col.out,pdf,png,dot}
@@ -63,10 +65,10 @@ $(OUT_RUST): %.txt: %.yaml rust/target/release/ayto
 	@date
 
 
-graph: stats.html
+graph: stats_de.html stats_us.html
 
-stats.html: rust/target/release/ayto
-	./rust/target/release/ayto graph ./stats.html
+stats_us.html stats_de.html: rust/target/release/ayto
+	./rust/target/release/ayto graph ./stats_de.html ./stats_us.html
 
 rust/target/release/ayto: ./rust/src/*
 	make -C rust buildRelease

@@ -206,9 +206,18 @@ impl Game {
         let out_info_path = self.dir.join("statInfo").with_extension("csv");
 
         let (mut mbo, mut mno, mut info) = (
-            csv::WriterBuilder::new().delimiter(b';').has_headers(false).from_path(out_mb_path)?,
-            csv::WriterBuilder::new().delimiter(b';').has_headers(false).from_path(out_mn_path)?,
-            csv::WriterBuilder::new().delimiter(b';').has_headers(false).from_path(out_info_path)?,
+            csv::WriterBuilder::new()
+                .delimiter(b';')
+                .has_headers(false)
+                .from_path(out_mb_path)?,
+            csv::WriterBuilder::new()
+                .delimiter(b';')
+                .has_headers(false)
+                .from_path(out_mn_path)?,
+            csv::WriterBuilder::new()
+                .delimiter(b';')
+                .has_headers(false)
+                .from_path(out_info_path)?,
         );
         for i in merged_constraints.iter().map(|c| c.get_stats()) {
             let i = i?;

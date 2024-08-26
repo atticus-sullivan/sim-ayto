@@ -64,7 +64,8 @@ enum Commands {
         yaml_path: PathBuf,
     },
     Graph {
-        html_path: PathBuf,
+        html_path_de: PathBuf,
+        html_path_us: PathBuf,
     },
 }
 
@@ -87,9 +88,15 @@ fn main() {
             Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash"))
                 .expect("Parsing failed");
         }
-        Commands::Graph { html_path } => {
-            let html_content = graph::build_stats_graph().unwrap();
-            std::fs::write(html_path, html_content).unwrap();
+        Commands::Graph {
+            html_path_de,
+            html_path_us,
+        } => {
+            let html_content = graph::build_stats_graph(|e| e.starts_with("de")).unwrap();
+            std::fs::write(html_path_de, html_content).unwrap();
+
+            let html_content = graph::build_stats_graph(|e| e.starts_with("us")).unwrap();
+            std::fs::write(html_path_us, html_content).unwrap();
         }
     }
 }

@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'rust/**'
-      - '**.yaml'
+      - 'data/**.yaml'
     # paths-ignore:
     #   - 'img/**'
     #   - 'README.md'

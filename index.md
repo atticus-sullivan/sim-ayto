@@ -16,26 +16,27 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 
 ## AYTO
 
-| Staffel 1 | [mit Farbe](s01/s01.col.png) | [nur Text](s01/s01.txt) | [aktuelle Tabelle](s01/s01_tab.png) | [aktueller Baum](s01/s01.pdf) |
-| Staffel 2 | [mit Farbe](s02/s02.col.png) | [nur Text](s02/s02.txt) | [aktuelle Tabelle](s02/s02_tab.png) | [aktueller Baum](s02/s02.pdf) |
-| Staffel 3 | [mit Farbe](s03/s03.col.png) | [nur Text](s03/s03.txt) | [aktuelle Tabelle](s03/s03_tab.png) | [aktueller Baum](s03/s03.pdf) |
-| Staffel 4 | [mit Farbe](s04/s04.col.png) | [nur Text](s04/s04.txt) | [aktuelle Tabelle](s04/s04_tab.png) | [aktueller Baum](s04/s04.pdf) |
-| Staffel 5 | [mit Farbe](s05/s05.col.png) | [nur Text](s05/s05.txt) | [aktuelle Tabelle](s05/s05_tab.png) | [aktueller Baum](s05/s05.pdf) |
+| Staffel 1 | [mit Farbe](data/de01/s01.col.png) | [nur Text](data/de01/s01.txt) | [aktuelle Tabelle](data/de01/s01_tab.png) | [aktueller Baum](data/de01/s01.pdf) |
+| Staffel 2 | [mit Farbe](data/de02/s02.col.png) | [nur Text](data/de02/s02.txt) | [aktuelle Tabelle](data/de02/s02_tab.png) | [aktueller Baum](data/de02/s02.pdf) |
+| Staffel 3 | [mit Farbe](data/de03/s03.col.png) | [nur Text](data/de03/s03.txt) | [aktuelle Tabelle](data/de03/s03_tab.png) | [aktueller Baum](data/de03/s03.pdf) |
+| Staffel 4 | [mit Farbe](data/de04/s04.col.png) | [nur Text](data/de04/s04.txt) | [aktuelle Tabelle](data/de04/s04_tab.png) | [aktueller Baum](data/de04/s04.pdf) |
+| Staffel 5 | [mit Farbe](data/de05/s05.col.png) | [nur Text](data/de05/s05.txt) | [aktuelle Tabelle](data/de05/s05_tab.png) | [aktueller Baum](data/de05/s05.pdf) |
 
 ## AYTO - RSIL
 
-| Staffel 1 | [mit Farbe](s01r/s01r.col.png) | [nur Text](s01r/s01r.txt) | [aktuelle Tabelle](s01r/s01r_tab.png) | [aktueller Baum](s01r/s01r.pdf) |
-| Staffel 2 | [mit Farbe](s02r/s02r.col.png) | [nur Text](s02r/s02r.txt) | [aktuelle Tabelle](s02r/s02r_tab.png) | [aktueller Baum](s02r/s02r.pdf) |
-| Staffel 3 | [mit Farbe](s03r/s03r.col.png) | [nur Text](s03r/s03r.txt) | [aktuelle Tabelle](s03r/s03r_tab.png) | [aktueller Baum](s03r/s03r.pdf) |
-| Staffel 4 | [mit Farbe](s04r/s04r.col.png) | [nur Text](s04r/s04r.txt) | [aktuelle Tabelle](s04r/s04r_tab.png) | |
+| Staffel 1 | [mit Farbe](data/de01r/s01r.col.png) | [nur Text](data/de01r/s01r.txt) | [aktuelle Tabelle](data/de01r/s01r_tab.png) | [aktueller Baum](data/de01r/s01r.pdf) |
+| Staffel 2 | [mit Farbe](data/de02r/s02r.col.png) | [nur Text](data/de02r/s02r.txt) | [aktuelle Tabelle](data/de02r/s02r_tab.png) | [aktueller Baum](data/de02r/s02r.pdf) |
+| Staffel 3 | [mit Farbe](data/de03r/s03r.col.png) | [nur Text](data/de03r/s03r.txt) | [aktuelle Tabelle](data/de03r/s03r_tab.png) | [aktueller Baum](data/de03r/s03r.pdf) |
+| Staffel 4 | [mit Farbe](data/de04r/s04r.col.png) | [nur Text](data/de04r/s04r.txt) | [aktuelle Tabelle](data/de04r/s04r_tab.png) | |
 
 ## AYTO - US
 
-| Staffel 8 | [mit Farbe](us08/us08.col.png) | [nur Text](us08/us08.txt) | [aktuelle Tabelle](us08/us08_tab.png) | [aktueller Baum](us08/us08.pdf) |
+| Staffel 8 | [mit Farbe](data/us08/us08.col.png) | [nur Text](data/us08/us08.txt) | [aktuelle Tabelle](data/us08/us08_tab.png) | [aktueller Baum](data/us08/us08.pdf) |
 
 # Vergleich der Staffeln untereinander
 
-Siehe [stats](stats.html).
+- [deutsche staffeln](stats_de.html).
+- [us staffeln](stats_us.html).
 
 # Weitere Erklärungen zu den Ausgaben
 
