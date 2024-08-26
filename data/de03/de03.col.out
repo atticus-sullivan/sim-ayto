@@ -36,15 +36,15 @@ Mike -> Jessica
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E02
-William -> Dana
-Antonino -> Monami
-Andre -> Raphaela
-Mike -> Joelina
 Marius -> Isabelle
-Leon -> Jessica
 Dustin -> Zaira
-Max -> Kerstin
+William -> Dana
+Leon -> Jessica
 Jordi -> Estelle
+Mike -> Joelina
+Max -> Kerstin
+Andre -> Raphaela
+Antonino -> Monami
 Tim -> Marie
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
@@ -88,16 +88,16 @@ Leon -> Monami
 1897270 left -> 20.8555 bits left
 
 MN#2.0 E04
+William -> Raphaela
 Leon -> Estelle
-Mike -> Joelina
+Max -> Kerstin
 Marius -> Marie
+Dustin -> Isabelle
+Mike -> Joelina
 Tim -> Jessica
 Antonino -> Monami
 Andre -> Dana
 Jordi -> Zaira
-Max -> Kerstin
-William -> Raphaela
-Dustin -> Isabelle
 ---
 -> Pr[lights]: {0: 19.7%, 1: 36.5%, 2: 26.7%, 3: 12.0%, 4: 3.8%, 5: 1.0%, 6: 0.2%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.478
@@ -140,16 +140,16 @@ Andre -> Raphaela
 384190 left -> 18.5515 bits left
 
 MN#3.0 E06
-Antonino -> Kerstin
-Marius -> Isabelle
-William -> Dana
-Max -> Monami
 Dustin -> Zaira
+Antonino -> Kerstin
 Andre -> Raphaela
+Marius -> Isabelle
 Jordi -> Jessica
-Leon -> Estelle
 Mike -> Joelina
+Max -> Monami
+William -> Dana
 Tim -> Marie
+Leon -> Estelle
 ---
 -> Pr[lights]: {0: 7.2%, 1: 37.9%, 2: 31.7%, 3: 16.0%, 4: 5.1%, 5: 1.7%, 6: 0.3%, 7: 0.0%}
 ->  E[lights]: 1.803
@@ -171,16 +171,16 @@ Tim -> Marie
 121660 left -> 16.8925 bits left
 
 MN#4.0 E08
-Max -> Marie
-Antonino -> Monami
-Jordi -> Raphaela
+Leon -> Estelle
 William -> Dana
 Tim -> Kerstin
-Dustin -> Zaira
-Mike -> Joelina
+Max -> Marie
 Andre -> Isabelle
+Antonino -> Monami
 Marius -> Jessica
-Leon -> Estelle
+Mike -> Joelina
+Dustin -> Zaira
+Jordi -> Raphaela
 ---
 -> Pr[lights]: {0: 3.2%, 1: 27.0%, 2: 35.2%, 3: 22.2%, 4: 9.1%, 5: 2.6%, 6: 0.6%, 7: 0.1%, 8: 0.0%}
 ->  E[lights]: 2.178
@@ -224,15 +224,15 @@ Antonino -> Monami
 
 MN#5.0 E10
 Tim -> Desiree
-Mike -> Estelle
-Leon -> Jessica
-Antonino -> Kerstin
-Max -> Monami
-Marius -> Raphaela
 Dustin -> Isabelle
 Andre -> Joelina
-William -> Dana
+Marius -> Raphaela
 Jordi -> Zaira
+Mike -> Estelle
+Leon -> Jessica
+William -> Dana
+Antonino -> Kerstin
+Max -> Monami
 ---
 -> Pr[lights]: {0: 29.7%, 1: 41.1%, 2: 17.0%, 3: 9.2%, 4: 2.9%, 5: 0.2%}
 ->  E[lights]: 1.152
@@ -275,16 +275,16 @@ Max -> Jessica
 1859 left -> 10.8603 bits left
 
 MN#6.0 E12
-Jordi -> Desiree
+Max -> Kerstin
+Leon -> Jessica
 Andre -> Marie
-William -> Raphaela
 Marius -> Zaira
 Antonino -> Dana
+Jordi -> Desiree
 Mike -> Estelle
 Dustin -> Isabelle
-Leon -> Jessica
 Tim -> Joelina
-Max -> Kerstin
+William -> Raphaela
 ---
 -> Pr[lights]: {0: 5.4%, 1: 61.3%, 2: 25.9%, 3: 6.3%, 4: 1.0%, 5: 0.1%}
 ->  E[lights]: 1.364
@@ -327,16 +327,16 @@ Marius -> Zaira
 10 left -> 3.3219 bits left
 
 MN#7.0 E14
-Andre -> Desiree
 William -> Raphaela
-Marius -> Zaira
-Leon -> Jessica
-Jordi -> Monami
-Max -> Marie
 Mike -> Joelina
+Jordi -> Monami
 Tim -> Kerstin
-Antonino -> Dana
+Andre -> Desiree
+Max -> Marie
 Dustin -> Isabelle
+Leon -> Jessica
+Marius -> Zaira
+Antonino -> Dana
 ---
 -> Pr[lights]: {5: 30.0%, 6: 60.0%, 7: 10.0%}
 ->  E[lights]: 5.800
@@ -379,16 +379,16 @@ Jordi -> Raphaela
 6 left -> 2.5850 bits left
 
 MN#8.0 E16
+Andre -> Marie
 Mike -> Estelle
-Dustin -> Isabelle
-Antonino -> Dana
-Leon -> Jessica
 Jordi -> Monami
-Max -> Kerstin
-William -> Raphaela
 Marius -> Zaira
 Tim -> Joelina
-Andre -> Marie
+William -> Raphaela
+Dustin -> Isabelle
+Max -> Kerstin
+Antonino -> Dana
+Leon -> Jessica
 ---
 -> Pr[lights]: {4: 100.0%}
 ->  E[lights]: 4.000
@@ -432,15 +432,15 @@ Max -> Kerstin
 
 MN#9.0 E18
 Marius -> Zaira
-William -> Marie
-Mike -> Estelle
-Dustin -> Dana
-Leon -> Jessica
-Antonino -> Isabelle
-Jordi -> Monami
 Andre -> Desiree
+Dustin -> Dana
+Antonino -> Isabelle
 Tim -> Joelina
+Jordi -> Monami
 Max -> Raphaela
+Mike -> Estelle
+William -> Marie
+Leon -> Jessica
 ---
 -> Pr[lights]: {2: 100.0%}
 ->  E[lights]: 2.000
@@ -484,14 +484,14 @@ Dustin -> Isabelle
 
 MN#10.0 E20
 Marius -> Zaira
-Antonino -> Dana
 Jordi -> Estelle
-Tim -> Kerstin
-Andre -> Isabelle
-Leon -> Jessica
-Dustin -> Marie
 Mike -> Joelina
+Dustin -> Marie
 Max -> Monami
+Antonino -> Dana
+Leon -> Jessica
+Andre -> Isabelle
+Tim -> Kerstin
 William -> Raphaela
 ---
 -> Pr[lights]: {10: 100.0%}
@@ -514,16 +514,16 @@ William -> Raphaela
 6 left -> 2.5850 bits left
 
 MN#11.0 reunion
-Tim -> Kerstin
 Mike -> Joelina
-Max -> Monami
-Dustin -> Marie
-Antonino -> Dana
+Andre -> Isabelle
 Marius -> Zaira
 Jordi -> Estelle
-William -> Desiree
-Andre -> Isabelle
 Leon -> Jessica
+Dustin -> Marie
+Antonino -> Dana
+Tim -> Kerstin
+Max -> Monami
+William -> Desiree
 ---
 -> Pr[lights]: {9: 83.3%, 10: 16.7%}
 ->  E[lights]: 9.167
@@ -570,4 +570,4 @@ Leon -> Jessica
 ╰─────────┴────┴──────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┴─────────┴─────────┴──────────┴───┴──────────────────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.14s
+Ran in 10.22s

@@ -57,16 +57,16 @@ Dorna -> Kenneth
 161844480 left -> 27.2700 bits left
 
 MN#1.0 E04
-Steffi -> Chris
-Caro -> Barkin
-Vanessa -> Sasa
-Juliette -> Burim
-Carina -> Ken
-Aurelia -> Deniz
-Henna -> Kenneth
-Dorna -> Marwin
 Larissa -> Joel
+Dorna -> Marwin
+Juliette -> Burim
+Steffi -> Chris
+Aurelia -> Deniz
 Valeria -> Max
+Carina -> Ken
+Vanessa -> Sasa
+Caro -> Barkin
+Henna -> Kenneth
 ---
 -> Pr[lights]: {0: 35.5%, 1: 37.1%, 2: 19.0%, 3: 6.4%, 4: 1.6%, 5: 0.3%, 6: 0.0%, 7: 0.0%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.025
@@ -109,16 +109,16 @@ Carina -> Burim
 9524347 left -> 23.1832 bits left
 
 MN#2.0 E06
-Steffi -> Chris
+Valeria -> Pascal
 Vanessa -> Sasa
-Carina -> Ken
-Henna -> Kenneth
-Juliette -> Barkin
+Caro -> Max
 Dorna -> Marwin
 Larissa -> Joel
-Caro -> Max
+Steffi -> Chris
+Henna -> Kenneth
+Carina -> Ken
 Aurelia -> Burim
-Valeria -> Pascal
+Juliette -> Barkin
 ---
 -> Pr[lights]: {0: 3.0%, 1: 24.6%, 2: 38.8%, 3: 23.3%, 4: 8.1%, 5: 1.9%, 6: 0.3%, 7: 0.0%}
 ->  E[lights]: 2.156
@@ -161,16 +161,16 @@ Steffi -> Chris
 692891 left -> 19.4023 bits left
 
 MN#3.0 E08
+Larissa -> Joel
 Steffi -> Chris
 Dorna -> Deniz
-Caro -> Pascal
-Vanessa -> Marwin
 Valeria -> Max
-Aurelia -> Kenneth
-Larissa -> Joel
-Henna -> Ken
-Carina -> Sasa
 Juliette -> Barkin
+Vanessa -> Marwin
+Henna -> Ken
+Aurelia -> Kenneth
+Carina -> Sasa
+Caro -> Pascal
 ---
 -> Pr[lights]: {1: 34.7%, 2: 35.6%, 3: 19.4%, 4: 7.4%, 5: 2.2%, 6: 0.5%, 7: 0.1%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.090
@@ -213,16 +213,16 @@ Valeria -> Max
 223906 left -> 17.7725 bits left
 
 MN#4.0 E10
-Dorna -> Burim
-Valeria -> Joel
+Carina -> Pascal
 Larissa -> Deniz
-Aurelia -> Marwin
 Henna -> Ken
 Steffi -> Chris
-Caro -> Max
-Carina -> Pascal
-Juliette -> Kenneth
 Vanessa -> Sasa
+Aurelia -> Marwin
+Dorna -> Burim
+Valeria -> Joel
+Caro -> Max
+Juliette -> Kenneth
 ---
 -> Pr[lights]: {1: 33.0%, 2: 36.9%, 3: 20.4%, 4: 7.3%, 5: 1.9%, 6: 0.4%, 7: 0.1%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.098
@@ -265,16 +265,16 @@ Caro -> Ken
 199 left -> 7.6366 bits left
 
 MN#5.0 E12
-Dorna -> Burim
-Valeria -> Joel
-Henna -> Kenneth
-Steffi -> Chris
-Vanessa -> Sasa
-Juliette -> Barkin
 Aurelia -> Marwin
-Larissa -> Deniz
+Dorna -> Burim
+Henna -> Kenneth
+Juliette -> Barkin
+Vanessa -> Sasa
 Caro -> Ken
+Larissa -> Deniz
+Valeria -> Joel
 Carina -> Pascal
+Steffi -> Chris
 ---
 -> Pr[lights]: {2: 10.6%, 3: 61.8%, 4: 27.6%}
 ->  E[lights]: 3.171
@@ -317,16 +317,16 @@ Dorna -> Burim
 48 left -> 5.5850 bits left
 
 MN#6.0 E14
-Steffi -> Chris
-Henna -> Kenneth
 Juliette -> Barkin
-Carina -> Sasa
-Vanessa -> Joel
 Valeria -> Pascal
-Larissa -> Marwin
-Caro -> Ken
-Dorna -> Deniz
 Aurelia -> Burim
+Steffi -> Chris
+Carina -> Sasa
+Henna -> Kenneth
+Dorna -> Deniz
+Caro -> Ken
+Larissa -> Marwin
+Vanessa -> Joel
 ---
 -> Pr[lights]: {3: 50.0%, 4: 29.2%, 5: 16.7%, 6: 4.2%}
 ->  E[lights]: 3.750
@@ -369,16 +369,16 @@ Juliette -> Joel
 20 left -> 4.3219 bits left
 
 MN#7.0 E16 -- Blackout
-Henna -> Burim
-Carina -> Marwin
-Larissa -> Sasa
 Steffi -> Chris
-Juliette -> Kenneth
 Aurelia -> Joel
 Caro -> Ken
-Dorna -> Barkin
-Vanessa -> Deniz
 Valeria -> Pascal
+Henna -> Burim
+Vanessa -> Deniz
+Juliette -> Kenneth
+Dorna -> Barkin
+Carina -> Marwin
+Larissa -> Sasa
 ---
 -> Pr[lights]: {2: 60.0%, 3: 30.0%, 4: 5.0%, 5: 5.0%}
 ->  E[lights]: 2.550
@@ -421,16 +421,16 @@ Dorna -> Marwin
 12 left -> 3.5850 bits left
 
 MN#8.0 E18 -- Blackout
-Caro -> Ken
-Aurelia -> Marwin
-Henna -> Deniz
 Carina -> Kenneth
+Caro -> Ken
 Juliette -> Barkin
-Valeria -> Burim
-Larissa -> Pascal
-Dorna -> Joel
-Vanessa -> Sasa
+Aurelia -> Marwin
 Steffi -> Chris
+Henna -> Deniz
+Vanessa -> Sasa
+Larissa -> Pascal
+Valeria -> Burim
+Dorna -> Joel
 ---
 -> Pr[lights]: {2: 58.3%, 3: 33.3%, 4: 8.3%}
 ->  E[lights]: 2.500
@@ -474,15 +474,15 @@ Carina -> Pascal
 
 MN#9.0 E21 -- finale
 Steffi -> Chris
+Aurelia -> Pascal
 Dorna -> Sasa
+Larissa -> Barkin
+Valeria -> Joel
+Carina -> Deniz
 Vanessa -> Marwin
 Henna -> Kenneth
-Carina -> Deniz
-Larissa -> Barkin
-Aurelia -> Pascal
-Valeria -> Joel
-Caro -> Ken
 Juliette -> Burim
+Caro -> Ken
 ---
 -> Pr[lights]: {5: 42.9%, 6: 14.3%, 7: 14.3%, 8: 14.3%, 10: 14.3%}
 ->  E[lights]: 6.571
@@ -528,4 +528,4 @@ Juliette -> Burim
 ╰────────┴────┴─────────┴─────────┴────────┴─────────┴─────────┴──────────┴─────────┴────────┴─────────┴─────────┴───┴─────────────────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 66.23s
+Ran in 66.71s

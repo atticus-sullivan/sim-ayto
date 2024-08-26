@@ -48,14 +48,14 @@ Nour -> Justin
 1891890 left -> 20.8514 bits left
 
 MN#1.0 E02
-Paige -> Aasha
 Jenna -> Jasmine
 Nour -> Amber
-Max -> Justin
 Jonathan -> Basit
+Max -> Justin
 Remy -> Brandon
-Kai -> Danny
 Kylie -> Kari
+Paige -> Aasha
+Kai -> Danny
 ---
 -> Pr[lights]: {0: 58.4%, 1: 31.3%, 2: 8.5%, 3: 1.5%, 4: 0.2%, 5: 0.0%, 6: 0.0%, 8: 0.0%}
 ->  E[lights]: 0.538
@@ -83,14 +83,14 @@ Kylie -> Kari
 160060 left -> 17.2883 bits left
 
 MN#2.0 E03
+Paige -> Max
+Jonathan -> Basit
+Kai -> Jenna
+Brandon -> Aasha
+Nour -> Amber
 Justin -> Jasmine
 Remy -> Danny
 Kylie -> Kari
-Kai -> Jenna
-Brandon -> Aasha
-Paige -> Max
-Nour -> Amber
-Jonathan -> Basit
 ---
 -> Pr[lights]: {0: 30.3%, 1: 44.2%, 2: 19.4%, 3: 5.0%, 4: 0.9%, 5: 0.1%, 6: 0.0%}
 ->  E[lights]: 1.025
@@ -145,14 +145,14 @@ Kai -> Jenna
 26927 left -> 14.7168 bits left
 
 MN#3.0 E03
-Justin -> Jenna
-Paige -> Amber
-Kylie -> Kari
-Kai -> Danny
 Remy -> Basit
+Paige -> Amber
+Justin -> Jenna
 Max -> Aasha
 Nour -> Jasmine
 Jonathan -> Brandon
+Kai -> Danny
+Kylie -> Kari
 ---
 -> Pr[lights]: {0: 35.7%, 1: 42.4%, 2: 17.2%, 3: 3.9%, 4: 0.7%, 5: 0.1%, 6: 0.0%}
 ->  E[lights]: 0.917
@@ -207,14 +207,14 @@ Jenna -> Danny
 4328 left -> 12.0795 bits left
 
 MN#4.0 E05
-Jasmine -> Brandon
-Kylie -> Jonathan
-Max -> Justin
 Nour -> Amber
-Paige -> Jenna
+Max -> Justin
+Kylie -> Jonathan
 Remy -> Aasha
-Kari -> Kai
+Paige -> Jenna
 Danny -> Basit
+Kari -> Kai
+Jasmine -> Brandon
 ---
 -> Pr[lights]: {0: 49.6%, 1: 37.5%, 2: 11.1%, 3: 1.6%, 4: 0.2%}
 ->  E[lights]: 0.653
@@ -269,13 +269,13 @@ Kylie -> Kari
 405 left -> 8.6618 bits left
 
 MN#5.0 E06
+Justin -> Jonathan
 Max -> Brandon
-Kylie -> Jenna
+Remy -> Basit
 Nour -> Amber
 Paige -> Jasmine
+Kylie -> Jenna
 Kai -> Aasha
-Justin -> Jonathan
-Remy -> Basit
 Kari -> Danny
 ---
 -> Pr[lights]: {0: 14.6%, 1: 52.6%, 2: 22.5%, 3: 8.1%, 4: 2.0%, 5: 0.2%}
@@ -331,14 +331,14 @@ Brandon -> Aasha
 11 left -> 3.4594 bits left
 
 MN#6.0 E07
-Brandon -> Aasha
-Paige -> Kari
-Kylie -> Jasmine
-Jonathan -> Basit
-Kai -> Danny
 Remy -> Nour
-Jenna -> Amber
+Kai -> Danny
 Max -> Justin
+Kylie -> Jasmine
+Paige -> Kari
+Brandon -> Aasha
+Jonathan -> Basit
+Jenna -> Amber
 ---
 -> Pr[lights]: {3: 100.0%}
 ->  E[lights]: 3.000
@@ -393,14 +393,14 @@ Jenna -> Jasmine
 11 left -> 3.4594 bits left
 
 MN#7.0 E08
-Kai -> Jasmine
-Nour -> Kylie
-Danny -> Amber
 Paige -> Jenna
-Remy -> Kari
-Max -> Justin
 Jonathan -> Basit
 Brandon -> Aasha
+Nour -> Kylie
+Max -> Justin
+Kai -> Jasmine
+Remy -> Kari
+Danny -> Amber
 ---
 -> Pr[lights]: {3: 81.8%, 4: 18.2%}
 ->  E[lights]: 3.182
@@ -455,14 +455,14 @@ Remy -> Paige
 9 left -> 3.1699 bits left
 
 MN#8.0 E11
+Kylie -> Danny
+Kari -> Jenna
+Jonathan -> Basit
+Nour -> Jasmine
+Brandon -> Aasha
+Remy -> Kai
 Max -> Justin
 Paige -> Amber
-Kylie -> Danny
-Nour -> Jasmine
-Jonathan -> Basit
-Remy -> Kai
-Kari -> Jenna
-Brandon -> Aasha
 ---
 -> Pr[lights]: {3: 88.9%, 8: 11.1%}
 ->  E[lights]: 3.556
@@ -517,13 +517,13 @@ Max -> Amber
 7 left -> 2.8074 bits left
 
 MN#9.0 E11
+Jonathan -> Basit
+Max -> Kari
+Paige -> Jenna
 Kai -> Danny
+Kylie -> Amber
 Nour -> Jasmine
 Remy -> Justin
-Kylie -> Amber
-Max -> Kari
-Jonathan -> Basit
-Paige -> Jenna
 Brandon -> Aasha
 ---
 -> Pr[lights]: {5: 28.6%, 6: 57.1%, 8: 14.3%}
@@ -579,14 +579,14 @@ Kylie -> Amber
 3 left -> 1.5850 bits left
 
 MN#10.0 E12
-Kylie -> Justin
-Remy -> Amber
-Paige -> Jenna
+Nour -> Jasmine
+Kai -> Danny
 Brandon -> Aasha
 Jonathan -> Basit
+Remy -> Amber
+Paige -> Jenna
+Kylie -> Justin
 Max -> Kari
-Kai -> Danny
-Nour -> Jasmine
 ---
 -> Pr[lights]: {5: 33.3%, 6: 33.3%, 8: 33.3%}
 ->  E[lights]: 6.333
@@ -638,4 +638,4 @@ Nour -> Jasmine
 ╰─────────┴───┴───────┴───────┴───────┴─────────┴───────┴─────────┴─────────┴──────────┴──────────┴─────────┴───────┴──────────┴─────────┴─────────┴─────────┴─────────┴───┴─────────────────────╯
 Total permutations: 2027025  Permutations left: 1  Initial combinations for each pair: 135135
 
-Ran in 143.78s
+Ran in 144.56s

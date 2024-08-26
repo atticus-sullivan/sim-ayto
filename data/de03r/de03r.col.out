@@ -36,15 +36,15 @@ Jenny -> Danilo
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E04
-Shakira -> Marvin
 Sandra -> Paco
-Sabrina -> Emanuell
+Kim -> Mike
+Shakira -> Marvin
 Alicia -> Peter
+Steffi -> Teezy
 Darya -> Danilo
 Paulina -> Steffen
 Marie -> Fabio
-Steffi -> Teezy
-Kim -> Mike
+Sabrina -> Emanuell
 Jenny -> Elia
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
@@ -88,16 +88,16 @@ Jenny -> Elia
 1384320 left -> 20.4007 bits left
 
 MN#2.0 E06
-Paulina -> Danilo
-Jenny -> Marvin
-Marie -> Fabio
-Sabrina -> Mike
-Sandra -> Elia
 Kim -> Paco
-Steffi -> Teezy
-Shakira -> Peter
-Darya -> Emanuell
+Marie -> Fabio
 Alicia -> Steffen
+Steffi -> Teezy
+Darya -> Emanuell
+Jenny -> Marvin
+Sabrina -> Mike
+Shakira -> Peter
+Sandra -> Elia
+Paulina -> Danilo
 ---
 -> Pr[lights]: {0: 25.3%, 1: 36.9%, 2: 24.1%, 3: 9.9%, 4: 3.0%, 5: 0.7%, 6: 0.1%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.311
@@ -140,16 +140,16 @@ Darya -> Elia
 297310 left -> 18.1816 bits left
 
 MN#3.0 E08
-Kim -> Teezy
-Alicia -> Steffen
-Sabrina -> Peter
-Marie -> Elia
-Jenny -> Emanuell
-Paulina -> Mike
 Sandra -> Paco
-Shakira -> Fabio
-Steffi -> Marvin
 Darya -> Danilo
+Kim -> Teezy
+Jenny -> Emanuell
+Shakira -> Fabio
+Paulina -> Mike
+Alicia -> Steffen
+Steffi -> Marvin
+Marie -> Elia
+Sabrina -> Peter
 ---
 -> Pr[lights]: {0: 26.5%, 1: 37.6%, 2: 23.4%, 3: 9.1%, 4: 2.6%, 5: 0.7%, 6: 0.1%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.264
@@ -192,16 +192,16 @@ Kim -> Mike
 53720 left -> 15.7132 bits left
 
 MN#4.0 E10
-Steffi -> Emanuell
-Jenny -> Marvin
-Paulina -> Max
-Alicia -> Teezy
-Shakira -> Fabio
 Darya -> Danilo
-Kim -> Peter
-Sabrina -> Paco
 Marie -> Elia
 Sandra -> Steffen
+Sabrina -> Paco
+Jenny -> Marvin
+Alicia -> Teezy
+Shakira -> Fabio
+Paulina -> Max
+Steffi -> Emanuell
+Kim -> Peter
 ---
 -> Pr[lights]: {0: 19.1%, 1: 37.9%, 2: 28.2%, 3: 11.2%, 4: 3.0%, 5: 0.6%, 6: 0.0%}
 ->  E[lights]: 1.431
@@ -244,16 +244,16 @@ Darya -> Danilo
 1376 left -> 10.4263 bits left
 
 MN#5.0 E12
-Kim -> Teezy
-Sandra -> Max
+Paulina -> Mike
+Shakira -> Paco
 Alicia -> Steffen
 Jenny -> Marvin
-Marie -> Fabio
-Steffi -> Elia
-Shakira -> Paco
 Sabrina -> Emanuell
 Darya -> Danilo
-Paulina -> Mike
+Marie -> Fabio
+Sandra -> Max
+Steffi -> Elia
+Kim -> Teezy
 ---
 -> Pr[lights]: {1: 10.7%, 2: 35.0%, 3: 33.4%, 4: 13.7%, 5: 5.1%, 6: 1.8%, 7: 0.3%}
 ->  E[lights]: 2.741
@@ -296,16 +296,16 @@ Alicia -> Teezy
 329 left -> 8.3619 bits left
 
 MN#6.0 E14
-Paulina -> Mike
-Sabrina -> Peter
+Sandra -> Steffen
+Jenny -> Marvin
 Steffi -> Emanuell
+Sabrina -> Peter
+Kim -> Teezy
+Paulina -> Mike
+Shakira -> Fabio
 Marie -> Elia
 Alicia -> Paco
-Shakira -> Fabio
-Kim -> Teezy
-Jenny -> Marvin
 Darya -> Danilo
-Sandra -> Steffen
 ---
 -> Pr[lights]: {1: 0.3%, 2: 14.3%, 3: 49.5%, 4: 30.7%, 5: 5.2%}
 ->  E[lights]: 3.261
@@ -348,16 +348,16 @@ Eq => I = 2.9578 bits
 13 left -> 3.7004 bits left
 
 MN#7.0 E16
-Steffi -> Elia
-Sabrina -> Emanuell
-Shakira -> Max
+Alicia -> Fabio
 Sandra -> Mike
+Jenny -> Paco
 Marie -> Steffen
-Darya -> Danilo
 Kim -> Teezy
 Paulina -> Marvin
-Alicia -> Fabio
-Jenny -> Paco
+Darya -> Danilo
+Steffi -> Elia
+Shakira -> Max
+Sabrina -> Emanuell
 ---
 -> Pr[lights]: {1: 15.4%, 2: 46.2%, 3: 23.1%, 4: 15.4%}
 ->  E[lights]: 2.385
@@ -400,16 +400,16 @@ Sabrina -> Max
 3 left -> 1.5850 bits left
 
 MN#8.0 E18 -- Blackout
-Sandra -> Fabio
-Jenny -> Marvin
-Sabrina -> Emanuell
-Darya -> Danilo
-Alicia -> Paco
-Kim -> Max
-Shakira -> Steffen
 Marie -> Elia
+Shakira -> Steffen
+Sandra -> Fabio
+Darya -> Danilo
+Kim -> Max
 Steffi -> Mike
 Paulina -> Teezy
+Sabrina -> Emanuell
+Alicia -> Paco
+Jenny -> Marvin
 ---
 -> Pr[lights]: {1: 33.3%, 6: 33.3%, 7: 33.3%}
 ->  E[lights]: 4.667
@@ -452,16 +452,16 @@ Steffi -> Emanuell
 1 left -> 0.0000 bits left
 
 MN#9.0 E20
-Paulina -> Paco
-Sandra -> Elia
-Steffi -> Emanuell
+Sabrina -> Mike
+Alicia -> Steffen
 Shakira -> Marvin
+Steffi -> Emanuell
+Paulina -> Paco
 Marie -> Fabio
+Kim -> Teezy
+Sandra -> Elia
 Darya -> Danilo
 Jenny -> Max
-Alicia -> Steffen
-Sabrina -> Mike
-Kim -> Teezy
 ---
 -> Pr[lights]: {6: 100.0%}
 ->  E[lights]: 6.000
@@ -504,15 +504,15 @@ Alicia -> Elia
 1 left -> 0.0000 bits left
 
 MN#10.0 E22
-Steffi -> Emanuell
-Shakira -> Marvin
+Darya -> Danilo
+Alicia -> Elia
 Sandra -> Steffen
 Paulina -> Max
 Marie -> Fabio
-Alicia -> Elia
-Sabrina -> Mike
+Shakira -> Marvin
 Kim -> Teezy
-Darya -> Danilo
+Steffi -> Emanuell
+Sabrina -> Mike
 Jenny -> Paco
 ---
 -> Pr[lights]: {10: 100.0%}
@@ -560,4 +560,4 @@ Jenny -> Paco
 ╰─────────┴────┴─────────┴──────────┴──────────┴───────┴─────────┴─────────┴──────────┴─────────┴─────────┴──────────┴───┴─────────────────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.24s
+Ran in 10.63s

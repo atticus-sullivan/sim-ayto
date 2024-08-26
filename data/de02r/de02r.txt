@@ -36,16 +36,16 @@ Zoe -> Martin
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E04
+Anna -> Micha
+Luisa -> Fabio
 Franzi -> Max
 Celina -> Martin
-Ricarda -> Maurice
-Anna -> Micha
-Isabelle -> Lukas
-Cecilia -> Amadu
-Luisa -> Fabio
+Karina -> Pharrell
 Gina -> Calvin
 Zoe -> Luca
-Karina -> Pharrell
+Cecilia -> Amadu
+Isabelle -> Lukas
+Ricarda -> Maurice
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Karina -> Pharrell
 1449210 left -> 20.4668 bits left
 
 MN#2.0 E06
-Isabelle -> Martin
-Gina -> Amadu
-Ricarda -> Maurice
-Franzi -> Luca
 Anna -> Micha
 Karina -> Fabio
-Celina -> Max
-Luisa -> Calvin
 Cecilia -> Pharrell
+Franzi -> Luca
+Celina -> Max
+Isabelle -> Martin
 Zoe -> Lukas
+Luisa -> Calvin
+Ricarda -> Maurice
+Gina -> Amadu
 ---
 -> Pr[lights]: {0: 25.7%, 1: 37.0%, 2: 23.9%, 3: 9.8%, 4: 2.8%, 5: 0.7%, 6: 0.1%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.298
@@ -140,16 +140,16 @@ Celina -> Lukas
 319800 left -> 18.2868 bits left
 
 MN#3.0 E08
-Gina -> Micha
-Karina -> Calvin
-Celina -> Fabio
-Isabelle -> Luca
-Cecilia -> Amadu
-Anna -> Martin
-Luisa -> Pharrell
-Ricarda -> Maurice
 Franzi -> Lukas
+Gina -> Micha
+Isabelle -> Luca
+Ricarda -> Maurice
+Cecilia -> Amadu
+Karina -> Calvin
 Zoe -> Max
+Anna -> Martin
+Celina -> Fabio
+Luisa -> Pharrell
 ---
 -> Pr[lights]: {0: 22.6%, 1: 35.8%, 2: 25.6%, 3: 11.2%, 4: 3.6%, 5: 0.9%, 6: 0.2%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.409
@@ -213,16 +213,16 @@ Ricarda -> Felix
 2400 left -> 11.2288 bits left
 
 MN#5.0 E12
-Anna -> Pharrell
-Cecilia -> Amadu
+Gina -> Felix
 Isabelle -> Maurice
 Franzi -> Micha
+Celina -> Fabio
+Karina -> Martin
 Luisa -> Lukas
 Ricarda -> Max
+Cecilia -> Amadu
 Zoe -> Luca
-Gina -> Felix
-Karina -> Martin
-Celina -> Fabio
+Anna -> Pharrell
 ---
 -> Pr[lights]: {1: 10.5%, 2: 36.5%, 3: 33.6%, 4: 14.6%, 5: 4.4%, 6: 0.4%}
 ->  E[lights]: 2.672
@@ -265,16 +265,16 @@ Isabelle -> Pharrell
 681 left -> 9.4115 bits left
 
 MN#6.0 E14
-Luisa -> Lukas
-Franzi -> Max
-Gina -> Felix
-Zoe -> Luca
-Anna -> Micha
-Cecilia -> Maurice
-Isabelle -> Martin
 Karina -> Calvin
-Celina -> Fabio
 Ricarda -> Pharrell
+Isabelle -> Martin
+Cecilia -> Maurice
+Gina -> Felix
+Celina -> Fabio
+Franzi -> Max
+Anna -> Micha
+Luisa -> Lukas
+Zoe -> Luca
 ---
 -> Pr[lights]: {1: 14.4%, 2: 31.3%, 3: 25.7%, 4: 15.0%, 5: 9.1%, 6: 3.5%, 7: 1.0%}
 ->  E[lights]: 2.878
@@ -317,16 +317,16 @@ Cecilia -> Amadu
 116 left -> 6.8580 bits left
 
 MN#7.0 E16
-Celina -> Fabio
-Ricarda -> Pharrell
-Gina -> Felix
-Karina -> Calvin
-Zoe -> Luca
-Cecilia -> Amadu
-Franzi -> Max
 Anna -> Micha
-Luisa -> Lukas
+Ricarda -> Pharrell
+Cecilia -> Amadu
+Celina -> Fabio
 Isabelle -> Martin
+Franzi -> Max
+Luisa -> Lukas
+Karina -> Calvin
+Gina -> Felix
+Zoe -> Luca
 ---
 -> Pr[lights]: {4: 100.0%}
 ->  E[lights]: 4.000
@@ -369,16 +369,16 @@ Anna -> Micha
 46 left -> 5.5236 bits left
 
 MN#8.0 E18
-Karina -> Martin
-Cecilia -> Amadu
 Franzi -> Calvin
-Gina -> Fabio
+Karina -> Martin
 Luisa -> Lukas
+Zoe -> Maurice
+Gina -> Fabio
 Isabelle -> Felix
 Ricarda -> Pharrell
 Celina -> Luca
+Cecilia -> Amadu
 Anna -> Micha
-Zoe -> Maurice
 ---
 -> Pr[lights]: {3: 67.4%, 4: 30.4%, 5: 2.2%}
 ->  E[lights]: 3.348
@@ -421,16 +421,16 @@ Ricarda -> Pharrell
 1 left -> 0.0000 bits left
 
 MN#9.0 E20
-Karina -> Martin
-Gina -> Calvin
-Anna -> Micha
 Franzi -> Max
-Celina -> Fabio
-Isabelle -> Felix
 Ricarda -> Maurice
-Cecilia -> Amadu
-Zoe -> Pharrell
 Luisa -> Lukas
+Isabelle -> Felix
+Karina -> Martin
+Zoe -> Pharrell
+Gina -> Calvin
+Celina -> Fabio
+Anna -> Micha
+Cecilia -> Amadu
 ---
 -> Pr[lights]: {7: 100.0%}
 ->  E[lights]: 7.000
@@ -473,16 +473,16 @@ Franzi -> Max
 1 left -> 0.0000 bits left
 
 MN#10.0 E21
-Luisa -> Lukas
-Cecilia -> Amadu
-Franzi -> Calvin
-Zoe -> Pharrell
 Karina -> Luca
-Ricarda -> Maurice
-Anna -> Micha
-Celina -> Fabio
 Isabelle -> Felix
 Gina -> Martin
+Cecilia -> Amadu
+Celina -> Fabio
+Anna -> Micha
+Franzi -> Calvin
+Luisa -> Lukas
+Ricarda -> Maurice
+Zoe -> Pharrell
 ---
 -> Pr[lights]: {10: 100.0%}
 ->  E[lights]: 10.000
@@ -528,4 +528,4 @@ Gina -> Martin
 ╰─────────┴────┴──────────┴──────────┴────────┴────────┴────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴─────────────────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 9.94s
+Ran in 9.99s

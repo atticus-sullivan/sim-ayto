@@ -36,16 +36,16 @@ Danilo -> Finnja
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E02
-Alexander -> Jules
-Diogo -> Aurelia
-Eugen -> Walentina
-Danilo -> Stefanie
+Jamy -> Jill
 Francesco -> Finnja
 Tommy -> Melina
-Salvatore -> Jacqueline
-Manuel -> Kathleen
+Alexander -> Jules
+Eugen -> Walentina
 Josua -> Sarah
-Jamy -> Jill
+Manuel -> Kathleen
+Danilo -> Stefanie
+Salvatore -> Jacqueline
+Diogo -> Aurelia
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -109,16 +109,16 @@ Tommy -> Walentina
 128781 left -> 16.9746 bits left
 
 MN#3.0 E06
-Danilo -> Sarah
-Jamy -> Jill
 Salvatore -> Jacqueline
-Eugen -> Stefanie
-Francesco -> Jules
-Alexander -> Finnja
-Diogo -> Aurelia
 Tommy -> Melina
 Josua -> Walentina
+Eugen -> Stefanie
 Manuel -> Kathleen
+Francesco -> Jules
+Alexander -> Finnja
+Danilo -> Sarah
+Jamy -> Jill
+Diogo -> Aurelia
 ---
 -> Pr[lights]: {1: 1.9%, 2: 24.8%, 3: 38.6%, 4: 23.0%, 5: 8.5%, 6: 2.7%, 7: 0.5%, 8: 0.1%}
 ->  E[lights]: 3.222
@@ -140,15 +140,15 @@ Manuel -> Kathleen
 49698 left -> 15.6009 bits left
 
 MN#4.0 E08
-Danilo -> Melina
-Francesco -> Jules
-Josua -> Sarah
 Tommy -> Jill
-Manuel -> Kathleen
-Jamy -> Vanessa
 Alexander -> Stefanie
-Diogo -> Aurelia
+Danilo -> Melina
+Manuel -> Kathleen
+Josua -> Sarah
 Salvatore -> Walentina
+Diogo -> Aurelia
+Francesco -> Jules
+Jamy -> Vanessa
 Eugen -> Finnja
 ---
 -> Pr[lights]: {1: 14.2%, 2: 33.0%, 3: 29.0%, 4: 15.5%, 5: 5.9%, 6: 1.9%, 7: 0.4%, 8: 0.1%, 9: 0.0%, 10: 0.0%}
@@ -171,16 +171,16 @@ Eugen -> Finnja
 7703 left -> 12.9112 bits left
 
 MN#5.0 E10
-Salvatore -> Kathleen
-Diogo -> Vanessa
-Alexander -> Sarah
-Francesco -> Jules
-Jamy -> Stefanie
-Tommy -> Melina
-Manuel -> Jill
 Danilo -> Aurelia
-Josua -> Walentina
 Eugen -> Finnja
+Jamy -> Stefanie
+Josua -> Walentina
+Alexander -> Sarah
+Salvatore -> Kathleen
+Tommy -> Melina
+Francesco -> Jules
+Diogo -> Vanessa
+Manuel -> Jill
 ---
 -> Pr[lights]: {1: 35.3%, 2: 35.2%, 3: 20.1%, 4: 7.1%, 5: 1.9%, 6: 0.4%, 7: 0.0%}
 ->  E[lights]: 2.064
@@ -224,15 +224,15 @@ Salvatore -> Finnja
 
 MN#6.0 E12
 Danilo -> Jill
-Josua -> Walentina
-Jamy -> Sarah
-Tommy -> Melina
-Francesco -> Jules
-Alexander -> Stefanie
-Diogo -> Aurelia
 Salvatore -> Jacqueline
+Tommy -> Melina
+Jamy -> Sarah
+Josua -> Walentina
+Alexander -> Stefanie
 Manuel -> Kathleen
+Francesco -> Jules
 Eugen -> Finnja
+Diogo -> Aurelia
 ---
 -> Pr[lights]: {2: 4.8%, 3: 36.5%, 4: 41.4%, 5: 15.7%, 6: 1.6%}
 ->  E[lights]: 3.728
@@ -276,15 +276,15 @@ Eugen -> Finnja
 
 MN#7.0 E14
 Jamy -> Finnja
+Tommy -> Melina
 Manuel -> Kathleen
-Salvatore -> Walentina
 Josua -> Sarah
-Diogo -> Vanessa
-Francesco -> Jules
+Eugen -> Jill
+Salvatore -> Walentina
 Alexander -> Jacqueline
 Danilo -> Aurelia
-Tommy -> Melina
-Eugen -> Jill
+Francesco -> Jules
+Diogo -> Vanessa
 ---
 -> Pr[lights]: {1: 4.7%, 2: 19.3%, 3: 12.4%, 4: 23.0%, 5: 23.4%, 6: 9.5%, 7: 4.0%, 8: 1.1%, 9: 2.6%}
 ->  E[lights]: 4.062
@@ -327,16 +327,16 @@ Eugen -> Stefanie
 53 left -> 5.7279 bits left
 
 MN#8.0 E16
-Alexander -> Melina
-Manuel -> Finnja
-Diogo -> Vanessa
-Danilo -> Aurelia
-Francesco -> Jules
-Jamy -> Sarah
-Josua -> Walentina
-Salvatore -> Jill
-Eugen -> Jacqueline
 Tommy -> Stefanie
+Josua -> Walentina
+Diogo -> Vanessa
+Eugen -> Jacqueline
+Francesco -> Jules
+Alexander -> Melina
+Danilo -> Aurelia
+Jamy -> Sarah
+Manuel -> Finnja
+Salvatore -> Jill
 ---
 -> Pr[lights]: {1: 54.7%, 2: 41.5%, 3: 3.8%}
 ->  E[lights]: 1.491
@@ -400,16 +400,16 @@ Tommy -> Melina
 19 left -> 4.2479 bits left
 
 MN#9.0 E18
-Eugen -> Melina
+Danilo -> Jill
+Tommy -> Finnja
+Salvatore -> Walentina
 Francesco -> Jules
 Jamy -> Stefanie
-Tommy -> Finnja
-Alexander -> Sarah
-Danilo -> Jill
-Diogo -> Aurelia
+Eugen -> Melina
 Josua -> Vanessa
 Manuel -> Kathleen
-Salvatore -> Walentina
+Diogo -> Aurelia
+Alexander -> Sarah
 ---
 -> Pr[lights]: {3: 5.3%, 4: 42.1%, 5: 42.1%, 6: 10.5%}
 ->  E[lights]: 4.579
@@ -452,16 +452,16 @@ Josua -> Aurelia
 6 left -> 2.5850 bits left
 
 MN#10.0 E20
-Jamy -> Stefanie
-Francesco -> Jules
-Alexander -> Vanessa
-Danilo -> Sarah
 Salvatore -> Jacqueline
-Diogo -> Jill
-Manuel -> Kathleen
 Eugen -> Walentina
+Manuel -> Kathleen
+Diogo -> Jill
+Alexander -> Vanessa
+Francesco -> Jules
 Josua -> Aurelia
+Danilo -> Sarah
 Tommy -> Finnja
+Jamy -> Stefanie
 ---
 -> Pr[lights]: {6: 83.3%, 7: 16.7%}
 ->  E[lights]: 6.167

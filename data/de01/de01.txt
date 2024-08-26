@@ -36,16 +36,16 @@ Ivana -> Mo
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E03
-Michelle -> Mo
-Madleine -> Laurin
 Laura -> Ferhat
-Aline -> Kevin
 Luisa -> Axel
 Kathi -> Rene
 Ivana -> Juliano
-Melissa -> Dominic
-Sabrina -> Aleks
+Aline -> Kevin
 Nadine -> Elisha
+Michelle -> Mo
+Melissa -> Dominic
+Madleine -> Laurin
+Sabrina -> Aleks
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Melissa -> Dominic
 10846550 left -> 23.3707 bits left
 
 MN#2.0 E04
+Michelle -> Mo
+Kathi -> Kevin
+Nadine -> Aleks
+Sabrina -> Dominic
+Madleine -> Axel
+Melissa -> Laurin
+Laura -> Juliano
+Aline -> Ferhat
 Luisa -> Rene
 Ivana -> Elisha
-Nadine -> Aleks
-Michelle -> Mo
-Aline -> Ferhat
-Melissa -> Laurin
-Madleine -> Axel
-Kathi -> Kevin
-Laura -> Juliano
-Sabrina -> Dominic
 ---
 -> Pr[lights]: {0: 36.1%, 1: 36.5%, 2: 18.7%, 3: 6.5%, 4: 1.7%, 5: 0.4%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.029
@@ -140,16 +140,16 @@ Aline -> Mo
 171108 left -> 17.3845 bits left
 
 MN#3.0 E06
-Sabrina -> Dominic
 Aline -> Mo
-Madleine -> Axel
-Luisa -> Rene
-Melissa -> Laurin
-Michelle -> Ferhat
 Kathi -> Kevin
-Laura -> Juliano
+Melissa -> Laurin
 Nadine -> Aleks
+Luisa -> Rene
+Laura -> Juliano
 Ivana -> Elisha
+Michelle -> Ferhat
+Madleine -> Axel
+Sabrina -> Dominic
 ---
 -> Pr[lights]: {3: 87.7%, 4: 12.3%}
 ->  E[lights]: 3.123
@@ -194,14 +194,14 @@ Melissa -> Laurin
 MN#4.0 E08 -- Blackout
 Luisa -> Rene
 Laura -> Kevin
-Aline -> Mo
 Michelle -> Elisha
+Sabrina -> Aleks
 Melissa -> Laurin
 Ivana -> Axel
-Kathi -> Juliano
-Sabrina -> Aleks
-Madleine -> Ferhat
+Aline -> Mo
 Nadine -> Dominic
+Madleine -> Ferhat
+Kathi -> Juliano
 ---
 -> Pr[lights]: {2: 35.9%, 3: 36.5%, 4: 18.2%, 5: 6.8%, 6: 1.9%, 7: 0.4%, 8: 0.2%, 10: 0.0%}
 ->  E[lights]: 3.044
@@ -244,16 +244,16 @@ Ivana -> Elisha
 11456 left -> 13.4838 bits left
 
 MN#5.0 E10
-Kathi -> Kevin
-Ivana -> Dominic
-Nadine -> Rene
-Luisa -> Ferhat
 Michelle -> Axel
-Madleine -> Aleks
-Melissa -> Laurin
-Laura -> Juliano
-Sabrina -> Elisha
 Aline -> Mo
+Ivana -> Dominic
+Melissa -> Laurin
+Luisa -> Ferhat
+Kathi -> Kevin
+Sabrina -> Elisha
+Nadine -> Rene
+Madleine -> Aleks
+Laura -> Juliano
 ---
 -> Pr[lights]: {2: 28.4%, 3: 35.4%, 4: 22.2%, 5: 10.1%, 6: 3.1%, 7: 0.6%, 8: 0.2%}
 ->  E[lights]: 3.266
@@ -296,16 +296,16 @@ Michelle -> Rene
 140 left -> 7.1293 bits left
 
 MN#6.0 E12
-Michelle -> Rene
-Laura -> Edin
-Aline -> Mo
 Luisa -> Axel
-Melissa -> Laurin
-Sabrina -> Dominic
-Ivana -> Juliano
 Nadine -> Elisha
-Kathi -> Kevin
+Melissa -> Laurin
+Laura -> Edin
+Ivana -> Juliano
 Madleine -> Aleks
+Sabrina -> Dominic
+Aline -> Mo
+Kathi -> Kevin
+Michelle -> Rene
 ---
 -> Pr[lights]: {4: 12.9%, 5: 53.6%, 6: 30.0%, 7: 3.6%}
 ->  E[lights]: 5.243
@@ -348,16 +348,16 @@ Ivana -> Edin
 63 left -> 5.9773 bits left
 
 MN#7.0 E14
+Kathi -> Elisha
+Michelle -> Rene
 Melissa -> Laurin
-Sabrina -> Dominic
-Madleine -> Aleks
+Aline -> Mo
 Nadine -> Ferhat
 Luisa -> Axel
-Michelle -> Rene
-Laura -> Juliano
-Aline -> Mo
+Madleine -> Aleks
 Ivana -> Kevin
-Kathi -> Elisha
+Laura -> Juliano
+Sabrina -> Dominic
 ---
 -> Pr[lights]: {3: 17.5%, 4: 17.5%, 5: 23.8%, 6: 17.5%, 7: 7.9%, 8: 15.9%}
 ->  E[lights]: 5.286
@@ -400,16 +400,16 @@ Sabrina -> Axel
 10 left -> 3.3219 bits left
 
 MN#8.0 E16
-Michelle -> Rene
-Kathi -> Aleks
-Sabrina -> Dominic
-Aline -> Mo
-Ivana -> Kevin
-Melissa -> Laurin
-Luisa -> Axel
-Madleine -> Edin
 Nadine -> Ferhat
+Madleine -> Edin
+Ivana -> Kevin
+Kathi -> Aleks
+Luisa -> Axel
+Aline -> Mo
 Laura -> Juliano
+Michelle -> Rene
+Melissa -> Laurin
+Sabrina -> Dominic
 ---
 -> Pr[lights]: {4: 40.0%, 5: 50.0%, 6: 10.0%}
 ->  E[lights]: 4.700
@@ -452,16 +452,16 @@ Luisa -> Ferhat
 1 left -> 0.0000 bits left
 
 MN#9.0 E18
-Nadine -> Ferhat
-Michelle -> Rene
-Aline -> Mo
 Kathi -> Aleks
+Laura -> Juliano
+Michelle -> Rene
+Ivana -> Dominic
+Aline -> Mo
 Madleine -> Kevin
+Nadine -> Ferhat
+Sabrina -> Elisha
 Luisa -> Axel
 Melissa -> Laurin
-Ivana -> Dominic
-Laura -> Juliano
-Sabrina -> Elisha
 ---
 -> Pr[lights]: {7: 100.0%}
 ->  E[lights]: 7.000
@@ -504,16 +504,16 @@ Kathi -> Kevin
 1 left -> 0.0000 bits left
 
 MN#10.0 E20
-Ivana -> Dominic
-Kathi -> Kevin
-Luisa -> Axel
-Michelle -> Rene
 Aline -> Mo
-Melissa -> Laurin
-Sabrina -> Elisha
-Nadine -> Ferhat
-Laura -> Aleks
+Kathi -> Kevin
 Madleine -> Edin
+Melissa -> Laurin
+Ivana -> Dominic
+Laura -> Aleks
+Sabrina -> Elisha
+Michelle -> Rene
+Nadine -> Ferhat
+Luisa -> Axel
 ---
 -> Pr[lights]: {10: 100.0%}
 ->  E[lights]: 10.000
@@ -560,4 +560,4 @@ Madleine -> Edin
 ╰─────────┴────┴────────┴─────────┴─────────┴─────────┴────────┴──────────┴─────────┴──────────┴─────────┴─────────┴───┴─────────────────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.66s
+Ran in 10.65s

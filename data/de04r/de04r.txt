@@ -36,16 +36,16 @@ Marc-Robin -> LauraL
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E04
+Chris -> Emmy
+Nikola -> Tara
+Kaan -> Asena
+Alex -> LauraL
+Ozan -> Gabriela
+Lukas -> Jenny
 Tim -> Linda
 Antonino -> LauraM
 Lars -> Nadja
-Nikola -> Tara
-Kaan -> Asena
-Chris -> Emmy
 Marc-Robin -> Anastasia
-Lukas -> Jenny
-Alex -> LauraL
-Ozan -> Gabriela
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Chris -> Emmy
 1067976 left -> 20.0264 bits left
 
 MN#2.0 E06
-Nikola -> Tara
-Tim -> Linda
-Alex -> Jenny
 Antonino -> Dana
 Chris -> Emmy
-Ozan -> LauraL
-Marc-Robin -> Asena
+Alex -> Jenny
 Lukas -> LauraM
+Nikola -> Tara
 Kaan -> Nadja
 Lars -> Anastasia
+Tim -> Linda
+Marc-Robin -> Asena
+Ozan -> LauraL
 ---
 -> Pr[lights]: {1: 36.2%, 2: 36.9%, 3: 18.7%, 4: 6.3%, 5: 1.6%, 6: 0.3%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 2.014
@@ -119,15 +119,15 @@ Lars -> Anastasia
 199733 left -> 17.6077 bits left
 
 MN#3.0 E08
-Chris -> Emmy
-Lukas -> Linda
-Ozan -> LauraM
 Tim -> Dana
-Antonino -> Nadja
-Alex -> Anastasia
-Lars -> Gabriela
-Kaan -> Jenny
+Chris -> Emmy
 Nikola -> LauraL
+Alex -> Anastasia
+Antonino -> Nadja
+Lukas -> Linda
+Kaan -> Jenny
+Lars -> Gabriela
+Ozan -> LauraM
 Marc-Robin -> Asena
 ---
 -> Pr[lights]: {1: 34.2%, 2: 36.9%, 3: 19.8%, 4: 6.9%, 5: 1.8%, 6: 0.3%, 7: 0.1%, 8: 0.0%, 9: 0.0%}
@@ -172,15 +172,15 @@ Marc-Robin -> Asena
 
 MN#4.0 E10 -- blackout
 Alex -> Jenny
-Nikola -> Anastasia
-Marc-Robin -> Linda
+Kaan -> Asena
+Tim -> LauraL
+Chris -> Emmy
 Antonino -> Nadja
 Lars -> Tara
-Kaan -> Asena
-Ozan -> LauraM
 Lukas -> Gabriela
-Chris -> Emmy
-Tim -> LauraL
+Nikola -> Anastasia
+Marc-Robin -> Linda
+Ozan -> LauraM
 ---
 -> Pr[lights]: {1: 28.3%, 2: 35.8%, 3: 22.3%, 4: 9.4%, 5: 3.1%, 6: 0.8%, 7: 0.2%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.266
@@ -214,4 +214,4 @@ Tim -> LauraL
 ╰────────┴───┴───────────┴──────────┴───────┴───────┴───────────┴──────────┴────────────┴───────────┴──────────┴────────┴───┴─────────────────────╯
 Total permutations: 36288000  Permutations left: 5927  Initial combinations for each pair: 3628800
 
-Ran in 10.42s
+Ran in 10.61s
