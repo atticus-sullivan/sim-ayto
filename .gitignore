@@ -1,12 +1,5 @@
 .*
 
-*.pdf
-*.out
-*.txt
-*.png
-*.csv
-
-*.dot
 *.xopp
 
 local_workflow.bash
