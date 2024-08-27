@@ -39,6 +39,12 @@ Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Mögl
 
 `E[lights]`: Ist der Erwartungswert, wieviele Lichter im Schnitt angehen sollten.
 
+Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein Stern in dieser Tabelle bedeutet, dass das Match das erste mal so in einer MN zusammensaß. Eine kleine Übersicht über die nicht so intuitiven Spalten:
+- `L` die Anzahl der Lichter
+- `I` siehe oben
+- `new` zählt wie viele Matches so in noch keiner MN zusammensaßen
+- `min dist` als distanz wird die Anzahl unterschiedlicher Matches betrachtet, diese Spalte zeigt welche ander MN am ähnlichsten dieser ist (und wie ähnlich sie ist). In der erste MN kann dies natürlich noch nicht bestimmt werden.
+
 ### 3. `<Staffel>.col.png`
 Dasselbe wie 2. aber die Tabellen in Farbe.
 

@@ -24,6 +24,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("input", help="the .col.out (text) file which shall be processed")
 parser.add_argument("output_all", help="png file to write the complete log to")
 parser.add_argument("output_recent", help="png file to write only the most recent table to")
+parser.add_argument("output_sum", help="png file to write only the summary table to")
 
 args = parser.parse_args()
 
@@ -33,9 +34,12 @@ with open(args.input) as fin:
     content = fin.read()
 recent = content.split("\n\n")[-3]
 assert recent is not None, "failed to split content"
+summary = content.split("\n\n")[-2]
+assert summary is not None, "failed to split content"
 
 def maxLen(x: str) -> int:
     return max(map(lambda y: len(ansi_escape.sub("", y)), x.splitlines()))
 
 ansiToRender(content, args.output_all, title=args.input, width=maxLen(content))
 ansiToRender(recent, args.output_recent, title=f"most recent table of {args.input}", width=maxLen(recent))
+ansiToRender(summary, args.output_sum, title=f"summary table of {args.input}", width=maxLen(summary))

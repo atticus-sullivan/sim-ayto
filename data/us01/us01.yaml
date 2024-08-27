@@ -1,0 +1,98 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: false
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup Edin
+rule_set: !Eq
+
+setA:
+  - Adam
+  - ChrisT
+  - Scali
+  - Dillan
+  - Dre
+  - Ethan
+  - John
+  - Joey
+  - Ryan
+  - Wes
+
+setB:
+  - Amber
+  - Ashleigh
+  - Brittany
+  - Coleysia
+  - Jacy
+  - Jessica
+  - Kayla
+  - Paige
+  - Shanley
+  - Simone
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      ChrisT: Shanley
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [2]
+    map:
+      Adam: Brittany
+      Scali: Ashleigh
+      ChrisT: Jessica
+      Dillan: Coleysia
+      Dre: Jacy
+      Ethan: Shanley
+      John: Amber
+      Joey: Paige
+      Ryan: Amber
+      Wes: Kayla
+
+  - type: !Box {num: 2, comment: "E02"}
+    check: !Lights [0]
+    map:
+      # Dre: Shanley
+      Ethan: Jessica
+
+  - type: !Night {num: 2, comment: "E02"}
+    check: !Lights [4]
+    map:
+      John: Jacy
+      Dillan: Jessica
+      ChrisT: Paige
+      Scali: Simone
+      Adam: Shanley
+      Wes: Coleysia
+      Ethan: Amber
+      Joey: Brittany
+      Ryan: Kayla
+      Dre: Ashleigh
+
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # Scali: Kayla
+      # Dre: Paige
+      John: Simone
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [2]
+    map:
+      Dillan: Coleysia
+      John: Jessica
+      Ryan: Kayla
+      Ethan: Amber
+      Dre: Ashleigh
+      ChrisT: Simone
+      Adam: Brittany
+      Scali: Paige
+      Joey: Shanley
+      Wes: Jacy
+
+  # - type: !Box {num: 4, comment: "E04"}
+  #   check: !Lights [0]
+  #   map:
+  #     
