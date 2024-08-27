@@ -14,16 +14,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-DAT_RUST := de01/de01.yaml de01r/de01r.yaml de02/de02.yaml de02r/de02r.yaml de03/de03.yaml de03r/de03r.yaml de04/de04.yaml de04r/de04r.yaml de05/de05.yaml
-DAT_RUST += us08/us08.yaml
-DAT_RUST := $(addprefix data/,$(DAT_RUST))
+DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05
+DAT_RUST += us01 us08
+
+DAT_RUST := $(foreach var,$(DAT_RUST),data/$(var)/$(var).yaml)
 OUT_RUST := $(addsuffix .txt, $(basename $(DAT_RUST)))
 
 OUT    := $(OUT_RUST)
-ALIAS  := $(notdir $(OUT))
-CALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
+ALIAS  := $(basename $(notdir $(OUT)))
+CHALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
+CAALIAS := $(patsubst %.yaml,cat_%,$(notdir $(DAT_RUST)))
+CLALIAS := $(patsubst %.yaml,clean_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean $(patsubst data/%/,clean_%,$(dir $(DAT_RUST))) check $(addprefix check_,$(DAT_RUST)) $(ALIAS) $(CALIAS) stats_de.html stats_us.html graph
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) stats_de.html stats_us.html graph
 
 GENARGS ?= --transpose -c
 
@@ -35,25 +38,30 @@ all: $(OUT) graph
 	
 
 
-clean: $(patsubst data/%/,clean_%,$(dir $(DAT_RUST)))
+clean: $(CLALIAS)
 	- $(RM) stats_us.html stats_de.html
 
-$(patsubst data/%/,clean_%,$(dir $(DAT_RUST))): clean_%: data/%
-	- $(RM) "$(<)/"*.{txt,col.out,pdf,png,dot,csv}
+$(CLALIAS):
+	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/$i{.txt,.col.out,.pdf,.col.png,_tab.png,.dot,.csv} )
+	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/stat{Info,MB,MN}.csv)
 
 
-check: $(patsubst %/,check_%,$(dir $(DAT_RUST)))
+# check all input files
+check: $(CHALIAS)
 	
+$(CHALIAS):
+	./rust/target/release/ayto check $(let i,$(patsubst check_%,%,$@),data/$i/$i.yaml)
 
-$(CALIAS):
-	@make --no-print-directory $@/$(patsubst check_%,%.yaml,$@)
 
-$(addprefix check_,$(DAT_RUST)): check_%: data/% rust/target/release/ayto
-	./rust/target/release/ayto check $<
+$(CAALIAS):
+	$(eval f := $(let i,$@,data/$(patsubst cat_%,%,$i)/$(patsubst cat_%,%,$i).txt))
+	# ensure the output file is up to date
+	@make --no-print-directory $(f)
+	bat $(f:.txt=.col.out)
 
 
 $(ALIAS):
-	@make --no-print-directory data/$(patsubst %.txt,%,$@)/$@
+	@make --no-print-directory $(let i,$@,data/$i/$i.txt)
 
 $(OUT_RUST): data/%.txt: data/%.yaml rust/target/release/ayto
 	@date
@@ -67,7 +75,7 @@ $(OUT_RUST): data/%.txt: data/%.yaml rust/target/release/ayto
 
 graph: stats_de.html stats_us.html
 
-stats_us.html stats_de.html: rust/target/release/ayto
+stats_us.html stats_de.html: rust/target/release/ayto $(wildcard data/*/*.csv)
 	./rust/target/release/ayto graph ./stats_de.html ./stats_us.html
 
 rust/target/release/ayto: ./rust/src/*
