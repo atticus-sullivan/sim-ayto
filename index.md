@@ -53,13 +53,19 @@ und auf
 [Bugs/Fehler hinzuweisen](https://github.com/atticus-sullivan/sim-ayto/issues).
 
 ## Normale Ausgaben
-Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
+Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde. Bei den MNs steht vor dem jeweiligen Match zusätzlich wie oft diese bereits in einer MN zusammensaßen.
 
 Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Möglichkeiten noch übrig sind) ist der Versuch einzuschätzen wie viel eine Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das ganze kommt aus der Informationstheorie.
 
 `Pr[lights]`: Zeigt an wie Wahrscheinlich welche Anzahl an Lichtern ist nachdem festgelegt wurde wer in die Matchbox geht / miteinander sitzt (aber das Ergebnis eben nocht nicht bekannt ist).
 
 `E[lights]`: Ist der Erwartungswert, wieviele Lichter im Schnitt angehen sollten.
+
+Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein Stern in dieser Tabelle bedeutet, dass das Match das erste mal so in einer MN zusammensaß. Eine kleine Übersicht über die nicht so intuitiven Spalten:
+- `L` die Anzahl der Lichter
+- `I` siehe oben
+- `new` zählt wie viele Matches so in noch keiner MN zusammensaßen
+- `min dist` als distanz wird die Anzahl unterschiedlicher Matches betrachtet, diese Spalte zeigt welche ander MN am ähnlichsten dieser ist (und wie ähnlich sie ist). In der erste MN kann dies natürlich noch nicht bestimmt werden.
 
 ## Baum
 Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
