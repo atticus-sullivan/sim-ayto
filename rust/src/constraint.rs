@@ -377,7 +377,7 @@ impl Constraint {
                 .map(|a| {
                     match self.map_s.get(a) {
                         Some(b) => {
-                            if self.show_new() && !past_constraints.iter().any(|&c| c.show_new() && c.map_s.get(a).is_some_and(|v2| v2 == b)) {
+                            if self.show_new() && !past_constraints.iter().any(|&c| c.map_s.get(a).is_some_and(|v2| v2 == b)) {
                                 Cell::new(format!("{}*", b))
                             } else {
                                 Cell::new(&String::from(b))
