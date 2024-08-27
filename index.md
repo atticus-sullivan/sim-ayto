@@ -31,6 +31,7 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 
 ## AYTO - US
 
+| Staffel 1 | [mit Farbe](data/us01/us01.col.png) | [nur Text](data/us01/us01.txt) | [aktuelle Tabelle](data/us01/us01_tab.png) | |
 | Staffel 8 | [mit Farbe](data/us08/us08.col.png) | [nur Text](data/us08/us08.txt) | [aktuelle Tabelle](data/us08/us08_tab.png) | [aktueller Baum](data/us08/us08.pdf) |
 
 # Vergleich der Staffeln untereinander
