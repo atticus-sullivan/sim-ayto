@@ -16,23 +16,23 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 
 ## AYTO
 
-| Staffel 1 | [mit Farbe](data/de01/de01.col.png) | [nur Text](data/de01/de01.txt) | [aktuelle Tabelle](data/de01/de01_tab.png) | [aktueller Baum](data/de01/de01.pdf) |
-| Staffel 2 | [mit Farbe](data/de02/de02.col.png) | [nur Text](data/de02/de02.txt) | [aktuelle Tabelle](data/de02/de02_tab.png) | [aktueller Baum](data/de02/de02.pdf) |
-| Staffel 3 | [mit Farbe](data/de03/de03.col.png) | [nur Text](data/de03/de03.txt) | [aktuelle Tabelle](data/de03/de03_tab.png) | [aktueller Baum](data/de03/de03.pdf) |
-| Staffel 4 | [mit Farbe](data/de04/de04.col.png) | [nur Text](data/de04/de04.txt) | [aktuelle Tabelle](data/de04/de04_tab.png) | [aktueller Baum](data/de04/de04.pdf) |
-| Staffel 5 | [mit Farbe](data/de05/de05.col.png) | [nur Text](data/de05/de05.txt) | [aktuelle Tabelle](data/de05/de05_tab.png) | [aktueller Baum](data/de05/de05.pdf) |
+| Staffel 1 | [mit Farbe](data/de01/de01.col.png) | [nur Text](data/de01/de01.txt) | [aktuelle Tabelle](data/de01/de01_tab.png) | [Zusammenfassung](data/de01/de01_sum.png) | [aktueller Baum](data/de01/de01.pdf) |
+| Staffel 2 | [mit Farbe](data/de02/de02.col.png) | [nur Text](data/de02/de02.txt) | [aktuelle Tabelle](data/de02/de02_tab.png) | [Zusammenfassung](data/de02/de02_sum.png) | [aktueller Baum](data/de02/de02.pdf) |
+| Staffel 3 | [mit Farbe](data/de03/de03.col.png) | [nur Text](data/de03/de03.txt) | [aktuelle Tabelle](data/de03/de03_tab.png) | [Zusammenfassung](data/de03/de03_sum.png) | [aktueller Baum](data/de03/de03.pdf) |
+| Staffel 4 | [mit Farbe](data/de04/de04.col.png) | [nur Text](data/de04/de04.txt) | [aktuelle Tabelle](data/de04/de04_tab.png) | [Zusammenfassung](data/de04/de04_sum.png) | [aktueller Baum](data/de04/de04.pdf) |
+| Staffel 5 | [mit Farbe](data/de05/de05.col.png) | [nur Text](data/de05/de05.txt) | [aktuelle Tabelle](data/de05/de05_tab.png) | [Zusammenfassung](data/de05/de05_sum.png) | [aktueller Baum](data/de05/de05.pdf) |
 
 ## AYTO - RSIL
 
-| Staffel 1 | [mit Farbe](data/de01r/de01r.col.png) | [nur Text](data/de01r/de01r.txt) | [aktuelle Tabelle](data/de01r/de01r_tab.png) | [aktueller Baum](data/de01r/de01r.pdf) |
-| Staffel 2 | [mit Farbe](data/de02r/de02r.col.png) | [nur Text](data/de02r/de02r.txt) | [aktuelle Tabelle](data/de02r/de02r_tab.png) | [aktueller Baum](data/de02r/de02r.pdf) |
-| Staffel 3 | [mit Farbe](data/de03r/de03r.col.png) | [nur Text](data/de03r/de03r.txt) | [aktuelle Tabelle](data/de03r/de03r_tab.png) | [aktueller Baum](data/de03r/de03r.pdf) |
-| Staffel 4 | [mit Farbe](data/de04r/de04r.col.png) | [nur Text](data/de04r/de04r.txt) | [aktuelle Tabelle](data/de04r/de04r_tab.png) | |
+| Staffel 1 | [mit Farbe](data/de01r/de01r.col.png) | [nur Text](data/de01r/de01r.txt) | [aktuelle Tabelle](data/de01r/de01r_tab.png) | [Zusammenfassung](data/de01r/de01r_sum.png) | [aktueller Baum](data/de01r/de01r.pdf) |
+| Staffel 2 | [mit Farbe](data/de02r/de02r.col.png) | [nur Text](data/de02r/de02r.txt) | [aktuelle Tabelle](data/de02r/de02r_tab.png) | [Zusammenfassung](data/de02r/de02r_sum.png) | [aktueller Baum](data/de02r/de02r.pdf) |
+| Staffel 3 | [mit Farbe](data/de03r/de03r.col.png) | [nur Text](data/de03r/de03r.txt) | [aktuelle Tabelle](data/de03r/de03r_tab.png) | [Zusammenfassung](data/de03r/de03r_sum.png) | [aktueller Baum](data/de03r/de03r.pdf) |
+| Staffel 4 | [mit Farbe](data/de04r/de04r.col.png) | [nur Text](data/de04r/de04r.txt) | [aktuelle Tabelle](data/de04r/de04r_tab.png) | [Zusammenfassung](data/de04r/de04r_sum.png) | |
 
 ## AYTO - US
 
-| Staffel 1 | [mit Farbe](data/us01/us01.col.png) | [nur Text](data/us01/us01.txt) | [aktuelle Tabelle](data/us01/us01_tab.png) | |
-| Staffel 8 | [mit Farbe](data/us08/us08.col.png) | [nur Text](data/us08/us08.txt) | [aktuelle Tabelle](data/us08/us08_tab.png) | [aktueller Baum](data/us08/us08.pdf) |
+| Staffel 1 | [mit Farbe](data/us01/us01.col.png) | [nur Text](data/us01/us01.txt) | [aktuelle Tabelle](data/us01/us01_tab.png) | [Zusammenfassung](data/us01/us01_sum.png) | |
+| Staffel 8 | [mit Farbe](data/us08/us08.col.png) | [nur Text](data/us08/us08.txt) | [aktuelle Tabelle](data/us08/us08_tab.png) | [Zusammenfassung](data/us08/us08_sum.png) | [aktueller Baum](data/us08/us08.pdf) |
 
 # Vergleich der Staffeln untereinander
 

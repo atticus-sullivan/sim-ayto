@@ -42,7 +42,7 @@ clean: $(CLALIAS)
 	- $(RM) stats_us.html stats_de.html
 
 $(CLALIAS):
-	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/$i{.txt,.col.out,.pdf,.col.png,_tab.png,.dot,.csv} )
+	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/$i{.txt,.col.out,.pdf,.col.png,_tab.png,_sum.png,.dot,.csv} )
 	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/stat{Info,MB,MN}.csv)
 
 
@@ -69,7 +69,7 @@ $(OUT_RUST): data/%.txt: data/%.yaml rust/target/release/ayto
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
-	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png"
+	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png" "$(basename $<)_sum.png"
 	@date
 
 
