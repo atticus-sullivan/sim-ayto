@@ -10,7 +10,7 @@ rule_set: !Eq
 setA:
   - Adam
   - ChrisT
-  - ChrisS
+  - Scali
   - Dillan
   - Dre
   - Ethan
@@ -41,7 +41,7 @@ constraints:
     check: !Lights [2]
     map:
       Adam: Brittany
-      ChrisS: Ashleigh
+      Scali: Ashleigh
       ChrisT: Jessica
       Dillan: Coleysia
       Dre: Jacy
@@ -56,3 +56,43 @@ constraints:
     map:
       # Dre: Shanley
       Ethan: Jessica
+
+  - type: !Night {num: 2, comment: "E02"}
+    check: !Lights [4]
+    map:
+      John: Jacy
+      Dillan: Jessica
+      ChrisT: Paige
+      Scali: Simone
+      Adam: Shanley
+      Wes: Coleysia
+      Ethan: Amber
+      Joey: Brittany
+      Ryan: Kayla
+      Dre: Ashleigh
+
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # Scali: Kayla
+      # Dre: Paige
+      John: Simone
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [2]
+    map:
+      Dillan: Coleysia
+      John: Jessica
+      Ryan: Kayla
+      Ethan: Amber
+      Dre: Ashleigh
+      ChrisT: Simone
+      Adam: Brittany
+      Scali: Paige
+      Joey: Shanley
+      Wes: Jacy
+
+  # - type: !Box {num: 4, comment: "E04"}
+  #   check: !Lights [0]
+  #   map:
+  #     
