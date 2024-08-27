@@ -145,15 +145,20 @@ impl Game {
                     c.merge(to_merge.pop().unwrap())?;
                 }
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
-                c.print_hdr();
-                if print_transposed {
-                    self.print_rem_transposed(&rem).context("Error printing")?;
-                } else {
-                    self.print_rem(&rem).context("Error printing")?;
-                }
                 constr.push(c);
-                println!();
             }
+        }
+
+        let mut past_constraints: Vec<&Constraint> = Vec::default();
+        for c in &constr {
+            c.print_hdr(&past_constraints);
+            if print_transposed {
+                self.print_rem_transposed(&rem).context("Error printing")?;
+            } else {
+                self.print_rem(&rem).context("Error printing")?;
+            }
+            past_constraints.push(&c);
+            println!();
         }
 
         if self.tree_gen {
@@ -246,6 +251,8 @@ impl Game {
         );
         hdr.push(Cell::new("").set_alignment(comfy_table::CellAlignment::Center));
         hdr.push(Cell::new("I").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("#new").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("min dist").set_alignment(comfy_table::CellAlignment::Center));
 
         let mut table = Table::new();
         table
@@ -255,8 +262,10 @@ impl Game {
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
 
+        let mut past_constraints: Vec<&Constraint> = Vec::default();
         for c in merged_constraints {
-            table.add_row(c.stat_row(&self.map_a));
+            table.add_row(c.stat_row(&self.map_a, &past_constraints));
+            past_constraints.push(c);
         }
         println!("{table}");
 
