@@ -1,0 +1,26 @@
+scheme: "catppuccin Frappé"
+author: "Lukas"
+base00: "303446" # default background
+base01: "51576D" # 0
+base02: "626880" # 8
+base03: "949cbb" # comments
+base04: "a5adce" # dark foreground
+base05: "c6d0f5" # default foreground
+base06: "B5BFE2" # 7
+base07: "A5ADCE" # 15
+base08: "E78284" # 1
+base09: "E5C890" # 3
+base0A: "e6b965" # 11
+base0B: "A6D189" # 2
+base0C: "81C8BE" # 6
+base0D: "8CAAEE" # 4
+base0E: "F4B8E4" # 5
+base0F: "ef9f76" # Deprecated Highlighting
+base10: "292c3c" # Darker Background
+base11: "232634" # The Darkest Background
+base12: "E78284" # 9
+base13: "E5C890" # 11
+base14: "A6D189" # 10
+base15: "81C8BE" # 14
+base16: "8CAAEE" # 12
+base17: "F4B8E4" # 13

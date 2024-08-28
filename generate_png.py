@@ -40,6 +40,6 @@ assert summary is not None, "failed to split content"
 def maxLen(x: str) -> int:
     return max(map(lambda y: len(ansi_escape.sub("", y)), x.splitlines()))
 
-ansiToRender(content, args.output_all, title=args.input, width=maxLen(content))
-ansiToRender(recent, args.output_recent, title=f"most recent table of {args.input}", width=maxLen(recent))
-ansiToRender(summary, args.output_sum, title=f"summary table of {args.input}", width=maxLen(summary))
+ansiToRender(content, args.output_all, title=args.input, width=maxLen(content), theme="./theme.yml")
+ansiToRender(recent, args.output_recent, title=f"most recent table of {args.input}", width=maxLen(recent), theme="./theme.yml")
+ansiToRender(summary, args.output_sum, title=f"summary table of {args.input}", width=maxLen(summary), theme="./theme.yml")
