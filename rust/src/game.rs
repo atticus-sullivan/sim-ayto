@@ -289,6 +289,7 @@ impl Game {
             .set_header(hdr);
 
         for (j, a) in self.map_b.iter().enumerate() {
+            let row_nr = j;
             let i = self.map_a.iter().enumerate().map(|(i, _)| {
                 if self.rule_set.ignore_pairing(i, j) {
                     Cell::new("")
@@ -306,7 +307,17 @@ impl Game {
             });
             let mut row = vec![Cell::new(a)];
             row.extend(i);
-            table.add_row(row);
+            if row_nr % 2 == 0 {
+                table.add_row(row.into_iter().map(|i| {
+                    i.bg(comfy_table::Color::Rgb {
+                        r: 41,
+                        g: 44,
+                        b: 60,
+                    })
+                }));
+            } else {
+                table.add_row(row);
+            }
         }
         println!("{table}");
         println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
@@ -330,6 +341,7 @@ impl Game {
             .set_header(hdr);
 
         for (i, a) in self.map_a.iter().enumerate() {
+            let row_nr = i;
             let i = self.map_b.iter().enumerate().map(|(j, _)| {
                 if self.rule_set.ignore_pairing(i, j) {
                     Cell::new("")
@@ -347,7 +359,11 @@ impl Game {
             });
             let mut row = vec![Cell::new(a)];
             row.extend(i);
-            table.add_row(row);
+            if row_nr % 2 == 0 {
+                table.add_row(row.into_iter().map(|i| i.bg(comfy_table::Color::Black)));
+            } else {
+                table.add_row(row);
+            }
         }
         println!("{table}");
         println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());

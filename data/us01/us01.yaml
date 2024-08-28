@@ -1,7 +1,7 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-tree_gen: false
+tree_gen: true
 
 # rule_set: !SomeoneIsDup
 # rule_set: !FixedDup Edin
@@ -25,7 +25,7 @@ setB:
   - Brittany
   - Coleysia
   - Jacy
-  - Jessica
+  - Jess
   - Kayla
   - Paige
   - Shanley
@@ -42,7 +42,7 @@ constraints:
     map:
       Adam: Brittany
       Scali: Ashleigh
-      ChrisT: Jessica
+      ChrisT: Jess
       Dillan: Coleysia
       Dre: Jacy
       Ethan: Shanley
@@ -55,13 +55,13 @@ constraints:
     check: !Lights [0]
     map:
       # Dre: Shanley
-      Ethan: Jessica
+      Ethan: Jess
 
   - type: !Night {num: 2, comment: "E02"}
     check: !Lights [4]
     map:
       John: Jacy
-      Dillan: Jessica
+      Dillan: Jess
       ChrisT: Paige
       Scali: Simone
       Adam: Shanley
@@ -82,7 +82,7 @@ constraints:
     check: !Lights [2]
     map:
       Dillan: Coleysia
-      John: Jessica
+      John: Jess
       Ryan: Kayla
       Ethan: Amber
       Dre: Ashleigh
@@ -92,7 +92,118 @@ constraints:
       Joey: Shanley
       Wes: Jacy
 
-  # - type: !Box {num: 4, comment: "E04"}
-  #   check: !Lights [0]
-  #   map:
-  #     
+  - type: !Box {num: 4, comment: "E04"}
+    check: !Lights [0]
+    map:
+      Dillan: Jess
+      # Adam: Brittany
+      # Wes: Jacy
+      # Ryan: Kayla
+
+  - type: !Night {num: 4, comment: "E04"}
+    check: !Lights [2]
+    map:
+      Dillan: Coleysia
+      Scali: Paige
+      Wes: Jess
+      Dre: Simone
+      Ryan: Brittany
+      Ethan: Kayla
+      Adam: Amber
+      ChrisT: Ashleigh
+      John: Shanley
+      Joey: Jacy
+
+  - type: !Box {num: 5, comment: "E05"}
+    check: !Lights [0]
+    map:
+      # Ethan: Shanley
+      Dre: Ashleigh
+      # John: Jacy
+      # Dillan: Coleysia
+  - type: !Box {num: 5.1, comment: "E05 -- 2nd MB"}
+    check: !Lights [1]
+    map:
+      # Ethan: Shanley
+      # Dre: Ashleigh
+      # John: Jacy
+      Dillan: Coleysia
+
+  - type: !Night {num: 5, comment: "E05"}
+    check: !Lights [5]
+    map:
+      Dillan: Coleysia
+      Ethan: Amber
+      Joey: Jess
+      Wes: Kayla
+      John: Jacy
+      Scali: Simone
+      Adam: Shanley
+      ChrisT: Paige
+      Dre: Brittany
+      Ryan: Ashleigh
+
+  - type: !Box {num: 6, comment: "E06"}
+    check: !Lights [1]
+    map:
+      # Joey: Brittany
+      # Ethan: Amber
+      # Dre: Shanley
+      ChrisT: Paige
+
+  - type: !Night {num: 6, comment: "E07"}
+    check: !Lights [5]
+    map:
+      Dillan: Coleysia
+      ChrisT: Paige
+      John: Jacy
+      Wes: Kayla
+      Dre: Shanley
+      Scali: Brittany
+      Adam: Ashleigh
+      Joey: Simone
+      Ryan: Jess
+      Ethan: Amber
+
+  - type: !Box {num: 7, comment: "E08"}
+    check: !Lights [0]
+    map:
+      # Joey: Ashleigh
+      Ryan: Kayla
+      # Simone: Scali
+
+  - type: !Night {num: 7, comment: "E08"}
+    check: !Lights [7]
+    map:
+      Dillan: Coleysia
+      ChrisT: Paige
+      Wes: Kayla
+      Scali: Jacy
+      Adam: Shanley
+      Ethan: Amber
+      Joey: Jess
+      Dre: Simone
+      Ryan: Ashleigh
+      John: Brittany
+
+  - type: !Box {num: 8, comment: "E09"}
+    check: !Lights [0]
+    map:
+      John: Jacy
+      # Dre: Ashleigh
+      # Scali: Jacy
+      # Adam: Shanley
+
+  - type: !Night {num: 8, comment: "E09"}
+    check: !Lights [10]
+    map:
+      Dillan: Coleysia
+      ChrisT: Paige
+      Ethan: Amber
+      Wes: Kayla
+      Scali: Jacy
+      Dre: Simone
+      Ryan: Jess
+      Adam: Shanley
+      Joey: Brittany
+      John: Ashleigh

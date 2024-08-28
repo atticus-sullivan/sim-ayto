@@ -371,35 +371,51 @@ impl Constraint {
             CheckType::Eq => ret.push(Cell::new("E")),
             CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
         }
-        ret.extend(
-            map_a
-                .iter()
-                .map(|a| {
-                    match self.map_s.get(a) {
-                        Some(b) => {
-                            if self.show_new() && !past_constraints.iter().any(|&c| c.map_s.get(a).is_some_and(|v2| v2 == b)) {
-                                Cell::new(format!("{}*", b))
-                            } else {
-                                Cell::new(&String::from(b))
-                            }
-                        },
-                        None => Cell::new(&String::from("")),
+        ret.extend(map_a.iter().map(|a| {
+            match self.map_s.get(a) {
+                Some(b) => {
+                    if self.show_new()
+                        && !past_constraints
+                            .iter()
+                            .any(|&c| c.map_s.get(a).is_some_and(|v2| v2 == b))
+                    {
+                        Cell::new(format!("{}*", b))
+                    } else {
+                        Cell::new(&String::from(b))
                     }
-                }),
-        );
+                }
+                None => Cell::new(&String::from("")),
+            }
+        }));
         ret.push(Cell::new(String::from("")));
-        ret.push(Cell::new(format!("{:.4}", self.entropy.unwrap_or(std::f64::INFINITY))));
+        ret.push(Cell::new(format!(
+            "{:.4}",
+            self.entropy.unwrap_or(std::f64::INFINITY)
+        )));
 
         // show how many new matches are present
-        if let ConstraintType::Night{..} = self.r#type {
-            let cnt = self.map.len() - self.map.iter().filter(|&(k,v)| past_constraints.iter().any(|&c| c.map.get(k).is_some_and(|v2| v2 == v))).count();
+        if let ConstraintType::Night { .. } = self.r#type {
+            let cnt = self.map.len()
+                - self
+                    .map
+                    .iter()
+                    .filter(|&(k, v)| {
+                        past_constraints
+                            .iter()
+                            .any(|&c| c.map.get(k).is_some_and(|v2| v2 == v))
+                    })
+                    .count();
             ret.push(Cell::new(cnt.to_string()));
         } else {
             ret.push(Cell::new(String::from("")));
         }
 
         if self.show_past_dist() {
-            let dist = past_constraints.iter().filter(|&c| c.show_past_dist()).map(|&c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX))).min_by_key(|i| i.1);
+            let dist = past_constraints
+                .iter()
+                .filter(|&c| c.show_past_dist())
+                .map(|&c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX)))
+                .min_by_key(|i| i.1);
             match dist {
                 Some(dist) => ret.push(Cell::new(format!("{}/{}", dist.1, dist.0))),
                 None => ret.push(Cell::new(String::from(""))),
@@ -413,13 +429,20 @@ impl Constraint {
 
     pub fn distance(&self, other: &Constraint) -> Option<usize> {
         if !self.show_past_dist() || !other.show_past_dist() {
-            return None
+            return None;
         }
         if self.map.len() != other.map.len() {
-            return None
+            return None;
         }
 
-        Some(self.map.len() - self.map.iter().filter(|&(k,v)| other.map.get(k).is_some_and(|v2| v2 == v)).count())
+        Some(
+            self.map.len()
+                - self
+                    .map
+                    .iter()
+                    .filter(|&(k, v)| other.map.get(k).is_some_and(|v2| v2 == v))
+                    .count(),
+        )
     }
 
     // returned array contains mbInfo, mnInfo, info
@@ -469,7 +492,10 @@ impl Constraint {
 
         for (k, v) in &self.map_s {
             if self.show_past_cnt() {
-                let cnt = past_constraints.iter().filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v)).count();
+                let cnt = past_constraints
+                    .iter()
+                    .filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v))
+                    .count();
                 println!("{}x {} -> {}", cnt, k, v);
             } else {
                 println!("{} -> {}", k, v);
@@ -1103,25 +1129,37 @@ mod tests {
             },
         };
 
-        let row = c.stat_row(&vec![
-            "A".to_string(),
-            "B".to_string(),
-            "C".to_string(),
-            "D".to_string(),
-            "E".to_string(),
-        ], &Vec::default());
+        let row = c.stat_row(
+            &vec![
+                "A".to_string(),
+                "B".to_string(),
+                "C".to_string(),
+                "D".to_string(),
+                "E".to_string(),
+            ],
+            &Vec::default(),
+        );
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
-        assert_eq!(row, vec!["MN#1.0", "2", "b*", "c*", "a*", "d*", "", "", "3.5000", "4", ""]);
+        assert_eq!(
+            row,
+            vec!["MN#1.0", "2", "b*", "c*", "a*", "d*", "", "", "3.5000", "4", ""]
+        );
 
-        let row = c.stat_row(&vec![
-            "A".to_string(),
-            "B".to_string(),
-            "C".to_string(),
-            "D".to_string(),
-            "E".to_string(),
-        ], &vec![&c]);
+        let row = c.stat_row(
+            &vec![
+                "A".to_string(),
+                "B".to_string(),
+                "C".to_string(),
+                "D".to_string(),
+                "E".to_string(),
+            ],
+            &vec![&c],
+        );
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
-        assert_eq!(row, vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5000", "0", "0/MN#1"]);
+        assert_eq!(
+            row,
+            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5000", "0", "0/MN#1"]
+        );
     }
 
     #[test]
@@ -1154,15 +1192,21 @@ mod tests {
             },
         };
 
-        let row = c.stat_row(&vec![
-            "A".to_string(),
-            "B".to_string(),
-            "C".to_string(),
-            "D".to_string(),
-            "E".to_string(),
-        ], &Vec::default());
+        let row = c.stat_row(
+            &vec![
+                "A".to_string(),
+                "B".to_string(),
+                "C".to_string(),
+                "D".to_string(),
+                "E".to_string(),
+            ],
+            &Vec::default(),
+        );
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
-        assert_eq!(row, vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5000", "", ""]);
+        assert_eq!(
+            row,
+            vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5000", "", ""]
+        );
     }
 
     // #[test]
