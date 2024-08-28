@@ -36,15 +36,15 @@ Marc-Robin -> LauraL
 5927 left -> 12.5331 bits left
 
 MN#1.0 E04
-0x Lars -> Nadja
-0x Antonino -> LauraM
 0x Tim -> Linda
-0x Nikola -> Tara
-0x Marc-Robin -> Anastasia
-0x Chris -> Emmy
+0x Lars -> Nadja
 0x Kaan -> Asena
-0x Ozan -> Gabriela
 0x Lukas -> Jenny
+0x Chris -> Emmy
+0x Ozan -> Gabriela
+0x Nikola -> Tara
+0x Antonino -> LauraM
+0x Marc-Robin -> Anastasia
 0x Alex -> LauraL
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
@@ -88,16 +88,16 @@ Chris -> Emmy
 5927 left -> 12.5331 bits left
 
 MN#2.0 E06
-1x Tim -> Linda
-1x Nikola -> Tara
-1x Chris -> Emmy
-0x Alex -> Jenny
-0x Lukas -> LauraM
-0x Marc-Robin -> Asena
-0x Lars -> Anastasia
-0x Ozan -> LauraL
-0x Antonino -> Dana
 0x Kaan -> Nadja
+0x Marc-Robin -> Asena
+1x Chris -> Emmy
+0x Lukas -> LauraM
+0x Antonino -> Dana
+1x Tim -> Linda
+0x Ozan -> LauraL
+1x Nikola -> Tara
+0x Lars -> Anastasia
+0x Alex -> Jenny
 ---
 -> Pr[lights]: {1: 36.2%, 2: 36.9%, 3: 18.7%, 4: 6.3%, 5: 1.6%, 6: 0.3%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 2.014
@@ -119,16 +119,16 @@ MN#2.0 E06
 5927 left -> 12.5331 bits left
 
 MN#3.0 E08
+0x Kaan -> Jenny
 0x Lukas -> Linda
 2x Chris -> Emmy
-1x Marc-Robin -> Asena
-0x Alex -> Anastasia
-0x Kaan -> Jenny
-0x Ozan -> LauraM
+0x Nikola -> LauraL
 0x Lars -> Gabriela
+1x Marc-Robin -> Asena
 0x Antonino -> Nadja
 0x Tim -> Dana
-0x Nikola -> LauraL
+0x Ozan -> LauraM
+0x Alex -> Anastasia
 ---
 -> Pr[lights]: {1: 34.2%, 2: 36.9%, 3: 19.8%, 4: 6.9%, 5: 1.8%, 6: 0.3%, 7: 0.1%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 2.065
@@ -171,16 +171,16 @@ Marc-Robin -> Asena
 5927 left -> 12.5331 bits left
 
 MN#4.0 E10 -- blackout
-1x Antonino -> Nadja
-3x Chris -> Emmy
 0x Lukas -> Gabriela
-0x Marc-Robin -> Linda
+1x Antonino -> Nadja
 1x Kaan -> Asena
-0x Nikola -> Anastasia
-1x Ozan -> LauraM
-0x Lars -> Tara
 1x Alex -> Jenny
 0x Tim -> LauraL
+1x Ozan -> LauraM
+0x Lars -> Tara
+3x Chris -> Emmy
+0x Marc-Robin -> Linda
+0x Nikola -> Anastasia
 ---
 -> Pr[lights]: {1: 28.3%, 2: 35.8%, 3: 22.3%, 4: 9.4%, 5: 3.1%, 6: 0.8%, 7: 0.2%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.266
@@ -214,4 +214,4 @@ MN#4.0 E10 -- blackout
 ╰────────┴───┴────────────┴──────────┴───────┴────────┴────────────┴───────────┴────────────┴────────────┴───────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 5927  Initial combinations for each pair: 3628800
 
-Ran in 10.66s
+Ran in 10.82s

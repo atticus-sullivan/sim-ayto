@@ -36,16 +36,16 @@ Ivana -> Mo
 1 left -> 0.0000 bits left
 
 MN#1.0 E03
-0x Luisa -> Axel
 0x Laura -> Ferhat
-0x Sabrina -> Aleks
 0x Aline -> Kevin
-0x Ivana -> Juliano
 0x Melissa -> Dominic
-0x Kathi -> Rene
-0x Nadine -> Elisha
+0x Ivana -> Juliano
+0x Luisa -> Axel
 0x Madleine -> Laurin
+0x Nadine -> Elisha
 0x Michelle -> Mo
+0x Sabrina -> Aleks
+0x Kathi -> Rene
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Melissa -> Dominic
 1 left -> 0.0000 bits left
 
 MN#2.0 E04
-0x Luisa -> Rene
-0x Madleine -> Axel
 0x Ivana -> Elisha
-0x Kathi -> Kevin
-0x Nadine -> Aleks
-0x Aline -> Ferhat
 1x Michelle -> Mo
-0x Sabrina -> Dominic
-0x Melissa -> Laurin
 0x Laura -> Juliano
+0x Madleine -> Axel
+0x Melissa -> Laurin
+0x Nadine -> Aleks
+0x Luisa -> Rene
+0x Kathi -> Kevin
+0x Aline -> Ferhat
+0x Sabrina -> Dominic
 ---
 -> Pr[lights]: {0: 36.1%, 1: 36.5%, 2: 18.7%, 3: 6.5%, 4: 1.7%, 5: 0.4%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.029
@@ -140,16 +140,16 @@ Aline -> Mo
 1 left -> 0.0000 bits left
 
 MN#3.0 E06
-1x Laura -> Juliano
-0x Aline -> Mo
-1x Melissa -> Laurin
-1x Madleine -> Axel
-1x Nadine -> Aleks
-0x Michelle -> Ferhat
-1x Kathi -> Kevin
-1x Luisa -> Rene
-1x Ivana -> Elisha
 1x Sabrina -> Dominic
+0x Aline -> Mo
+1x Ivana -> Elisha
+1x Nadine -> Aleks
+1x Laura -> Juliano
+1x Madleine -> Axel
+0x Michelle -> Ferhat
+1x Luisa -> Rene
+1x Kathi -> Kevin
+1x Melissa -> Laurin
 ---
 -> Pr[lights]: {3: 87.7%, 4: 12.3%}
 ->  E[lights]: 3.123
@@ -192,15 +192,15 @@ Melissa -> Laurin
 1 left -> 0.0000 bits left
 
 MN#4.0 E08 -- Blackout
-0x Laura -> Kevin
 0x Michelle -> Elisha
-1x Aline -> Mo
-0x Kathi -> Juliano
-2x Melissa -> Laurin
-0x Madleine -> Ferhat
-2x Luisa -> Rene
 0x Ivana -> Axel
+1x Aline -> Mo
+0x Madleine -> Ferhat
+0x Laura -> Kevin
+2x Luisa -> Rene
+0x Kathi -> Juliano
 0x Nadine -> Dominic
+2x Melissa -> Laurin
 1x Sabrina -> Aleks
 ---
 -> Pr[lights]: {2: 35.9%, 3: 36.5%, 4: 18.2%, 5: 6.8%, 6: 1.9%, 7: 0.4%, 8: 0.2%, 10: 0.0%}
@@ -244,16 +244,16 @@ Ivana -> Elisha
 1 left -> 0.0000 bits left
 
 MN#5.0 E10
-0x Nadine -> Rene
-0x Madleine -> Aleks
-0x Michelle -> Axel
-3x Melissa -> Laurin
-0x Ivana -> Dominic
-2x Aline -> Mo
-2x Kathi -> Kevin
-0x Sabrina -> Elisha
-0x Luisa -> Ferhat
 2x Laura -> Juliano
+0x Michelle -> Axel
+0x Sabrina -> Elisha
+0x Madleine -> Aleks
+3x Melissa -> Laurin
+0x Nadine -> Rene
+0x Ivana -> Dominic
+2x Kathi -> Kevin
+0x Luisa -> Ferhat
+2x Aline -> Mo
 ---
 -> Pr[lights]: {2: 28.4%, 3: 35.4%, 4: 22.2%, 5: 10.1%, 6: 3.1%, 7: 0.6%, 8: 0.2%}
 ->  E[lights]: 3.266
@@ -296,15 +296,15 @@ Michelle -> Rene
 1 left -> 0.0000 bits left
 
 MN#6.0 E12
-3x Aline -> Mo
-3x Kathi -> Kevin
-2x Sabrina -> Dominic
 4x Melissa -> Laurin
+0x Laura -> Edin
+2x Sabrina -> Dominic
+1x Ivana -> Juliano
 1x Nadine -> Elisha
 0x Michelle -> Rene
+3x Aline -> Mo
+3x Kathi -> Kevin
 1x Luisa -> Axel
-0x Laura -> Edin
-1x Ivana -> Juliano
 1x Madleine -> Aleks
 ---
 -> Pr[lights]: {4: 12.9%, 5: 53.6%, 6: 30.0%, 7: 3.6%}
@@ -348,15 +348,15 @@ Ivana -> Edin
 1 left -> 0.0000 bits left
 
 MN#7.0 E14
-3x Laura -> Juliano
-5x Melissa -> Laurin
-0x Ivana -> Kevin
-1x Michelle -> Rene
-0x Nadine -> Ferhat
 4x Aline -> Mo
-3x Sabrina -> Dominic
+5x Melissa -> Laurin
 0x Kathi -> Elisha
+1x Michelle -> Rene
 2x Luisa -> Axel
+0x Ivana -> Kevin
+3x Laura -> Juliano
+0x Nadine -> Ferhat
+3x Sabrina -> Dominic
 2x Madleine -> Aleks
 ---
 -> Pr[lights]: {3: 17.5%, 4: 17.5%, 5: 23.8%, 6: 17.5%, 7: 7.9%, 8: 15.9%}
@@ -400,16 +400,16 @@ Sabrina -> Axel
 1 left -> 0.0000 bits left
 
 MN#8.0 E16
-2x Michelle -> Rene
-1x Ivana -> Kevin
-4x Laura -> Juliano
-4x Sabrina -> Dominic
-0x Madleine -> Edin
 3x Luisa -> Axel
 5x Aline -> Mo
-6x Melissa -> Laurin
+2x Michelle -> Rene
 0x Kathi -> Aleks
+6x Melissa -> Laurin
 1x Nadine -> Ferhat
+4x Sabrina -> Dominic
+1x Ivana -> Kevin
+4x Laura -> Juliano
+0x Madleine -> Edin
 ---
 -> Pr[lights]: {4: 40.0%, 5: 50.0%, 6: 10.0%}
 ->  E[lights]: 4.700
@@ -452,16 +452,16 @@ Luisa -> Ferhat
 1 left -> 0.0000 bits left
 
 MN#9.0 E18
+3x Michelle -> Rene
+1x Kathi -> Aleks
+4x Luisa -> Axel
 6x Aline -> Mo
+2x Nadine -> Ferhat
 1x Sabrina -> Elisha
-7x Melissa -> Laurin
-1x Ivana -> Dominic
 0x Madleine -> Kevin
 5x Laura -> Juliano
-4x Luisa -> Axel
-2x Nadine -> Ferhat
-1x Kathi -> Aleks
-3x Michelle -> Rene
+1x Ivana -> Dominic
+7x Melissa -> Laurin
 ---
 -> Pr[lights]: {7: 100.0%}
 ->  E[lights]: 7.000
@@ -504,16 +504,16 @@ Kathi -> Kevin
 1 left -> 0.0000 bits left
 
 MN#10.0 E20
-3x Nadine -> Ferhat
-5x Luisa -> Axel
-2x Sabrina -> Elisha
-0x Laura -> Aleks
-4x Kathi -> Kevin
 8x Melissa -> Laurin
-4x Michelle -> Rene
 1x Madleine -> Edin
+2x Sabrina -> Elisha
 2x Ivana -> Dominic
+0x Laura -> Aleks
 7x Aline -> Mo
+5x Luisa -> Axel
+4x Kathi -> Kevin
+3x Nadine -> Ferhat
+4x Michelle -> Rene
 ---
 -> Pr[lights]: {10: 100.0%}
 ->  E[lights]: 10.000
@@ -560,4 +560,4 @@ MN#10.0 E20
 ╰─────────┴────┴─────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.61s
+Ran in 10.71s
