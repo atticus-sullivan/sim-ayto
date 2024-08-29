@@ -51,10 +51,10 @@ constraints:
       Maximilian: Christin
       Sascha: Vanessa
 
-  # - type: !Box {num: 2, comment: "E04"}
-  #   check: !Lights ?
-  #   map:
-  #     Victoria: Germain
+  - type: !Box {num: 2, comment: "E04 -- verkauft?"}
+    check: !Nothing
+    map:
+      Victoria: Germain
 
   - type: !Night {num: 2, comment: "E04"}
     check: !Lights [2]
@@ -127,10 +127,10 @@ constraints:
       Maximilian: Laura
       Sascha: Jill
 
-  # - type: !Box {num: 6, comment: "E12"}
-  #   check: !Lights ?
-  #   map:
-  #     Mirjam: Marc
+  - type: !Box {num: 6, comment: "E12 -- verkauft"}
+    check: !Nothing
+    map:
+      Mirjam: Marc
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [4]

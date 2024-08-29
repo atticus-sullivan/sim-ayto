@@ -1,0 +1,81 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: false
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Christina
+# rule_set: !Eq
+
+setA:
+  - Alex
+  - Anthony
+  - Brandon
+  - Curtis
+  - Dario
+  - Garland
+  - John
+  - Layton
+  - Nathan
+  - TylerPratt
+
+setB:
+  - Alex
+  - Ashley
+  - Briana
+  - Ellie
+  - Jasmine
+  - Jenni
+  - Jess
+  - Paris
+  - Shelby
+  - TylerAbron
+  - Christina
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      # Layton: Alex
+      Brandon: Jess
+      # TylerPratt: Paris
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [2]
+    map:
+      Layton: Jenni
+      Dario: Ashley
+      TylerPratt: Paris
+      Curtis: Briana
+      John: Jasmine
+      Brandon: Christina
+      Garland: Alex
+      Anthony: Jess
+      Nathan: Shelby
+      Alex: Ellie
+
+  - type: !Box {num: 2, comment: "E02"}
+    check: !Lights [0]
+    map:
+      # Curtis: Briana
+      # Alex: Jasmine
+      Brandon: Christina
+
+  - type: !Night {num: 2, comment: "E02"}
+    check: !Lights [2]
+    map:
+      Layton: Jess
+      Dario: Shelby
+      TylerPratt: Paris
+      Garland: Jasmine
+      John: Ashley
+      Brandon: TylerAbron
+      Anthony: Alex
+      Nathan: Jenni
+      Curtis: Briana
+      Alex: Christina
+      # Alex: Ellie
+
+  # - type: !Box {num: 3, comment: "E03"}
+  #   check: !Lights [0]
+  #   map:

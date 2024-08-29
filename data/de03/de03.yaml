@@ -89,10 +89,10 @@ constraints:
       Andre: Raphaela
       Dustin: Zaira
 
-  # - type: !Box {num: 4, comment: "E08"}
-  #   check: !Lights ?
-  #   map:
-  #     Dana: William
+  - type: !Box {num: 4, comment: "E08 -- verkauft"}
+    check: !Nothing
+    map:
+      Dana: William
 
   - type: !Night {num: 4, comment: "E08"}
     check: !Lights [3]

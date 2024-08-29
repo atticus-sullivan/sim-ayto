@@ -90,10 +90,10 @@ constraints:
       Ricarda: Maurice
       Zoe: Max
 
-  # - type: !Box {num: 4, comment: "E09"}
-  #   check: !Lights ?
-  #   map:
-  #     Amadu: Isabelle
+  - type: !Box {num: 4, comment: "E09 -- verkauft"}
+    check: !Nothing
+    map:
+      Amadu: Isabelle
 
   - type: !Box {num: 4.1, comment: "E09 -- Lukas will gehen"}
     check: !Lights [1]

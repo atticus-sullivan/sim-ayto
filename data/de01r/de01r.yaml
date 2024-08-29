@@ -79,10 +79,10 @@ constraints:
       Salvatore: Jacqueline
       Tommy: Melina
 
-  # - type: !Box {num: 4, comment: "E08"}
-  #   check: !Lights ?
-  #   map:
-  #     Diogo: Aurelia
+  - type: !Box {num: 4, comment: "E08 -- verkauft?"}
+    check: !Nothing
+    map:
+      Diogo: Aurelia
 
   - type: !Night {num: 4, comment: "E08"}
     check: !Lights [4]
@@ -99,10 +99,10 @@ constraints:
       Tommy: Jill
       # Jacqueline
 
-  # - type: !Box {num: 5, comment: "E10"}
-  #   check: !Lights ?
-  #   map:
-  #     Melina: Tommy
+  - type: !Box {num: 5, comment: "E10 -- verkauft?"}
+    check: !Nothing
+    map:
+      Melina: Tommy
 
   - type: !Night {num: 5, comment: "E10"}
     check: !Lights [3]

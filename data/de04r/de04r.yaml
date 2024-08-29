@@ -1,7 +1,7 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-tree_gen: false
+tree_gen: true
 
 rule_set: !FixedDup Dana
 
@@ -72,11 +72,11 @@ constraints:
       Antonino: Dana
       # Antonino: Gabriela
 
-  # - type: !Box {num: 3, comment: "E07 -- verkauft d Jenny"}
-  #   check: !Lights [?]
-  #   map:
-  #     Alex: Anastasia
-  #     # Lars: Gabriela
+  - type: !Box {num: 3, comment: "E07 -- verkauft d Jenny"}
+    check: !Nothing
+    map:
+      Alex: Anastasia
+      # Lars: Gabriela
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [3]
@@ -114,8 +114,27 @@ constraints:
       Kaan: Asena
       # Kaan: Dana
 
-  # - type: !Box {num: 5, comment: "E11"}
+  - type: !Box {num: 5, comment: "E11 -- verkauft d Gabby"}
+    check: !Nothing
+    map:
+      Kaan: Tara
+      # Nikola: LauraM
+
+  - type: !Night {num: 5, comment: "E12"}
+    check: !Lights [5]
+    map:
+      Chris: Emmy
+      Ozan: Dana
+      Marc-Robin: Anastasia
+      Kaan: Tara
+      Antonino: Asena
+      Nikola: LauraL
+      Alex: Gabriela
+      Lukas: Jenny
+      Tim: Linda
+      Lars: Nadja
+      # LauraM
+
+  # - type: !Box {num: 6, comment: "E13"}
   #   check: !Lights [0]
   #   map:
-  #     # Kaan: Tara
-  #     Nikola: LauraM
