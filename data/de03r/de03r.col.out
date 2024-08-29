@@ -36,16 +36,16 @@ Jenny -> Danilo
 1 left -> 0.0000 bits left
 
 MN#1.0 E04
-0x Darya -> Danilo
-0x Kim -> Mike
-0x Shakira -> Marvin
 0x Marie -> Fabio
-0x Paulina -> Steffen
-0x Sandra -> Paco
+0x Kim -> Mike
+0x Darya -> Danilo
 0x Jenny -> Elia
-0x Steffi -> Teezy
-0x Sabrina -> Emanuell
+0x Sandra -> Paco
 0x Alicia -> Peter
+0x Paulina -> Steffen
+0x Sabrina -> Emanuell
+0x Shakira -> Marvin
+0x Steffi -> Teezy
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -90,14 +90,14 @@ Jenny -> Elia
 MN#2.0 E06
 0x Sandra -> Elia
 0x Darya -> Emanuell
-0x Jenny -> Marvin
+1x Steffi -> Teezy
 0x Sabrina -> Mike
 0x Alicia -> Steffen
 0x Kim -> Paco
-1x Marie -> Fabio
+0x Jenny -> Marvin
 0x Shakira -> Peter
+1x Marie -> Fabio
 0x Paulina -> Danilo
-1x Steffi -> Teezy
 ---
 -> Pr[lights]: {0: 25.3%, 1: 36.9%, 2: 24.1%, 3: 9.9%, 4: 3.0%, 5: 0.7%, 6: 0.1%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.311
@@ -140,16 +140,16 @@ Darya -> Elia
 1 left -> 0.0000 bits left
 
 MN#3.0 E08
-0x Sabrina -> Peter
-0x Marie -> Elia
+0x Kim -> Teezy
 1x Darya -> Danilo
 0x Jenny -> Emanuell
 0x Shakira -> Fabio
-1x Alicia -> Steffen
-0x Steffi -> Marvin
 1x Sandra -> Paco
+0x Steffi -> Marvin
+0x Sabrina -> Peter
+0x Marie -> Elia
+1x Alicia -> Steffen
 0x Paulina -> Mike
-0x Kim -> Teezy
 ---
 -> Pr[lights]: {0: 26.5%, 1: 37.6%, 2: 23.4%, 3: 9.1%, 4: 2.6%, 5: 0.7%, 6: 0.1%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.264
@@ -193,13 +193,13 @@ Kim -> Mike
 
 MN#4.0 E10
 1x Marie -> Elia
-0x Alicia -> Teezy
-2x Darya -> Danilo
 0x Paulina -> Max
+2x Darya -> Danilo
+0x Kim -> Peter
 0x Sabrina -> Paco
+0x Alicia -> Teezy
 1x Jenny -> Marvin
 1x Shakira -> Fabio
-0x Kim -> Peter
 0x Steffi -> Emanuell
 0x Sandra -> Steffen
 ---
@@ -245,15 +245,15 @@ Darya -> Danilo
 
 MN#5.0 E12
 2x Jenny -> Marvin
-0x Sandra -> Max
 1x Kim -> Teezy
-2x Alicia -> Steffen
+2x Marie -> Fabio
 1x Paulina -> Mike
 1x Sabrina -> Emanuell
-2x Marie -> Fabio
-0x Shakira -> Paco
 0x Steffi -> Elia
+0x Sandra -> Max
 3x Darya -> Danilo
+0x Shakira -> Paco
+2x Alicia -> Steffen
 ---
 -> Pr[lights]: {1: 10.7%, 2: 35.0%, 3: 33.4%, 4: 13.7%, 5: 5.1%, 6: 1.8%, 7: 0.3%}
 ->  E[lights]: 2.741
@@ -296,16 +296,16 @@ Alicia -> Teezy
 1 left -> 0.0000 bits left
 
 MN#6.0 E14
-2x Paulina -> Mike
 1x Steffi -> Emanuell
-1x Sandra -> Steffen
-2x Shakira -> Fabio
-2x Marie -> Elia
-1x Sabrina -> Peter
-0x Alicia -> Paco
-3x Jenny -> Marvin
-4x Darya -> Danilo
 2x Kim -> Teezy
+0x Alicia -> Paco
+2x Paulina -> Mike
+2x Marie -> Elia
+4x Darya -> Danilo
+3x Jenny -> Marvin
+1x Sandra -> Steffen
+1x Sabrina -> Peter
+2x Shakira -> Fabio
 ---
 -> Pr[lights]: {1: 0.3%, 2: 14.3%, 3: 49.5%, 4: 30.7%, 5: 5.2%}
 ->  E[lights]: 3.261
@@ -327,8 +327,8 @@ MN#6.0 E14
 1 left -> 0.0000 bits left
 
 MB#7.0 E15
-Alicia -> Peter
 Darya -> Max
+Alicia -> Peter
 ---
 Eq => I = 2.9578 bits
 ╭─────────┬─────────┬─────────┬──────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────╮
@@ -348,16 +348,16 @@ Eq => I = 2.9578 bits
 1 left -> 0.0000 bits left
 
 MN#7.0 E16
-0x Shakira -> Max
 0x Paulina -> Marvin
 0x Sandra -> Mike
+1x Steffi -> Elia
 2x Sabrina -> Emanuell
 0x Marie -> Steffen
-0x Jenny -> Paco
-0x Alicia -> Fabio
-1x Steffi -> Elia
-3x Kim -> Teezy
+0x Shakira -> Max
 5x Darya -> Danilo
+0x Jenny -> Paco
+3x Kim -> Teezy
+0x Alicia -> Fabio
 ---
 -> Pr[lights]: {1: 15.4%, 2: 46.2%, 3: 23.1%, 4: 15.4%}
 ->  E[lights]: 2.385
@@ -400,16 +400,16 @@ Sabrina -> Max
 1 left -> 0.0000 bits left
 
 MN#8.0 E18 -- Blackout
-0x Sandra -> Fabio
-1x Alicia -> Paco
 4x Jenny -> Marvin
-0x Shakira -> Steffen
+0x Sandra -> Fabio
 0x Steffi -> Mike
-6x Darya -> Danilo
-0x Kim -> Max
-3x Sabrina -> Emanuell
 0x Paulina -> Teezy
+3x Sabrina -> Emanuell
+0x Kim -> Max
+0x Shakira -> Steffen
 3x Marie -> Elia
+6x Darya -> Danilo
+1x Alicia -> Paco
 ---
 -> Pr[lights]: {1: 33.3%, 6: 33.3%, 7: 33.3%}
 ->  E[lights]: 4.667
@@ -452,16 +452,16 @@ Steffi -> Emanuell
 1 left -> 0.0000 bits left
 
 MN#9.0 E20
-1x Sabrina -> Mike
-7x Darya -> Danilo
 3x Marie -> Fabio
 1x Shakira -> Marvin
+3x Alicia -> Steffen
+1x Sabrina -> Mike
+2x Steffi -> Emanuell
+1x Sandra -> Elia
+7x Darya -> Danilo
+4x Kim -> Teezy
 0x Jenny -> Max
 0x Paulina -> Paco
-4x Kim -> Teezy
-1x Sandra -> Elia
-3x Alicia -> Steffen
-2x Steffi -> Emanuell
 ---
 -> Pr[lights]: {6: 100.0%}
 ->  E[lights]: 6.000
@@ -504,16 +504,16 @@ Alicia -> Elia
 1 left -> 0.0000 bits left
 
 MN#10.0 E22
-1x Paulina -> Max
+5x Kim -> Teezy
+4x Marie -> Fabio
+2x Sandra -> Steffen
 3x Steffi -> Emanuell
 2x Shakira -> Marvin
-5x Kim -> Teezy
 8x Darya -> Danilo
-1x Jenny -> Paco
-0x Alicia -> Elia
-4x Marie -> Fabio
 2x Sabrina -> Mike
-2x Sandra -> Steffen
+1x Paulina -> Max
+0x Alicia -> Elia
+1x Jenny -> Paco
 ---
 -> Pr[lights]: {10: 100.0%}
 ->  E[lights]: 10.000
@@ -560,4 +560,4 @@ MN#10.0 E22
 ╰─────────┴────┴──────────┴───────────┴───────────┴────────┴──────────┴──────────┴───────────┴──────────┴──────────┴───────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.40s
+Ran in 10.37s

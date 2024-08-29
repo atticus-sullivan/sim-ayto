@@ -36,16 +36,16 @@ ChrisT -> Shanley
 1 left -> 0.0000 bits left
 
 MN#1.0 E01
-0x John -> Amber
-0x Ryan -> Amber
-0x Scali -> Ashleigh
 0x Wes -> Kayla
-0x Adam -> Brittany
-0x Joey -> Paige
 0x ChrisT -> Jess
+0x John -> Amber
+0x Joey -> Paige
 0x Ethan -> Shanley
-0x Dillan -> Coleysia
+0x Adam -> Brittany
 0x Dre -> Jacy
+0x Dillan -> Coleysia
+0x Scali -> Ashleigh
+0x Ryan -> Amber
 ---
 -> Pr[lights]: {0: 35.9%, 1: 37.2%, 2: 18.8%, 3: 6.2%, 4: 1.5%, 5: 0.3%, 6: 0.0%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Ethan -> Jess
 1 left -> 0.0000 bits left
 
 MN#2.0 E02
-0x Ryan -> Kayla
-0x Dillan -> Jess
-0x Dre -> Ashleigh
-0x Scali -> Simone
-0x ChrisT -> Paige
-0x Adam -> Shanley
-0x Wes -> Coleysia
 0x John -> Jacy
-0x Ethan -> Amber
+0x Scali -> Simone
+0x Dillan -> Jess
 0x Joey -> Brittany
+0x ChrisT -> Paige
+0x Ryan -> Kayla
+0x Wes -> Coleysia
+0x Adam -> Shanley
+0x Ethan -> Amber
+0x Dre -> Ashleigh
 ---
 -> Pr[lights]: {0: 39.8%, 1: 37.2%, 2: 16.9%, 3: 4.9%, 4: 1.0%, 5: 0.2%, 6: 0.0%, 7: 0.0%}
 ->  E[lights]: 0.907
@@ -140,16 +140,16 @@ John -> Simone
 1 left -> 0.0000 bits left
 
 MN#3.0 E03
-1x Dillan -> Coleysia
-0x Joey -> Shanley
+1x Ryan -> Kayla
+1x Adam -> Brittany
+1x Dre -> Ashleigh
 0x Scali -> Paige
 0x ChrisT -> Simone
+1x Dillan -> Coleysia
 0x John -> Jess
-1x Ryan -> Kayla
-0x Wes -> Jacy
 1x Ethan -> Amber
-1x Dre -> Ashleigh
-1x Adam -> Brittany
+0x Wes -> Jacy
+0x Joey -> Shanley
 ---
 -> Pr[lights]: {0: 15.4%, 1: 31.4%, 2: 28.4%, 3: 15.4%, 4: 6.9%, 5: 1.8%, 6: 0.5%, 7: 0.1%, 8: 0.0%}
 ->  E[lights]: 1.750
@@ -192,16 +192,16 @@ Dillan -> Jess
 1 left -> 0.0000 bits left
 
 MN#4.0 E04
-0x John -> Shanley
-0x Joey -> Jacy
-2x Dillan -> Coleysia
-1x Scali -> Paige
-0x Ryan -> Brittany
-0x Ethan -> Kayla
-0x Adam -> Amber
 0x ChrisT -> Ashleigh
 0x Wes -> Jess
+1x Scali -> Paige
+2x Dillan -> Coleysia
+0x Adam -> Amber
 0x Dre -> Simone
+0x John -> Shanley
+0x Joey -> Jacy
+0x Ethan -> Kayla
+0x Ryan -> Brittany
 ---
 -> Pr[lights]: {0: 43.6%, 1: 34.9%, 2: 16.3%, 3: 4.3%, 4: 0.8%, 5: 0.1%}
 ->  E[lights]: 0.841
@@ -265,16 +265,16 @@ Dillan -> Coleysia
 1 left -> 0.0000 bits left
 
 MN#5.0 E05
-0x Ryan -> Ashleigh
+2x Ethan -> Amber
 1x John -> Jacy
 1x Scali -> Simone
-1x Wes -> Kayla
-0x Joey -> Jess
-1x ChrisT -> Paige
 1x Adam -> Shanley
-2x Ethan -> Amber
-3x Dillan -> Coleysia
 0x Dre -> Brittany
+0x Ryan -> Ashleigh
+0x Joey -> Jess
+1x Wes -> Kayla
+3x Dillan -> Coleysia
+1x ChrisT -> Paige
 ---
 -> Pr[lights]: {3: 26.7%, 4: 24.4%, 5: 30.2%, 6: 11.6%, 7: 4.7%, 8: 2.3%}
 ->  E[lights]: 4.500
@@ -317,15 +317,15 @@ ChrisT -> Paige
 1 left -> 0.0000 bits left
 
 MN#6.0 E07
-4x Dillan -> Coleysia
-2x John -> Jacy
-2x Wes -> Kayla
-0x Ryan -> Jess
 2x ChrisT -> Paige
+2x John -> Jacy
+0x Ryan -> Jess
 0x Adam -> Ashleigh
-3x Ethan -> Amber
-0x Dre -> Shanley
 0x Scali -> Brittany
+4x Dillan -> Coleysia
+0x Dre -> Shanley
+2x Wes -> Kayla
+3x Ethan -> Amber
 0x Joey -> Simone
 ---
 -> Pr[lights]: {2: 23.1%, 3: 15.4%, 4: 23.1%, 5: 23.1%, 6: 7.7%, 7: 7.7%}
@@ -370,15 +370,15 @@ Ryan -> Kayla
 
 MN#7.0 E08
 5x Dillan -> Coleysia
-4x Ethan -> Amber
-0x John -> Brittany
-3x ChrisT -> Paige
 3x Wes -> Kayla
-0x Scali -> Jacy
-2x Adam -> Shanley
 1x Joey -> Jess
+3x ChrisT -> Paige
+2x Adam -> Shanley
 1x Dre -> Simone
 1x Ryan -> Ashleigh
+4x Ethan -> Amber
+0x Scali -> Jacy
+0x John -> Brittany
 ---
 -> Pr[lights]: {4: 33.3%, 5: 33.3%, 7: 33.3%}
 ->  E[lights]: 5.333
@@ -421,16 +421,16 @@ John -> Jacy
 1 left -> 0.0000 bits left
 
 MN#8.0 E09
-5x Ethan -> Amber
-4x ChrisT -> Paige
 1x Scali -> Jacy
-1x Ryan -> Jess
-1x Joey -> Brittany
-3x Adam -> Shanley
 0x John -> Ashleigh
-2x Dre -> Simone
-6x Dillan -> Coleysia
 4x Wes -> Kayla
+1x Ryan -> Jess
+3x Adam -> Shanley
+6x Dillan -> Coleysia
+1x Joey -> Brittany
+4x ChrisT -> Paige
+5x Ethan -> Amber
+2x Dre -> Simone
 ---
 -> Pr[lights]: {10: 100.0%}
 ->  E[lights]: 10.000
@@ -474,4 +474,4 @@ MN#8.0 E09
 ╰────────┴────┴───────────┴───────────┴───────────┴───────────┴───────────┴──────────┴───────────┴───────────┴───────────┴───────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 3628800  Permutations left: 1  Initial combinations for each pair: 362880
 
-Ran in 1.00s
+Ran in 1.01s

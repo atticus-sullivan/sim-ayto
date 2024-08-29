@@ -36,15 +36,15 @@ Danilo -> Finnja
 1 left -> 0.0000 bits left
 
 MN#1.0 E02
-0x Salvatore -> Jacqueline
-0x Jamy -> Jill
-0x Eugen -> Walentina
-0x Josua -> Sarah
-0x Manuel -> Kathleen
-0x Diogo -> Aurelia
-0x Alexander -> Jules
-0x Danilo -> Stefanie
 0x Tommy -> Melina
+0x Josua -> Sarah
+0x Alexander -> Jules
+0x Diogo -> Aurelia
+0x Eugen -> Walentina
+0x Jamy -> Jill
+0x Salvatore -> Jacqueline
+0x Danilo -> Stefanie
+0x Manuel -> Kathleen
 0x Francesco -> Finnja
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
@@ -109,16 +109,16 @@ Tommy -> Walentina
 1 left -> 0.0000 bits left
 
 MN#3.0 E06
+0x Alexander -> Finnja
+1x Manuel -> Kathleen
+1x Salvatore -> Jacqueline
 0x Danilo -> Sarah
 1x Diogo -> Aurelia
 0x Francesco -> Jules
+1x Jamy -> Jill
+1x Tommy -> Melina
 0x Eugen -> Stefanie
 0x Josua -> Walentina
-1x Manuel -> Kathleen
-1x Salvatore -> Jacqueline
-1x Tommy -> Melina
-0x Alexander -> Finnja
-1x Jamy -> Jill
 ---
 -> Pr[lights]: {1: 1.9%, 2: 24.8%, 3: 38.6%, 4: 23.0%, 5: 8.5%, 6: 2.7%, 7: 0.5%, 8: 0.1%}
 ->  E[lights]: 3.222
@@ -139,17 +139,37 @@ MN#3.0 E06
 ╰───────────┴─────────┴─────────┴────────────┴─────────┴──────────┴─────────┴─────────┴──────────┴───────────┴─────────┴─────────╯
 1 left -> 0.0000 bits left
 
+MB#4.0 E08 -- verkauft?
+Diogo -> Aurelia
+---
+Nothing => I = -0.0000 bits
+╭───────────┬─────────┬─────────┬────────────┬─────────┬──────────┬─────────┬─────────┬──────────┬───────────┬─────────┬─────────╮
+│           ┆ Aurelia ┆  Finnja ┆ Jacqueline ┆   Jill  ┆ Kathleen ┆  Melina ┆  Sarah  ┆ Stefanie ┆ Walentina ┆  Jules  ┆ Vanessa │
+╞═══════════╪═════════╪═════════╪════════════╪═════════╪══════════╪═════════╪═════════╪══════════╪═══════════╪═════════╪═════════╡
+│[48;5;0m Alexander [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m│
+│ Danilo    ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;10m 100.000 [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Diogo     [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Eugen     ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;10m 100.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Josua     [49m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Manuel    ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;10m 100.000  [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Salvatore [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Tommy     ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;10m 100.000 [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Francesco [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Jamy      ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;10m 100.000  [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+╰───────────┴─────────┴─────────┴────────────┴─────────┴──────────┴─────────┴─────────┴──────────┴───────────┴─────────┴─────────╯
+1 left -> 0.0000 bits left
+
 MN#4.0 E08
+0x Danilo -> Melina
 2x Diogo -> Aurelia
-0x Salvatore -> Walentina
 0x Eugen -> Finnja
+1x Josua -> Sarah
+0x Tommy -> Jill
+2x Manuel -> Kathleen
+0x Salvatore -> Walentina
+1x Francesco -> Jules
 0x Alexander -> Stefanie
 0x Jamy -> Vanessa
-0x Danilo -> Melina
-1x Francesco -> Jules
-1x Josua -> Sarah
-2x Manuel -> Kathleen
-0x Tommy -> Jill
 ---
 -> Pr[lights]: {1: 14.2%, 2: 33.0%, 3: 29.0%, 4: 15.5%, 5: 5.9%, 6: 1.9%, 7: 0.4%, 8: 0.1%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.738
@@ -170,15 +190,35 @@ MN#4.0 E08
 ╰───────────┴─────────┴─────────┴────────────┴─────────┴──────────┴─────────┴─────────┴──────────┴───────────┴─────────┴─────────╯
 1 left -> 0.0000 bits left
 
+MB#5.0 E10 -- verkauft?
+Tommy -> Melina
+---
+Nothing => I = -0.0000 bits
+╭───────────┬─────────┬─────────┬────────────┬─────────┬──────────┬─────────┬─────────┬──────────┬───────────┬─────────┬─────────╮
+│           ┆ Aurelia ┆  Finnja ┆ Jacqueline ┆   Jill  ┆ Kathleen ┆  Melina ┆  Sarah  ┆ Stefanie ┆ Walentina ┆  Jules  ┆ Vanessa │
+╞═══════════╪═════════╪═════════╪════════════╪═════════╪══════════╪═════════╪═════════╪══════════╪═══════════╪═════════╪═════════╡
+│[48;5;0m Alexander [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m│
+│ Danilo    ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;10m 100.000 [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Diogo     [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Eugen     ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;10m 100.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Josua     [49m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Manuel    ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;10m 100.000  [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Salvatore [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;10m 100.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Tommy     ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;10m 100.000 [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+│[48;5;0m Francesco [49m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000      [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m┆[48;5;0m[38;5;9m 0.000    [49m[39m┆[48;5;0m[38;5;9m 0.000     [49m[39m┆[48;5;0m[38;5;10m 100.000 [49m[39m┆[48;5;0m[38;5;9m 0.000   [49m[39m│
+│ Jamy      ┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000      [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000    [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m┆[38;5;10m 100.000  [39m┆[38;5;9m 0.000     [39m┆[38;5;9m 0.000   [39m┆[38;5;9m 0.000   [39m│
+╰───────────┴─────────┴─────────┴────────────┴─────────┴──────────┴─────────┴─────────┴──────────┴───────────┴─────────┴─────────╯
+1 left -> 0.0000 bits left
+
 MN#5.0 E10
-2x Tommy -> Melina
-0x Salvatore -> Kathleen
-0x Alexander -> Sarah
-0x Jamy -> Stefanie
 1x Eugen -> Finnja
-0x Diogo -> Vanessa
+0x Salvatore -> Kathleen
+2x Tommy -> Melina
 2x Francesco -> Jules
+0x Diogo -> Vanessa
+0x Jamy -> Stefanie
 1x Josua -> Walentina
+0x Alexander -> Sarah
 0x Danilo -> Aurelia
 0x Manuel -> Jill
 ---
@@ -223,16 +263,16 @@ Salvatore -> Finnja
 1 left -> 0.0000 bits left
 
 MN#6.0 E12
-3x Tommy -> Melina
-3x Diogo -> Aurelia
 2x Salvatore -> Jacqueline
-0x Jamy -> Sarah
-1x Alexander -> Stefanie
+3x Manuel -> Kathleen
 0x Danilo -> Jill
+0x Jamy -> Sarah
+3x Diogo -> Aurelia
+1x Alexander -> Stefanie
+3x Tommy -> Melina
+2x Josua -> Walentina
 2x Eugen -> Finnja
 3x Francesco -> Jules
-2x Josua -> Walentina
-3x Manuel -> Kathleen
 ---
 -> Pr[lights]: {2: 4.8%, 3: 36.5%, 4: 41.4%, 5: 15.7%, 6: 1.6%}
 ->  E[lights]: 3.728
@@ -275,16 +315,16 @@ Eugen -> Finnja
 1 left -> 0.0000 bits left
 
 MN#7.0 E14
-0x Alexander -> Jacqueline
-1x Salvatore -> Walentina
 1x Danilo -> Aurelia
-4x Tommy -> Melina
-4x Manuel -> Kathleen
-0x Eugen -> Jill
-2x Josua -> Sarah
 1x Diogo -> Vanessa
-0x Jamy -> Finnja
+0x Alexander -> Jacqueline
+0x Eugen -> Jill
 4x Francesco -> Jules
+4x Manuel -> Kathleen
+0x Jamy -> Finnja
+4x Tommy -> Melina
+2x Josua -> Sarah
+1x Salvatore -> Walentina
 ---
 -> Pr[lights]: {1: 4.7%, 2: 19.3%, 3: 12.4%, 4: 23.0%, 5: 23.4%, 6: 9.5%, 7: 4.0%, 8: 1.1%, 9: 2.6%}
 ->  E[lights]: 4.062
@@ -327,16 +367,16 @@ Eugen -> Stefanie
 1 left -> 0.0000 bits left
 
 MN#8.0 E16
-0x Eugen -> Jacqueline
 1x Jamy -> Sarah
-5x Francesco -> Jules
-2x Diogo -> Vanessa
-3x Josua -> Walentina
-0x Salvatore -> Jill
-0x Alexander -> Melina
-2x Danilo -> Aurelia
 0x Manuel -> Finnja
+2x Diogo -> Vanessa
+2x Danilo -> Aurelia
+5x Francesco -> Jules
+0x Salvatore -> Jill
 0x Tommy -> Stefanie
+0x Eugen -> Jacqueline
+0x Alexander -> Melina
+3x Josua -> Walentina
 ---
 -> Pr[lights]: {1: 54.7%, 2: 41.5%, 3: 3.8%}
 ->  E[lights]: 1.491
@@ -400,16 +440,16 @@ Tommy -> Melina
 1 left -> 0.0000 bits left
 
 MN#9.0 E18
-0x Eugen -> Melina
-6x Francesco -> Jules
-1x Alexander -> Sarah
+1x Danilo -> Jill
 1x Jamy -> Stefanie
-0x Tommy -> Finnja
 2x Salvatore -> Walentina
-5x Manuel -> Kathleen
+6x Francesco -> Jules
+0x Tommy -> Finnja
 0x Josua -> Vanessa
 4x Diogo -> Aurelia
-1x Danilo -> Jill
+0x Eugen -> Melina
+5x Manuel -> Kathleen
+1x Alexander -> Sarah
 ---
 -> Pr[lights]: {3: 5.3%, 4: 42.1%, 5: 42.1%, 6: 10.5%}
 ->  E[lights]: 4.579
@@ -452,16 +492,16 @@ Josua -> Aurelia
 1 left -> 0.0000 bits left
 
 MN#10.0 E20
-3x Salvatore -> Jacqueline
-0x Alexander -> Vanessa
-1x Danilo -> Sarah
-1x Eugen -> Walentina
 0x Diogo -> Jill
-0x Josua -> Aurelia
-1x Tommy -> Finnja
-6x Manuel -> Kathleen
+1x Danilo -> Sarah
 7x Francesco -> Jules
+6x Manuel -> Kathleen
+0x Josua -> Aurelia
 2x Jamy -> Stefanie
+3x Salvatore -> Jacqueline
+1x Eugen -> Walentina
+0x Alexander -> Vanessa
+1x Tommy -> Finnja
 ---
 -> Pr[lights]: {6: 83.3%, 7: 16.7%}
 ->  E[lights]: 6.167
@@ -490,7 +530,9 @@ MN#10.0 E20
 │ MB#2.0  ┆ 1 ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆           ┆ Jules     ┆           ┆   ┆ 3.8833  ┆      ┆          │
 │ MB#3.0  ┆ 0 ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆ Walentina ┆           ┆           ┆   ┆ 0.1106  ┆      ┆          │
 │ MN#3.0  ┆ 3 ┆ Finnja*     ┆ Sarah*    ┆ Aurelia  ┆ Stefanie*   ┆ Walentina* ┆ Kathleen  ┆ Jacqueline  ┆ Melina    ┆ Jules     ┆ Jill      ┆   ┆ 1.3737  ┆ 4    ┆ 5/MN#1   │
+│ MB#4.0  ┆ - ┆             ┆           ┆ Aurelia  ┆             ┆            ┆           ┆             ┆           ┆           ┆           ┆   ┆ -0.0000 ┆      ┆          │
 │ MN#4.0  ┆ 4 ┆ Stefanie*   ┆ Melina*   ┆ Aurelia  ┆ Finnja*     ┆ Sarah      ┆ Kathleen  ┆ Walentina*  ┆ Jill*     ┆ Jules     ┆ Vanessa*  ┆   ┆ 2.6897  ┆ 6    ┆ 7/MN#1   │
+│ MB#5.0  ┆ - ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆ Melina    ┆           ┆           ┆   ┆ -0.0000 ┆      ┆          │
 │ MN#5.0  ┆ 3 ┆ Sarah*      ┆ Aurelia*  ┆ Vanessa* ┆ Finnja      ┆ Walentina  ┆ Jill*     ┆ Kathleen*   ┆ Melina    ┆ Jules     ┆ Stefanie* ┆   ┆ 2.3113  ┆ 6    ┆ 7/MN#3   │
 │ MB#6.0  ┆ 0 ┆             ┆           ┆          ┆             ┆            ┆           ┆ Finnja      ┆           ┆           ┆           ┆   ┆ 0.1161  ┆      ┆          │
 │ MN#6.0  ┆ 3 ┆ Stefanie    ┆ Jill*     ┆ Aurelia  ┆ Finnja      ┆ Walentina  ┆ Kathleen  ┆ Jacqueline  ┆ Melina    ┆ Jules     ┆ Sarah*    ┆   ┆ 1.4559  ┆ 2    ┆ 4/MN#3   │
@@ -506,4 +548,4 @@ MN#10.0 E20
 ╰─────────┴───┴─────────────┴───────────┴──────────┴─────────────┴────────────┴───────────┴─────────────┴───────────┴───────────┴───────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.38s
+Ran in 10.62s

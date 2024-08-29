@@ -36,16 +36,16 @@ Zoe -> Martin
 1 left -> 0.0000 bits left
 
 MN#1.0 E04
-0x Karina -> Pharrell
-0x Franzi -> Max
-0x Isabelle -> Lukas
-0x Anna -> Micha
-0x Gina -> Calvin
-0x Celina -> Martin
 0x Cecilia -> Amadu
-0x Ricarda -> Maurice
-0x Zoe -> Luca
+0x Anna -> Micha
 0x Luisa -> Fabio
+0x Ricarda -> Maurice
+0x Franzi -> Max
+0x Gina -> Calvin
+0x Isabelle -> Lukas
+0x Zoe -> Luca
+0x Celina -> Martin
+0x Karina -> Pharrell
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,15 +88,15 @@ Karina -> Pharrell
 1 left -> 0.0000 bits left
 
 MN#2.0 E06
-0x Karina -> Fabio
-1x Ricarda -> Maurice
 0x Franzi -> Luca
-0x Cecilia -> Pharrell
-0x Celina -> Max
-0x Gina -> Amadu
 0x Luisa -> Calvin
 1x Anna -> Micha
 0x Isabelle -> Martin
+0x Cecilia -> Pharrell
+0x Celina -> Max
+1x Ricarda -> Maurice
+0x Gina -> Amadu
+0x Karina -> Fabio
 0x Zoe -> Lukas
 ---
 -> Pr[lights]: {0: 25.7%, 1: 37.0%, 2: 23.9%, 3: 9.8%, 4: 2.8%, 5: 0.7%, 6: 0.1%, 7: 0.0%, 8: 0.0%}
@@ -140,20 +140,40 @@ Celina -> Lukas
 1 left -> 0.0000 bits left
 
 MN#3.0 E08
-0x Isabelle -> Luca
-0x Zoe -> Max
 2x Ricarda -> Maurice
-1x Cecilia -> Amadu
-0x Franzi -> Lukas
+0x Luisa -> Pharrell
 0x Gina -> Micha
 0x Karina -> Calvin
-0x Anna -> Martin
+1x Cecilia -> Amadu
+0x Zoe -> Max
 0x Celina -> Fabio
-0x Luisa -> Pharrell
+0x Franzi -> Lukas
+0x Anna -> Martin
+0x Isabelle -> Luca
 ---
 -> Pr[lights]: {0: 22.6%, 1: 35.8%, 2: 25.6%, 3: 11.2%, 4: 3.6%, 5: 0.9%, 6: 0.2%, 7: 0.0%, 8: 0.0%}
 ->  E[lights]: 1.409
 3 lights => I = 3.1567 bits
+╭──────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬──────────┬─────────╮
+│          ┆  Amadu  ┆  Calvin ┆  Fabio  ┆   Luca  ┆  Lukas  ┆  Martin ┆ Maurice ┆   Max   ┆  Micha  ┆ Pharrell ┆  Felix  │
+╞══════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪══════════╪═════════╡
+│ Anna     ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000    ┆ 0.000   │
+│ Cecilia  ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Celina   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Franzi   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Gina     ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Isabelle ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000    ┆ 100.000 │
+│ Karina   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Luisa    ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Ricarda  ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000    ┆ 0.000   │
+│ Zoe      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000  ┆ 0.000   │
+╰──────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴──────────┴─────────╯
+1 left -> 0.0000 bits left
+
+MB#4.0 E09 -- verkauft
+Isabelle -> Amadu
+---
+Nothing => I = -0.0000 bits
 ╭──────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬──────────┬─────────╮
 │          ┆  Amadu  ┆  Calvin ┆  Fabio  ┆   Luca  ┆  Lukas  ┆  Martin ┆ Maurice ┆   Max   ┆  Micha  ┆ Pharrell ┆  Felix  │
 ╞══════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪══════════╪═════════╡
@@ -214,15 +234,15 @@ Ricarda -> Felix
 
 MN#5.0 E12
 2x Cecilia -> Amadu
-0x Gina -> Felix
-1x Celina -> Fabio
-0x Isabelle -> Maurice
 0x Karina -> Martin
-0x Franzi -> Micha
-0x Luisa -> Lukas
-1x Zoe -> Luca
+1x Celina -> Fabio
 0x Ricarda -> Max
+0x Isabelle -> Maurice
+1x Zoe -> Luca
 0x Anna -> Pharrell
+0x Luisa -> Lukas
+0x Gina -> Felix
+0x Franzi -> Micha
 ---
 -> Pr[lights]: {1: 10.5%, 2: 36.5%, 3: 33.6%, 4: 14.6%, 5: 4.4%, 6: 0.4%}
 ->  E[lights]: 2.672
@@ -265,15 +285,15 @@ Isabelle -> Pharrell
 1 left -> 0.0000 bits left
 
 MN#6.0 E14
-1x Luisa -> Lukas
 2x Celina -> Fabio
-1x Isabelle -> Martin
-2x Anna -> Micha
+1x Luisa -> Lukas
+0x Ricarda -> Pharrell
 2x Zoe -> Luca
+1x Karina -> Calvin
+1x Isabelle -> Martin
 1x Gina -> Felix
 1x Franzi -> Max
-0x Ricarda -> Pharrell
-1x Karina -> Calvin
+2x Anna -> Micha
 0x Cecilia -> Maurice
 ---
 -> Pr[lights]: {1: 14.4%, 2: 31.3%, 3: 25.7%, 4: 15.0%, 5: 9.1%, 6: 3.5%, 7: 1.0%}
@@ -317,16 +337,16 @@ Cecilia -> Amadu
 1 left -> 0.0000 bits left
 
 MN#7.0 E16
-2x Karina -> Calvin
+3x Celina -> Fabio
 2x Luisa -> Lukas
+1x Ricarda -> Pharrell
 3x Zoe -> Luca
 2x Franzi -> Max
 2x Gina -> Felix
-2x Isabelle -> Martin
-3x Anna -> Micha
-1x Ricarda -> Pharrell
+2x Karina -> Calvin
 3x Cecilia -> Amadu
-3x Celina -> Fabio
+3x Anna -> Micha
+2x Isabelle -> Martin
 ---
 -> Pr[lights]: {4: 100.0%}
 ->  E[lights]: 4.000
@@ -369,16 +389,16 @@ Anna -> Micha
 1 left -> 0.0000 bits left
 
 MN#8.0 E18
-4x Cecilia -> Amadu
 2x Ricarda -> Pharrell
-1x Karina -> Martin
-4x Anna -> Micha
 0x Celina -> Luca
-0x Gina -> Fabio
-0x Franzi -> Calvin
 0x Isabelle -> Felix
+1x Karina -> Martin
+4x Cecilia -> Amadu
 3x Luisa -> Lukas
 0x Zoe -> Maurice
+0x Gina -> Fabio
+4x Anna -> Micha
+0x Franzi -> Calvin
 ---
 -> Pr[lights]: {3: 67.4%, 4: 30.4%, 5: 2.2%}
 ->  E[lights]: 3.348
@@ -422,15 +442,15 @@ Ricarda -> Pharrell
 
 MN#9.0 E20
 4x Celina -> Fabio
-4x Luisa -> Lukas
-5x Cecilia -> Amadu
-3x Franzi -> Max
-2x Karina -> Martin
-3x Ricarda -> Maurice
 5x Anna -> Micha
-1x Isabelle -> Felix
-1x Gina -> Calvin
+3x Ricarda -> Maurice
+2x Karina -> Martin
 0x Zoe -> Pharrell
+1x Isabelle -> Felix
+5x Cecilia -> Amadu
+4x Luisa -> Lukas
+1x Gina -> Calvin
+3x Franzi -> Max
 ---
 -> Pr[lights]: {7: 100.0%}
 ->  E[lights]: 7.000
@@ -474,15 +494,15 @@ Franzi -> Max
 
 MN#10.0 E21
 1x Franzi -> Calvin
-6x Cecilia -> Amadu
-2x Isabelle -> Felix
-5x Luisa -> Lukas
 0x Gina -> Martin
-6x Anna -> Micha
-1x Zoe -> Pharrell
-5x Celina -> Fabio
-4x Ricarda -> Maurice
+2x Isabelle -> Felix
+6x Cecilia -> Amadu
 0x Karina -> Luca
+6x Anna -> Micha
+5x Luisa -> Lukas
+5x Celina -> Fabio
+1x Zoe -> Pharrell
+4x Ricarda -> Maurice
 ---
 -> Pr[lights]: {10: 100.0%}
 ->  E[lights]: 10.000
@@ -512,6 +532,7 @@ MN#10.0 E21
 │ MN#2.0  ┆ 2  ┆ Micha     ┆ Pharrell* ┆ Max*    ┆ Luca*   ┆ Amadu*  ┆ Martin*  ┆ Fabio*    ┆ Calvin*   ┆ Maurice   ┆ Lukas*    ┆   ┆ 2.0666  ┆ 8    ┆ 8/MN#1   │
 │ MB#3.0  ┆ 0  ┆           ┆           ┆ Lukas   ┆         ┆         ┆          ┆           ┆           ┆           ┆           ┆   ┆ 0.1134  ┆      ┆          │
 │ MN#3.0  ┆ 3  ┆ Martin*   ┆ Amadu     ┆ Fabio*  ┆ Lukas*  ┆ Micha*  ┆ Luca*    ┆ Calvin*   ┆ Pharrell* ┆ Maurice   ┆ Max*      ┆   ┆ 3.1567  ┆ 8    ┆ 8/MN#1   │
+│ MB#4.0  ┆ -  ┆           ┆           ┆         ┆         ┆         ┆ Amadu    ┆           ┆           ┆           ┆           ┆   ┆ -0.0000 ┆      ┆          │
 │ MB#4.1  ┆ 1  ┆           ┆           ┆         ┆         ┆         ┆          ┆           ┆ Lukas     ┆           ┆           ┆   ┆ 3.7313  ┆      ┆          │
 │ MB#5.0  ┆ 0  ┆           ┆           ┆         ┆         ┆         ┆          ┆           ┆           ┆ Felix     ┆           ┆   ┆ 0.1699  ┆      ┆          │
 │ MN#5.0  ┆ 3  ┆ Pharrell* ┆ Amadu     ┆ Fabio   ┆ Micha*  ┆ Felix*  ┆ Maurice* ┆ Martin*   ┆ Lukas     ┆ Max*      ┆ Luca      ┆   ┆ 1.5742  ┆ 6    ┆ 8/MN#1   │
@@ -528,4 +549,4 @@ MN#10.0 E21
 ╰─────────┴────┴───────────┴───────────┴─────────┴─────────┴─────────┴──────────┴───────────┴───────────┴───────────┴───────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.16s
+Ran in 10.11s

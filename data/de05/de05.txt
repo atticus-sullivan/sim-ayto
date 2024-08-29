@@ -37,15 +37,15 @@ Paulo -> Jana
 
 MN#1.0 E04
 0x Wilson -> Shelly
-0x Sandro -> Edda
 0x Paddy -> Maja
-0x Eti -> Lisa-Marie
-0x Sidar -> Jana
-0x Ryan -> Lina
-0x Martin -> Julia
 0x Gerrit -> Pia
-0x Paulo -> Tais
+0x Eti -> Lisa-Marie
+0x Sandro -> Edda
+0x Martin -> Julia
 0x Kevin -> Sina
+0x Ryan -> Lina
+0x Sidar -> Jana
+0x Paulo -> Tais
 ---
 -> Pr[lights]: {0: 36.0%, 1: 37.1%, 2: 18.8%, 3: 6.2%, 4: 1.5%, 5: 0.3%, 6: 0.0%, 7: 0.0%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Ryan -> Lina
 1 left -> 0.0000 bits left
 
 MN#2.0 E06
+0x Martin -> Lina
 0x Ryan -> Pia
-0x Paulo -> Lisa-Marie
-0x Gerrit -> Tais
-1x Sidar -> Jana
 1x Sandro -> Edda
-0x Eti -> Afra
 0x Paddy -> Shelly
 1x Kevin -> Sina
-0x Martin -> Lina
+0x Gerrit -> Tais
+0x Paulo -> Lisa-Marie
+0x Eti -> Afra
 0x Wilson -> Maja
+1x Sidar -> Jana
 ---
 -> Pr[lights]: {0: 23.9%, 1: 37.5%, 2: 24.9%, 3: 10.1%, 4: 2.9%, 5: 0.6%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 1.331
@@ -161,16 +161,16 @@ Eti -> Melanie
 1 left -> 0.0000 bits left
 
 MN#3.0 E08
-0x Sidar -> Afra
-1x Gerrit -> Tais
+1x Wilson -> Shelly
+0x Ryan -> Jana
 0x Sandro -> Sina
+1x Gerrit -> Tais
+0x Paulo -> Edda
+0x Sidar -> Afra
 0x Eti -> Maja
 0x Kevin -> Melanie
-0x Paulo -> Edda
-0x Paddy -> Julia
-1x Wilson -> Shelly
 0x Martin -> Lisa-Marie
-0x Ryan -> Jana
+0x Paddy -> Julia
 ---
 -> Pr[lights]: {0: 36.5%, 1: 37.3%, 2: 18.4%, 3: 6.0%, 4: 1.5%, 5: 0.3%, 6: 0.0%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 0.999
@@ -213,16 +213,16 @@ Wilson -> Shelly
 1 left -> 0.0000 bits left
 
 MN#4.0 E10
-2x Wilson -> Shelly
 0x Paddy -> Lina
-2x Gerrit -> Tais
-2x Sidar -> Jana
-0x Ryan -> Edda
 1x Martin -> Julia
 2x Kevin -> Sina
-0x Sandro -> Pia
 1x Eti -> Afra
 1x Paulo -> Lisa-Marie
+0x Ryan -> Edda
+2x Gerrit -> Tais
+2x Sidar -> Jana
+0x Sandro -> Pia
+2x Wilson -> Shelly
 ---
 -> Pr[lights]: {1: 5.1%, 2: 36.5%, 3: 37.0%, 4: 17.2%, 5: 3.7%, 6: 0.4%, 7: 0.0%}
 ->  E[lights]: 2.792
@@ -265,16 +265,16 @@ Gerrit -> Tais
 1 left -> 0.0000 bits left
 
 MN#5.0 E12
-1x Ryan -> Jana
 3x Wilson -> Shelly
-1x Sidar -> Afra
-1x Paddy -> Lina
-1x Paulo -> Edda
-3x Gerrit -> Tais
-1x Martin -> Lisa-Marie
-0x Kevin -> Julia
-1x Eti -> Maja
 1x Sandro -> Sina
+1x Eti -> Maja
+3x Gerrit -> Tais
+1x Sidar -> Afra
+1x Ryan -> Jana
+1x Paddy -> Lina
+0x Kevin -> Julia
+1x Martin -> Lisa-Marie
+1x Paulo -> Edda
 ---
 -> Pr[lights]: {3: 44.7%, 4: 39.5%, 5: 15.8%}
 ->  E[lights]: 3.711
@@ -317,16 +317,16 @@ Sandro -> Sina
 1 left -> 0.0000 bits left
 
 MN#6.0 E14
+0x Paulo -> Sina
 0x Sidar -> Julia
-0x Sandro -> Afra
-2x Eti -> Maja
+4x Wilson -> Shelly
 4x Gerrit -> Tais
 2x Martin -> Lisa-Marie
 0x Kevin -> Lina
-0x Paulo -> Sina
 2x Ryan -> Jana
-4x Wilson -> Shelly
+2x Eti -> Maja
 0x Paddy -> Edda
+0x Sandro -> Afra
 ---
 -> Pr[lights]: {3: 18.0%, 4: 37.7%, 5: 31.1%, 6: 6.6%, 7: 3.3%, 8: 3.3%}
 ->  E[lights]: 4.492
@@ -370,15 +370,15 @@ Paulo -> Julia
 
 MN#7.0 E16
 0x Sidar -> Lisa-Marie
-3x Eti -> Maja
-5x Gerrit -> Tais
-0x Sandro -> Julia
-0x Paddy -> Jana
 1x Ryan -> Edda
-1x Kevin -> Lina
-1x Paulo -> Sina
-0x Martin -> Afra
+0x Sandro -> Julia
+5x Gerrit -> Tais
 5x Wilson -> Shelly
+1x Kevin -> Lina
+3x Eti -> Maja
+0x Paddy -> Jana
+0x Martin -> Afra
+1x Paulo -> Sina
 ---
 -> Pr[lights]: {2: 11.1%, 3: 33.3%, 4: 33.3%, 5: 16.7%, 6: 5.6%}
 ->  E[lights]: 3.722
@@ -399,16 +399,36 @@ MN#7.0 E16
 ╰────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────╯
 1 left -> 0.0000 bits left
 
+MB#8.0 E17 -- verkauft
+Eti -> Maja
+---
+Nothing => I = -0.0000 bits
+╭────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────╮
+│        ┆   Sina  ┆   Tais  ┆   Jana  ┆  Julia  ┆   Pia   ┆ Lisa-Marie ┆  Shelly ┆   Afra  ┆   Edda  ┆   Maja  ┆   Lina  ┆ Melanie │
+╞════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ Eti    ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   │
+│ Gerrit ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 │
+│ Kevin  ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   │
+│ Martin ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+│ Paddy  ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+│ Paulo  ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000    ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+│ Ryan   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+│ Sandro ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+│ Sidar  ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 0.000   ┆ 0.000   ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+│ Wilson ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000      ┆ 100.000 ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   ┆ 0.000   │
+╰────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────╯
+1 left -> 0.0000 bits left
+
 MN#8.0 E18
-6x Gerrit -> Tais
+1x Paddy -> Jana
 0x Sidar -> Maja
+2x Paulo -> Sina
 3x Martin -> Lisa-Marie
 2x Eti -> Afra
-1x Paddy -> Jana
-6x Wilson -> Shelly
-2x Kevin -> Lina
+6x Gerrit -> Tais
 2x Ryan -> Edda
-2x Paulo -> Sina
+2x Kevin -> Lina
+6x Wilson -> Shelly
 1x Sandro -> Julia
 ---
 -> Pr[lights]: {4: 100.0%}
@@ -453,15 +473,15 @@ Sandro -> Afra
 
 MN#9.0 E19
 3x Ryan -> Jana
-0x Paddy -> Sina
-3x Kevin -> Lina
+2x Paulo -> Edda
 7x Gerrit -> Tais
+2x Sidar -> Afra
+3x Kevin -> Lina
+0x Paddy -> Sina
+7x Wilson -> Shelly
 2x Sandro -> Julia
 4x Martin -> Lisa-Marie
-2x Paulo -> Edda
 4x Eti -> Maja
-7x Wilson -> Shelly
-2x Sidar -> Afra
 ---
 -> Pr[lights]: {6: 100.0%}
 ->  E[lights]: 6.000
@@ -504,16 +524,16 @@ Kevin -> Lina
 1 left -> 0.0000 bits left
 
 MN#10.0 E20
-0x Sidar -> Sina
-4x Kevin -> Lina
-2x Paulo -> Lisa-Marie
-1x Martin -> Afra
-3x Sandro -> Julia
-8x Wilson -> Shelly
 4x Ryan -> Jana
 8x Gerrit -> Tais
+0x Sidar -> Sina
+2x Paulo -> Lisa-Marie
 1x Paddy -> Edda
+1x Martin -> Afra
+3x Sandro -> Julia
 5x Eti -> Maja
+8x Wilson -> Shelly
+4x Kevin -> Lina
 ---
 -> Pr[lights]: {7: 66.7%, 8: 33.3%}
 ->  E[lights]: 7.333
@@ -536,15 +556,15 @@ MN#10.0 E20
 
 MN#11.0 E21 -- Reunion
 9x Gerrit -> Tais
+5x Ryan -> Jana
+3x Paulo -> Lisa-Marie
+0x Martin -> Sina
+0x Sidar -> Edda
 0x Paddy -> Afra
 6x Eti -> Maja
-3x Paulo -> Lisa-Marie
-5x Ryan -> Jana
 4x Sandro -> Julia
 9x Wilson -> Shelly
 5x Kevin -> Lina
-0x Martin -> Sina
-0x Sidar -> Edda
 ---
 -> Pr[lights]: {6: 50.0%, 10: 50.0%}
 ->  E[lights]: 8.000
@@ -583,6 +603,7 @@ MN#11.0 E21 -- Reunion
 │ MN#6.0  ┆ 5  ┆ Maja        ┆ Tais   ┆ Lina*    ┆ Lisa-Marie  ┆ Edda*   ┆ Sina*       ┆ Jana  ┆ Afra*  ┆ Julia*      ┆ Shelly  ┆   ┆ 1.6828  ┆ 5    ┆ 5/MN#3   │
 │ MB#7.0  ┆ 0  ┆             ┆        ┆          ┆             ┆         ┆ Julia       ┆       ┆        ┆             ┆         ┆   ┆ 0.0780  ┆      ┆          │
 │ MN#7.0  ┆ 5  ┆ Maja        ┆ Tais   ┆ Lina     ┆ Afra*       ┆ Jana*   ┆ Sina        ┆ Edda  ┆ Julia* ┆ Lisa-Marie* ┆ Shelly  ┆   ┆ 2.5850  ┆ 4    ┆ 5/MN#6   │
+│ MB#8.0  ┆ -  ┆ Maja        ┆        ┆          ┆             ┆         ┆             ┆       ┆        ┆             ┆         ┆   ┆ -0.0000 ┆      ┆          │
 │ MN#8.0  ┆ 4  ┆ Afra        ┆ Tais   ┆ Lina     ┆ Lisa-Marie  ┆ Jana    ┆ Sina        ┆ Edda  ┆ Julia  ┆ Maja*       ┆ Shelly  ┆   ┆ -0.0000 ┆ 1    ┆ 3/MN#7   │
 │ MB#9.0  ┆ 0  ┆             ┆        ┆          ┆             ┆         ┆             ┆       ┆ Afra   ┆             ┆         ┆   ┆ -0.0000 ┆      ┆          │
 │ MN#9.0  ┆ 6  ┆ Maja        ┆ Tais   ┆ Lina     ┆ Lisa-Marie  ┆ Sina*   ┆ Edda        ┆ Jana  ┆ Julia  ┆ Afra        ┆ Shelly  ┆   ┆ -0.0000 ┆ 1    ┆ 3/MN#3   │
@@ -592,4 +613,4 @@ MN#11.0 E21 -- Reunion
 ╰─────────┴────┴─────────────┴────────┴──────────┴─────────────┴─────────┴─────────────┴───────┴────────┴─────────────┴─────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 70.06s
+Ran in 68.49s

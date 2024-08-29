@@ -57,14 +57,14 @@ Dorna -> Kenneth
 1 left -> 0.0000 bits left
 
 MN#1.0 E04
-0x Vanessa -> Sasa
-0x Juliette -> Burim
-0x Henna -> Kenneth
-0x Caro -> Barkin
-0x Dorna -> Marwin
 0x Larissa -> Joel
-0x Carina -> Ken
+0x Juliette -> Burim
+0x Caro -> Barkin
 0x Valeria -> Max
+0x Henna -> Kenneth
+0x Vanessa -> Sasa
+0x Dorna -> Marwin
+0x Carina -> Ken
 0x Aurelia -> Deniz
 0x Steffi -> Chris
 ---
@@ -109,16 +109,16 @@ Carina -> Burim
 1 left -> 0.0000 bits left
 
 MN#2.0 E06
-0x Caro -> Max
-1x Vanessa -> Sasa
-0x Valeria -> Pascal
-1x Dorna -> Marwin
-1x Larissa -> Joel
-0x Aurelia -> Burim
-0x Juliette -> Barkin
-1x Carina -> Ken
 1x Henna -> Kenneth
+1x Larissa -> Joel
+1x Dorna -> Marwin
+0x Valeria -> Pascal
+0x Aurelia -> Burim
+1x Carina -> Ken
+1x Vanessa -> Sasa
 1x Steffi -> Chris
+0x Juliette -> Barkin
+0x Caro -> Max
 ---
 -> Pr[lights]: {0: 3.0%, 1: 24.6%, 2: 38.8%, 3: 23.3%, 4: 8.1%, 5: 1.9%, 6: 0.3%, 7: 0.0%}
 ->  E[lights]: 2.156
@@ -161,16 +161,16 @@ Steffi -> Chris
 1 left -> 0.0000 bits left
 
 MN#3.0 E08
-2x Larissa -> Joel
-1x Juliette -> Barkin
 0x Dorna -> Deniz
+1x Juliette -> Barkin
+0x Vanessa -> Marwin
+2x Larissa -> Joel
 0x Henna -> Ken
-1x Valeria -> Max
-0x Caro -> Pascal
 0x Aurelia -> Kenneth
 0x Carina -> Sasa
-0x Vanessa -> Marwin
 2x Steffi -> Chris
+0x Caro -> Pascal
+1x Valeria -> Max
 ---
 -> Pr[lights]: {1: 34.7%, 2: 35.6%, 3: 19.4%, 4: 7.4%, 5: 2.2%, 6: 0.5%, 7: 0.1%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.090
@@ -213,16 +213,16 @@ Valeria -> Max
 1 left -> 0.0000 bits left
 
 MN#4.0 E10
-3x Steffi -> Chris
-1x Caro -> Max
-1x Henna -> Ken
-0x Juliette -> Kenneth
-0x Aurelia -> Marwin
 0x Carina -> Pascal
-2x Vanessa -> Sasa
-0x Larissa -> Deniz
 0x Dorna -> Burim
+1x Henna -> Ken
+2x Vanessa -> Sasa
 0x Valeria -> Joel
+1x Caro -> Max
+0x Larissa -> Deniz
+3x Steffi -> Chris
+0x Aurelia -> Marwin
+0x Juliette -> Kenneth
 ---
 -> Pr[lights]: {1: 33.0%, 2: 36.9%, 3: 20.4%, 4: 7.3%, 5: 1.9%, 6: 0.4%, 7: 0.1%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.098
@@ -265,16 +265,16 @@ Caro -> Ken
 1 left -> 0.0000 bits left
 
 MN#5.0 E12
-2x Henna -> Kenneth
-4x Steffi -> Chris
 3x Vanessa -> Sasa
-1x Carina -> Pascal
-1x Valeria -> Joel
-1x Dorna -> Burim
 1x Larissa -> Deniz
-1x Aurelia -> Marwin
+1x Carina -> Pascal
+4x Steffi -> Chris
 0x Caro -> Ken
+2x Henna -> Kenneth
+1x Dorna -> Burim
 2x Juliette -> Barkin
+1x Aurelia -> Marwin
+1x Valeria -> Joel
 ---
 -> Pr[lights]: {2: 10.6%, 3: 61.8%, 4: 27.6%}
 ->  E[lights]: 3.171
@@ -317,16 +317,16 @@ Dorna -> Burim
 1 left -> 0.0000 bits left
 
 MN#6.0 E14
-1x Caro -> Ken
+0x Larissa -> Marwin
+3x Juliette -> Barkin
 1x Carina -> Sasa
+1x Dorna -> Deniz
+5x Steffi -> Chris
+0x Vanessa -> Joel
 1x Aurelia -> Burim
 3x Henna -> Kenneth
-0x Vanessa -> Joel
-5x Steffi -> Chris
-1x Dorna -> Deniz
-0x Larissa -> Marwin
+1x Caro -> Ken
 1x Valeria -> Pascal
-3x Juliette -> Barkin
 ---
 -> Pr[lights]: {3: 50.0%, 4: 29.2%, 5: 16.7%, 6: 4.2%}
 ->  E[lights]: 3.750
@@ -369,16 +369,16 @@ Juliette -> Joel
 1 left -> 0.0000 bits left
 
 MN#7.0 E16 -- Blackout
-1x Juliette -> Kenneth
-0x Aurelia -> Joel
-6x Steffi -> Chris
-2x Caro -> Ken
 0x Larissa -> Sasa
-0x Vanessa -> Deniz
+2x Valeria -> Pascal
+2x Caro -> Ken
+6x Steffi -> Chris
+0x Dorna -> Barkin
+1x Juliette -> Kenneth
 0x Henna -> Burim
 0x Carina -> Marwin
-2x Valeria -> Pascal
-0x Dorna -> Barkin
+0x Aurelia -> Joel
+0x Vanessa -> Deniz
 ---
 -> Pr[lights]: {2: 60.0%, 3: 30.0%, 4: 5.0%, 5: 5.0%}
 ->  E[lights]: 2.550
@@ -421,16 +421,16 @@ Dorna -> Marwin
 1 left -> 0.0000 bits left
 
 MN#8.0 E18 -- Blackout
-3x Caro -> Ken
 0x Valeria -> Burim
-0x Henna -> Deniz
+4x Juliette -> Barkin
 0x Dorna -> Joel
 2x Aurelia -> Marwin
 7x Steffi -> Chris
-0x Larissa -> Pascal
 4x Vanessa -> Sasa
-4x Juliette -> Barkin
+0x Henna -> Deniz
 0x Carina -> Kenneth
+0x Larissa -> Pascal
+3x Caro -> Ken
 ---
 -> Pr[lights]: {2: 58.3%, 3: 33.3%, 4: 8.3%}
 ->  E[lights]: 2.500
@@ -473,16 +473,16 @@ Carina -> Pascal
 1 left -> 0.0000 bits left
 
 MN#9.0 E21 -- finale
-0x Aurelia -> Pascal
 0x Larissa -> Barkin
+0x Aurelia -> Pascal
 1x Vanessa -> Marwin
-1x Juliette -> Burim
-0x Dorna -> Sasa
-4x Caro -> Ken
 4x Henna -> Kenneth
-8x Steffi -> Chris
+1x Juliette -> Burim
 2x Valeria -> Joel
+0x Dorna -> Sasa
 0x Carina -> Deniz
+4x Caro -> Ken
+8x Steffi -> Chris
 ---
 -> Pr[lights]: {5: 42.9%, 6: 14.3%, 7: 14.3%, 8: 14.3%, 10: 14.3%}
 ->  E[lights]: 6.571
@@ -528,4 +528,4 @@ MN#9.0 E21 -- finale
 ╰────────┴────┴──────────┴──────────┴─────────┴─────────┴──────────┴──────────┴─────────┴────────┴─────────┴─────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 66.76s
+Ran in 66.61s
