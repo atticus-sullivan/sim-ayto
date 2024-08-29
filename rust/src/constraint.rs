@@ -29,6 +29,7 @@ pub type CSVEntry = (f64, f64, String);
 #[derive(Deserialize, Debug, Clone)]
 enum CheckType {
     Eq,
+    Nothing,
     Lights(u8, #[serde(skip)] BTreeMap<u8, u128>),
 }
 
@@ -162,6 +163,7 @@ impl Constraint {
             }
             ConstraintType::Box { .. } => match &self.check {
                 CheckType::Eq => {}
+                CheckType::Nothing => {}
                 CheckType::Lights(_, _) => {
                     ensure!(
                         self.map_s.len() == 1,
@@ -214,37 +216,74 @@ impl Constraint {
 // internal helper functions
 impl Constraint {
     fn show_expected_lights(&self) -> bool {
-        match &self.r#type {
+        let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
             ConstraintType::Box { .. } => false,
+        };
+        r && match &self.check {
+            CheckType::Lights {..} => true,
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
         }
     }
 
     fn show_pr_lights(&self) -> bool {
-        match &self.r#type {
+        let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
             ConstraintType::Box { .. } => true,
+        };
+        r && match &self.check {
+            CheckType::Lights {..} => true,
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
         }
     }
 
     fn show_past_cnt(&self) -> bool {
-        match &self.r#type {
+        let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
             ConstraintType::Box { .. } => false,
+        };
+        r && match &self.check {
+            CheckType::Lights {..} => true,
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
         }
     }
 
     fn show_new(&self) -> bool {
-        match &self.r#type {
+        let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
             ConstraintType::Box { .. } => false,
+        };
+        r && match &self.check {
+            CheckType::Lights {..} => true,
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
         }
     }
 
     fn show_past_dist(&self) -> bool {
-        match &self.r#type {
+        let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
             ConstraintType::Box { .. } => false,
+        };
+        r && match &self.check {
+            CheckType::Lights {..} => true,
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
+        }
+    }
+
+    fn adds_new(&self) -> bool {
+        let r = match &self.r#type {
+            ConstraintType::Night { .. } => true,
+            ConstraintType::Box { .. } => true,
+        };
+        r && match &self.check {
+            CheckType::Lights {..} => true,
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
         }
     }
 
@@ -279,6 +318,9 @@ impl Constraint {
                         })
                         .unwrap()
                 }));
+            }
+            CheckType::Nothing => {
+                fits = Some(true)
             }
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let mut l = 0;
@@ -369,6 +411,7 @@ impl Constraint {
         }
         match &self.check {
             CheckType::Eq => ret.push(Cell::new("E")),
+            CheckType::Nothing => ret.push(Cell::new("-")),
             CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
         }
         ret.extend(map_a.iter().map(|a| {
@@ -377,7 +420,7 @@ impl Constraint {
                     if self.show_new()
                         && !past_constraints
                             .iter()
-                            .any(|&c| c.map_s.get(a).is_some_and(|v2| v2 == b))
+                            .any(|&c| c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b))
                     {
                         Cell::new(format!("{}*", b))
                     } else {
@@ -402,7 +445,7 @@ impl Constraint {
                     .filter(|&(k, v)| {
                         past_constraints
                             .iter()
-                            .any(|&c| c.map.get(k).is_some_and(|v2| v2 == v))
+                            .any(|&c| c.adds_new() && c.map.get(k).is_some_and(|v2| v2 == v))
                     })
                     .count();
             ret.push(Cell::new(cnt.to_string()));
@@ -505,6 +548,7 @@ impl Constraint {
         println!("---");
         match &self.check {
             CheckType::Eq => print!("Eq "),
+            CheckType::Nothing => print!("Nothing "),
             CheckType::Lights(l, ls) => {
                 let total = ls.values().sum::<u128>() as f64;
                 if self.show_pr_lights() {
@@ -909,6 +953,7 @@ mod tests {
         // change amount of lights
         match &mut c.check {
             CheckType::Eq => {}
+            CheckType::Nothing => {}
             CheckType::Lights(l, _) => *l = 1,
         }
         assert!(c.process(&m).unwrap());
