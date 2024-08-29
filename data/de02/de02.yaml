@@ -54,7 +54,7 @@ constraints:
   - type: !Box {num: 2, comment: "E04 -- verkauft?"}
     check: !Nothing
     map:
-      Victoria: Germain
+      Germain: Victoria
 
   - type: !Night {num: 2, comment: "E04"}
     check: !Lights [2]
@@ -130,7 +130,7 @@ constraints:
   - type: !Box {num: 6, comment: "E12 -- verkauft"}
     check: !Nothing
     map:
-      Mirjam: Marc
+      Marc: Mirjam
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [4]

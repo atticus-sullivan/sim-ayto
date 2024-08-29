@@ -93,7 +93,7 @@ constraints:
   - type: !Box {num: 4, comment: "E09 -- verkauft"}
     check: !Nothing
     map:
-      Amadu: Isabelle
+      Isabelle: Amadu
 
   - type: !Box {num: 4.1, comment: "E09 -- Lukas will gehen"}
     check: !Lights [1]

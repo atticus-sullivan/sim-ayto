@@ -102,7 +102,7 @@ constraints:
   - type: !Box {num: 5, comment: "E10 -- verkauft?"}
     check: !Nothing
     map:
-      Melina: Tommy
+      Tommy: Melina
 
   - type: !Night {num: 5, comment: "E10"}
     check: !Lights [3]
