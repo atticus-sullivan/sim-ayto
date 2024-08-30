@@ -30,7 +30,7 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use anyhow::{ensure, Context, Result};
+use anyhow::{anyhow, ensure, Context, Result};
 
 use crate::constraint::Constraint;
 use crate::ruleset::RuleSet;
@@ -269,7 +269,7 @@ impl Game {
         Ok(())
     }
 
-    fn print_rem_transposed(&self, rem: &Rem) -> Option<()> {
+    fn print_rem_transposed(&self, rem: &Rem) -> Result<()> {
         let mut hdr = vec![Cell::new("")];
         hdr.extend(
             self.map_a
@@ -289,21 +289,27 @@ impl Game {
             let row_nr = j;
             let i = self.map_a.iter().enumerate().map(|(i, _)| {
                 if self.rule_set.ignore_pairing(i, j) {
-                    Cell::new("")
+                    Ok(Cell::new(""))
                 } else {
                     let x = rem.0[i][j];
                     let val = (x as f64) / (rem.1 as f64) * 100.0;
                     if 79.0 < val && val < 101.0 {
-                        Cell::new(format!("{:02.3}", val)).fg(Color::Green)
-                    } else if -1.0 < val && val < 1.0 {
-                        Cell::new(format!("{:02.3}", val)).fg(Color::Red)
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Green))
+                    } else if 55.0 <= val {
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Cyan))
+                    } else if 45.0 < val {
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Yellow))
+                    } else if 1.0 < val {
+                        Ok(Cell::new(format!("{:02.3}", val)))
+                    } else if -1.0 < val {
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Red))
                     } else {
-                        Cell::new(format!("{:02.3}", val))
+                        return Err(anyhow!("unexpected value encountered in table {:02.3}", val))
                     }
                 }
             });
             let mut row = vec![Cell::new(a)];
-            row.extend(i);
+            row.extend(i.into_iter().collect::<Result<Vec<_>>>()?);
             if row_nr % 2 == 0 {
                 table.add_row(row.into_iter().map(|i| {
                     i.bg(comfy_table::Color::Rgb {
@@ -318,10 +324,10 @@ impl Game {
         }
         println!("{table}");
         println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
-        Some(())
+        Ok(())
     }
 
-    fn print_rem(&self, rem: &Rem) -> Option<()> {
+    fn print_rem(&self, rem: &Rem) -> Result<()> {
         let mut hdr = vec![Cell::new("")];
         hdr.extend(
             self.map_b
@@ -341,21 +347,27 @@ impl Game {
             let row_nr = i;
             let i = self.map_b.iter().enumerate().map(|(j, _)| {
                 if self.rule_set.ignore_pairing(i, j) {
-                    Cell::new("")
+                    Ok(Cell::new(""))
                 } else {
                     let x = rem.0[i][j];
                     let val = (x as f64) / (rem.1 as f64) * 100.0;
                     if 79.0 < val && val < 101.0 {
-                        Cell::new(format!("{:02.3}", val)).fg(Color::Green)
-                    } else if -1.0 < val && val < 1.0 {
-                        Cell::new(format!("{:02.3}", val)).fg(Color::Red)
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Green))
+                    } else if 55.0 <= val {
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Cyan))
+                    } else if 45.0 < val {
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Yellow))
+                    } else if 1.0 < val {
+                        Ok(Cell::new(format!("{:02.3}", val)))
+                    } else if -1.0 < val {
+                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Red))
                     } else {
-                        Cell::new(format!("{:02.3}", val))
+                        return Err(anyhow!("unexpected value encountered in table {:02.3}", val))
                     }
                 }
             });
             let mut row = vec![Cell::new(a)];
-            row.extend(i);
+            row.extend(i.into_iter().collect::<Result<Vec<_>>>()?);
             if row_nr % 2 == 0 {
                 table.add_row(row.into_iter().map(|i| i.bg(comfy_table::Color::Black)));
             } else {
@@ -364,7 +376,7 @@ impl Game {
         }
         println!("{table}");
         println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
-        Some(())
+        Ok(())
     }
 
     fn dot_tree(
