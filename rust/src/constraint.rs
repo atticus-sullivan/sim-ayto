@@ -581,8 +581,8 @@ impl Constraint {
         }
 
         println!(
-            "=> I = {:.4} bits",
-            self.information.unwrap_or(std::f64::INFINITY)
+            "=> I = {} bits",
+            format!("{:.4}", self.information.unwrap_or(std::f64::INFINITY)).trim_end_matches('0').trim_end_matches('.')
         );
     }
 }

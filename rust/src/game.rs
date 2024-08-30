@@ -294,15 +294,15 @@ impl Game {
                     let x = rem.0[i][j];
                     let val = (x as f64) / (rem.1 as f64) * 100.0;
                     if 79.0 < val && val < 101.0 {
-                        Ok(Cell::new(format!("{:6.3}", val)).fg(Color::Green))
+                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Green))
                     } else if 55.0 <= val {
-                        Ok(Cell::new(format!("{:6.3}", val)).fg(Color::Cyan))
+                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Cyan))
                     } else if 45.0 < val {
-                        Ok(Cell::new(format!("{:6.3}", val)).fg(Color::Yellow))
+                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Yellow))
                     } else if 1.0 < val {
-                        Ok(Cell::new(format!("{:6.3}", val)))
+                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')))
                     } else if -1.0 < val {
-                        Ok(Cell::new(format!("{:6.3}", val)).fg(Color::Red))
+                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Red))
                     } else {
                         return Err(anyhow!("unexpected value encountered in table {:6.3}", val))
                     }
@@ -323,7 +323,7 @@ impl Game {
             }
         }
         println!("{table}");
-        println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
+        println!("{} left -> {} bits left", rem.1, format!("{:.4}", (rem.1 as f64).log2()).trim_end_matches('0').trim_end_matches('.'));
         Ok(())
     }
 
