@@ -36,16 +36,16 @@ Brandon -> Jess
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E01
-0x Alex -> Ellie
-0x Dario -> Ashley
-0x Nathan -> Shelby
-0x John -> Jasmine
 0x Layton -> Jenni
+0x Alex -> Ellie
+0x Nathan -> Shelby
 0x Curtis -> Briana
-0x Garland -> Alex
+0x Dario -> Ashley
+0x John -> Jasmine
 0x Anthony -> Jess
 0x Brandon -> Christina
 0x TylerPratt -> Paris
+0x Garland -> Alex
 ---
 -> Pr[lights]: {0: 36.4%, 1: 37.2%, 2: 18.6%, 3: 6.1%, 4: 1.5%, 5: 0.3%, 6: 0.0%, 7: 0.0%, 8: 0.0%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.001
@@ -88,16 +88,16 @@ Brandon -> Christina
 4872600 left -> 22.2163 bits left
 
 MN#2.0 E02
-0x John -> Ashley
-0x Brandon -> TylerAbron
-1x Curtis -> Briana
-0x Garland -> Jasmine
 0x Layton -> Jess
-1x TylerPratt -> Paris
-0x Anthony -> Alex
-0x Dario -> Shelby
-0x Nathan -> Jenni
 0x Alex -> Christina
+1x TylerPratt -> Paris
+0x Dario -> Shelby
+0x Anthony -> Alex
+0x Nathan -> Jenni
+0x Garland -> Jasmine
+0x Brandon -> TylerAbron
+0x John -> Ashley
+1x Curtis -> Briana
 ---
 -> Pr[lights]: {0: 29.9%, 1: 36.8%, 2: 21.9%, 3: 8.4%, 4: 2.4%, 5: 0.5%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 1.186
@@ -128,4 +128,4 @@ MN#2.0 E02
 ╰────────┴───┴────────────┴─────────┴─────────────┴─────────┴─────────┴──────────┴──────────┴────────┴─────────┴────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1068329  Initial combinations for each pair: 3628800
 
-Ran in 10.27s
+Ran in 10.17s
