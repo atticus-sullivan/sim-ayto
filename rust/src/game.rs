@@ -135,30 +135,27 @@ impl Game {
 
         let mut constr = vec![];
         let mut to_merge = vec![]; // collect hidden constraints to merge them down
-        for c in &is.constraints {
-            if c.hidden {
-                to_merge.push(c);
+        let mut past_constraints: Vec<&Constraint> = Vec::default();
+        for c_ in &is.constraints {
+            if c_.hidden {
+                to_merge.push(c_);
             } else {
-                let mut c = c.clone();
+                let mut c = c_.clone();
                 // merge down previous hidden constraints
                 while !to_merge.is_empty() {
                     c.merge(to_merge.pop().unwrap())?;
                 }
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
+                c.print_hdr(&past_constraints);
+                if print_transposed {
+                    self.print_rem_transposed(&rem).context("Error printing")?;
+                } else {
+                    self.print_rem(&rem).context("Error printing")?;
+                }
+                past_constraints.push(&c_);
+                println!();
                 constr.push(c);
             }
-        }
-
-        let mut past_constraints: Vec<&Constraint> = Vec::default();
-        for c in &constr {
-            c.print_hdr(&past_constraints);
-            if print_transposed {
-                self.print_rem_transposed(&rem).context("Error printing")?;
-            } else {
-                self.print_rem(&rem).context("Error printing")?;
-            }
-            past_constraints.push(&c);
-            println!();
         }
 
         if self.tree_gen {
