@@ -221,7 +221,7 @@ impl Constraint {
             ConstraintType::Box { .. } => false,
         };
         r && match &self.check {
-            CheckType::Lights {..} => true,
+            CheckType::Lights { .. } => true,
             CheckType::Eq => false,
             CheckType::Nothing => false,
         }
@@ -233,7 +233,7 @@ impl Constraint {
             ConstraintType::Box { .. } => true,
         };
         r && match &self.check {
-            CheckType::Lights {..} => true,
+            CheckType::Lights { .. } => true,
             CheckType::Eq => false,
             CheckType::Nothing => false,
         }
@@ -245,7 +245,7 @@ impl Constraint {
             ConstraintType::Box { .. } => false,
         };
         r && match &self.check {
-            CheckType::Lights {..} => true,
+            CheckType::Lights { .. } => true,
             CheckType::Eq => false,
             CheckType::Nothing => false,
         }
@@ -257,7 +257,7 @@ impl Constraint {
             ConstraintType::Box { .. } => false,
         };
         r && match &self.check {
-            CheckType::Lights {..} => true,
+            CheckType::Lights { .. } => true,
             CheckType::Eq => false,
             CheckType::Nothing => false,
         }
@@ -269,7 +269,7 @@ impl Constraint {
             ConstraintType::Box { .. } => false,
         };
         r && match &self.check {
-            CheckType::Lights {..} => true,
+            CheckType::Lights { .. } => true,
             CheckType::Eq => false,
             CheckType::Nothing => false,
         }
@@ -281,7 +281,7 @@ impl Constraint {
             ConstraintType::Box { .. } => true,
         };
         r && match &self.check {
-            CheckType::Lights {..} => true,
+            CheckType::Lights { .. } => true,
             CheckType::Eq => false,
             CheckType::Nothing => false,
         }
@@ -319,9 +319,7 @@ impl Constraint {
                         .unwrap()
                 }));
             }
-            CheckType::Nothing => {
-                fits = Some(true)
-            }
+            CheckType::Nothing => fits = Some(true),
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let mut l = 0;
                 for (i1, i2) in self.map.iter() {
