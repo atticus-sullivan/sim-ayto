@@ -36,16 +36,16 @@ Marc-Robin -> LauraL
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E04
-0x Lars -> Nadja
 0x Lukas -> Jenny
-0x Marc-Robin -> Anastasia
 0x Nikola -> Tara
-0x Ozan -> Gabriela
-0x Alex -> LauraL
-0x Chris -> Emmy
 0x Tim -> Linda
-0x Antonino -> LauraM
 0x Kaan -> Asena
+0x Antonino -> LauraM
+0x Marc-Robin -> Anastasia
+0x Lars -> Nadja
+0x Ozan -> Gabriela
+0x Chris -> Emmy
+0x Alex -> LauraL
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -88,16 +88,16 @@ Chris -> Emmy
 1067976 left -> 20.0264 bits left
 
 MN#2.0 E06
-1x Tim -> Linda
-0x Alex -> Jenny
 0x Lars -> Anastasia
-0x Lukas -> LauraM
-0x Antonino -> Dana
-1x Chris -> Emmy
-0x Kaan -> Nadja
-0x Marc-Robin -> Asena
-1x Nikola -> Tara
+1x Tim -> Linda
 0x Ozan -> LauraL
+0x Alex -> Jenny
+0x Lukas -> LauraM
+0x Marc-Robin -> Asena
+1x Chris -> Emmy
+1x Nikola -> Tara
+0x Antonino -> Dana
+0x Kaan -> Nadja
 ---
 -> Pr[lights]: {1: 36.2%, 2: 36.9%, 3: 18.7%, 4: 6.3%, 5: 1.6%, 6: 0.3%, 7: 0.0%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 2.014
@@ -139,16 +139,16 @@ Nothing => I = -0.0000 bits
 199733 left -> 17.6077 bits left
 
 MN#3.0 E08
-0x Lukas -> Linda
-0x Nikola -> LauraL
-1x Marc-Robin -> Asena
-2x Chris -> Emmy
 0x Antonino -> Nadja
-0x Kaan -> Jenny
-0x Alex -> Anastasia
-0x Lars -> Gabriela
 0x Tim -> Dana
+0x Lars -> Gabriela
+0x Lukas -> Linda
+0x Kaan -> Jenny
+2x Chris -> Emmy
+0x Alex -> Anastasia
+1x Marc-Robin -> Asena
 0x Ozan -> LauraM
+0x Nikola -> LauraL
 ---
 -> Pr[lights]: {1: 34.2%, 2: 36.9%, 3: 19.8%, 4: 6.9%, 5: 1.8%, 6: 0.3%, 7: 0.1%, 8: 0.0%, 9: 0.0%}
 ->  E[lights]: 2.065
@@ -192,15 +192,15 @@ Marc-Robin -> Asena
 
 MN#4.0 E10 -- blackout
 0x Lukas -> Gabriela
-0x Nikola -> Anastasia
-1x Kaan -> Asena
-3x Chris -> Emmy
-0x Tim -> LauraL
-0x Lars -> Tara
-1x Alex -> Jenny
 0x Marc-Robin -> Linda
-1x Antonino -> Nadja
+0x Nikola -> Anastasia
+3x Chris -> Emmy
+0x Lars -> Tara
+0x Tim -> LauraL
 1x Ozan -> LauraM
+1x Antonino -> Nadja
+1x Alex -> Jenny
+1x Kaan -> Asena
 ---
 -> Pr[lights]: {1: 28.3%, 2: 35.8%, 3: 22.3%, 4: 9.4%, 5: 3.1%, 6: 0.8%, 7: 0.2%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.266
@@ -242,16 +242,16 @@ Nothing => I = -0.0000 bits
 5927 left -> 12.5331 bits left
 
 MN#5.0 E12
+4x Chris -> Emmy
+0x Kaan -> Tara
 0x Antonino -> Asena
+1x Lukas -> Jenny
+2x Tim -> Linda
+1x Lars -> Nadja
 1x Nikola -> LauraL
 0x Alex -> Gabriela
-2x Tim -> Linda
-1x Marc-Robin -> Anastasia
-4x Chris -> Emmy
 0x Ozan -> Dana
-0x Kaan -> Tara
-1x Lukas -> Jenny
-1x Lars -> Nadja
+1x Marc-Robin -> Anastasia
 ---
 -> Pr[lights]: {1: 27.9%, 2: 35.6%, 3: 25.6%, 4: 9.2%, 5: 1.7%, 6: 0.1%}
 ->  E[lights]: 2.215
@@ -288,4 +288,4 @@ MN#5.0 E12
 ╰────────┴───┴────────────┴──────────┴───────┴────────┴────────────┴───────────┴────────────┴────────────┴───────────┴─────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 99  Initial combinations for each pair: 3628800
 
-Ran in 12.20s
+Ran in 11.81s

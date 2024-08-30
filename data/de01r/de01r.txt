@@ -36,16 +36,16 @@ Danilo -> Finnja
 32659200 left -> 24.9610 bits left
 
 MN#1.0 E02
-0x Danilo -> Stefanie
 0x Alexander -> Jules
-0x Salvatore -> Jacqueline
-0x Tommy -> Melina
-0x Josua -> Sarah
 0x Francesco -> Finnja
-0x Manuel -> Kathleen
-0x Eugen -> Walentina
-0x Diogo -> Aurelia
+0x Salvatore -> Jacqueline
 0x Jamy -> Jill
+0x Danilo -> Stefanie
+0x Eugen -> Walentina
+0x Manuel -> Kathleen
+0x Tommy -> Melina
+0x Diogo -> Aurelia
+0x Josua -> Sarah
 ---
 -> Pr[lights]: {0: 36.3%, 1: 36.8%, 2: 18.6%, 3: 6.3%, 4: 1.6%, 5: 0.3%, 6: 0.1%, 7: 0.0%, 8: 0.0%, 10: 0.0%}
 ->  E[lights]: 1.012
@@ -109,16 +109,16 @@ Tommy -> Walentina
 128781 left -> 16.9746 bits left
 
 MN#3.0 E06
-0x Alexander -> Finnja
-0x Danilo -> Sarah
-1x Jamy -> Jill
-0x Francesco -> Jules
 1x Diogo -> Aurelia
+0x Alexander -> Finnja
 1x Manuel -> Kathleen
-0x Josua -> Walentina
-0x Eugen -> Stefanie
-1x Salvatore -> Jacqueline
 1x Tommy -> Melina
+0x Eugen -> Stefanie
+1x Jamy -> Jill
+0x Danilo -> Sarah
+1x Salvatore -> Jacqueline
+0x Francesco -> Jules
+0x Josua -> Walentina
 ---
 -> Pr[lights]: {1: 1.9%, 2: 24.8%, 3: 38.6%, 4: 23.0%, 5: 8.5%, 6: 2.7%, 7: 0.5%, 8: 0.1%}
 ->  E[lights]: 3.222
@@ -160,16 +160,16 @@ Nothing => I = -0.0000 bits
 49698 left -> 15.6009 bits left
 
 MN#4.0 E08
-1x Francesco -> Jules
 0x Salvatore -> Walentina
-0x Alexander -> Stefanie
-0x Danilo -> Melina
-2x Manuel -> Kathleen
-0x Eugen -> Finnja
-0x Jamy -> Vanessa
 1x Josua -> Sarah
 2x Diogo -> Aurelia
+0x Alexander -> Stefanie
+0x Eugen -> Finnja
+0x Danilo -> Melina
+0x Jamy -> Vanessa
 0x Tommy -> Jill
+1x Francesco -> Jules
+2x Manuel -> Kathleen
 ---
 -> Pr[lights]: {1: 14.2%, 2: 33.0%, 3: 29.0%, 4: 15.5%, 5: 5.9%, 6: 1.9%, 7: 0.4%, 8: 0.1%, 9: 0.0%, 10: 0.0%}
 ->  E[lights]: 2.738
@@ -211,16 +211,16 @@ Nothing => I = -0.0000 bits
 7703 left -> 12.9112 bits left
 
 MN#5.0 E10
+0x Salvatore -> Kathleen
+0x Danilo -> Aurelia
+2x Tommy -> Melina
 2x Francesco -> Jules
 0x Diogo -> Vanessa
-2x Tommy -> Melina
 0x Manuel -> Jill
-0x Danilo -> Aurelia
-0x Jamy -> Stefanie
-0x Salvatore -> Kathleen
-1x Josua -> Walentina
-0x Alexander -> Sarah
 1x Eugen -> Finnja
+0x Alexander -> Sarah
+1x Josua -> Walentina
+0x Jamy -> Stefanie
 ---
 -> Pr[lights]: {1: 35.3%, 2: 35.2%, 3: 20.1%, 4: 7.1%, 5: 1.9%, 6: 0.4%, 7: 0.0%}
 ->  E[lights]: 2.064
@@ -263,16 +263,16 @@ Salvatore -> Finnja
 1432 left -> 10.4838 bits left
 
 MN#6.0 E12
-1x Alexander -> Stefanie
-3x Diogo -> Aurelia
-0x Jamy -> Sarah
-2x Eugen -> Finnja
-3x Tommy -> Melina
+2x Salvatore -> Jacqueline
 0x Danilo -> Jill
 3x Francesco -> Jules
-3x Manuel -> Kathleen
-2x Salvatore -> Jacqueline
+3x Diogo -> Aurelia
 2x Josua -> Walentina
+1x Alexander -> Stefanie
+2x Eugen -> Finnja
+0x Jamy -> Sarah
+3x Manuel -> Kathleen
+3x Tommy -> Melina
 ---
 -> Pr[lights]: {2: 4.8%, 3: 36.5%, 4: 41.4%, 5: 15.7%, 6: 1.6%}
 ->  E[lights]: 3.728
@@ -315,15 +315,15 @@ Eugen -> Finnja
 274 left -> 8.0980 bits left
 
 MN#7.0 E14
-0x Jamy -> Finnja
-4x Francesco -> Jules
-1x Diogo -> Vanessa
-4x Manuel -> Kathleen
-1x Danilo -> Aurelia
-0x Eugen -> Jill
-2x Josua -> Sarah
-4x Tommy -> Melina
 0x Alexander -> Jacqueline
+0x Eugen -> Jill
+4x Francesco -> Jules
+4x Manuel -> Kathleen
+1x Diogo -> Vanessa
+0x Jamy -> Finnja
+1x Danilo -> Aurelia
+4x Tommy -> Melina
+2x Josua -> Sarah
 1x Salvatore -> Walentina
 ---
 -> Pr[lights]: {1: 4.7%, 2: 19.3%, 3: 12.4%, 4: 23.0%, 5: 23.4%, 6: 9.5%, 7: 4.0%, 8: 1.1%, 9: 2.6%}
@@ -367,16 +367,16 @@ Eugen -> Stefanie
 53 left -> 5.7279 bits left
 
 MN#8.0 E16
-0x Alexander -> Melina
-0x Manuel -> Finnja
-0x Salvatore -> Jill
 0x Tommy -> Stefanie
 3x Josua -> Walentina
-2x Diogo -> Vanessa
-2x Danilo -> Aurelia
 0x Eugen -> Jacqueline
+0x Salvatore -> Jill
+0x Manuel -> Finnja
 5x Francesco -> Jules
 1x Jamy -> Sarah
+0x Alexander -> Melina
+2x Danilo -> Aurelia
+2x Diogo -> Vanessa
 ---
 -> Pr[lights]: {1: 54.7%, 2: 41.5%, 3: 3.8%}
 ->  E[lights]: 1.491
@@ -440,16 +440,16 @@ Tommy -> Melina
 19 left -> 4.2479 bits left
 
 MN#9.0 E18
+0x Tommy -> Finnja
+0x Eugen -> Melina
 5x Manuel -> Kathleen
 1x Alexander -> Sarah
-0x Eugen -> Melina
+4x Diogo -> Aurelia
+6x Francesco -> Jules
+1x Danilo -> Jill
 1x Jamy -> Stefanie
 0x Josua -> Vanessa
 2x Salvatore -> Walentina
-6x Francesco -> Jules
-0x Tommy -> Finnja
-1x Danilo -> Jill
-4x Diogo -> Aurelia
 ---
 -> Pr[lights]: {3: 5.3%, 4: 42.1%, 5: 42.1%, 6: 10.5%}
 ->  E[lights]: 4.579
@@ -492,16 +492,16 @@ Josua -> Aurelia
 6 left -> 2.5850 bits left
 
 MN#10.0 E20
-1x Tommy -> Finnja
-0x Diogo -> Jill
-1x Danilo -> Sarah
-6x Manuel -> Kathleen
-2x Jamy -> Stefanie
 1x Eugen -> Walentina
 3x Salvatore -> Jacqueline
-7x Francesco -> Jules
-0x Alexander -> Vanessa
+1x Danilo -> Sarah
+2x Jamy -> Stefanie
 0x Josua -> Aurelia
+7x Francesco -> Jules
+6x Manuel -> Kathleen
+1x Tommy -> Finnja
+0x Alexander -> Vanessa
+0x Diogo -> Jill
 ---
 -> Pr[lights]: {6: 83.3%, 7: 16.7%}
 ->  E[lights]: 6.167
@@ -548,4 +548,4 @@ MN#10.0 E20
 ╰─────────┴───┴─────────────┴───────────┴──────────┴─────────────┴────────────┴───────────┴─────────────┴───────────┴───────────┴───────────┴───┴─────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.55s
+Ran in 10.34s
