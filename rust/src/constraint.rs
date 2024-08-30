@@ -396,7 +396,7 @@ impl Constraint {
         self.left_after = Some(rem.1);
 
         let tmp = 1.0 - (self.eliminated as f64) / (rem.1 + self.eliminated) as f64;
-        self.information = if tmp > 0.0 { Some(-tmp.log2()) } else { None };
+        self.information = if tmp == 1.0 { Some(0.0) } else if tmp > 0.0 { Some(-tmp.log2()) } else { None };
 
         Some(rem)
     }
@@ -554,16 +554,25 @@ impl Constraint {
                     println!(
                         "-> I[l]/bits: {{{}}}",
                         ls.iter()
-                            .map(|(l, c)| format!("{}: {:.2}", l, -(*c as f64 / total).log2()))
+                            .map(|(l, c)| {
+                                let mut i = -(*c as f64 / total).log2();
+                                if i == -0.0 {
+                                    i = 0.0;
+                                }
+                                format!("{}: {:.2}", l, i)
+                            })
                             .collect::<Vec<_>>()
                             .join(", ")
                     );
                 }
                 if self.show_expected_information() {
-                    let expected: f64 = ls.iter().map(|(_, c)|{
+                    let mut expected: f64 = ls.iter().map(|(_, c)|{
                         let p = *c as f64 / total;
                         p * p.log2()
                     }).sum();
+                    if expected == 0.0 {
+                        expected = -0.0;
+                    }
                     println!("-> E[I]/bits: {:.2}", -expected);
                 }
 
