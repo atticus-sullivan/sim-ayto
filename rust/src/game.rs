@@ -127,9 +127,9 @@ impl Game {
             is.total,
         );
         if print_transposed {
-            self.print_rem_transposed(&rem).context("Error printing")?;
+            self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
         } else {
-            self.print_rem(&rem).context("Error printing")?;
+            self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v,h| (v,h)).context("Error printing")?;
         }
         println!();
 
@@ -148,9 +148,9 @@ impl Game {
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
                 c.print_hdr(&past_constraints);
                 if print_transposed {
-                    self.print_rem_transposed(&rem).context("Error printing")?;
+                    self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
                 } else {
-                    self.print_rem(&rem).context("Error printing")?;
+                    self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v,h| (v,h)).context("Error printing")?;
                 }
                 past_constraints.push(&c_);
                 println!();
@@ -269,10 +269,10 @@ impl Game {
         Ok(())
     }
 
-    fn print_rem_transposed(&self, rem: &Rem) -> Result<()> {
+    fn print_rem_generic(&self, rem: &Rem, map_vert: &Vec<String>, map_hor: &Vec<String>, norm_idx: fn(v:usize,h:usize) -> (usize,usize)) -> Result<()> {
         let mut hdr = vec![Cell::new("")];
         hdr.extend(
-            self.map_a
+            map_hor
                 .iter()
                 .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
         );
@@ -285,9 +285,9 @@ impl Game {
             .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
 
-        for (j, a) in self.map_b.iter().enumerate() {
-            let row_nr = j;
-            let i = self.map_a.iter().enumerate().map(|(i, _)| {
+        for (v, a) in map_vert.iter().enumerate() {
+            let i = map_hor.iter().enumerate().map(|(h, _)| {
+                let (i,j) = norm_idx(v,h);
                 if self.rule_set.ignore_pairing(i, j) {
                     Ok(Cell::new(""))
                 } else {
@@ -310,7 +310,7 @@ impl Game {
             });
             let mut row = vec![Cell::new(a)];
             row.extend(i.into_iter().collect::<Result<Vec<_>>>()?);
-            if row_nr % 2 == 0 {
+            if v % 2 == 0 {
                 table.add_row(row.into_iter().map(|i| {
                     i.bg(comfy_table::Color::Rgb {
                         r: 41,
@@ -318,58 +318,6 @@ impl Game {
                         b: 60,
                     })
                 }));
-            } else {
-                table.add_row(row);
-            }
-        }
-        println!("{table}");
-        println!("{} left -> {:.4} bits left", rem.1, (rem.1 as f64).log2());
-        Ok(())
-    }
-
-    fn print_rem(&self, rem: &Rem) -> Result<()> {
-        let mut hdr = vec![Cell::new("")];
-        hdr.extend(
-            self.map_b
-                .iter()
-                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
-        );
-
-        let mut table = Table::new();
-        table
-            .force_no_tty()
-            .enforce_styling()
-            .load_preset(UTF8_FULL_CONDENSED)
-            .apply_modifier(UTF8_ROUND_CORNERS)
-            .set_header(hdr);
-
-        for (i, a) in self.map_a.iter().enumerate() {
-            let row_nr = i;
-            let i = self.map_b.iter().enumerate().map(|(j, _)| {
-                if self.rule_set.ignore_pairing(i, j) {
-                    Ok(Cell::new(""))
-                } else {
-                    let x = rem.0[i][j];
-                    let val = (x as f64) / (rem.1 as f64) * 100.0;
-                    if 79.0 < val && val < 101.0 {
-                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Green))
-                    } else if 55.0 <= val {
-                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Cyan))
-                    } else if 45.0 < val {
-                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Yellow))
-                    } else if 1.0 < val {
-                        Ok(Cell::new(format!("{:02.3}", val)))
-                    } else if -1.0 < val {
-                        Ok(Cell::new(format!("{:02.3}", val)).fg(Color::Red))
-                    } else {
-                        return Err(anyhow!("unexpected value encountered in table {:02.3}", val))
-                    }
-                }
-            });
-            let mut row = vec![Cell::new(a)];
-            row.extend(i.into_iter().collect::<Result<Vec<_>>>()?);
-            if row_nr % 2 == 0 {
-                table.add_row(row.into_iter().map(|i| i.bg(comfy_table::Color::Black)));
             } else {
                 table.add_row(row);
             }
