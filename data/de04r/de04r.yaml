@@ -117,8 +117,8 @@ constraints:
   - type: !Box {num: 5, comment: "E11 -- verkauft d Gabby"}
     check: !Nothing
     map:
-      Kaan: Tara
-      # Nikola: LauraM
+      # Kaan: Tara
+      Nikola: LauraM
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [5]
@@ -136,5 +136,7 @@ constraints:
       # LauraM
 
   # - type: !Box {num: 6, comment: "E13"}
-  #   check: !Lights [0]
+  #   check: !Lights [?]
   #   map:
+  #     # Marc-Robin: LauraM
+  #     Ozan: Anastasia
