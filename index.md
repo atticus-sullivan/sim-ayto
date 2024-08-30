@@ -57,9 +57,9 @@ Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Cons
 
 Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Möglichkeiten noch übrig sind) ist der Versuch einzuschätzen wie viel eine Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das ganze kommt aus der Informationstheorie.
 
-`Pr[lights]`: Zeigt an wie Wahrscheinlich welche Anzahl an Lichtern ist nachdem festgelegt wurde wer in die Matchbox geht / miteinander sitzt (aber das Ergebnis eben nocht nicht bekannt ist).
+`I[l/bits]`: Zeigt an wieviel Information mit dieser Entscheidung gewonnen wird angenommen die jeweilige Anzahl an Lichtern leuchten. Mittels $2^{-I}$ kann man falls gewünscht auf die Wahrscheinlichkeit zurückrechnen.
 
-`E[lights]`: Ist der Erwartungswert, wieviele Lichter im Schnitt angehen sollten.
+`E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
 
 Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein Stern in dieser Tabelle bedeutet, dass das Match das erste mal so zusammensaß. Eine kleine Übersicht über die nicht so intuitiven Spalten:
 - `L` die Anzahl der Lichter

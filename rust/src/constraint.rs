@@ -62,7 +62,7 @@ pub struct Constraint {
     eliminated_tab: Vec<Vec<u128>>,
 
     #[serde(skip)]
-    entropy: Option<f64>,
+    information: Option<f64>,
     #[serde(skip)]
     left_after: Option<u128>,
 }
@@ -215,10 +215,10 @@ impl Constraint {
 
 // internal helper functions
 impl Constraint {
-    fn show_expected_lights(&self) -> bool {
+    fn show_lights_information(&self) -> bool {
         let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
-            ConstraintType::Box { .. } => false,
+            ConstraintType::Box { .. } => true,
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
@@ -227,7 +227,7 @@ impl Constraint {
         }
     }
 
-    fn show_pr_lights(&self) -> bool {
+    fn show_expected_information(&self) -> bool {
         let r = match &self.r#type {
             ConstraintType::Night { .. } => true,
             ConstraintType::Box { .. } => true,
@@ -379,7 +379,7 @@ impl Constraint {
                 *e += other.eliminated_tab[i][j];
             }
         }
-        self.entropy = None;
+        self.information = None;
         self.left_after = None;
         Ok(())
     }
@@ -396,7 +396,7 @@ impl Constraint {
         self.left_after = Some(rem.1);
 
         let tmp = 1.0 - (self.eliminated as f64) / (rem.1 + self.eliminated) as f64;
-        self.entropy = if tmp > 0.0 { Some(-tmp.log2()) } else { None };
+        self.information = if tmp == 1.0 { Some(0.0) } else if tmp > 0.0 { Some(-tmp.log2()) } else { None };
 
         Some(rem)
     }
@@ -431,7 +431,7 @@ impl Constraint {
         ret.push(Cell::new(String::from("")));
         ret.push(Cell::new(format!(
             "{:.4}",
-            self.entropy.unwrap_or(std::f64::INFINITY)
+            self.information.unwrap_or(std::f64::INFINITY)
         )));
 
         // show how many new matches are present
@@ -499,7 +499,7 @@ impl Constraint {
                 None,
                 Some((
                     num.into(),
-                    self.entropy.unwrap_or(std::f64::INFINITY),
+                    self.information.unwrap_or(std::f64::INFINITY),
                     meta_a,
                 )),
                 Some((
@@ -511,7 +511,7 @@ impl Constraint {
             ConstraintType::Box { num, .. } => Ok([
                 Some((
                     num.into(),
-                    self.entropy.unwrap_or(std::f64::INFINITY),
+                    self.information.unwrap_or(std::f64::INFINITY),
                     meta_a,
                 )),
                 None,
@@ -549,26 +549,40 @@ impl Constraint {
             CheckType::Nothing => print!("Nothing "),
             CheckType::Lights(l, ls) => {
                 let total = ls.values().sum::<u128>() as f64;
-                if self.show_pr_lights() {
+                // information theory
+                if self.show_lights_information() {
                     println!(
-                        "-> Pr[lights]: {{{}}}",
+                        "-> I[l]/bits: {{{}}}",
                         ls.iter()
-                            .map(|(l, c)| format!("{}: {:.1}%", l, (c * 100) as f64 / total))
+                            .map(|(l, c)| {
+                                let mut i = -(*c as f64 / total).log2();
+                                if i == -0.0 {
+                                    i = 0.0;
+                                }
+                                format!("{}: {:.2}", l, i)
+                            })
                             .collect::<Vec<_>>()
                             .join(", ")
                     );
                 }
-                if self.show_expected_lights() {
-                    let expected: f64 = ls.iter().map(|(l, c)| *l as f64 * *c as f64 / total).sum();
-                    println!("->  E[lights]: {:.3}", expected);
+                if self.show_expected_information() {
+                    let mut expected: f64 = ls.iter().map(|(_, c)|{
+                        let p = *c as f64 / total;
+                        p * p.log2()
+                    }).sum();
+                    if expected == 0.0 {
+                        expected = -0.0;
+                    }
+                    println!("-> E[I]/bits: {:.2}", -expected);
                 }
+
                 print!("{} lights ", l);
             }
         }
 
         println!(
-            "=> I = {:.4} bits",
-            self.entropy.unwrap_or(std::f64::INFINITY)
+            "=> I = {} bits",
+            format!("{:.4}", self.information.unwrap_or(std::f64::INFINITY)).trim_end_matches('0').trim_end_matches('.')
         );
     }
 }
@@ -611,7 +625,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -662,7 +676,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -714,7 +728,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -748,7 +762,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -791,7 +805,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -836,7 +850,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -879,7 +893,7 @@ mod tests {
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![],
-            entropy: None,
+            information: None,
             left_after: None,
         };
 
@@ -911,7 +925,7 @@ mod tests {
                 vec![0, 0, 0, 0, 0],
                 vec![0, 0, 0, 0, 0],
             ],
-            entropy: None,
+            information: None,
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -937,7 +951,7 @@ mod tests {
                 vec![0, 0, 0, 0, 0],
                 vec![0, 0, 0, 0, 0],
             ],
-            entropy: None,
+            information: None,
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -973,7 +987,7 @@ mod tests {
                 vec![0, 0, 0, 0, 0],
                 vec![0, 0, 0, 0, 0],
             ],
-            entropy: None,
+            information: None,
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
@@ -1009,7 +1023,7 @@ mod tests {
                 vec![0, 0, 0, 0, 0],
                 vec![0, 0, 0, 0, 0],
             ],
-            entropy: None,
+            information: None,
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
@@ -1093,7 +1107,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(4.5),
+            information: Some(4.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -1115,7 +1129,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -1138,7 +1152,7 @@ mod tests {
             ]
         );
 
-        assert_eq!(c_a.entropy, None);
+        assert_eq!(c_a.information, None);
         assert_eq!(c_a.left_after, None);
     }
 
@@ -1163,7 +1177,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -1226,7 +1240,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
@@ -1334,7 +1348,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -1367,7 +1381,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
@@ -1400,7 +1414,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
@@ -1433,7 +1447,7 @@ mod tests {
                 vec![0, 0, 2, 0, 3],
                 vec![0, 6, 0, 5, 0],
             ],
-            entropy: Some(3.5),
+            information: Some(3.5),
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
