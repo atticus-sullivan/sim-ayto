@@ -12,7 +12,7 @@ setA:
   - Kaan
   - Lars
   - Lukas
-  - Marc-Robin
+  - MarcRobin
   - Nikola
   - Ozan
   - Tim
@@ -35,7 +35,7 @@ constraints:
     check: !Lights [0]
     map:
       # Tara: Nikola
-      Marc-Robin: LauraL
+      MarcRobin: LauraL
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [2]
@@ -49,7 +49,7 @@ constraints:
       Alex: LauraL
       Ozan: Gabriela
       Antonino: LauraM
-      Marc-Robin: Anastasia
+      MarcRobin: Anastasia
 
   - type: !Box {num: 2, comment: "E05"}
     check: !Lights [1]
@@ -65,7 +65,7 @@ constraints:
       Lars: Anastasia
       Kaan: Nadja
       Tim: Linda
-      Marc-Robin: Asena
+      MarcRobin: Asena
       Ozan: LauraL
       Nikola: Tara
       Lukas: LauraM
@@ -84,7 +84,7 @@ constraints:
       Chris: Emmy
       Kaan: Jenny
       Alex: Anastasia
-      Marc-Robin: Asena
+      MarcRobin: Asena
       Tim: Dana
       Antonino: Nadja
       Lukas: Linda
@@ -97,7 +97,7 @@ constraints:
     check: !Lights [0]
     map:
       # Ozan: Nadja
-      Marc-Robin: Asena
+      MarcRobin: Asena
 
   - type: !Night {num: 4, comment: "E10 -- blackout"}
     check: !Lights [1]
@@ -110,7 +110,7 @@ constraints:
       Tim: LauraL
       Lukas: Gabriela
       Alex: Jenny
-      Marc-Robin: Linda
+      MarcRobin: Linda
       Kaan: Asena
       # Kaan: Dana
 
@@ -125,7 +125,7 @@ constraints:
     map:
       Chris: Emmy
       Ozan: Dana
-      Marc-Robin: Anastasia
+      MarcRobin: Anastasia
       Kaan: Tara
       Antonino: Asena
       Nikola: LauraL
@@ -138,5 +138,5 @@ constraints:
   # - type: !Box {num: 6, comment: "E13"}
   #   check: !Lights [?]
   #   map:
-  #     # Marc-Robin: LauraM
+  #     # MarcRobin: LauraM
   #     Ozan: Anastasia
