@@ -429,10 +429,16 @@ impl Constraint {
             }
         }));
         ret.push(Cell::new(String::from("")));
-        ret.push(Cell::new(format!(
-            "{:6.4}",
-            self.information.unwrap_or(std::f64::INFINITY)
-        ).trim_end_matches('0').trim_end_matches('.')));
+
+        match &self.check {
+            CheckType::Eq | CheckType::Lights(..) => {
+                ret.push(Cell::new(format!(
+                    "{:6.4}",
+                    self.information.unwrap_or(std::f64::INFINITY)
+                ).trim_end_matches('0').trim_end_matches('.')))
+            }
+            CheckType::Nothing => ret.push(Cell::new(String::from(""))),
+        }
 
         // show how many new matches are present
         if let ConstraintType::Night { .. } = self.r#type {
