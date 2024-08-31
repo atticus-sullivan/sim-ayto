@@ -59,14 +59,14 @@ Dorna -> Kenneth
 161844480 left -> 27.27 bits left
 
 MN#1.0 E04
-0x Valeria -> Max
-0x Henna -> Kenneth
-0x Carina -> Ken
 0x Steffi -> Chris
-0x Caro -> Barkin
-0x Vanessa -> Sasa
-0x Juliette -> Burim
 0x Aurelia -> Deniz
+0x Juliette -> Burim
+0x Carina -> Ken
+0x Vanessa -> Sasa
+0x Henna -> Kenneth
+0x Caro -> Barkin
+0x Valeria -> Max
 0x Larissa -> Joel
 0x Dorna -> Marwin
 ---
@@ -112,16 +112,16 @@ Carina -> Burim
 9524347 left -> 23.1832 bits left
 
 MN#2.0 E06
-1x Steffi -> Chris
 0x Aurelia -> Burim
-0x Valeria -> Pascal
-1x Dorna -> Marwin
+1x Vanessa -> Sasa
+0x Juliette -> Barkin
 1x Larissa -> Joel
+0x Valeria -> Pascal
 1x Carina -> Ken
 0x Caro -> Max
 1x Henna -> Kenneth
-1x Vanessa -> Sasa
-0x Juliette -> Barkin
+1x Dorna -> Marwin
+1x Steffi -> Chris
 ---
 -> I[l]/bits: {0: 5.04, 1: 2.02, 2: 1.37, 3: 2.10, 4: 3.63, 5: 5.74, 6: 8.55, 7: 12.57}
 -> E[I]/bits: 2.10
@@ -166,15 +166,15 @@ Steffi -> Chris
 
 MN#3.0 E08
 0x Dorna -> Deniz
-0x Caro -> Pascal
-0x Vanessa -> Marwin
-0x Aurelia -> Kenneth
 0x Carina -> Sasa
-2x Steffi -> Chris
 0x Henna -> Ken
-2x Larissa -> Joel
-1x Valeria -> Max
 1x Juliette -> Barkin
+2x Larissa -> Joel
+0x Vanessa -> Marwin
+1x Valeria -> Max
+0x Aurelia -> Kenneth
+0x Caro -> Pascal
+2x Steffi -> Chris
 ---
 -> I[l]/bits: {1: 1.53, 2: 1.49, 3: 2.37, 4: 3.76, 5: 5.49, 6: 7.51, 7: 9.69, 8: 11.91, 9: 14.65, 10: 16.82}
 -> E[I]/bits: 1.98
@@ -218,16 +218,16 @@ Valeria -> Max
 223906 left -> 17.7725 bits left
 
 MN#4.0 E10
-0x Juliette -> Kenneth
-2x Vanessa -> Sasa
-0x Larissa -> Deniz
-1x Caro -> Max
-1x Henna -> Ken
-0x Carina -> Pascal
-0x Aurelia -> Marwin
 3x Steffi -> Chris
-0x Valeria -> Joel
+0x Juliette -> Kenneth
+0x Aurelia -> Marwin
 0x Dorna -> Burim
+1x Caro -> Max
+0x Larissa -> Deniz
+0x Carina -> Pascal
+0x Valeria -> Joel
+1x Henna -> Ken
+2x Vanessa -> Sasa
 ---
 -> I[l]/bits: {1: 1.60, 2: 1.44, 3: 2.30, 4: 3.77, 5: 5.72, 6: 7.95, 7: 10.29, 8: 12.97, 9: 16.77, 10: 17.77}
 -> E[I]/bits: 1.95
@@ -271,16 +271,16 @@ Caro -> Ken
 199 left -> 7.6366 bits left
 
 MN#5.0 E12
-1x Carina -> Pascal
-4x Steffi -> Chris
-3x Vanessa -> Sasa
-1x Valeria -> Joel
-1x Aurelia -> Marwin
-0x Caro -> Ken
 1x Dorna -> Burim
+3x Vanessa -> Sasa
+1x Carina -> Pascal
 1x Larissa -> Deniz
 2x Juliette -> Barkin
+4x Steffi -> Chris
+1x Aurelia -> Marwin
 2x Henna -> Kenneth
+0x Caro -> Ken
+1x Valeria -> Joel
 ---
 -> I[l]/bits: {2: 3.24, 3: 0.69, 4: 1.86}
 -> E[I]/bits: 1.28
@@ -324,16 +324,16 @@ Dorna -> Burim
 48 left -> 5.585 bits left
 
 MN#6.0 E14
-5x Steffi -> Chris
-0x Larissa -> Marwin
-3x Henna -> Kenneth
-1x Carina -> Sasa
-3x Juliette -> Barkin
-1x Valeria -> Pascal
 1x Caro -> Ken
-1x Dorna -> Deniz
+5x Steffi -> Chris
+1x Carina -> Sasa
 0x Vanessa -> Joel
+3x Henna -> Kenneth
+0x Larissa -> Marwin
+1x Valeria -> Pascal
 1x Aurelia -> Burim
+1x Dorna -> Deniz
+3x Juliette -> Barkin
 ---
 -> I[l]/bits: {3: 1.00, 4: 1.78, 5: 2.58, 6: 4.58}
 -> E[I]/bits: 1.64
@@ -377,16 +377,16 @@ Juliette -> Joel
 20 left -> 4.3219 bits left
 
 MN#7.0 E16 -- Blackout
-2x Valeria -> Pascal
 6x Steffi -> Chris
-0x Carina -> Marwin
-0x Larissa -> Sasa
-1x Juliette -> Kenneth
 2x Caro -> Ken
-0x Dorna -> Barkin
-0x Vanessa -> Deniz
 0x Henna -> Burim
+0x Dorna -> Barkin
 0x Aurelia -> Joel
+0x Vanessa -> Deniz
+0x Carina -> Marwin
+2x Valeria -> Pascal
+1x Juliette -> Kenneth
+0x Larissa -> Sasa
 ---
 -> I[l]/bits: {2: 0.74, 3: 1.74, 4: 4.32, 5: 4.32}
 -> E[I]/bits: 1.40
@@ -430,16 +430,16 @@ Dorna -> Marwin
 12 left -> 3.585 bits left
 
 MN#8.0 E18 -- Blackout
-0x Carina -> Kenneth
 0x Henna -> Deniz
-7x Steffi -> Chris
-3x Caro -> Ken
-4x Juliette -> Barkin
-0x Dorna -> Joel
-0x Larissa -> Pascal
 4x Vanessa -> Sasa
-2x Aurelia -> Marwin
+3x Caro -> Ken
+0x Carina -> Kenneth
 0x Valeria -> Burim
+0x Dorna -> Joel
+2x Aurelia -> Marwin
+4x Juliette -> Barkin
+0x Larissa -> Pascal
+7x Steffi -> Chris
 ---
 -> I[l]/bits: {2: 0.78, 3: 1.58, 4: 3.58}
 -> E[I]/bits: 1.28
@@ -483,16 +483,16 @@ Carina -> Pascal
 7 left -> 2.8074 bits left
 
 MN#9.0 E21 -- finale
-0x Dorna -> Sasa
-1x Juliette -> Burim
 4x Henna -> Kenneth
+2x Valeria -> Joel
+0x Dorna -> Sasa
 1x Vanessa -> Marwin
+0x Carina -> Deniz
 0x Aurelia -> Pascal
 8x Steffi -> Chris
-0x Larissa -> Barkin
-2x Valeria -> Joel
-0x Carina -> Deniz
 4x Caro -> Ken
+1x Juliette -> Burim
+0x Larissa -> Barkin
 ---
 -> I[l]/bits: {5: 1.22, 6: 2.81, 7: 2.81, 8: 2.81, 10: 2.81}
 -> E[I]/bits: 2.13
@@ -516,9 +516,9 @@ MN#9.0 E21 -- finale
 ╭────────┬────┬──────────┬──────────┬─────────┬─────────┬──────────┬──────────┬─────────┬────────┬─────────┬─────────┬───┬────────┬──────┬──────────╮
 │        ┆  L ┆  Aurelia ┆  Carina  ┆   Caro  ┆  Dorna  ┆   Henna  ┆ Juliette ┆ Larissa ┆ Steffi ┆ Valeria ┆ Vanessa ┆   ┆    I   ┆ #new ┆ min dist │
 ╞════════╪════╪══════════╪══════════╪═════════╪═════════╪══════════╪══════════╪═════════╪════════╪═════════╪═════════╪═══╪════════╪══════╪══════════╡
-│ MB#1.0 ┆ 0  ┆          ┆          ┆         ┆         ┆          ┆          ┆         ┆        ┆ Marwin  ┆         ┆   ┆ 0.1520 ┆      ┆          │
+│ MB#1.0 ┆ 0  ┆          ┆          ┆         ┆         ┆          ┆          ┆         ┆        ┆ Marwin  ┆         ┆   ┆ 0.152  ┆      ┆          │
 │ MB#1.2 ┆ 0  ┆          ┆          ┆         ┆ Kenneth ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0.1504 ┆      ┆          │
-│ MN#1.0 ┆ 3  ┆ Deniz*   ┆ Ken*     ┆ Barkin* ┆ Marwin* ┆ Kenneth* ┆ Burim*   ┆ Joel*   ┆ Chris* ┆ Max*    ┆ Sasa*   ┆   ┆ 3.9690 ┆ 10   ┆          │
+│ MN#1.0 ┆ 3  ┆ Deniz*   ┆ Ken*     ┆ Barkin* ┆ Marwin* ┆ Kenneth* ┆ Burim*   ┆ Joel*   ┆ Chris* ┆ Max*    ┆ Sasa*   ┆   ┆ 3.969  ┆ 10   ┆          │
 │ MB#2.0 ┆ 0  ┆          ┆ Burim    ┆         ┆         ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0.1178 ┆      ┆          │
 │ MN#2.0 ┆ 3  ┆ Burim*   ┆ Ken      ┆ Max*    ┆ Marwin  ┆ Kenneth  ┆ Barkin*  ┆ Joel    ┆ Chris  ┆ Pascal* ┆ Sasa    ┆   ┆ 2.0992 ┆ 4    ┆ 4/MN#1   │
 │ MB#3.0 ┆ 1  ┆          ┆          ┆         ┆         ┆          ┆          ┆         ┆ Chris  ┆         ┆         ┆   ┆ 1.6817 ┆      ┆          │
@@ -528,14 +528,14 @@ MN#9.0 E21 -- finale
 │ MB#5.0 ┆ 1  ┆          ┆          ┆ Ken     ┆         ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 7.8396 ┆      ┆          │
 │ MN#5.0 ┆ 4  ┆ Marwin   ┆ Pascal   ┆ Ken     ┆ Burim   ┆ Kenneth  ┆ Barkin   ┆ Deniz   ┆ Chris  ┆ Joel    ┆ Sasa    ┆   ┆ 1.8553 ┆ 0    ┆ 3/MN#4   │
 │ MB#6.0 ┆ 0  ┆          ┆          ┆         ┆ Burim   ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0.1964 ┆      ┆          │
-│ MN#6.0 ┆ 3  ┆ Burim    ┆ Sasa     ┆ Ken     ┆ Deniz   ┆ Kenneth  ┆ Barkin   ┆ Marwin* ┆ Chris  ┆ Pascal  ┆ Joel*   ┆   ┆ 1.0000 ┆ 2    ┆ 5/MN#2   │
-│ MB#7.0 ┆ 0  ┆          ┆          ┆         ┆         ┆          ┆ Joel     ┆         ┆        ┆         ┆         ┆   ┆ 0.2630 ┆      ┆          │
-│ MN#7.0 ┆ 2  ┆ Joel*    ┆ Marwin*  ┆ Ken     ┆ Barkin* ┆ Burim*   ┆ Kenneth  ┆ Sasa*   ┆ Chris  ┆ Pascal  ┆ Deniz*  ┆   ┆ 0.7370 ┆ 6    ┆ 7/MN#6   │
-│ MB#8.0 ┆ 0  ┆          ┆          ┆         ┆ Marwin  ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0.0000 ┆      ┆          │
+│ MN#6.0 ┆ 3  ┆ Burim    ┆ Sasa     ┆ Ken     ┆ Deniz   ┆ Kenneth  ┆ Barkin   ┆ Marwin* ┆ Chris  ┆ Pascal  ┆ Joel*   ┆   ┆ 1      ┆ 2    ┆ 5/MN#2   │
+│ MB#7.0 ┆ 0  ┆          ┆          ┆         ┆         ┆          ┆ Joel     ┆         ┆        ┆         ┆         ┆   ┆ 0.263  ┆      ┆          │
+│ MN#7.0 ┆ 2  ┆ Joel*    ┆ Marwin*  ┆ Ken     ┆ Barkin* ┆ Burim*   ┆ Kenneth  ┆ Sasa*   ┆ Chris  ┆ Pascal  ┆ Deniz*  ┆   ┆ 0.737  ┆ 6    ┆ 7/MN#6   │
+│ MB#8.0 ┆ 0  ┆          ┆          ┆         ┆ Marwin  ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0      ┆      ┆          │
 │ MN#8.0 ┆ 2  ┆ Marwin   ┆ Kenneth* ┆ Ken     ┆ Joel*   ┆ Deniz*   ┆ Barkin   ┆ Pascal* ┆ Chris  ┆ Burim*  ┆ Sasa    ┆   ┆ 0.7776 ┆ 5    ┆ 5/MN#5   │
-│ MB#9.0 ┆ 0  ┆          ┆ Pascal   ┆         ┆         ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0.0000 ┆      ┆          │
+│ MB#9.0 ┆ 0  ┆          ┆ Pascal   ┆         ┆         ┆          ┆          ┆         ┆        ┆         ┆         ┆   ┆ 0      ┆      ┆          │
 │ MN#9.0 ┆ 10 ┆ Pascal*  ┆ Deniz*   ┆ Ken     ┆ Sasa*   ┆ Kenneth  ┆ Burim    ┆ Barkin* ┆ Chris  ┆ Joel    ┆ Marwin  ┆   ┆ 2.8074 ┆ 4    ┆ 6/MN#5   │
 ╰────────┴────┴──────────┴──────────┴─────────┴─────────┴──────────┴──────────┴─────────┴────────┴─────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 63.81s
+Ran in 64.33s
