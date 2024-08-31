@@ -1,0 +1,19 @@
+uses Z3 as theorem prover (instead of own permutations):
+https://github.com/acmihal/ayto8/tree/master
+
+also no permutations but using a solver:
+https://github.com/nbgit10/ayto_solver/blob/master/ayto/ayto.py
+
+
+not sure if its quite a solver (for matchingnights):
+https://github.com/andrewgordon17/AYTO_solver
+
+
+entropy, so quite the same like I wanted to do? (but works in reasonable time?)
+https://github.com/stefperf/ayto/tree/main
+- speichert die permutationen
+- choose_n_test is the interesting function
+- checkt wie viele noch übrig sind. Wenn zu viele werden die analysierten einfach geclippt (random selection). Zm Berechnen der Entropie werden weiterhin alle möglichkeiten angeschaut
+
+uses MIP solver to obtain optimal pairs for matchingnight:
+https://github.com/wsgisler/ayto/blob/master/Are%20you%20the%20one%3F%20Optimal%20strategies.ipynb
