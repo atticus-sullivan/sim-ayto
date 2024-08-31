@@ -10,7 +10,7 @@ rule_set: !Eq
 setA:
   - Adam
   - ChrisT
-  - Scali
+  - Scali # Chris Scali
   - Dillan
   - Dre
   - Ethan
@@ -25,7 +25,7 @@ setB:
   - Brittany
   - Coleysia
   - Jacy
-  - Jess
+  - Jess # Jessica
   - Kayla
   - Paige
   - Shanley

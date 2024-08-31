@@ -32,6 +32,9 @@ GENARGS ?= --transpose -c
 
 -include Makefile.conf
 ANSITOIMG_PREFIX ?= 
+ANSITOIMG_SUFFIX ?= 
+CAT ?= cat
+NOTIF ?= 
 
 
 all: $(OUT) graph
@@ -57,7 +60,8 @@ $(CAALIAS):
 	$(eval f := $(let i,$@,data/$(patsubst cat_%,%,$i)/$(patsubst cat_%,%,$i).txt))
 	# ensure the output file is up to date
 	@make --no-print-directory $(f)
-	bat $(f:.txt=.col.out)
+	$(NOTIF) &
+	$(CAT) $(f:.txt=.col.out)
 
 
 $(ALIAS):
@@ -69,7 +73,7 @@ $(OUT_RUST): data/%.txt: data/%.yaml rust/target/release/ayto
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
-	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png" "$(basename $<)_sum.png"
+	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png" "$(basename $<)_sum.png" $(ANSITOIMG_SUFFIX)
 	@date
 
 
