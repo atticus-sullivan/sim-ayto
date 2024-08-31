@@ -1,7 +1,7 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-tree_gen: false
+tree_gen: true
 
 # rule_set: !SomeoneIsDup
 rule_set: !FixedDup Christina
@@ -26,10 +26,10 @@ setB:
   - Ellie
   - Jasmine
   - Jenni
-  - Jess
+  - Jess # Jessica
   - Paris
   - Shelby
-  - TylerAbron
+  - Tyler
   - Christina
 
 constraints:
@@ -53,6 +53,7 @@ constraints:
       Anthony: Jess
       Nathan: Shelby
       Alex: Ellie
+      # Tyler
 
   - type: !Box {num: 2, comment: "E02"}
     check: !Lights [0]
@@ -69,13 +70,185 @@ constraints:
       TylerPratt: Paris
       Garland: Jasmine
       John: Ashley
-      Brandon: TylerAbron
+      Brandon: Tyler
       Anthony: Alex
       Nathan: Jenni
       Curtis: Briana
       Alex: Christina
       # Alex: Ellie
 
-  # - type: !Box {num: 3, comment: "E03"}
-  #   check: !Lights [0]
-  #   map:
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # John: Christina
+      Brandon: Alex
+      # Layton: Ashley
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [3]
+    map:
+      John: Christina
+      Curtis: Briana
+      Nathan: Jess
+      Brandon: Shelby
+      TylerPratt: Paris
+      Garland: Alex
+      Dario: Ashley
+      Alex: Jasmine
+      Anthony: Jenni
+      Layton: Ellie
+      # Tyler
+
+  - type: !Box {num: 4, comment: "E04"}
+    check: !Lights [1]
+    map:
+      TylerPratt: Paris
+      # Layton: Jess
+      # Garland: Jasmine
+
+  - type: !Night {num: 4, comment: "E04 -- blackout"}
+    check: !Lights [1]
+    map:
+      TylerPratt: Paris
+      Brandon: Ellie
+      Anthony: Jenni
+      Curtis: Briana
+      Alex: Tyler
+      Dario: Shelby
+      Nathan: Alex
+      # John: Ashley
+      Garland: Jasmine
+      Layton: Jess
+      John: Christina
+
+  - type: !Box {num: 5, comment: "E05"}
+    check: !Lights [1]
+    map:
+      # Dario: Jenni
+      Curtis: Shelby
+      # Brandon: Jasmine
+
+  - type: !Night {num: 5, comment: "E05"}
+    check: !Lights [3]
+    map:
+      TylerPratt: Paris
+      Curtis: Shelby
+      Anthony: Ashley
+      Brandon: Jasmine
+      Garland: Tyler
+      John: Jenni
+      Layton: Briana
+      Alex: Christina
+      Nathan: Jess
+      Dario: Alex
+      # Ellie
+
+  - type: !Box {num: 6, comment: "E06"}
+    check: !Lights [0]
+    map:
+      John: Jasmine
+      # Dario: Briana
+      # Alex: Alex
+
+  - type: !Night {num: 6, comment: "E06 -- blackout"}
+    check: !Lights [2]
+    map:
+      TylerPratt: Paris
+      Curtis: Shelby
+      Brandon: Ashley
+      Nathan: Jasmine
+      Dario: Briana
+      Anthony: Ellie
+      Garland: Tyler
+      John: Alex
+      Layton: Jenni
+      Alex: Jess
+      # Nathan: Christina
+
+  - type: !Box {num: 7, comment: "E07"}
+    check: !Lights [1]
+    map:
+      John: Jenni
+      # Alex: Alex
+      # Brandon: Jasmine
+
+  - type: !Night {num: 7, comment: "E07"}
+    check: !Lights [6]
+    map:
+      TylerPratt: Paris
+      Curtis: Shelby
+      John: Jenni
+      Dario: Ashley
+      Alex: Jasmine
+      Layton: Ellie
+      Brandon: Tyler
+      Anthony: Briana
+      Nathan: Christina
+      Garland: Jess
+      # Alex
+
+  - type: !Box {num: 8, comment: "E08"}
+    check: !Lights [0]
+    map:
+      # Brandon: Briana
+      # Anthony: Jess
+      Nathan: Christina
+
+  - type: !Night {num: 8, comment: "E08"}
+    check: !Lights [5]
+    map:
+      TylerPratt: Paris
+      Curtis: Shelby
+      John: Jenni
+      Nathan: Briana
+      Alex: Jasmine
+      Anthony: Jess
+      Brandon: Tyler
+      Garland: Alex
+      Layton: Ellie
+      Dario: Ashley
+      # Anthony: Christina
+
+  - type: !Box {num: 9, comment: "E09"}
+    check: !Lights [1]
+    map:
+      # Brandon: Briana
+      Alex: Jasmine
+      # Nathan: Ellie
+
+  - type: !Night {num: 9, comment: "E09"}
+    check: !Lights [8]
+    map:
+      TylerPratt: Paris
+      Curtis: Shelby
+      John: Jenni
+      Alex: Jasmine
+      Nathan: Ellie
+      Garland: Jess
+      Layton: Ashley
+      Brandon: Briana
+      Dario: Tyler
+      Anthony: Alex
+      # Christina
+
+  - type: !Box {num: 10, comment: "E10"}
+    check: !Lights [1]
+    map:
+      Dario: Ashley
+      # Layton: Tyler
+      # Anthony: Alex
+
+  - type: !Night {num: 10, comment: "E10"}
+    check: !Lights [10]
+    map:
+      TylerPratt: Paris
+      Curtis: Shelby
+      John: Jenni
+      Alex: Jasmine
+      Dario: Ashley
+      Brandon: Briana
+      Anthony: Alex
+      Garland: Jess
+      # Layton: Tyler
+      Nathan: Ellie
+      Layton: Christina
