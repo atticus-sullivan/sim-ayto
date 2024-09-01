@@ -191,7 +191,7 @@ impl Game {
                 .expect("dot command failed");
         }
 
-        self.do_statistics(&constr)?;
+        self.do_statistics(is.total as f64, &constr)?;
 
         println!(
             "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",
@@ -202,7 +202,7 @@ impl Game {
         Ok(())
     }
 
-    fn do_statistics(&self, merged_constraints: &Vec<Constraint>) -> Result<()> {
+    fn do_statistics(&self, total: f64, merged_constraints: &Vec<Constraint>) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
         let out_mn_path = self.dir.join("statMN").with_extension("csv");
         let out_info_path = self.dir.join("statInfo").with_extension("csv");
@@ -221,6 +221,7 @@ impl Game {
                 .has_headers(false)
                 .from_path(out_info_path)?,
         );
+        info.serialize((0, total.log2(), "initial"))?;
         for i in merged_constraints.iter().map(|c| c.get_stats()) {
             let i = i?;
             if let Some(j) = &i[0] {
