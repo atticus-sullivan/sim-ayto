@@ -35,7 +35,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     plots[0].set_layout(
         layout
             .clone()
-            .title("Matchingbox")
+            .title("Matchbox / truth booth")
             .x_axis(
                 plotly::layout::Axis::new()
                     .title(Title::with_text("#MB"))
@@ -47,7 +47,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     plots[1].set_layout(
         layout
             .clone()
-            .title("Matchingnight")
+            .title("Matchingnight / matching ceremony")
             .x_axis(
                 plotly::layout::Axis::new()
                     .title(Title::with_text("#MN"))

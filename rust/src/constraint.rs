@@ -17,10 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 use anyhow::{ensure, Context, Result};
-use comfy_table::Cell;
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::collections::HashSet;
+
+use comfy_table::presets::NOTHING;
+use comfy_table::{Cell, Table, Row};
 
 use crate::{Lut, Map, MapS, Matching, Rem};
 
@@ -530,24 +532,42 @@ impl Constraint {
         }
     }
 
-    pub fn print_hdr(&self, past_constraints: &Vec<&Constraint>) {
+    pub fn print_hdr(&self, past_constraints: &Vec<&Constraint>) -> Result<()> {
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => print!("MN#{:02.1} {}", num, comment),
             ConstraintType::Box { num, comment, .. } => print!("MB#{:02.1} {}", num, comment),
         }
         println!();
 
-        for (k, v) in &self.map_s {
+        let mut tab = Table::new();
+        tab
+            .force_no_tty()
+            .enforce_styling()
+            .load_preset(NOTHING)
+            .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
+            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
+            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
+            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
+        ;
+        let mut rows = vec![Row::new(); self.map_s.len()];
+        for (i, (k, v)) in self.map_s.iter().enumerate() {
             if self.show_past_cnt() {
                 let cnt = past_constraints
                     .iter()
                     .filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v))
                     .count();
-                println!("{}x {} -> {}", cnt, k, v);
+                rows[i].add_cell(format!("{}x {}", cnt, k).into());
+                rows[i].add_cell(v.into());
+                // println!("{}x {} -> {}", cnt, k, v);
             } else {
-                println!("{} -> {}", k, v);
+                rows[i].add_cell(k.into());
+                rows[i].add_cell(v.into());
+                // println!("{} -> {}", k, v);
             }
         }
+        tab.add_rows(rows);
+        tab.column_mut(0).context("no 0th column in table found")?.set_padding((0,1));
+        println!("{tab}");
 
         println!("---");
         match &self.check {
@@ -590,6 +610,7 @@ impl Constraint {
             "=> I = {} bits",
             format!("{:.4}", self.information.unwrap_or(std::f64::INFINITY)).trim_end_matches('0').trim_end_matches('.')
         );
+        Ok(())
     }
 }
 
