@@ -15,7 +15,7 @@
 199584000 left -> 27.5724 bits left
 
 MB#1.0 E03
-Paulo -> Jana
+Paulo → Jana 
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47
@@ -37,16 +37,16 @@ Paulo -> Jana
 179625600 left -> 27.4204 bits left
 
 MN#1.0 E04
-0x Wilson -> Shelly
-0x Sidar -> Jana
-0x Eti -> Lisa-Marie
-0x Kevin -> Sina
-0x Sandro -> Edda
-0x Martin -> Julia
-0x Ryan -> Lina
-0x Gerrit -> Pia
-0x Paddy -> Maja
-0x Paulo -> Tais
+0x Paulo  → Tais       
+0x Sandro → Edda       
+0x Paddy  → Maja       
+0x Kevin  → Sina       
+0x Wilson → Shelly     
+0x Martin → Julia      
+0x Ryan   → Lina       
+0x Sidar  → Jana       
+0x Eti    → Lisa-Marie 
+0x Gerrit → Pia        
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89
@@ -68,7 +68,7 @@ MN#1.0 E04
 33752266 left -> 25.0085 bits left
 
 MB#2.0 E05
-Ryan -> Lina
+Ryan → Lina 
 ---
 -> I[l]/bits: {0: 0.31, 1: 2.35}
 -> E[I]/bits: 0.71
@@ -90,16 +90,16 @@ Ryan -> Lina
 27149771 left -> 24.6944 bits left
 
 MN#2.0 E06
-0x Paulo -> Lisa-Marie
-1x Sidar -> Jana
-1x Kevin -> Sina
-1x Sandro -> Edda
-0x Gerrit -> Tais
-0x Eti -> Afra
-0x Martin -> Lina
-0x Ryan -> Pia
-0x Paddy -> Shelly
-0x Wilson -> Maja
+0x Martin → Lina       
+1x Kevin  → Sina       
+1x Sandro → Edda       
+0x Paddy  → Shelly     
+0x Eti    → Afra       
+0x Wilson → Maja       
+1x Sidar  → Jana       
+0x Gerrit → Tais       
+0x Paulo  → Lisa-Marie 
+0x Ryan   → Pia        
 ---
 -> I[l]/bits: {0: 2.07, 1: 1.42, 2: 2.01, 3: 3.31, 4: 5.11, 5: 7.29, 6: 9.80, 7: 12.64, 8: 15.83, 9: 19.99}
 -> E[I]/bits: 2.07
@@ -121,7 +121,7 @@ MN#2.0 E06
 6755599 left -> 22.6877 bits left
 
 MB#3.0 E06
-Kevin -> Maja
+Kevin → Maja 
 ---
 -> I[l]/bits: {0: 0.12, 1: 3.66}
 -> E[I]/bits: 0.40
@@ -143,7 +143,7 @@ Kevin -> Maja
 6222309 left -> 22.569 bits left
 
 MB#3.1 E07
-Eti -> Melanie
+Eti → Melanie 
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47
@@ -165,16 +165,16 @@ Eti -> Melanie
 5598916 left -> 22.4167 bits left
 
 MN#3.0 E08
-1x Wilson -> Shelly
-0x Paulo -> Edda
-1x Gerrit -> Tais
-0x Kevin -> Melanie
-0x Eti -> Maja
-0x Paddy -> Julia
-0x Sandro -> Sina
-0x Sidar -> Afra
-0x Ryan -> Jana
-0x Martin -> Lisa-Marie
+0x Paulo  → Edda       
+0x Eti    → Maja       
+0x Paddy  → Julia      
+0x Sandro → Sina       
+0x Sidar  → Afra       
+1x Gerrit → Tais       
+1x Wilson → Shelly     
+0x Martin → Lisa-Marie 
+0x Kevin  → Melanie    
+0x Ryan   → Jana       
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.42, 2: 2.44, 3: 4.05, 4: 6.07, 5: 8.40, 6: 11.03, 7: 14.01, 8: 17.51, 9: 21.42}
 -> E[I]/bits: 1.88
@@ -196,7 +196,7 @@ MN#3.0 E08
 83141 left -> 16.3433 bits left
 
 MB#4.0 E09
-Wilson -> Shelly
+Wilson → Shelly 
 ---
 -> I[l]/bits: {0: 1.84, 1: 0.47}
 -> E[I]/bits: 0.85
@@ -218,16 +218,16 @@ Wilson -> Shelly
 51701 left -> 15.6579 bits left
 
 MN#4.0 E10
-0x Ryan -> Edda
-1x Paulo -> Lisa-Marie
-2x Gerrit -> Tais
-0x Paddy -> Lina
-1x Eti -> Afra
-2x Kevin -> Sina
-1x Martin -> Julia
-0x Sandro -> Pia
-2x Sidar -> Jana
-2x Wilson -> Shelly
+1x Paulo  → Lisa-Marie 
+2x Gerrit → Tais       
+0x Sandro → Pia        
+1x Martin → Julia      
+2x Kevin  → Sina       
+2x Wilson → Shelly     
+0x Paddy  → Lina       
+1x Eti    → Afra       
+0x Ryan   → Edda       
+2x Sidar  → Jana       
 ---
 -> I[l]/bits: {1: 4.29, 2: 1.45, 3: 1.43, 4: 2.54, 5: 4.74, 6: 8.01, 7: 12.66}
 -> E[I]/bits: 1.93
@@ -249,7 +249,7 @@ MN#4.0 E10
 19143 left -> 14.2245 bits left
 
 MB#5.0 E11
-Gerrit -> Tais
+Gerrit → Tais 
 ---
 -> I[l]/bits: {0: 3.96, 1: 0.10}
 -> E[I]/bits: 0.34
@@ -271,16 +271,16 @@ Gerrit -> Tais
 291 left -> 8.1849 bits left
 
 MN#5.0 E12
-1x Paulo -> Edda
-1x Ryan -> Jana
-3x Gerrit -> Tais
-1x Paddy -> Lina
-1x Sidar -> Afra
-1x Eti -> Maja
-1x Martin -> Lisa-Marie
-1x Sandro -> Sina
-3x Wilson -> Shelly
-0x Kevin -> Julia
+1x Ryan   → Jana       
+0x Kevin  → Julia      
+1x Martin → Lisa-Marie 
+1x Eti    → Maja       
+1x Paddy  → Lina       
+3x Gerrit → Tais       
+3x Wilson → Shelly     
+1x Sidar  → Afra       
+1x Paulo  → Edda       
+1x Sandro → Sina       
 ---
 -> I[l]/bits: {3: 1.16, 4: 1.34, 5: 2.66}
 -> E[I]/bits: 1.47
@@ -302,7 +302,7 @@ MN#5.0 E12
 115 left -> 6.8455 bits left
 
 MB#6.0 E13
-Sandro -> Sina
+Sandro → Sina 
 ---
 -> I[l]/bits: {0: 0.91, 1: 1.09}
 -> E[I]/bits: 1.00
@@ -324,16 +324,16 @@ Sandro -> Sina
 61 left -> 5.9307 bits left
 
 MN#6.0 E14
-0x Kevin -> Lina
-2x Martin -> Lisa-Marie
-2x Eti -> Maja
-0x Sandro -> Afra
-0x Sidar -> Julia
-0x Paddy -> Edda
-4x Gerrit -> Tais
-4x Wilson -> Shelly
-2x Ryan -> Jana
-0x Paulo -> Sina
+2x Eti    → Maja       
+0x Paulo  → Sina       
+0x Sandro → Afra       
+4x Gerrit → Tais       
+2x Martin → Lisa-Marie 
+0x Sidar  → Julia      
+2x Ryan   → Jana       
+0x Kevin  → Lina       
+4x Wilson → Shelly     
+0x Paddy  → Edda       
 ---
 -> I[l]/bits: {3: 2.47, 4: 1.41, 5: 1.68, 6: 3.93, 7: 4.93, 8: 4.93}
 -> E[I]/bits: 2.08
@@ -355,7 +355,7 @@ MN#6.0 E14
 19 left -> 4.2479 bits left
 
 MB#7.0 E15
-Paulo -> Julia
+Paulo → Julia 
 ---
 -> I[l]/bits: {0: 0.08, 1: 4.25}
 -> E[I]/bits: 0.30
@@ -377,16 +377,16 @@ Paulo -> Julia
 18 left -> 4.1699 bits left
 
 MN#7.0 E16
-3x Eti -> Maja
-0x Martin -> Afra
-1x Paulo -> Sina
-1x Kevin -> Lina
-5x Gerrit -> Tais
-0x Sidar -> Lisa-Marie
-5x Wilson -> Shelly
-1x Ryan -> Edda
-0x Sandro -> Julia
-0x Paddy -> Jana
+5x Gerrit → Tais       
+0x Paddy  → Jana       
+3x Eti    → Maja       
+0x Sandro → Julia      
+1x Kevin  → Lina       
+5x Wilson → Shelly     
+0x Sidar  → Lisa-Marie 
+1x Paulo  → Sina       
+1x Ryan   → Edda       
+0x Martin → Afra       
 ---
 -> I[l]/bits: {2: 3.17, 3: 1.58, 4: 1.58, 5: 2.58, 6: 4.17}
 -> E[I]/bits: 2.07
@@ -408,7 +408,7 @@ MN#7.0 E16
 3 left -> 1.585 bits left
 
 MB#8.0 E17 -- verkauft
-Eti -> Maja
+Eti → Maja 
 ---
 Nothing => I = 0 bits
 ╭────────┬────────┬──────┬────────┬───────┬─────┬────────────┬────────┬────────┬────────┬──────┬──────┬─────────╮
@@ -428,16 +428,16 @@ Nothing => I = 0 bits
 3 left -> 1.585 bits left
 
 MN#8.0 E18
-1x Paddy -> Jana
-2x Paulo -> Sina
-6x Gerrit -> Tais
-6x Wilson -> Shelly
-2x Eti -> Afra
-1x Sandro -> Julia
-0x Sidar -> Maja
-3x Martin -> Lisa-Marie
-2x Kevin -> Lina
-2x Ryan -> Edda
+0x Sidar  → Maja       
+6x Wilson → Shelly     
+2x Eti    → Afra       
+2x Kevin  → Lina       
+6x Gerrit → Tais       
+2x Paulo  → Sina       
+1x Sandro → Julia      
+2x Ryan   → Edda       
+1x Paddy  → Jana       
+3x Martin → Lisa-Marie 
 ---
 -> I[l]/bits: {4: 0.00}
 -> E[I]/bits: 0.00
@@ -459,7 +459,7 @@ MN#8.0 E18
 3 left -> 1.585 bits left
 
 MB#9.0 E18
-Sandro -> Afra
+Sandro → Afra 
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00
@@ -481,16 +481,16 @@ Sandro -> Afra
 3 left -> 1.585 bits left
 
 MN#9.0 E19
-4x Martin -> Lisa-Marie
-3x Ryan -> Jana
-7x Wilson -> Shelly
-0x Paddy -> Sina
-2x Paulo -> Edda
-4x Eti -> Maja
-3x Kevin -> Lina
-2x Sidar -> Afra
-7x Gerrit -> Tais
-2x Sandro -> Julia
+3x Ryan   → Jana       
+3x Kevin  → Lina       
+2x Sandro → Julia      
+2x Paulo  → Edda       
+2x Sidar  → Afra       
+4x Eti    → Maja       
+4x Martin → Lisa-Marie 
+7x Wilson → Shelly     
+0x Paddy  → Sina       
+7x Gerrit → Tais       
 ---
 -> I[l]/bits: {6: 0.00}
 -> E[I]/bits: 0.00
@@ -512,7 +512,7 @@ MN#9.0 E19
 3 left -> 1.585 bits left
 
 MB#10.0 E19
-Kevin -> Lina
+Kevin → Lina 
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00
@@ -534,16 +534,16 @@ Kevin -> Lina
 3 left -> 1.585 bits left
 
 MN#10.0 E20
-8x Gerrit -> Tais
-8x Wilson -> Shelly
-0x Sidar -> Sina
-4x Kevin -> Lina
-3x Sandro -> Julia
-4x Ryan -> Jana
-1x Paddy -> Edda
-5x Eti -> Maja
-1x Martin -> Afra
-2x Paulo -> Lisa-Marie
+1x Paddy  → Edda       
+2x Paulo  → Lisa-Marie 
+1x Martin → Afra       
+4x Ryan   → Jana       
+8x Gerrit → Tais       
+3x Sandro → Julia      
+4x Kevin  → Lina       
+0x Sidar  → Sina       
+8x Wilson → Shelly     
+5x Eti    → Maja       
 ---
 -> I[l]/bits: {7: 0.58, 8: 1.58}
 -> E[I]/bits: 0.92
@@ -565,16 +565,16 @@ MN#10.0 E20
 2 left -> 1 bits left
 
 MN#11.0 E21 -- Reunion
-5x Kevin -> Lina
-6x Eti -> Maja
-9x Gerrit -> Tais
-5x Ryan -> Jana
-9x Wilson -> Shelly
-0x Paddy -> Afra
-0x Sidar -> Edda
-0x Martin -> Sina
-3x Paulo -> Lisa-Marie
-4x Sandro -> Julia
+4x Sandro → Julia      
+0x Sidar  → Edda       
+3x Paulo  → Lisa-Marie 
+5x Ryan   → Jana       
+0x Martin → Sina       
+9x Gerrit → Tais       
+6x Eti    → Maja       
+9x Wilson → Shelly     
+5x Kevin  → Lina       
+0x Paddy  → Afra       
 ---
 -> I[l]/bits: {6: 1.00, 10: 1.00}
 -> E[I]/bits: 1.00
@@ -623,4 +623,4 @@ MN#11.0 E21 -- Reunion
 ╰─────────┴────┴─────────────┴────────┴──────────┴─────────────┴─────────┴─────────────┴───────┴────────┴─────────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 66.79s
+Ran in 67.93s
