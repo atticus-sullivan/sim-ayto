@@ -25,6 +25,7 @@ ALIAS  := $(basename $(notdir $(OUT)))
 CHALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 CAALIAS := $(patsubst %.yaml,cat_%,$(notdir $(DAT_RUST)))
 CLALIAS := $(patsubst %.yaml,clean_%,$(notdir $(DAT_RUST)))
+INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
 
 .PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) stats_de.html stats_us.html graph
 
@@ -62,6 +63,12 @@ $(CAALIAS):
 	@make --no-print-directory $(f)
 	$(NOTIF) &
 	$(CAT) $(f:.txt=.col.out)
+
+
+$(INITDIR):
+	$(eval show := $(let i,$@,$(patsubst data/%,%,$i)))
+	mkdir ./data/$(show)
+	cp ./data/.template.yaml "./data/$(show)/$(show).yaml"
 
 
 $(ALIAS):
