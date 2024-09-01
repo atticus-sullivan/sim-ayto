@@ -146,7 +146,7 @@ impl Game {
                     c.merge(to_merge.pop().unwrap())?;
                 }
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
-                c.print_hdr(&past_constraints);
+                c.print_hdr(&past_constraints)?;
                 if print_transposed {
                     self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
                 } else {
