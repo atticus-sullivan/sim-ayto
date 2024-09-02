@@ -137,7 +137,7 @@ impl Game {
         let mut to_merge = vec![]; // collect hidden constraints to merge them down
         let mut past_constraints: Vec<&Constraint> = Vec::default();
         for c_ in &is.constraints {
-            if c_.hidden {
+            if c_.should_merge() {
                 to_merge.push(c_);
             } else {
                 let mut c = c_.clone();

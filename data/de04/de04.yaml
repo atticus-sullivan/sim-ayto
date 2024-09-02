@@ -115,7 +115,7 @@ constraints:
       Juliette: Kenneth
       # Juliette: Barkin
 
-  - type: !Box {num: 5.1, comment: "E11 -- Doppelmatch"}
+  - type: !Box {num: 5, comment: "E11 -- Doppelmatch"}
     check: !Lights [1]
     hidden: True
     noExclude: true

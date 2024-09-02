@@ -48,7 +48,7 @@ pub struct Constraint {
     map_s: MapS,
     check: CheckType,
     #[serde(default)]
-    pub hidden: bool,
+    hidden: bool,
     #[serde(default, rename = "noExclude")]
     no_exclude: bool,
     #[serde(rename = "exclude")]
@@ -362,6 +362,10 @@ impl Constraint {
 
 // functions for evaluation
 impl Constraint {
+    pub fn should_merge(&self) -> bool {
+        self.hidden
+    }
+
     pub fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
         ensure!(
