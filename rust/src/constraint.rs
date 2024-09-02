@@ -48,11 +48,13 @@ pub struct Constraint {
     map_s: MapS,
     check: CheckType,
     #[serde(default)]
-    pub hidden: bool,
+    hidden: bool,
     #[serde(default, rename = "noExclude")]
     no_exclude: bool,
     #[serde(rename = "exclude")]
     exclude_s: Option<(String, Vec<String>)>,
+    #[serde(default, rename = "resultUnknown")]
+    result_unknown: bool,
 
     #[serde(skip)]
     map: Map,
@@ -351,7 +353,7 @@ impl Constraint {
                 "failure in calculating wether matching {:?} fits constraint {:?}",
                 m, self
             )
-        })?;
+        })? || self.result_unknown;
         if !fits {
             self.eliminate(m);
         }
@@ -362,6 +364,10 @@ impl Constraint {
 
 // functions for evaluation
 impl Constraint {
+    pub fn should_merge(&self) -> bool {
+        self.hidden
+    }
+
     pub fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
         ensure!(
@@ -409,10 +415,14 @@ impl Constraint {
             ConstraintType::Night { num, .. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
             ConstraintType::Box { num, .. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
         }
-        match &self.check {
-            CheckType::Eq => ret.push(Cell::new("E")),
-            CheckType::Nothing => ret.push(Cell::new("-")),
-            CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
+        if self.result_unknown {
+            ret.push(Cell::new("?"));
+        } else {
+            match &self.check {
+                CheckType::Eq => ret.push(Cell::new("E")),
+                CheckType::Nothing => ret.push(Cell::new("-")),
+                CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
+            }
         }
         ret.extend(map_a.iter().map(|a| {
             match self.map_s.get(a) {
@@ -612,6 +622,10 @@ impl Constraint {
         );
         Ok(())
     }
+
+    pub fn show_rem_table(&self) -> bool {
+        return !self.result_unknown
+    }
 }
 
 // getter functions
@@ -654,6 +668,7 @@ mod tests {
             eliminated_tab: vec![],
             information: None,
             left_after: None,
+            result_unknown: false,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -705,6 +720,7 @@ mod tests {
             eliminated_tab: vec![],
             information: None,
             left_after: None,
+            result_unknown: false,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -757,6 +773,7 @@ mod tests {
             eliminated_tab: vec![],
             information: None,
             left_after: None,
+            result_unknown: false,
         };
 
         constraint.map.insert(1, 0);
@@ -1274,6 +1291,7 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            result_unknown: false,
         };
 
         let row = c.stat_row(
@@ -1382,6 +1400,7 @@ mod tests {
                 num: 1.0,
                 comment: String::from("comment"),
             },
+            result_unknown: false,
         };
 
         assert_eq!(c.comment(), "comment");
@@ -1415,6 +1434,7 @@ mod tests {
                 num: 1.0,
                 comment: String::from("comment"),
             },
+            result_unknown: false,
         };
 
         assert_eq!(c.comment(), "comment");
@@ -1448,6 +1468,7 @@ mod tests {
                 num: 1.0,
                 comment: String::from("comment"),
             },
+            result_unknown: false,
         };
 
         assert_eq!(c.type_str(), "MN#1");
@@ -1481,6 +1502,7 @@ mod tests {
                 num: 1.0,
                 comment: String::from("comment"),
             },
+            result_unknown: false,
         };
 
         assert_eq!(c.type_str(), "MB#1");

@@ -137,7 +137,7 @@ impl Game {
         let mut to_merge = vec![]; // collect hidden constraints to merge them down
         let mut past_constraints: Vec<&Constraint> = Vec::default();
         for c_ in &is.constraints {
-            if c_.hidden {
+            if c_.should_merge() {
                 to_merge.push(c_);
             } else {
                 let mut c = c_.clone();
@@ -147,10 +147,12 @@ impl Game {
                 }
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
                 c.print_hdr(&past_constraints)?;
-                if print_transposed {
-                    self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
-                } else {
-                    self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v,h| (v,h)).context("Error printing")?;
+                if c.show_rem_table() {
+                    if print_transposed {
+                        self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
+                    } else {
+                        self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v,h| (v,h)).context("Error printing")?;
+                    }
                 }
                 past_constraints.push(&c_);
                 println!();

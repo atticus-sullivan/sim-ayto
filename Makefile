@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05
-DAT_RUST += us01 us02 us08
+DAT_RUST += us01 us02 us04 us08
 
 DAT_RUST := $(foreach var,$(DAT_RUST),data/$(var)/$(var).yaml)
 OUT_RUST := $(addsuffix .txt, $(basename $(DAT_RUST)))
@@ -26,8 +26,9 @@ CHALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 CAALIAS := $(patsubst %.yaml,cat_%,$(notdir $(DAT_RUST)))
 CLALIAS := $(patsubst %.yaml,clean_%,$(notdir $(DAT_RUST)))
 INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
+MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) stats_de.html stats_us.html graph
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) stats_de.html stats_us.html graph
 
 GENARGS ?= --transpose -c
 
@@ -62,6 +63,9 @@ $(CAALIAS):
 	# ensure the output file is up to date
 	@make --no-print-directory $(f)
 	$(NOTIF) &
+ifndef NO_ZATHURA
+	-test -f $(f:.txt=.pdf) && ! pgrep -a zathura | grep "[0-9]\+ zathura $(f:.txt=.pdf)" &>/dev/null && zathura "$(f:.txt=.pdf)" &>/dev/null &
+endif
 	$(CAT) $(f:.txt=.col.out)
 
 
@@ -69,6 +73,11 @@ $(INITDIR):
 	$(eval show := $(let i,$@,$(patsubst data/%,%,$i)))
 	mkdir ./data/$(show)
 	cp ./data/.template.yaml "./data/$(show)/$(show).yaml"
+
+
+$(MOALIAS):
+	# https://github.com/edubart/luamon
+	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@)
 
 
 $(ALIAS):

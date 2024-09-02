@@ -126,13 +126,13 @@ constraints:
       # Melanie
       # Maja
 
-  - type: !Box {num: 4.9, comment: "E11"}
+  - type: !Box {num: 5, comment: "E11"}
     check: !Lights [1]
     noExclude: true
     hidden: true
     map:
       Gerrit: Melanie
-  - type: !Box {num: 4.9, comment: "E11"}
+  - type: !Box {num: 5, comment: "E11"}
     check: !Lights [1]
     noExclude: true
     hidden: true
