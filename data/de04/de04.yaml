@@ -31,12 +31,12 @@ setB:
   - Marwin
 
 constraints:
-  - type: !Box {num: 1, comment: "E02"}
+  - type: !Box {num: 0.2, comment: "E02 -- zusätzliche MB, da dup nicht bekannt"}
     check: !Lights [0]
     map:
       Valeria: Marwin
 
-  - type: !Box {num: 1.25, comment: "E03"}
+  - type: !Box {num: 1, comment: "E03"}
     check: !Lights [0]
     map:
       Dorna: Kenneth
