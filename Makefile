@@ -26,8 +26,9 @@ CHALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 CAALIAS := $(patsubst %.yaml,cat_%,$(notdir $(DAT_RUST)))
 CLALIAS := $(patsubst %.yaml,clean_%,$(notdir $(DAT_RUST)))
 INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
+MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) stats_de.html stats_us.html graph
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) stats_de.html stats_us.html graph
 
 GENARGS ?= --transpose -c
 
@@ -69,6 +70,11 @@ $(INITDIR):
 	$(eval show := $(let i,$@,$(patsubst data/%,%,$i)))
 	mkdir ./data/$(show)
 	cp ./data/.template.yaml "./data/$(show)/$(show).yaml"
+
+
+$(MOALIAS):
+	# https://github.com/edubart/luamon
+	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@)
 
 
 $(ALIAS):
