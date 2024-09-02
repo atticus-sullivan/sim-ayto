@@ -1,0 +1,243 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup Christina
+rule_set: !Eq
+# blackout -> -250.000$
+
+setA:
+  - Alyssa
+  - Camille
+  - Emma
+  - Francesca
+  - Julia
+  - Kaylen
+  - Mikala
+  - Nicole
+  - Tori
+  - Victoria
+
+setB:
+  - Asaf
+  - Cam
+  - Cameron
+  - Gio # Giovanni
+  - John
+  - Morgan
+  - Prosper
+  - Sam
+  - Stephen
+  - Tyler
+
+constraints:
+  - type: !Box {num: 1, comment: "E01 -- after all not +250.000$"}
+    check: !Lights [0]
+    map:
+      # Alyssa: Tyler
+      Tori: Prosper
+      # Kaylen: Stephen
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [3]
+    map:
+      Kaylen: Gio
+      Victoria: Cam
+      Francesca: Asaf
+      Emma: John
+      Camille: Prosper
+      Alyssa: Sam
+      Mikala: Cameron
+      Julia: Morgan
+      Nicole: Stephen
+      Tori: Tyler
+
+  - type: !Box {num: 2, comment: "E02"}
+    check: !Lights [0]
+    map:
+      # Nicole: Morgan
+      Julia: John
+      # Francesca: Asaf
+
+  - type: !Night {num: 2, comment: "E02"}
+    check: !Lights [3]
+    map:
+      Julia: Cam
+      Victoria: Tyler
+      Tori: Stephen
+      Mikala: Cameron
+      Alyssa: Morgan
+      Francesca: Sam
+      Emma: Prosper
+      Camille: Asaf
+      Kaylen: Gio
+      Nicole: John
+
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [1]
+    map:
+      # Kaylen: Gio
+      # Julia: Cam
+      Mikala: Cameron
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [4]
+    map:
+      Mikala: Cameron
+      Francesca: Morgan
+      Camille: Asaf
+      Nicole: Cam
+      Tori: Stephen
+      Victoria: John
+      Emma: Prosper
+      Kaylen: Gio
+      Alyssa: Sam
+      Julia: Tyler
+
+  - type: !Box {num: 4, comment: "E04"}
+    check: !Lights [0]
+    map:
+      # Emma: Stephen
+      # Julia: Morgan
+      Tori: Asaf
+
+  - type: !Night {num: 4, comment: "E04"}
+    check: !Lights [4]
+    map:
+      Mikala: Cameron
+      Tori: Morgan
+      Nicole: Prosper
+      Camille: Asaf
+      Victoria: John
+      Kaylen: Gio
+      Julia: Stephen
+      Francesca: Tyler
+      Alyssa: Sam
+      Emma: Cam
+
+  - type: !Box {num: 5, comment: "E05"}
+    check: !Lights [0]
+    map:
+      # Nicole: Prosper
+      Kaylen: Gio
+
+  - type: !Night {num: 5, comment: "E05"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Mikala: Cameron
+      Emma: Cam
+      Victoria: Prosper
+      Kaylen: Tyler
+      Nicole: Stephen
+      Camille: Asaf
+      Alyssa: Sam
+      Julia: Morgan
+      Tori: John
+      Francesca: Gio
+
+  - type: !Box {num: 6, comment: "E06"}
+    check: !Lights [1]
+    map:
+      # Emma: John
+      Alyssa: Sam
+
+  - type: !Night {num: 6, comment: "E06"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Mikala: Cameron
+      Alyssa: Sam
+      Emma: John
+      Victoria: Cam
+      Tori: Morgan
+      Julia: Stephen
+      Francesca: Gio
+      Kaylen: Prosper
+      Nicole: Tyler
+      Camille: Asaf
+
+  - type: !Box {num: 7, comment: "E07"}
+    check: !Lights [0]
+    map:
+      # Tori: Morgan
+      Victoria: Cam
+
+  - type: !Night {num: 7, comment: "E07"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Mikala: Cameron
+      Alyssa: Sam
+      Victoria: Prosper
+      Nicole: Cam
+      Tori: Morgan
+      Emma: Gio
+      Francesca: Asaf
+      Camille: Tyler
+      Kaylen: John
+      Julia: Stephen
+
+  - type: !Box {num: 8, comment: "E08"}
+    check: !Lights [0]
+    map:
+      # Kaylen: John
+      Julia: Gio
+
+  - type: !Night {num: 8, comment: "E08 -- blackout -250.000$"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Mikala: Cameron
+      Alyssa: Sam
+      Nicole: Gio
+      Francesca: Prosper
+      Julia: Stephen
+      Emma: Tyler
+      Tori: Cam
+      Victoria: Morgan
+      Camille: Asaf
+      Kaylen: John
+
+  - type: !Box {num: 9, comment: "E09"}
+    check: !Lights [1]
+    map:
+      Emma: Prosper
+      # Francesca: Asaf
+
+  - type: !Night {num: 9, comment: "E09"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      Mikala: Cameron
+      Alyssa: Sam
+      Emma: Prosper
+      Camille: Tyler
+      Victoria: John
+      Kaylen: Stephen
+      Nicole: Cam
+      Julia: Morgan
+      Francesca: Gio
+      Tori: Asaf
+
+  - type: !Box {num: 10, comment: "E10"}
+    check: !Lights [1]
+    map:
+      Julia: Cam
+      # Nicole: John
+
+  - type: !Night {num: 10, comment: "E10"}
+    check: !Lights [10]
+    map:
+      Mikala: Cameron
+      Alyssa: Sam
+      Emma: Prosper
+      Julia: Cam
+      Tori: Morgan
+      Victoria: John
+      Camille: Tyler
+      Kaylen: Asaf
+      Nicole: Stephen
+      Francesca: Gio
