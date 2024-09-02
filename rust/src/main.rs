@@ -24,7 +24,7 @@ mod ruleset;
 use crate::game::Game;
 
 use clap::{Parser, Subcommand};
-use std::collections::HashMap;
+use std::collections::{HashMap};
 use std::path::PathBuf;
 use std::time::Instant;
 
