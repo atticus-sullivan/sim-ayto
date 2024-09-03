@@ -1,0 +1,251 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup 
+rule_set: !Eq
+# blackout rule is new here
+
+setA:
+  - Alec
+  - Austin
+  - Chuck
+  - Connor
+  - Devin
+  - Hunter
+  - Mike
+  - Nelson
+  - Tyler
+  - Zak
+
+setB:
+  - Amanda
+  - Britni
+  - Chelsey
+  - Cheyenne
+  - Hannah
+  - Kayla
+  - Kiki
+  - Melanie
+  - Rashida
+  - Stacey
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      # Cheyenne: Chuck
+      # Melanie: Devin
+      # Mike: Hannah
+      Hunter: Kiki
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Chuck: Hannah
+      Tyler: Rashida
+      Mike: Amanda
+      Devin: Melanie
+      Connor: Chelsey
+      Austin: Kiki
+      Alec: Stacey
+      Hunter: Britni
+      Nelson: Cheyenne
+      Zak: Kayla
+
+  - type: !Box {num: 2, comment: "E02"}
+    check: !Lights [0]
+    map:
+      # Melanie: Tyler
+      # Stacey: Connor
+      Devin: Kiki
+
+  - type: !Night {num: 2, comment: "E02 -- blackout -250.000$"}
+    check: !Lights [0]
+    # resultUnknown: true
+    map:
+      Hunter: Stacey
+      Austin: Kiki
+      Connor: Kayla
+      Nelson: Cheyenne
+      Mike: Amanda
+      Zak: Britni
+      Devin: Melanie
+      Tyler: Rashida
+      Alec: Chelsey
+      Chuck: Hannah
+
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [0]
+    map:
+      Zak: Kiki
+      # Amanda: Chuck
+      # Mike: Britni
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Chuck: Kiki
+      Austin: Amanda
+      Devin: Rashida
+      Tyler: Cheyenne
+      Nelson: Melanie
+      Zak: Hannah
+      Mike: Kayla
+      Alec: Stacey
+      Hunter: Britni
+
+  - type: !Box {num: 4, comment: "E04"}
+    check: !Lights [0]
+    map:
+      # Zak: Cheyenne
+      Chuck: Britni
+
+  - type: !Night {num: 4, comment: "E04"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Alec: Amanda
+      Tyler: Melanie
+      Zak: Cheyenne
+      Chuck: Kiki
+      Devin: Hannah
+      Mike: Kayla
+      Connor: Chelsey
+      Nelson: Britni
+      Hunter: Rashida
+      Austin: Stacey
+
+  - type: !Box {num: 5, comment: "E05"}
+    check: !Lights [1]
+    map:
+      Connor: Chelsey
+      # Rashida: Nelson
+
+  - type: !Night {num: 5, comment: "E05"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Hunter: Melanie
+      Mike: Britni
+      Alec: Stacey
+      Zak: Kayla
+      Nelson: Rashida
+      Devin: Cheyenne
+      Austin: Hannah
+      Chuck: Kiki
+      Tyler: Amanda
+
+  - type: !Box {num: 6, comment: "E06"}
+    check: !Lights [0]
+    map:
+      Chuck: Kiki
+      # Austin: Cheyenne
+
+  - type: !Night {num: 6, comment: "E06"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Chuck: Amanda
+      Tyler: Hannah
+      Zak: Kayla
+      Austin: Cheyenne
+      Hunter: Britni
+      Alec: Stacey
+      Nelson: Kiki
+      Devin: Rashida
+      Mike: Melanie
+
+  - type: !Box {num: 7, comment: "E07"}
+    check: !Lights [0]
+    map:
+      Alec: Melanie
+      # Hunter: Rashida
+
+  - type: !Night {num: 7, comment: "E07"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Alec: Rashida
+      Nelson: Kiki
+      Hunter: Amanda
+      Devin: Britni
+      Chuck: Melanie
+      Zak: Hannah
+      Mike: Stacey
+      Austin: Kayla
+      Tyler: Cheyenne
+
+  - type: !Box {num: 8, comment: "E08"}
+    check: !Lights [0]
+    map:
+      # Hunter: Amanda
+      Nelson: Kiki
+      # Austin: Kayla
+
+  - type: !Night {num: 8, comment: "E08"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Mike: Melanie
+      Hunter: Britni
+      Alec: Stacey
+      Tyler: Cheyenne
+      Chuck: Amanda
+      Devin: Rashida
+      Zak: Hannah
+      Nelson: Kayla
+      Austin: Kiki
+
+  - type: !Box {num: 9, comment: "E09"}
+    check: !Lights [0]
+    map:
+      # Zak: Hannah
+      # Hunter: Britni
+      Austin: Kayla
+
+  - type: !Night {num: 9, comment: "E09"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Hunter: Kayla
+      Austin: Cheyenne
+      Alec: Stacey
+      Devin: Britni
+      Zak: Hannah
+      Tyler: Melanie
+      Mike: Kiki
+      Nelson: Amanda
+      Chuck: Rashida
+
+  - type: !Box {num: 10, comment: "E10"}
+    check: !Lights [1]
+    map:
+      Zak: Kayla
+      # Devin: Rashida
+      # Tyler: Melanie
+
+  - type: !Night {num: 10, comment: "E10"}
+    check: !Lights [10]
+    # resultUnknown: true
+    map:
+      Connor: Chelsey
+      Zak: Kayla
+      Austin: Britni
+      Hunter: Hannah
+      Devin: Rashida
+      Tyler: Cheyenne
+      Alec: Amanda
+      Nelson: Stacey
+      Chuck: Melanie
+      Mike: Kiki
