@@ -240,12 +240,28 @@ impl Game {
         mno.flush()?;
         info.flush()?;
 
+        self.summary_table(false, merged_constraints)?;
+        self.summary_table(true, merged_constraints)?;
+        Ok(())
+    }
+
+    fn summary_table(&self, transpose: bool, merged_constraints: &Vec<Constraint>) -> Result<()> {
+        let map_hor;
+        // let map_vert;
+        if !transpose {
+            map_hor = &self.map_a;
+            // map_vert = &self.map_b;
+        } else {
+            map_hor = &self.map_b;
+            // map_vert = &self.map_a;
+        }
+
         let mut hdr = vec![
             Cell::new(""),
             Cell::new("L").set_alignment(comfy_table::CellAlignment::Center),
         ];
         hdr.extend(
-            self.map_a
+            map_hor
                 .iter()
                 .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
         );
@@ -264,11 +280,10 @@ impl Game {
 
         let mut past_constraints: Vec<&Constraint> = Vec::default();
         for c in merged_constraints {
-            table.add_row(c.stat_row(&self.map_a, &past_constraints));
+            table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
             past_constraints.push(c);
         }
         println!("{table}");
-
         Ok(())
     }
 

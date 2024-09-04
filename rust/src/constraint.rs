@@ -409,7 +409,16 @@ impl Constraint {
         Some(rem)
     }
 
-    pub fn stat_row(&self, map_a: &[String], past_constraints: &Vec<&Constraint>) -> Vec<Cell> {
+    pub fn stat_row(&self, transpose: bool, map_hor: &[String], past_constraints: &Vec<&Constraint>) -> Vec<Cell> {
+        let map_rev: MapS;
+        let map_s: &MapS;
+        if !transpose {
+            map_s = &self.map_s;
+        } else {
+            map_rev = self.map_s.iter().map(|(k,v)| (v.clone(),k.clone())).collect();
+            map_s = &map_rev;
+        }
+
         let mut ret = vec![];
         match self.r#type {
             ConstraintType::Night { num, .. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
@@ -424,17 +433,26 @@ impl Constraint {
                 CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
             }
         }
-        ret.extend(map_a.iter().map(|a| {
-            match self.map_s.get(a) {
-                Some(b) => {
+        ret.extend(map_hor.iter().map(|v1| {
+            match map_s.get(v1) {
+                Some(v2) => {
+                    let a;
+                    let b;
+                    if !transpose {
+                        a = v1;
+                        b = v2;
+                    } else {
+                        a = v2;
+                        b = v1;
+                    }
                     if self.show_new()
                         && !past_constraints
                             .iter()
                             .any(|&c| c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b))
                     {
-                        Cell::new(format!("{}*", b))
+                        Cell::new(format!("{}*", v2))
                     } else {
-                        Cell::new(&String::from(b))
+                        Cell::new(&String::from(v2))
                     }
                 }
                 None => Cell::new(&String::from("")),
