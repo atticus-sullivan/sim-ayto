@@ -27,7 +27,7 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 | Staffel 1 | [mit Farbe](data/de01r/de01r.col.png) | [nur Text](data/de01r/de01r.txt) | [aktuelle Tabelle](data/de01r/de01r_tab.png) | [Zusammenfassung](data/de01r/de01r_sum.png) | [aktueller Baum](data/de01r/de01r.pdf) |
 | Staffel 2 | [mit Farbe](data/de02r/de02r.col.png) | [nur Text](data/de02r/de02r.txt) | [aktuelle Tabelle](data/de02r/de02r_tab.png) | [Zusammenfassung](data/de02r/de02r_sum.png) | [aktueller Baum](data/de02r/de02r.pdf) |
 | Staffel 3 | [mit Farbe](data/de03r/de03r.col.png) | [nur Text](data/de03r/de03r.txt) | [aktuelle Tabelle](data/de03r/de03r_tab.png) | [Zusammenfassung](data/de03r/de03r_sum.png) | [aktueller Baum](data/de03r/de03r.pdf) |
-| Staffel 4 | [mit Farbe](data/de04r/de04r.col.png) | [nur Text](data/de04r/de04r.txt) | [aktuelle Tabelle](data/de04r/de04r_tab.png) | [Zusammenfassung](data/de04r/de04r_sum.png) | |
+| Staffel 4 | [mit Farbe](data/de04r/de04r.col.png) | [nur Text](data/de04r/de04r.txt) | [aktuelle Tabelle](data/de04r/de04r_tab.png) | [Zusammenfassung](data/de04r/de04r_sum.png) | [aktueller Baum](data/de04r/de04r.pdf) |
 
 ## AYTO - US
 
