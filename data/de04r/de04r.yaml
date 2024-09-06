@@ -114,7 +114,7 @@ constraints:
       Kaan: Asena
       # Kaan: Dana
 
-  - type: !Box {num: 5, comment: "E11 -- verkauft d Gabby"}
+  - type: !Box {num: 5, comment: "E11 -- verkauft d Gabriela"}
     check: !Nothing
     map:
       # Kaan: Tara
@@ -135,8 +135,30 @@ constraints:
       Lars: Nadja
       # LauraM
 
-  # - type: !Box {num: 6, comment: "E13"}
-  #   check: !Lights [?]
+  - type: !Box {num: 6, comment: "E13"}
+    check: !Lights [1]
+    map:
+      # MarcRobin: LauraM
+      Ozan: Anastasia
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      Chris: Emmy
+      Ozan: Anastasia
+      Lukas: Jenny
+      MarcRobin: LauraM
+      Lars: Dana
+      Tim: Linda
+      Antonino: Asena
+      Alex: Gabriela
+      Nikola: Nadja
+      Kaan: Tara
+      # Lars: LauraL
+
+  # - type: !Box {num: 7, comment: "E15"}
+  #   check: !Lights [0]
   #   map:
-  #     # MarcRobin: LauraM
-  #     Ozan: Anastasia
+  #     Lukas: Jenny
+  #     # Lars: Linda
