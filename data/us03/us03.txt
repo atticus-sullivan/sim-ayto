@@ -37,16 +37,16 @@ Hunter → Kiki
 3265920 left -> 21.6391 bits left
 
 MN#1.0 E01
+0x Devin  → Melanie  
 0x Zak    → Kayla    
 0x Chuck  → Hannah   
-0x Mike   → Amanda   
-0x Alec   → Stacey   
-0x Austin → Kiki     
-0x Nelson → Cheyenne 
-0x Devin  → Melanie  
-0x Connor → Chelsey  
-0x Hunter → Britni   
 0x Tyler  → Rashida  
+0x Connor → Chelsey  
+0x Mike   → Amanda   
+0x Hunter → Britni   
+0x Austin → Kiki     
+0x Alec   → Stacey   
+0x Nelson → Cheyenne 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Devin → Kiki
 548821 left -> 19.066 bits left
 
 MN#2.0 E02 -- blackout -250.000$
-1x Tyler  → Rashida  
-1x Nelson → Cheyenne 
-1x Devin  → Melanie  
-1x Chuck  → Hannah   
 0x Zak    → Britni   
+0x Hunter → Stacey   
+1x Devin  → Melanie  
+1x Austin → Kiki     
+1x Tyler  → Rashida  
 1x Mike   → Amanda   
 0x Alec   → Chelsey  
-1x Austin → Kiki     
-0x Hunter → Stacey   
 0x Connor → Kayla    
+1x Nelson → Cheyenne 
+1x Chuck  → Hannah   
 ---
 -> I[l]/bits: {0: 3.12, 1: 1.32, 2: 1.66, 3: 2.94, 4: 4.96, 5: 7.92, 6: 12.20}
 -> E[I]/bits: 1.99
@@ -143,16 +143,16 @@ Zak → Kiki
 57160 left -> 15.8027 bits left
 
 MN#3.0 E03
+0x Devin  → Rashida  
+1x Alec   → Stacey   
+0x Austin → Amanda   
+0x Zak    → Hannah   
+0x Nelson → Melanie  
+0x Chuck  → Kiki     
+0x Tyler  → Cheyenne 
+0x Mike   → Kayla    
 1x Connor → Chelsey  
 1x Hunter → Britni   
-0x Zak    → Hannah   
-0x Devin  → Rashida  
-0x Austin → Amanda   
-0x Tyler  → Cheyenne 
-0x Chuck  → Kiki     
-0x Mike   → Kayla    
-0x Nelson → Melanie  
-1x Alec   → Stacey   
 ---
 -> I[l]/bits: {1: 2.04, 2: 1.50, 3: 2.02, 4: 3.18, 5: 4.83, 6: 6.83, 7: 9.41, 8: 11.63}
 -> E[I]/bits: 2.12
@@ -196,16 +196,16 @@ Chuck → Britni
 13410 left -> 13.711 bits left
 
 MN#4.0 E04
-0x Hunter → Rashida  
-0x Alec   → Amanda   
-1x Mike   → Kayla    
-0x Zak    → Cheyenne 
-2x Connor → Chelsey  
-0x Devin  → Hannah   
 1x Chuck  → Kiki     
-0x Tyler  → Melanie  
-0x Austin → Stacey   
 0x Nelson → Britni   
+0x Devin  → Hannah   
+0x Austin → Stacey   
+2x Connor → Chelsey  
+0x Alec   → Amanda   
+0x Hunter → Rashida  
+0x Zak    → Cheyenne 
+0x Tyler  → Melanie  
+1x Mike   → Kayla    
 ---
 -> I[l]/bits: {0: 2.48, 1: 1.54, 2: 1.86, 3: 2.85, 4: 4.40, 5: 6.33, 6: 8.90, 7: 12.13}
 -> E[I]/bits: 2.19
@@ -249,16 +249,16 @@ Connor → Chelsey
 2613 left -> 11.3515 bits left
 
 MN#5.0 E05
-0x Tyler  → Amanda   
-1x Zak    → Kayla    
-0x Nelson → Rashida  
-0x Hunter → Melanie  
-2x Alec   → Stacey   
 0x Mike   → Britni   
-3x Connor → Chelsey  
-0x Devin  → Cheyenne 
-0x Austin → Hannah   
 2x Chuck  → Kiki     
+0x Nelson → Rashida  
+2x Alec   → Stacey   
+1x Zak    → Kayla    
+0x Devin  → Cheyenne 
+0x Hunter → Melanie  
+3x Connor → Chelsey  
+0x Austin → Hannah   
+0x Tyler  → Amanda   
 ---
 -> I[l]/bits: {1: 2.00, 2: 1.68, 3: 2.11, 4: 2.93, 5: 4.22, 6: 5.89, 7: 8.35, 8: 9.77}
 -> E[I]/bits: 2.26
@@ -303,14 +303,14 @@ Chuck → Kiki
 
 MN#6.0 E06
 2x Hunter → Britni   
-0x Chuck  → Amanda   
 3x Alec   → Stacey   
-0x Tyler  → Hannah   
-0x Austin → Cheyenne 
-2x Zak    → Kayla    
-4x Connor → Chelsey  
 0x Nelson → Kiki     
+2x Zak    → Kayla    
 1x Devin  → Rashida  
+0x Tyler  → Hannah   
+0x Chuck  → Amanda   
+4x Connor → Chelsey  
+0x Austin → Cheyenne 
 0x Mike   → Melanie  
 ---
 -> I[l]/bits: {2: 1.46, 3: 1.36, 4: 2.40, 5: 4.47, 6: 6.47, 7: 9.47}
@@ -355,16 +355,16 @@ Alec → Melanie
 257 left -> 8.0056 bits left
 
 MN#7.0 E07
-1x Tyler  → Cheyenne 
 1x Zak    → Hannah   
-0x Chuck  → Melanie  
 0x Alec   → Rashida  
-1x Nelson → Kiki     
-0x Mike   → Stacey   
-0x Devin  → Britni   
 5x Connor → Chelsey  
-0x Hunter → Amanda   
+0x Devin  → Britni   
+1x Nelson → Kiki     
+0x Chuck  → Melanie  
+0x Mike   → Stacey   
 0x Austin → Kayla    
+0x Hunter → Amanda   
+1x Tyler  → Cheyenne 
 ---
 -> I[l]/bits: {1: 1.80, 2: 1.67, 3: 1.98, 4: 3.25, 5: 5.42, 6: 6.01}
 -> E[I]/bits: 2.11
@@ -408,16 +408,16 @@ Nelson → Kiki
 45 left -> 5.4919 bits left
 
 MN#8.0 E08
+2x Austin → Kiki     
+1x Mike   → Melanie  
+3x Hunter → Britni   
 6x Connor → Chelsey  
 2x Tyler  → Cheyenne 
-3x Hunter → Britni   
-2x Devin  → Rashida  
-2x Austin → Kiki     
 2x Zak    → Hannah   
+4x Alec   → Stacey   
+2x Devin  → Rashida  
 1x Chuck  → Amanda   
 0x Nelson → Kayla    
-1x Mike   → Melanie  
-4x Alec   → Stacey   
 ---
 -> I[l]/bits: {1: 5.49, 2: 2.68, 3: 0.97, 4: 2.03, 5: 3.91}
 -> E[I]/bits: 1.79
@@ -461,13 +461,13 @@ Austin → Kayla
 16 left -> 4 bits left
 
 MN#9.0 E09
-1x Devin  → Britni   
-0x Chuck  → Rashida  
-0x Nelson → Amanda   
-1x Austin → Cheyenne 
-1x Tyler  → Melanie  
-5x Alec   → Stacey   
 7x Connor → Chelsey  
+1x Austin → Cheyenne 
+0x Nelson → Amanda   
+1x Devin  → Britni   
+5x Alec   → Stacey   
+0x Chuck  → Rashida  
+1x Tyler  → Melanie  
 0x Mike   → Kiki     
 3x Zak    → Hannah   
 0x Hunter → Kayla    
@@ -514,16 +514,16 @@ Zak → Kayla
 4 left -> 2 bits left
 
 MN#10.0 E10
-3x Devin  → Rashida  
-3x Zak    → Kayla    
-1x Alec   → Amanda   
 8x Connor → Chelsey  
+1x Mike   → Kiki     
 1x Chuck  → Melanie  
+1x Alec   → Amanda   
 0x Austin → Britni   
+0x Hunter → Hannah   
+3x Zak    → Kayla    
+3x Devin  → Rashida  
 3x Tyler  → Cheyenne 
 0x Nelson → Stacey   
-0x Hunter → Hannah   
-1x Mike   → Kiki     
 ---
 -> I[l]/bits: {3: 2.00, 4: 2.00, 5: 2.00, 10: 2.00}
 -> E[I]/bits: 2.00
@@ -568,6 +568,30 @@ MN#10.0 E10
 │ MB#10.0 ┆ 1  ┆          ┆           ┆          ┆          ┆           ┆          ┆          ┆           ┆           ┆ Kayla     ┆   ┆ 0.585  ┆      ┆          │
 │ MN#10.0 ┆ 10 ┆ Amanda   ┆ Britni*   ┆ Melanie  ┆ Chelsey  ┆ Rashida   ┆ Hannah*  ┆ Kiki     ┆ Stacey*   ┆ Cheyenne  ┆ Kayla     ┆   ┆ 2      ┆ 3    ┆ 7/MN#3   │
 ╰─────────┴────┴──────────┴───────────┴──────────┴──────────┴───────────┴──────────┴──────────┴───────────┴───────────┴───────────┴───┴────────┴──────┴──────────╯
+╭─────────┬────┬─────────┬─────────┬─────────┬──────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬───┬────────┬──────┬──────────╮
+│         ┆  L ┆  Amanda ┆  Britni ┆ Chelsey ┆ Cheyenne ┆  Hannah ┆  Kayla  ┆   Kiki  ┆ Melanie ┆ Rashida ┆  Stacey ┆   ┆    I   ┆ #new ┆ min dist │
+╞═════════╪════╪═════════╪═════════╪═════════╪══════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═══╪════════╪══════╪══════════╡
+│ MB#1.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆         ┆ Hunter  ┆         ┆         ┆         ┆   ┆ 0.152  ┆      ┆          │
+│ MN#1.0  ┆ 2  ┆ Mike*   ┆ Hunter* ┆ Connor* ┆ Nelson*  ┆ Chuck*  ┆ Zak*    ┆ Austin* ┆ Devin*  ┆ Tyler*  ┆ Alec*   ┆   ┆ 2.425  ┆ 10   ┆          │
+│ MB#2.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆         ┆ Devin   ┆         ┆         ┆         ┆   ┆ 0.1481 ┆      ┆          │
+│ MN#2.0  ┆ 0  ┆ Mike    ┆ Zak*    ┆ Alec*   ┆ Nelson   ┆ Chuck   ┆ Connor* ┆ Austin  ┆ Devin   ┆ Tyler   ┆ Hunter* ┆   ┆ 3.1182 ┆ 4    ┆ 4/MN#1   │
+│ MB#3.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆         ┆ Zak     ┆         ┆         ┆         ┆   ┆ 0.1451 ┆      ┆          │
+│ MN#3.0  ┆ 3  ┆ Austin* ┆ Hunter  ┆ Connor  ┆ Tyler*   ┆ Zak*    ┆ Mike*   ┆ Chuck*  ┆ Nelson* ┆ Devin*  ┆ Alec    ┆   ┆ 2.0163 ┆ 7    ┆ 7/MN#1   │
+│ MB#4.0  ┆ 0  ┆         ┆ Chuck   ┆         ┆          ┆         ┆         ┆         ┆         ┆         ┆         ┆   ┆ 0.0754 ┆      ┆          │
+│ MN#4.0  ┆ 2  ┆ Alec*   ┆ Nelson* ┆ Connor  ┆ Zak*     ┆ Devin*  ┆ Mike    ┆ Chuck   ┆ Tyler*  ┆ Hunter* ┆ Austin* ┆   ┆ 1.8569 ┆ 7    ┆ 7/MN#3   │
+│ MB#5.0  ┆ 1  ┆         ┆         ┆ Connor  ┆          ┆         ┆         ┆         ┆         ┆         ┆         ┆   ┆ 0.5026 ┆      ┆          │
+│ MN#5.0  ┆ 2  ┆ Tyler*  ┆ Mike*   ┆ Connor  ┆ Devin*   ┆ Austin* ┆ Zak     ┆ Chuck   ┆ Hunter* ┆ Nelson* ┆ Alec    ┆   ┆ 1.6755 ┆ 6    ┆ 7/MN#1   │
+│ MB#6.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆         ┆ Chuck   ┆         ┆         ┆         ┆   ┆ 0.2084 ┆      ┆          │
+│ MN#6.0  ┆ 3  ┆ Chuck*  ┆ Hunter  ┆ Connor  ┆ Austin*  ┆ Tyler*  ┆ Zak     ┆ Nelson* ┆ Mike*   ┆ Devin   ┆ Alec    ┆   ┆ 1.3643 ┆ 5    ┆ 6/MN#1   │
+│ MB#7.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆         ┆         ┆ Alec    ┆         ┆         ┆   ┆ 0.0977 ┆      ┆          │
+│ MN#7.0  ┆ 3  ┆ Hunter* ┆ Devin*  ┆ Connor  ┆ Tyler    ┆ Zak     ┆ Austin* ┆ Nelson  ┆ Chuck*  ┆ Alec*   ┆ Mike*   ┆   ┆ 1.9833 ┆ 6    ┆ 7/MN#3   │
+│ MB#8.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆         ┆ Nelson  ┆         ┆         ┆         ┆   ┆ 0.5305 ┆      ┆          │
+│ MN#8.0  ┆ 3  ┆ Chuck   ┆ Hunter  ┆ Connor  ┆ Tyler    ┆ Zak     ┆ Nelson* ┆ Austin  ┆ Mike    ┆ Devin   ┆ Alec    ┆   ┆ 0.9683 ┆ 1    ┆ 4/MN#3   │
+│ MB#9.0  ┆ 0  ┆         ┆         ┆         ┆          ┆         ┆ Austin  ┆         ┆         ┆         ┆         ┆   ┆ 0.5236 ┆      ┆          │
+│ MN#9.0  ┆ 2  ┆ Nelson* ┆ Devin   ┆ Connor  ┆ Austin   ┆ Zak     ┆ Hunter* ┆ Mike*   ┆ Tyler   ┆ Chuck*  ┆ Alec    ┆   ┆ 1.415  ┆ 4    ┆ 7/MN#3   │
+│ MB#10.0 ┆ 1  ┆         ┆         ┆         ┆          ┆         ┆ Zak     ┆         ┆         ┆         ┆         ┆   ┆ 0.585  ┆      ┆          │
+│ MN#10.0 ┆ 10 ┆ Alec    ┆ Austin* ┆ Connor  ┆ Tyler    ┆ Hunter* ┆ Zak     ┆ Mike    ┆ Chuck   ┆ Devin   ┆ Nelson* ┆   ┆ 2      ┆ 3    ┆ 7/MN#3   │
+╰─────────┴────┴─────────┴─────────┴─────────┴──────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 3628800  Permutations left: 1  Initial combinations for each pair: 362880
 
-Ran in 0.96s
+Ran in 0.95s

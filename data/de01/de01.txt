@@ -37,16 +37,16 @@ Ivana → Mo
 32659200 left -> 24.961 bits left
 
 MN#1.0 E03
-0x Ivana    → Juliano 
-0x Laura    → Ferhat  
-0x Melissa  → Dominic 
-0x Nadine   → Elisha  
-0x Kathi    → Rene    
-0x Madleine → Laurin  
 0x Aline    → Kevin   
-0x Luisa    → Axel    
-0x Sabrina  → Aleks   
 0x Michelle → Mo      
+0x Nadine   → Elisha  
+0x Madleine → Laurin  
+0x Sabrina  → Aleks   
+0x Kathi    → Rene    
+0x Luisa    → Axel    
+0x Laura    → Ferhat  
+0x Ivana    → Juliano 
+0x Melissa  → Dominic 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Melissa → Dominic
 10846550 left -> 23.3707 bits left
 
 MN#2.0 E04
-0x Luisa    → Rene    
 0x Nadine   → Aleks   
 0x Ivana    → Elisha  
+1x Michelle → Mo      
+0x Laura    → Juliano 
+0x Luisa    → Rene    
+0x Sabrina  → Dominic 
+0x Madleine → Axel    
 0x Aline    → Ferhat  
 0x Kathi    → Kevin   
 0x Melissa  → Laurin  
-0x Sabrina  → Dominic 
-0x Laura    → Juliano 
-0x Madleine → Axel    
-1x Michelle → Mo      
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.45, 2: 2.42, 3: 3.94, 4: 5.85, 5: 8.04, 6: 10.40, 7: 13.13, 8: 15.29, 10: 20.05}
 -> E[I]/bits: 1.91
@@ -143,16 +143,16 @@ Aline → Mo
 171108 left -> 17.3845 bits left
 
 MN#3.0 E06
+0x Michelle → Ferhat  
 1x Nadine   → Aleks   
+1x Laura    → Juliano 
+1x Kathi    → Kevin   
+1x Sabrina  → Dominic 
 1x Melissa  → Laurin  
-0x Aline    → Mo      
 1x Madleine → Axel    
+0x Aline    → Mo      
 1x Luisa    → Rene    
 1x Ivana    → Elisha  
-1x Sabrina  → Dominic 
-1x Kathi    → Kevin   
-0x Michelle → Ferhat  
-1x Laura    → Juliano 
 ---
 -> I[l]/bits: {3: 0.19, 4: 3.03}
 -> E[I]/bits: 0.54
@@ -196,16 +196,16 @@ Melissa → Laurin
 37760 left -> 15.2046 bits left
 
 MN#4.0 E08 -- Blackout
-0x Ivana    → Axel    
+1x Aline    → Mo      
 0x Kathi    → Juliano 
-0x Nadine   → Dominic 
 2x Melissa  → Laurin  
-2x Luisa    → Rene    
+1x Sabrina  → Aleks   
+0x Ivana    → Axel    
 0x Laura    → Kevin   
 0x Madleine → Ferhat  
+2x Luisa    → Rene    
 0x Michelle → Elisha  
-1x Aline    → Mo      
-1x Sabrina  → Aleks   
+0x Nadine   → Dominic 
 ---
 -> I[l]/bits: {2: 1.48, 3: 1.46, 4: 2.45, 5: 3.87, 6: 5.70, 7: 7.96, 8: 9.20, 10: 12.20}
 -> E[I]/bits: 1.93
@@ -249,16 +249,16 @@ Ivana → Elisha
 11456 left -> 13.4838 bits left
 
 MN#5.0 E10
-0x Nadine   → Rene    
-0x Madleine → Aleks   
-2x Kathi    → Kevin   
-0x Ivana    → Dominic 
-3x Melissa  → Laurin  
-2x Laura    → Juliano 
-0x Luisa    → Ferhat  
 0x Sabrina  → Elisha  
+3x Melissa  → Laurin  
+0x Madleine → Aleks   
 0x Michelle → Axel    
+0x Ivana    → Dominic 
+2x Kathi    → Kevin   
 2x Aline    → Mo      
+0x Nadine   → Rene    
+0x Luisa    → Ferhat  
+2x Laura    → Juliano 
 ---
 -> I[l]/bits: {2: 1.81, 3: 1.50, 4: 2.17, 5: 3.31, 6: 4.99, 7: 7.48, 8: 8.90}
 -> E[I]/bits: 2.08
@@ -302,16 +302,16 @@ Michelle → Rene
 140 left -> 7.1293 bits left
 
 MN#6.0 E12
-1x Ivana    → Juliano 
-3x Kathi    → Kevin   
 0x Laura    → Edin    
+1x Nadine   → Elisha  
+1x Ivana    → Juliano 
+4x Melissa  → Laurin  
+0x Michelle → Rene    
+2x Sabrina  → Dominic 
 3x Aline    → Mo      
 1x Luisa    → Axel    
 1x Madleine → Aleks   
-1x Nadine   → Elisha  
-4x Melissa  → Laurin  
-2x Sabrina  → Dominic 
-0x Michelle → Rene    
+3x Kathi    → Kevin   
 ---
 -> I[l]/bits: {4: 2.96, 5: 0.90, 6: 1.74, 7: 4.81}
 -> E[I]/bits: 1.56
@@ -356,15 +356,15 @@ Ivana → Edin
 
 MN#7.0 E14
 2x Luisa    → Axel    
-3x Sabrina  → Dominic 
 4x Aline    → Mo      
-3x Laura    → Juliano 
 0x Ivana    → Kevin   
-0x Kathi    → Elisha  
-5x Melissa  → Laurin  
-1x Michelle → Rene    
-2x Madleine → Aleks   
 0x Nadine   → Ferhat  
+1x Michelle → Rene    
+3x Sabrina  → Dominic 
+5x Melissa  → Laurin  
+3x Laura    → Juliano 
+2x Madleine → Aleks   
+0x Kathi    → Elisha  
 ---
 -> I[l]/bits: {3: 2.52, 4: 2.52, 5: 2.07, 6: 2.52, 7: 3.66, 8: 2.66}
 -> E[I]/bits: 2.52
@@ -409,15 +409,15 @@ Sabrina → Axel
 
 MN#8.0 E16
 3x Luisa    → Axel    
-6x Melissa  → Laurin  
-2x Michelle → Rene    
-5x Aline    → Mo      
-1x Ivana    → Kevin   
 1x Nadine   → Ferhat  
-0x Madleine → Edin    
-0x Kathi    → Aleks   
+1x Ivana    → Kevin   
 4x Laura    → Juliano 
+0x Kathi    → Aleks   
+5x Aline    → Mo      
 4x Sabrina  → Dominic 
+2x Michelle → Rene    
+0x Madleine → Edin    
+6x Melissa  → Laurin  
 ---
 -> I[l]/bits: {4: 1.32, 5: 1.00, 6: 3.32}
 -> E[I]/bits: 1.36
@@ -461,16 +461,16 @@ Luisa → Ferhat
 1 left -> 0 bits left
 
 MN#9.0 E18
-0x Madleine → Kevin   
+3x Michelle → Rene    
+4x Luisa    → Axel    
 7x Melissa  → Laurin  
+6x Aline    → Mo      
+1x Ivana    → Dominic 
+1x Kathi    → Aleks   
 5x Laura    → Juliano 
 1x Sabrina  → Elisha  
-1x Ivana    → Dominic 
-3x Michelle → Rene    
+0x Madleine → Kevin   
 2x Nadine   → Ferhat  
-6x Aline    → Mo      
-4x Luisa    → Axel    
-1x Kathi    → Aleks   
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00
@@ -514,16 +514,16 @@ Kathi → Kevin
 1 left -> 0 bits left
 
 MN#10.0 E20
-0x Laura    → Aleks   
 2x Sabrina  → Elisha  
-3x Nadine   → Ferhat  
-7x Aline    → Mo      
-8x Melissa  → Laurin  
 1x Madleine → Edin    
-4x Kathi    → Kevin   
-5x Luisa    → Axel    
+7x Aline    → Mo      
 4x Michelle → Rene    
+3x Nadine   → Ferhat  
+8x Melissa  → Laurin  
 2x Ivana    → Dominic 
+5x Luisa    → Axel    
+4x Kathi    → Kevin   
+0x Laura    → Aleks   
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -568,6 +568,30 @@ MN#10.0 E20
 │ MB#10.0 ┆ 1  ┆         ┆          ┆ Kevin    ┆          ┆         ┆          ┆          ┆          ┆          ┆          ┆   ┆ 0      ┆      ┆          │
 │ MN#10.0 ┆ 10 ┆ Mo      ┆ Dominic  ┆ Kevin    ┆ Aleks*   ┆ Axel    ┆ Edin     ┆ Laurin   ┆ Rene     ┆ Ferhat   ┆ Elisha   ┆   ┆ 0      ┆ 1    ┆ 3/MN#9   │
 ╰─────────┴────┴─────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
+╭─────────┬────┬───────────┬───────────┬──────────┬───────────┬───────────┬─────────┬───────────┬───────────┬───────────┬──────────┬───────────┬───┬────────┬──────┬──────────╮
+│         ┆  L ┆   Aleks   ┆    Axel   ┆  Dominic ┆   Elisha  ┆   Ferhat  ┆ Juliano ┆   Kevin   ┆   Laurin  ┆     Mo    ┆   Rene   ┆    Edin   ┆   ┆    I   ┆ #new ┆ min dist │
+╞═════════╪════╪═══════════╪═══════════╪══════════╪═══════════╪═══════════╪═════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════════╪═══╪════════╪══════╪══════════╡
+│ MB#1.0  ┆ 0  ┆           ┆           ┆          ┆           ┆           ┆         ┆           ┆           ┆ Ivana     ┆          ┆           ┆   ┆ 0.152  ┆      ┆          │
+│ MN#1.0  ┆ 1  ┆ Sabrina*  ┆ Luisa*    ┆ Melissa* ┆ Nadine*   ┆ Laura*    ┆ Ivana*  ┆ Aline*    ┆ Madleine* ┆ Michelle* ┆ Kathi*   ┆           ┆   ┆ 1.4427 ┆ 10   ┆          │
+│ MB#2.0  ┆ 0  ┆           ┆           ┆ Melissa  ┆           ┆           ┆         ┆           ┆           ┆           ┆          ┆           ┆   ┆ 0.1476 ┆      ┆          │
+│ MN#2.0  ┆ 2  ┆ Nadine*   ┆ Madleine* ┆ Sabrina* ┆ Ivana*    ┆ Aline*    ┆ Laura*  ┆ Kathi*    ┆ Melissa*  ┆ Michelle  ┆ Luisa*   ┆           ┆   ┆ 2.4182 ┆ 9    ┆ 9/MN#1   │
+│ MB#3.0  ┆ 1  ┆           ┆           ┆          ┆           ┆           ┆         ┆           ┆           ┆ Aline     ┆          ┆           ┆   ┆ 3.568  ┆      ┆          │
+│ MN#3.0  ┆ 3  ┆ Nadine    ┆ Madleine  ┆ Sabrina  ┆ Ivana     ┆ Michelle* ┆ Laura   ┆ Kathi     ┆ Melissa   ┆ Aline     ┆ Luisa    ┆           ┆   ┆ 0.1886 ┆ 1    ┆ 2/MN#2   │
+│ MB#4.0  ┆ 1  ┆           ┆           ┆          ┆           ┆           ┆         ┆           ┆ Melissa   ┆           ┆          ┆           ┆   ┆ 1.9914 ┆      ┆          │
+│ MN#4.0  ┆ 2  ┆ Sabrina   ┆ Ivana*    ┆ Nadine*  ┆ Michelle* ┆ Madleine* ┆ Kathi*  ┆ Laura*    ┆ Melissa   ┆ Aline     ┆ Luisa    ┆           ┆   ┆ 1.4767 ┆ 6    ┆ 7/MN#3   │
+│ MB#5.0  ┆ 0  ┆           ┆           ┆          ┆ Ivana     ┆           ┆         ┆           ┆           ┆           ┆          ┆           ┆   ┆ 0.2441 ┆      ┆          │
+│ MN#5.0  ┆ 5  ┆ Madleine* ┆ Michelle* ┆ Ivana*   ┆ Sabrina*  ┆ Luisa*    ┆ Laura   ┆ Kathi     ┆ Melissa   ┆ Aline     ┆ Nadine*  ┆           ┆   ┆ 3.3139 ┆ 6    ┆ 6/MN#3   │
+│ MB#6.0  ┆ 1  ┆           ┆           ┆          ┆           ┆           ┆         ┆           ┆           ┆           ┆ Michelle ┆           ┆   ┆ 3.0406 ┆      ┆          │
+│ MN#6.0  ┆ 5  ┆ Madleine  ┆ Luisa     ┆ Sabrina  ┆ Nadine    ┆           ┆ Ivana   ┆ Kathi     ┆ Melissa   ┆ Aline     ┆ Michelle ┆ Laura*    ┆   ┆ 0.9005 ┆ 1    ┆ 6/MN#3   │
+│ MB#7.0  ┆ 0  ┆           ┆           ┆          ┆           ┆           ┆         ┆           ┆           ┆           ┆          ┆ Ivana     ┆   ┆ 0.2515 ┆      ┆          │
+│ MN#7.0  ┆ 5  ┆ Madleine  ┆ Luisa     ┆ Sabrina  ┆ Kathi*    ┆ Nadine*   ┆ Laura   ┆ Ivana*    ┆ Melissa   ┆ Aline     ┆ Michelle ┆           ┆   ┆ 2.0704 ┆ 3    ┆ 4/MN#6   │
+│ MB#8.0  ┆ 0  ┆           ┆ Sabrina   ┆          ┆           ┆           ┆         ┆           ┆           ┆           ┆          ┆           ┆   ┆ 0.585  ┆      ┆          │
+│ MN#8.0  ┆ 6  ┆ Kathi*    ┆ Luisa     ┆ Sabrina  ┆           ┆ Nadine    ┆ Laura   ┆ Ivana     ┆ Melissa   ┆ Aline     ┆ Michelle ┆ Madleine* ┆   ┆ 3.3219 ┆ 2    ┆ 2/MN#7   │
+│ MB#9.0  ┆ 0  ┆           ┆           ┆          ┆           ┆ Luisa     ┆         ┆           ┆           ┆           ┆          ┆           ┆   ┆ 0      ┆      ┆          │
+│ MN#9.0  ┆ 7  ┆ Kathi     ┆ Luisa     ┆ Ivana    ┆ Sabrina   ┆ Nadine    ┆ Laura   ┆ Madleine* ┆ Melissa   ┆ Aline     ┆ Michelle ┆           ┆   ┆ 0      ┆ 1    ┆ 3/MN#8   │
+│ MB#10.0 ┆ 1  ┆           ┆           ┆          ┆           ┆           ┆         ┆ Kathi     ┆           ┆           ┆          ┆           ┆   ┆ 0      ┆      ┆          │
+│ MN#10.0 ┆ 10 ┆ Laura*    ┆ Luisa     ┆ Ivana    ┆ Sabrina   ┆ Nadine    ┆         ┆ Kathi     ┆ Melissa   ┆ Aline     ┆ Michelle ┆ Madleine  ┆   ┆ 0      ┆ 1    ┆ 3/MN#9   │
+╰─────────┴────┴───────────┴───────────┴──────────┴───────────┴───────────┴─────────┴───────────┴───────────┴───────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.61s
+Ran in 10.65s
