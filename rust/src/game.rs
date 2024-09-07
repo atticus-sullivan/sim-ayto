@@ -279,8 +279,16 @@ impl Game {
             .set_header(hdr);
 
         let mut past_constraints: Vec<&Constraint> = Vec::default();
-        for c in merged_constraints {
-            table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
+        for (i,c) in merged_constraints.iter().enumerate() {
+            if i % 2 == 0 {
+                table.add_row(c.stat_row(transpose, map_hor, &past_constraints).into_iter().map(|i| i.bg(comfy_table::Color::Rgb {
+                        r: 41,
+                        g: 44,
+                        b: 60,
+                    })));
+            } else {
+                table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
+            }
             past_constraints.push(c);
         }
         println!("{table}");

@@ -430,7 +430,24 @@ impl Constraint {
             match &self.check {
                 CheckType::Eq => ret.push(Cell::new("E")),
                 CheckType::Nothing => ret.push(Cell::new("-")),
-                CheckType::Lights(lights, _) => ret.push(Cell::new(lights)),
+                CheckType::Lights(lights, _) => {
+                    let lights = *lights;
+                    match self.r#type {
+                        ConstraintType::Night { .. } => {
+                            ret.push(Cell::new(lights))
+                        },
+                        ConstraintType::Box { .. } => {
+                            if lights == 1 {
+                                ret.push(Cell::new(lights).fg(comfy_table::Color::Green))
+                            } else if lights == 0 {
+                                ret.push(Cell::new(lights).fg(comfy_table::Color::Red))
+                            } else {
+
+                                ret.push(Cell::new(lights))
+                            }
+                        },
+                    }
+                },
             }
         }
         ret.extend(map_hor.iter().map(|v1| {
