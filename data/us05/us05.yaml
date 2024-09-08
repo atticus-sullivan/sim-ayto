@@ -1,0 +1,261 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup 
+rule_set: !Eq
+# one couple more
+# erste staffel mit verkaufsangeboten für MBs
+
+setA:
+  - Andre
+  - Derrick
+  - Edward
+  - Hayden
+  - Jaylan
+  - Joey
+  - Michael
+  - Mike
+  - Osvaldo
+  - Ozzy
+  - Tyler
+
+setB:
+  - Alicia
+  - Carolina
+  - Casandra
+  - Gianna
+  - Hannah
+  - Kam
+  - Kari
+  - Kathryn
+  - Shannon
+  - Taylor
+  - Tyranny
+
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      Hayden: Gianna
+      # Joey: Carolina
+      # Osvaldo: Hannah
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Tyler: Taylor
+      Mike: Kari
+      Jaylan: Casandra
+      Joey: Carolina
+      Osvaldo: Tyranny
+      Ozzy: Gianna
+      Michael: Hannah
+      Andre: Alicia
+      Derrick: Kathryn
+      Hayden: Shannon
+
+  - type: !Box {num: 2, comment: "E02"}
+    check: !Lights [0]
+    map:
+      # Tyler: Hannah
+      Andre: Alicia
+      # Joey: Kari
+
+  - type: !Night {num: 2, comment: "E02 -- blackout -500,000$"}
+    check: !Lights [0]
+    # resultUnknown: true
+    map:
+      Osvaldo: Kari
+      Ozzy: Kathryn
+      Jaylan: Kam
+      Edward: Shannon
+      Derrick: Alicia
+      Hayden: Taylor
+      Andre: Hannah
+      Michael: Gianna
+      Joey: Carolina
+      Mike: Casandra
+      Tyler: Tyranny
+
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # Hayden: Kathryn
+      # Joey: Kari
+      Ozzy: Carolina
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Joey: Kathryn
+      Osvaldo: Tyranny
+      Derrick: Hannah
+      Jaylan: Casandra
+      Edward: Kam
+      Tyler: Shannon
+      Hayden: Carolina
+      Ozzy: Gianna
+      Mike: Alicia
+      Michael: Taylor
+      Andre: Kari
+
+  - type: !Box {num: 4, comment: "E04"}
+    check: !Lights [0]
+    map:
+      Osvaldo: Tyranny
+      # Joey: Kathryn
+
+  - type: !Night {num: 4, comment: "E04"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Mike: Kam
+      Ozzy: Hannah
+      Osvaldo: Taylor
+      Andre: Casandra
+      Edward: Alicia
+      Joey: Kathryn
+      Derrick: Gianna
+      Tyler: Shannon
+      Michael: Kari
+      Hayden: Carolina
+      Jaylan: Tyranny
+
+  - type: !Box {num: 5, comment: "E05"}
+    check: !Lights [1]
+    map:
+      Edward: Kam
+      # Kari: Mike
+
+  - type: !Night {num: 5, comment: "E05"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Ozzy: Hannah
+      Hayden: Carolina
+      Mike: Alicia
+      Derrick: Tyranny
+      Andre: Taylor
+      Joey: Kathryn
+      Osvaldo: Gianna
+      Tyler: Shannon
+      Jaylan: Casandra
+      Michael: Kari
+
+  - type: !Box {num: 6, comment: "E06"}
+    check: !Lights [0]
+    map:
+      Ozzy: Hannah
+      # Tyler: Shannon
+
+  - type: !Night {num: 6, comment: "E06"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Joey: Kathryn
+      Andre: Taylor
+      Michael: Kari
+      Tyler: Shannon
+      Mike: Alicia
+      Derrick: Tyranny
+      Hayden: Carolina
+      Osvaldo: Gianna
+      Jaylan: Hannah
+      Ozzy: Casandra
+
+  - type: !Box {num: 7, comment: "E07"}
+    check: !Lights [0]
+    map:
+      Andre: Taylor
+      # Derrick: Kari
+
+  - type: !Night {num: 7, comment: "E07"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Andre: Casandra
+      Ozzy: Alicia
+      Tyler: Shannon
+      Osvaldo: Taylor
+      Derrick: Kari
+      Joey: Kathryn
+      Jaylan: Tyranny
+      Michael: Hannah
+      Mike: Gianna
+      Hayden: Carolina
+
+  - type: !Box {num: 8, comment: "E08"}
+    check: !Lights [1]
+    map:
+      Hayden: Carolina
+      # Michael: Kathryn
+
+  - type: !Night {num: 8, comment: "E08"}
+    check: !Lights [5]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Hayden: Carolina
+      Derrick: Shannon
+      Mike: Kari
+      Andre: Gianna
+      Tyler: Hannah
+      Osvaldo: Taylor
+      Ozzy: Alicia
+      Jaylan: Tyranny
+      Joey: Casandra
+      Michael: Kathryn
+
+  - type: !Box {num: 9, comment: "E09 -- sold for +150,000$"}
+    check: !Nothing
+    map:
+      # Mike: Casandra
+      Derrick: Tyranny
+
+  - type: !Night {num: 9, comment: "E09"}
+    check: !Lights [9]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Hayden: Carolina
+      Michael: Kari
+      Mike: Alicia
+      Ozzy: Gianna
+      Jaylan: Tyranny
+      Tyler: Shannon
+      Joey: Hannah
+      Derrick: Casandra
+      Osvaldo: Taylor
+      Andre: Kathryn
+
+  - type: !Box {num: 10, comment: "E10 -- sold +150,000$"}
+    check: !Nothing
+    map:
+      Joey: Casandra
+      # Derrick: Tyranny
+
+  - type: !Night {num: 10, comment: "E10"}
+    check: !Lights [8]
+    # resultUnknown: true
+    map:
+      Edward: Kam
+      Hayden: Carolina
+      Michael: Kari
+      Ozzy: Gianna
+      Mike: Alicia
+      Joey: Hannah
+      Osvaldo: Taylor
+      Jaylan: Tyranny
+      Tyler: Casandra
+      Andre: Kathryn
+      Derrick: Shannon
