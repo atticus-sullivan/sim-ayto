@@ -64,7 +64,7 @@ $(CAALIAS):
 	@make --no-print-directory $(f)
 	$(NOTIF) &
 ifndef NO_ZATHURA
-	-test -f $(f:.txt=.pdf) && ! pgrep -a zathura | grep "[0-9]\+ zathura $(f:.txt=.pdf)" &>/dev/null && zathura "$(f:.txt=.pdf)" &>/dev/null &
+	-test -f $(f:.txt=.pdf) && ! pgrep -a zathura | grep "[0-9]\+ zathura $(f:.txt=.pdf)" && zathura "$(f:.txt=.pdf)" & disown
 endif
 	$(CAT) $(f:.txt=.col.out)
 
@@ -77,7 +77,9 @@ $(INITDIR):
 
 $(MOALIAS):
 	# https://github.com/edubart/luamon
-	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@)
+	$(eval f := $(let i,$@,data/$(patsubst mon_%,%,$i)/$(patsubst mon_%,%,$i).txt))
+	-test -f $(f:.txt=.pdf) && zathura "$(f:.txt=.pdf)" & disown
+	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@) NO_ZATHURA=y
 
 
 $(ALIAS):
