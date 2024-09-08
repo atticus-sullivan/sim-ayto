@@ -37,16 +37,16 @@ Brandon → Jess
 32659200 left -> 24.961 bits left
 
 MN#1.0 E01
-0x Layton     → Jenni     
 0x Garland    → Alex      
-0x John       → Jasmine   
-0x Nathan     → Shelby    
-0x Dario      → Ashley    
 0x Curtis     → Briana    
-0x TylerPratt → Paris     
-0x Anthony    → Jess      
-0x Alex       → Ellie     
 0x Brandon    → Christina 
+0x Alex       → Ellie     
+0x Layton     → Jenni     
+0x TylerPratt → Paris     
+0x Dario      → Ashley    
+0x John       → Jasmine   
+0x Anthony    → Jess      
+0x Nathan     → Shelby    
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.10, 5: 8.51, 6: 11.23, 7: 14.20, 8: 17.53, 9: 20.87, 10: 24.96}
 -> E[I]/bits: 1.88
@@ -90,16 +90,16 @@ Brandon → Christina
 4872600 left -> 22.2163 bits left
 
 MN#2.0 E02
-1x TylerPratt → Paris     
 0x Layton     → Jess      
+1x TylerPratt → Paris     
 0x John       → Ashley    
+0x Nathan     → Jenni     
+0x Anthony    → Alex      
+0x Garland    → Jasmine   
+1x Curtis     → Briana    
+0x Alex       → Christina 
 0x Dario      → Shelby    
 0x Brandon    → Tyler     
-0x Alex       → Christina 
-0x Garland    → Jasmine   
-0x Anthony    → Alex      
-0x Nathan     → Jenni     
-1x Curtis     → Briana    
 ---
 -> I[l]/bits: {0: 1.74, 1: 1.44, 2: 2.19, 3: 3.57, 4: 5.41, 5: 7.60, 6: 10.08, 7: 12.73, 8: 15.50, 9: 19.41}
 -> E[I]/bits: 2.01
@@ -143,16 +143,16 @@ Brandon → Alex
 957806 left -> 19.8694 bits left
 
 MN#3.0 E03
-2x TylerPratt → Paris     
-0x Brandon    → Shelby    
-1x Dario      → Ashley    
-0x John       → Christina 
-1x Garland    → Alex      
 2x Curtis     → Briana    
-0x Alex       → Jasmine   
+0x John       → Christina 
 0x Nathan     → Jess      
+2x TylerPratt → Paris     
+1x Dario      → Ashley    
 0x Anthony    → Jenni     
+1x Garland    → Alex      
+0x Brandon    → Shelby    
 0x Layton     → Ellie     
+0x Alex       → Jasmine   
 ---
 -> I[l]/bits: {0: 3.14, 1: 1.42, 2: 1.67, 3: 2.81, 4: 4.51, 5: 6.67, 6: 9.40, 7: 12.96, 8: 17.87}
 -> E[I]/bits: 2.09
@@ -197,15 +197,15 @@ TylerPratt → Paris
 
 MN#4.0 E04 -- blackout
 1x Garland    → Jasmine   
-1x Layton     → Jess      
 3x Curtis     → Briana    
-1x Anthony    → Jenni     
+1x Layton     → Jess      
 3x TylerPratt → Paris     
-1x John       → Christina 
-0x Brandon    → Ellie     
-0x Alex       → Tyler     
 0x Nathan     → Alex      
 1x Dario      → Shelby    
+1x John       → Christina 
+0x Alex       → Tyler     
+0x Brandon    → Ellie     
+1x Anthony    → Jenni     
 ---
 -> I[l]/bits: {1: 1.93, 2: 1.40, 3: 2.02, 4: 3.45, 5: 5.66, 6: 8.89, 7: 13.61}
 -> E[I]/bits: 1.98
@@ -249,16 +249,16 @@ Curtis → Shelby
 1584 left -> 10.6294 bits left
 
 MN#5.0 E05
-0x Curtis     → Shelby    
+0x Brandon    → Jasmine   
 4x TylerPratt → Paris     
-0x Anthony    → Ashley    
 0x Garland    → Tyler     
+1x Alex       → Christina 
 1x Nathan     → Jess      
 0x John       → Jenni     
-1x Alex       → Christina 
-0x Dario      → Alex      
+0x Curtis     → Shelby    
+0x Anthony    → Ashley    
 0x Layton     → Briana    
-0x Brandon    → Jasmine   
+0x Dario      → Alex      
 ---
 -> I[l]/bits: {2: 2.22, 3: 1.39, 4: 1.93, 5: 3.17, 6: 5.42, 7: 7.17, 8: 10.63}
 -> E[I]/bits: 2.05
@@ -302,16 +302,16 @@ John → Jasmine
 568 left -> 9.1497 bits left
 
 MN#6.0 E06 -- blackout
-1x Curtis     → Shelby  
-0x John       → Alex    
-1x Layton     → Jenni   
-0x Dario      → Briana  
-0x Nathan     → Jasmine 
-5x TylerPratt → Paris   
 0x Alex       → Jess    
-1x Garland    → Tyler   
-0x Anthony    → Ellie   
 0x Brandon    → Ashley  
+0x John       → Alex    
+0x Anthony    → Ellie   
+1x Garland    → Tyler   
+1x Curtis     → Shelby  
+5x TylerPratt → Paris   
+1x Layton     → Jenni   
+0x Nathan     → Jasmine 
+0x Dario      → Briana  
 ---
 -> I[l]/bits: {2: 1.19, 3: 1.56, 4: 2.58, 5: 4.76, 6: 5.83}
 -> E[I]/bits: 1.76
@@ -355,16 +355,16 @@ John → Jenni
 30 left -> 4.9069 bits left
 
 MN#7.0 E07
-2x Curtis     → Shelby    
-1x Alex       → Jasmine   
-0x Nathan     → Christina 
-1x John       → Jenni     
-0x Garland    → Jess      
-6x TylerPratt → Paris     
-0x Anthony    → Briana    
 1x Brandon    → Tyler     
+1x John       → Jenni     
+1x Alex       → Jasmine   
 2x Dario      → Ashley    
+0x Garland    → Jess      
+2x Curtis     → Shelby    
+0x Anthony    → Briana    
 1x Layton     → Ellie     
+6x TylerPratt → Paris     
+0x Nathan     → Christina 
 ---
 -> I[l]/bits: {5: 1.91, 6: 1.58, 7: 2.32, 8: 2.58, 9: 4.91}
 -> E[I]/bits: 2.10
@@ -408,16 +408,16 @@ Nathan → Christina
 8 left -> 3 bits left
 
 MN#8.0 E08
-7x TylerPratt → Paris   
-2x Alex       → Jasmine 
-2x John       → Jenni   
-2x Garland    → Alex    
-3x Dario      → Ashley  
 0x Nathan     → Briana  
 2x Brandon    → Tyler   
-3x Curtis     → Shelby  
+2x Alex       → Jasmine 
+7x TylerPratt → Paris   
 2x Layton     → Ellie   
+2x Garland    → Alex    
+3x Curtis     → Shelby  
+3x Dario      → Ashley  
 1x Anthony    → Jess    
+2x John       → Jenni   
 ---
 -> I[l]/bits: {5: 1.00, 6: 1.00}
 -> E[I]/bits: 1.00
@@ -461,16 +461,16 @@ Alex → Jasmine
 4 left -> 2 bits left
 
 MN#9.0 E09
-0x Layton     → Ashley  
-4x Curtis     → Shelby  
 0x Nathan     → Ellie   
-1x Anthony    → Alex    
-0x Dario      → Tyler   
-8x TylerPratt → Paris   
-3x John       → Jenni   
-3x Alex       → Jasmine 
-0x Brandon    → Briana  
 1x Garland    → Jess    
+0x Brandon    → Briana  
+4x Curtis     → Shelby  
+0x Dario      → Tyler   
+3x John       → Jenni   
+0x Layton     → Ashley  
+1x Anthony    → Alex    
+3x Alex       → Jasmine 
+8x TylerPratt → Paris   
 ---
 -> I[l]/bits: {8: 0.00}
 -> E[I]/bits: 0.00
@@ -514,16 +514,16 @@ Dario → Ashley
 3 left -> 1.585 bits left
 
 MN#10.0 E10
-2x Anthony    → Alex      
-2x Garland    → Jess      
-1x Nathan     → Ellie     
-5x Curtis     → Shelby    
-0x Layton     → Christina 
 4x Alex       → Jasmine   
+0x Layton     → Christina 
 4x Dario      → Ashley    
-4x John       → Jenni     
+1x Nathan     → Ellie     
 9x TylerPratt → Paris     
+5x Curtis     → Shelby    
 1x Brandon    → Briana    
+2x Anthony    → Alex      
+4x John       → Jenni     
+2x Garland    → Jess      
 ---
 -> I[l]/bits: {9: 0.58, 10: 1.58}
 -> E[I]/bits: 0.92
@@ -547,51 +547,51 @@ MN#10.0 E10
 ╭─────────┬────┬────────────┬─────────┬────────────┬─────────┬─────────┬──────────┬────────────┬────────────┬────────────┬────────────┬───┬────────┬──────┬──────────╮
 │         ┆  L ┆    Alex    ┆ Anthony ┆   Brandon  ┆  Curtis ┆  Dario  ┆  Garland ┆    John    ┆   Layton   ┆   Nathan   ┆ TylerPratt ┆   ┆    I   ┆ #new ┆ min dist │
 ╞═════════╪════╪════════════╪═════════╪════════════╪═════════╪═════════╪══════════╪════════════╪════════════╪════════════╪════════════╪═══╪════════╪══════╪══════════╡
-│ MB#1.0  ┆ 0  ┆            ┆         ┆ Jess       ┆         ┆         ┆          ┆            ┆            ┆            ┆            ┆   ┆ 0.152  ┆      ┆          │
+│[48;2;41;44;60m MB#1.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m Jess       [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.152  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#1.0  ┆ 2  ┆ Ellie*     ┆ Jess*   ┆ Christina* ┆ Briana* ┆ Ashley* ┆ Alex*    ┆ Jasmine*   ┆ Jenni*     ┆ Shelby*    ┆ Paris*     ┆   ┆ 2.4268 ┆ 10   ┆          │
-│ MB#2.0  ┆ 0  ┆            ┆         ┆ Christina  ┆         ┆         ┆          ┆            ┆            ┆            ┆            ┆   ┆ 0.318  ┆      ┆          │
+│[48;2;41;44;60m MB#2.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m Christina  [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.318  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#2.0  ┆ 2  ┆ Christina* ┆ Alex*   ┆ Tyler*     ┆ Briana  ┆ Shelby* ┆ Jasmine* ┆ Ashley*    ┆ Jess*      ┆ Jenni*     ┆ Paris      ┆   ┆ 2.1893 ┆ 8    ┆ 8/MN#1   │
-│ MB#3.0  ┆ 0  ┆            ┆         ┆ Alex       ┆         ┆         ┆          ┆            ┆            ┆            ┆            ┆   ┆ 0.1576 ┆      ┆          │
+│[48;2;41;44;60m MB#3.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m Alex       [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.1576 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#3.0  ┆ 3  ┆ Jasmine*   ┆ Jenni*  ┆ Shelby*    ┆ Briana  ┆ Ashley  ┆ Alex     ┆ Christina* ┆ Ellie*     ┆ Jess*      ┆ Paris      ┆   ┆ 2.8052 ┆ 6    ┆ 6/MN#1   │
-│ MB#4.0  ┆ 1  ┆            ┆         ┆            ┆         ┆         ┆          ┆            ┆            ┆            ┆ Paris      ┆   ┆ 1.1367 ┆      ┆          │
+│[48;2;41;44;60m MB#4.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m Paris      [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 1.1367 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#4.0  ┆ 1  ┆ Tyler*     ┆ Jenni   ┆ Ellie*     ┆ Briana  ┆ Shelby  ┆ Jasmine  ┆ Christina  ┆ Jess       ┆ Alex*      ┆ Paris      ┆   ┆ 1.9331 ┆ 3    ┆ 5/MN#2   │
-│ MB#5.0  ┆ 1  ┆            ┆         ┆            ┆ Shelby  ┆         ┆          ┆            ┆            ┆            ┆            ┆   ┆ 3.3651 ┆      ┆          │
+│[48;2;41;44;60m MB#5.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m Shelby  [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 3.3651 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#5.0  ┆ 3  ┆ Christina  ┆ Ashley* ┆ Jasmine*   ┆ Shelby  ┆ Alex*   ┆ Tyler*   ┆ Jenni*     ┆ Briana*    ┆ Jess       ┆ Paris      ┆   ┆ 1.3933 ┆ 6    ┆ 8/MN#2   │
-│ MB#6.0  ┆ 0  ┆            ┆         ┆            ┆         ┆         ┆          ┆ Jasmine    ┆            ┆            ┆            ┆   ┆ 0.0863 ┆      ┆          │
+│[48;2;41;44;60m MB#6.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Jasmine    [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.0863 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#6.0  ┆ 2  ┆ Jess*      ┆ Ellie*  ┆ Ashley*    ┆ Shelby  ┆ Briana* ┆ Tyler    ┆ Alex*      ┆ Jenni      ┆ Jasmine*   ┆ Paris      ┆   ┆ 1.1897 ┆ 6    ┆ 7/MN#5   │
-│ MB#7.0  ┆ 1  ┆            ┆         ┆            ┆         ┆         ┆          ┆ Jenni      ┆            ┆            ┆            ┆   ┆ 3.0531 ┆      ┆          │
+│[48;2;41;44;60m MB#7.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Jenni      [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 3.0531 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#7.0  ┆ 6  ┆ Jasmine    ┆ Briana* ┆ Tyler      ┆ Shelby  ┆ Ashley  ┆ Jess*    ┆ Jenni      ┆ Ellie      ┆ Christina* ┆ Paris      ┆   ┆ 1.585  ┆ 3    ┆ 6/MN#3   │
-│ MB#8.0  ┆ 0  ┆            ┆         ┆            ┆         ┆         ┆          ┆            ┆            ┆ Christina  ┆            ┆   ┆ 0.3219 ┆      ┆          │
+│[48;2;41;44;60m MB#8.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m Christina  [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.3219 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#8.0  ┆ 5  ┆ Jasmine    ┆ Jess    ┆ Tyler      ┆ Shelby  ┆ Ashley  ┆ Alex     ┆ Jenni      ┆ Ellie      ┆ Briana*    ┆ Paris      ┆   ┆ 1      ┆ 1    ┆ 3/MN#7   │
-│ MB#9.0  ┆ 1  ┆ Jasmine    ┆         ┆            ┆         ┆         ┆          ┆            ┆            ┆            ┆            ┆   ┆ 0      ┆      ┆          │
+│[48;2;41;44;60m MB#9.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m Jasmine    [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0      [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#9.0  ┆ 8  ┆ Jasmine    ┆ Alex    ┆ Briana*    ┆ Shelby  ┆ Tyler*  ┆ Jess     ┆ Jenni      ┆ Ashley*    ┆ Ellie*     ┆ Paris      ┆   ┆ 0      ┆ 4    ┆ 5/MN#7   │
-│ MB#10.0 ┆ 1  ┆            ┆         ┆            ┆         ┆ Ashley  ┆          ┆            ┆            ┆            ┆            ┆   ┆ 0.415  ┆      ┆          │
+│[48;2;41;44;60m MB#10.0 [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m Ashley  [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m            [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.415  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#10.0 ┆ 10 ┆ Jasmine    ┆ Alex    ┆ Briana     ┆ Shelby  ┆ Ashley  ┆ Jess     ┆ Jenni      ┆ Christina* ┆ Ellie      ┆ Paris      ┆   ┆ 1.585  ┆ 1    ┆ 2/MN#9   │
 ╰─────────┴────┴────────────┴─────────┴────────────┴─────────┴─────────┴──────────┴────────────┴────────────┴────────────┴────────────┴───┴────────┴──────┴──────────╯
 ╭─────────┬────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬─────────────┬──────────┬──────────┬───────────┬───┬────────┬──────┬──────────╮
 │         ┆  L ┆   Alex   ┆  Ashley  ┆  Briana  ┆   Ellie  ┆  Jasmine ┆   Jenni  ┆   Jess   ┆    Paris    ┆  Shelby  ┆   Tyler  ┆ Christina ┆   ┆    I   ┆ #new ┆ min dist │
 ╞═════════╪════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪═════════════╪══════════╪══════════╪═══════════╪═══╪════════╪══════╪══════════╡
-│ MB#1.0  ┆ 0  ┆          ┆          ┆          ┆          ┆          ┆          ┆ Brandon  ┆             ┆          ┆          ┆           ┆   ┆ 0.152  ┆      ┆          │
+│[48;2;41;44;60m MB#1.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Brandon  [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.152  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#1.0  ┆ 2  ┆ Garland* ┆ Dario*   ┆ Curtis*  ┆ Alex*    ┆ John*    ┆ Layton*  ┆ Anthony* ┆ TylerPratt* ┆ Nathan*  ┆          ┆ Brandon*  ┆   ┆ 2.4268 ┆ 10   ┆          │
-│ MB#2.0  ┆ 0  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆             ┆          ┆          ┆ Brandon   ┆   ┆ 0.318  ┆      ┆          │
+│[48;2;41;44;60m MB#2.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Brandon   [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.318  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#2.0  ┆ 2  ┆ Anthony* ┆ John*    ┆ Curtis   ┆          ┆ Garland* ┆ Nathan*  ┆ Layton*  ┆ TylerPratt  ┆ Dario*   ┆ Brandon* ┆ Alex*     ┆   ┆ 2.1893 ┆ 8    ┆ 8/MN#1   │
-│ MB#3.0  ┆ 0  ┆ Brandon  ┆          ┆          ┆          ┆          ┆          ┆          ┆             ┆          ┆          ┆           ┆   ┆ 0.1576 ┆      ┆          │
+│[48;2;41;44;60m MB#3.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m Brandon  [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.1576 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#3.0  ┆ 3  ┆ Garland  ┆ Dario    ┆ Curtis   ┆ Layton*  ┆ Alex*    ┆ Anthony* ┆ Nathan*  ┆ TylerPratt  ┆ Brandon* ┆          ┆ John*     ┆   ┆ 2.8052 ┆ 6    ┆ 6/MN#1   │
-│ MB#4.0  ┆ 1  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆ TylerPratt  ┆          ┆          ┆           ┆   ┆ 1.1367 ┆      ┆          │
+│[48;2;41;44;60m MB#4.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m TylerPratt  [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 1.1367 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#4.0  ┆ 1  ┆ Nathan*  ┆          ┆ Curtis   ┆ Brandon* ┆ Garland  ┆ Anthony  ┆ Layton   ┆ TylerPratt  ┆ Dario    ┆ Alex*    ┆ John      ┆   ┆ 1.9331 ┆ 3    ┆ 5/MN#2   │
-│ MB#5.0  ┆ 1  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆             ┆ Curtis   ┆          ┆           ┆   ┆ 3.3651 ┆      ┆          │
+│[48;2;41;44;60m MB#5.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m Curtis   [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 3.3651 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#5.0  ┆ 3  ┆ Dario*   ┆ Anthony* ┆ Layton*  ┆          ┆ Brandon* ┆ John*    ┆ Nathan   ┆ TylerPratt  ┆ Curtis   ┆ Garland* ┆ Alex      ┆   ┆ 1.3933 ┆ 6    ┆ 8/MN#2   │
-│ MB#6.0  ┆ 0  ┆          ┆          ┆          ┆          ┆ John     ┆          ┆          ┆             ┆          ┆          ┆           ┆   ┆ 0.0863 ┆      ┆          │
+│[48;2;41;44;60m MB#6.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m John     [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.0863 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#6.0  ┆ 2  ┆ John*    ┆ Brandon* ┆ Dario*   ┆ Anthony* ┆ Nathan*  ┆ Layton   ┆ Alex*    ┆ TylerPratt  ┆ Curtis   ┆ Garland  ┆           ┆   ┆ 1.1897 ┆ 6    ┆ 7/MN#5   │
-│ MB#7.0  ┆ 1  ┆          ┆          ┆          ┆          ┆          ┆ John     ┆          ┆             ┆          ┆          ┆           ┆   ┆ 3.0531 ┆      ┆          │
+│[48;2;41;44;60m MB#7.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m John     [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 3.0531 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#7.0  ┆ 6  ┆          ┆ Dario    ┆ Anthony* ┆ Layton   ┆ Alex     ┆ John     ┆ Garland* ┆ TylerPratt  ┆ Curtis   ┆ Brandon  ┆ Nathan*   ┆   ┆ 1.585  ┆ 3    ┆ 6/MN#3   │
-│ MB#8.0  ┆ 0  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆             ┆          ┆          ┆ Nathan    ┆   ┆ 0.3219 ┆      ┆          │
+│[48;2;41;44;60m MB#8.0  [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Nathan    [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.3219 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#8.0  ┆ 5  ┆ Garland  ┆ Dario    ┆ Nathan*  ┆ Layton   ┆ Alex     ┆ John     ┆ Anthony  ┆ TylerPratt  ┆ Curtis   ┆ Brandon  ┆           ┆   ┆ 1      ┆ 1    ┆ 3/MN#7   │
-│ MB#9.0  ┆ 1  ┆          ┆          ┆          ┆          ┆ Alex     ┆          ┆          ┆             ┆          ┆          ┆           ┆   ┆ 0      ┆      ┆          │
+│[48;2;41;44;60m MB#9.0  [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Alex     [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0      [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#9.0  ┆ 8  ┆ Anthony  ┆ Layton*  ┆ Brandon* ┆ Nathan*  ┆ Alex     ┆ John     ┆ Garland  ┆ TylerPratt  ┆ Curtis   ┆ Dario*   ┆           ┆   ┆ 0      ┆ 4    ┆ 5/MN#7   │
-│ MB#10.0 ┆ 1  ┆          ┆ Dario    ┆          ┆          ┆          ┆          ┆          ┆             ┆          ┆          ┆           ┆   ┆ 0.415  ┆      ┆          │
+│[48;2;41;44;60m MB#10.0 [49m┆[48;2;41;44;60m[38;5;10m 1  [49m[39m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Dario    [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m             [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m           [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.415  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#10.0 ┆ 10 ┆ Anthony  ┆ Dario    ┆ Brandon  ┆ Nathan   ┆ Alex     ┆ John     ┆ Garland  ┆ TylerPratt  ┆ Curtis   ┆          ┆ Layton*   ┆   ┆ 1.585  ┆ 1    ┆ 2/MN#9   │
 ╰─────────┴────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 9.99s
+Ran in 10.70s

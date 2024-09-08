@@ -37,15 +37,15 @@ Danilo → Finnja
 32659200 left -> 24.961 bits left
 
 MN#1.0 E02
-0x Francesco → Finnja     
-0x Jamy      → Jill       
+0x Eugen     → Walentina  
 0x Josua     → Sarah      
-0x Tommy     → Melina     
+0x Danilo    → Stefanie   
 0x Salvatore → Jacqueline 
 0x Diogo     → Aurelia    
-0x Danilo    → Stefanie   
+0x Francesco → Finnja     
+0x Tommy     → Melina     
 0x Alexander → Jules      
-0x Eugen     → Walentina  
+0x Jamy      → Jill       
 0x Manuel    → Kathleen   
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
@@ -112,16 +112,16 @@ Tommy → Walentina
 128781 left -> 16.9746 bits left
 
 MN#3.0 E06
-1x Diogo     → Aurelia    
-0x Danilo    → Sarah      
-1x Manuel    → Kathleen   
 1x Salvatore → Jacqueline 
-0x Josua     → Walentina  
-0x Francesco → Jules      
+1x Diogo     → Aurelia    
 1x Jamy      → Jill       
-1x Tommy     → Melina     
+0x Danilo    → Sarah      
+0x Josua     → Walentina  
 0x Eugen     → Stefanie   
+0x Francesco → Jules      
 0x Alexander → Finnja     
+1x Manuel    → Kathleen   
+1x Tommy     → Melina     
 ---
 -> I[l]/bits: {1: 5.75, 2: 2.01, 3: 1.37, 4: 2.12, 5: 3.55, 6: 5.20, 7: 7.56, 8: 10.48}
 -> E[I]/bits: 2.11
@@ -163,16 +163,16 @@ Nothing => I = 0 bits
 49698 left -> 15.6009 bits left
 
 MN#4.0 E08
-0x Salvatore → Walentina 
-1x Francesco → Jules     
-0x Alexander → Stefanie  
-0x Eugen     → Finnja    
-1x Josua     → Sarah     
-0x Danilo    → Melina    
 2x Manuel    → Kathleen  
+0x Salvatore → Walentina 
+0x Danilo    → Melina    
+0x Alexander → Stefanie  
+1x Francesco → Jules     
+2x Diogo     → Aurelia   
 0x Tommy     → Jill      
 0x Jamy      → Vanessa   
-2x Diogo     → Aurelia   
+1x Josua     → Sarah     
+0x Eugen     → Finnja    
 ---
 -> I[l]/bits: {1: 2.81, 2: 1.60, 3: 1.79, 4: 2.69, 5: 4.08, 6: 5.76, 7: 7.84, 8: 10.24, 9: 12.14, 10: 15.60}
 -> E[I]/bits: 2.26
@@ -214,16 +214,16 @@ Nothing => I = 0 bits
 7703 left -> 12.9112 bits left
 
 MN#5.0 E10
-0x Manuel    → Jill      
+0x Danilo    → Aurelia   
 0x Salvatore → Kathleen  
 1x Josua     → Walentina 
-2x Francesco → Jules     
-0x Jamy      → Stefanie  
-0x Alexander → Sarah     
-0x Danilo    → Aurelia   
 0x Diogo     → Vanessa   
-1x Eugen     → Finnja    
 2x Tommy     → Melina    
+0x Jamy      → Stefanie  
+1x Eugen     → Finnja    
+2x Francesco → Jules     
+0x Manuel    → Jill      
+0x Alexander → Sarah     
 ---
 -> I[l]/bits: {1: 1.50, 2: 1.51, 3: 2.31, 4: 3.81, 5: 5.74, 6: 8.05, 7: 11.91}
 -> E[I]/bits: 1.94
@@ -268,15 +268,15 @@ Salvatore → Finnja
 
 MN#6.0 E12
 0x Danilo    → Jill       
-2x Josua     → Walentina  
-2x Eugen     → Finnja     
-0x Jamy      → Sarah      
-3x Francesco → Jules      
-2x Salvatore → Jacqueline 
-1x Alexander → Stefanie   
-3x Manuel    → Kathleen   
 3x Diogo     → Aurelia    
+2x Eugen     → Finnja     
+3x Manuel    → Kathleen   
+2x Salvatore → Jacqueline 
 3x Tommy     → Melina     
+3x Francesco → Jules      
+1x Alexander → Stefanie   
+2x Josua     → Walentina  
+0x Jamy      → Sarah      
 ---
 -> I[l]/bits: {2: 4.38, 3: 1.46, 4: 1.27, 5: 2.67, 6: 5.96}
 -> E[I]/bits: 1.78
@@ -320,16 +320,16 @@ Eugen → Finnja
 274 left -> 8.098 bits left
 
 MN#7.0 E14
-1x Diogo     → Vanessa    
-4x Manuel    → Kathleen   
-1x Salvatore → Walentina  
-4x Francesco → Jules      
-1x Danilo    → Aurelia    
-0x Alexander → Jacqueline 
-0x Eugen     → Jill       
 2x Josua     → Sarah      
+4x Francesco → Jules      
+1x Diogo     → Vanessa    
+0x Eugen     → Jill       
+1x Salvatore → Walentina  
 4x Tommy     → Melina     
+0x Alexander → Jacqueline 
 0x Jamy      → Finnja     
+4x Manuel    → Kathleen   
+1x Danilo    → Aurelia    
 ---
 -> I[l]/bits: {1: 4.40, 2: 2.37, 3: 3.01, 4: 2.12, 5: 2.10, 6: 3.40, 7: 4.64, 8: 6.51, 9: 5.29}
 -> E[I]/bits: 2.73
@@ -373,16 +373,16 @@ Eugen → Stefanie
 53 left -> 5.7279 bits left
 
 MN#8.0 E16
-0x Alexander → Melina     
-3x Josua     → Walentina  
-2x Danilo    → Aurelia    
-2x Diogo     → Vanessa    
-5x Francesco → Jules      
-0x Manuel    → Finnja     
-0x Eugen     → Jacqueline 
 0x Tommy     → Stefanie   
+2x Diogo     → Vanessa    
+0x Eugen     → Jacqueline 
 1x Jamy      → Sarah      
+5x Francesco → Jules      
+0x Alexander → Melina     
+2x Danilo    → Aurelia    
+0x Manuel    → Finnja     
 0x Salvatore → Jill       
+3x Josua     → Walentina  
 ---
 -> I[l]/bits: {1: 0.87, 2: 1.27, 3: 4.73}
 -> E[I]/bits: 1.18
@@ -448,16 +448,16 @@ Tommy → Melina
 19 left -> 4.2479 bits left
 
 MN#9.0 E18
+0x Tommy     → Finnja    
+1x Jamy      → Stefanie  
+5x Manuel    → Kathleen  
 1x Alexander → Sarah     
 4x Diogo     → Aurelia   
-1x Jamy      → Stefanie  
-6x Francesco → Jules     
-2x Salvatore → Walentina 
-0x Tommy     → Finnja    
-0x Josua     → Vanessa   
-0x Eugen     → Melina    
-5x Manuel    → Kathleen  
 1x Danilo    → Jill      
+0x Josua     → Vanessa   
+6x Francesco → Jules     
+0x Eugen     → Melina    
+2x Salvatore → Walentina 
 ---
 -> I[l]/bits: {3: 4.25, 4: 1.25, 5: 1.25, 6: 3.25}
 -> E[I]/bits: 1.62
@@ -501,15 +501,15 @@ Josua → Aurelia
 6 left -> 2.585 bits left
 
 MN#10.0 E20
-6x Manuel    → Kathleen   
-1x Tommy     → Finnja     
+2x Jamy      → Stefanie   
 1x Eugen     → Walentina  
 7x Francesco → Jules      
-3x Salvatore → Jacqueline 
-2x Jamy      → Stefanie   
-0x Josua     → Aurelia    
 0x Alexander → Vanessa    
+0x Josua     → Aurelia    
+6x Manuel    → Kathleen   
+3x Salvatore → Jacqueline 
 0x Diogo     → Jill       
+1x Tommy     → Finnja     
 1x Danilo    → Sarah      
 ---
 -> I[l]/bits: {6: 0.26, 7: 2.58}
@@ -539,9 +539,9 @@ MN#10.0 E20
 │ MB#2.0  ┆ 1 ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆           ┆ Jules     ┆           ┆   ┆ 3.8833 ┆      ┆          │
 │ MB#3.0  ┆ 0 ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆ Walentina ┆           ┆           ┆   ┆ 0.1106 ┆      ┆          │
 │ MN#3.0  ┆ 3 ┆ Finnja*     ┆ Sarah*    ┆ Aurelia  ┆ Stefanie*   ┆ Walentina* ┆ Kathleen  ┆ Jacqueline  ┆ Melina    ┆ Jules     ┆ Jill      ┆   ┆ 1.3737 ┆ 4    ┆ 5/MN#1   │
-│ MB#4.0  ┆ - ┆             ┆           ┆ Aurelia  ┆             ┆            ┆           ┆             ┆           ┆           ┆           ┆   ┆        ┆      ┆          │
+│ MB#4.0  ┆ ? ┆             ┆           ┆ Aurelia  ┆             ┆            ┆           ┆             ┆           ┆           ┆           ┆   ┆        ┆      ┆          │
 │ MN#4.0  ┆ 4 ┆ Stefanie*   ┆ Melina*   ┆ Aurelia  ┆ Finnja*     ┆ Sarah      ┆ Kathleen  ┆ Walentina*  ┆ Jill*     ┆ Jules     ┆ Vanessa*  ┆   ┆ 2.6897 ┆ 6    ┆ 7/MN#1   │
-│ MB#5.0  ┆ - ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆ Melina    ┆           ┆           ┆   ┆        ┆      ┆          │
+│ MB#5.0  ┆ ? ┆             ┆           ┆          ┆             ┆            ┆           ┆             ┆ Melina    ┆           ┆           ┆   ┆        ┆      ┆          │
 │ MN#5.0  ┆ 3 ┆ Sarah*      ┆ Aurelia*  ┆ Vanessa* ┆ Finnja      ┆ Walentina  ┆ Jill*     ┆ Kathleen*   ┆ Melina    ┆ Jules     ┆ Stefanie* ┆   ┆ 2.3113 ┆ 6    ┆ 7/MN#3   │
 │ MB#6.0  ┆ 0 ┆             ┆           ┆          ┆             ┆            ┆           ┆ Finnja      ┆           ┆           ┆           ┆   ┆ 0.1161 ┆      ┆          │
 │ MN#6.0  ┆ 3 ┆ Stefanie    ┆ Jill*     ┆ Aurelia  ┆ Finnja      ┆ Walentina  ┆ Kathleen  ┆ Jacqueline  ┆ Melina    ┆ Jules     ┆ Sarah*    ┆   ┆ 1.4559 ┆ 2    ┆ 4/MN#3   │
@@ -563,9 +563,9 @@ MN#10.0 E20
 │ MB#2.0  ┆ 1 ┆         ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆ Francesco  ┆            ┆   ┆ 3.8833 ┆      ┆          │
 │ MB#3.0  ┆ 0 ┆         ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆ Tommy      ┆            ┆            ┆   ┆ 0.1106 ┆      ┆          │
 │ MN#3.0  ┆ 3 ┆ Diogo   ┆ Alexander* ┆ Salvatore  ┆ Jamy       ┆ Manuel     ┆ Tommy      ┆ Danilo*    ┆ Eugen*     ┆ Josua*     ┆ Francesco  ┆            ┆   ┆ 1.3737 ┆ 4    ┆ 5/MN#1   │
-│ MB#4.0  ┆ - ┆ Diogo   ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆   ┆        ┆      ┆          │
+│ MB#4.0  ┆ ? ┆ Diogo   ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆   ┆        ┆      ┆          │
 │ MN#4.0  ┆ 4 ┆ Diogo   ┆ Eugen*     ┆            ┆ Tommy*     ┆ Manuel     ┆ Danilo*    ┆ Josua      ┆ Alexander* ┆ Salvatore* ┆ Francesco  ┆ Jamy*      ┆   ┆ 2.6897 ┆ 6    ┆ 7/MN#1   │
-│ MB#5.0  ┆ - ┆         ┆            ┆            ┆            ┆            ┆ Tommy      ┆            ┆            ┆            ┆            ┆            ┆   ┆        ┆      ┆          │
+│ MB#5.0  ┆ ? ┆         ┆            ┆            ┆            ┆            ┆ Tommy      ┆            ┆            ┆            ┆            ┆            ┆   ┆        ┆      ┆          │
 │ MN#5.0  ┆ 3 ┆ Danilo* ┆ Eugen      ┆            ┆ Manuel*    ┆ Salvatore* ┆ Tommy      ┆ Alexander* ┆ Jamy*      ┆ Josua      ┆ Francesco  ┆ Diogo*     ┆   ┆ 2.3113 ┆ 6    ┆ 7/MN#3   │
 │ MB#6.0  ┆ 0 ┆         ┆ Salvatore  ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆            ┆   ┆ 0.1161 ┆      ┆          │
 │ MN#6.0  ┆ 3 ┆ Diogo   ┆ Eugen      ┆ Salvatore  ┆ Danilo*    ┆ Manuel     ┆ Tommy      ┆ Jamy*      ┆ Alexander  ┆ Josua      ┆ Francesco  ┆            ┆   ┆ 1.4559 ┆ 2    ┆ 4/MN#3   │
@@ -581,4 +581,4 @@ MN#10.0 E20
 ╰─────────┴───┴─────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.01s
+Ran in 10.42s
