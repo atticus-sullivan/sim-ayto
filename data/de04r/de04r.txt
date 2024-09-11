@@ -37,16 +37,16 @@ MarcRobin → LauraL
 32659200 left -> 24.961 bits left
 
 MN#1.0 E04
-0x MarcRobin → Anastasia 
-0x Lars      → Nadja     
-0x Kaan      → Asena     
-0x Chris     → Emmy      
-0x Ozan      → Gabriela  
 0x Lukas     → Jenny     
-0x Antonino  → LauraM    
-0x Nikola    → Tara      
-0x Alex      → LauraL    
+0x Ozan      → Gabriela  
+0x Lars      → Nadja     
+0x Chris     → Emmy      
 0x Tim       → Linda     
+0x Kaan      → Asena     
+0x Nikola    → Tara      
+0x Antonino  → LauraM    
+0x MarcRobin → Anastasia 
+0x Alex      → LauraL    
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Chris → Emmy
 1067976 left -> 20.0264 bits left
 
 MN#2.0 E06
-0x Lars      → Anastasia 
-1x Tim       → Linda     
-0x Lukas     → LauraM    
-0x MarcRobin → Asena     
 0x Alex      → Jenny     
 0x Kaan      → Nadja     
-0x Ozan      → LauraL    
-1x Chris     → Emmy      
-1x Nikola    → Tara      
+0x Lukas     → LauraM    
 0x Antonino  → Dana      
+1x Chris     → Emmy      
+1x Tim       → Linda     
+0x MarcRobin → Asena     
+1x Nikola    → Tara      
+0x Ozan      → LauraL    
+0x Lars      → Anastasia 
 ---
 -> I[l]/bits: {1: 1.47, 2: 1.44, 3: 2.42, 4: 3.98, 5: 5.98, 6: 8.36, 7: 11.08, 8: 14.44, 9: 19.03}
 -> E[I]/bits: 1.89
@@ -142,15 +142,15 @@ Nothing => I = 0 bits
 
 MN#3.0 E08
 2x Chris     → Emmy      
-0x Ozan      → LauraM    
-0x Alex      → Anastasia 
+0x Antonino  → Nadja     
 0x Kaan      → Jenny     
+1x MarcRobin → Asena     
+0x Tim       → Dana      
 0x Nikola    → LauraL    
 0x Lukas     → Linda     
+0x Alex      → Anastasia 
+0x Ozan      → LauraM    
 0x Lars      → Gabriela  
-1x MarcRobin → Asena     
-0x Antonino  → Nadja     
-0x Tim       → Dana      
 ---
 -> I[l]/bits: {1: 1.55, 2: 1.44, 3: 2.34, 4: 3.85, 5: 5.83, 6: 8.16, 7: 10.95, 8: 13.29, 9: 16.61}
 -> E[I]/bits: 1.93
@@ -194,16 +194,16 @@ MarcRobin → Asena
 20935 left -> 14.3536 bits left
 
 MN#4.0 E10 -- blackout
-0x Nikola    → Anastasia 
-0x MarcRobin → Linda     
-3x Chris     → Emmy      
+0x Tim       → LauraL    
 0x Lukas     → Gabriela  
+0x Lars      → Tara      
+0x MarcRobin → Linda     
+0x Nikola    → Anastasia 
 1x Ozan      → LauraM    
 1x Kaan      → Asena     
-1x Antonino  → Nadja     
-0x Tim       → LauraL    
+3x Chris     → Emmy      
 1x Alex      → Jenny     
-0x Lars      → Tara      
+1x Antonino  → Nadja     
 ---
 -> I[l]/bits: {1: 1.82, 2: 1.48, 3: 2.17, 4: 3.41, 5: 5.01, 6: 6.93, 7: 8.89, 8: 12.03, 10: 14.35}
 -> E[I]/bits: 2.08
@@ -245,16 +245,16 @@ Nothing => I = 0 bits
 5927 left -> 12.5331 bits left
 
 MN#5.0 E12
-0x Kaan      → Tara      
-4x Chris     → Emmy      
+1x MarcRobin → Anastasia 
 0x Ozan      → Dana      
-0x Alex      → Gabriela  
+1x Nikola    → LauraL    
 2x Tim       → Linda     
 1x Lars      → Nadja     
-1x MarcRobin → Anastasia 
-1x Nikola    → LauraL    
+0x Kaan      → Tara      
 1x Lukas     → Jenny     
+0x Alex      → Gabriela  
 0x Antonino  → Asena     
+4x Chris     → Emmy      
 ---
 -> I[l]/bits: {1: 1.84, 2: 1.49, 3: 1.96, 4: 3.45, 5: 5.90, 6: 9.95}
 -> E[I]/bits: 1.97
@@ -298,16 +298,16 @@ Ozan → Anastasia
 13 left -> 3.7004 bits left
 
 MN#6.0 E14
-1x Kaan      → Tara      
-2x Lukas     → Jenny     
-5x Chris     → Emmy      
-0x MarcRobin → LauraM    
-0x Ozan      → Anastasia 
 0x Nikola    → Nadja     
+0x Ozan      → Anastasia 
+1x Antonino  → Asena     
+5x Chris     → Emmy      
+1x Alex      → Gabriela  
+1x Kaan      → Tara      
+0x MarcRobin → LauraM    
+2x Lukas     → Jenny     
 0x Lars      → Dana      
 3x Tim       → Linda     
-1x Alex      → Gabriela  
-1x Antonino  → Asena     
 ---
 -> I[l]/bits: {5: 0.24, 6: 2.70}
 -> E[I]/bits: 0.62
@@ -362,4 +362,4 @@ MN#6.0 E14
 ╰────────┴───┴────────────┴────────────┴────────┴──────────┴────────┴───────────┴────────────┴────────────┴───────────┴─────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 2  Initial combinations for each pair: 3628800
 
-Ran in 10.97s
+Ran in 11.03s
