@@ -1,0 +1,258 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup 
+rule_set: !Eq
+
+setA:
+  - Anthony
+  - Clinton
+  - Dimitri
+  - Ethan
+  - Joe
+  - Kareem
+  - Keith
+  - Malcolm
+  - Michael
+  - Shad
+  - Tyler
+
+setB:
+  - Alexis
+  - Alivia
+  - Audrey
+  - Diandra # Diandra
+  - Geles
+  - Jada
+  - Keyana
+  - Nicole
+  - Nurys
+  - Uche
+  - Zoe
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      # Malcolm: Audrey
+      Ethan: Keyana
+      # Shad: Jada
+
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights [3]
+    map:
+      Kareem: Alivia
+      Anthony: Geles
+      Malcolm: Nurys
+      Keith: Alexis
+      Joe: Zoe
+      Michael: Keyana
+      Ethan: Jada
+      Clinton: Uche
+      Shad: Audrey
+      Tyler: Nicole
+      Dimitri: Diandra
+
+  - type: !Box {num: 2, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # Shad: Uche
+      # Joe: Alexis
+      Anthony: Geles
+
+  - type: !Night {num: 2, comment: "E03"}
+    check: !Lights [1]
+    # resultUnknown: true
+    map:
+      Keith: Alexis
+      Clinton: Uche
+      Tyler: Zoe
+      Michael: Keyana
+      Ethan: Jada
+      Kareem: Alivia
+      Malcolm: Nurys
+      Dimitri: Nicole
+      Anthony: Diandra
+      Joe: Audrey
+      Shad: Geles
+
+  - type: !Box {num: 3, comment: "E04"}
+    check: !Lights [0]
+    map:
+      # Ethan: Geles
+      Malcolm: Nurys
+      # Michael: Audrey
+
+  - type: !Night {num: 3, comment: "E05"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Malcolm: Geles
+      Michael: Audrey
+      Joe: Zoe
+      Kareem: Alivia
+      Tyler: Nicole
+      Shad: Keyana
+      Ethan: Alexis
+      Clinton: Uche
+      Anthony: Jada
+      Keith: Diandra
+      Dimitri: Nurys
+
+  - type: !Box {num: 4, comment: "E05"}
+    check: !Lights [0]
+    map:
+      Dimitri: Nicole
+      # Ethan: Geles
+      # Keith: Zoe
+
+  - type: !Night {num: 3, comment: "E05"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Dimitri: Alexis
+      Kareem: Diandra
+      Joe: Zoe
+      Clinton: Uche
+      Shad: Audrey
+      Tyler: Jada
+      Anthony: Keyana
+      Ethan: Nicole
+      Michael: Geles
+      Keith: Nurys
+      Malcolm: Alivia
+
+  - type: !Box {num: 5, comment: "E06"}
+    check: !Lights [0]
+    map:
+      # Tyler: Jada
+      Clinton: Uche
+      # Keith: Alivia
+
+  - type: !Night {num: 5, comment: "E06"}
+    check: !Lights [1]
+    # resultUnknown: true
+    map:
+      Anthony: Nicole
+      Malcolm: Diandra
+      Kareem: Alivia
+      Joe: Zoe
+      Shad: Audrey
+      Tyler: Keyana
+      Ethan: Geles
+      Keith: Alexis
+      Clinton: Jada
+      Dimitri: Uche
+      Michael: Nurys
+
+  - type: !Box {num: 6, comment: "E07"}
+    check: !Lights [0]
+    map:
+      Keith: Alexis
+      # Clinton: Geles
+
+  - type: !Night {num: 6, comment: "E07"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Anthony: Keyana
+      Joe: Alexis
+      Michael: Uche
+      Clinton: Geles
+      Keith: Zoe
+      Shad: Audrey
+      Kareem: Nurys
+      Dimitri: Diandra
+      Malcolm: Alivia
+      Tyler: Nicole
+      Ethan: Jada
+
+  - type: !Box {num: 7, comment: "E08"}
+    check: !Lights [0]
+    map:
+      # Kareem: Alexis
+      Keith: Alivia
+
+  - type: !Night {num: 7, comment: "E09"}
+    check: !Lights [5]
+    # resultUnknown: true
+    map:
+      Kareem: Nurys
+      Anthony: Keyana
+      Michael: Audrey
+      Shad: Alivia
+      Keith: Jada
+      Dimitri: Diandra
+      Joe: Uche
+      Tyler: Nicole
+      Ethan: Zoe
+      Clinton: Geles
+      Malcolm: Alexis
+
+  - type: !Box {num: 8, comment: "E10"}
+    check: !Lights [0]
+    map:
+      Michael: Audrey
+      # Joe: Alivia
+
+  - type: !Night {num: 8, comment: "E09"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Dimitri: Diandra
+      Clinton: Geles
+      Anthony: Alivia
+      Joe: Jada
+      Malcolm: Uche
+      Kareem: Nurys
+      Tyler: Nicole
+      Michael: Keyana
+      Keith: Audrey
+      Ethan: Alexis
+      Shad: Zoe
+
+  - type: !Box {num: 9, comment: "E11"}
+    check: !Lights [1]
+    map:
+      # Keith: Diandra
+      Tyler: Nicole
+      # Anthony: Zoe
+
+  - type: !Night {num: 9, comment: "E11"}
+    check: !Lights [5]
+    map:
+      Tyler: Nicole
+      Anthony: Uche
+      Joe: Zoe
+      Dimitri: Audrey
+      Shad: Alivia
+      Clinton: Geles
+      Malcolm: Alexis
+      Keith: Jada
+      Ethan: Nurys
+      Kareem: Diandra
+      Michael: Keyana
+
+  - type: !Box {num: 10, comment: "E12"}
+    check: !Lights [0]
+    map:
+      # Malcolm: Keyana
+      Dimitri: Jada
+
+  - type: !Night {num: 10, comment: "E12"}
+    check: !Lights [11]
+    map:
+      Tyler: Nicole
+      Clinton: Geles
+      Shad: Audrey
+      Ethan: Zoe
+      Anthony: Alexis
+      Michael: Keyana
+      Dimitri: Nurys
+      Malcolm: Alivia
+      Joe: Uche
+      Keith: Jada
+      Kareem: Diandra
