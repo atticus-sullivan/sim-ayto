@@ -33,10 +33,22 @@ MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 GENARGS ?= --transpose -c
 
 -include Makefile.conf
+# eg in case ansitoimg is installed in a venv which needs to be sourced before
+# executing the python script
 ANSITOIMG_PREFIX ?= 
+# eg if you want to send the image generation into the background you can set
+# this to '&'
 ANSITOIMG_SUFFIX ?= 
+# which tool shall be used to output the log file
 CAT ?= cat
+# is executed after the output file was generated (in cat_* targets). Usually
+# used to play/display some sort of notification
 NOTIF ?= 
+# should only be defined if the tree pdf shall be displayed (in case it was
+# generated) when running cat_* target
+# Usually defined via commandline. Must be set to the tool used to display the
+# pdf file
+# ZATHURA ?=
 
 
 all: $(OUT) graph
@@ -63,8 +75,8 @@ $(CAALIAS):
 	# ensure the output file is up to date
 	@make --no-print-directory $(f)
 	$(NOTIF) &
-ifndef NO_ZATHURA
-	-test -f $(f:.txt=.pdf) && ! pgrep -a zathura | grep "[0-9]\+ zathura $(f:.txt=.pdf)" && zathura "$(f:.txt=.pdf)" & disown
+ifdef ZATHURA
+	-test -f $(f:.txt=.pdf) && $(ZATHURA) "$(f:.txt=.pdf)" & disown
 endif
 	$(CAT) $(f:.txt=.col.out)
 
@@ -79,7 +91,7 @@ $(MOALIAS):
 	# https://github.com/edubart/luamon
 	$(eval f := $(let i,$@,data/$(patsubst mon_%,%,$i)/$(patsubst mon_%,%,$i).txt))
 	-test -f $(f:.txt=.pdf) && zathura "$(f:.txt=.pdf)" & disown
-	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@) NO_ZATHURA=y
+	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@)
 
 
 $(ALIAS):
