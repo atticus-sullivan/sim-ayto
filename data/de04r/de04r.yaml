@@ -157,8 +157,37 @@ constraints:
       Kaan: Tara
       # Lars: LauraL
 
-  # - type: !Box {num: 7, comment: "E15"}
-  #   check: !Lights [0]
-  #   map:
-  #     Lukas: Jenny
-  #     #Lars: Linda
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights [0]
+    map:
+      Lukas: Jenny
+      #Lars: Linda
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      Chris: Emmy
+      Ozan: Anastasia
+      Tim: Linda
+      Lukas: Dana
+      Alex: Gabriela
+      Lars: LauraL
+      Antonino: Asena
+      Kaan: Tara
+      Nikola: Nadja
+      MarcRobin: LauraM
+      # Jenny
+
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights [1]
+    noExclude: true
+    hidden: true
+    map:
+      Tim: Dana
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights [1]
+    noExclude: true
+    map:
+      Tim: Linda
+      # Lukas: Tara
