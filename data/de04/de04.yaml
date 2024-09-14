@@ -31,7 +31,7 @@ setB:
   - Marwin
 
 constraints:
-  - type: !Box {num: 0.2, comment: "E02 -- zusätzliche MB, da dup nicht bekannt"}
+  - type: !Box {num: 0.75, comment: "E02 -- zusätzliche MB, da dup nicht bekannt"}
     check: !Lights [0]
     map:
       Valeria: Marwin

@@ -49,6 +49,10 @@ NOTIF ?=
 # Usually defined via commandline. Must be set to the tool used to display the
 # pdf file
 # ZATHURA ?=
+# what is the file to figure out when to rebuild output files (for local run,
+# probably this should be set to rust/target/release/ayto (but just the
+# following should also work)
+RUST_DEP ?= $(wildcard rust/src/*.rs)
 
 
 all: $(OUT) graph
@@ -97,7 +101,7 @@ $(MOALIAS):
 $(ALIAS):
 	@make --no-print-directory $(let i,$@,data/$i/$i.txt)
 
-$(OUT_RUST): data/%.txt: data/%.yaml rust/target/release/ayto
+$(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	@date
 	./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
