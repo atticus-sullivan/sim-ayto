@@ -39,17 +39,17 @@ Ethan → Keyana
 36288000 left -> 25.113 bits left
 
 MN#1.0 E02
+0x Kareem  → Alivia  
+0x Ethan   → Jada    
 0x Clinton → Uche    
+0x Anthony → Geles   
+0x Michael → Keyana  
+0x Joe     → Zoe     
+0x Dimitri → Diandra 
+0x Keith   → Alexis  
 0x Shad    → Audrey  
 0x Tyler   → Nicole  
-0x Anthony → Geles   
-0x Keith   → Alexis  
-0x Ethan   → Jada    
-0x Kareem  → Alivia  
 0x Malcolm → Nurys   
-0x Joe     → Zoe     
-0x Michael → Keyana  
-0x Dimitri → Diandra 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
 -> E[I]/bits: 1.89
@@ -95,17 +95,17 @@ Anthony → Geles
 1661296 left -> 20.6639 bits left
 
 MN#2.0 E03
-0x Dimitri → Nicole  
-1x Kareem  → Alivia  
-1x Ethan   → Jada    
-1x Michael → Keyana  
-1x Keith   → Alexis  
-0x Tyler   → Zoe     
-0x Anthony → Diandra 
-1x Malcolm → Nurys   
-0x Joe     → Audrey  
 0x Shad    → Geles   
+1x Malcolm → Nurys   
+0x Anthony → Diandra 
+0x Tyler   → Zoe     
+1x Keith   → Alexis  
+1x Michael → Keyana  
 1x Clinton → Uche    
+1x Ethan   → Jada    
+1x Kareem  → Alivia  
+0x Dimitri → Nicole  
+0x Joe     → Audrey  
 ---
 -> I[l]/bits: {0: 5.13, 1: 2.09, 2: 1.41, 3: 2.06, 4: 3.46, 5: 5.39, 6: 7.82, 7: 10.95, 8: 15.49}
 -> E[I]/bits: 2.15
@@ -151,17 +151,17 @@ Malcolm → Nurys
 328840 left -> 18.327 bits left
 
 MN#3.0 E05
-0x Malcolm → Geles   
-0x Michael → Audrey  
+1x Joe     → Zoe     
+0x Ethan   → Alexis  
 2x Kareem  → Alivia  
 1x Tyler   → Nicole  
-0x Shad    → Keyana  
-0x Keith   → Diandra 
 2x Clinton → Uche    
-1x Joe     → Zoe     
-0x Dimitri → Nurys   
 0x Anthony → Jada    
-0x Ethan   → Alexis  
+0x Keith   → Diandra 
+0x Shad    → Keyana  
+0x Michael → Audrey  
+0x Malcolm → Geles   
+0x Dimitri → Nurys   
 ---
 -> I[l]/bits: {0: 3.59, 1: 1.73, 2: 1.64, 3: 2.40, 4: 3.72, 5: 5.43, 6: 7.47, 7: 9.71, 8: 12.33, 9: 14.52}
 -> E[I]/bits: 2.27
@@ -206,18 +206,18 @@ Dimitri → Nicole
 ╰─────────┴────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────╯
 105376 left -> 16.6852 bits left
 
-MN#3.0 E05
-0x Tyler   → Jada    
-1x Shad    → Audrey  
-0x Malcolm → Alivia  
-0x Anthony → Keyana  
-0x Kareem  → Diandra 
-3x Clinton → Uche    
-0x Keith   → Nurys   
-0x Dimitri → Alexis  
-2x Joe     → Zoe     
-0x Michael → Geles   
+MN#4.0 E05
 0x Ethan   → Nicole  
+0x Michael → Geles   
+0x Dimitri → Alexis  
+0x Kareem  → Diandra 
+0x Anthony → Keyana  
+2x Joe     → Zoe     
+0x Keith   → Nurys   
+0x Malcolm → Alivia  
+3x Clinton → Uche    
+1x Shad    → Audrey  
+0x Tyler   → Jada    
 ---
 -> I[l]/bits: {0: 3.49, 1: 1.69, 2: 1.68, 3: 2.47, 4: 3.75, 5: 5.31, 6: 7.12, 7: 8.94, 8: 11.36, 9: 12.69, 11: 16.69}
 -> E[I]/bits: 2.29
@@ -263,17 +263,17 @@ Clinton → Uche
 12480 left -> 13.6073 bits left
 
 MN#5.0 E06
-0x Michael → Nurys   
-0x Dimitri → Uche    
 0x Malcolm → Diandra 
-2x Keith   → Alexis  
 0x Tyler   → Keyana  
-0x Anthony → Nicole  
-0x Ethan   → Geles   
-3x Joe     → Zoe     
-3x Kareem  → Alivia  
-2x Shad    → Audrey  
 0x Clinton → Jada    
+3x Joe     → Zoe     
+2x Shad    → Audrey  
+0x Ethan   → Geles   
+3x Kareem  → Alivia  
+0x Anthony → Nicole  
+2x Keith   → Alexis  
+0x Dimitri → Uche    
+0x Michael → Nurys   
 ---
 -> I[l]/bits: {0: 9.22, 1: 2.51, 2: 1.56, 3: 1.88, 4: 2.88, 5: 4.24, 6: 5.90, 7: 7.96, 8: 10.29, 9: 12.61}
 -> E[I]/bits: 2.25
@@ -319,17 +319,17 @@ Keith → Alexis
 2198 left -> 11.102 bits left
 
 MN#6.0 E07
-2x Ethan   → Jada    
-0x Michael → Uche    
-2x Tyler   → Nicole  
-3x Shad    → Audrey  
-1x Anthony → Keyana  
-0x Clinton → Geles   
-0x Kareem  → Nurys   
 0x Joe     → Alexis  
 1x Dimitri → Diandra 
-1x Malcolm → Alivia  
+0x Michael → Uche    
+0x Kareem  → Nurys   
+1x Anthony → Keyana  
+0x Clinton → Geles   
 0x Keith   → Zoe     
+1x Malcolm → Alivia  
+2x Ethan   → Jada    
+3x Shad    → Audrey  
+2x Tyler   → Nicole  
 ---
 -> I[l]/bits: {1: 3.58, 2: 1.81, 3: 1.76, 4: 2.26, 5: 3.54, 6: 5.15, 7: 6.71, 8: 9.10, 9: 11.10}
 -> E[I]/bits: 2.34
@@ -375,17 +375,17 @@ Keith → Alivia
 428 left -> 8.7415 bits left
 
 MN#7.0 E09
-2x Anthony → Keyana  
-1x Clinton → Geles   
-3x Tyler   → Nicole  
 0x Malcolm → Alexis  
-0x Keith   → Jada    
-1x Kareem  → Nurys   
-0x Shad    → Alivia  
-0x Joe     → Uche    
-0x Ethan   → Zoe     
 1x Michael → Audrey  
+0x Joe     → Uche    
 2x Dimitri → Diandra 
+3x Tyler   → Nicole  
+0x Ethan   → Zoe     
+2x Anthony → Keyana  
+0x Keith   → Jada    
+0x Shad    → Alivia  
+1x Kareem  → Nurys   
+1x Clinton → Geles   
 ---
 -> I[l]/bits: {1: 1.97, 2: 1.38, 3: 1.92, 4: 3.70, 5: 5.74, 6: 8.74}
 -> E[I]/bits: 1.95
@@ -431,17 +431,17 @@ Michael → Audrey
 3 left -> 1.585 bits left
 
 MN#8.0 E09
-2x Kareem  → Nurys   
-0x Malcolm → Uche    
-1x Ethan   → Alexis  
-2x Michael → Keyana  
-0x Anthony → Alivia  
 3x Dimitri → Diandra 
-0x Keith   → Audrey  
-0x Shad    → Zoe     
-0x Joe     → Jada    
+2x Kareem  → Nurys   
+2x Michael → Keyana  
 2x Clinton → Geles   
 4x Tyler   → Nicole  
+0x Malcolm → Uche    
+1x Ethan   → Alexis  
+0x Joe     → Jada    
+0x Shad    → Zoe     
+0x Anthony → Alivia  
+0x Keith   → Audrey  
 ---
 -> I[l]/bits: {2: 0.58, 3: 1.58}
 -> E[I]/bits: 0.92
@@ -487,17 +487,17 @@ Tyler → Nicole
 1 left -> 0 bits left
 
 MN#9.0 E11
-1x Keith   → Jada    
-0x Ethan   → Nurys   
-1x Malcolm → Alexis  
-0x Anthony → Uche    
-1x Shad    → Alivia  
-3x Clinton → Geles   
 0x Dimitri → Audrey  
+0x Anthony → Uche    
+3x Clinton → Geles   
+1x Keith   → Jada    
 1x Kareem  → Diandra 
-5x Tyler   → Nicole  
 3x Michael → Keyana  
 4x Joe     → Zoe     
+0x Ethan   → Nurys   
+1x Malcolm → Alexis  
+5x Tyler   → Nicole  
+1x Shad    → Alivia  
 ---
 -> I[l]/bits: {5: 0.00}
 -> E[I]/bits: 0.00
@@ -543,17 +543,17 @@ Dimitri → Jada
 1 left -> 0 bits left
 
 MN#10.0 E12
-4x Michael → Keyana  
+2x Malcolm → Alivia  
+4x Clinton → Geles   
 2x Kareem  → Diandra 
+0x Anthony → Alexis  
 1x Dimitri → Nurys   
+1x Ethan   → Zoe     
 4x Shad    → Audrey  
 1x Joe     → Uche    
-0x Anthony → Alexis  
-4x Clinton → Geles   
-6x Tyler   → Nicole  
-2x Malcolm → Alivia  
 2x Keith   → Jada    
-1x Ethan   → Zoe     
+4x Michael → Keyana  
+6x Tyler   → Nicole  
 ---
 -> I[l]/bits: {11: 0.00}
 -> E[I]/bits: 0.00
@@ -585,7 +585,7 @@ MN#10.0 E12
 │ MB#3.0  ┆ 0  ┆          ┆         ┆          ┆         ┆         ┆          ┆          ┆ Nurys    ┆         ┆         ┆         ┆   ┆ 0.2463 ┆      ┆          │
 │ MN#3.0  ┆ 2  ┆ Jada*    ┆ Uche    ┆ Nurys*   ┆ Alexis* ┆ Zoe     ┆ Alivia   ┆ Diandra* ┆ Geles*   ┆ Audrey* ┆ Keyana* ┆ Nicole  ┆   ┆ 1.6418 ┆ 7    ┆ 7/MN#1   │
 │ MB#4.0  ┆ 0  ┆          ┆         ┆ Nicole   ┆         ┆         ┆          ┆          ┆          ┆         ┆         ┆         ┆   ┆ 0      ┆      ┆          │
-│ MN#3.0  ┆ 3  ┆ Keyana*  ┆ Uche    ┆ Alexis*  ┆ Nicole* ┆ Zoe     ┆ Diandra* ┆ Nurys*   ┆ Alivia*  ┆ Geles*  ┆ Audrey  ┆ Jada*   ┆   ┆ 2.473  ┆ 8    ┆ 8/MN#1   │
+│ MN#4.0  ┆ 3  ┆ Keyana*  ┆ Uche    ┆ Alexis*  ┆ Nicole* ┆ Zoe     ┆ Diandra* ┆ Nurys*   ┆ Alivia*  ┆ Geles*  ┆ Audrey  ┆ Jada*   ┆   ┆ 2.473  ┆ 8    ┆ 8/MN#1   │
 │ MB#5.0  ┆ 0  ┆          ┆ Uche    ┆          ┆         ┆         ┆          ┆          ┆          ┆         ┆         ┆         ┆   ┆ 0.6049 ┆      ┆          │
 │ MN#5.0  ┆ 1  ┆ Nicole*  ┆ Jada*   ┆ Uche*    ┆ Geles*  ┆ Zoe     ┆ Alivia   ┆ Alexis   ┆ Diandra* ┆ Nurys*  ┆ Audrey  ┆ Keyana* ┆   ┆ 2.5054 ┆ 7    ┆ 7/MN#1   │
 │ MB#6.0  ┆ 0  ┆          ┆         ┆          ┆         ┆         ┆          ┆ Alexis   ┆          ┆         ┆         ┆         ┆   ┆ 0      ┆      ┆          │
@@ -609,7 +609,7 @@ MN#10.0 E12
 │ MB#3.0  ┆ 0  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆ Malcolm  ┆          ┆        ┆   ┆ 0.2463 ┆      ┆          │
 │ MN#3.0  ┆ 2  ┆ Ethan*   ┆ Kareem   ┆ Michael* ┆ Keith*   ┆ Malcolm* ┆ Anthony* ┆ Shad*    ┆ Tyler    ┆ Dimitri* ┆ Clinton  ┆ Joe    ┆   ┆ 1.6418 ┆ 7    ┆ 7/MN#1   │
 │ MB#4.0  ┆ 0  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆ Dimitri  ┆          ┆          ┆        ┆   ┆ 0      ┆      ┆          │
-│ MN#3.0  ┆ 3  ┆ Dimitri* ┆ Malcolm* ┆ Shad     ┆ Kareem*  ┆ Michael* ┆ Tyler*   ┆ Anthony* ┆ Ethan*   ┆ Keith*   ┆ Clinton  ┆ Joe    ┆   ┆ 2.473  ┆ 8    ┆ 8/MN#1   │
+│ MN#4.0  ┆ 3  ┆ Dimitri* ┆ Malcolm* ┆ Shad     ┆ Kareem*  ┆ Michael* ┆ Tyler*   ┆ Anthony* ┆ Ethan*   ┆ Keith*   ┆ Clinton  ┆ Joe    ┆   ┆ 2.473  ┆ 8    ┆ 8/MN#1   │
 │ MB#5.0  ┆ 0  ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆ Clinton  ┆        ┆   ┆ 0.6049 ┆      ┆          │
 │ MN#5.0  ┆ 1  ┆ Keith    ┆ Kareem   ┆ Shad     ┆ Malcolm* ┆ Ethan*   ┆ Clinton* ┆ Tyler*   ┆ Anthony* ┆ Michael* ┆ Dimitri* ┆ Joe    ┆   ┆ 2.5054 ┆ 7    ┆ 7/MN#1   │
 │ MB#6.0  ┆ 0  ┆ Keith    ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆          ┆        ┆   ┆ 0      ┆      ┆          │
@@ -625,4 +625,4 @@ MN#10.0 E12
 ╰─────────┴────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.64s
+Ran in 10.50s
