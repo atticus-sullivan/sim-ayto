@@ -109,7 +109,7 @@ constraints:
       # Ethan: Geles
       # Keith: Zoe
 
-  - type: !Night {num: 3, comment: "E05"}
+  - type: !Night {num: 4, comment: "E05"}
     check: !Lights [3]
     # resultUnknown: true
     map:
