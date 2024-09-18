@@ -102,10 +102,16 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
             let record: CSVEntryMB = result?;
             field.push(record);
         }
-        let name_suffix = match field.get(9) {
+        let name_suffix = match field.iter().find(|x| x.1 == 10.0) {
             Some((true, _, _, _)) => "- W",
             Some((false, _, _, _)) => "- L",
-            None => "",
+            None => {
+                match field.last() {
+                    Some((true, _, _, _)) => "- W",
+                    Some((false, _, _, _)) => "- L",
+                    None => ""
+                }
+            },
         };
         let trace = Scatter::new(
             field.iter().map(|i| i.1).collect(),
