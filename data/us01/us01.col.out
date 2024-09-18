@@ -37,16 +37,16 @@ ChrisT → Shanley
 3265920 left -> 21.6391 bits left
 
 MN#1.0 E01
-0x ChrisT → Jess     
-0x Scali  → Ashleigh 
-0x Dre    → Jacy     
-0x Wes    → Kayla    
 0x Ethan  → Shanley  
 0x Adam   → Brittany 
-0x John   → Amber    
+0x Dre    → Jacy     
+0x Scali  → Ashleigh 
+0x ChrisT → Jess     
 0x Ryan   → Amber    
-0x Joey   → Paige    
 0x Dillan → Coleysia 
+0x John   → Amber    
+0x Joey   → Paige    
+0x Wes    → Kayla    
 ---
 -> I[l]/bits: {0: 1.48, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.05, 5: 8.46, 6: 11.18, 7: 14.15, 8: 17.64, 9: 20.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Ethan → Jess
 562192 left -> 19.1007 bits left
 
 MN#2.0 E02
-0x ChrisT → Paige    
-0x Wes    → Coleysia 
-0x Adam   → Shanley  
-0x Joey   → Brittany 
-0x Scali  → Simone   
-0x Ryan   → Kayla    
-0x Dillan → Jess     
-0x John   → Jacy     
-0x Ethan  → Amber    
 0x Dre    → Ashleigh 
+0x Dillan → Jess     
+0x Wes    → Coleysia 
+0x John   → Jacy     
+0x Joey   → Brittany 
+0x Ethan  → Amber    
+0x Adam   → Shanley  
+0x Scali  → Simone   
+0x ChrisT → Paige    
+0x Ryan   → Kayla    
 ---
 -> I[l]/bits: {0: 1.33, 1: 1.43, 2: 2.57, 3: 4.34, 4: 6.61, 5: 9.28, 6: 12.37, 7: 15.93}
 -> E[I]/bits: 1.79
@@ -143,16 +143,16 @@ John → Simone
 5399 left -> 12.3985 bits left
 
 MN#3.0 E03
-1x Ethan  → Amber    
-1x Adam   → Brittany 
-1x Ryan   → Kayla    
-1x Dillan → Coleysia 
-0x Scali  → Paige    
-0x ChrisT → Simone   
-1x Dre    → Ashleigh 
 0x Joey   → Shanley  
+0x ChrisT → Simone   
 0x John   → Jess     
+1x Ryan   → Kayla    
 0x Wes    → Jacy     
+1x Adam   → Brittany 
+0x Scali  → Paige    
+1x Dre    → Ashleigh 
+1x Dillan → Coleysia 
+1x Ethan  → Amber    
 ---
 -> I[l]/bits: {0: 2.70, 1: 1.67, 2: 1.81, 3: 2.70, 4: 3.87, 5: 5.78, 6: 7.59, 7: 9.81, 8: 12.40}
 -> E[I]/bits: 2.29
@@ -196,16 +196,16 @@ Dillan → Jess
 1004 left -> 9.9715 bits left
 
 MN#4.0 E04
-0x Adam   → Amber    
-0x Dre    → Simone   
-0x ChrisT → Ashleigh 
 0x Ryan   → Brittany 
-2x Dillan → Coleysia 
 1x Scali  → Paige    
-0x Ethan  → Kayla    
-0x John   → Shanley  
+0x Adam   → Amber    
 0x Wes    → Jess     
+0x Dre    → Simone   
+0x John   → Shanley  
+0x ChrisT → Ashleigh 
+0x Ethan  → Kayla    
 0x Joey   → Jacy     
+2x Dillan → Coleysia 
 ---
 -> I[l]/bits: {0: 1.20, 1: 1.52, 2: 2.61, 3: 4.55, 4: 6.97, 5: 9.97}
 -> E[I]/bits: 1.74
@@ -271,16 +271,16 @@ Dillan → Coleysia
 86 left -> 6.4263 bits left
 
 MN#5.0 E05
-0x Dre    → Brittany 
+1x Scali  → Simone   
 3x Dillan → Coleysia 
-1x Adam   → Shanley  
+1x ChrisT → Paige    
+0x Ryan   → Ashleigh 
+1x John   → Jacy     
 2x Ethan  → Amber    
 1x Wes    → Kayla    
-0x Ryan   → Ashleigh 
 0x Joey   → Jess     
-1x John   → Jacy     
-1x Scali  → Simone   
-1x ChrisT → Paige    
+1x Adam   → Shanley  
+0x Dre    → Brittany 
 ---
 -> I[l]/bits: {3: 1.90, 4: 2.03, 5: 1.73, 6: 3.10, 7: 4.43, 8: 5.43}
 -> E[I]/bits: 2.22
@@ -325,14 +325,14 @@ ChrisT → Paige
 
 MN#6.0 E07
 0x Joey   → Simone   
-2x Wes    → Kayla    
-2x John   → Jacy     
-2x ChrisT → Paige    
-3x Ethan  → Amber    
-0x Ryan   → Jess     
 0x Scali  → Brittany 
+0x Ryan   → Jess     
 0x Dre    → Shanley  
+3x Ethan  → Amber    
+2x Wes    → Kayla    
 4x Dillan → Coleysia 
+2x ChrisT → Paige    
+2x John   → Jacy     
 0x Adam   → Ashleigh 
 ---
 -> I[l]/bits: {2: 2.12, 3: 2.70, 4: 2.12, 5: 2.12, 6: 3.70, 7: 3.70}
@@ -377,16 +377,16 @@ Ryan → Kayla
 3 left -> 1.585 bits left
 
 MN#7.0 E08
-3x Wes    → Kayla    
-2x Adam   → Shanley  
 1x Joey   → Jess     
 1x Dre    → Simone   
-1x Ryan   → Ashleigh 
 4x Ethan  → Amber    
-0x John   → Brittany 
-5x Dillan → Coleysia 
 3x ChrisT → Paige    
+0x John   → Brittany 
+3x Wes    → Kayla    
+1x Ryan   → Ashleigh 
 0x Scali  → Jacy     
+2x Adam   → Shanley  
+5x Dillan → Coleysia 
 ---
 -> I[l]/bits: {4: 1.58, 5: 1.58, 7: 1.58}
 -> E[I]/bits: 1.58
@@ -430,16 +430,16 @@ John → Jacy
 1 left -> 0 bits left
 
 MN#8.0 E09
-3x Adam   → Shanley  
-4x ChrisT → Paige    
-6x Dillan → Coleysia 
-1x Scali  → Jacy     
-5x Ethan  → Amber    
-0x John   → Ashleigh 
-4x Wes    → Kayla    
-2x Dre    → Simone   
 1x Ryan   → Jess     
+2x Dre    → Simone   
+6x Dillan → Coleysia 
+4x Wes    → Kayla    
+1x Scali  → Jacy     
+4x ChrisT → Paige    
+3x Adam   → Shanley  
+5x Ethan  → Amber    
 1x Joey   → Brittany 
+0x John   → Ashleigh 
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -485,7 +485,7 @@ MN#8.0 E09
 │        ┆  L ┆  Amber ┆ Ashleigh ┆ Brittany ┆ Coleysia ┆  Jacy  ┆   Jess  ┆  Kayla ┆  Paige  ┆ Shanley ┆  Simone ┆   ┆    I   ┆ #new ┆ min dist │
 ╞════════╪════╪════════╪══════════╪══════════╪══════════╪════════╪═════════╪════════╪═════════╪═════════╪═════════╪═══╪════════╪══════╪══════════╡
 │[48;2;41;44;60m MB#1.0 [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m ChrisT  [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.152  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
-│ MN#1.0 ┆ 2  ┆ Ryan*  ┆ Scali*   ┆ Adam*    ┆ Dillan*  ┆ Dre*   ┆ ChrisT* ┆ Wes*   ┆ Joey*   ┆ Ethan*  ┆         ┆   ┆ 2.4094 ┆ 10   ┆          │
+│ MN#1.0 ┆ 2  ┆ John*  ┆ Scali*   ┆ Adam*    ┆ Dillan*  ┆ Dre*   ┆ ChrisT* ┆ Wes*   ┆ Joey*   ┆ Ethan*  ┆         ┆   ┆ 2.4094 ┆ 10   ┆          │
 │[48;2;41;44;60m MB#2.0 [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m Ethan   [49m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.129  [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
 │ MN#2.0 ┆ 4  ┆ Ethan* ┆ Dre*     ┆ Joey*    ┆ Wes*     ┆ John*  ┆ Dillan* ┆ Ryan*  ┆ ChrisT* ┆ Adam*   ┆ Scali*  ┆   ┆ 6.6083 ┆ 10   ┆ 10/MN#1  │
 │[48;2;41;44;60m MB#3.0 [49m┆[48;2;41;44;60m[38;5;9m 0  [49m[39m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m        [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m John    [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 0.0939 [49m┆[48;2;41;44;60m      [49m┆[48;2;41;44;60m          [49m│
