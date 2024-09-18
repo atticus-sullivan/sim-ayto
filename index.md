@@ -45,6 +45,10 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 - [deutsche staffeln](stats_de.html).
 - [us staffeln](stats_us.html).
 
+## Hinweise
+- das `- W` bzgl `- L` am Ende in der Legende steht dafür, ob der Cast in der
+Staffel gewonnen (*win* `- W`) oder verloren hat (*loose* `- L`)
+
 # Weitere Erklärungen zu den Ausgaben
 
 Im Anschluss sind ein paar Erklärungen zu den Ausgaben zu finden. Für noch mehr

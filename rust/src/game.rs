@@ -224,15 +224,15 @@ impl Game {
                 .from_path(out_info_path)?,
         );
         info.serialize((0, total.log2(), "initial"))?;
-        for i in merged_constraints.iter().map(|c| c.get_stats()) {
+        for i in merged_constraints.iter().map(|c| c.get_stats(self.rule_set.constr_map_len(self.lut_a.len(), self.lut_b.len()))) {
             let i = i?;
-            if let Some(j) = &i[0] {
+            if let Some(j) = &i.0 {
                 mbo.serialize(j)?
             }
-            if let Some(j) = &i[1] {
+            if let Some(j) = &i.1 {
                 mno.serialize(j)?
             }
-            if let Some(j) = &i[2] {
+            if let Some(j) = &i.2 {
                 info.serialize(j)?
             }
         }

@@ -27,6 +27,7 @@ use comfy_table::{Cell, Table, Row};
 use crate::{Lut, Map, MapS, Matching, Rem};
 
 pub type CSVEntry = (f64, f64, String);
+pub type CSVEntryMB = (bool, f64, f64, String);
 
 #[derive(Deserialize, Debug, Clone)]
 enum CheckType {
@@ -549,17 +550,24 @@ impl Constraint {
     }
 
     // returned array contains mbInfo, mnInfo, info
-    pub fn get_stats(&self) -> Result<[Option<CSVEntry>; 3]> {
+    pub fn get_stats(&self, required_lights: usize) -> Result<(Option<CSVEntry>,Option<CSVEntryMB>,Option<CSVEntry>)> {
         if self.hidden {
-            return Ok([None, None, None]);
+            return Ok((None, None, None));
         }
+
+        let won = match self.check {
+            CheckType::Eq => false,
+            CheckType::Nothing => false,
+            CheckType::Lights(l, _) => l as usize == required_lights,
+        };
 
         let meta_a = format!("{}", self.comment());
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
-            ConstraintType::Night { num, .. } => Ok([
+            ConstraintType::Night { num, .. } => Ok((
                 None,
                 Some((
+                    won,
                     num.into(),
                     self.information.unwrap_or(std::f64::INFINITY),
                     meta_a,
@@ -569,8 +577,8 @@ impl Constraint {
                     (self.left_after.context("total_left unset")? as f64).log2(),
                     meta_b,
                 )),
-            ]),
-            ConstraintType::Box { num, .. } => Ok([
+            )),
+            ConstraintType::Box { num, .. } => Ok((
                 Some((
                     num.into(),
                     self.information.unwrap_or(std::f64::INFINITY),
@@ -582,7 +590,7 @@ impl Constraint {
                     (self.left_after.context("total_left unset")? as f64).log2(),
                     meta_b,
                 )),
-            ]),
+            )),
         }
     }
 
