@@ -19,10 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 use anyhow::Result;
 use plotly::common::{Mode, Title};
 use plotly::{Layout, Plot, Scatter};
-use std::iter::zip;
 use walkdir::WalkDir;
 
-use crate::constraint::CSVEntry;
+use crate::constraint::{CSVEntry, CSVEntryMB};
 
 pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     let layout = Layout::new()
@@ -88,7 +87,37 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
         })
         .filter_map(Result::ok)
     {
-        for (fn_param, plot) in zip(["statMB.csv", "statMN.csv", "statInfo.csv"], &mut plots) {
+        // read the matchbox csv first, since it has a different type and also to find out whether
+        // they won or not
+        let fn_param = "statMN.csv";
+        if !entry.path().join(fn_param).exists() {
+            continue;
+        }
+        let mut field: Vec<CSVEntryMB> = Vec::new();
+        let mut rdr = csv::ReaderBuilder::new()
+            .delimiter(b';')
+            .has_headers(false)
+            .from_path(entry.path().join(fn_param))?;
+        for result in rdr.deserialize() {
+            let record: CSVEntryMB = result?;
+            field.push(record);
+        }
+        let name_suffix = match field.get(9) {
+            Some((true, _, _, _)) => "- W",
+            Some((false, _, _, _)) => "- L",
+            None => "",
+        };
+        let trace = Scatter::new(
+            field.iter().map(|i| i.1).collect(),
+            field.iter().map(|i| i.2).collect(),
+        )
+            .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+            .text_array(field.iter().map(|i| i.3.clone()).collect())
+            .mode(Mode::Lines);
+        plots[0].add_trace(trace);
+
+        // read the other csv files both have the same structure -> use a loop
+        for (plot_idx, fn_param) in ["statMB.csv", "statInfo.csv"].iter().enumerate() {
             if !entry.path().join(fn_param).exists() {
                 continue;
             }
@@ -101,14 +130,14 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
                 let record: CSVEntry = result?;
                 field.push(record);
             }
-            let trace = Scatter::new(
+                let trace = Scatter::new(
                 field.iter().map(|i| i.0).collect(),
                 field.iter().map(|i| i.1).collect(),
             )
-            .name(entry.file_name().to_str().unwrap_or("unknown"))
+            .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
             .text_array(field.iter().map(|i| i.2.clone()).collect())
             .mode(Mode::Lines);
-            plot.add_trace(trace);
+            plots[plot_idx+1].add_trace(trace);
         }
     }
     let dat = plots
