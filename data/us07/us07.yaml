@@ -1,0 +1,280 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup 
+rule_set: !Eq
+
+setA:
+  - Asia
+  - Bria
+  - Cali
+  - Jasmine
+  - Kayla
+  - Kenya
+  - Maria
+  - Morgan
+  - Nutsa
+  - Samantha
+  - Lauren
+
+setB:
+  - Andrew
+  - Brett
+  - Cam
+  - Daniel
+  - Kwasi
+  - Lewis
+  - Moe
+  - Shamoy
+  - Tevin
+  - Tomas
+  - Zak
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      Maria: Tomas
+      # ZaMariak
+      # Tomas
+      # Cali
+      # Maria
+
+  - type: !Night {num: 1, comment: "E02"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Bria: Zak
+      Kenya: Tevin
+      Asia: Kwasi
+      Cali: Brett
+      Kayla: Cam
+      Morgan: Tomas
+      Maria: Shamoy
+      Lauren: Andrew
+      Jasmine: Moe
+      Nutsa: Daniel
+      Samantha: Lewis
+
+  - type: !Box {num: 2, comment: "E03"}
+    check: !Lights [0]
+    map:
+      Asia: Andrew
+      # Nutsa
+      # Asia
+      # Cam
+      # Andrew
+
+  - type: !Night {num: 2, comment: "E03"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Kenya: Tevin
+      Kayla: Cam
+      Jasmine: Lewis
+      Asia: Brett
+      Nutsa: Daniel
+      Samantha: Zak
+      Bria: Moe
+      Morgan: Andrew
+      Cali: Tomas
+      Lauren: Kwasi
+      Maria: Shamoy
+
+  - type: !Box {num: 3, comment: "E04"}
+    check: !Lights [1]
+    map:
+      Maria: Shamoy
+      # Shamoy
+      # Lewis
+      # Maria
+      # Lauren
+
+  - type: !Night {num: 3, comment: "E04"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Asia: Lewis
+      Kayla: Cam
+      Kenya: Tevin
+      Samantha: Daniel
+      Cali: Brett
+      Lauren: Andrew
+      Bria: Tomas
+      Jasmine: Kwasi
+      Morgan: Zak
+      Nutsa: Moe
+
+  - type: !Box {num: 4, comment: "E06"}
+    check: !Lights [0]
+    map:
+      Kenya: Brett
+      # Kwasi
+      # Brett
+      # Kenya
+      # Morgan
+
+  - type: !Night {num: 4, comment: "E06"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Kayla: Brett
+      Asia: Cam
+      Samantha: Moe
+      Morgan: Zak
+      Nutsa: Andrew
+      Lauren: Daniel
+      Cali: Tomas
+      Jasmine: Tevin
+      Kenya: Lewis
+      Bria: Kwasi
+
+  - type: !Box {num: 5, comment: "E08"}
+    check: !Lights [0]
+    map:
+      Bria: Zak
+      # Bria
+      # Asia
+      # Zak
+      # Daniel
+
+  - type: !Night {num: 5, comment: "E08"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Kenya: Tevin
+      Cali: Tomas
+      Lauren: Lewis
+      Asia: Moe
+      Nutsa: Brett
+      Morgan: Zak
+      Kayla: Cam
+      Jasmine: Kwasi
+      Samantha: Andrew
+      Bria: Daniel
+
+  - type: !Box {num: 6, comment: "E09"}
+    check: !Lights [0]
+    map:
+      Cali: Brett
+      # Moe: Kayla
+
+  - type: !Night {num: 6, comment: "E09"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Lauren: Andrew
+      Nutsa: Brett
+      Kayla: Cam
+      Bria: Lewis
+      Asia: Kwasi
+      Cali: Tomas
+      Morgan: Zak
+      Samantha: Daniel
+      Jasmine: Moe
+      Kenya: Tevin
+
+  - type: !Box {num: 7, comment: "E10"}
+    check: !Lights [0]
+    map:
+      Nutsa: Zak
+      # Nutsa: Brett
+      # Bria: Zak
+
+  - type: !Night {num: 7, comment: "E11"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Nutsa: Brett
+      Samantha: Daniel
+      Kenya: Tevin
+      Lauren: Andrew
+      Morgan: Zak
+      Bria: Lewis
+      Jasmine: Moe
+      Asia: Kwasi
+      Cali: Cam
+      Kayla: Tomas
+
+  - type: !Box {num: 8, comment: "E12"}
+    check: !Lights [1]
+    map:
+      Kenya: Tevin
+      # Tevin
+      # Kwasi
+      # Kenya
+      # Morgan
+
+  - type: !Night {num: 8, comment: "E12"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Kenya: Tevin
+      Asia: Daniel
+      Lauren: Cam
+      Bria: Lewis
+      Samantha: Andrew
+      Kayla: Moe
+      Cali: Zak
+      Morgan: Tomas
+      Nutsa: Brett
+      Jasmine: Kwasi
+
+  - type: !Box {num: 9, comment: "E12"}
+    check: !Lights [0]
+    map:
+      Samantha: Cam
+      # Cam
+      # Tomas
+      # Jasmine
+      # Samantha
+
+  - type: !Night {num: 9, comment: "E13"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Kenya: Tevin
+      Bria: Brett
+      Nutsa: Kwasi
+      Cali: Andrew
+      Kayla: Moe
+      Lauren: Daniel
+      Jasmine: Tomas
+      Asia: Lewis
+      Morgan: Cam
+      Samantha: Zak
+
+  - type: !Box {num: 10, comment: "E14"}
+    check: !Lights [1]
+    map:
+      Nutsa: Brett
+      # Moe
+      # Brett
+      # Lauren
+      # Nutsa
+
+  - type: !Night {num: 10, comment: "E14"}
+    check: !Lights [11]
+    # resultUnknown: true
+    map:
+      Maria: Shamoy
+      Kenya: Tevin
+      Nutsa: Brett
+      Cali: Andrew
+      Kayla: Moe
+      Morgan: Zak
+      Samantha: Lewis
+      Jasmine: Daniel
+      Lauren: Kwasi
+      Asia: Tomas
+      Bria: Cam

@@ -37,6 +37,7 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 | Staffel 4 | [mit Farbe](data/us04/us04.col.png) | [nur Text](data/us04/us04.txt) | [aktuelle Tabelle](data/us04/us04_tab.png) | [Zusammenfassung](data/us04/us04_sum.png) | [aktueller Baum](data/us04/us04.pdf) |
 | Staffel 5 | [mit Farbe](data/us05/us05.col.png) | [nur Text](data/us05/us05.txt) | [aktuelle Tabelle](data/us05/us05_tab.png) | [Zusammenfassung](data/us05/us05_sum.png) | [aktueller Baum](data/us05/us05.pdf) |
 | Staffel 6 | [mit Farbe](data/us06/us06.col.png) | [nur Text](data/us06/us06.txt) | [aktuelle Tabelle](data/us06/us06_tab.png) | [Zusammenfassung](data/us06/us06_sum.png) | [aktueller Baum](data/us06/us06.pdf) |
+| Staffel 7 | [mit Farbe](data/us07/us07.col.png) | [nur Text](data/us07/us07.txt) | [aktuelle Tabelle](data/us07/us07_tab.png) | [Zusammenfassung](data/us07/us07_sum.png) | [aktueller Baum](data/us07/us07.pdf) |
 | Staffel 8 | [mit Farbe](data/us08/us08.col.png) | [nur Text](data/us08/us08.txt) | [aktuelle Tabelle](data/us08/us08_tab.png) | [Zusammenfassung](data/us08/us08_sum.png) | [aktueller Baum](data/us08/us08.pdf) |
 
 # Vergleich der Staffeln untereinander
