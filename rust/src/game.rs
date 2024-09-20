@@ -163,16 +163,24 @@ impl Game {
         // fix is so that it can't be mutated anymore
         let is = &is;
 
-        for (q, id) in &is.query_matchings {
-            for (a, b) in q.iter().enumerate() {
-                let ass = self.map_a.get(a).unwrap();
-                let bs = b
-                    .iter()
-                    .map(|b| self.map_b.get(*b as usize).unwrap())
-                    .collect::<Vec<_>>();
-                println!("{} -> {:?}", ass, bs);
+        if is.query_matchings.iter().any(|(_,x)| x.is_some()) {
+            println!("Trace at which point a particular matching was elimiated:\n");
+            for (q, id) in &is.query_matchings {
+                match id {
+                    Some(id) => {
+                        for (a, b) in q.iter().enumerate() {
+                            let ass = self.map_a.get(a).unwrap();
+                            let bs = b
+                                .iter()
+                                .map(|b| self.map_b.get(*b as usize).unwrap())
+                                .collect::<Vec<_>>();
+                            println!("{} -> {:?}", ass, bs);
+                        }
+                        println!("=> {}\n", id)
+                    },
+                    None => {},
+                }
             }
-            println!("=> {:?}\n", id)
         }
 
         let mut rem: Rem = (
