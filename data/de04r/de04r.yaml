@@ -30,6 +30,18 @@ setB:
   - Tara
   - Dana
 
+queryMatchings:
+  - Kaan: [Tara]
+    MarcRobin: [LauraM]
+    Nikola: [LauraL]
+    Lukas: [Nadja]
+    Alex: [Gabriela]
+    Tim: [Linda]
+    Antonino: [Jenny,Dana]
+    Lars: [Asena]
+    Chris: [Emmy]
+    Ozan: [Anastasia]
+
 constraints:
   - type: !Box {num: 1, comment: "E03"}
     check: !Lights [0]

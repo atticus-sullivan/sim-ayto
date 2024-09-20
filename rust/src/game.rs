@@ -34,7 +34,7 @@ use anyhow::{anyhow, ensure, Context, Result};
 
 use crate::constraint::Constraint;
 use crate::ruleset::RuleSet;
-use crate::{Lut, Matching, Rem};
+use crate::{Lut, Matching, MatchingS, Rem};
 
 #[derive(Deserialize, Debug)]
 pub struct Game {
@@ -43,6 +43,8 @@ pub struct Game {
     rule_set: RuleSet,
     tree_gen: bool,
     tree_top: Option<String>,
+    #[serde(rename = "queryMatchings")]
+    query_matchings_s: Vec<MatchingS>,
 
     #[serde(rename = "setA")]
     map_a: Vec<String>,
@@ -57,6 +59,8 @@ pub struct Game {
     lut_a: Lut,
     #[serde(skip)]
     lut_b: Lut,
+    #[serde(skip)]
+    query_matchings: Vec<Matching>,
 }
 
 impl Game {
@@ -99,6 +103,14 @@ impl Game {
                 g.rule_set.constr_map_len(g.lut_a.len(), g.lut_b.len()),
             )?;
         }
+        for q in &g.query_matchings_s {
+            let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
+            for (k,v) in q {
+                let x = v.iter().map(|v| g.lut_b.get(v).map(|v| *v as u8).with_context(|| format!("{} not found in lut_b", v))).collect::<Result<Vec<_>>>()?;
+                matching[*g.lut_a.get(k).with_context(|| format!("{} not found in lut_a", k))?] = x;
+            }
+            g.query_matchings.push(matching);
+        }
 
         // postprocessing -> sort map if ruleset demands it
         if g.rule_set.must_sort_constraint() {
@@ -115,12 +127,22 @@ impl Game {
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len());
 
-        let mut is = IterState::new(self.tree_gen, perm_amount, self.constraints_orig.clone());
+        let mut is = IterState::new(self.tree_gen, perm_amount, self.constraints_orig.clone(), &self.query_matchings);
         self.rule_set
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true)?;
 
         // fix is so that it can't be mutated anymore
         let is = &is;
+
+        for (q,id) in &is.query_matchings {
+            for (a,b) in q.iter().enumerate() {
+                let ass = self.map_a.get(a).unwrap();
+                let bs = b.iter().map(|b| self.map_b.get(*b as usize).unwrap()).collect::<Vec<_>>();
+                println!("{} -> {:?}", ass, bs);
+            }
+            println!("=> {:?}\n", id)
+        }
+
 
         let mut rem: Rem = (
             vec![vec![is.each; self.map_b.len()]; self.map_a.len()],
@@ -466,15 +488,17 @@ pub struct IterState {
     total: u128,
     eliminated: u128,
     pub left_poss: Vec<Matching>,
+    query_matchings: Vec<(Matching,Option<String>)>,
     cnt_update: usize,
     progress: ProgressBar,
 }
 
 impl IterState {
-    pub fn new(tree_gen: bool, perm_amount: usize, constraints: Vec<Constraint>) -> IterState {
+    pub fn new(tree_gen: bool, perm_amount: usize, constraints: Vec<Constraint>, query_matchings: &Vec<Matching>) -> IterState {
         let is = IterState {
             constraints,
             tree_gen,
+            query_matchings: query_matchings.iter().map(|i| (i.clone(),None)).collect(),
             each: 0,
             total: 0,
             eliminated: 0,
@@ -514,6 +538,11 @@ impl IterState {
             if !c.process(&p)? {
                 left = false;
                 self.eliminated += 1;
+                for (q,id) in &mut self.query_matchings {
+                    if q == &p {
+                        *id = Some(c.type_str().to_string() + c.comment());
+                    }
+                }
                 break;
             }
         }
