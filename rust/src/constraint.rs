@@ -22,7 +22,7 @@ use std::collections::BTreeMap;
 use std::collections::HashSet;
 
 use comfy_table::presets::NOTHING;
-use comfy_table::{Cell, Table, Row};
+use comfy_table::{Cell, Row, Table};
 
 use crate::{Lut, Map, MapS, Matching, Rem};
 
@@ -42,8 +42,10 @@ enum ConstraintType {
     Box { num: f32, comment: String },
 }
 
+// this struct is only used when parsing the yaml file.
+// The function `finalize_parsing` is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
-pub struct Constraint {
+pub struct ConstraintParse {
     r#type: ConstraintType,
     #[serde(rename = "map")]
     map_s: MapS,
@@ -56,94 +58,27 @@ pub struct Constraint {
     exclude_s: Option<(String, Vec<String>)>,
     #[serde(default, rename = "resultUnknown")]
     result_unknown: bool,
+}
 
-    #[serde(skip)]
+#[derive(Deserialize, Debug, Clone)]
+pub struct Constraint {
+    r#type: ConstraintType,
+    check: CheckType,
+    hidden: bool,
+    result_unknown: bool,
+
     map: Map,
-    #[serde(skip)]
+    map_s: MapS,
     exclude: Option<(u8, HashSet<u8>)>,
-    #[serde(skip)]
     eliminated: u128,
-    #[serde(skip)]
     eliminated_tab: Vec<Vec<u128>>,
 
-    #[serde(skip)]
     information: Option<f64>,
-    #[serde(skip)]
     left_after: Option<u128>,
 }
 
 // functions for initialization / startup
-impl Constraint {
-    /// Sorts and key/value pairs such that lut_a[k] < lut_b[v] always holds.
-    /// Only makes sense if lut_a == lut_b (defined on the same set)
-    ///
-    /// # Arguments
-    ///
-    /// - `lut_a`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
-    /// - `lut_b`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// let mut c: Constraint;
-    /// c.sort_maps(&lut_a, &lut_b);
-    /// ```
-    ///
-    /// # Panics
-    ///
-    /// This function may panic if `lut_a` or `lut_b` do not contain keys present in `self.map_s`.
-    ///
-    /// # Notes
-    ///
-    /// - The sorting and flipping operations are done in place.
-    pub fn sort_maps(&mut self, lut_a: &Lut, lut_b: &Lut) {
-        self.map = self
-            .map
-            .drain()
-            .map(|(k, v)| if k < v { (v, k) } else { (k, v) })
-            .collect();
-
-        self.map_s = self
-            .map_s
-            .drain()
-            .map(|(k, v)| {
-                if lut_a[&k] < lut_b[&v] {
-                    (v, k)
-                } else {
-                    (k, v)
-                }
-            })
-            .collect();
-    }
-
-    /// Generates the exclude list for the constraint, by inserting the elements from `map_b`
-    ///
-    /// This function modifies the internal state of the `Constraint`. If exclusion is not needed (constraint type is no box or lights != 1), no exclude list is generated.
-    ///
-    /// # Arguments
-    ///
-    /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be drawn. The function will create a new exclusion vector by removing any elements from `map_b` that match the current value in `self.map_s`.
-    pub fn add_exclude(&mut self, map_b: &Vec<String>) {
-        if self.no_exclude {
-            return;
-        }
-        if let CheckType::Lights(l, _) = self.check {
-            if !(l == 1 && self.map_s.len() == 1 && self.exclude_s.is_none()) {
-                return;
-            }
-            if let ConstraintType::Box { .. } = self.r#type {
-                for (k, v) in &self.map_s {
-                    let bs: Vec<String> = map_b
-                        .iter()
-                        .filter(|&i| i != v)
-                        .map(|i| i.to_string())
-                        .collect();
-                    self.exclude_s = Some((k.to_string(), bs));
-                }
-            }
-        }
-    }
-
+impl ConstraintParse {
     /// Finalize the initialization phase by translating the names (strings) to ids, validating the stored data and initialize the internal state of the constraint.
     ///
     /// # Arguments
@@ -151,7 +86,40 @@ impl Constraint {
     /// - `lut_a`: Reference to the lookup table for set_a (the keys)
     /// - `lut_b`: Reference to the lookup table for set_b (the values)
     /// - `map_len`: How many elements are expected to occur in the matching night
-    pub fn finalize_parsing(&mut self, lut_a: &Lut, lut_b: &Lut, map_len: usize) -> Result<()> {
+    pub fn finalize_parsing(
+        &self,
+        lut_a: &Lut,
+        lut_b: &Lut,
+        map_len: usize,
+        map_b: &Vec<String>,
+        add_exclude: bool,
+        sort_constraint: bool,
+    ) -> Result<Constraint> {
+        let mut c = Constraint {
+            r#type: self.r#type.clone(),
+            check: self.check.clone(),
+            hidden: self.hidden,
+            result_unknown: self.result_unknown,
+            map_s: self.map_s.clone(),
+            map: self
+                .map_s
+                .iter()
+                .map(&|(k, v)| {
+                    let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
+                    let v = *lut_b
+                        .get(v)
+                        .with_context(|| format!("Invalid Value {}", v))?
+                        as u8;
+                    Ok((k, v))
+                })
+                .collect::<Result<_>>()?,
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; lut_b.len()]; lut_a.len()],
+            information: None,
+            left_after: None,
+        };
+
         // check if map size is valid
         match self.r#type {
             ConstraintType::Night { .. } => {
@@ -180,25 +148,17 @@ impl Constraint {
             },
         }
 
-        // init eliminated table
-        self.eliminated_tab.reserve_exact(lut_a.len());
-        for _ in 0..lut_a.len() {
-            self.eliminated_tab.push(vec![0; lut_b.len()])
+        if sort_constraint {
+            c.sort_maps(lut_a, lut_b);
+        }
+
+        let mut exclude_s = self.exclude_s.clone();
+        if add_exclude {
+            exclude_s = self.add_exclude(map_b);
         }
 
         // translate names to ids
-        self.map.reserve(self.map_s.len());
-        for (k, v) in &self.map_s {
-            self.map.insert(
-                *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8,
-                *lut_b
-                    .get(v)
-                    .with_context(|| format!("Invalid Value {}", v))? as u8,
-            );
-        }
-
-        // translate names to ids
-        if let Some(ex) = &self.exclude_s {
+        if let Some(ex) = &exclude_s {
             let (ex_a, ex_b) = ex;
             let mut bs = HashSet::with_capacity(ex_b.len());
             let a = *lut_a
@@ -211,10 +171,85 @@ impl Constraint {
                         .with_context(|| format!("Invalid Value {}", x))? as u8,
                 );
             }
-            self.exclude = Some((a, bs));
+            c.exclude = Some((a, bs));
         }
 
-        Ok(())
+        Ok(c)
+    }
+
+    /// Generates the exclude list for the constraint, by inserting the elements from `map_b`
+    ///
+    /// This function modifies the internal state of the `Constraint`. If exclusion is not needed (constraint type is no box or lights != 1), no exclude list is generated.
+    ///
+    /// # Arguments
+    ///
+    /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be drawn. The function will create a new exclusion vector by removing any elements from `map_b` that match the current value in `self.map_s`.
+    pub fn add_exclude(&self, map_b: &Vec<String>) -> Option<(String, Vec<String>)> {
+        if self.no_exclude {
+            return None;
+        }
+        if let CheckType::Lights(l, _) = self.check {
+            if !(l == 1 && self.map_s.len() == 1 && self.exclude_s.is_none()) {
+                return None;
+            }
+            if let ConstraintType::Box { .. } = self.r#type {
+                // if the constraint is a box constraint the for loop will only run once anyhow
+                for (k, v) in &self.map_s {
+                    let bs: Vec<String> = map_b
+                        .iter()
+                        .filter(|&i| i != v)
+                        .map(|i| i.to_string())
+                        .collect();
+                    return Some((k.to_string(), bs));
+                }
+            }
+        }
+        None
+    }
+}
+
+// functions for initialization / startup
+impl Constraint {
+    /// Sorts and key/value pairs such that lut_a[k] < lut_b[v] always holds.
+    /// Only makes sense if lut_a == lut_b (defined on the same set)
+    ///
+    /// # Arguments
+    ///
+    /// - `lut_a`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
+    /// - `lut_b`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// let mut c: Constraint;
+    /// c.sort_maps(&lut_a, &lut_b);
+    /// ```
+    ///
+    /// # Panics
+    ///
+    /// This function may panic if `lut_a` or `lut_b` do not contain keys present in `self.map_s`.
+    ///
+    /// # Notes
+    ///
+    /// - The sorting and flipping operations are done in place.
+    fn sort_maps(&mut self, lut_a: &Lut, lut_b: &Lut) {
+        self.map = self
+            .map
+            .drain()
+            .map(|(k, v)| if k < v { (v, k) } else { (k, v) })
+            .collect();
+
+        self.map_s = self
+            .map_s
+            .drain()
+            .map(|(k, v)| {
+                if lut_a[&k] < lut_b[&v] {
+                    (v, k)
+                } else {
+                    (k, v)
+                }
+            })
+            .collect();
     }
 }
 
@@ -405,18 +440,33 @@ impl Constraint {
         self.left_after = Some(rem.1);
 
         let tmp = 1.0 - (self.eliminated as f64) / (rem.1 + self.eliminated) as f64;
-        self.information = if tmp == 1.0 { Some(0.0) } else if tmp > 0.0 { Some(-tmp.log2()) } else { None };
+        self.information = if tmp == 1.0 {
+            Some(0.0)
+        } else if tmp > 0.0 {
+            Some(-tmp.log2())
+        } else {
+            None
+        };
 
         Some(rem)
     }
 
-    pub fn stat_row(&self, transpose: bool, map_hor: &[String], past_constraints: &Vec<&Constraint>) -> Vec<Cell> {
+    pub fn stat_row(
+        &self,
+        transpose: bool,
+        map_hor: &[String],
+        past_constraints: &Vec<&Constraint>,
+    ) -> Vec<Cell> {
         let map_rev: MapS;
         let map_s: &MapS;
         if !transpose {
             map_s = &self.map_s;
         } else {
-            map_rev = self.map_s.iter().map(|(k,v)| (v.clone(),k.clone())).collect();
+            map_rev = self
+                .map_s
+                .iter()
+                .map(|(k, v)| (v.clone(), k.clone()))
+                .collect();
             map_s = &map_rev;
         }
 
@@ -430,70 +480,60 @@ impl Constraint {
         } else {
             match &self.check {
                 CheckType::Eq => ret.push(Cell::new("E")),
-                CheckType::Nothing => {
-                    match self.r#type {
-                        ConstraintType::Night { .. } => {
-                            ret.push(Cell::new("?"))
-                        },
-                        ConstraintType::Box { .. } => {
-                            ret.push(Cell::new("?").fg(comfy_table::Color::Yellow))
-                        }
+                CheckType::Nothing => match self.r#type {
+                    ConstraintType::Night { .. } => ret.push(Cell::new("?")),
+                    ConstraintType::Box { .. } => {
+                        ret.push(Cell::new("?").fg(comfy_table::Color::Yellow))
                     }
                 },
                 CheckType::Lights(lights, _) => {
                     let lights = *lights;
                     match self.r#type {
-                        ConstraintType::Night { .. } => {
-                            ret.push(Cell::new(lights))
-                        },
+                        ConstraintType::Night { .. } => ret.push(Cell::new(lights)),
                         ConstraintType::Box { .. } => {
                             if lights == 1 {
                                 ret.push(Cell::new(lights).fg(comfy_table::Color::Green))
                             } else if lights == 0 {
                                 ret.push(Cell::new(lights).fg(comfy_table::Color::Red))
                             } else {
-
                                 ret.push(Cell::new(lights))
                             }
-                        },
-                    }
-                },
-            }
-        }
-        ret.extend(map_hor.iter().map(|v1| {
-            match map_s.get(v1) {
-                Some(v2) => {
-                    let a;
-                    let b;
-                    if !transpose {
-                        a = v1;
-                        b = v2;
-                    } else {
-                        a = v2;
-                        b = v1;
-                    }
-                    if self.show_new()
-                        && !past_constraints
-                            .iter()
-                            .any(|&c| c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b))
-                    {
-                        Cell::new(format!("{}*", v2))
-                    } else {
-                        Cell::new(&String::from(v2))
+                        }
                     }
                 }
-                None => Cell::new(&String::from("")),
             }
+        }
+        ret.extend(map_hor.iter().map(|v1| match map_s.get(v1) {
+            Some(v2) => {
+                let a;
+                let b;
+                if !transpose {
+                    a = v1;
+                    b = v2;
+                } else {
+                    a = v2;
+                    b = v1;
+                }
+                if self.show_new()
+                    && !past_constraints
+                        .iter()
+                        .any(|&c| c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b))
+                {
+                    Cell::new(format!("{}*", v2))
+                } else {
+                    Cell::new(&String::from(v2))
+                }
+            }
+            None => Cell::new(&String::from("")),
         }));
         ret.push(Cell::new(String::from("")));
 
         match &self.check {
-            CheckType::Eq | CheckType::Lights(..) => {
-                ret.push(Cell::new(format!(
-                    "{:6.4}",
-                    self.information.unwrap_or(std::f64::INFINITY)
-                ).trim_end_matches('0').trim_end_matches('.')))
-            }
+            CheckType::Eq | CheckType::Lights(..) => ret.push(Cell::new(
+                format!("{:6.4}", self.information.unwrap_or(std::f64::INFINITY))
+                    .trim_end_matches('0')
+                    .trim_end_matches('.'),
+            )),
             CheckType::Nothing => ret.push(Cell::new(String::from(""))),
         }
 
@@ -550,7 +590,10 @@ impl Constraint {
     }
 
     // returned array contains mbInfo, mnInfo, info
-    pub fn get_stats(&self, required_lights: usize) -> Result<(Option<CSVEntry>,Option<CSVEntryMB>,Option<CSVEntry>)> {
+    pub fn get_stats(
+        &self,
+        required_lights: usize,
+    ) -> Result<(Option<CSVEntry>, Option<CSVEntryMB>, Option<CSVEntry>)> {
         if self.hidden {
             return Ok((None, None, None));
         }
@@ -628,7 +671,9 @@ impl Constraint {
             }
         }
         tab.add_rows(rows);
-        tab.column_mut(0).context("no 0th column in table found")?.set_padding((0,1));
+        tab.column_mut(0)
+            .context("no 0th column in table found")?
+            .set_padding((0, 1));
         println!("{tab}");
 
         println!("---");
@@ -654,10 +699,13 @@ impl Constraint {
                     );
                 }
                 if self.show_expected_information() {
-                    let mut expected: f64 = ls.iter().map(|(_, c)|{
-                        let p = *c as f64 / total;
-                        p * p.log2()
-                    }).sum();
+                    let mut expected: f64 = ls
+                        .iter()
+                        .map(|(_, c)| {
+                            let p = *c as f64 / total;
+                            p * p.log2()
+                        })
+                        .sum();
                     if expected == 0.0 {
                         expected = -0.0;
                     }
@@ -670,13 +718,15 @@ impl Constraint {
 
         println!(
             "=> I = {} bits",
-            format!("{:.4}", self.information.unwrap_or(std::f64::INFINITY)).trim_end_matches('0').trim_end_matches('.')
+            format!("{:.4}", self.information.unwrap_or(std::f64::INFINITY))
+                .trim_end_matches('0')
+                .trim_end_matches('.')
         );
         Ok(())
     }
 
     pub fn show_rem_table(&self) -> bool {
-        return !self.result_unknown
+        return !self.result_unknown;
     }
 }
 

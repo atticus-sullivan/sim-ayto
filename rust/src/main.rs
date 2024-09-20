@@ -24,12 +24,13 @@ mod ruleset;
 use crate::game::Game;
 
 use clap::{Parser, Subcommand};
-use std::collections::{HashMap};
+use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
 
 // TODO code review (try with chatGPT)
 
+type MatchingS = HashMap<String, Vec<String>>;
 type Matching = Vec<Vec<u8>>;
 type MapS = HashMap<String, String>;
 type Map = HashMap<u8, u8>;
