@@ -179,15 +179,44 @@ constraints:
       MarcRobin: LauraM
       # Jenny
 
-  - type: !Box {num: 8, comment: "E17"}
+  - type: !Box {num: 8, comment: "E18"}
     check: !Lights [1]
     noExclude: true
     hidden: true
     map:
       Tim: Dana
-  - type: !Box {num: 8, comment: "E17"}
+  - type: !Box {num: 8, comment: "E18"}
     check: !Lights [1]
     noExclude: true
     map:
       Tim: Linda
       # Lukas: Tara
+
+  - type: !Night {num: 7, comment: "E19"}
+    check: !Lights [7]
+    # resultUnknown: true
+    map:
+      Chris: Emmy
+      Ozan: Anastasia
+      Tim: Linda
+      Lukas: Tara
+      MarcRobin: LauraM
+      Nikola: Nadja
+      Kaan: Jenny
+      Alex: Gabriela
+      Lars: LauraL
+      Antonino: Asena
+
+  - type: !Box {num: 9, comment: "E19"}
+    check: !Lights [0]
+    map:
+      Lars: LauraL
+      # Nikola: LauraM
+
+  # - type: !Night {num: 8, comment: "E20 -- Regelverstoß Nadja -"}
+  #   check: !Lights [7]
+  #   # resultUnknown: true
+  #   map:
+  #     Chris: Emmy
+  #     Ozan: Anastasia
+  #     Tim: Linda
