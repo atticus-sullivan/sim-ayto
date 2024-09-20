@@ -33,49 +33,71 @@ use std::process::Command;
 use anyhow::{anyhow, ensure, Context, Result};
 
 use crate::constraint::Constraint;
+use crate::constraint::ConstraintParse;
 use crate::ruleset::RuleSet;
 use crate::{Lut, Matching, MatchingS, Rem};
 
-#[derive(Deserialize, Debug)]
+#[derive(Debug)]
 pub struct Game {
-    #[serde(rename = "constraints")]
     constraints_orig: Vec<Constraint>,
     rule_set: RuleSet,
     tree_gen: bool,
     tree_top: Option<String>,
-    #[serde(rename = "queryMatchings")]
+
+    // maps u8/usize to string
+    map_a: Vec<String>,
+    map_b: Vec<String>,
+
+    // maps string to usize
+    lut_a: Lut,
+    lut_b: Lut,
+
+    dir: PathBuf,
+    stem: String,
+    query_matchings: Vec<Matching>,
+}
+
+// this struct is only used for parsing the yaml file
+#[derive(Deserialize, Debug)]
+struct GameParse {
+    #[serde(rename = "constraints")]
+    constraints_orig: Vec<ConstraintParse>,
+    rule_set: RuleSet,
+    tree_gen: bool,
+    tree_top: Option<String>,
+    #[serde(rename = "queryMatchings", default)]
     query_matchings_s: Vec<MatchingS>,
 
     #[serde(rename = "setA")]
     map_a: Vec<String>,
     #[serde(rename = "setB")]
     map_b: Vec<String>,
-
-    #[serde(skip)]
-    dir: PathBuf,
-    #[serde(skip)]
-    stem: String,
-    #[serde(skip)]
-    lut_a: Lut,
-    #[serde(skip)]
-    lut_b: Lut,
-    #[serde(skip)]
-    query_matchings: Vec<Matching>,
 }
 
 impl Game {
     pub fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
-        let mut g: Game = serde_yaml::from_reader(File::open(yaml_path)?)?;
+        let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
-        g.dir = stem
-            .parent()
-            .context("parent dir of stem not found")?
-            .to_path_buf();
-        g.stem = stem
-            .file_stem()
-            .context("No filename provided in stem")?
-            .to_string_lossy()
-            .into_owned();
+        let mut g = Game {
+            map_a: gp.map_a,
+            map_b: gp.map_b,
+            constraints_orig: Vec::default(),
+            rule_set: gp.rule_set,
+            tree_gen: gp.tree_gen,
+            tree_top: gp.tree_top,
+            dir: stem
+                .parent()
+                .context("parent dir of stem not found")?
+                .to_path_buf(),
+            stem: stem
+                .file_stem()
+                .context("No filename provided in stem")?
+                .to_string_lossy()
+                .into_owned(),
+            lut_a: Lut::default(),
+            lut_b: Lut::default(),
+            query_matchings: Vec::default(),
+        };
 
         // build up the look up tables (LUT)
         for (lut, map) in [(&mut g.lut_a, &g.map_a), (&mut g.lut_b, &g.map_b)] {
@@ -88,35 +110,37 @@ impl Game {
         // validate the lut in combination with the ruleset
         g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
-        // postprocessing -> add exclude mapping list (with names)
-        if g.rule_set.must_add_exclude() {
-            for c in &mut g.constraints_orig {
-                c.add_exclude(&g.map_b);
-            }
-        }
-
-        // eg translates strings to indices (u8)
-        for c in &mut g.constraints_orig {
-            c.finalize_parsing(
+        // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
+        for c in &gp.constraints_orig {
+            g.constraints_orig.push(c.finalize_parsing(
                 &g.lut_a,
                 &g.lut_b,
                 g.rule_set.constr_map_len(g.lut_a.len(), g.lut_b.len()),
-            )?;
-        }
-        for q in &g.query_matchings_s {
-            let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
-            for (k,v) in q {
-                let x = v.iter().map(|v| g.lut_b.get(v).map(|v| *v as u8).with_context(|| format!("{} not found in lut_b", v))).collect::<Result<Vec<_>>>()?;
-                matching[*g.lut_a.get(k).with_context(|| format!("{} not found in lut_a", k))?] = x;
-            }
-            g.query_matchings.push(matching);
+                &g.map_b,
+                g.rule_set.must_add_exclude(),
+                g.rule_set.must_sort_constraint(),
+            )?);
         }
 
-        // postprocessing -> sort map if ruleset demands it
-        if g.rule_set.must_sort_constraint() {
-            for c in &mut g.constraints_orig {
-                c.sort_maps(&g.lut_a, &g.lut_b);
+        // translate the matchings that were querried for tracing
+        for q in &gp.query_matchings_s {
+            let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
+            for (k, v) in q {
+                let x = v
+                    .iter()
+                    .map(|v| {
+                        g.lut_b
+                            .get(v)
+                            .map(|v| *v as u8)
+                            .with_context(|| format!("{} not found in lut_b", v))
+                    })
+                    .collect::<Result<Vec<_>>>()?;
+                matching[*g
+                    .lut_a
+                    .get(k)
+                    .with_context(|| format!("{} not found in lut_a", k))?] = x;
             }
+            g.query_matchings.push(matching);
         }
 
         Ok(g)
@@ -127,31 +151,40 @@ impl Game {
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len());
 
-        let mut is = IterState::new(self.tree_gen, perm_amount, self.constraints_orig.clone(), &self.query_matchings);
+        let mut is = IterState::new(
+            self.tree_gen,
+            perm_amount,
+            self.constraints_orig.clone(),
+            &self.query_matchings,
+        );
         self.rule_set
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true)?;
 
         // fix is so that it can't be mutated anymore
         let is = &is;
 
-        for (q,id) in &is.query_matchings {
-            for (a,b) in q.iter().enumerate() {
+        for (q, id) in &is.query_matchings {
+            for (a, b) in q.iter().enumerate() {
                 let ass = self.map_a.get(a).unwrap();
-                let bs = b.iter().map(|b| self.map_b.get(*b as usize).unwrap()).collect::<Vec<_>>();
+                let bs = b
+                    .iter()
+                    .map(|b| self.map_b.get(*b as usize).unwrap())
+                    .collect::<Vec<_>>();
                 println!("{} -> {:?}", ass, bs);
             }
             println!("=> {:?}\n", id)
         }
-
 
         let mut rem: Rem = (
             vec![vec![is.each; self.map_b.len()]; self.map_a.len()],
             is.total,
         );
         if print_transposed {
-            self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
+            self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
+                .context("Error printing")?;
         } else {
-            self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v,h| (v,h)).context("Error printing")?;
+            self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
+                .context("Error printing")?;
         }
         println!();
 
@@ -171,9 +204,11 @@ impl Game {
                 c.print_hdr(&past_constraints)?;
                 if c.show_rem_table() {
                     if print_transposed {
-                        self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v,h| (h,v)).context("Error printing")?;
+                        self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
+                            .context("Error printing")?;
                     } else {
-                        self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v,h| (v,h)).context("Error printing")?;
+                        self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
+                            .context("Error printing")?;
                     }
                 }
                 past_constraints.push(&c_);
@@ -246,7 +281,12 @@ impl Game {
                 .from_path(out_info_path)?,
         );
         info.serialize((0, total.log2(), "initial"))?;
-        for i in merged_constraints.iter().map(|c| c.get_stats(self.rule_set.constr_map_len(self.lut_a.len(), self.lut_b.len()))) {
+        for i in merged_constraints.iter().map(|c| {
+            c.get_stats(
+                self.rule_set
+                    .constr_map_len(self.lut_a.len(), self.lut_b.len()),
+            )
+        }) {
             let i = i?;
             if let Some(j) = &i.0 {
                 mbo.serialize(j)?
@@ -301,13 +341,19 @@ impl Game {
             .set_header(hdr);
 
         let mut past_constraints: Vec<&Constraint> = Vec::default();
-        for (i,c) in merged_constraints.iter().enumerate() {
+        for (i, c) in merged_constraints.iter().enumerate() {
             if i % 2 == 0 {
-                table.add_row(c.stat_row(transpose, map_hor, &past_constraints).into_iter().map(|i| i.bg(comfy_table::Color::Rgb {
-                        r: 41,
-                        g: 44,
-                        b: 60,
-                    })));
+                table.add_row(
+                    c.stat_row(transpose, map_hor, &past_constraints)
+                        .into_iter()
+                        .map(|i| {
+                            i.bg(comfy_table::Color::Rgb {
+                                r: 41,
+                                g: 44,
+                                b: 60,
+                            })
+                        }),
+                );
             } else {
                 table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
             }
@@ -317,7 +363,13 @@ impl Game {
         Ok(())
     }
 
-    fn print_rem_generic(&self, rem: &Rem, map_vert: &Vec<String>, map_hor: &Vec<String>, norm_idx: fn(v:usize,h:usize) -> (usize,usize)) -> Result<()> {
+    fn print_rem_generic(
+        &self,
+        rem: &Rem,
+        map_vert: &Vec<String>,
+        map_hor: &Vec<String>,
+        norm_idx: fn(v: usize, h: usize) -> (usize, usize),
+    ) -> Result<()> {
         let mut hdr = vec![Cell::new("")];
         hdr.extend(
             map_hor
@@ -335,24 +387,48 @@ impl Game {
 
         for (v, a) in map_vert.iter().enumerate() {
             let i = map_hor.iter().enumerate().map(|(h, _)| {
-                let (i,j) = norm_idx(v,h);
+                let (i, j) = norm_idx(v, h);
                 if self.rule_set.ignore_pairing(i, j) {
                     Ok(Cell::new(""))
                 } else {
                     let x = rem.0[i][j];
                     let val = (x as f64) / (rem.1 as f64) * 100.0;
                     if 79.0 < val && val < 101.0 {
-                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Green))
+                        Ok(Cell::new(
+                            format!("{:6.3}", val)
+                                .trim_end_matches('0')
+                                .trim_end_matches('.'),
+                        )
+                        .fg(Color::Green))
                     } else if 55.0 <= val {
-                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Cyan))
+                        Ok(Cell::new(
+                            format!("{:6.3}", val)
+                                .trim_end_matches('0')
+                                .trim_end_matches('.'),
+                        )
+                        .fg(Color::Cyan))
                     } else if 45.0 < val {
-                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Yellow))
+                        Ok(Cell::new(
+                            format!("{:6.3}", val)
+                                .trim_end_matches('0')
+                                .trim_end_matches('.'),
+                        )
+                        .fg(Color::Yellow))
                     } else if 1.0 < val {
-                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')))
+                        Ok(Cell::new(
+                            format!("{:6.3}", val)
+                                .trim_end_matches('0')
+                                .trim_end_matches('.'),
+                        ))
                     } else if -1.0 < val {
-                        Ok(Cell::new(format!("{:6.3}", val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Red))
+                        Ok(Cell::new(
+                            format!("{:6.3}", val)
+                                .trim_end_matches('0')
+                                .trim_end_matches('.'),
+                        )
+                        .fg(Color::Red))
                     } else {
-                        return Err(anyhow!("unexpected value encountered in table {:6.3}", val))
+                        return Err(anyhow!("unexpected value encountered in table {:6.3}", val));
                     }
                 }
             });
@@ -371,7 +447,13 @@ impl Game {
             }
         }
         println!("{table}");
-        println!("{} left -> {} bits left", rem.1, format!("{:.4}", (rem.1 as f64).log2()).trim_end_matches('0').trim_end_matches('.'));
+        println!(
+            "{} left -> {} bits left",
+            rem.1,
+            format!("{:.4}", (rem.1 as f64).log2())
+                .trim_end_matches('0')
+                .trim_end_matches('.')
+        );
         Ok(())
     }
 
@@ -488,17 +570,22 @@ pub struct IterState {
     total: u128,
     eliminated: u128,
     pub left_poss: Vec<Matching>,
-    query_matchings: Vec<(Matching,Option<String>)>,
+    query_matchings: Vec<(Matching, Option<String>)>,
     cnt_update: usize,
     progress: ProgressBar,
 }
 
 impl IterState {
-    pub fn new(tree_gen: bool, perm_amount: usize, constraints: Vec<Constraint>, query_matchings: &Vec<Matching>) -> IterState {
+    pub fn new(
+        tree_gen: bool,
+        perm_amount: usize,
+        constraints: Vec<Constraint>,
+        query_matchings: &Vec<Matching>,
+    ) -> IterState {
         let is = IterState {
             constraints,
             tree_gen,
-            query_matchings: query_matchings.iter().map(|i| (i.clone(),None)).collect(),
+            query_matchings: query_matchings.iter().map(|i| (i.clone(), None)).collect(),
             each: 0,
             total: 0,
             eliminated: 0,
@@ -538,7 +625,7 @@ impl IterState {
             if !c.process(&p)? {
                 left = false;
                 self.eliminated += 1;
-                for (q,id) in &mut self.query_matchings {
+                for (q, id) in &mut self.query_matchings {
                     if q == &p {
                         *id = Some(c.type_str().to_string() + c.comment());
                     }

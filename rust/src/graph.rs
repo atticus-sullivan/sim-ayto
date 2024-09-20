@@ -105,21 +105,19 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
         let name_suffix = match field.iter().find(|x| x.1 == 10.0) {
             Some((true, _, _, _)) => "- W",
             Some((false, _, _, _)) => "- L",
-            None => {
-                match field.last() {
-                    Some((true, _, _, _)) => "- W",
-                    Some((false, _, _, _)) => "- L",
-                    None => ""
-                }
+            None => match field.last() {
+                Some((true, _, _, _)) => "- W",
+                Some((false, _, _, _)) => "- L",
+                None => "",
             },
         };
         let trace = Scatter::new(
             field.iter().map(|i| i.1).collect(),
             field.iter().map(|i| i.2).collect(),
         )
-            .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
-            .text_array(field.iter().map(|i| i.3.clone()).collect())
-            .mode(Mode::Lines);
+        .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+        .text_array(field.iter().map(|i| i.3.clone()).collect())
+        .mode(Mode::Lines);
         plots[0].add_trace(trace);
 
         // read the other csv files both have the same structure -> use a loop
@@ -136,14 +134,14 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
                 let record: CSVEntry = result?;
                 field.push(record);
             }
-                let trace = Scatter::new(
+            let trace = Scatter::new(
                 field.iter().map(|i| i.0).collect(),
                 field.iter().map(|i| i.1).collect(),
             )
             .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
             .text_array(field.iter().map(|i| i.2.clone()).collect())
             .mode(Mode::Lines);
-            plots[plot_idx+1].add_trace(trace);
+            plots[plot_idx + 1].add_trace(trace);
         }
     }
     let dat = plots
