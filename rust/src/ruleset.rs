@@ -454,7 +454,7 @@ mod tests {
 
     #[test]
     fn test_iter_perms_eq() {
-        let mut is = IterState::new(true, 0, vec![]);
+        let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<Vec<u8>>> =
             HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
         let eq_rule = RuleSet::Eq;
@@ -489,7 +489,7 @@ mod tests {
 
     #[test]
     fn test_iter_perms_someone_is_dup() {
-        let mut is = IterState::new(true, 0, vec![]);
+        let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
             vec![vec![1, 2], vec![0]],
             vec![vec![0], vec![1, 2]],
@@ -530,7 +530,7 @@ mod tests {
 
     #[test]
     fn test_iter_perms_someone_is_trip() {
-        let mut is = IterState::new(true, 0, vec![]);
+        let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
             vec![vec![1, 2, 3], vec![0]],
             vec![vec![1], vec![0, 2, 3]],
@@ -577,7 +577,7 @@ mod tests {
 
     #[test]
     fn test_iter_perms_fixed_dup() {
-        let mut is = IterState::new(true, 0, vec![]);
+        let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
             vec![vec![0, 2], vec![1]],
             vec![vec![0], vec![1, 2]],
@@ -616,7 +616,7 @@ mod tests {
 
     #[test]
     fn test_iter_perms_fixed_trip() {
-        let mut is = IterState::new(true, 0, vec![]);
+        let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
             vec![vec![1, 2, 3], vec![0]],
             vec![vec![0], vec![1, 2, 3]],
@@ -661,7 +661,7 @@ mod tests {
 
     #[test]
     fn test_iter_perms_nn() {
-        let mut is = IterState::new(true, 0, vec![]);
+        let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<u8>> = HashSet::from([
             vec![(255), (0), (255), (255), (2), (3)],
             vec![(255), (0), (255), (255), (3), (2)],

@@ -152,10 +152,14 @@ impl ConstraintParse {
             c.sort_maps(lut_a, lut_b);
         }
 
-        let mut exclude_s = self.exclude_s.clone();
-        if add_exclude {
-            exclude_s = self.add_exclude(map_b);
-        }
+        let exclude_s = if add_exclude {
+            match self.add_exclude(map_b) {
+                Some(e) => Some(e),
+                None => self.exclude_s.clone(),
+            }
+        } else {
+            self.exclude_s.clone()
+        };
 
         // translate names to ids
         if let Some(ex) = &exclude_s {
@@ -184,7 +188,7 @@ impl ConstraintParse {
     /// # Arguments
     ///
     /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be drawn. The function will create a new exclusion vector by removing any elements from `map_b` that match the current value in `self.map_s`.
-    pub fn add_exclude(&self, map_b: &Vec<String>) -> Option<(String, Vec<String>)> {
+    fn add_exclude(&self, map_b: &Vec<String>) -> Option<(String, Vec<String>)> {
         if self.no_exclude {
             return None;
         }
@@ -762,8 +766,6 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Eq,
             hidden: false,
-            no_exclude: false,
-            exclude_s: None,
             map: HashMap::new(),
             exclude: None,
             eliminated: 0,
@@ -814,8 +816,6 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Eq,
             hidden: false,
-            no_exclude: false,
-            exclude_s: None,
             map: HashMap::new(),
             exclude: None,
             eliminated: 0,
@@ -867,8 +867,6 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Eq,
             hidden: false,
-            no_exclude: false,
-            exclude_s: None,
             map: HashMap::new(),
             exclude: None,
             eliminated: 0,
@@ -894,7 +892,7 @@ mod tests {
 
     #[test]
     fn test_finalize_parsing_night_lights() {
-        let mut constraint = Constraint {
+        let mut constraint = ConstraintParse {
             r#type: ConstraintType::Night {
                 num: 1.0,
                 comment: "".to_string(),
@@ -903,13 +901,8 @@ mod tests {
             check: CheckType::Lights(3, BTreeMap::new()),
             hidden: false,
             no_exclude: false,
+            result_unknown: false,
             exclude_s: None,
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -929,7 +922,9 @@ mod tests {
         );
         let lut_b = lut_a.clone();
 
-        constraint.finalize_parsing(&lut_a, &lut_b, 3).unwrap();
+        let constraint = constraint
+            .finalize_parsing(&lut_a, &lut_b, 3, &vec![], false, false)
+            .unwrap();
 
         let map = HashMap::from_iter(vec![(0, 1), (2, 1), (3, 1)].into_iter());
         assert_eq!(map, constraint.map);
@@ -937,7 +932,7 @@ mod tests {
 
     #[test]
     fn test_finalize_parsing_box_lights() {
-        let mut constraint = Constraint {
+        let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
@@ -945,14 +940,9 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Lights(1, BTreeMap::new()),
             hidden: false,
-            no_exclude: false,
+            result_unknown: false,
             exclude_s: Some(("A".to_string(), vec!["C".to_string(), "D".to_string()])),
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
+            no_exclude: false,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -970,7 +960,9 @@ mod tests {
         );
         let lut_b = lut_a.clone();
 
-        constraint.finalize_parsing(&lut_a, &lut_b, 20).unwrap();
+        let constraint = constraint
+            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], true, false)
+            .unwrap();
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
         assert_eq!(map_s, constraint.map_s);
@@ -982,7 +974,7 @@ mod tests {
 
     #[test]
     fn test_finalize_parsing_box_eq() {
-        let mut constraint = Constraint {
+        let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
@@ -990,14 +982,9 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Eq,
             hidden: false,
-            no_exclude: false,
+            result_unknown: false,
             exclude_s: None,
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
+            no_exclude: false,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -1015,7 +1002,9 @@ mod tests {
         );
         let lut_b = lut_a.clone();
 
-        constraint.finalize_parsing(&lut_a, &lut_b, 20).unwrap();
+        let constraint = constraint
+            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], false, false)
+            .unwrap();
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
         assert_eq!(map_s, constraint.map_s);
@@ -1025,7 +1014,7 @@ mod tests {
 
     #[test]
     fn test_add_exclude() {
-        let mut constraint = Constraint {
+        let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
@@ -1033,14 +1022,9 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Lights(1, BTreeMap::new()),
             hidden: false,
-            no_exclude: false,
             exclude_s: None,
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
+            no_exclude: false,
+            result_unknown: false,
         };
 
         constraint.map_s.insert("A".to_string(), "b".to_string());
@@ -1048,19 +1032,18 @@ mod tests {
         // Initialize lookup tables
         let map_b = vec!["b".to_string(), "c".to_string(), "d".to_string()];
 
-        constraint.add_exclude(&map_b);
+        let exclude_s = constraint.add_exclude(&map_b);
 
         assert_eq!(
-            constraint.exclude_s.unwrap(),
+            exclude_s.unwrap(),
             ("A".to_string(), vec!["c".to_string(), "d".to_string()])
         );
     }
 
     fn constraint_def() -> Constraint {
         Constraint {
+            result_unknown: false,
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
@@ -1084,9 +1067,8 @@ mod tests {
     #[test]
     fn test_process_light() {
         let mut c = Constraint {
+            result_unknown: false,
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
@@ -1120,9 +1102,8 @@ mod tests {
     #[test]
     fn test_process_light_exclude() {
         let mut c = Constraint {
+            result_unknown: false,
             exclude: Some((0, HashSet::from([2, 3]))),
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Lights(1, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
@@ -1155,9 +1136,8 @@ mod tests {
     #[test]
     fn test_process_eq() {
         let mut c = Constraint {
+            result_unknown: false,
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Eq,
             // 1 and 2 have the same match
@@ -1240,9 +1220,8 @@ mod tests {
     #[test]
     fn test_merge() {
         let mut c_a = Constraint {
+            result_unknown: false,
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
@@ -1262,9 +1241,8 @@ mod tests {
             },
         };
         let c_b = Constraint {
+            result_unknown: false,
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::new(),
             check: CheckType::Lights(2, BTreeMap::new()),
             map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
@@ -1305,9 +1283,8 @@ mod tests {
     #[test]
     fn test_stat_row() {
         let c = Constraint {
+            result_unknown: false,
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::from([
                 ("A".to_string(), "b".to_string()),
                 ("B".to_string(), "c".to_string()),
@@ -1333,6 +1310,7 @@ mod tests {
         };
 
         let row = c.stat_row(
+            false,
             &vec![
                 "A".to_string(),
                 "B".to_string(),
@@ -1345,10 +1323,11 @@ mod tests {
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(
             row,
-            vec!["MN#1.0", "2", "b*", "c*", "a*", "d*", "", "", "3.5000", "4", ""]
+            vec!["MN#1.0", "2", "b*", "c*", "a*", "d*", "", "", "3.5", "4", ""]
         );
 
         let row = c.stat_row(
+            false,
             &vec![
                 "A".to_string(),
                 "B".to_string(),
@@ -1361,7 +1340,7 @@ mod tests {
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(
             row,
-            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5000", "0", "0/MN#1"]
+            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5", "0", "0/MN#1"]
         );
     }
 
@@ -1369,8 +1348,6 @@ mod tests {
     fn test_stat_row_box_eq() {
         let c = Constraint {
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::from([
                 ("A".to_string(), "b".to_string()),
                 ("B".to_string(), "c".to_string()),
@@ -1397,6 +1374,7 @@ mod tests {
         };
 
         let row = c.stat_row(
+            false,
             &vec![
                 "A".to_string(),
                 "B".to_string(),
@@ -1409,7 +1387,7 @@ mod tests {
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(
             row,
-            vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5000", "", ""]
+            vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5", "", ""]
         );
     }
 
@@ -1478,8 +1456,6 @@ mod tests {
     fn test_comment_night() {
         let c = Constraint {
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::from([
                 ("A".to_string(), "b".to_string()),
                 ("B".to_string(), "c".to_string()),
@@ -1512,8 +1488,6 @@ mod tests {
     fn test_comment_box() {
         let c = Constraint {
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::from([
                 ("A".to_string(), "b".to_string()),
                 ("B".to_string(), "c".to_string()),
@@ -1546,8 +1520,6 @@ mod tests {
     fn test_type_str_night() {
         let c = Constraint {
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::from([
                 ("A".to_string(), "b".to_string()),
                 ("B".to_string(), "c".to_string()),
@@ -1580,8 +1552,6 @@ mod tests {
     fn test_type_str_box() {
         let c = Constraint {
             exclude: None,
-            exclude_s: None,
-            no_exclude: false,
             map_s: HashMap::from([
                 ("A".to_string(), "b".to_string()),
                 ("B".to_string(), "c".to_string()),

@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;
-use comfy_table::presets::{UTF8_FULL_CONDENSED,NOTHING};
-use comfy_table::{Cell, Color, Table, Row};
+use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
+use comfy_table::{Cell, Color, Row, Table};
 
 use indicatif::{ProgressBar, ProgressStyle};
 
@@ -163,7 +163,7 @@ impl Game {
         // fix is so that it can't be mutated anymore
         let is = &is;
 
-        if is.query_matchings.iter().any(|(_,x)| x.is_some()) {
+        if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
             println!("Trace at which point a particular matching was elimiated:");
             for (q, id) in &is.query_matchings {
                 match id {
@@ -194,8 +194,8 @@ impl Game {
                             .set_padding((0, 1));
                         println!("{tab}");
                         println!("=> Eliminated in {}", id)
-                    },
-                    None => {},
+                    }
+                    None => {}
                 }
             }
             println!();
