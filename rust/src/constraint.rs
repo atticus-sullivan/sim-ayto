@@ -79,13 +79,18 @@ pub struct Constraint {
 
 // functions for initialization / startup
 impl ConstraintParse {
-    /// Finalize the initialization phase by translating the names (strings) to ids, validating the stored data and initialize the internal state of the constraint.
+    /// Finalize the initialization phase by translating the names (strings) to ids, validating the
+    /// stored data, initialize the internal state of the constraint, optionally add an exclude map
+    /// and optionally sort the constraints.
     ///
     /// # Arguments
     ///
     /// - `lut_a`: Reference to the lookup table for set_a (the keys)
     /// - `lut_b`: Reference to the lookup table for set_b (the values)
     /// - `map_len`: How many elements are expected to occur in the matching night
+    /// - `map_b`: Reference to the set of elements in set_b used to generate the exclude map
+    /// - `add_exclude`: whether to automatically add the exclude map
+    /// - `sort_constraint`: whether to sort the maps used for this constraint
     pub fn finalize_parsing(
         &self,
         lut_a: &Lut,
