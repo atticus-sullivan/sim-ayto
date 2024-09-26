@@ -225,10 +225,17 @@ constraints:
       Lars: LauraL
       # Nikola: LauraM
 
-  # - type: !Night {num: 8, comment: "E20 -- Regelverstoß Nadja -"}
-  #   check: !Lights [7]
-  #   # resultUnknown: true
-  #   map:
-  #     Chris: Emmy
-  #     Ozan: Anastasia
-  #     Tim: Linda
+  - type: !Night {num: 8, comment: "E20 -- Regelverstoß Nadja -"}
+    check: !Lights [10]
+    # resultUnknown: true
+    map:
+      Chris: Emmy
+      Ozan: Anastasia
+      Tim: Linda
+      Nikola: LauraL
+      Alex: Gabriela
+      MarcRobin: LauraM
+      Antonino: Asena
+      Lukas: Tara
+      Kaan: Nadja
+      Lars: Jenny
