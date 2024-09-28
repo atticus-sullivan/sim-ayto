@@ -225,7 +225,7 @@ constraints:
       Lars: LauraL
       # Nikola: LauraM
 
-  - type: !Night {num: 8, comment: "E20 -- Regelverstoß Nadja -"}
+  - type: !Night {num: 8, comment: "E20"}
     check: !Lights [10]
     # resultUnknown: true
     map:
