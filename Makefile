@@ -27,6 +27,7 @@ CAALIAS := $(patsubst %.yaml,cat_%,$(notdir $(DAT_RUST)))
 CLALIAS := $(patsubst %.yaml,clean_%,$(notdir $(DAT_RUST)))
 INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
 MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
+EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 
 .PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) stats_de.html stats_us.html graph
 
@@ -36,23 +37,31 @@ GENARGS ?= --transpose -c
 # eg in case ansitoimg is installed in a venv which needs to be sourced before
 # executing the python script
 ANSITOIMG_PREFIX ?= 
+
 # eg if you want to send the image generation into the background you can set
 # this to '&'
 ANSITOIMG_SUFFIX ?= 
+
 # which tool shall be used to output the log file
 CAT ?= cat
+
 # is executed after the output file was generated (in cat_* targets). Usually
 # used to play/display some sort of notification
 NOTIF ?= 
+
 # should only be defined if the tree pdf shall be displayed (in case it was
 # generated) when running cat_* target
 # Usually defined via commandline. Must be set to the tool used to display the
 # pdf file
 # ZATHURA ?=
+
 # what is the file to figure out when to rebuild output files (for local run,
 # probably this should be set to rust/target/release/ayto (but just the
 # following should also work)
 RUST_DEP ?= $(wildcard rust/src/*.rs)
+
+# options to pass to the EDITOR
+EDITOR_OPTS ?= ""
 
 
 all: $(OUT) graph
@@ -73,6 +82,7 @@ check: $(CHALIAS)
 $(CHALIAS):
 	./rust/target/release/ayto check $(let i,$(patsubst check_%,%,$@),data/$i/$i.yaml)
 
+cat: cat_$(CUR)
 
 $(CAALIAS):
 	$(eval f := $(let i,$@,data/$(patsubst cat_%,%,$i)/$(patsubst cat_%,%,$i).txt))
@@ -90,12 +100,19 @@ $(INITDIR):
 	mkdir ./data/$(show)
 	cp ./data/.template.yaml "./data/$(show)/$(show).yaml"
 
+mon: mon_$(CUR)
 
 $(MOALIAS):
 	# https://github.com/edubart/luamon
 	$(eval f := $(let i,$@,data/$(patsubst mon_%,%,$i)/$(patsubst mon_%,%,$i).txt))
 	-test -f $(f:.txt=.pdf) && zathura "$(f:.txt=.pdf)" & disown
 	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@)
+
+edit: edit_$(CUR)
+
+$(EDALIAS):
+	$(eval f := $(let i,$@,data/$(patsubst edit_%,%,$i)/$(patsubst edit_%,%,$i).yaml))
+	$${EDITOR} $(EDITOR_OPTS) $(f)
 
 
 $(ALIAS):
