@@ -103,6 +103,9 @@ $(INITDIR):
 mon: mon_$(CUR)
 
 $(MOALIAS):
+ifdef SLEEP
+	sleep $(SLEEP)
+endif
 	# https://github.com/edubart/luamon
 	$(eval f := $(let i,$@,data/$(patsubst mon_%,%,$i)/$(patsubst mon_%,%,$i).txt))
 	-test -f $(f:.txt=.pdf) && zathura "$(f:.txt=.pdf)" & disown
