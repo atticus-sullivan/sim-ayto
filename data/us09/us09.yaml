@@ -1,0 +1,237 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: false
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup Christina
+rule_set: !Eq
+
+setA:
+  - Anissa    # US
+  - Brooke    # US
+  - CC        # US
+  - Courtney  # UK
+  - Danielle  # US
+  - Dew       # Spain
+  - Jordanne  # US
+  - JuliaRuth # New Zealand
+  - Mijntje   # Netherlands
+  - Roz       # Ireland
+  - Taylor    # US
+
+setB:
+  - Aquel   # US
+  - Brendan # Australia
+  - Clay    # Australia
+  - Eduardo # US
+  - Hamudi  # New Zealand
+  - Leo     # US
+  - Mikey   # UK
+  - Nathan  # UK
+  - Ollie   # UK
+  - Samuel  # UK
+  - Will    # US
+
+constraints:
+  - type: !Box {num: 1, comment: "E02"}
+    check: !Lights [0]
+    map:
+      Taylor: Nathan
+      # Courtney: Samuel
+
+  - type: !Night {num: 1, comment: "E02 -- blackout -250.000$"}
+    check: !Lights [0]
+    # resultUnknown: true
+    map:
+      Mijntje: Nathan
+      Brooke: Leo
+      Danielle: Mikey
+      CC: Brendan
+      Courtney: Aquel
+      Taylor: Hamudi
+      Anissa: Ollie
+      JuliaRuth: Samuel
+      Roz: Eduardo
+      Dew: Clay
+      Jordanne: Will
+
+  - type: !Box {num: 2, comment: "E03"}
+    check: !Lights [0]
+    map:
+      Anissa: Hamudi
+      # CC: Leo
+
+  - type: !Night {num: 2, comment: "E03"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Anissa: Aquel
+      CC: Clay
+      Danielle: Eduardo
+      Mijntje: Hamudi
+      Brooke: Ollie
+      Roz: Mikey
+      Dew: Samuel
+      JuliaRuth: Nathan
+      Jordanne: Brendan
+      Taylor: Will
+      Courtney: Leo
+
+  - type: !Box {num: 3, comment: "E04"}
+    check: !Lights [0]
+    map:
+      Taylor: Will
+
+  - type: !Night {num: 3, comment: "E04"}
+    check: !Lights [4]
+    # resultUnknown: true
+    map:
+      Roz: Samuel
+      Anissa: Aquel
+      Brooke: Ollie
+      Courtney: Will
+      Taylor: Leo
+      CC: Clay
+      Mijntje: Mikey
+      Jordanne: Eduardo
+      Danielle: Hamudi
+      JuliaRuth: Brendan
+      Dew: Nathan
+
+  - type: !Box {num: 4, comment: "E05"}
+    check: !Lights [1]
+    map:
+      # Courtney: Will
+      JuliaRuth: Brendan
+
+  - type: !Night {num: 4, comment: "E05"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      JuliaRuth: Brendan
+      Courtney: Will
+      Jordanne: Eduardo
+      Mijntje: Hamudi
+      Anissa: Aquel
+      CC: Mikey
+      Danielle: Leo
+      Brooke: Clay
+      Taylor: Samuel
+      Roz: Nathan
+      Dew: Ollie
+
+  - type: !Box {num: 5, comment: "E06"}
+    check: !Lights [0]
+    map:
+      CC: Clay
+      # Leo: Danielle
+      # Nathan: Courtney
+
+  - type: !Night {num: 5, comment: "E06"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      JuliaRuth: Brendan
+      CC: Mikey
+      Mijntje: Hamudi
+      Anissa: Aquel
+      Brooke: Ollie
+      Danielle: Leo
+      Courtney: Will
+      Jordanne: Eduardo
+      Dew: Nathan
+      Taylor: Samuel
+      Roz: Clay
+
+  - type: !Box {num: 6, comment: "E07"}
+    check: !Lights [1]
+    map:
+      Brooke: Ollie
+
+  - type: !Night {num: 6, comment: "E07"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      JuliaRuth: Brendan
+      Brooke: Ollie
+      Taylor: Clay
+      Roz: Hamudi
+      Dew: Eduardo
+      Mijntje: Aquel
+      Courtney: Nathan
+      Anissa: Samuel
+      CC: Mikey
+      Jordanne: Leo
+      Danielle: Will
+
+  - type: !Box {num: 7, comment: "E08"}
+    check: !Lights [0]
+    map:
+      Mijntje: Hamudi
+      # Danielle: Will
+
+  - type: !Box {num: 7.1, comment: "E08 -- Sam left"}
+    check: !Lights [1]
+    map:
+      Mijntje: Samuel
+
+  - type: !Night {num: 7, comment: "E08"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      JuliaRuth: Brendan
+      Brooke: Ollie
+      Mijntje: Samuel
+      Danielle: Will
+      Anissa: Aquel
+      Courtney: Hamudi
+      Jordanne: Nathan
+      Roz: Leo
+      Taylor: Clay
+      CC: Mikey
+      Dew: Eduardo
+
+  - type: !Box {num: 8, comment: "E09"}
+    check: !Lights [1]
+    map:
+      Taylor: Clay
+      # Jordanne: Eduardo
+
+  - type: !Night {num: 8, comment: "E09"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      JuliaRuth: Brendan
+      Brooke: Ollie
+      Mijntje: Samuel
+      Taylor: Clay
+      Jordanne: Eduardo
+      Courtney: Hamudi
+      Danielle: Nathan
+      Dew: Mikey
+      Roz: Leo
+      CC: Will
+      Anissa: Aquel
+
+  - type: !Box {num: 9, comment: "E10"}
+    check: !Lights [0]
+    map:
+      # Anissa: Leo
+      Roz: Mikey
+
+  - type: !Night {num: 9, comment: "E10"}
+    check: !Lights [11]
+    # resultUnknown: true
+    map:
+      JuliaRuth: Brendan
+      Brooke: Ollie
+      Mijntje: Samuel
+      Taylor: Clay
+      Dew: Will
+      Jordanne: Mikey
+      Danielle: Hamudi
+      CC: Nathan
+      Courtney: Eduardo
+      Roz: Leo
+      Anissa: Aquel
