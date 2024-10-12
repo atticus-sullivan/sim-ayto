@@ -38,15 +38,15 @@ Mike → Jessica
 
 MN#1.0 E02
 0x Leon     → Jessica  
-0x William  → Dana     
-0x Antonino → Monami   
-0x Andre    → Raphaela 
 0x Jordi    → Estelle  
-0x Dustin   → Zaira    
-0x Marius   → Isabelle 
-0x Tim      → Marie    
-0x Mike     → Joelina  
 0x Max      → Kerstin  
+0x Tim      → Marie    
+0x Antonino → Monami   
+0x Dustin   → Zaira    
+0x Mike     → Joelina  
+0x Marius   → Isabelle 
+0x William  → Dana     
+0x Andre    → Raphaela 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Leon → Monami
 1897270 left -> 20.8555 bits left
 
 MN#2.0 E04
+0x Leon     → Estelle  
+1x Antonino → Monami   
+0x Jordi    → Zaira    
+0x Marius   → Marie    
+1x Mike     → Joelina  
+0x Dustin   → Isabelle 
+0x Andre    → Dana     
+1x Max      → Kerstin  
 0x Tim      → Jessica  
 0x William  → Raphaela 
-0x Leon     → Estelle  
-0x Dustin   → Isabelle 
-1x Mike     → Joelina  
-1x Max      → Kerstin  
-1x Antonino → Monami   
-0x Andre    → Dana     
-0x Marius   → Marie    
-0x Jordi    → Zaira    
 ---
 -> I[l]/bits: {0: 2.35, 1: 1.45, 2: 1.90, 3: 3.06, 4: 4.70, 5: 6.67, 6: 8.92, 7: 11.65, 8: 13.63, 10: 17.53}
 -> E[I]/bits: 2.14
@@ -143,16 +143,16 @@ Andre → Raphaela
 384190 left -> 18.5515 bits left
 
 MN#3.0 E06
-0x Max      → Monami   
-0x Jordi    → Jessica  
-2x Mike     → Joelina  
-0x Antonino → Kerstin  
-1x Marius   → Isabelle 
-1x William  → Dana     
+1x Andre    → Raphaela 
 1x Dustin   → Zaira    
 1x Leon     → Estelle  
+0x Jordi    → Jessica  
+1x William  → Dana     
+0x Max      → Monami   
+1x Marius   → Isabelle 
 1x Tim      → Marie    
-1x Andre    → Raphaela 
+2x Mike     → Joelina  
+0x Antonino → Kerstin  
 ---
 -> I[l]/bits: {0: 3.79, 1: 1.40, 2: 1.66, 3: 2.64, 4: 4.28, 5: 5.91, 6: 8.28, 7: 12.64}
 -> E[I]/bits: 2.10
@@ -194,16 +194,16 @@ Nothing => I = 0 bits
 121660 left -> 16.8925 bits left
 
 MN#4.0 E08
+3x Mike     → Joelina  
+0x Jordi    → Raphaela 
+2x Antonino → Monami   
+0x Andre    → Isabelle 
+0x Tim      → Kerstin  
+2x Dustin   → Zaira    
+2x William  → Dana     
+2x Leon     → Estelle  
 0x Marius   → Jessica  
 0x Max      → Marie    
-0x Jordi    → Raphaela 
-0x Tim      → Kerstin  
-2x William  → Dana     
-0x Andre    → Isabelle 
-3x Mike     → Joelina  
-2x Antonino → Monami   
-2x Dustin   → Zaira    
-2x Leon     → Estelle  
 ---
 -> I[l]/bits: {0: 4.95, 1: 1.89, 2: 1.51, 3: 2.17, 4: 3.46, 5: 5.25, 6: 7.36, 7: 9.87, 8: 12.57}
 -> E[I]/bits: 2.19
@@ -247,16 +247,16 @@ Antonino → Monami
 11320 left -> 13.4666 bits left
 
 MN#5.0 E10
+0x Tim      → Desiree  
+3x William  → Dana     
 0x Andre    → Joelina  
+0x Mike     → Estelle  
+1x Dustin   → Isabelle 
+0x Marius   → Raphaela 
+1x Jordi    → Zaira    
 1x Antonino → Kerstin  
 1x Max      → Monami   
-3x William  → Dana     
 1x Leon     → Jessica  
-0x Tim      → Desiree  
-0x Marius   → Raphaela 
-1x Dustin   → Isabelle 
-1x Jordi    → Zaira    
-0x Mike     → Estelle  
 ---
 -> I[l]/bits: {0: 1.75, 1: 1.28, 2: 2.56, 3: 3.44, 4: 5.13, 5: 8.82}
 -> E[I]/bits: 1.96
@@ -300,16 +300,16 @@ Max → Jessica
 1859 left -> 10.8603 bits left
 
 MN#6.0 E12
-2x Dustin   → Isabelle 
-1x William  → Raphaela 
+0x Antonino → Dana     
+0x Jordi    → Desiree  
 2x Leon     → Jessica  
 2x Max      → Kerstin  
-0x Marius   → Zaira    
-0x Jordi    → Desiree  
-0x Antonino → Dana     
+1x Mike     → Estelle  
 0x Tim      → Joelina  
 0x Andre    → Marie    
-1x Mike     → Estelle  
+2x Dustin   → Isabelle 
+1x William  → Raphaela 
+0x Marius   → Zaira    
 ---
 -> I[l]/bits: {0: 4.20, 1: 0.71, 2: 1.95, 3: 3.98, 4: 6.61, 5: 10.86}
 -> E[I]/bits: 1.49
@@ -353,16 +353,16 @@ Marius → Zaira
 10 left -> 3.3219 bits left
 
 MN#7.0 E14
-1x Antonino → Dana     
-1x Tim      → Kerstin  
-1x Max      → Marie    
-0x Jordi    → Monami   
-4x Mike     → Joelina  
 2x William  → Raphaela 
-3x Dustin   → Isabelle 
 1x Marius   → Zaira    
-0x Andre    → Desiree  
+1x Tim      → Kerstin  
+3x Dustin   → Isabelle 
+1x Max      → Marie    
+4x Mike     → Joelina  
 3x Leon     → Jessica  
+0x Jordi    → Monami   
+1x Antonino → Dana     
+0x Andre    → Desiree  
 ---
 -> I[l]/bits: {5: 1.74, 6: 0.74, 7: 3.32}
 -> E[I]/bits: 1.30
@@ -406,16 +406,16 @@ Jordi → Raphaela
 6 left -> 2.585 bits left
 
 MN#8.0 E16
-1x Andre    → Marie    
-2x Antonino → Dana     
-2x Marius   → Zaira    
-3x Max      → Kerstin  
 1x Tim      → Joelina  
-2x Mike     → Estelle  
-1x Jordi    → Monami   
+1x Andre    → Marie    
 3x William  → Raphaela 
 4x Dustin   → Isabelle 
 4x Leon     → Jessica  
+2x Antonino → Dana     
+1x Jordi    → Monami   
+2x Marius   → Zaira    
+2x Mike     → Estelle  
+3x Max      → Kerstin  
 ---
 -> I[l]/bits: {4: 0.00}
 -> E[I]/bits: 0.00
@@ -462,13 +462,13 @@ MN#9.0 E18
 3x Marius   → Zaira    
 5x Leon     → Jessica  
 0x William  → Marie    
-2x Tim      → Joelina  
-0x Dustin   → Dana     
-1x Andre    → Desiree  
-0x Antonino → Isabelle 
-3x Mike     → Estelle  
 0x Max      → Raphaela 
+2x Tim      → Joelina  
+3x Mike     → Estelle  
+1x Andre    → Desiree  
 2x Jordi    → Monami   
+0x Dustin   → Dana     
+0x Antonino → Isabelle 
 ---
 -> I[l]/bits: {2: 0.00}
 -> E[I]/bits: 0.00
@@ -513,14 +513,14 @@ Dustin → Isabelle
 
 MN#10.0 E20
 1x Andre    → Isabelle 
-4x Marius   → Zaira    
 3x Antonino → Dana     
-2x Tim      → Kerstin  
 5x Mike     → Joelina  
-0x Dustin   → Marie    
 1x Jordi    → Estelle  
-4x William  → Raphaela 
+4x Marius   → Zaira    
+2x Tim      → Kerstin  
 2x Max      → Monami   
+0x Dustin   → Marie    
+4x William  → Raphaela 
 6x Leon     → Jessica  
 ---
 -> I[l]/bits: {10: 0.00}
@@ -543,16 +543,16 @@ MN#10.0 E20
 6 left -> 2.585 bits left
 
 MN#11.0 reunion
-3x Tim      → Kerstin  
 0x William  → Desiree  
 2x Jordi    → Estelle  
-2x Andre    → Isabelle 
-3x Max      → Monami   
-4x Antonino → Dana     
-1x Dustin   → Marie    
 7x Leon     → Jessica  
-6x Mike     → Joelina  
 5x Marius   → Zaira    
+1x Dustin   → Marie    
+3x Tim      → Kerstin  
+4x Antonino → Dana     
+2x Andre    → Isabelle 
+6x Mike     → Joelina  
+3x Max      → Monami   
 ---
 -> I[l]/bits: {9: 0.26, 10: 2.58}
 -> E[I]/bits: 0.65
@@ -625,4 +625,4 @@ MN#11.0 reunion
 ╰─────────┴────┴───────────┴─────────┴───────────┴─────────┴─────────┴───────────┴──────────┴───────────┴──────────┴─────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.29s
+Ran in 10.26s
