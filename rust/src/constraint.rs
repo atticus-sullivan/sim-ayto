@@ -484,6 +484,7 @@ impl Constraint {
             ConstraintType::Night { num, .. } => ret.push(Cell::new(format!("MN#{:02.1}", num))),
             ConstraintType::Box { num, .. } => ret.push(Cell::new(format!("MB#{:02.1}", num))),
         }
+        let mut color = None;
         if self.result_unknown {
             ret.push(Cell::new("?"));
         } else {
@@ -501,11 +502,13 @@ impl Constraint {
                         ConstraintType::Night { .. } => ret.push(Cell::new(lights)),
                         ConstraintType::Box { .. } => {
                             if lights == 1 {
-                                ret.push(Cell::new(lights).fg(comfy_table::Color::Green))
+                                ret.push(Cell::new(lights).fg(comfy_table::Color::Green));
+                                color = Some(comfy_table::Color::Green);
                             } else if lights == 0 {
-                                ret.push(Cell::new(lights).fg(comfy_table::Color::Red))
+                                ret.push(Cell::new(lights).fg(comfy_table::Color::Red));
+                                color = Some(comfy_table::Color::Red);
                             } else {
-                                ret.push(Cell::new(lights))
+                                ret.push(Cell::new(lights));
                             }
                         }
                     }
@@ -528,9 +531,15 @@ impl Constraint {
                         .iter()
                         .any(|&c| c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b))
                 {
-                    Cell::new(format!("{}*", v2))
+                    match color {
+                        Some(c) => Cell::new(format!("{}*", v2)).fg(c),
+                        None => Cell::new(format!("{}*", v2)),
+                    }
                 } else {
-                    Cell::new(&String::from(v2))
+                    match color {
+                        Some(c) => Cell::new(&String::from(v2)).fg(c),
+                        None => Cell::new(&String::from(v2)),
+                    }
                 }
             }
             None => Cell::new(&String::from("")),
