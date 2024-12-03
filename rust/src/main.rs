@@ -87,7 +87,7 @@ fn main() {
         }
         Commands::Check { yaml_path } => {
             Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash"))
-                .expect("Parsing failed");
+                .expect("Parsing failed!");
         }
         Commands::Graph {
             html_path_de,
