@@ -50,15 +50,15 @@ MarcRobin → LauraL
 32659200 left -> 24.961 bits left
 
 MN#1.0 E04
-0x Alex      → LauraL    
-0x Lars      → Nadja     
-0x Tim       → Linda     
-0x Kaan      → Asena     
 0x Ozan      → Gabriela  
-0x MarcRobin → Anastasia 
-0x Chris     → Emmy      
-0x Nikola    → Tara      
+0x Tim       → Linda     
 0x Antonino  → LauraM    
+0x Chris     → Emmy      
+0x MarcRobin → Anastasia 
+0x Nikola    → Tara      
+0x Lars      → Nadja     
+0x Alex      → LauraL    
+0x Kaan      → Asena     
 0x Lukas     → Jenny     
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
@@ -103,16 +103,16 @@ Chris → Emmy
 1067976 left -> 20.0264 bits left
 
 MN#2.0 E06
-0x Antonino  → Dana      
+1x Tim       → Linda     
+0x Alex      → Jenny     
 1x Nikola    → Tara      
+0x Antonino  → Dana      
 0x Kaan      → Nadja     
+0x Lars      → Anastasia 
+1x Chris     → Emmy      
 0x Ozan      → LauraL    
 0x Lukas     → LauraM    
-1x Chris     → Emmy      
-0x Alex      → Jenny     
-1x Tim       → Linda     
 0x MarcRobin → Asena     
-0x Lars      → Anastasia 
 ---
 -> I[l]/bits: {1: 1.47, 2: 1.44, 3: 2.42, 4: 3.98, 5: 5.98, 6: 8.36, 7: 11.08, 8: 14.44, 9: 19.03}
 -> E[I]/bits: 1.89
@@ -154,16 +154,16 @@ Nothing => I = 0 bits
 199733 left -> 17.6077 bits left
 
 MN#3.0 E08
-0x Lukas     → Linda     
-0x Kaan      → Jenny     
-0x Ozan      → LauraM    
-0x Lars      → Gabriela  
-0x Antonino  → Nadja     
-2x Chris     → Emmy      
 0x Nikola    → LauraL    
-0x Alex      → Anastasia 
-1x MarcRobin → Asena     
+0x Lars      → Gabriela  
+0x Kaan      → Jenny     
+2x Chris     → Emmy      
+0x Ozan      → LauraM    
 0x Tim       → Dana      
+1x MarcRobin → Asena     
+0x Antonino  → Nadja     
+0x Lukas     → Linda     
+0x Alex      → Anastasia 
 ---
 -> I[l]/bits: {1: 1.55, 2: 1.44, 3: 2.34, 4: 3.85, 5: 5.83, 6: 8.16, 7: 10.95, 8: 13.29, 9: 16.61}
 -> E[I]/bits: 1.93
@@ -207,16 +207,16 @@ MarcRobin → Asena
 20935 left -> 14.3536 bits left
 
 MN#4.0 E10 -- blackout
-0x MarcRobin → Linda     
-1x Ozan      → LauraM    
-1x Antonino  → Nadja     
-1x Alex      → Jenny     
 1x Kaan      → Asena     
-0x Nikola    → Anastasia 
-3x Chris     → Emmy      
-0x Lars      → Tara      
 0x Tim       → LauraL    
 0x Lukas     → Gabriela  
+1x Ozan      → LauraM    
+0x Nikola    → Anastasia 
+3x Chris     → Emmy      
+1x Alex      → Jenny     
+1x Antonino  → Nadja     
+0x Lars      → Tara      
+0x MarcRobin → Linda     
 ---
 -> I[l]/bits: {1: 1.82, 2: 1.48, 3: 2.17, 4: 3.41, 5: 5.01, 6: 6.93, 7: 8.89, 8: 12.03, 10: 14.35}
 -> E[I]/bits: 2.08
@@ -258,16 +258,16 @@ Nothing => I = 0 bits
 5927 left -> 12.5331 bits left
 
 MN#5.0 E12
-0x Alex      → Gabriela  
-0x Antonino  → Asena     
-1x Nikola    → LauraL    
+2x Tim       → Linda     
+0x Kaan      → Tara      
 0x Ozan      → Dana      
 1x MarcRobin → Anastasia 
+1x Nikola    → LauraL    
 4x Chris     → Emmy      
-2x Tim       → Linda     
-1x Lars      → Nadja     
-0x Kaan      → Tara      
 1x Lukas     → Jenny     
+0x Antonino  → Asena     
+1x Lars      → Nadja     
+0x Alex      → Gabriela  
 ---
 -> I[l]/bits: {1: 1.84, 2: 1.49, 3: 1.96, 4: 3.45, 5: 5.90, 6: 9.95}
 -> E[I]/bits: 1.97
@@ -311,16 +311,16 @@ Ozan → Anastasia
 13 left -> 3.7004 bits left
 
 MN#6.0 E14
-0x MarcRobin → LauraM    
-1x Alex      → Gabriela  
 1x Antonino  → Asena     
 2x Lukas     → Jenny     
-0x Lars      → Dana      
-0x Nikola    → Nadja     
-1x Kaan      → Tara      
 0x Ozan      → Anastasia 
 5x Chris     → Emmy      
+0x Lars      → Dana      
+0x MarcRobin → LauraM    
 3x Tim       → Linda     
+1x Alex      → Gabriela  
+0x Nikola    → Nadja     
+1x Kaan      → Tara      
 ---
 -> I[l]/bits: {5: 0.24, 6: 2.70}
 -> E[I]/bits: 0.62
@@ -365,15 +365,15 @@ Lukas → Jenny
 
 MN#7.0 E16
 2x Kaan      → Tara      
-4x Tim       → Linda     
-2x Antonino  → Asena     
-6x Chris     → Emmy      
-1x Ozan      → Anastasia 
-0x Lukas     → Dana      
-1x Nikola    → Nadja     
-2x Alex      → Gabriela  
-0x Lars      → LauraL    
 1x MarcRobin → LauraM    
+0x Lars      → LauraL    
+1x Nikola    → Nadja     
+2x Antonino  → Asena     
+4x Tim       → Linda     
+0x Lukas     → Dana      
+6x Chris     → Emmy      
+2x Alex      → Gabriela  
+1x Ozan      → Anastasia 
 ---
 -> I[l]/bits: {5: 1.00, 6: 1.00}
 -> E[I]/bits: 1.00
@@ -417,16 +417,16 @@ Tim → Linda
 1 left -> 0 bits left
 
 MN#7.0 E19
+3x Alex      → Gabriela  
 3x Antonino  → Asena     
-0x Lukas     → Tara      
-2x MarcRobin → LauraM    
+7x Chris     → Emmy      
 1x Kaan      → Jenny     
+2x Ozan      → Anastasia 
 1x Lars      → LauraL    
 5x Tim       → Linda     
+2x MarcRobin → LauraM    
+0x Lukas     → Tara      
 2x Nikola    → Nadja     
-7x Chris     → Emmy      
-2x Ozan      → Anastasia 
-3x Alex      → Gabriela  
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00
@@ -470,16 +470,16 @@ Lars → LauraL
 1 left -> 0 bits left
 
 MN#8.0 E20
-3x MarcRobin → LauraM    
-4x Antonino  → Asena     
-0x Lars      → Jenny     
 3x Ozan      → Anastasia 
-4x Alex      → Gabriela  
-6x Tim       → Linda     
-2x Nikola    → LauraL    
+4x Antonino  → Asena     
+3x MarcRobin → LauraM    
 1x Lukas     → Tara      
+6x Tim       → Linda     
 1x Kaan      → Nadja     
 8x Chris     → Emmy      
+0x Lars      → Jenny     
+4x Alex      → Gabriela  
+2x Nikola    → LauraL    
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -546,4 +546,4 @@ MN#8.0 E20
 ╰────────┴────┴────────────┴────────────┴────────┴──────────┴────────┴───────────┴────────────┴────────────┴───────────┴─────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.56s
+Ran in 10.57s

@@ -40,15 +40,15 @@ Hayden → Gianna
 
 MN#1.0 E01
 0x Ozzy    → Gianna   
-0x Andre   → Alicia   
+0x Jaylan  → Casandra 
+0x Tyler   → Taylor   
+0x Edward  → Kam      
 0x Hayden  → Shannon  
 0x Michael → Hannah   
-0x Osvaldo → Tyranny  
-0x Jaylan  → Casandra 
-0x Joey    → Carolina 
-0x Edward  → Kam      
-0x Tyler   → Taylor   
 0x Mike    → Kari     
+0x Osvaldo → Tyranny  
+0x Andre   → Alicia   
+0x Joey    → Carolina 
 0x Derrick → Kathryn  
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
@@ -95,17 +95,17 @@ Andre → Alicia
 5540084 left -> 22.4015 bits left
 
 MN#2.0 E02 -- blackout -500,000$
-0x Jaylan  → Kam      
-0x Michael → Gianna   
-0x Tyler   → Tyranny  
-0x Derrick → Alicia   
-0x Mike    → Casandra 
-0x Edward  → Shannon  
-0x Osvaldo → Kari     
-0x Ozzy    → Kathryn  
-0x Andre   → Hannah   
 1x Joey    → Carolina 
+0x Tyler   → Tyranny  
+0x Mike    → Casandra 
+0x Andre   → Hannah   
+0x Michael → Gianna   
+0x Jaylan  → Kam      
+0x Ozzy    → Kathryn  
+0x Osvaldo → Kari     
+0x Edward  → Shannon  
 0x Hayden  → Taylor   
+0x Derrick → Alicia   
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.45, 2: 2.41, 3: 3.94, 4: 5.87, 5: 8.12, 6: 10.65, 7: 13.39, 8: 16.70, 9: 19.23}
 -> E[I]/bits: 1.91
@@ -151,17 +151,17 @@ Ozzy → Carolina
 1808808 left -> 20.7866 bits left
 
 MN#3.0 E03
-0x Andre   → Kari     
-1x Osvaldo → Tyranny  
 1x Jaylan  → Casandra 
-0x Mike    → Alicia   
-0x Michael → Taylor   
-1x Ozzy    → Gianna   
-0x Derrick → Hannah   
-1x Edward  → Kam      
-0x Joey    → Kathryn  
 0x Tyler   → Shannon  
 0x Hayden  → Carolina 
+1x Ozzy    → Gianna   
+0x Michael → Taylor   
+1x Osvaldo → Tyranny  
+0x Derrick → Hannah   
+0x Joey    → Kathryn  
+0x Mike    → Alicia   
+1x Edward  → Kam      
+0x Andre   → Kari     
 ---
 -> I[l]/bits: {0: 2.57, 1: 1.49, 2: 1.82, 3: 2.89, 4: 4.48, 5: 6.49, 6: 8.86, 7: 11.57, 8: 14.98, 9: 18.46}
 -> E[I]/bits: 2.16
@@ -207,17 +207,17 @@ Osvaldo → Tyranny
 48025 left -> 15.5515 bits left
 
 MN#4.0 E04
-1x Hayden  → Carolina 
-0x Edward  → Alicia   
+0x Osvaldo → Taylor   
 0x Michael → Kari     
+0x Mike    → Kam      
 1x Joey    → Kathryn  
 0x Jaylan  → Tyranny  
-0x Osvaldo → Taylor   
-0x Derrick → Gianna   
-0x Andre   → Casandra 
-0x Mike    → Kam      
 0x Ozzy    → Hannah   
+0x Andre   → Casandra 
+0x Derrick → Gianna   
 1x Tyler   → Shannon  
+1x Hayden  → Carolina 
+0x Edward  → Alicia   
 ---
 -> I[l]/bits: {0: 2.70, 1: 1.45, 2: 1.77, 3: 2.91, 4: 4.54, 5: 6.71, 6: 9.44, 7: 12.55, 8: 14.55}
 -> E[I]/bits: 2.13
@@ -263,17 +263,17 @@ Edward → Kam
 951 left -> 9.8933 bits left
 
 MN#5.0 E05
-2x Joey    → Kathryn  
-2x Hayden  → Carolina 
-2x Tyler   → Shannon  
-1x Mike    → Alicia   
-0x Derrick → Tyranny  
-1x Michael → Kari     
-2x Edward  → Kam      
-0x Osvaldo → Gianna   
 0x Andre   → Taylor   
-2x Jaylan  → Casandra 
+2x Hayden  → Carolina 
+1x Mike    → Alicia   
+2x Edward  → Kam      
+2x Joey    → Kathryn  
 1x Ozzy    → Hannah   
+0x Derrick → Tyranny  
+2x Jaylan  → Casandra 
+1x Michael → Kari     
+0x Osvaldo → Gianna   
+2x Tyler   → Shannon  
 ---
 -> I[l]/bits: {2: 5.89, 3: 2.00, 4: 1.61, 5: 2.00, 6: 3.28, 7: 4.72, 8: 6.43, 9: 8.31}
 -> E[I]/bits: 2.24
@@ -319,17 +319,17 @@ Ozzy → Hannah
 232 left -> 7.858 bits left
 
 MN#6.0 E06
-2x Michael → Kari     
+1x Derrick → Tyranny  
 3x Edward  → Kam      
 1x Osvaldo → Gianna   
-3x Tyler   → Shannon  
+0x Ozzy    → Casandra 
+2x Mike    → Alicia   
 3x Hayden  → Carolina 
 0x Jaylan  → Hannah   
 1x Andre   → Taylor   
+3x Tyler   → Shannon  
 3x Joey    → Kathryn  
-2x Mike    → Alicia   
-1x Derrick → Tyranny  
-0x Ozzy    → Casandra 
+2x Michael → Kari     
 ---
 -> I[l]/bits: {3: 3.27, 4: 0.49, 5: 2.43}
 -> E[I]/bits: 1.14
@@ -375,16 +375,16 @@ Andre → Taylor
 165 left -> 7.3663 bits left
 
 MN#7.0 E07
+0x Derrick → Kari     
+1x Osvaldo → Taylor   
+1x Andre   → Casandra 
+1x Michael → Hannah   
 0x Mike    → Gianna   
 1x Jaylan  → Tyranny  
-4x Edward  → Kam      
-1x Andre   → Casandra 
 4x Tyler   → Shannon  
-1x Osvaldo → Taylor   
-4x Hayden  → Carolina 
-0x Derrick → Kari     
 4x Joey    → Kathryn  
-1x Michael → Hannah   
+4x Hayden  → Carolina 
+4x Edward  → Kam      
 0x Ozzy    → Alicia   
 ---
 -> I[l]/bits: {4: 0.97, 5: 1.84, 6: 2.91, 7: 4.04, 8: 5.78}
@@ -431,16 +431,16 @@ Hayden → Carolina
 46 left -> 5.5236 bits left
 
 MN#8.0 E08
-2x Osvaldo → Taylor   
-0x Tyler   → Hannah   
-5x Hayden  → Carolina 
-0x Andre   → Gianna   
-0x Derrick → Shannon  
-0x Michael → Kathryn  
-2x Jaylan  → Tyranny  
-5x Edward  → Kam      
-1x Mike    → Kari     
 1x Ozzy    → Alicia   
+5x Edward  → Kam      
+2x Osvaldo → Taylor   
+0x Andre   → Gianna   
+5x Hayden  → Carolina 
+0x Tyler   → Hannah   
+1x Mike    → Kari     
+0x Derrick → Shannon  
+2x Jaylan  → Tyranny  
+0x Michael → Kathryn  
 0x Joey    → Casandra 
 ---
 -> I[l]/bits: {2: 1.94, 3: 1.20, 4: 2.35, 5: 3.52, 7: 5.52}
@@ -485,16 +485,16 @@ Nothing => I = 0 bits
 4 left -> 2 bits left
 
 MN#9.0 E09
-0x Derrick → Casandra 
+3x Osvaldo → Taylor   
+3x Michael → Kari     
+0x Andre   → Kathryn  
+5x Tyler   → Shannon  
 6x Edward  → Kam      
 3x Mike    → Alicia   
-3x Jaylan  → Tyranny  
 2x Ozzy    → Gianna   
 6x Hayden  → Carolina 
-3x Osvaldo → Taylor   
-0x Andre   → Kathryn  
-3x Michael → Kari     
-5x Tyler   → Shannon  
+3x Jaylan  → Tyranny  
+0x Derrick → Casandra 
 0x Joey    → Hannah   
 ---
 -> I[l]/bits: {6: 1.00, 9: 1.00}
@@ -539,17 +539,17 @@ Nothing => I = 0 bits
 2 left -> 1 bits left
 
 MN#10.0 E10
-1x Joey    → Hannah   
-4x Osvaldo → Taylor   
-0x Tyler   → Casandra 
-3x Ozzy    → Gianna   
-1x Derrick → Shannon  
-7x Edward  → Kam      
-4x Jaylan  → Tyranny  
 4x Mike    → Alicia   
-1x Andre   → Kathryn  
 4x Michael → Kari     
 7x Hayden  → Carolina 
+7x Edward  → Kam      
+1x Andre   → Kathryn  
+1x Derrick → Shannon  
+1x Joey    → Hannah   
+4x Jaylan  → Tyranny  
+4x Osvaldo → Taylor   
+3x Ozzy    → Gianna   
+0x Tyler   → Casandra 
 ---
 -> I[l]/bits: {8: 1.00, 11: 1.00}
 -> E[I]/bits: 1.00
@@ -621,4 +621,4 @@ MN#10.0 E10
 ╰─────────┴───┴──────────┴──────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.62s
+Ran in 10.54s
