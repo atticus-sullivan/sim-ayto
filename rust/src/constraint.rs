@@ -134,6 +134,11 @@ impl ConstraintParse {
                     map_len,
                     self.map_s.len()
                 );
+                let value_len = self.map_s.iter().map(|(_,v)| v).collect::<HashSet<_>>().len();
+                ensure!(
+                    value_len == self.map_s.len(),
+                    "Keys in the map of a night must be unique"
+                );
                 ensure!(
                     self.exclude_s.is_none(),
                     "Exclude is not yet supported for nights"
