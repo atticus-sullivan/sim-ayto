@@ -37,6 +37,29 @@ use crate::constraint::ConstraintParse;
 use crate::ruleset::RuleSet;
 use crate::{Lut, Matching, MatchingS, Rem};
 
+// colors for tables
+const COLOR_ROW_MAX: Color = Color::Rgb {
+    r: 69,
+    g: 76,
+    b: 102,
+};
+const COLOR_BOTH_MAX: Color = Color::Rgb {
+    r: 65,
+    g: 77,
+    b: 71,
+};
+const COLOR_COL_MAX: Color = Color::Rgb {
+    r: 74,
+    g: 68,
+    b: 89,
+};
+
+const COLOR_ALT_BG: Color = Color::Rgb {
+    r: 41,
+    g: 44,
+    b: 60,
+};
+
 #[derive(Debug)]
 pub struct Game {
     constraints_orig: Vec<Constraint>,
@@ -372,13 +395,7 @@ impl Game {
                 table.add_row(
                     c.stat_row(transpose, map_hor, &past_constraints)
                         .into_iter()
-                        .map(|i| {
-                            i.bg(comfy_table::Color::Rgb {
-                                r: 41,
-                                g: 44,
-                                b: 60,
-                            })
-                        }),
+                        .map(|i| i.bg(COLOR_ALT_BG)),
                 );
             } else {
                 table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
@@ -396,82 +413,192 @@ impl Game {
         map_hor: &Vec<String>,
         norm_idx: fn(v: usize, h: usize) -> (usize, usize),
     ) -> Result<()> {
-        let mut hdr = vec![Cell::new("")];
-        hdr.extend(
-            map_hor
-                .iter()
-                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
-        );
+        let table_content = map_vert
+            .iter()
+            .enumerate()
+            .map(|(vert_idx, vert_name)| {
+                (
+                    vert_name,
+                    map_hor
+                        .iter()
+                        .enumerate()
+                        .map(|(hor_idx, _)| {
+                            let (vert_idx, hor_idx) = norm_idx(vert_idx, hor_idx);
+                            if self.rule_set.ignore_pairing(vert_idx, hor_idx) {
+                                None // ignore/empty
+                            } else {
+                                // calculate remaining percentage
+                                let x = rem.0[vert_idx][hor_idx];
+                                let val = (x as f64) / (rem.1 as f64) * 100.0;
+                                Some(val)
+                            }
+                        })
+                        .collect::<Vec<_>>(),
+                )
+            })
+            .collect::<Vec<_>>();
+
+        // mapping of y-coord to indices with maximum
+        let hor_max = table_content
+            .iter()
+            .map(|(_, vals)| {
+                vals.iter()
+                    .enumerate()
+                    // iterator over the values in current row (skips the None entries)
+                    .filter_map(|(col_idx, value)| value.map(|value| (col_idx, value)))
+                    // find all indices containing the maximum
+                    .fold((vec![], 0.0), |mut acc, (col_idx, value)| {
+                        if acc.1 < value {
+                            acc.0 = vec![col_idx];
+                            acc.1 = value;
+                        } else if acc.1 == value {
+                            acc.0.push(col_idx);
+                        }
+                        return acc;
+                    })
+            })
+            .collect::<Vec<_>>();
+
+        // mapping of x-coord to indices with maximum
+        let vert_max = (0..table_content[0].1.len())
+            // loop over columns
+            .map(|col_idx| {
+                table_content
+                    .iter()
+                    .enumerate()
+                    // iterator over the values in current column (skips the None entries)
+                    .filter_map(|(row_idx, row)| row.1[col_idx].map(|value| (row_idx, value)))
+                    // find all indices containing the maximum
+                    .fold((vec![], 0.0), |mut acc, (row_idx, value)| {
+                        if acc.1 < value {
+                            acc.0 = vec![row_idx];
+                            acc.1 = value;
+                        } else if acc.1 == value {
+                            acc.0.push(row_idx);
+                        }
+                        return acc;
+                    })
+            })
+            .collect::<Vec<_>>();
 
         let mut table = Table::new();
-        table
-            .force_no_tty()
-            .enforce_styling()
-            .load_preset(UTF8_FULL_CONDENSED)
-            .apply_modifier(UTF8_ROUND_CORNERS)
-            .set_header(hdr);
-
-        for (v, a) in map_vert.iter().enumerate() {
-            let i = map_hor.iter().enumerate().map(|(h, _)| {
-                let (i, j) = norm_idx(v, h);
-                if self.rule_set.ignore_pairing(i, j) {
-                    Ok(Cell::new(""))
+        {
+            let mut hdr = vec![Cell::new("")];
+            hdr.extend(map_hor.iter().enumerate().map(|(i, x)| {
+                if vert_max[i].1 == 100.0 {
+                    Cell::new(x).fg(Color::Green)
                 } else {
-                    let x = rem.0[i][j];
-                    let val = (x as f64) / (rem.1 as f64) * 100.0;
-                    if 79.0 < val && val < 101.0 {
-                        Ok(Cell::new(
-                            format!("{:6.3}", val)
-                                .trim_end_matches('0')
-                                .trim_end_matches('.'),
-                        )
-                        .fg(Color::Green))
-                    } else if 55.0 <= val {
-                        Ok(Cell::new(
-                            format!("{:6.3}", val)
-                                .trim_end_matches('0')
-                                .trim_end_matches('.'),
-                        )
-                        .fg(Color::Cyan))
-                    } else if 45.0 < val {
-                        Ok(Cell::new(
-                            format!("{:6.3}", val)
-                                .trim_end_matches('0')
-                                .trim_end_matches('.'),
-                        )
-                        .fg(Color::Yellow))
-                    } else if 1.0 < val {
-                        Ok(Cell::new(
-                            format!("{:6.3}", val)
-                                .trim_end_matches('0')
-                                .trim_end_matches('.'),
-                        ))
-                    } else if -1.0 < val {
-                        Ok(Cell::new(
-                            format!("{:6.3}", val)
-                                .trim_end_matches('0')
-                                .trim_end_matches('.'),
-                        )
-                        .fg(Color::Red))
-                    } else {
-                        return Err(anyhow!("unexpected value encountered in table {:6.3}", val));
-                    }
+                    Cell::new(x)
                 }
-            });
-            let mut row = vec![Cell::new(a)];
-            row.extend(i.into_iter().collect::<Result<Vec<_>>>()?);
-            if v % 2 == 0 {
-                table.add_row(row.into_iter().map(|i| {
-                    i.bg(comfy_table::Color::Rgb {
-                        r: 41,
-                        g: 44,
-                        b: 60,
-                    })
-                }));
-            } else {
-                table.add_row(row);
-            }
+                .set_alignment(comfy_table::CellAlignment::Center)
+                .bg(COLOR_COL_MAX)
+            }));
+
+            table
+                .force_no_tty()
+                .enforce_styling()
+                .load_preset(UTF8_FULL_CONDENSED)
+                .apply_modifier(UTF8_ROUND_CORNERS)
+                .set_header(hdr);
         }
+
+        for (j, i) in table_content.iter().enumerate() {
+            let mut row = vec![];
+            row.push(
+                if hor_max[j].1 == 100.0 {
+                    Cell::new(i.0).fg(Color::Green)
+                } else {
+                    Cell::new(i.0)
+                }
+                .bg(COLOR_ROW_MAX),
+            );
+
+            // put formatted table content into the table
+            row.extend(
+                i.1.iter()
+                    .enumerate()
+                    // format according to value (sets the foreground)
+                    .map(|(idx, val)| {
+                        match val {
+                            Some(val) => {
+                                let val = *val;
+                                if 79.0 < val && val < 101.0 {
+                                    Ok(Cell::new(
+                                        format!("{:6.3}", val)
+                                            .trim_end_matches('0')
+                                            .trim_end_matches('.'),
+                                    )
+                                    .fg(Color::Green))
+                                } else if 55.0 <= val {
+                                    Ok(Cell::new(
+                                        format!("{:6.3}", val)
+                                            .trim_end_matches('0')
+                                            .trim_end_matches('.'),
+                                    )
+                                    .fg(Color::Cyan))
+                                } else if 45.0 < val {
+                                    Ok(Cell::new(
+                                        format!("{:6.3}", val)
+                                            .trim_end_matches('0')
+                                            .trim_end_matches('.'),
+                                    )
+                                    .fg(Color::Yellow))
+                                } else if 1.0 < val {
+                                    Ok(Cell::new(
+                                        format!("{:6.3}", val)
+                                            .trim_end_matches('0')
+                                            .trim_end_matches('.'),
+                                    ))
+                                } else if -1.0 < val {
+                                    Ok(Cell::new(
+                                        format!("{:6.3}", val)
+                                            .trim_end_matches('0')
+                                            .trim_end_matches('.'),
+                                    )
+                                    .fg(Color::Red))
+                                } else {
+                                    return Err(anyhow!(
+                                        "unexpected value encountered in table {:6.3}",
+                                        val
+                                    ));
+                                }
+                            }
+                            None => Ok(Cell::new("")),
+                        }
+                        .map(|cell| {
+                            // format according to row and maxima (uses background)
+                            let max_h = hor_max[j].0.contains(&idx);
+                            let max_v = vert_max[idx].0.contains(&j);
+                            if max_h {
+                                if max_v {
+                                    // max for both
+                                    cell.bg(COLOR_BOTH_MAX)
+                                } else {
+                                    // row max
+                                    cell.bg(COLOR_ROW_MAX)
+                                }
+                            } else {
+                                if max_v {
+                                    // column max
+                                    cell.bg(COLOR_COL_MAX)
+                                } else {
+                                    // neither
+                                    if j % 2 == 0 {
+                                        cell.bg(COLOR_ALT_BG)
+                                    } else {
+                                        cell
+                                    }
+                                }
+                            }
+                        })
+                    })
+                    .into_iter()
+                    .collect::<Result<Vec<_>>>()?,
+            );
+
+            table.add_row(row);
+        }
+
         println!("{table}");
         println!(
             "{} left -> {} bits left",

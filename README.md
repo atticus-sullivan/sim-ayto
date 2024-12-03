@@ -28,8 +28,18 @@ Anschließend finden sich in den Ordnern der jeweiligen Staffel die Ausgabedatei
 
 ### 1. `<Staffel>_tab.png`
 ganz klassisch die Tabelle mit den noch übrigen Möglichkeiten
+
+#### Farben
+Die *Schrift*farbe ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
+dieses Match ist (unter 1% rot, ab 45% gelb, ab 55 cyan, ab 80% grün).
+
+Die *Hintergrund*farbe zeigt an welche Person(en) für eine andere Person am
+wahrscheinlichsten ist.
+- leicht *grüner* Hintergrund: Match ist für beide Personen am wahrscheinlichsten
+- *leicht roter*/*hellgrauer* Hintergrund: Match ist für die Person deren Spalte/Zeile das ist am wahrscheinlichsten.
+
 ### 2. `<Staffel>.txt`
-Hier findet man die meisten Informationen (u.A. auch der komplette bisherige Verlauf der Tabellen).
+Hier findet man die meisten Informationen (u.A. auch der komplette bisherige Verlauf der Tabellen). Bzgl der Farben in den Verlaufs-Tabellen siehe 1.)
 
 Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
 

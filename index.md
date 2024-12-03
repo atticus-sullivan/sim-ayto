@@ -76,6 +76,16 @@ Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Mögl
 
 `E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
 
+### Reguläre Tabellen
+Die *Schrift*farbe ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
+dieses Match ist (unter 1% rot, ab 45% gelb, ab 55 cyan, ab 80% grün).
+
+Die *Hintergrund*farbe zeigt an welche Person(en) für eine andere Person am
+wahrscheinlichsten ist.
+- leicht *grüner* Hintergrund: Match ist für beide Personen am wahrscheinlichsten
+- *leicht roter*/*hellgrauer* Hintergrund: Match ist für die Person deren Spalte/Zeile das ist am wahrscheinlichsten.
+
+### Zusammenfassende Tabelle am Ende
 Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein Stern in dieser Tabelle bedeutet, dass das Match das erste mal so zusammensaß. Eine kleine Übersicht über die nicht so intuitiven Spalten:
 - `L` die Anzahl der Lichter
 - `I` siehe oben
