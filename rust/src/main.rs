@@ -96,7 +96,7 @@ fn main() {
             let html_content = graph::build_stats_graph(|e| e.starts_with("de")).unwrap();
             std::fs::write(html_path_de, html_content).unwrap();
 
-            let html_content = graph::build_stats_graph(|e| e.starts_with("us")).unwrap();
+            let html_content = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
             std::fs::write(html_path_us, html_content).unwrap();
         }
     }

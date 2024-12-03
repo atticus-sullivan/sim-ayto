@@ -41,10 +41,14 @@ Spoilergefahr hier vielleicht nicht ganz so hoch.
 | Staffel 8 | [mit Farbe](data/us08/us08.col.png) | [nur Text](data/us08/us08.txt) | [aktuelle Tabelle](data/us08/us08_tab.png) | [Zusammenfassung](data/us08/us08_sum.png) | [aktueller Baum](data/us08/us08.pdf) |
 | Staffel 9 | [mit Farbe](data/us09/us09.col.png) | [nur Text](data/us09/us09.txt) | [aktuelle Tabelle](data/us09/us09_tab.png) | [Zusammenfassung](data/us09/us09_sum.png) | [aktueller Baum](data/us09/us09.pdf) |
 
+## AYTO - UK
+| Staffel 1 | [mit Farbe](data/uk01/uk01.col.png) | [nur Text](data/uk01/uk01.txt) | [aktuelle Tabelle](data/uk01/uk01_tab.png) | [Zusammenfassung](data/uk01/uk01_sum.png) | [aktueller Baum](data/uk01/uk01.pdf) |
+
+
 # Vergleich der Staffeln untereinander
 
 - [deutsche staffeln](stats_de.html).
-- [us staffeln](stats_us.html).
+- [us/uk staffeln](stats_us.html).
 
 ## Hinweise
 - das `- W` bzgl `- L` am Ende in der Legende steht dafür, ob der Cast in der

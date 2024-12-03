@@ -1,0 +1,248 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: true
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup 
+rule_set: !Eq
+
+setA:
+  - Libby
+  - Olivia
+  - Robyn
+  - Sapphia
+  - Shae
+  - Taofiqah
+  - Tasha
+  - Thea
+  - Therese
+  - Vic
+
+setB:
+  - Cach
+  - Charlie
+  - Ismail
+  - Jack
+  - Jacob
+  - Jordan
+  - Josh
+  - Joshy
+  - Juan
+  - Theo
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      # Vic: Jordan
+      Tasha: Joshy
+      # Libby: Josh
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Shae: Jack
+      Robyn: Jordan
+      Libby: Joshy
+      Tasha: Theo
+      Thea: Charlie
+      Taofiqah: Josh
+      Therese: Juan
+      Sapphia: Cach
+      Olivia: Ismail
+      Vic: Jacob
+
+  - type: !Box {num: 2, comment: "E02"}
+    check: !Lights [0]
+    map:
+      Taofiqah: Josh
+      # Taofiqah: Cach
+
+  - type: !Night {num: 2, comment: "E02"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Vic: Jacob
+      Taofiqah: Cach
+      Shae: Charlie
+      Olivia: Ismail
+      Therese: Jack
+      Thea: Juan
+      Sapphia: Jordan
+      Tasha: Theo
+      Robyn: Joshy
+      Libby: Josh
+
+  - type: !Box {num: 3, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # Shae: Theo
+      Robyn: Theo
+
+  - type: !Night {num: 3, comment: "E03"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Therese: Josh
+      Tasha: Jordan
+      Thea: Juan
+      Vic: Jacob
+      Shae: Charlie
+      Sapphia: Cach
+      Robyn: Joshy
+      Libby: Jack
+      Taofiqah: Theo
+
+  - type: !Box {num: 4, comment: "E04 + Jack left"}
+    check: !Lights [0]
+    map:
+      # : Jack
+      Thea: Juan
+
+  # - type: !Box {num: 4.1, comment: "E04 -- Jack left"}
+  #   check: !Lights [0]
+  #   map:
+  #     : Jack
+
+  - type: !Night {num: 4, comment: "E04"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Therese: Josh
+      Shae: Cach
+      Taofiqah: Jack
+      Vic: Joshy
+      Sapphia: Theo
+      Robyn: Jacob
+      Olivia: Ismail
+      Libby: Jordan
+      Thea: Charlie
+      Tasha: Juan
+
+  - type: !Box {num: 5, comment: "E05"}
+    check: !Lights [1]
+    map:
+      # Tasha: Jacob
+      Olivia: Ismail
+
+  - type: !Night {num: 5, comment: "E05"}
+    check: !Lights [3]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Robyn: Joshy
+      Thea: Josh
+      Tasha: Juan
+      Sapphia: Charlie
+      Shae: Jordan
+      Taofiqah: Cach
+      Libby: Theo
+      Vic: Jacob
+      Therese: Jack
+
+  - type: !Box {num: 6, comment: "E06"}
+    check: !Lights [0]
+    map:
+      Thea: Cach
+      # Shae: Joshy
+
+  - type: !Night {num: 6, comment: "E06"}
+    check: !Lights [2]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Libby: Charlie
+      Robyn: Jordan
+      Sapphia: Jack
+      Taofiqah: Juan
+      Vic: Theo
+      Therese: Jacob
+      Shae: Cach
+      Tasha: Josh
+      Thea: Joshy
+
+  - type: !Box {num: 7, comment: "E07"}
+    check: !Lights [0]
+    map:
+      # Sapphia: Cach
+      Thea: Charlie
+
+  - type: !Night {num: 7, comment: "E07 -- Blackout"}
+    check: !Lights [1]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Vic: Joshy
+      Tasha: Josh
+      Thea: Jacob
+      Taofiqah: Jordan
+      Sapphia: Cach
+      Libby: Theo
+      Shae: Charlie
+      Therese: Juan
+      Robyn: Jack
+
+  - type: !Box {num: 8, comment: "E08"}
+    check: !Lights [0]
+    map:
+      Vic: Jacob
+      # Thea: Jordan
+
+  - type: !Night {num: 8, comment: "E08"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Vic: Theo
+      Tasha: Charlie
+      Sapphia: Jordan
+      Thea: Josh
+      Taofiqah: Juan
+      Libby: Joshy
+      Robyn: Jacob
+      Therese: Cach
+      Shae: Jack
+
+  - type: !Box {num: 9, comment: "E09"}
+    check: !Lights [1]
+    map:
+      # Therese: Cach
+      Libby: Joshy
+
+  - type: !Night {num: 9, comment: "E10"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Libby: Joshy
+      Tasha: Charlie
+      Robyn: Jacob
+      Thea: Josh
+      Shae: Juan
+      Sapphia: Jordan
+      Therese: Cach
+      Vic: Theo
+      Taofiqah: Jack
+
+  - type: !Box {num: 10, comment: "E10"}
+    check: !Lights [1]
+    map:
+      Tasha: Charlie
+
+  - type: !Night {num: 10, comment: "E10"}
+    check: !Lights [10]
+    # resultUnknown: true
+    map:
+      Olivia: Ismail
+      Libby: Joshy
+      Tasha: Charlie
+      Shae: Cach
+      Thea: Josh
+      Therese: Jack
+      Taofiqah: Theo
+      Vic: Juan
+      Robyn: Jacob
+      Sapphia: Jordan
