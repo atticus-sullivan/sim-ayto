@@ -1,0 +1,3 @@
+[submodule "gh-pages/themes/hugo-book"]
+	path = gh-pages/themes/hugo-book
+	url = https://github.com/alex-shpak/hugo-book

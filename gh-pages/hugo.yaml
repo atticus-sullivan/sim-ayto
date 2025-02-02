@@ -1,0 +1,42 @@
+baseURL: https://example.org/
+languagecode: en-us
+theme: ["hugo-book"]
+
+# enableGitInfo: true
+enableEmoji: true
+
+params:
+  BookTheme: 'auto'
+  BookRepo: 'https://github.com/atticus-sullivan/testing-pages'
+  BookSection: '*'
+  BookToC: true
+  BookDateFormat: 'Jan 2, 2006'
+  BookSearch: true
+  BookComments: false
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+defaultContentLanguage: de
+defaultContentLanguageInSubdir: false
+languages:
+  de:
+    disabled: false
+    languageCode: de-DE
+    languageDirection: ltr
+    languageName: Deutsch
+    params:
+      subtitle: Referenz, Tutorials und Erklärungen
+    title: AYTO Ergebnisse
+    weight: 1
+  en:
+    disabled: true
+    languageCode: en-US
+    languageDirection: ltr
+    languageName: English
+    params:
+      subtitle: Reference, Tutorials, and Explanations
+    title: AYTO Results
+    weight: 2
