@@ -41,7 +41,7 @@ jobs:
         id: detect_changes
         run: |
           # Check if there's a push affecting the `rust/**` path or if it's a manual trigger
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" || echo "")" == "" ]]; then
             # If `rust/**` is changed or it's a manual trigger, run all simulations
             sims="[$(find ./data -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')]"
           else
