@@ -127,6 +127,7 @@ jobs:
     needs:
       - define-matrix
       - build
+    if: ${{ needs.define-matrix.outputs.sims != '[""]' && needs.define-matrix.outputs.sims != '[]' }}
     strategy:
       matrix:
         sim: ${{ fromJSON(needs.define-matrix.outputs.sims) }}
