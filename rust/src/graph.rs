@@ -20,12 +20,15 @@ use anyhow::Result;
 use plotly::common::{Mode, Title};
 use plotly::{Layout, Plot, Scatter};
 use walkdir::WalkDir;
+use catppuccin::PALETTE;
 
 use crate::constraint::{CSVEntry, CSVEntryMB};
 
 pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
+    let palette = PALETTE.frappe;
+
     let layout = Layout::new()
-        .template(plotly::layout::themes::PLOTLY_DARK.clone())
+        .plot_background_color(palette.colors.base.hex.to_string())
         .hover_mode(plotly::layout::HoverMode::X)
         .click_mode(plotly::layout::ClickMode::Event)
         .drag_mode(plotly::layout::DragMode::Pan)
@@ -153,7 +156,6 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
         r#"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     {}
 "#,

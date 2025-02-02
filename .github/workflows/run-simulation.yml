@@ -43,11 +43,14 @@ jobs:
       - name: Detect changes in inputfiles
         id: detect_changes
         run: |
+          set +o pipefail
           # Check if there's a push affecting the `rust/**` path or if it's a manual trigger
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" || echo "")" == "" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" || echo "")" != "" ]]; then
+            echo "re-generate all"
             # If `rust/**` is changed or it's a manual trigger, run all simulations
             sims="[\"$(find ./data -not -path '*/[@.]*' -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           else
+            echo "re-generate only required"
             # Detect which simulation inputs have changed
             sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           fi
@@ -112,6 +115,7 @@ jobs:
 
   run-sim:
     runs-on: ubuntu-latest
+    if: ${{ needs.define-matrix.outputs.sims != '[""]' && needs.define-matrix.outputs.sims != '[]' }}
     container:
       image: ghcr.io/atticus-sullivan/custom-action:latest
     needs:
@@ -177,7 +181,8 @@ jobs:
 
   commit-results:
     runs-on: ubuntu-latest
-    needs: run-sim
+    needs:
+      - run-sim
     steps:
       - uses: actions/checkout@v4
         with:
@@ -197,7 +202,8 @@ jobs:
 
   generate-site:
     runs-on: ubuntu-latest
-    needs: commit-results
+    needs:
+      - commit-results
     env:
       HUGO_VERSION: 0.128.0
     steps:
@@ -227,12 +233,23 @@ jobs:
           sudo apt install graphviz python3 python3-pip
           pip install --break-system-packages ansitoimg
 
+      - name: Cache generated assets
+        uses: actions/cache@v3
+        with:
+          path: ./gh-pages/static
+          key: ${{ runner.os }}-assets-${{ hashFiles('./data/*/*.col.out') }}
+          restore-keys: |
+            ${{ runner.os }}-picture-assets-
+
       - name: Build picture assets
         run: |
           for ele in ./data/*/*.col.out ; do
             n="${ele##*/}"
             n="${n%.col.out}"
-            python3 generate_png.py data/de01/de01.col.out ./gh-pages/static/${n}/${n}
+            [[ -e "./gh-pages/static/${n}/" ]] && ls -l "./gh-pages/static/${n}/${n}"*
+            if [[ ! -e "./gh-pages/static/${n}/${n}_tab.png" ]] ; then
+              python3 generate_png.py ${ele} ./gh-pages/static/${n}/${n}
+            fi
           done
 
       - name: Download the built tool artifact
@@ -267,7 +284,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: generate-site
+    needs:
+      - generate-site
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
