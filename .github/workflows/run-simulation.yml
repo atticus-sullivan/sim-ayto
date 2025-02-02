@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.define-matrix.outputs.sims != '[""]' && needs.define-matrix.outputs.sims != '[]' }}
     container:
-      image: ghcr.io/atticus-sullivan/custom-action:latest
+      image: ghcr.io/atticus-sullivan/custom-action:latest # TODO
     needs:
       - define-matrix
       - build
@@ -187,13 +187,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: build
-
-      - name: Setup working directory
-        run: |
+          fetch-depth: 0
+      - run: |
           git fetch --no-tags origin main
           git checkout -b main origin/main
           git switch build
-
       - name: update on main
         run: |
           git config --global user.name "Updater"

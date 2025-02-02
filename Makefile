@@ -124,7 +124,7 @@ $(ALIAS):
 
 $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	@date
-	./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
+	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
