@@ -1,0 +1,45 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+tree_gen: false
+
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Tori
+# rule_set: !Eq
+
+setA:
+  - Anna
+  - Camelia
+  - Chiara
+  - Deisy
+  - Ina
+  - Joanna
+  - Nadja
+  - Nasti
+  - Selina
+  - Sophia
+  - Tori
+
+setB:
+  - Danish
+  - Dino
+  - Dion
+  - Enes
+  - Josh
+  - Joshua
+  - Kaan
+  - Levin
+  - Sinan
+  - Tano
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      Anna: Danish
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   map:
