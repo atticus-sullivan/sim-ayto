@@ -149,18 +149,13 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
         .map(|i| i.to_inline_html(None))
         .fold(String::new(), |a, b| a + &b);
     let complete_html = format!(
-        r#"<!DOCTYPE html>
-<html lang="en">
-<head>
+        r#"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-</head>
-<body>
     {}
-</body>
-</html>"#,
+"#,
         dat
     );
     Ok(complete_html)

@@ -94,10 +94,16 @@ fn main() {
             html_path_us,
         } => {
             let html_content = graph::build_stats_graph(|e| e.starts_with("de")).unwrap();
-            std::fs::write(html_path_de, html_content).unwrap();
+            std::fs::write(html_path_de, r#"---
+title: 'DE'
+weight: 1
+---"#.to_owned() + &html_content).unwrap();
 
             let html_content = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
-            std::fs::write(html_path_us, html_content).unwrap();
+            std::fs::write(html_path_us, r#"---
+title: 'US + UK'
+weight: 1
+---"#.to_owned() + &html_content).unwrap();
         }
     }
 }
