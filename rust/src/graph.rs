@@ -212,3 +212,4 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     );
     Ok(complete_html)
 }
+

@@ -210,6 +210,12 @@ jobs:
           commit_message: Computation results
           branch: build
 
+  # define-matrix2:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     sims: ${{ steps.detect_changes.outputs.sims }}
+  #   steps:
+
   generate-site:
     runs-on: ubuntu-latest
     needs:

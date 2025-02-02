@@ -43,7 +43,8 @@ ansiToRender(content, f"{args.output_stem}.col.png", title=args.input, width=max
 ansiToRender(recent, f"{args.output_stem}_tab.png", title=f"most recent table of {args.input}", width=maxLen(recent), theme="./theme.yml")
 ansiToRender(summary, f"{args.output_stem}_sum.png", title=f"summary table of {args.input}", width=maxLen(summary), theme="./theme.yml")
 
-multiprocessing.Pool().imap(
-    lambda x: ansiToRender(x[1], f"{args.output_stem}_{x[0]}.png", title=f"{x[0]}th table of {args.input}", width=maxLen(x[1]), theme="./theme.yml"),
-    enumerate(content.split("\n\n")[:-2])
-)
+with multiprocessing.Pool() as pool:
+    pool.imap(
+        lambda x: ansiToRender(x[1], f"{args.output_stem}_{x[0]}.png", title=f"{x[0]}th table of {args.input}", width=maxLen(x[1]), theme="./theme.yml"),
+        enumerate(content.split("\n\n")[:-2])
+    )
