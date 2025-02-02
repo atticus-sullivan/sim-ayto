@@ -149,9 +149,11 @@ jobs:
       - name: Compute for ${{ matrix.sim }}
         run: |
           STEM="${{ matrix.sim }}"
+
+          SAFENAME="$(echo "${STEM}" | tr "/" "_")"
           STEMD="$(dirname ${STEM})"
+
           STEM="${STEM%.yaml}"
-          SAFENAME="$(echo "${{ matrix.sim }}" | tr "/" "_")"
 
           chmod +x ./ayto
 
@@ -168,10 +170,11 @@ jobs:
           name: sim-results-${{ env.SAFENAME }}
           path: |
             ${{ env.STEM }}.col.out
+            ${{ env.STEM }}.md
             ${{ env.STEMD }}/statInfo.csv
             ${{ env.STEMD }}/statMB.csv
             ${{ env.STEMD }}/statMN.csv
-            ./data/.template.yaml
+            ./data/.gitkeep
 
   commit-results:
     runs-on: ubuntu-latest
