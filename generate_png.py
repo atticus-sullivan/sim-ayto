@@ -22,9 +22,7 @@ ansi_escape = re.compile(r'''
 
 parser = argparse.ArgumentParser()
 parser.add_argument("input", help="the .col.out (text) file which shall be processed")
-parser.add_argument("output_all", help="png file to write the complete log to")
-parser.add_argument("output_recent", help="png file to write only the most recent table to")
-parser.add_argument("output_sum", help="png file to write only the summary table to")
+parser.add_argument("output_stem", help="where to place the output files")
 
 args = parser.parse_args()
 
@@ -40,6 +38,9 @@ assert summary is not None, "failed to split content"
 def maxLen(x: str) -> int:
     return max(map(lambda y: len(ansi_escape.sub("", y)), x.splitlines()))
 
-ansiToRender(content, args.output_all, title=args.input, width=maxLen(content), theme="./theme.yml")
-ansiToRender(recent, args.output_recent, title=f"most recent table of {args.input}", width=maxLen(recent), theme="./theme.yml")
-ansiToRender(summary, args.output_sum, title=f"summary table of {args.input}", width=maxLen(summary), theme="./theme.yml")
+ansiToRender(content, f"{args.output_stem}.col.png", title=args.input, width=maxLen(content), theme="./theme.yml")
+ansiToRender(recent, f"{args.output_stem}_tab.png", title=f"most recent table of {args.input}", width=maxLen(recent), theme="./theme.yml")
+ansiToRender(summary, f"{args.output_stem}_sum.png", title=f"summary table of {args.input}", width=maxLen(summary), theme="./theme.yml")
+
+for i, block in enumerate(content.split("\n\n")[:-2]):
+    ansiToRender(block, f"{args.output_stem}_{i}.png", title=f"{i}th table of {args.input}", width=maxLen(block), theme="./theme.yml")

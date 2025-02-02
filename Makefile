@@ -128,7 +128,7 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
-	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<).col.png" "$(basename $<)_tab.png" "$(basename $<)_sum.png" $(ANSITOIMG_SUFFIX)
+	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<)" $(ANSITOIMG_SUFFIX)
 	@date
 
 
