@@ -13,3 +13,5 @@
 local_workflow.bash
 gh.bash
 *.conf
+
+data/**/*.md

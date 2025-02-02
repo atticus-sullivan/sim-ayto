@@ -660,6 +660,13 @@ impl Constraint {
         }
     }
 
+    pub fn md_title(&self) -> String {
+        match &self.r#type {
+            ConstraintType::Night { num, comment, .. } => format!("MN#{:02.1} {}", num, comment.split("--").collect::<Vec<_>>()[0]),
+            ConstraintType::Box { num, comment, .. } => format!("MB#{:02.1} {}", num, comment.split("--").collect::<Vec<_>>()[0]),
+        }
+    }
+
     pub fn print_hdr(&self, past_constraints: &Vec<&Constraint>) -> Result<()> {
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => print!("MN#{:02.1} {}", num, comment),

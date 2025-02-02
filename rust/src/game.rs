@@ -65,6 +65,7 @@ pub struct Game {
     constraints_orig: Vec<Constraint>,
     rule_set: RuleSet,
     tree_gen: bool,
+    frontmatter: serde_yaml::Value,
     tree_top: Option<String>,
 
     // maps u8/usize to string
@@ -87,6 +88,7 @@ struct GameParse {
     constraints_orig: Vec<ConstraintParse>,
     rule_set: RuleSet,
     tree_gen: bool,
+    frontmatter: serde_yaml::Value,
     tree_top: Option<String>,
     #[serde(rename = "queryMatchings", default)]
     query_matchings_s: Vec<MatchingS>,
@@ -120,6 +122,7 @@ impl Game {
             lut_a: Lut::default(),
             lut_b: Lut::default(),
             query_matchings: Vec::default(),
+            frontmatter: gp.frontmatter,
         };
 
         // build up the look up tables (LUT)
@@ -186,6 +189,11 @@ impl Game {
         // fix is so that it can't be mutated anymore
         let is = &is;
 
+        // track table indices
+        let mut tab_idx = 0;
+        let mut md_tables: Vec<(String,u16)> = vec![];
+
+        // generate additional tables
         if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
             println!("Trace at which point a particular matching was elimiated:");
             for (q, id) in &is.query_matchings {
@@ -216,7 +224,8 @@ impl Game {
                             .context("no 0th column in table found")?
                             .set_padding((0, 1));
                         println!("{tab}");
-                        println!("=> Eliminated in {}", id)
+                        println!("=> Eliminated in {}", id);
+                        tab_idx += 1;
                     }
                     None => {}
                 }
@@ -231,9 +240,13 @@ impl Game {
         if print_transposed {
             self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                 .context("Error printing")?;
+            md_tables.push(("Anfangsverteilung".to_owned(), tab_idx));
+            tab_idx += 1;
         } else {
             self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                 .context("Error printing")?;
+            md_tables.push(("Anfangsverteilung".to_owned(), tab_idx));
+            tab_idx += 1;
         }
         println!();
 
@@ -255,9 +268,13 @@ impl Game {
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;
+                        md_tables.push((c.md_title(), tab_idx));
+                        tab_idx += 1;
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                             .context("Error printing")?;
+                        md_tables.push((c.md_title(), tab_idx));
+                        tab_idx += 1;
                     }
                 }
                 past_constraints.push(&c_);
@@ -265,6 +282,9 @@ impl Game {
                 constr.push(c);
             }
         }
+
+        let md_path = self.dir.join(self.stem.clone()).with_extension("md");
+        self.md_output(&mut File::create(md_path.clone())?, &md_tables)?;
 
         if self.tree_gen {
             let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
@@ -307,6 +327,39 @@ impl Game {
             is.total - is.eliminated,
             is.each
         );
+        Ok(())
+    }
+
+    fn md_output(&self, out: &mut File, md_tables: &Vec<(String,u16)>) -> Result<()> {
+        writeln!(out, "---")?;
+        writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
+        writeln!(out, "---")?;
+
+        let stem = &self.stem;
+
+        writeln!(out, "# Aktuell\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "{{{{% details \"\" %}}}}")?;
+        writeln!(out, "![](/{stem}/{stem}_tab.png)")?;
+        writeln!(out, "![](/{stem}/{stem}_sum.png)")?;
+        writeln!(out, "{{{{% /details %}}}}")?;
+
+        writeln!(out, "# Einzelne Tabellen")?;
+        for (name,idx) in md_tables.iter() {
+            writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
+            writeln!(out, "![](/{stem}/{stem}_{idx}.png)")?;
+            writeln!(out, "{{{{% /details %}}}}")?;
+        }
+
+        writeln!(out, "# Alle zusammen\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "{{{{% details \"\" %}}}}")?;
+        writeln!(out, "![](/{stem}/{stem}.col.png)")?;
+        writeln!(out, "{{{{% /details %}}}}")?;
+
+        writeln!(out, "# Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "{{{{% details \"\" %}}}}")?;
+        writeln!(out, "![](/{stem}/{stem}.png)")?;
+        writeln!(out, "{{{{% /details %}}}}")?;
+
         Ok(())
     }
 
