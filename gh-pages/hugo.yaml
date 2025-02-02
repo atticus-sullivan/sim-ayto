@@ -40,3 +40,65 @@ languages:
       subtitle: Reference, Tutorials, and Explanations
     title: AYTO Results
     weight: 2
+
+module:
+  mounts:
+    - source: content
+      target: content
+
+    - source: ../data/de01/de01.md
+      target: content/ayto/de/01.md
+
+    - source: ../data/de02/de02.md
+      target: content/ayto/de/02.md
+
+    - source: ../data/de03/de03.md
+      target: content/ayto/de/03.md
+
+    - source: ./content/ayto/de04/de04.md
+      target: content/ayto/de/04.md
+
+    - source: ./content/ayto/de05/de05.md
+      target: content/ayto/de/05.md
+
+    - source: ./content/ayto/uk01/uk01.md
+      target: content/ayto/uk/01.md
+
+    - source: ./content/ayto/us01/us01.md
+      target: content/ayto/us/01.md
+
+    - source: ./content/ayto/us02/us02.md
+      target: content/ayto/us/02.md
+
+    - source: ./content/ayto/us03/us03.md
+      target: content/ayto/us/03.md
+
+    - source: ./content/ayto/us04/us04.md
+      target: content/ayto/us/04.md
+
+    - source: ./content/ayto/us05/us05.md
+      target: content/ayto/us/05.md
+
+    - source: ./content/ayto/us06/us06.md
+      target: content/ayto/us/06.md
+
+    - source: ./content/ayto/us07/us07.md
+      target: content/ayto/us/07.md
+
+    - source: ./content/ayto/us08/us08.md
+      target: content/ayto/us/08.md
+
+    - source: ./content/ayto/us09/us09.md
+      target: content/ayto/us/09.md
+
+    - source: ./content/ayto/de01r/de01.md
+      target: content/ayto/de-rsil/01.md
+
+    - source: ./content/ayto/de02r/de02.md
+      target: content/ayto/de-rsil/02.md
+
+    - source: ./content/ayto/de03r/de03.md
+      target: content/ayto/de-rsil/03.md
+
+    - source: ./content/ayto/de04r/de04.md
+      target: content/ayto/de-rsil/04.md
