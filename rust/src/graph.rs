@@ -25,6 +25,7 @@ use crate::constraint::{CSVEntry, CSVEntryMB};
 
 pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     let layout = Layout::new()
+        .template(plotly::layout::themes::PLOTLY_DARK.clone())
         .hover_mode(plotly::layout::HoverMode::X)
         .click_mode(plotly::layout::ClickMode::Event)
         .drag_mode(plotly::layout::DragMode::Pan)
