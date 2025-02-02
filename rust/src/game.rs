@@ -339,25 +339,25 @@ impl Game {
 
         writeln!(out, "# Aktuell\n:warning: Achtung Spoilergefahr :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "![](/{stem}/{stem}_tab.png)")?;
-        writeln!(out, "![](/{stem}/{stem}_sum.png)")?;
+        writeln!(out, "![](/sim-ayto/{stem}/{stem}_tab.png)")?;
+        writeln!(out, "![](/sim-ayto/{stem}/{stem}_sum.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "# Einzelne Tabellen")?;
         for (name,idx) in md_tables.iter() {
             writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
-            writeln!(out, "![](/{stem}/{stem}_{idx}.png)")?;
+            writeln!(out, "![](/sim-ayto/{stem}/{stem}_{idx}.png)")?;
             writeln!(out, "{{{{% /details %}}}}")?;
         }
 
         writeln!(out, "# Alle zusammen\n:warning: Achtung Spoilergefahr :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "![](/{stem}/{stem}.col.png)")?;
+        writeln!(out, "![](/sim-ayto/{stem}/{stem}.col.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "# Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "![](/{stem}/{stem}.png)")?;
+        writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         Ok(())

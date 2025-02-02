@@ -56,10 +56,6 @@ jobs:
             sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           fi
 
-          if [[ "$sims" == '[""]' ]] ; then
-            sims="[]"
-          fi
-
           echo "$sims"
 
           # Output the list of simulations that need to be run
@@ -127,7 +123,6 @@ jobs:
     needs:
       - define-matrix
       - build
-    if: ${{ needs.define-matrix.outputs.sims != '[""]' && needs.define-matrix.outputs.sims != '[]' }}
     strategy:
       matrix:
         sim: ${{ fromJSON(needs.define-matrix.outputs.sims) }}
@@ -135,32 +130,38 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        if: ${{ matrix.sim != '' }}
         with:
           ref: build
           fetch-depth: 0
 
       - name: Setup working directory
+        if: ${{ matrix.sim != '' }}
         run: |
           git fetch --no-tags origin main
           git checkout -b main origin/main
           git switch build
 
       - name: update on main
+        if: ${{ matrix.sim != '' }}
         run: |
           git config --global user.name "Updater"
           git config --global user.email "updater@example.com"
           git merge --no-ff main
 
       - name: install dependencies
+        if: ${{ matrix.sim != '' }}
         run: |
           sudo apt install graphviz
 
       - name: Download the built tool artifact
+        if: ${{ matrix.sim != '' }}
         uses: actions/download-artifact@v4
         with:
           name: ayto
 
       - name: Compute for ${{ matrix.sim }}
+        if: ${{ matrix.sim != '' }}
         run: |
           STEM="${{ matrix.sim }}"
 
@@ -182,6 +183,7 @@ jobs:
       #   uses: mxschmitt/action-tmate@v3
 
       - name: Upload simulation results
+        if: ${{ matrix.sim != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: sim-results-${{ env.SAFENAME }}
@@ -211,6 +213,7 @@ jobs:
           git config --global user.name "Updater"
           git config --global user.email "updater@example.com"
           git merge --no-ff main
+          git push
 
       - name: Download simulation results
         uses: actions/download-artifact@v4
@@ -260,11 +263,6 @@ jobs:
         with:
           ref: build
 
-      - name: Install dependencies for building assets
-        run: |
-          sudo apt install graphviz python3 python3-pip
-          pip install --break-system-packages ansitoimg
-
       - name: Cache generated picture for ${{ matrix.sim }}
         uses: actions/cache@v3
         with:
@@ -272,6 +270,15 @@ jobs:
           key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('/data/${sim}/${{ matrix.sim }}.col.out') }}
           restore-keys: |
             ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-
+
+      - name: Install dependencies for building assets
+        run: |
+          sim="${{ matrix.sim }}"
+          output_dir="./gh-pages/static/${sim}"
+          if [[ ! -e "${output_dir}/${sim}_tab.png" ]]; then
+            sudo apt install graphviz python3 python3-pip
+            pip install --break-system-packages ansitoimg
+          fi
 
       - name: Compute for ${{ matrix.sim }}
         run: |
@@ -352,6 +359,7 @@ jobs:
         run: |
           cd gh-pages
           hugo \
+            --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
