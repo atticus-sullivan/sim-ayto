@@ -65,6 +65,8 @@ enum Commands {
         yaml_path: PathBuf,
     },
     Graph {
+        #[arg(short = 't', long = "theme", default_value="0")]
+        theme: u8,
         html_path_de: PathBuf,
         html_path_us: PathBuf,
     },
@@ -90,16 +92,17 @@ fn main() {
                 .expect("Parsing failed!");
         }
         Commands::Graph {
+            theme,
             html_path_de,
             html_path_us,
         } => {
-            let html_content = graph::build_stats_graph(|e| e.starts_with("de")).unwrap();
+            let html_content = graph::build_stats_graph(|e| e.starts_with("de"), theme).unwrap();
             std::fs::write(html_path_de, r#"---
 title: 'DE'
 weight: 1
 ---"#.to_owned() + &html_content).unwrap();
 
-            let html_content = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
+            let html_content = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme).unwrap();
             std::fs::write(html_path_us, r#"---
 title: 'US + UK'
 weight: 1

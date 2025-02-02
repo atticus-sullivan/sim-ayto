@@ -2,7 +2,6 @@
 
 import os.path
 import argparse
-import multiprocessing
 
 from ansitoimg.render import ansiToRender
 
@@ -43,8 +42,5 @@ ansiToRender(content, f"{args.output_stem}.col.png", title=args.input, width=max
 ansiToRender(recent, f"{args.output_stem}_tab.png", title=f"most recent table of {args.input}", width=maxLen(recent), theme="./theme.yml")
 ansiToRender(summary, f"{args.output_stem}_sum.png", title=f"summary table of {args.input}", width=maxLen(summary), theme="./theme.yml")
 
-with multiprocessing.Pool() as pool:
-    pool.imap(
-        lambda x: ansiToRender(x[1], f"{args.output_stem}_{x[0]}.png", title=f"{x[0]}th table of {args.input}", width=maxLen(x[1]), theme="./theme.yml"),
-        enumerate(content.split("\n\n")[:-2])
-    )
+for i, block in enumerate(content.split("\n\n")[:-2]):
+    ansiToRender(block, f"{args.output_stem}_{i}.png", title=f"{i}th table of {args.input}", width=maxLen(block), theme="./theme.yml")

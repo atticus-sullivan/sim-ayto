@@ -5,6 +5,8 @@ theme: ["hugo-book"]
 # enableGitInfo: true
 enableEmoji: true
 
+canonifyURLs: true
+
 params:
   BookTheme: 'auto'
   BookRepo: 'https://github.com/atticus-sullivan/sim-ayto'

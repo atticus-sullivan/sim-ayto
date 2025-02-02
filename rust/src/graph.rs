@@ -24,8 +24,12 @@ use catppuccin::PALETTE;
 
 use crate::constraint::{CSVEntry, CSVEntryMB};
 
-pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
-    let palette = PALETTE.frappe;
+pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<String> {
+    let palette = if theme == 0 {
+        PALETTE.frappe
+    } else {
+        PALETTE.latte
+    };
 
     let layout = Layout::new()
 
@@ -212,4 +216,3 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     );
     Ok(complete_html)
 }
-

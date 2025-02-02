@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - 'rust/**'
-    #   - 'data/**.yaml'
+    paths:
+      - 'rust/**'
+      - 'data/**.yaml'
+      - 'gh-pages/**'
 
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -54,11 +55,15 @@ jobs:
             # Detect which simulation inputs have changed
             sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           fi
+
+          if [[ "$sims" == '[""]' ]] ; then
+            sims="[]"
+          fi
+
           echo "$sims"
 
           # Output the list of simulations that need to be run
           echo "sims=${sims}" >> $GITHUB_OUTPUT
-
 
 
   build:
@@ -67,6 +72,8 @@ jobs:
       ayto: ${{ steps.upload-artifact.outputs.ayto }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Cache Rust cargo registry
         uses: actions/cache@v3
@@ -84,18 +91,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-index-
 
-      - name: setup rust
-        uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: stable
-
       - name: Cache Rust build
         uses: actions/cache@v3
         with:
           path: rust/target
-          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock') }}-${{ hashFiles('rust/**') }} }}
+          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock', 'rust/**') }} }}
           restore-keys: |
             ${{ runner.os }}-cargo-build-
+
+      - name: setup rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: stable
 
       - name: Build rust
         run: |
@@ -103,6 +110,8 @@ jobs:
           if [[ ! -f target/release/ayto ]] ; then
             cargo build --release
             # RUSTFLAGS="-C target-cpu=skylake" cargo build --settings profile.release.codegen-units=1 --settings profile.release.lto=true --release
+          else
+            echo "cache hit"
           fi
 
       - name: Upload the executable
@@ -115,9 +124,6 @@ jobs:
 
   run-sim:
     runs-on: ubuntu-latest
-    if: ${{ needs.define-matrix.outputs.sims != '[""]' && needs.define-matrix.outputs.sims != '[]' }}
-    container:
-      image: ghcr.io/atticus-sullivan/custom-action:latest # TODO
     needs:
       - define-matrix
       - build
@@ -144,6 +150,10 @@ jobs:
           git config --global user.email "updater@example.com"
           git merge --no-ff main
 
+      - name: install dependencies
+        run: |
+          sudo apt install graphviz
+
       - name: Download the built tool artifact
         uses: actions/download-artifact@v4
         with:
@@ -166,6 +176,9 @@ jobs:
           echo "STEM=${STEM}" >> $GITHUB_ENV
           echo "STEMD=${STEMD}" >> $GITHUB_ENV
           echo "SAFENAME=${SAFENAME}" >> $GITHUB_ENV
+
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
 
       - name: Upload simulation results
         uses: actions/upload-artifact@v4
@@ -210,16 +223,86 @@ jobs:
           commit_message: Computation results
           branch: build
 
-  # define-matrix2:
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     sims: ${{ steps.detect_changes.outputs.sims }}
-  #   steps:
+  define-matrix2:
+    runs-on: ubuntu-latest
+    needs:
+      - commit-results
+    outputs:
+      sims: ${{ steps.detect_changes.outputs.sims }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: build
+
+      - name: Gather inputs to be processed
+        id: detect_changes
+        run: |
+          sims="[\"$(find ./data/ -type f -name '*.col.out' | sed 's/.*\/\(.*\)\.col.out/\1/' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
+          echo "$sims"
+
+          # Output the list of simulations that need to be run
+          echo "sims=${sims}" >> $GITHUB_OUTPUT
+
+  generate-pictures:
+    runs-on: ubuntu-latest
+    needs:
+      - commit-results
+      - define-matrix2
+    strategy:
+      matrix:
+        sim: ${{ fromJSON(needs.define-matrix2.outputs.sims) }}
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build
+
+      - name: Install dependencies for building assets
+        run: |
+          sudo apt install graphviz python3 python3-pip
+          pip install --break-system-packages ansitoimg
+
+      - name: Cache generated picture for ${{ matrix.sim }}
+        uses: actions/cache@v3
+        with:
+          path: ./gh-pages/static/${{ matrix.sim }}
+          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('/data/${sim}/${{ matrix.sim }}.col.out') }}
+          restore-keys: |
+            ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-
+
+      - name: Compute for ${{ matrix.sim }}
+        run: |
+          sim="${{ matrix.sim }}"
+          input_file="./data/${sim}/${sim}.col.out"
+          output_dir="./gh-pages/static/${sim}"
+
+          # Check if the output already exists to avoid recomputing
+          if [[ ! -e "${output_dir}/${sim}_tab.png" ]]; then
+            echo "Generating pictures for simulation: ${sim}"
+
+            # Generate pictures using your Python script
+            python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
+
+            echo "Pictures generated for ${sim}"
+          else
+            echo "Skipping ${sim} as pictures already exist."
+          fi
+
+      - name: Upload generated pictures as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pictures-${{ matrix.sim }}
+          path: |
+            ./gh-pages/static/${{ matrix.sim }}/*.png
+            ./gh-pages/static/.gitkeep
 
   generate-site:
     runs-on: ubuntu-latest
     needs:
       - commit-results
+      - generate-pictures
     env:
       HUGO_VERSION: 0.128.0
     steps:
@@ -244,29 +327,12 @@ jobs:
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
 
-      - name: Install dependencies for building assets
-        run: |
-          sudo apt install graphviz python3 python3-pip
-          pip install --break-system-packages ansitoimg
-
-      - name: Cache generated assets
-        uses: actions/cache@v3
+      - name: Download picture assets
+        uses: actions/download-artifact@v4
         with:
-          path: ./gh-pages/static
-          key: ${{ runner.os }}-assets-${{ hashFiles('./data/*/*.col.out') }}
-          restore-keys: |
-            ${{ runner.os }}-picture-assets-
-
-      - name: Build picture assets
-        run: |
-          for ele in ./data/*/*.col.out ; do
-            n="${ele##*/}"
-            n="${n%.col.out}"
-            [[ -e "./gh-pages/static/${n}/" ]] && ls -l "./gh-pages/static/${n}/${n}"*
-            if [[ ! -e "./gh-pages/static/${n}/${n}_tab.png" ]] ; then
-              python3 generate_png.py ${ele} ./gh-pages/static/${n}/${n}
-            fi
-          done
+          pattern: pictures-*  # Download all the artifacts from the matrix jobs
+          path: ./gh-pages/static/
+          merge-multiple: true
 
       - name: Download the built tool artifact
         uses: actions/download-artifact@v4
@@ -276,10 +342,7 @@ jobs:
       - name: Build comparisons
         run: |
           chmod +x ./ayto
-          ./ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+          ./ayto graph -t 0 gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
 
       - name: Build with Hugo
         env:
@@ -287,8 +350,8 @@ jobs:
           HUGO_ENVIRONMENT: production
         run: |
           cd gh-pages
-          ls -al ./*
           hugo \
+            --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
