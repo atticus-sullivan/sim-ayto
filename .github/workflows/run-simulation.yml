@@ -52,7 +52,6 @@ jobs:
             sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           fi
           echo "$sims"
-          sims="['./data/de01/de01.yaml', './data/de02/de02.yaml']"
 
           # Output the list of simulations that need to be run
           echo "sims=${sims}" >> $GITHUB_OUTPUT
