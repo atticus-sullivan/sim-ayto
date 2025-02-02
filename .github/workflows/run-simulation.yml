@@ -279,8 +279,8 @@ jobs:
           HUGO_ENVIRONMENT: production
         run: |
           cd gh-pages
+          ls -al ./*
           hugo \
-            --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact

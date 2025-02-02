@@ -1,4 +1,4 @@
-baseURL: https://example.org/
+baseURL: https://atticus-sullivan.github.io/sim-ayto/
 languagecode: en-us
 theme: ["hugo-book"]
 
@@ -7,7 +7,7 @@ enableEmoji: true
 
 params:
   BookTheme: 'auto'
-  BookRepo: 'https://github.com/atticus-sullivan/testing-pages'
+  BookRepo: 'https://github.com/atticus-sullivan/sim-ayto'
   BookSection: '*'
   BookToC: true
   BookDateFormat: 'Jan 2, 2006'
