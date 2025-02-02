@@ -13,7 +13,7 @@ on:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -224,7 +224,7 @@ jobs:
 
       - name: Install dependencies for building assets
         run: |
-          apt install gaphviz python3 python3-pip
+          sudo apt install graphviz python3 python3-pip
           pip install --break-system-packages ansitoimg
 
       - name: Build assets

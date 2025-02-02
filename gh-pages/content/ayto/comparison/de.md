@@ -9,4 +9,14 @@ weight: 1
 # bookSearchExclude: false
 ---
 
-hi
+{{< plot >}}
+{{ .Site.BaseURL }}plot1.html
+{{< /plot >}}
+
+{{< plot >}}
+{{ .Site.BaseURL }}plot2.html
+{{< /plot >}}
+
+{{< plot >}}
+{{ .Site.BaseURL }}plot3.html
+{{< /plot >}}
