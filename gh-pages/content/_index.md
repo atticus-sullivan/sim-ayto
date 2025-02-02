@@ -18,7 +18,7 @@ weight: 1
 | Staffel 3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |
 | Staffel 4 | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |
 | Staffel 5 | :white_check_mark: |                    | :white_check_mark: |                    |
-| Staffel 6 |                    |                    | :white_check_mark: |                    |
+| Staffel 6 | :hourglass:        |                    | :white_check_mark: |                    |
 | Staffel 7 |                    |                    | :white_check_mark: |                    |
 | Staffel 8 |                    |                    | :white_check_mark: |                    |
 | Staffel 9 |                    |                    | :white_check_mark: |                    |

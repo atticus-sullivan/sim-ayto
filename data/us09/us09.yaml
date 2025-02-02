@@ -1,6 +1,10 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+frontmatter:
+  title: 'US Staffel 9'
+  weight: 1
+
 tree_gen: true
 
 # rule_set: !SomeoneIsDup
