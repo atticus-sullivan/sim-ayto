@@ -1,6 +1,10 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+frontmatter:
+  title: 'DE Staffel 6'
+  weight: 1
+
 tree_gen: false
 
 # rule_set: !SomeoneIsDup
@@ -8,6 +12,18 @@ rule_set: !FixedDup Tori
 # rule_set: !Eq
 
 setA:
+  - Danish
+  - Dino
+  - Dion
+  - Enes
+  - Josh
+  - Joshua
+  - Kaan
+  - Levin
+  - Sinan
+  - Tano
+
+setB:
   - Anna
   - Camelia
   - Chiara
@@ -20,23 +36,12 @@ setA:
   - Sophia
   - Tori
 
-setB:
-  - Danish
-  - Dino
-  - Dion
-  - Enes
-  - Josh
-  - Joshua
-  - Kaan
-  - Levin
-  - Sinan
-  - Tano
-
 constraints:
   - type: !Box {num: 1, comment: "E01"}
     check: !Lights [0]
     map:
-      Anna: Danish
+      Danish: Anna
+
 
   # - type: !Night {num: 1, comment: "E01"}
   #   check: !Lights [2]

@@ -63,8 +63,13 @@ module:
     - source: ../data/de05/de05.md
       target: content/ayto/de/05.md
 
+    - source: ../data/de06/de06.md
+      target: content/ayto/de/06.md
+
+
     - source: ../data/uk01/uk01.md
       target: content/ayto/uk/01.md
+
 
     - source: ../data/us01/us01.md
       target: content/ayto/us/01.md
@@ -92,6 +97,7 @@ module:
 
     - source: ../data/us09/us09.md
       target: content/ayto/us/09.md
+
 
     - source: ../data/de01r/de01r.md
       target: content/ayto/de-rsil/01.md
