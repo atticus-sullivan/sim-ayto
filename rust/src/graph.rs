@@ -28,7 +28,25 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
     let palette = PALETTE.frappe;
 
     let layout = Layout::new()
+
+        .paper_background_color(palette.colors.base.hex.to_string())
         .plot_background_color(palette.colors.base.hex.to_string())
+        .font(plotly::common::Font::new().color(palette.colors.text.hex.to_string()))
+        .colorway(vec![
+            palette.colors.blue.hex.to_string(),
+            palette.colors.yellow.hex.to_string(),
+            palette.colors.green.hex.to_string(),
+            palette.colors.red.hex.to_string(),
+            palette.colors.mauve.hex.to_string(),
+            palette.colors.rosewater.hex.to_string(),
+            palette.colors.pink.hex.to_string(),
+            palette.colors.peach.hex.to_string(),
+            palette.colors.maroon.hex.to_string(),
+            palette.colors.teal.hex.to_string(),
+            palette.colors.sapphire.hex.to_string(),
+        ])
+
+
         .hover_mode(plotly::layout::HoverMode::X)
         .click_mode(plotly::layout::ClickMode::Event)
         .drag_mode(plotly::layout::DragMode::Pan)
@@ -41,11 +59,22 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
             .title("Matchingnight / matching ceremony")
             .x_axis(
                 plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+
                     .title(Title::with_text("#MB"))
                     .mirror(true)
                     .show_line(true),
             )
-            .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))),
+            .y_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+
+                    .title(Title::with_text("I [bit]"))
+            ),
     );
     plots[1].set_layout(
         layout
@@ -53,11 +82,22 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
             .title("Matchbox / truth booth")
             .x_axis(
                 plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+
                     .title(Title::with_text("#MN"))
                     .mirror(true)
                     .show_line(true),
             )
-            .y_axis(plotly::layout::Axis::new().title(Title::with_text("I [bit]"))),
+            .y_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+
+                    .title(Title::with_text("I [bit]"))
+            ),
     );
     plots[2].set_layout(
         layout
@@ -65,11 +105,22 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
             .title("Left possibilities")
             .x_axis(
                 plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+
                     .title(Title::with_text("#MB/#MN"))
                     .mirror(true)
                     .show_line(true),
             )
-            .y_axis(plotly::layout::Axis::new().title(Title::with_text("H [bit]"))),
+            .y_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+
+                    .title(Title::with_text("H [bit]"))
+            ),
     );
 
     for p in &mut plots {
@@ -153,11 +204,10 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
         .map(|i| i.to_inline_html(None))
         .fold(String::new(), |a, b| a + &b);
     let complete_html = format!(
-        r#"
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    {}
+        r#"<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{}
 "#,
         dat
     );
