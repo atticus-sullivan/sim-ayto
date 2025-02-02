@@ -30,7 +30,7 @@ INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
 MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) stats_de.html stats_us.html graph
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) graph
 
 GENARGS ?= --transpose -c
 
@@ -128,14 +128,14 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
-	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "$(basename $<)" $(ANSITOIMG_SUFFIX)
+	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml)" $(ANSITOIMG_SUFFIX)
 	@date
 
 
-graph: stats_de.html stats_us.html
+graph: gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
 
-stats_us.html stats_de.html: rust/target/release/ayto $(wildcard data/*/*.csv)
-	./rust/target/release/ayto graph ./stats_de.html ./stats_us.html
+gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md: rust/target/release/ayto $(wildcard data/*/*.csv)
+	./rust/target/release/ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
 
 rust/target/release/ayto: ./rust/src/*
 	make -C rust buildRelease
