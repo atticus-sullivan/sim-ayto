@@ -272,6 +272,8 @@ jobs:
           chmod +x ./ayto
           ./ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
 
       - name: Build with Hugo
         env:

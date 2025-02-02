@@ -207,8 +207,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool) -> Result<String> {
         r#"<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-{}
-"#,
+{}"#,
         dat
     );
     Ok(complete_html)
