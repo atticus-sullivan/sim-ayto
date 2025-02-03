@@ -30,10 +30,13 @@ Staffeln im Vergleich mit enthalten.
 
 # Informationen zur Darstellung
 
-
 Für jede Staffel ist der gesamte Verlauf der Staffeln zu sehen. Damit
 ist gemeint welche Informationen gesammelt wurden und was das für die noch
 verbleibenden Möglichkeiten bedeutet.
+
+*Baum* zeigt die genauen Matchings an, die noch möglich sind. Dies ist aber erst
+sinnvoll wenn es nicht mehr all zu viele Möglichkeiten gibt. Außerdem kann hier
+nur der aktuellste Stand dargestellt werden und keine Historie.
 
 ## Infos zu Spoilern
 Die Seiten sind immer so aufgebaut, dass man explizit ausklappen muss was man
@@ -44,17 +47,10 @@ Matchingnights es in welcher Folge gab).
 Ausklappbare Abschnitte mit besonderer Spoilergefahr (aktueller Stand und
 gesamter Verlauf bis hier her) sind explizit mit einem :warning: gekennzeichnet.
 
-1. Dieser Verlauf ist einmal als großes Bild (um die Ausgabe auf einfache Art und
-Weise einfärben zu können) und als reiner Text verlinkt.
-<br>
-Da der gesamte Verlauf enthalten ist und man eh nach unten scrollen muss, ist die
-Spoilergefahr hier vielleicht nicht ganz so hoch.
-2. (in 1. enthalten)
-3. Zusätzlich gibt es jeweils noch die *aktuelle* Tabelle (**Achtung SPOILERGEFAHR!!!**).
-4. Außerdem noch der aktuelle Baum mit den *noch verbleibenden* Möglichkeiten (Achtung
-**SPOILERGEFAHR!!!**), sofern im aktuellen Stadium sinnvoll.
+Was der aktuellste Stand gerade ist kann man immer nachschauen, indem man bei
+*Einzelne Tabellen* schaut was der letzte Eintrag gerade ist.
 
-## Bei Vergleichen
+## Zu den Vergleichen
 - das `- W` bzgl `- L` am Ende in der Legende steht dafür, ob der Cast in der
 Staffel gewonnen (*win* `- W`) oder verloren hat (*loose* `- L`)
 
