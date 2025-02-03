@@ -130,8 +130,8 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	# colored output
 	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml)" $(ANSITOIMG_SUFFIX)
 	# tree if available
-	test ! -e "$(basename $<).dot" || dot -Tpng -o "$(basename $<).dot" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).png"
-	test ! -e "$(basename $<).dot" || dot -Tpdf -o "$(basename $<).dot" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).pdf"
+	test ! -e "$(basename $<).dot" || dot -Tpng -o "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).png" "$(basename $<).dot"
+	test ! -e "$(basename $<).dot" || dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).pdf" "$(basename $<).dot"
 	@date
 
 
