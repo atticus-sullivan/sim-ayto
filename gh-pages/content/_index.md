@@ -30,9 +30,18 @@ Staffeln im Vergleich mit enthalten.
 
 # Informationen zur Darstellung
 
-In den verlinkten Dateien ist primär der Verlauf der Staffeln zu sehen. Damit
+Für jede Staffel ist der gesamte Verlauf der Staffeln zu sehen. Damit
 ist gemeint welche Informationen gesammelt wurden und was das für die noch
 verbleibenden Möglichkeiten bedeutet.
+
+## Infos zu Spoilern
+Die Seiten sind immer so aufgebaut, dass man explizit ausklappen muss was man
+sich ansehen möchte. Einzig was es für "Events" in der Folge gab ist
+standardmäßig auf der Seite zu sehen (also ob/wieviele Matchboxen /
+Matchingnights es in welcher Folge gab).
+
+Ausklappbare Abschnitte mit besonderer Spoilergefahr (aktueller Stand und
+gesamter Verlauf bis hier her) sind explizit mit einem :warning: gekennzeichnet.
 
 1. Dieser Verlauf ist einmal als großes Bild (um die Ausgabe auf einfache Art und
 Weise einfärben zu können) und als reiner Text verlinkt.
