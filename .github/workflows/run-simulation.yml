@@ -272,9 +272,9 @@ jobs:
             # Generate pictures using your Python script
             python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
-            if [[ -e "${output_dir}/${sim}.dot" ]]; then
-              dot -Tpdf -o "${output_dir}/${sim}.dot" "${output_dir}/${sim}.pdf"
-              dot -Tpng -o "${output_dir}/${sim}.dot" "${output_dir}/${sim}.png"
+            if [[ -e "./data/${sim}/${sim}.dot" ]]; then
+              dot -Tpdf -o "./data/${sim}/${sim}.dot" "${output_dir}/${sim}.pdf"
+              dot -Tpng -o "./data/${sim}/${sim}.dot" "${output_dir}/${sim}.png"
             fi
 
             echo "Pictures generated for ${sim}"
