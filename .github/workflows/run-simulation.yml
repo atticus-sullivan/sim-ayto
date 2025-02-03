@@ -239,6 +239,8 @@ jobs:
         with:
           ref: build
 
+      - run: ls "./data/${{ matrix.sim }}/${{ matrix.sim }}.col.out"
+
       - name: Cache generated picture for ${{ matrix.sim }}
         uses: actions/cache@v3
         with:
