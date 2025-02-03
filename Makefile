@@ -129,6 +129,9 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
 	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml)" $(ANSITOIMG_SUFFIX)
+	# tree if available
+	test ! -e "$(basename $<).dot" || dot -Tpng -o "$(basename $<).dot" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).png"
+	test ! -e "$(basename $<).dot" || dot -Tpdf -o "$(basename $<).dot" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).pdf"
 	@date
 
 

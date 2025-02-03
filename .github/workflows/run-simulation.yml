@@ -273,8 +273,8 @@ jobs:
             python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
             if [[ -e "./data/${sim}/${sim}.dot" ]]; then
-              dot -Tpdf -o "./data/${sim}/${sim}.dot" "${output_dir}/${sim}.pdf"
-              dot -Tpng -o "./data/${sim}/${sim}.dot" "${output_dir}/${sim}.png"
+              dot -Tpdf -o "${output_dir}/${sim}.pdf" "./data/${sim}/${sim}.dot"
+              dot -Tpng -o "${output_dir}/${sim}.png" "./data/${sim}/${sim}.dot"
             fi
 
             echo "Pictures generated for ${sim}"
