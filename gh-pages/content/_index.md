@@ -84,7 +84,11 @@ Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das
 ganze kommt aus der Informationstheorie.
 
 `I[l/bits]`: Zeigt an wieviel Information mit dieser Entscheidung gewonnen wird
-angenommen die jeweilige Anzahl an Lichtern leuchten. Mittels $2^{-I}$ kann man
+angenommen die jeweilige Anzahl an Lichtern leuchten. Mittels
+{{< katex >}}
+2^{-I}
+{{< /katex >}}
+kann man
 falls gewünscht auf die Wahrscheinlichkeit zurückrechnen.
 
 `E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
