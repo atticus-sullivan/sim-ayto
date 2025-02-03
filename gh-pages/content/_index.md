@@ -9,7 +9,7 @@ weight: 1
 # bookSearchExclude: false
 ---
 
-# Übersicht
+## Übersicht
 
 | Format     | AYTO DE                           | AYTO DE RSIL                           | AYTO US                           | AYTO UK                           |
 | ----       | :--:                              | :--:                                   | :---:                             | :---:                             |
@@ -28,7 +28,7 @@ weight: 1
 Da es nur eine *UK* Staffel gibt bislang, ist diese Staffel bei den *US*
 Staffeln im Vergleich mit enthalten.
 
-# Informationen zur Darstellung
+## Informationen zur Darstellung
 
 Für jede Staffel ist der gesamte Verlauf der Staffeln zu sehen. Damit
 ist gemeint welche Informationen gesammelt wurden und was das für die noch
@@ -38,7 +38,7 @@ verbleibenden Möglichkeiten bedeutet.
 sinnvoll wenn es nicht mehr all zu viele Möglichkeiten gibt. Außerdem kann hier
 nur der aktuellste Stand dargestellt werden und keine Historie.
 
-## Infos zu Spoilern
+### Infos zu Spoilern
 Die Seiten sind immer so aufgebaut, dass man explizit ausklappen muss was man
 sich ansehen möchte. Einzig was es für "Events" in der Folge gab ist
 standardmäßig auf der Seite zu sehen (also ob/wieviele Matchboxen /
@@ -53,11 +53,11 @@ gesamter Verlauf bis hier her) sind explizit mit einem :warning: gekennzeichnet.
 Was der aktuellste Stand gerade ist kann man immer nachschauen, indem man bei
 *Einzelne Tabellen* schaut was der letzte Eintrag gerade ist.
 
-## Zu den Vergleichen
+### Zu den Vergleichen
 - das `- W` bzgl `- L` am Ende in der Legende steht dafür, ob der Cast in der
 Staffel gewonnen (*win* `- W`) oder verloren hat (*loose* `- L`)
 
-# Noch mehr Details
+## Noch mehr Details
 
 {{% details "Klicke hier für mehr" %}}
 Im Anschluss sind noch ein paar mehr Erklärungen zu den Ausgaben zu finden. Für
@@ -72,7 +72,7 @@ Ebenso findet ihr dort auch eine Möglichkeit
 und auf
 [Bugs/Fehler hinzuweisen](https://github.com/atticus-sullivan/sim-ayto/issues).
 
-## Normale Ausgaben
+### Normale Ausgaben
 Vor der jeweiligen Tabelle kommt immer nochmal was genau als
 Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer
 auf die **Episode in der das ganze aufgelöst wurde**. Bei den MNs steht vor dem
@@ -91,7 +91,7 @@ falls gewünscht auf die Wahrscheinlichkeit zurückrechnen.
 
 `E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
 
-### Reguläre Tabellen
+#### Reguläre Tabellen
 Die **Schrift**farbe ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
 dieses Match ist (unter 1% rot, ab 45% gelb, ab 55% cyan, ab 80% grün).
 
@@ -102,7 +102,7 @@ wahrscheinlichsten ist.
 Spalte/Zeile das ist am wahrscheinlichsten.
 
 
-### Zusammenfassende Tabelle am Ende
+#### Zusammenfassende Tabelle am Ende
 Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein
 Stern in dieser Tabelle bedeutet, dass das Match das erste mal so zusammensaß.
 Eine kleine Übersicht über die nicht so intuitiven Spalten:
@@ -113,7 +113,7 @@ Eine kleine Übersicht über die nicht so intuitiven Spalten:
 diese Spalte zeigt welche ander MN am ähnlichsten dieser ist (und wie ähnlich
 sie ist). In der erste MN kann dies natürlich noch nicht bestimmt werden.
 
-## Baum
+### Baum
 Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
 immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
 Person aus SetB zu der fixen Person aus SetA.

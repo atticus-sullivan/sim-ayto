@@ -314,26 +314,26 @@ impl Game {
 
         let stem = &self.stem;
 
-        writeln!(out, "# Aktuell\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "## Aktuell\n:warning: Achtung Spoilergefahr :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}_tab.png)")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}_sum.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
-        writeln!(out, "# Einzelne Tabellen")?;
+        writeln!(out, "## Einzelne Tabellen")?;
         for (name,idx) in md_tables.iter() {
             writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
             writeln!(out, "![](/sim-ayto/{stem}/{stem}_{idx}.png)")?;
             writeln!(out, "{{{{% /details %}}}}")?;
         }
 
-        writeln!(out, "# Alle zusammen\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "## Alle zusammen\n:warning: Achtung Spoilergefahr :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}.col.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         if self.tree_gen {
-            writeln!(out, "# Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
+            writeln!(out, "## Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
             writeln!(out, "{{{{% details \"\" %}}}}")?;
             writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
             writeln!(out, "{{{{% /details %}}}}")?;
