@@ -149,11 +149,6 @@ jobs:
           git config --global user.email "updater@example.com"
           git merge --no-ff main
 
-      - name: install dependencies
-        if: ${{ matrix.sim != '' }}
-        run: |
-          sudo apt install graphviz
-
       - name: Download the built tool artifact
         if: ${{ matrix.sim != '' }}
         uses: actions/download-artifact@v4
@@ -190,6 +185,7 @@ jobs:
           path: |
             ${{ env.STEM }}.col.out
             ${{ env.STEM }}.md
+            ${{ env.STEM }}.dot
             ${{ env.STEMD }}/statInfo.csv
             ${{ env.STEMD }}/statMB.csv
             ${{ env.STEMD }}/statMN.csv
@@ -293,6 +289,11 @@ jobs:
             # Generate pictures using your Python script
             python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
+            if [[ -e "${output_dir}/${sim}.dot" ]]; then
+              dot -Tpdf -o "${output_dir}/${sim}.dot" "${output_dir}/${sim}.pdf"
+              dot -Tpng -o "${output_dir}/${sim}.dot" "${output_dir}/${sim}.png"
+            fi
+
             echo "Pictures generated for ${sim}"
           else
             echo "Skipping ${sim} as pictures already exist."
@@ -304,6 +305,7 @@ jobs:
           name: pictures-${{ matrix.sim }}
           path: |
             ./gh-pages/static/${{ matrix.sim }}/*.png
+            ./gh-pages/static/${{ matrix.sim }}/*.pdf
             ./gh-pages/static/.gitkeep
 
   generate-site:

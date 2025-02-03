@@ -295,28 +295,6 @@ impl Game {
                 &(constr[constr.len() - 1].type_str() + " / " + constr[constr.len() - 1].comment()),
                 &mut File::create(dot_path.clone())?,
             )?;
-
-            let pdf_path = dot_path.with_extension("pdf");
-            Command::new("dot")
-                .args([
-                    "-Tpdf",
-                    "-o",
-                    pdf_path.to_str().context("pdf_path failed")?,
-                    dot_path.to_str().context("dot_path failed")?,
-                ])
-                .output()
-                .expect("dot command failed");
-
-            let png_path = dot_path.with_extension("png");
-            Command::new("dot")
-                .args([
-                    "-Tpng",
-                    "-o",
-                    png_path.to_str().context("png_path failed")?,
-                    dot_path.to_str().context("dot_path failed")?,
-                ])
-                .output()
-                .expect("dot command failed");
         }
 
         self.do_statistics(is.total as f64, &constr)?;
@@ -355,10 +333,12 @@ impl Game {
         writeln!(out, "![](/sim-ayto/{stem}/{stem}.col.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
-        writeln!(out, "# Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
-        writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
-        writeln!(out, "{{{{% /details %}}}}")?;
+        if self.tree_gen {
+            writeln!(out, "# Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
+            writeln!(out, "{{{{% details \"\" %}}}}")?;
+            writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
+            writeln!(out, "{{{{% /details %}}}}")?;
+        }
 
         Ok(())
     }
