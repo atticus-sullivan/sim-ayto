@@ -363,6 +363,7 @@ impl Game {
         Ok(())
     }
 
+
     fn do_statistics(&self, total: f64, merged_constraints: &Vec<Constraint>) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
         let out_mn_path = self.dir.join("statMN").with_extension("csv");
