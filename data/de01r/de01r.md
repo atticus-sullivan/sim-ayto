@@ -3,13 +3,13 @@ title: DE RSIL Staffel 1
 weight: 1
 
 ---
-# Aktuell
+## Aktuell
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de01r/de01r_tab.png)
 ![](/sim-ayto/de01r/de01r_sum.png)
 {{% /details %}}
-# Einzelne Tabellen
+## Einzelne Tabellen
 {{% details "Anfangsverteilung" %}}
 ![](/sim-ayto/de01r/de01r_0.png)
 {{% /details %}}
@@ -73,12 +73,12 @@ weight: 1
 {{% details "MN#10.0 E20" %}}
 ![](/sim-ayto/de01r/de01r_20.png)
 {{% /details %}}
-# Alle zusammen
+## Alle zusammen
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de01r/de01r.col.png)
 {{% /details %}}
-# Aktuellster Baum
+## Aktuellster Baum
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de01r/de01r.png)

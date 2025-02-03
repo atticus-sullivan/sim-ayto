@@ -3,13 +3,13 @@ title: DE RSIL Staffel 3
 weight: 1
 
 ---
-# Aktuell
+## Aktuell
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de03r/de03r_tab.png)
 ![](/sim-ayto/de03r/de03r_sum.png)
 {{% /details %}}
-# Einzelne Tabellen
+## Einzelne Tabellen
 {{% details "Anfangsverteilung" %}}
 ![](/sim-ayto/de03r/de03r_0.png)
 {{% /details %}}
@@ -73,12 +73,12 @@ weight: 1
 {{% details "MN#10.0 E22" %}}
 ![](/sim-ayto/de03r/de03r_20.png)
 {{% /details %}}
-# Alle zusammen
+## Alle zusammen
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de03r/de03r.col.png)
 {{% /details %}}
-# Aktuellster Baum
+## Aktuellster Baum
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de03r/de03r.png)

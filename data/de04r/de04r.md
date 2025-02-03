@@ -3,13 +3,13 @@ title: DE RSIL Staffel 4
 weight: 1
 
 ---
-# Aktuell
+## Aktuell
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de04r/de04r_tab.png)
 ![](/sim-ayto/de04r/de04r_sum.png)
 {{% /details %}}
-# Einzelne Tabellen
+## Einzelne Tabellen
 {{% details "Anfangsverteilung" %}}
 ![](/sim-ayto/de04r/de04r_1.png)
 {{% /details %}}
@@ -67,12 +67,12 @@ weight: 1
 {{% details "MN#8.0 E20" %}}
 ![](/sim-ayto/de04r/de04r_19.png)
 {{% /details %}}
-# Alle zusammen
+## Alle zusammen
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de04r/de04r.col.png)
 {{% /details %}}
-# Aktuellster Baum
+## Aktuellster Baum
 :warning: Achtung Spoilergefahr :warning:
 {{% details "" %}}
 ![](/sim-ayto/de04r/de04r.png)
