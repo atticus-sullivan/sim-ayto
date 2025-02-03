@@ -240,6 +240,7 @@ jobs:
           ref: build
 
       - run: ls "./data/${{ matrix.sim }}/${{ matrix.sim }}.col.out"
+      - run: echo "${{ hashFiles('./data/${{ matrix.sim }}/${{ matrix.sim }}.col.out') }}"
 
       - name: Cache generated picture for ${{ matrix.sim }}
         uses: actions/cache@v3
