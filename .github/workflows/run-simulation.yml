@@ -91,7 +91,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: rust/target
-          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock', 'rust/**') }} }}
+          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock', 'rust/src/**') }} }}
           restore-keys: |
             ${{ runner.os }}-cargo-build-
 
@@ -103,12 +103,8 @@ jobs:
       - name: Build rust
         run: |
           cd rust
-          if [[ ! -f target/release/ayto ]] ; then
-            cargo build --release
-            # RUSTFLAGS="-C target-cpu=skylake" cargo build --settings profile.release.codegen-units=1 --settings profile.release.lto=true --release
-          else
-            echo "cache hit"
-          fi
+          cargo build --release
+          # RUSTFLAGS="-C target-cpu=skylake" cargo build --settings profile.release.codegen-units=1 --settings profile.release.lto=true --release
 
       - name: Upload the executable
         id: upload-artifact
@@ -149,11 +145,6 @@ jobs:
           git config --global user.email "updater@example.com"
           git merge --no-ff main
 
-      - name: install dependencies
-        if: ${{ matrix.sim != '' }}
-        run: |
-          sudo apt install graphviz
-
       - name: Download the built tool artifact
         if: ${{ matrix.sim != '' }}
         uses: actions/download-artifact@v4
@@ -190,6 +181,7 @@ jobs:
           path: |
             ${{ env.STEM }}.col.out
             ${{ env.STEM }}.md
+            ${{ env.STEM }}.dot
             ${{ env.STEMD }}/statInfo.csv
             ${{ env.STEMD }}/statMB.csv
             ${{ env.STEMD }}/statMN.csv
@@ -267,7 +259,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./gh-pages/static/${{ matrix.sim }}
-          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('/data/${{ matrix.sim }}/${{ matrix.sim }}.col.out') }}
+          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('./data/${{ matrix.sim }}/${{ matrix.sim }}.col.out') }}
           restore-keys: |
             ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-
 
@@ -293,6 +285,11 @@ jobs:
             # Generate pictures using your Python script
             python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
+            if [[ -e "${output_dir}/${sim}.dot" ]]; then
+              dot -Tpdf -o "${output_dir}/${sim}.dot" "${output_dir}/${sim}.pdf"
+              dot -Tpng -o "${output_dir}/${sim}.dot" "${output_dir}/${sim}.png"
+            fi
+
             echo "Pictures generated for ${sim}"
           else
             echo "Skipping ${sim} as pictures already exist."
@@ -304,6 +301,7 @@ jobs:
           name: pictures-${{ matrix.sim }}
           path: |
             ./gh-pages/static/${{ matrix.sim }}/*.png
+            ./gh-pages/static/${{ matrix.sim }}/*.pdf
             ./gh-pages/static/.gitkeep
 
   generate-site:
