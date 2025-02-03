@@ -30,6 +30,7 @@ Staffeln im Vergleich mit enthalten.
 
 # Informationen zur Darstellung
 
+
 Für jede Staffel ist der gesamte Verlauf der Staffeln zu sehen. Damit
 ist gemeint welche Informationen gesammelt wurden und was das für die noch
 verbleibenden Möglichkeiten bedeutet.
