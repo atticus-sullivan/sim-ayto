@@ -5,75 +5,7 @@ Berechnet die noch verfügbaren Möglichkeiten
 
 # Ergebnisse
 
-Auf [atticus-sullivan.github.io/sim-ayto/](https://atticus-sullivan.github.io/sim-ayto/) findet ihr die Ergebnisse am einfachsten zugänglich.
-
-> [!NOTE]
-> Funktioniert noch, mittlerweile geht es aber auch einfacher.
->
-> Der Abschnitt `Ausgabe-Dateien` ist dennoch möglicherweise interessant um das
-> Format / die Informationen in den Ausgabedateien zu verstehen.
-
-<details><summary>Um die Ergebnisse direkt hier anzusehen (aktuell sind aber teils einfach nur ein paar mehr Dateiformate und Hilfsdateien verfügbar, allgemein ist dies vor allem aber immer up-to-date wenn neue Staffeln hinzukommen), muss man zunächst auf den `build` branch wechseln:</summary>
-
-<img src="img/switch_branch.png" width="800">
-
-Anschließend finden sich in den Ordnern der jeweiligen Staffel die Ausgabedateien
-
-</details>
-
-## Ausgabe-Dateien
-<details><summary>Auflistung der (für die meisten) interessanten Ausgabedateien:</summary>
-
-<img src="img/output_files.png" width="800">
-
-### 1. `<Staffel>_tab.png`
-ganz klassisch die Tabelle mit den noch übrigen Möglichkeiten
-
-#### Farben
-Die *Schrift*farbe ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
-dieses Match ist (unter 1% rot, ab 45% gelb, ab 55 cyan, ab 80% grün).
-
-Die *Hintergrund*farbe zeigt an welche Person(en) für eine andere Person am
-wahrscheinlichsten ist.
-- leicht *grüner* Hintergrund: Match ist für beide Personen am wahrscheinlichsten
-- *leicht roter*/*hellgrauer* Hintergrund: Match ist für die Person deren Spalte/Zeile das ist am wahrscheinlichsten.
-
-### 2. `<Staffel>.txt`
-Hier findet man die meisten Informationen (u.A. auch der komplette bisherige Verlauf der Tabellen). Bzgl der Farben in den Verlaufs-Tabellen siehe 1.)
-
-Vor der jeweiligen Tabelle kommt immer nochmal was genau als Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer auf die Episode in der das ganze aufgelöst wurde.
-
-Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele Möglichkeiten noch übrig sind) ist der Versuch einzuschätzen wie viel eine Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das ganze kommt aus der Informationstheorie.
-
-`I[l/bits]`: Zeigt an wieviel Information mit dieser Entscheidung gewonnen wird angenommen die jeweilige Anzahl an Lichtern leuchten. Mittels $2^{-I}$ kann man falls gewünscht auf die Wahrscheinlichkeit zurückrechnen.
-
-`E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
-
-Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein Stern in dieser Tabelle bedeutet, dass das Match das erste mal so zusammensaß. Eine kleine Übersicht über die nicht so intuitiven Spalten:
-- `L` die Anzahl der Lichter
-- `I` siehe oben
-- `new` zählt wie viele Matches so in noch keiner MN zusammensaßen
-- `min dist` als distanz wird die Anzahl unterschiedlicher Matches betrachtet, diese Spalte zeigt welche ander MN am ähnlichsten dieser ist (und wie ähnlich sie ist). In der erste MN kann dies natürlich noch nicht bestimmt werden.
-
-### 3. `<Staffel>.col.png`
-Dasselbe wie 2. aber die Tabellen in Farbe.
-
-### 4./5. `<Staffel>.pdf` `<Staffel>.png`
-Zeigt den Baum mit den noch verbliebenen Möglichkeiten an. Ist nur sinnvoll wenn nicht mehr so viele Möglichkeiten übrig sind (und kann auch nur dann generiert werden).
-
-Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
-immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
-Person aus SetB zu der fixen Person aus SetA.
-
-Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
-Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
-die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
-nach unten ansteigt.
-
-### `stats.html`
-Diese Datei liegt direkt im Hauptverzeichnis und enthält ein paar Statistiken um die Staffeln (basierend auf dem Informationsgewinn durch eine Matchox/einer Matchingnight und der Entropie) zu vergleichen. Am einfachsten kann man sich die Datei auf der [github.io](https://atticus-sullivan.github.io/sim-ayto/stats.html) Seite anschauen
-
-</details>
+Auf [atticus-sullivan.github.io/sim-ayto/](https://atticus-sullivan.github.io/sim-ayto/) findet ihr die Ergebnisse der Berechnungen.
 
 # Selbst rumprobieren
 Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspielen
@@ -87,13 +19,15 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
    <br>
    <img src="img/fork.png" width="800">
    
-4. Hier kommt noch eine Seite dazwischen, da könnt ihr z.B. dem Projekt nen andren Namen geben unter dem es bei euch laufen soll. Wichtig dabei ist, dass ihr den Haken bei `copy main branch only` wegmacht.
+4. Hier kommt noch eine Seite dazwischen, da könnt ihr z.B. dem Projekt nen andren Namen geben unter dem es bei euch laufen soll. Wichtig dabei ist, dass ihr den Haken bei `copy main branch only` **wegmacht**.
    <br>
    <img src="img/fork2.png" width="400">
    
 6. Github actions aktivieren (das ist der Mechanismus, der die Ergebnisse automatisch generiert)
    <br>
    <img src="img/enable-actions.png" width="800">
+
+7. Github pages aktiviern und github actions als Quelle auswählen
 
 8. Ab jetzt ist alles fertig eingerichtet und sobald ihr eine Datei in dem Projekt ändert, werden die entsprechenden Ergebnisse automatisch generiert.
 
@@ -128,9 +62,6 @@ Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspiele
     Wenn anstelle des grünen Hakens ein rotes X ist, ist beim generieren etwas schief gelaufen und ihr könnt wie in 8. beschrieben nachschaunen was genau das Problem war.
     <br>
     Die Ergebnisse könnt ihr euch jetzt wie oben unter [Ergebnisse](#Ergebnisse) beschrieben anschauen.
-
-> [!NOTE]
-> Der ganze github.io teil, erfordert noch weitere Einrichtungsschritte.
 
 </details>
 
