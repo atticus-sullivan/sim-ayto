@@ -1,5 +1,5 @@
 ---
-title: 'Comparison'
+title: 'Vergleich'
 # bookFlatSection: false
 # bookToc: true
 # bookHidden: false
