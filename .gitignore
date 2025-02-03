@@ -1,17 +1,12 @@
 .*
 
 *.pdf
-*.out
 *.txt
 *.png
-*.csv
 *.html
 
-*.dot
 *.xopp
 
 local_workflow.bash
 gh.bash
 *.conf
-
-data/**/*.md
