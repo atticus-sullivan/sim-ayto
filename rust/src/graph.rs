@@ -25,10 +25,13 @@ use catppuccin::PALETTE;
 use crate::constraint::{CSVEntry, CSVEntryMB};
 
 pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<String> {
-    let palette = if theme == 0 {
-        PALETTE.frappe
-    } else {
-        PALETTE.latte
+    let palette = match theme {
+        1 => PALETTE.latte,
+        2 => PALETTE.frappe,
+        3 => PALETTE.macchiato,
+        4 => PALETTE.mocha,
+
+        _ => PALETTE.frappe,
     };
 
     let layout = Layout::new()
@@ -54,7 +57,10 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         .hover_mode(plotly::layout::HoverMode::X)
         .click_mode(plotly::layout::ClickMode::Event)
         .drag_mode(plotly::layout::DragMode::Pan)
-        .height(800);
+        .margin(plotly::layout::Margin::new().auto_expand(true))
+        .auto_size(true);
+        // .width(1000)
+        // .height(800);
 
     let mut plots = [Plot::new(), Plot::new(), Plot::new()];
     plots[0].set_layout(
@@ -131,6 +137,8 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         p.set_configuration(
             plotly::Configuration::new()
                 .display_logo(false)
+                .responsive(true)
+                // .fill_frame(true)
                 .scroll_zoom(true),
         );
     }
@@ -208,10 +216,9 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         .map(|i| i.to_inline_html(None))
         .fold(String::new(), |a, b| a + &b);
     let complete_html = format!(
-        r#"<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-{}"#,
+        r#"<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{}
+<script>window.dispatchEvent(new Event('resize'));</script>"#,
         dat
     );
     Ok(complete_html)

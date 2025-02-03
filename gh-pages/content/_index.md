@@ -11,17 +11,18 @@ weight: 1
 
 # Übersicht
 
-| Format    | AYTO DE            | AYTO DE RSIL       | AYTO US            | AYTO UK            |
-| ----      | :--:               | :--:               | :---:              | :---:              |
-| Staffel 1 | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Staffel 2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |
-| Staffel 3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |
-| Staffel 4 | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |
-| Staffel 5 | :white_check_mark: |                    | :white_check_mark: |                    |
-| Staffel 6 | :hourglass:        |                    | :white_check_mark: |                    |
-| Staffel 7 |                    |                    | :white_check_mark: |                    |
-| Staffel 8 |                    |                    | :white_check_mark: |                    |
-| Staffel 9 |                    |                    | :white_check_mark: |                    |
+| Format     | AYTO DE                           | AYTO DE RSIL                           | AYTO US                           | AYTO UK                           |
+| ----       | :--:                              | :--:                                   | :---:                             | :---:                             |
+| Staffel  1 | [:white_check_mark:](ayto/de/01/) | [:white_check_mark:](ayto/de-rsil/01/) | [:white_check_mark:](ayto/us/01/) | [:white_check_mark:](ayto/uk/01/) |
+| Staffel  2 | [:white_check_mark:](ayto/de/02/) | [:white_check_mark:](ayto/de-rsil/02/) | [:white_check_mark:](ayto/us/02/) |                                   |
+| Staffel  3 | [:white_check_mark:](ayto/de/03/) | [:white_check_mark:](ayto/de-rsil/03/) | [:white_check_mark:](ayto/us/03/) |                                   |
+| Staffel  4 | [:white_check_mark:](ayto/de/04/) | [:white_check_mark:](ayto/de-rsil/04/) | [:white_check_mark:](ayto/us/04/) |                                   |
+| Staffel  5 | [:white_check_mark:](ayto/de/05/) |                                        | [:white_check_mark:](ayto/us/05/) |                                   |
+| Staffel  6 | [:hourglass:       ](ayto/de/06/) |                                        | [:white_check_mark:](ayto/us/06/) |                                   |
+| Staffel  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
+| Staffel  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
+| Staffel  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
+| Staffel 10 |                                   |                                        | [:x:               ]()            |                                   |
 <!-- :x: -->
 
 Da es nur eine *UK* Staffel gibt bislang, ist diese Staffel bei den *US*

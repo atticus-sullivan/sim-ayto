@@ -65,8 +65,10 @@ enum Commands {
         yaml_path: PathBuf,
     },
     Graph {
-        #[arg(short = 't', long = "theme", default_value="0")]
-        theme: u8,
+        #[arg(short = 'l', long = "theme-light", default_value="1")]
+        theme_light: u8,
+        #[arg(short = 'd', long = "theme-dark", default_value="3")]
+        theme_dark: u8,
         html_path_de: PathBuf,
         html_path_us: PathBuf,
     },
@@ -92,21 +94,44 @@ fn main() {
                 .expect("Parsing failed!");
         }
         Commands::Graph {
-            theme,
+            theme_light,
+            theme_dark,
             html_path_de,
             html_path_us,
         } => {
-            let html_content = graph::build_stats_graph(|e| e.starts_with("de"), theme).unwrap();
-            std::fs::write(html_path_de, r#"---
+            let html_content_light = graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
+            let html_content_dark = graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
+            std::fs::write(html_path_de, format!(r#"---
 title: 'DE'
 weight: 1
----"#.to_owned() + &html_content).unwrap();
+bookToc: false
+---
+<div class="theme-specific-content">
+<div class="light-theme-content" style="display: none;" data-theme="light">
+{}
+</div>
+<div class="dark-theme-content" style="display: none;" data-theme="dark">
+{}
+</div>
+</div>
+"#,  &html_content_light, &html_content_dark)).unwrap();
 
-            let html_content = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme).unwrap();
-            std::fs::write(html_path_us, r#"---
+            let html_content_light = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_light).unwrap();
+            let html_content_dark = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_dark).unwrap();
+            std::fs::write(html_path_us, format!(r#"---
 title: 'US + UK'
 weight: 1
----"#.to_owned() + &html_content).unwrap();
+bookToc: false
+---
+<div class="theme-specific-content">
+<div class="light-theme-content" style="display: none;" data-theme="light">
+{}
+</div>
+<div class="dark-theme-content" style="display: none;" data-theme="dark">
+{}
+</div>
+</div>
+"#,  &html_content_light, &html_content_dark)).unwrap();
         }
     }
 }
