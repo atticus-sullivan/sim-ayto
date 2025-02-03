@@ -37,16 +37,16 @@ Jenny → Danilo
 32659200 left -> 24.961 bits left
 
 MN#1.0 E04
-0x Paulina → Steffen  
-0x Jenny   → Elia     
 0x Darya   → Danilo   
-0x Kim     → Mike     
-0x Sabrina → Emanuell 
 0x Sandra  → Paco     
 0x Shakira → Marvin   
+0x Kim     → Mike     
+0x Jenny   → Elia     
 0x Marie   → Fabio    
-0x Steffi  → Teezy    
 0x Alicia  → Peter    
+0x Steffi  → Teezy    
+0x Paulina → Steffen  
+0x Sabrina → Emanuell 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Jenny → Elia
 1384320 left -> 20.4007 bits left
 
 MN#2.0 E06
-0x Jenny   → Marvin   
-0x Paulina → Danilo   
-1x Steffi  → Teezy    
-0x Shakira → Peter    
-0x Alicia  → Steffen  
-0x Darya   → Emanuell 
 1x Marie   → Fabio    
-0x Sandra  → Elia     
-0x Sabrina → Mike     
 0x Kim     → Paco     
+0x Sabrina → Mike     
+0x Sandra  → Elia     
+0x Darya   → Emanuell 
+0x Paulina → Danilo   
+0x Jenny   → Marvin   
+1x Steffi  → Teezy    
+0x Alicia  → Steffen  
+0x Shakira → Peter    
 ---
 -> I[l]/bits: {0: 1.98, 1: 1.44, 2: 2.05, 3: 3.34, 4: 5.08, 5: 7.15, 6: 9.49, 7: 12.38, 8: 14.27}
 -> E[I]/bits: 2.07
@@ -143,16 +143,16 @@ Darya → Elia
 297310 left -> 18.1816 bits left
 
 MN#3.0 E08
-0x Marie   → Elia     
-0x Sabrina → Peter    
 1x Alicia  → Steffen  
-1x Sandra  → Paco     
-0x Shakira → Fabio    
+0x Sabrina → Peter    
 0x Steffi  → Marvin   
-1x Darya   → Danilo   
 0x Kim     → Teezy    
 0x Paulina → Mike     
+1x Darya   → Danilo   
 0x Jenny   → Emanuell 
+1x Sandra  → Paco     
+0x Marie   → Elia     
+0x Shakira → Fabio    
 ---
 -> I[l]/bits: {0: 1.92, 1: 1.41, 2: 2.10, 3: 3.46, 4: 5.27, 5: 7.24, 6: 9.57, 7: 12.27, 8: 13.86}
 -> E[I]/bits: 2.04
@@ -196,16 +196,16 @@ Kim → Mike
 53720 left -> 15.7132 bits left
 
 MN#4.0 E10
-1x Jenny   → Marvin   
+0x Paulina → Max      
 0x Sandra  → Steffen  
-1x Shakira → Fabio    
-0x Kim     → Peter    
-0x Alicia  → Teezy    
 0x Sabrina → Paco     
-0x Steffi  → Emanuell 
 2x Darya   → Danilo   
 1x Marie   → Elia     
-0x Paulina → Max      
+1x Shakira → Fabio    
+1x Jenny   → Marvin   
+0x Kim     → Peter    
+0x Steffi  → Emanuell 
+0x Alicia  → Teezy    
 ---
 -> I[l]/bits: {0: 2.39, 1: 1.40, 2: 1.82, 3: 3.16, 4: 5.08, 5: 7.32, 6: 11.13}
 -> E[I]/bits: 2.06
@@ -249,16 +249,16 @@ Darya → Danilo
 1376 left -> 10.4263 bits left
 
 MN#5.0 E12
-1x Paulina → Mike     
-0x Sandra  → Max      
-2x Jenny   → Marvin   
-1x Sabrina → Emanuell 
-3x Darya   → Danilo   
 2x Marie   → Fabio    
-0x Shakira → Paco     
-2x Alicia  → Steffen  
+0x Sandra  → Max      
 0x Steffi  → Elia     
+1x Sabrina → Emanuell 
+0x Shakira → Paco     
+3x Darya   → Danilo   
+1x Paulina → Mike     
+2x Alicia  → Steffen  
 1x Kim     → Teezy    
+2x Jenny   → Marvin   
 ---
 -> I[l]/bits: {1: 3.23, 2: 1.51, 3: 1.58, 4: 2.86, 5: 4.30, 6: 5.78, 7: 8.43}
 -> E[I]/bits: 2.14
@@ -302,16 +302,16 @@ Alicia → Teezy
 329 left -> 8.3619 bits left
 
 MN#6.0 E14
-1x Sandra  → Steffen  
-1x Sabrina → Peter    
-2x Paulina → Mike     
-2x Kim     → Teezy    
-2x Shakira → Fabio    
-1x Steffi  → Emanuell 
-4x Darya   → Danilo   
-3x Jenny   → Marvin   
 2x Marie   → Elia     
+2x Shakira → Fabio    
+1x Sabrina → Peter    
+4x Darya   → Danilo   
+2x Kim     → Teezy    
 0x Alicia  → Paco     
+2x Paulina → Mike     
+1x Sandra  → Steffen  
+3x Jenny   → Marvin   
+1x Steffi  → Emanuell 
 ---
 -> I[l]/bits: {1: 8.36, 2: 2.81, 3: 1.01, 4: 1.70, 5: 4.27}
 -> E[I]/bits: 1.67
@@ -333,8 +333,8 @@ MN#6.0 E14
 101 left -> 6.6582 bits left
 
 MB#7.0 E15
-Darya  → Max   
 Alicia → Peter 
+Darya  → Max   
 ---
 Eq => I = 2.9578 bits
 ╭─────────┬────────┬────────┬──────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────╮
@@ -355,15 +355,15 @@ Eq => I = 2.9578 bits
 
 MN#7.0 E16
 0x Alicia  → Fabio    
-1x Steffi  → Elia     
 2x Sabrina → Emanuell 
-0x Paulina → Marvin   
-0x Marie   → Steffen  
-5x Darya   → Danilo   
-3x Kim     → Teezy    
-0x Sandra  → Mike     
 0x Shakira → Max      
 0x Jenny   → Paco     
+3x Kim     → Teezy    
+0x Paulina → Marvin   
+0x Sandra  → Mike     
+5x Darya   → Danilo   
+1x Steffi  → Elia     
+0x Marie   → Steffen  
 ---
 -> I[l]/bits: {1: 2.70, 2: 1.12, 3: 2.12, 4: 2.70}
 -> E[I]/bits: 1.83
@@ -407,16 +407,16 @@ Sabrina → Max
 3 left -> 1.585 bits left
 
 MN#8.0 E18 -- Blackout
-0x Sandra  → Fabio    
 0x Steffi  → Mike     
-1x Alicia  → Paco     
-0x Shakira → Steffen  
-3x Sabrina → Emanuell 
+0x Kim     → Max      
+0x Sandra  → Fabio    
 0x Paulina → Teezy    
+6x Darya   → Danilo   
+1x Alicia  → Paco     
 4x Jenny   → Marvin   
 3x Marie   → Elia     
-0x Kim     → Max      
-6x Darya   → Danilo   
+0x Shakira → Steffen  
+3x Sabrina → Emanuell 
 ---
 -> I[l]/bits: {1: 1.58, 6: 1.58, 7: 1.58}
 -> E[I]/bits: 1.58
@@ -460,16 +460,16 @@ Steffi → Emanuell
 1 left -> 0 bits left
 
 MN#9.0 E20
-1x Sabrina → Mike     
-1x Shakira → Marvin   
 0x Jenny   → Max      
+3x Alicia  → Steffen  
+3x Marie   → Fabio    
+1x Shakira → Marvin   
 7x Darya   → Danilo   
 0x Paulina → Paco     
 4x Kim     → Teezy    
-3x Marie   → Fabio    
-3x Alicia  → Steffen  
-2x Steffi  → Emanuell 
 1x Sandra  → Elia     
+2x Steffi  → Emanuell 
+1x Sabrina → Mike     
 ---
 -> I[l]/bits: {6: 0.00}
 -> E[I]/bits: 0.00
@@ -513,16 +513,16 @@ Alicia → Elia
 1 left -> 0 bits left
 
 MN#10.0 E22
-1x Paulina → Max      
-4x Marie   → Fabio    
-2x Sandra  → Steffen  
-3x Steffi  → Emanuell 
-8x Darya   → Danilo   
-0x Alicia  → Elia     
 1x Jenny   → Paco     
-5x Kim     → Teezy    
 2x Shakira → Marvin   
+2x Sandra  → Steffen  
+8x Darya   → Danilo   
+4x Marie   → Fabio    
+5x Kim     → Teezy    
+3x Steffi  → Emanuell 
+0x Alicia  → Elia     
 2x Sabrina → Mike     
+1x Paulina → Max      
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -593,4 +593,4 @@ MN#10.0 E22
 ╰─────────┴────┴──────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.52s
+Ran in 10.24s

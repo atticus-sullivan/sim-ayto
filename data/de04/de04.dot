@@ -1,0 +1,22 @@
+digraph D { labelloc="b"; label="Stand: MN#9 / E21 -- finale"; ranksep=0.8;
+"root/8"[label="Aurelia\nPascal"]
+"root" -> "root/8";
+"root/8/3"[label="Carina\nDeniz"]
+"root/8" -> "root/8/3";
+"root/8/3/7,5"[label="Caro\nMax\nKen"]
+"root/8/3" -> "root/8/3/7,5";
+"root/8/3/7,5/9"[label="Dorna\nSasa"]
+"root/8/3/7,5" -> "root/8/3/7,5/9";
+"root/8/3/7,5/9/6"[label="Henna\nKenneth"]
+"root/8/3/7,5/9" -> "root/8/3/7,5/9/6";
+"root/8/3/7,5/9/6/1"[label="Juliette\nBurim"]
+"root/8/3/7,5/9/6" -> "root/8/3/7,5/9/6/1";
+"root/8/3/7,5/9/6/1/0"[label="Larissa\nBarkin"]
+"root/8/3/7,5/9/6/1" -> "root/8/3/7,5/9/6/1/0";
+"root/8/3/7,5/9/6/1/0/2"[label="Steffi\nChris"]
+"root/8/3/7,5/9/6/1/0" -> "root/8/3/7,5/9/6/1/0/2";
+"root/8/3/7,5/9/6/1/0/2/4"[label="Valeria\nJoel"]
+"root/8/3/7,5/9/6/1/0/2" -> "root/8/3/7,5/9/6/1/0/2/4";
+"root/8/3/7,5/9/6/1/0/2/4/10"[label="Vanessa\nMarwin"]
+"root/8/3/7,5/9/6/1/0/2/4" -> "root/8/3/7,5/9/6/1/0/2/4/10";
+}
