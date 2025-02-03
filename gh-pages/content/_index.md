@@ -101,6 +101,7 @@ wahrscheinlichsten ist.
 - **leicht roter**/**hellgrauer** Hintergrund: Match ist für die Person deren
 Spalte/Zeile das ist am wahrscheinlichsten.
 
+
 ### Zusammenfassende Tabelle am Ende
 Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein
 Stern in dieser Tabelle bedeutet, dass das Match das erste mal so zusammensaß.
