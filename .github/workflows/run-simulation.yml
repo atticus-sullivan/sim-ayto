@@ -91,7 +91,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: rust/target
-          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock', 'rust/**') }} }}
+          key: ${{ runner.os }}-cargo-build-${{ hashFiles('**/Cargo.lock', 'rust/src/**') }} }}
           restore-keys: |
             ${{ runner.os }}-cargo-build-
 
@@ -103,12 +103,8 @@ jobs:
       - name: Build rust
         run: |
           cd rust
-          if [[ ! -f target/release/ayto ]] ; then
-            cargo build --release
-            # RUSTFLAGS="-C target-cpu=skylake" cargo build --settings profile.release.codegen-units=1 --settings profile.release.lto=true --release
-          else
-            echo "cache hit"
-          fi
+          cargo build --release
+          # RUSTFLAGS="-C target-cpu=skylake" cargo build --settings profile.release.codegen-units=1 --settings profile.release.lto=true --release
 
       - name: Upload the executable
         id: upload-artifact
@@ -263,7 +259,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./gh-pages/static/${{ matrix.sim }}
-          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('/data/${{ matrix.sim }}/${{ matrix.sim }}.col.out') }}
+          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('./data/${{ matrix.sim }}/${{ matrix.sim }}.col.out') }}
           restore-keys: |
             ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-
 
