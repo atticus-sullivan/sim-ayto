@@ -267,7 +267,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ./gh-pages/static/${{ matrix.sim }}
-          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('/data/${sim}/${{ matrix.sim }}.col.out') }}
+          key: ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-${{ hashFiles('/data/${{ matrix.sim }}/${{ matrix.sim }}.col.out') }}
           restore-keys: |
             ${{ runner.os }}-generate-pictures-${{ matrix.sim }}-
 
