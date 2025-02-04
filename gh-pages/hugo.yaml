@@ -40,17 +40,13 @@ languages:
     languageCode: de-DE
     languageDirection: ltr
     languageName: Deutsch
-    params:
-      subtitle: Referenz, Tutorials und Erklärungen
     title: AYTO Ergebnisse
     weight: 1
   en:
-    disabled: true
+    disabled: false
     languageCode: en-US
     languageDirection: ltr
     languageName: English
-    params:
-      subtitle: Reference, Tutorials, and Explanations
     title: AYTO Results
     weight: 2
 
@@ -61,6 +57,8 @@ module:
 
     - source: ../data/de01/de01.md
       target: content/ayto/de/01.md
+    - source: ../data/de01/de01.md
+      target: content/ayto/de/01.en.md
 
     - source: ../data/de02/de02.md
       target: content/ayto/de/02.md

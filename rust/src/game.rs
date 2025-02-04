@@ -239,12 +239,12 @@ impl Game {
         if print_transposed {
             self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                 .context("Error printing")?;
-            md_tables.push(("Anfangsverteilung".to_owned(), tab_idx));
+            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx));
             tab_idx += 1;
         } else {
             self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                 .context("Error printing")?;
-            md_tables.push(("Anfangsverteilung".to_owned(), tab_idx));
+            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx));
             tab_idx += 1;
         }
         println!();
@@ -314,26 +314,26 @@ impl Game {
 
         let stem = &self.stem;
 
-        writeln!(out, "## Aktuell\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}_tab.png)")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}_sum.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
-        writeln!(out, "## Einzelne Tabellen")?;
+        writeln!(out, "{{{{% translateHdr \"tab-individual\" %}}}}")?;
         for (name,idx) in md_tables.iter() {
             writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
             writeln!(out, "![](/sim-ayto/{stem}/{stem}_{idx}.png)")?;
             writeln!(out, "{{{{% /details %}}}}")?;
         }
 
-        writeln!(out, "## Alle zusammen\n:warning: Achtung Spoilergefahr :warning:")?;
+        writeln!(out, "{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}.col.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         if self.tree_gen {
-            writeln!(out, "## Aktuellster Baum\n:warning: Achtung Spoilergefahr :warning:")?;
+            writeln!(out, "{{{{% translateHdr \"tree-current\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
             writeln!(out, "{{{{% details \"\" %}}}}")?;
             writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
             writeln!(out, "{{{{% /details %}}}}")?;
