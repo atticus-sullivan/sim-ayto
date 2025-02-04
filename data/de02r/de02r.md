@@ -10,9 +10,9 @@ weight: 1
 ![](/sim-ayto/de02r/de02r_sum.png)
 {{% /details %}}
 {{% translateHdr "tab-individual" %}}
-{{% details "{{% translatedDetails "tab-start" %}}" %}}
+{{% translatedDetails "tab-start" %}}
 ![](/sim-ayto/de02r/de02r_0.png)
-{{% /details %}}
+{{% /translatedDetails %}}
 {{% details "MB#1.0 E03" %}}
 ![](/sim-ayto/de02r/de02r_1.png)
 {{% /details %}}
