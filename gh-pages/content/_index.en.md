@@ -28,7 +28,7 @@ weight: 1
 Since there only was one *UK* season so far, this seson is also included in the
 comparison with the *US* seasons.
 
-{{% hint [info] %}}
+{{% hint info %}}
 In german the "matching ceremonies" are called "Matchingnights" (MN) and the
 "truth booths" are called "Matchboses" (MB).
 So you'll probably find some places where these terms / acronyms are used
