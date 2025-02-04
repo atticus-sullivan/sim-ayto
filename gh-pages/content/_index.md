@@ -114,11 +114,11 @@ diese Spalte zeigt welche ander MN am ähnlichsten dieser ist (und wie ähnlich
 sie ist). In der erste MN kann dies natürlich noch nicht bestimmt werden.
 
 ### Baum
-Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
+Im Baum ist die erste Zeile (entspricht der Person aus SetA) auf einer Ebene
 immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
 Person aus SetB zu der fixen Person aus SetA.
 
-Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
+Bereits sicher feststehende Matches (sei es durch eine Matchbox oder durch
 Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
 die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
 nach unten ansteigt.

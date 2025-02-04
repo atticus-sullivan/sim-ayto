@@ -9,117 +9,120 @@ weight: 1
 # bookSearchExclude: false
 ---
 
-## Übersicht
+## Overview
 
 | Format     | AYTO DE                           | AYTO DE RSIL                           | AYTO US                           | AYTO UK                           |
 | ----       | :--:                              | :--:                                   | :---:                             | :---:                             |
-| Staffel  1 | [:white_check_mark:](ayto/de/01/) | [:white_check_mark:](ayto/de-rsil/01/) | [:white_check_mark:](ayto/us/01/) | [:white_check_mark:](ayto/uk/01/) |
-| Staffel  2 | [:white_check_mark:](ayto/de/02/) | [:white_check_mark:](ayto/de-rsil/02/) | [:white_check_mark:](ayto/us/02/) |                                   |
-| Staffel  3 | [:white_check_mark:](ayto/de/03/) | [:white_check_mark:](ayto/de-rsil/03/) | [:white_check_mark:](ayto/us/03/) |                                   |
-| Staffel  4 | [:white_check_mark:](ayto/de/04/) | [:white_check_mark:](ayto/de-rsil/04/) | [:white_check_mark:](ayto/us/04/) |                                   |
-| Staffel  5 | [:white_check_mark:](ayto/de/05/) |                                        | [:white_check_mark:](ayto/us/05/) |                                   |
-| Staffel  6 | [:hourglass:       ](ayto/de/06/) |                                        | [:white_check_mark:](ayto/us/06/) |                                   |
-| Staffel  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
-| Staffel  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
-| Staffel  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
-| Staffel 10 |                                   |                                        | [:x:               ]()            |                                   |
+| Season  1 | [:white_check_mark:](ayto/de/01/) | [:white_check_mark:](ayto/de-rsil/01/) | [:white_check_mark:](ayto/us/01/) | [:white_check_mark:](ayto/uk/01/) |
+| Season  2 | [:white_check_mark:](ayto/de/02/) | [:white_check_mark:](ayto/de-rsil/02/) | [:white_check_mark:](ayto/us/02/) |                                   |
+| Season  3 | [:white_check_mark:](ayto/de/03/) | [:white_check_mark:](ayto/de-rsil/03/) | [:white_check_mark:](ayto/us/03/) |                                   |
+| Season  4 | [:white_check_mark:](ayto/de/04/) | [:white_check_mark:](ayto/de-rsil/04/) | [:white_check_mark:](ayto/us/04/) |                                   |
+| Season  5 | [:white_check_mark:](ayto/de/05/) |                                        | [:white_check_mark:](ayto/us/05/) |                                   |
+| Season  6 | [:hourglass:       ](ayto/de/06/) |                                        | [:white_check_mark:](ayto/us/06/) |                                   |
+| Season  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
+| Season  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
+| Season  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
+| Season 10 |                                   |                                        | [:x:               ]()            |                                   |
 <!-- :x: -->
 
-Da es nur eine *UK* Staffel gibt bislang, ist diese Staffel bei den *US*
-Staffeln im Vergleich mit enthalten.
+Since there only was one *UK* season so far, this seson is also included in the
+comparison with the *US* seasons.
 
-## Informationen zur Darstellung
+{{% hint [info] %}}
+In german the "matching ceremonies" are called "Matchingnights" (MN) and the
+"truth booths" are called "Matchboses" (MB).
+So you'll probably find some places where these terms / acronyms are used
+instead of the ones you're accustomed to (I did not localize everything).
+{{% /hint %}}
 
-Für jede Staffel ist der gesamte Verlauf der Staffeln zu sehen. Damit
-ist gemeint welche Informationen gesammelt wurden und was das für die noch
-verbleibenden Möglichkeiten bedeutet.
+## Information regarding the Illustration
 
-*Baum* zeigt die genauen Matchings an, die noch möglich sind. Dies ist aber erst
-sinnvoll wenn es nicht mehr all zu viele Möglichkeiten gibt. Außerdem kann hier
-nur der aktuellste Stand dargestellt werden und keine Historie.
+For each seson you can see the whole process of the season. This means what
+information was collected and what this means for the remaining possibilities.
 
-### Infos zu Spoilern
-Die Seiten sind immer so aufgebaut, dass man explizit ausklappen muss was man
-sich ansehen möchte. Einzig was es für "Events" in der Folge gab ist
-standardmäßig auf der Seite zu sehen (also ob/wieviele Matchboxen /
-Matchingnights es in welcher Folge gab).
+*Tree* precisely shows the remaining matchings that are still possible. This
+only makes sense when there are not too many possibilities left. Also, this only
+shows the current state without any history.
 
-Die genannte Folge bezieht sich dabei immer darauf wann das ganze **aufgelöst
-wurde**.
+### Information regarding Spoilers
+The pages are constructed in a way that you explicitly need to expand what you
+want to look up. Only the "Events" (matching ceremony / truth booth) in an
+episode is shown by default on the page.
 
-Ausklappbare Abschnitte mit besonderer Spoilergefahr (aktueller Stand und
-gesamter Verlauf bis hier her) sind explizit mit einem :warning: gekennzeichnet.
+The episode mentioned always referrs to when the **outcome of the event was
+revealed**.
 
-Was der aktuellste Stand gerade ist kann man immer nachschauen, indem man bei
-*Einzelne Tabellen* schaut was der letzte Eintrag gerade ist.
+Expandable sections with higher spoiler potential (current state and complete
+history until now) are explicitly marked with :warning:.
 
-### Zu den Vergleichen
-- das `- W` bzgl `- L` am Ende in der Legende steht dafür, ob der Cast in der
-Staffel gewonnen (*win* `- W`) oder verloren hat (*loose* `- L`)
+What the current state is can always be looked up by checking under *Single
+Tables* what the most recent entry is.
 
-## Noch mehr Details
+### Regarding the comparisons
+- the `- W` / `- L` at the end of the entry in the legend referrs to whether the
+  cast of that season won (*win* `- W`) or lost (*loose* `- L`)
 
-{{% details "Klicke hier für mehr" %}}
-Im Anschluss sind noch ein paar mehr Erklärungen zu den Ausgaben zu finden. Für
-noch mehr infos (u.A. zu den Eingabedateien oder wie man das Tool mit eigenen
-Daten füttern kann) findet ihr [hier das komplette
-Repository](https://github.com/atticus-sullivan/sim-ayto) inklusive dem ganzen
-Code und den Daten.
+## More details
 
-Ebenso findet ihr dort auch eine Möglichkeit
-[Fragen zu stellen](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a),
-[Ideen und Anregungen zu teilen](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/ideas)
-und auf
-[Bugs/Fehler hinzuweisen](https://github.com/atticus-sullivan/sim-ayto/issues).
+{{% details "Click here for more details" %}}
+In the following you can find more explanations regarding the outputs. For even
+more details (e.g. how the input files work or how to manually add more data)
+see the [complete repository](https://github.com/atticus-sullivan/sim-ayto)
+including the code and data (note that currently some of the explanations are
+only available in german).
 
-### Normale Ausgaben
-Vor der jeweiligen Tabelle kommt immer nochmal was genau als
-Einschränkung/Constraint dazu kam. Die genannte Episode bezieht sich dabei immer
-auf die **Episode in der das ganze aufgelöst wurde**. Bei den MNs steht vor dem
-jeweiligen Match zusätzlich wie oft diese bereits in einer MN zusammensaßen.
+Also you find a way of [asking questions](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a),
+[share ideas](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/ideas)
+and
+[note bugs/errors](https://github.com/atticus-sullivan/sim-ayto/issues).
 
-Das ganze `I` (Informationsgehalt) / `H` (Entropie, steht hinter wie viele
-Möglichkeiten noch übrig sind) ist der Versuch einzuschätzen wie viel eine
-Entscheidung gebracht hat und wie weit sie noch vom Ziel entfernt sind. Das
-ganze kommt aus der Informationstheorie.
+### Normal outputs
+In front of each table you'll find precisely what constraint was added here. The
+mentioned episode always referrs to when the outcome of the constraint was
+**revealed**. In case of matching ceremonies there is also a note before the
+match how often they sat toegther in the past.
 
-`I[l/bits]`: Zeigt an wieviel Information mit dieser Entscheidung gewonnen wird
-angenommen die jeweilige Anzahl an Lichtern leuchten. Mittels
+Everything related to `I` (Information content) / `H` (Entropy, after the note
+how many possibilities are still left) is the attempt to get a feeling for how
+much this decision was worth and how far they are from the finish line. This is
+related to information theory.
+
+`I[l/bits]`: Represents how much information was gained with this decision
+assuming the given amount of beams are lit. Via
 \( 2^{-I} \)
-kann man
-falls gewünscht auf die Wahrscheinlichkeit zurückrechnen.
+you can calculate back to the probabilities if you can relate more with that.
 
-`E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
+`E[l]/bits`: Is the expected value of the gain of information
 
-#### Reguläre Tabellen
-Die **Schrift**farbe ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
-dieses Match ist (unter 1% rot, ab 45% gelb, ab 55% cyan, ab 80% grün).
+#### Regular tables
+The **font**color is an indicator for how high the probability for this match is
+(below 1% red, higher than 45% yello, higher than 55% cyan and more than 80%
+green).
 
-Die **Hintergrund**farbe zeigt an welche Person(en) für eine andere Person am
-wahrscheinlichsten ist.
-- leicht **grüner** Hintergrund: Match ist für beide Personen am wahrscheinlichsten
-- **leicht roter**/**hellgrauer** Hintergrund: Match ist für die Person deren
-Spalte/Zeile das ist am wahrscheinlichsten.
+The **background**color shows which people have the highest probability with which
+other people.
+- **green** background: Match is for both persons the most likely one.
+- **red/light gray** backgroung: Match is for the person whose column/row this
+is the most likely one.
 
+#### Summary table in the end
+In the end there is a summary of all constraints. A star in this tale means this
+match was formed the first time here. A small overview over the columns which
+might not be clear on first sight:
+- `L` the amount of lights
+- `I` refer to above
+- `new` counts how many matches never sat together a matching ceremony
+- `min dist` the distance is denoted with the amount of different matches, this
+  column shows which other matching ceremony is most alike this one (and how
+much alike they are). This cannot be calculated for the first ceremony
+obviously.
 
-#### Zusammenfassende Tabelle am Ende
-Ganz am Ende wird eine Zusammenfassung über alle Constraints ausgegeben. Ein
-Stern in dieser Tabelle bedeutet, dass das Match das erste mal so zusammensaß.
-Eine kleine Übersicht über die nicht so intuitiven Spalten:
-- `L` die Anzahl der Lichter
-- `I` siehe oben
-- `new` zählt wie viele Matches so in noch keiner MN zusammensaßen
-- `min dist` als distanz wird die Anzahl unterschiedlicher Matches betrachtet,
-diese Spalte zeigt welche ander MN am ähnlichsten dieser ist (und wie ähnlich
-sie ist). In der erste MN kann dies natürlich noch nicht bestimmt werden.
+### Tree
+In the tree the first row (correlated with the person out of setA) at a level
+is always fixd. Thus, each level represents the matching of one (or multiple)
+people of setB to this fixed person of setA.
 
-### Baum
-Im Baum ist die erste Zeile (entspricht der Person aus Set A) auf einer Ebene
-immer fest. Somit steht jede Ebene für due Zuweisung einer (oder mehreren)
-Person aus SetB zu der fixen Person aus SetA.
-
-Bereits sicher feststehende Matches (sei es durch eine Matchingnight oder durch
-Ausschlussverfahren) werden in die oberen Ebenen geschoben. Auch sonst werden
-die Ebenen so sortiert, dass die Anzahl der *verschiedenen* Matches von oben
-nach unten ansteigt.
+Already known matches (be it from truth booth or throug elimination) are put on
+the topmost levels. For the remaining levels the ordering is sorted based on the
+amount of *different* matches for the fixed person.
 {{% /details %}}
