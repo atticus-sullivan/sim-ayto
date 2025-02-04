@@ -190,7 +190,7 @@ impl Game {
 
         // track table indices
         let mut tab_idx = 0;
-        let mut md_tables: Vec<(String,u16)> = vec![];
+        let mut md_tables: Vec<(String,u16,bool)> = vec![];
 
         // generate additional tables
         if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
@@ -239,12 +239,12 @@ impl Game {
         if print_transposed {
             self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                 .context("Error printing")?;
-            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx));
+            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx, false));
             tab_idx += 1;
         } else {
             self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                 .context("Error printing")?;
-            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx));
+            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx, false));
             tab_idx += 1;
         }
         println!();
@@ -267,12 +267,12 @@ impl Game {
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;
-                        md_tables.push((c.md_title(), tab_idx));
+                        md_tables.push((c.md_title(), tab_idx, true));
                         tab_idx += 1;
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                             .context("Error printing")?;
-                        md_tables.push((c.md_title(), tab_idx));
+                        md_tables.push((c.md_title(), tab_idx, true));
                         tab_idx += 1;
                     }
                 }
@@ -307,7 +307,7 @@ impl Game {
         Ok(())
     }
 
-    fn md_output(&self, out: &mut File, md_tables: &Vec<(String,u16)>) -> Result<()> {
+    fn md_output(&self, out: &mut File, md_tables: &Vec<(String,u16, bool)>) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
         writeln!(out, "---")?;
@@ -321,10 +321,18 @@ impl Game {
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "{{{{% translateHdr \"tab-individual\" %}}}}")?;
-        for (name,idx) in md_tables.iter() {
-            writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
+        for (name,idx,detail) in md_tables.iter() {
+            if *detail {
+                writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
+            } else {
+                writeln!(out, "{name}")?;
+            }
             writeln!(out, "![](/sim-ayto/{stem}/{stem}_{idx}.png)")?;
-            writeln!(out, "{{{{% /details %}}}}")?;
+            if *detail {
+                writeln!(out, "{{{{% /details %}}}}")?;
+            } else {
+                writeln!(out, "{{{{% /translatedDetails %}}}}")?;
+            }
         }
 
         writeln!(out, "{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
