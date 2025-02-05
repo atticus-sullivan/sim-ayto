@@ -59,16 +59,16 @@ Dorna → Kenneth
 161844480 left -> 27.27 bits left
 
 MN#1.0 E04
-0x Valeria  → Max     
-0x Aurelia  → Deniz   
-0x Carina   → Ken     
+0x Steffi   → Chris   
 0x Caro     → Barkin  
+0x Larissa  → Joel    
+0x Henna    → Kenneth 
 0x Dorna    → Marwin  
 0x Juliette → Burim   
-0x Larissa  → Joel    
 0x Vanessa  → Sasa    
-0x Henna    → Kenneth 
-0x Steffi   → Chris   
+0x Valeria  → Max     
+0x Carina   → Ken     
+0x Aurelia  → Deniz   
 ---
 -> I[l]/bits: {0: 1.49, 1: 1.43, 2: 2.39, 3: 3.97, 4: 5.99, 5: 8.36, 6: 11.03, 7: 13.98, 8: 17.14, 9: 20.81, 10: 23.95}
 -> E[I]/bits: 1.90
@@ -112,16 +112,16 @@ Carina → Burim
 9524347 left -> 23.1832 bits left
 
 MN#2.0 E06
-1x Larissa  → Joel    
-1x Dorna    → Marwin  
-0x Aurelia  → Burim   
-1x Carina   → Ken     
-1x Henna    → Kenneth 
-0x Caro     → Max     
 0x Juliette → Barkin  
-1x Steffi   → Chris   
+0x Caro     → Max     
+1x Larissa  → Joel    
 0x Valeria  → Pascal  
+1x Carina   → Ken     
+1x Dorna    → Marwin  
 1x Vanessa  → Sasa    
+1x Steffi   → Chris   
+0x Aurelia  → Burim   
+1x Henna    → Kenneth 
 ---
 -> I[l]/bits: {0: 5.04, 1: 2.02, 2: 1.37, 3: 2.10, 4: 3.63, 5: 5.74, 6: 8.55, 7: 12.57}
 -> E[I]/bits: 2.10
@@ -165,16 +165,16 @@ Steffi → Chris
 692891 left -> 19.4023 bits left
 
 MN#3.0 E08
-2x Larissa  → Joel    
-0x Caro     → Pascal  
-0x Henna    → Ken     
-0x Aurelia  → Kenneth 
 1x Valeria  → Max     
+0x Caro     → Pascal  
 0x Carina   → Sasa    
 0x Dorna    → Deniz   
-1x Juliette → Barkin  
 2x Steffi   → Chris   
 0x Vanessa  → Marwin  
+1x Juliette → Barkin  
+2x Larissa  → Joel    
+0x Aurelia  → Kenneth 
+0x Henna    → Ken     
 ---
 -> I[l]/bits: {1: 1.53, 2: 1.49, 3: 2.37, 4: 3.76, 5: 5.49, 6: 7.51, 7: 9.69, 8: 11.91, 9: 14.65, 10: 16.82}
 -> E[I]/bits: 1.98
@@ -218,14 +218,14 @@ Valeria → Max
 223906 left -> 17.7725 bits left
 
 MN#4.0 E10
-1x Henna    → Ken     
-3x Steffi   → Chris   
+2x Vanessa  → Sasa    
 0x Dorna    → Burim   
 0x Valeria  → Joel    
+1x Henna    → Ken     
 0x Juliette → Kenneth 
-2x Vanessa  → Sasa    
-0x Aurelia  → Marwin  
 0x Carina   → Pascal  
+3x Steffi   → Chris   
+0x Aurelia  → Marwin  
 0x Larissa  → Deniz   
 1x Caro     → Max     
 ---
@@ -271,16 +271,16 @@ Caro → Ken
 199 left -> 7.6366 bits left
 
 MN#5.0 E12
-3x Vanessa  → Sasa    
-1x Larissa  → Deniz   
 0x Caro     → Ken     
-1x Valeria  → Joel    
-1x Carina   → Pascal  
-4x Steffi   → Chris   
-2x Juliette → Barkin  
-1x Dorna    → Burim   
-2x Henna    → Kenneth 
+3x Vanessa  → Sasa    
 1x Aurelia  → Marwin  
+1x Larissa  → Deniz   
+1x Carina   → Pascal  
+1x Dorna    → Burim   
+1x Valeria  → Joel    
+2x Juliette → Barkin  
+2x Henna    → Kenneth 
+4x Steffi   → Chris   
 ---
 -> I[l]/bits: {2: 3.24, 3: 0.69, 4: 1.86}
 -> E[I]/bits: 1.28
@@ -324,16 +324,16 @@ Dorna → Burim
 48 left -> 5.585 bits left
 
 MN#6.0 E14
-5x Steffi   → Chris   
-1x Carina   → Sasa    
+0x Larissa  → Marwin  
 1x Valeria  → Pascal  
 3x Juliette → Barkin  
-3x Henna    → Kenneth 
-1x Caro     → Ken     
 1x Dorna    → Deniz   
 1x Aurelia  → Burim   
+1x Caro     → Ken     
+1x Carina   → Sasa    
+5x Steffi   → Chris   
 0x Vanessa  → Joel    
-0x Larissa  → Marwin  
+3x Henna    → Kenneth 
 ---
 -> I[l]/bits: {3: 1.00, 4: 1.78, 5: 2.58, 6: 4.58}
 -> E[I]/bits: 1.64
@@ -377,16 +377,16 @@ Juliette → Joel
 20 left -> 4.3219 bits left
 
 MN#7.0 E16 -- Blackout
-0x Henna    → Burim   
-0x Larissa  → Sasa    
+1x Juliette → Kenneth 
+0x Carina   → Marwin  
+0x Vanessa  → Deniz   
 0x Dorna    → Barkin  
 6x Steffi   → Chris   
-2x Caro     → Ken     
-0x Aurelia  → Joel    
-1x Juliette → Kenneth 
-0x Vanessa  → Deniz   
-0x Carina   → Marwin  
 2x Valeria  → Pascal  
+0x Aurelia  → Joel    
+0x Larissa  → Sasa    
+2x Caro     → Ken     
+0x Henna    → Burim   
 ---
 -> I[l]/bits: {2: 0.74, 3: 1.74, 4: 4.32, 5: 4.32}
 -> E[I]/bits: 1.40
@@ -431,15 +431,15 @@ Dorna → Marwin
 
 MN#8.0 E18 -- Blackout
 3x Caro     → Ken     
-0x Carina   → Kenneth 
-4x Juliette → Barkin  
-0x Henna    → Deniz   
-0x Dorna    → Joel    
-0x Valeria  → Burim   
-4x Vanessa  → Sasa    
 2x Aurelia  → Marwin  
+0x Henna    → Deniz   
+4x Vanessa  → Sasa    
+4x Juliette → Barkin  
 0x Larissa  → Pascal  
+0x Valeria  → Burim   
 7x Steffi   → Chris   
+0x Carina   → Kenneth 
+0x Dorna    → Joel    
 ---
 -> I[l]/bits: {2: 0.78, 3: 1.58, 4: 3.58}
 -> E[I]/bits: 1.28
@@ -483,16 +483,16 @@ Carina → Pascal
 7 left -> 2.8074 bits left
 
 MN#9.0 E21 -- finale
-1x Juliette → Burim   
-0x Larissa  → Barkin  
-0x Dorna    → Sasa    
 4x Caro     → Ken     
-8x Steffi   → Chris   
 0x Aurelia  → Pascal  
-0x Carina   → Deniz   
 4x Henna    → Kenneth 
-1x Vanessa  → Marwin  
+0x Larissa  → Barkin  
+1x Juliette → Burim   
 2x Valeria  → Joel    
+0x Carina   → Deniz   
+8x Steffi   → Chris   
+0x Dorna    → Sasa    
+1x Vanessa  → Marwin  
 ---
 -> I[l]/bits: {5: 1.22, 6: 2.81, 7: 2.81, 8: 2.81, 10: 2.81}
 -> E[I]/bits: 2.13
@@ -561,4 +561,4 @@ MN#9.0 E21 -- finale
 ╰────────┴────┴───────────┴───────────┴─────────┴──────────┴──────────┴─────────┴───────────┴──────────┴──────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 65.35s
+Ran in 64.54s

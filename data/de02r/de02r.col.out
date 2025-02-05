@@ -37,15 +37,15 @@ Zoe → Martin
 32659200 left -> 24.961 bits left
 
 MN#1.0 E04
-0x Luisa    → Fabio    
-0x Ricarda  → Maurice  
-0x Karina   → Pharrell 
+0x Anna     → Micha    
 0x Isabelle → Lukas    
 0x Celina   → Martin   
 0x Franzi   → Max      
-0x Gina     → Calvin   
 0x Cecilia  → Amadu    
-0x Anna     → Micha    
+0x Gina     → Calvin   
+0x Karina   → Pharrell 
+0x Luisa    → Fabio    
+0x Ricarda  → Maurice  
 0x Zoe      → Luca     
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
@@ -90,16 +90,16 @@ Karina → Pharrell
 1449210 left -> 20.4668 bits left
 
 MN#2.0 E06
-0x Gina     → Amadu    
-0x Cecilia  → Pharrell 
-0x Celina   → Max      
-0x Zoe      → Lukas    
-1x Ricarda  → Maurice  
 1x Anna     → Micha    
-0x Franzi   → Luca     
-0x Luisa    → Calvin   
+0x Celina   → Max      
 0x Isabelle → Martin   
+0x Franzi   → Luca     
+0x Cecilia  → Pharrell 
+0x Luisa    → Calvin   
+0x Zoe      → Lukas    
 0x Karina   → Fabio    
+0x Gina     → Amadu    
+1x Ricarda  → Maurice  
 ---
 -> I[l]/bits: {0: 1.96, 1: 1.43, 2: 2.07, 3: 3.36, 4: 5.14, 5: 7.18, 6: 9.60, 7: 12.34, 8: 14.56}
 -> E[I]/bits: 2.07
@@ -143,16 +143,16 @@ Celina → Lukas
 319800 left -> 18.2868 bits left
 
 MN#3.0 E08
-0x Celina   → Fabio    
+0x Franzi   → Lukas    
 1x Cecilia  → Amadu    
 0x Isabelle → Luca     
+0x Gina     → Micha    
+0x Celina   → Fabio    
+0x Anna     → Martin   
+0x Zoe      → Max      
 0x Karina   → Calvin   
 0x Luisa    → Pharrell 
-0x Anna     → Martin   
 2x Ricarda  → Maurice  
-0x Franzi   → Lukas    
-0x Zoe      → Max      
-0x Gina     → Micha    
 ---
 -> I[l]/bits: {0: 2.14, 1: 1.48, 2: 1.97, 3: 3.16, 4: 4.79, 5: 6.79, 6: 9.18, 7: 12.16, 8: 13.38}
 -> E[I]/bits: 2.13
@@ -238,16 +238,16 @@ Ricarda → Felix
 2400 left -> 11.2288 bits left
 
 MN#5.0 E12
-1x Celina   → Fabio    
-0x Anna     → Pharrell 
-0x Luisa    → Lukas    
-0x Ricarda  → Max      
 0x Isabelle → Maurice  
-0x Gina     → Felix    
-2x Cecilia  → Amadu    
 0x Franzi   → Micha    
 0x Karina   → Martin   
+0x Luisa    → Lukas    
+0x Anna     → Pharrell 
+0x Ricarda  → Max      
+2x Cecilia  → Amadu    
+1x Celina   → Fabio    
 1x Zoe      → Luca     
+0x Gina     → Felix    
 ---
 -> I[l]/bits: {1: 3.25, 2: 1.45, 3: 1.57, 4: 2.78, 5: 4.50, 6: 7.91}
 -> E[I]/bits: 2.04
@@ -291,16 +291,16 @@ Isabelle → Pharrell
 681 left -> 9.4115 bits left
 
 MN#6.0 E14
-1x Karina   → Calvin   
-0x Cecilia  → Maurice  
-2x Zoe      → Luca     
-1x Gina     → Felix    
-2x Celina   → Fabio    
-1x Isabelle → Martin   
 1x Luisa    → Lukas    
+1x Karina   → Calvin   
+2x Zoe      → Luca     
+2x Celina   → Fabio    
 1x Franzi   → Max      
+0x Cecilia  → Maurice  
 0x Ricarda  → Pharrell 
+1x Gina     → Felix    
 2x Anna     → Micha    
+1x Isabelle → Martin   
 ---
 -> I[l]/bits: {1: 2.80, 2: 1.68, 3: 1.96, 4: 2.74, 5: 3.46, 6: 4.83, 7: 6.60}
 -> E[I]/bits: 2.39
@@ -344,16 +344,16 @@ Cecilia → Amadu
 116 left -> 6.858 bits left
 
 MN#7.0 E16
-3x Zoe      → Luca     
-3x Celina   → Fabio    
-2x Gina     → Felix    
-3x Cecilia  → Amadu    
-2x Karina   → Calvin   
 2x Franzi   → Max      
-1x Ricarda  → Pharrell 
-3x Anna     → Micha    
-2x Luisa    → Lukas    
 2x Isabelle → Martin   
+2x Luisa    → Lukas    
+3x Celina   → Fabio    
+3x Cecilia  → Amadu    
+3x Anna     → Micha    
+2x Karina   → Calvin   
+1x Ricarda  → Pharrell 
+3x Zoe      → Luca     
+2x Gina     → Felix    
 ---
 -> I[l]/bits: {4: 0.00}
 -> E[I]/bits: 0.00
@@ -398,15 +398,15 @@ Anna → Micha
 
 MN#8.0 E18
 0x Celina   → Luca     
-0x Zoe      → Maurice  
-0x Gina     → Fabio    
-3x Luisa    → Lukas    
-0x Franzi   → Calvin   
 4x Cecilia  → Amadu    
+0x Gina     → Fabio    
+0x Zoe      → Maurice  
 0x Isabelle → Felix    
+3x Luisa    → Lukas    
+2x Ricarda  → Pharrell 
+0x Franzi   → Calvin   
 4x Anna     → Micha    
 1x Karina   → Martin   
-2x Ricarda  → Pharrell 
 ---
 -> I[l]/bits: {3: 0.57, 4: 1.72, 5: 5.52}
 -> E[I]/bits: 1.03
@@ -450,16 +450,16 @@ Ricarda → Pharrell
 1 left -> 0 bits left
 
 MN#9.0 E20
-5x Cecilia  → Amadu    
 2x Karina   → Martin   
-4x Celina   → Fabio    
-3x Franzi   → Max      
-3x Ricarda  → Maurice  
 4x Luisa    → Lukas    
-1x Isabelle → Felix    
-5x Anna     → Micha    
 1x Gina     → Calvin   
+3x Franzi   → Max      
 0x Zoe      → Pharrell 
+3x Ricarda  → Maurice  
+4x Celina   → Fabio    
+5x Anna     → Micha    
+1x Isabelle → Felix    
+5x Cecilia  → Amadu    
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00
@@ -503,16 +503,16 @@ Franzi → Max
 1 left -> 0 bits left
 
 MN#10.0 E21
+0x Gina     → Martin   
+5x Celina   → Fabio    
 0x Karina   → Luca     
-6x Anna     → Micha    
+1x Franzi   → Calvin   
+6x Cecilia  → Amadu    
 5x Luisa    → Lukas    
 2x Isabelle → Felix    
-5x Celina   → Fabio    
+6x Anna     → Micha    
 1x Zoe      → Pharrell 
-1x Franzi   → Calvin   
 4x Ricarda  → Maurice  
-0x Gina     → Martin   
-6x Cecilia  → Amadu    
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -583,4 +583,4 @@ MN#10.0 E21
 ╰─────────┴────┴──────────┴─────────┴─────────┴───────────┴───────────┴───────────┴───────────┴──────────┴─────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 9.95s
+Ran in 9.91s

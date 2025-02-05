@@ -1,5 +1,5 @@
 ---
-title: DE RSIL Staffel 3
+identifier: deR-season3
 weight: 1
 
 ---
