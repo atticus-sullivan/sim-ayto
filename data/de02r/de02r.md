@@ -1,10 +1,11 @@
 ---
+name: DE RSIL Staffel 2
 identifier: deR-season2
 weight: 1
 
 ---
 {{% translateHdr "tab-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de02r/de02r_tab.png)
 ![](/sim-ayto/de02r/de02r_sum.png)
@@ -74,12 +75,12 @@ weight: 1
 ![](/sim-ayto/de02r/de02r_20.png)
 {{% /details %}}
 {{% translateHdr "tab-everything" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de02r/de02r.col.png)
 {{% /details %}}
 {{% translateHdr "tree-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de02r/de02r.png)
 {{% /details %}}

@@ -1,10 +1,11 @@
 ---
+name: DE RSIL Staffel 1
 identifier: deR-season1
 weight: 1
 
 ---
 {{% translateHdr "tab-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de01r/de01r_tab.png)
 ![](/sim-ayto/de01r/de01r_sum.png)
@@ -74,12 +75,12 @@ weight: 1
 ![](/sim-ayto/de01r/de01r_20.png)
 {{% /details %}}
 {{% translateHdr "tab-everything" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de01r/de01r.col.png)
 {{% /details %}}
 {{% translateHdr "tree-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de01r/de01r.png)
 {{% /details %}}

@@ -1,10 +1,11 @@
 ---
+name: DE RSIL Staffel 3
 identifier: deR-season3
 weight: 1
 
 ---
 {{% translateHdr "tab-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de03r/de03r_tab.png)
 ![](/sim-ayto/de03r/de03r_sum.png)
@@ -74,12 +75,12 @@ weight: 1
 ![](/sim-ayto/de03r/de03r_20.png)
 {{% /details %}}
 {{% translateHdr "tab-everything" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de03r/de03r.col.png)
 {{% /details %}}
 {{% translateHdr "tree-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de03r/de03r.png)
 {{% /details %}}

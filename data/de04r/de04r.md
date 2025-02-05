@@ -1,10 +1,11 @@
 ---
+name: DE RSIL Staffel 4
 identifier: deR-season4
 weight: 1
 
 ---
 {{% translateHdr "tab-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de04r/de04r_tab.png)
 ![](/sim-ayto/de04r/de04r_sum.png)
@@ -68,12 +69,12 @@ weight: 1
 ![](/sim-ayto/de04r/de04r_19.png)
 {{% /details %}}
 {{% translateHdr "tab-everything" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de04r/de04r.col.png)
 {{% /details %}}
 {{% translateHdr "tree-current" %}}
-:warning: {{< translate "spoiler-warning" >}} :warning:
+:warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
 ![](/sim-ayto/de04r/de04r.png)
 {{% /details %}}
