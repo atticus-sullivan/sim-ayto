@@ -2,7 +2,7 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: 'US Staffel 2'
+  identifier: us-season2
   weight: 1
 
 tree_gen: true
