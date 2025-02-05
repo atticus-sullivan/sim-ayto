@@ -314,7 +314,7 @@ impl Game {
 
         let stem = &self.stem;
 
-        writeln!(out, "{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
+        writeln!(out, "{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}_tab.png)")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}_sum.png)")?;
@@ -335,13 +335,13 @@ impl Game {
             }
         }
 
-        writeln!(out, "{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
+        writeln!(out, "{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
         writeln!(out, "![](/sim-ayto/{stem}/{stem}.col.png)")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         if self.tree_gen {
-            writeln!(out, "{{{{% translateHdr \"tree-current\" %}}}}\n:warning: {{{{< translate \"spoiler-warning\" >}}}} :warning:")?;
+            writeln!(out, "{{{{% translateHdr \"tree-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
             writeln!(out, "{{{{% details \"\" %}}}}")?;
             writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
             writeln!(out, "{{{{% /details %}}}}")?;
