@@ -37,16 +37,16 @@ Maximilian → Jill
 32659200 left -> 24.961 bits left
 
 MN#1.0 E02
-0x Marcel     → Laura    
+0x Aaron      → Kathleen 
+0x Marko      → Sabrina  
+0x Dominic    → Melissa  
 0x Marvin     → Jill     
 0x Dario      → Victoria 
-0x Sascha     → Vanessa  
-0x Aaron      → Kathleen 
 0x Marc       → Mirjam   
-0x Germain    → Leonie   
-0x Dominic    → Melissa  
-0x Marko      → Sabrina  
 0x Maximilian → Christin 
+0x Germain    → Leonie   
+0x Marcel     → Laura    
+0x Sascha     → Vanessa  
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -88,16 +88,16 @@ Nothing => I = 0 bits
 6081530 left -> 22.536 bits left
 
 MN#2.0 E04
-1x Dominic    → Melissa  
-1x Marko      → Sabrina  
-0x Sascha     → Jill     
 0x Germain    → Victoria 
-0x Marvin     → Vanessa  
-1x Aaron      → Kathleen 
-0x Dario      → Laura    
+1x Marko      → Sabrina  
+1x Dominic    → Melissa  
 1x Marc       → Mirjam   
-0x Marcel     → Leonie   
+1x Aaron      → Kathleen 
 1x Maximilian → Christin 
+0x Marvin     → Vanessa  
+0x Marcel     → Leonie   
+0x Sascha     → Jill     
+0x Dario      → Laura    
 ---
 -> I[l]/bits: {0: 2.50, 1: 1.35, 2: 1.83, 3: 3.15, 4: 5.01, 5: 7.39, 6: 10.46, 7: 14.89}
 -> E[I]/bits: 2.05
@@ -141,16 +141,16 @@ Aaron → Kathleen
 1252680 left -> 20.2566 bits left
 
 MN#3.0 E06
+0x Marko      → Mirjam   
+0x Marc       → Leonie   
+0x Maximilian → Jill     
+0x Dominic    → Vanessa  
 0x Marvin     → Kathleen 
 0x Sascha     → Sabrina  
-0x Marc       → Leonie   
-0x Marko      → Mirjam   
-0x Germain    → Christin 
-0x Maximilian → Jill     
 0x Aaron      → Melissa  
 1x Marcel     → Laura    
-0x Dominic    → Vanessa  
 1x Dario      → Victoria 
+0x Germain    → Christin 
 ---
 -> I[l]/bits: {0: 1.27, 1: 1.43, 2: 2.65, 3: 4.53, 4: 6.96, 5: 9.83, 6: 13.35, 7: 16.93}
 -> E[I]/bits: 1.74
@@ -194,16 +194,16 @@ Marcel → Laura
 32170 left -> 14.9734 bits left
 
 MN#4.0 E08
-1x Aaron      → Melissa  
 1x Sascha     → Vanessa  
-0x Dario      → Kathleen 
+1x Aaron      → Melissa  
 0x Dominic    → Laura    
-2x Marko      → Sabrina  
-2x Marc       → Mirjam   
 1x Marcel     → Leonie   
-1x Germain    → Victoria 
-1x Maximilian → Jill     
+0x Dario      → Kathleen 
 0x Marvin     → Christin 
+2x Marc       → Mirjam   
+2x Marko      → Sabrina  
+1x Maximilian → Jill     
+1x Germain    → Victoria 
 ---
 -> I[l]/bits: {0: 2.13, 1: 1.61, 2: 1.78, 3: 3.08, 4: 5.04, 5: 7.95}
 -> E[I]/bits: 2.08
@@ -247,16 +247,16 @@ Marcel → Leonie
 1476 left -> 10.5275 bits left
 
 MN#5.0 E10
-0x Marko      → VanessaM 
-1x Dominic    → Vanessa  
-1x Marvin     → Kathleen 
-1x Sascha     → Jill     
-0x Marc       → Melissa  
-2x Dario      → Victoria 
-1x Germain    → Christin 
 0x Aaron      → Mirjam   
 0x Maximilian → Laura    
+2x Dario      → Victoria 
+0x Marko      → VanessaM 
+1x Sascha     → Jill     
 2x Marcel     → Leonie   
+1x Dominic    → Vanessa  
+0x Marc       → Melissa  
+1x Marvin     → Kathleen 
+1x Germain    → Christin 
 ---
 -> I[l]/bits: {1: 5.94, 2: 2.30, 3: 0.95, 4: 2.12, 5: 4.97, 6: 9.53}
 -> E[I]/bits: 1.71
@@ -298,15 +298,15 @@ Nothing => I = 0 bits
 765 left -> 9.5793 bits left
 
 MN#6.0 E12
-3x Marc       → Mirjam   
+2x Aaron      → Melissa  
 2x Dominic    → Vanessa  
-3x Marcel     → Leonie   
-0x Marvin     → Laura    
 2x Maximilian → Christin 
+3x Marc       → Mirjam   
+0x Marvin     → Laura    
+3x Marko      → Sabrina  
 2x Sascha     → Jill     
 2x Germain    → Victoria 
-3x Marko      → Sabrina  
-2x Aaron      → Melissa  
+3x Marcel     → Leonie   
 0x Dario      → VanessaM 
 ---
 -> I[l]/bits: {2: 3.33, 3: 1.02, 4: 1.80, 5: 3.17, 6: 6.41}
@@ -351,16 +351,16 @@ Dario → Laura
 219 left -> 7.7748 bits left
 
 MN#7.0 E14
-4x Marcel     → Leonie   
-3x Maximilian → Christin 
-3x Sascha     → Jill     
 1x Dominic    → Laura    
-0x Marko      → Victoria 
-4x Marc       → Mirjam   
-2x Marvin     → Kathleen 
-3x Aaron      → Melissa  
-0x Dario      → Sabrina  
 0x Germain    → VanessaM 
+0x Dario      → Sabrina  
+3x Maximilian → Christin 
+2x Marvin     → Kathleen 
+3x Sascha     → Jill     
+4x Marc       → Mirjam   
+0x Marko      → Victoria 
+3x Aaron      → Melissa  
+4x Marcel     → Leonie   
 ---
 -> I[l]/bits: {2: 1.35, 3: 1.55, 4: 2.35, 5: 3.97, 6: 7.77}
 -> E[I]/bits: 1.81
@@ -405,15 +405,15 @@ Marko → Sabrina
 
 MN#8.0 E16
 1x Sascha     → Sabrina  
+3x Marvin     → Kathleen 
+0x Germain    → Jill     
+0x Marc       → VanessaM 
 0x Aaron      → Vanessa  
 3x Dario      → Victoria 
-0x Marko      → Laura    
-5x Marcel     → Leonie   
-0x Germain    → Jill     
 2x Dominic    → Melissa  
-0x Marc       → VanessaM 
+0x Marko      → Laura    
 0x Maximilian → Mirjam   
-3x Marvin     → Kathleen 
+5x Marcel     → Leonie   
 ---
 -> I[l]/bits: {1: 3.10, 2: 0.97, 3: 2.10, 4: 3.10, 5: 5.43}
 -> E[I]/bits: 1.83
@@ -457,15 +457,15 @@ Aaron → Melissa
 4 left -> 2 bits left
 
 MN#9.0 E18
-4x Aaron      → Melissa  
-5x Marc       → Mirjam   
+1x Marvin     → Vanessa  
+0x Dominic    → Sabrina  
 1x Marko      → Victoria 
 0x Germain    → Laura    
-0x Dominic    → Sabrina  
 1x Dario      → Kathleen 
-6x Marcel     → Leonie   
-1x Marvin     → Vanessa  
+4x Aaron      → Melissa  
 4x Sascha     → Jill     
+6x Marcel     → Leonie   
+5x Marc       → Mirjam   
 4x Maximilian → Christin 
 ---
 -> I[l]/bits: {3: 0.00}
@@ -510,16 +510,16 @@ Marc → Mirjam
 4 left -> 2 bits left
 
 MN#10.0 E20
-7x Marcel     → Leonie   
-0x Marko      → Kathleen 
-0x Sascha     → Laura    
-0x Maximilian → Victoria 
-6x Marc       → Mirjam   
 3x Dominic    → Vanessa  
-5x Aaron      → Melissa  
-1x Dario      → Sabrina  
-2x Germain    → Christin 
+0x Sascha     → Laura    
 1x Marvin     → Jill     
+2x Germain    → Christin 
+0x Marko      → Kathleen 
+6x Marc       → Mirjam   
+5x Aaron      → Melissa  
+0x Maximilian → Victoria 
+1x Dario      → Sabrina  
+7x Marcel     → Leonie   
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -590,4 +590,4 @@ MN#10.0 E20
 ╰─────────┴────┴─────────────┴────────────┴──────────┴─────────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴─────────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 4  Initial combinations for each pair: 3628800
 
-Ran in 10.50s
+Ran in 10.45s

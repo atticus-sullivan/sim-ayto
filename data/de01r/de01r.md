@@ -1,5 +1,5 @@
 ---
-name: DE RSIL Staffel 1
+title: DE RSIL Staffel 1
 identifier: deR-season1
 weight: 1
 

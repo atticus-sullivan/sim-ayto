@@ -1,5 +1,5 @@
 ---
-name: DE RSIL Staffel 2
+title: DE RSIL Staffel 2
 identifier: deR-season2
 weight: 1
 
