@@ -2,7 +2,8 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: 'US Staffel 5'
+  name: US Staffel 5
+  identifier: us-season5
   weight: 1
 
 tree_gen: true
