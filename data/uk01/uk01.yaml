@@ -2,7 +2,7 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: 'UK Staffel 1'
+  identifier: uk-season1
   weight: 1
 
 tree_gen: true

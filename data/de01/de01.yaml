@@ -2,7 +2,7 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: 'DE Staffel 1'
+  identifier: de-season1
   weight: 1
 
 tree_gen: true
