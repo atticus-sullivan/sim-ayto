@@ -22,7 +22,7 @@ weight: 1
 | Staffel  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
 | Staffel  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
 | Staffel  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
-| Staffel 10 |                                   |                                        | [:x:               ]()            |                                   |
+| Staffel 10 |                                   |                                        | [                  ]()            |                                   |
 <!-- :x: -->
 
 Da es nur eine *UK* Staffel gibt bislang, ist diese Staffel bei den *US*

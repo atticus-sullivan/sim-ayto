@@ -8,8 +8,8 @@ frontmatter:
 
 tree_gen: false
 
-# rule_set: !SomeoneIsDup
-rule_set: !FixedDup Tori
+rule_set: !SomeoneIsDup
+# rule_set: !FixedDup Tori
 # rule_set: !Eq
 
 setA:
@@ -38,14 +38,29 @@ setB:
   - Tori
 
 constraints:
-  - type: !Box {num: 1, comment: "E01"}
+  - type: !Box {num: 1, comment: "E02"}
     check: !Lights [0]
     map:
-      Danish: Anna
+      Josh: Anna
+      # Danish: Deisy
 
+  - type: !Night {num: 1, comment: "E03"}
+    check: !Lights [2]
+    # resultUnknown: true
+    # noExclude: true
+    map:
+      Dino: Deisy
+      Sinan: Ina
+      Kaan: Joanna
+      # Dion: Nasti
+      Enes: Anna
+      Danish: Sophia
+      Joshua: Selina
+      Levin: Camelia
+      Josh: Nadja
+      Tano: Chiara
+      Dion: Tori
 
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
+  # - type: !Box {num: 2, comment: "E04"}
+  #   check: !Lights [0]
   #   map:

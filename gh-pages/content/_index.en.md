@@ -22,7 +22,7 @@ weight: 1
 | Season  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
 | Season  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
 | Season  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
-| Season 10 |                                   |                                        | [:x:               ]()            |                                   |
+| Season 10 |                                   |                                        | [                  ]()            |                                   |
 <!-- :x: -->
 
 Since there only was one *UK* season so far, this seson is also included in the
