@@ -38,13 +38,13 @@ setB:
   - Tori
 
 constraints:
-  - type: !Box {num: 1, comment: "E02"}
+  - type: !Box {num: 1, comment: "E03"}
     check: !Lights [0]
     map:
       Josh: Anna
       # Danish: Deisy
 
-  - type: !Night {num: 1, comment: "E03"}
+  - type: !Night {num: 1, comment: "E04"}
     check: !Lights [2]
     # resultUnknown: true
     # noExclude: true
@@ -61,6 +61,6 @@ constraints:
       Tano: Chiara
       Dion: Tori
 
-  # - type: !Box {num: 2, comment: "E04"}
+  # - type: !Box {num: 2, comment: "E05"}
   #   check: !Lights [0]
   #   map:
