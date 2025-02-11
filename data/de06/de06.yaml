@@ -24,6 +24,10 @@ setA:
   - Sinan
   - Tano
 
+renameA:
+  Josh: "Josh/Monacco"
+  Joshua: "Joshi-Josh"
+
 setB:
   - Anna
   - Camelia
@@ -64,3 +68,5 @@ constraints:
   # - type: !Box {num: 2, comment: "E05"}
   #   check: !Lights [0]
   #   map:
+  #     Levin: Camelia
+  #     Danish: Joanna
