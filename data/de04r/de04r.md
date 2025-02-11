@@ -8,7 +8,7 @@ weight: 1
 {{% translateHdr "tab-current" %}}
 :warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
-{{% img src="/sim-ayto/de04r/de04r_tab.png)" %}}
+{{% img src="/sim-ayto/de04r/de04r_tab.png" %}}
 {{% img src="/sim-ayto/de04r/de04r_sum.png" %}}
 {{% /details %}}
 
