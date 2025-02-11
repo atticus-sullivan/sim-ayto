@@ -37,16 +37,16 @@ Hunter → Kiki
 3265920 left -> 21.6391 bits left
 
 MN#1.0 E01
-0x Alec   → Stacey   
-0x Tyler  → Rashida  
-0x Mike   → Amanda   
-0x Austin → Kiki     
-0x Devin  → Melanie  
-0x Connor → Chelsey  
-0x Hunter → Britni   
-0x Chuck  → Hannah   
-0x Zak    → Kayla    
 0x Nelson → Cheyenne 
+0x Connor → Chelsey  
+0x Mike   → Amanda   
+0x Zak    → Kayla    
+0x Chuck  → Hannah   
+0x Tyler  → Rashida  
+0x Alec   → Stacey   
+0x Devin  → Melanie  
+0x Austin → Kiki     
+0x Hunter → Britni   
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Devin → Kiki
 548821 left -> 19.066 bits left
 
 MN#2.0 E02 -- blackout -250.000$
-1x Chuck  → Hannah   
-0x Alec   → Chelsey  
-0x Connor → Kayla    
 1x Tyler  → Rashida  
-1x Austin → Kiki     
-1x Nelson → Cheyenne 
-0x Hunter → Stacey   
-1x Mike   → Amanda   
+1x Chuck  → Hannah   
 0x Zak    → Britni   
 1x Devin  → Melanie  
+1x Austin → Kiki     
+0x Hunter → Stacey   
+1x Nelson → Cheyenne 
+0x Connor → Kayla    
+0x Alec   → Chelsey  
+1x Mike   → Amanda   
 ---
 -> I[l]/bits: {0: 3.12, 1: 1.32, 2: 1.66, 3: 2.94, 4: 4.96, 5: 7.92, 6: 12.20}
 -> E[I]/bits: 1.99
@@ -143,16 +143,16 @@ Zak → Kiki
 57160 left -> 15.8027 bits left
 
 MN#3.0 E03
-1x Alec   → Stacey   
-0x Nelson → Melanie  
-1x Connor → Chelsey  
-0x Austin → Amanda   
 0x Devin  → Rashida  
+0x Austin → Amanda   
 0x Chuck  → Kiki     
-0x Tyler  → Cheyenne 
+0x Nelson → Melanie  
 0x Zak    → Hannah   
-1x Hunter → Britni   
+0x Tyler  → Cheyenne 
 0x Mike   → Kayla    
+1x Connor → Chelsey  
+1x Hunter → Britni   
+1x Alec   → Stacey   
 ---
 -> I[l]/bits: {1: 2.04, 2: 1.50, 3: 2.02, 4: 3.18, 5: 4.83, 6: 6.83, 7: 9.41, 8: 11.63}
 -> E[I]/bits: 2.12
@@ -196,15 +196,15 @@ Chuck → Britni
 13410 left -> 13.711 bits left
 
 MN#4.0 E04
-0x Zak    → Cheyenne 
-1x Mike   → Kayla    
-0x Alec   → Amanda   
-2x Connor → Chelsey  
-0x Tyler  → Melanie  
 1x Chuck  → Kiki     
-0x Devin  → Hannah   
+1x Mike   → Kayla    
+2x Connor → Chelsey  
 0x Nelson → Britni   
+0x Tyler  → Melanie  
 0x Hunter → Rashida  
+0x Zak    → Cheyenne 
+0x Alec   → Amanda   
+0x Devin  → Hannah   
 0x Austin → Stacey   
 ---
 -> I[l]/bits: {0: 2.48, 1: 1.54, 2: 1.86, 3: 2.85, 4: 4.40, 5: 6.33, 6: 8.90, 7: 12.13}
@@ -249,16 +249,16 @@ Connor → Chelsey
 2613 left -> 11.3515 bits left
 
 MN#5.0 E05
-0x Nelson → Rashida  
-0x Tyler  → Amanda   
-0x Austin → Hannah   
 0x Mike   → Britni   
-1x Zak    → Kayla    
-0x Hunter → Melanie  
-3x Connor → Chelsey  
 0x Devin  → Cheyenne 
+0x Tyler  → Amanda   
 2x Alec   → Stacey   
+3x Connor → Chelsey  
+1x Zak    → Kayla    
+0x Austin → Hannah   
+0x Hunter → Melanie  
 2x Chuck  → Kiki     
+0x Nelson → Rashida  
 ---
 -> I[l]/bits: {1: 2.00, 2: 1.68, 3: 2.11, 4: 2.93, 5: 4.22, 6: 5.89, 7: 8.35, 8: 9.77}
 -> E[I]/bits: 2.26
@@ -302,16 +302,16 @@ Chuck → Kiki
 708 left -> 9.4676 bits left
 
 MN#6.0 E06
-3x Alec   → Stacey   
-0x Chuck  → Amanda   
-2x Zak    → Kayla    
-4x Connor → Chelsey  
-1x Devin  → Rashida  
-0x Mike   → Melanie  
-0x Tyler  → Hannah   
-2x Hunter → Britni   
-0x Nelson → Kiki     
 0x Austin → Cheyenne 
+4x Connor → Chelsey  
+2x Hunter → Britni   
+3x Alec   → Stacey   
+1x Devin  → Rashida  
+0x Chuck  → Amanda   
+0x Mike   → Melanie  
+2x Zak    → Kayla    
+0x Nelson → Kiki     
+0x Tyler  → Hannah   
 ---
 -> I[l]/bits: {2: 1.46, 3: 1.36, 4: 2.40, 5: 4.47, 6: 6.47, 7: 9.47}
 -> E[I]/bits: 1.80
@@ -355,16 +355,16 @@ Alec → Melanie
 257 left -> 8.0056 bits left
 
 MN#7.0 E07
-0x Chuck  → Melanie  
-5x Connor → Chelsey  
+1x Tyler  → Cheyenne 
+0x Devin  → Britni   
 0x Hunter → Amanda   
+1x Nelson → Kiki     
+0x Alec   → Rashida  
+5x Connor → Chelsey  
+0x Austin → Kayla    
+0x Chuck  → Melanie  
 0x Mike   → Stacey   
 1x Zak    → Hannah   
-1x Nelson → Kiki     
-1x Tyler  → Cheyenne 
-0x Austin → Kayla    
-0x Alec   → Rashida  
-0x Devin  → Britni   
 ---
 -> I[l]/bits: {1: 1.80, 2: 1.67, 3: 1.98, 4: 3.25, 5: 5.42, 6: 6.01}
 -> E[I]/bits: 2.11
@@ -408,16 +408,16 @@ Nelson → Kiki
 45 left -> 5.4919 bits left
 
 MN#8.0 E08
-3x Hunter → Britni   
-2x Devin  → Rashida  
-1x Mike   → Melanie  
-2x Zak    → Hannah   
-0x Nelson → Kayla    
 4x Alec   → Stacey   
-2x Austin → Kiki     
-6x Connor → Chelsey  
-2x Tyler  → Cheyenne 
+3x Hunter → Britni   
 1x Chuck  → Amanda   
+0x Nelson → Kayla    
+1x Mike   → Melanie  
+2x Tyler  → Cheyenne 
+6x Connor → Chelsey  
+2x Devin  → Rashida  
+2x Austin → Kiki     
+2x Zak    → Hannah   
 ---
 -> I[l]/bits: {1: 5.49, 2: 2.68, 3: 0.97, 4: 2.03, 5: 3.91}
 -> E[I]/bits: 1.79
@@ -461,16 +461,16 @@ Austin → Kayla
 16 left -> 4 bits left
 
 MN#9.0 E09
+7x Connor → Chelsey  
 0x Nelson → Amanda   
+1x Devin  → Britni   
+0x Mike   → Kiki     
+0x Hunter → Kayla    
+0x Chuck  → Rashida  
 3x Zak    → Hannah   
 1x Tyler  → Melanie  
-0x Chuck  → Rashida  
-1x Devin  → Britni   
 1x Austin → Cheyenne 
-7x Connor → Chelsey  
 5x Alec   → Stacey   
-0x Hunter → Kayla    
-0x Mike   → Kiki     
 ---
 -> I[l]/bits: {1: 3.00, 2: 1.42, 3: 3.00, 4: 2.42, 5: 4.00, 6: 4.00, 10: 4.00}
 -> E[I]/bits: 2.48
@@ -514,16 +514,16 @@ Zak → Kayla
 4 left -> 2 bits left
 
 MN#10.0 E10
-8x Connor → Chelsey  
-0x Austin → Britni   
-3x Zak    → Kayla    
-3x Tyler  → Cheyenne 
-1x Alec   → Amanda   
-3x Devin  → Rashida  
 0x Hunter → Hannah   
-0x Nelson → Stacey   
-1x Chuck  → Melanie  
+8x Connor → Chelsey  
 1x Mike   → Kiki     
+0x Austin → Britni   
+3x Devin  → Rashida  
+1x Chuck  → Melanie  
+3x Tyler  → Cheyenne 
+0x Nelson → Stacey   
+3x Zak    → Kayla    
+1x Alec   → Amanda   
 ---
 -> I[l]/bits: {3: 2.00, 4: 2.00, 5: 2.00, 10: 2.00}
 -> E[I]/bits: 2.00
@@ -594,4 +594,4 @@ MN#10.0 E10
 ╰─────────┴────┴─────────┴─────────┴─────────┴──────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 3628800  Permutations left: 1  Initial combinations for each pair: 362880
 
-Ran in 0.91s
+Ran in 0.94s
