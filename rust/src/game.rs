@@ -141,13 +141,6 @@ impl Game {
         // validate the lut in combination with the ruleset
         g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
-        // rename names in map_a and map_b for output use
-        for (rename, map) in [(&gp.rename_a, &mut g.map_a), (&gp.rename_b, &mut g.map_b)] {
-            for n in map {
-                *n = rename.get(n).unwrap_or(n).to_owned();
-            }
-        }
-
         // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
         for c in gp.constraints_orig {
             g.constraints_orig.push(c.finalize_parsing(
@@ -180,6 +173,13 @@ impl Game {
                     .with_context(|| format!("{} not found in lut_a", k))?] = x;
             }
             g.query_matchings.push(matching);
+        }
+
+        // rename names in map_a and map_b for output use
+        for (rename, map) in [(&gp.rename_a, &mut g.map_a), (&gp.rename_b, &mut g.map_b)] {
+            for n in map {
+                *n = rename.get(n).unwrap_or(n).to_owned();
+            }
         }
 
         Ok(g)

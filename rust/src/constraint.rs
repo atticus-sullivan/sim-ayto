@@ -110,7 +110,6 @@ impl ConstraintParse {
             self.exclude_s.clone()
         };
 
-
         let mut c = Constraint {
             r#type: self.r#type,
             check: self.check,
