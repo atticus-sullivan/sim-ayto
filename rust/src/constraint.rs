@@ -24,7 +24,7 @@ use std::collections::HashSet;
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
-use crate::{Lut, Map, MapS, Matching, Rem};
+use crate::{Lut, Map, MapS, Matching, Rem, Rename};
 
 pub type CSVEntry = (f64, f64, String);
 pub type CSVEntryMB = (bool, f64, f64, String);
@@ -92,22 +92,40 @@ impl ConstraintParse {
     /// - `add_exclude`: whether to automatically add the exclude map
     /// - `sort_constraint`: whether to sort the maps used for this constraint
     pub fn finalize_parsing(
-        &self,
+        self,
         lut_a: &Lut,
         lut_b: &Lut,
         map_len: usize,
         map_b: &Vec<String>,
         add_exclude: bool,
         sort_constraint: bool,
+        rename: (&Rename, &Rename)
     ) -> Result<Constraint> {
+        let exclude_s = if add_exclude {
+            match self.add_exclude(map_b) {
+                Some(e) => Some(e),
+                None => self.exclude_s.clone(),
+            }
+        } else {
+            self.exclude_s.clone()
+        };
+
+
         let mut c = Constraint {
-            r#type: self.r#type.clone(),
-            check: self.check.clone(),
+            r#type: self.r#type,
+            check: self.check,
             hidden: self.hidden,
             result_unknown: self.result_unknown,
-            map_s: self.map_s.clone(),
-            map: self
-                .map_s
+            map_s: self.map_s,
+            map: Map::default(),
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; lut_b.len()]; lut_a.len()],
+            information: None,
+            left_after: None,
+        };
+
+        c.map = c.map_s
                 .iter()
                 .map(&|(k, v)| {
                     let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
@@ -117,26 +135,20 @@ impl ConstraintParse {
                         as u8;
                     Ok((k, v))
                 })
-                .collect::<Result<_>>()?,
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; lut_b.len()]; lut_a.len()],
-            information: None,
-            left_after: None,
-        };
+                .collect::<Result<_>>()?;
 
         // check if map size is valid
-        match self.r#type {
+        match c.r#type {
             ConstraintType::Night { .. } => {
                 ensure!(
-                    self.map_s.len() == map_len,
+                    c.map_s.len() == map_len,
                     "Map in a night must contain exactly as many entries as set_a {} (was: {})",
                     map_len,
-                    self.map_s.len()
+                    c.map_s.len()
                 );
-                let value_len = self.map_s.iter().map(|(_,v)| v).collect::<HashSet<_>>().len();
+                let value_len = c.map_s.iter().map(|(_,v)| v).collect::<HashSet<_>>().len();
                 ensure!(
-                    value_len == self.map_s.len(),
+                    value_len == c.map_s.len(),
                     "Keys in the map of a night must be unique"
                 );
                 ensure!(
@@ -144,32 +156,33 @@ impl ConstraintParse {
                     "Exclude is not yet supported for nights"
                 );
             }
-            ConstraintType::Box { .. } => match &self.check {
+            ConstraintType::Box { .. } => match &c.check {
                 CheckType::Eq => {}
                 CheckType::Nothing => {}
                 CheckType::Lights(_, _) => {
                     ensure!(
-                        self.map_s.len() == 1,
+                        c.map_s.len() == 1,
                         "Map in a box must contain exactly {} entry (was: {})",
                         1,
-                        self.map_s.len()
+                        c.map_s.len()
                     );
                 }
             },
         }
 
+        // rename names in map_s for output use
+        let mut map_s = MapS::default();
+        for (k,v) in &c.map_s {
+            map_s.insert(
+                rename.0.get(k).unwrap_or(k).to_owned(),
+                rename.1.get(v).unwrap_or(v).to_owned()
+            );
+        }
+        c.map_s = map_s;
+
         if sort_constraint {
             c.sort_maps(lut_a, lut_b);
         }
-
-        let exclude_s = if add_exclude {
-            match self.add_exclude(map_b) {
-                Some(e) => Some(e),
-                None => self.exclude_s.clone(),
-            }
-        } else {
-            self.exclude_s.clone()
-        };
 
         // translate names to ids
         if let Some(ex) = &exclude_s {

@@ -35,6 +35,9 @@ setB:
   - Tara
   - Dana
 
+renameB:
+  LauraL: "Laura blond"
+
 queryMatchings:
   - Kaan: [Tara]
     MarcRobin: [LauraM]

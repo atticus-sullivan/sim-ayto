@@ -35,6 +35,7 @@ type Matching = Vec<Vec<u8>>;
 type MapS = HashMap<String, String>;
 type Map = HashMap<u8, u8>;
 type Lut = HashMap<String, usize>;
+type Rename = HashMap<String, String>;
 
 type Rem = (Vec<Vec<u128>>, u128);
 

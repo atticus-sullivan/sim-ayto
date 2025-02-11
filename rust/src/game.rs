@@ -34,7 +34,7 @@ use anyhow::{anyhow, ensure, Context, Result};
 use crate::constraint::Constraint;
 use crate::constraint::ConstraintParse;
 use crate::ruleset::RuleSet;
-use crate::{Lut, Matching, MatchingS, Rem};
+use crate::{Lut, Matching, MatchingS, Rem, Rename};
 
 // colors for tables
 const COLOR_ROW_MAX: Color = Color::Rgb {
@@ -96,6 +96,11 @@ struct GameParse {
     map_a: Vec<String>,
     #[serde(rename = "setB")]
     map_b: Vec<String>,
+
+    #[serde(rename = "renameA", default)]
+    rename_a: Rename,
+    #[serde(rename = "renameB", default)]
+    rename_b: Rename,
 }
 
 impl Game {
@@ -130,13 +135,21 @@ impl Game {
                 lut.insert(name.clone(), index);
             }
         }
+
         ensure!(g.lut_a.len() == g.map_a.len(), "something is wrong with the sets. There might be duplicates in setA (len: {}, dedup len: {}).", g.lut_a.len(), g.map_a.len());
         ensure!(g.lut_b.len() == g.map_b.len(), "something is wrong with the sets. There might be duplicates in setB (len: {}, dedup len: {}).", g.lut_b.len(), g.map_b.len());
         // validate the lut in combination with the ruleset
         g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
+        // rename names in map_a and map_b for output use
+        for (rename, map) in [(&gp.rename_a, &mut g.map_a), (&gp.rename_b, &mut g.map_b)] {
+            for n in map {
+                *n = rename.get(n).unwrap_or(n).to_owned();
+            }
+        }
+
         // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
-        for c in &gp.constraints_orig {
+        for c in gp.constraints_orig {
             g.constraints_orig.push(c.finalize_parsing(
                 &g.lut_a,
                 &g.lut_b,
@@ -144,6 +157,7 @@ impl Game {
                 &g.map_b,
                 g.rule_set.must_add_exclude(),
                 g.rule_set.must_sort_constraint(),
+                (&gp.rename_a, &gp.rename_b)
             )?);
         }
 
@@ -239,14 +253,12 @@ impl Game {
         if print_transposed {
             self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                 .context("Error printing")?;
-            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx, false));
-            tab_idx += 1;
         } else {
             self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                 .context("Error printing")?;
-            md_tables.push(("{{% translatedDetails \"tab-start\" %}}".to_owned(), tab_idx, false));
-            tab_idx += 1;
         }
+        md_tables.push(("tab-start".to_owned(), tab_idx, false));
+        tab_idx += 1;
         println!();
 
         let mut constr = vec![];
@@ -314,20 +326,20 @@ impl Game {
 
         let stem = &self.stem;
 
-        writeln!(out, "{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
+        writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "![](/sim-ayto/{stem}/{stem}_tab.png)")?;
-        writeln!(out, "![](/sim-ayto/{stem}/{stem}_sum.png)")?;
+        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png)\" %}}}}")?;
+        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_sum.png\" %}}}}")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
-        writeln!(out, "{{{{% translateHdr \"tab-individual\" %}}}}")?;
+        writeln!(out, "\n{{{{% translateHdr \"tab-individual\" %}}}}")?;
         for (name,idx,detail) in md_tables.iter() {
             if *detail {
-                writeln!(out, "{{{{% details \"{name}\" %}}}}")?;
+                writeln!(out, "\n{{{{% details \"{name}\" %}}}}")?;
             } else {
-                writeln!(out, "{name}")?;
+                writeln!(out, "\n{{{{% translatedDetails \"{name}\" %}}}}")?;
             }
-            writeln!(out, "![](/sim-ayto/{stem}/{stem}_{idx}.png)")?;
+            writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}.png\" %}}}}")?;
             if *detail {
                 writeln!(out, "{{{{% /details %}}}}")?;
             } else {
@@ -335,15 +347,15 @@ impl Game {
             }
         }
 
-        writeln!(out, "{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
+        writeln!(out, "\n{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "![](/sim-ayto/{stem}/{stem}.col.png)")?;
+        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}.col.png\" %}}}}")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         if self.tree_gen {
-            writeln!(out, "{{{{% translateHdr \"tree-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
+            writeln!(out, "\n{{{{% translateHdr \"tree-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
             writeln!(out, "{{{{% details \"\" %}}}}")?;
-            writeln!(out, "![](/sim-ayto/{stem}/{stem}.png)")?;
+            writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}.png\" %}}}}")?;
             writeln!(out, "{{{{% /details %}}}}")?;
         }
 
