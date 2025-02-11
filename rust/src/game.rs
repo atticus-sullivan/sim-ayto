@@ -328,7 +328,7 @@ impl Game {
 
         writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png)\" %}}}}")?;
+        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png\" %}}}}")?;
         writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_sum.png\" %}}}}")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 

@@ -8,8 +8,8 @@ frontmatter:
 
 tree_gen: false
 
-rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Tori
+# rule_set: !SomeoneIsDup
+rule_set: !FixedDup Tori
 # rule_set: !Eq
 
 setA:
