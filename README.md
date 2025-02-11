@@ -76,6 +76,9 @@ Allgemein gilt: Alles hinter einem `#` ist ein Kommentar und wird später ignori
 #### setA/setB
 Diese beiden Keys (`setA` und `setB`) geben die Teilnehmer der beiden Gruppen an.
 
+#### renameA/renameB
+Hier kann mit den Namen aus `setA`/`setB` als Keys ein anderer Name für die Person im Output angegeben werden. Beim Angeben der Maps der Constraints etc werden weiterhin die "alten" Namen verwendet, bei der Ausgabe der Tabellen (und Constraints) werden die "neuen" Namen verwendet. Idee ist es, einerseits falls im Laufe der Staffel Spitznamen entstehen, Personen umbenennen zu können (wobei man in diesem Fall besser "richtig" umbenennt). Andererseits kann man so längere Namen in der Ausgabe haben aber beim Definieren der Maps der Constraints mit den kürzeren Namen arbeiten.
+
 #### rule_set
 Mittels `rule_set` kann angegeben werden mit welchen Regeln die Sendung verläuft.
 
@@ -115,16 +118,16 @@ Angegeben wird das ganze als *key-value* pair bei dem der *key* aus `setA` und d
 
 Beispiel:
 ```yaml
-      Sabrina: Mike
-      Paulina: Danilo
-      Kim: Paco
-      Alicia: Steffen
-      Jenny: Marvin
-      Steffi: Teezy
-      Darya: Emanuell
-      Marie: Fabio
-      Shakira: Peter
-      Sandra: Elia
+Sabrina: Mike
+Paulina: Danilo
+Kim: Paco
+Alicia: Steffen
+Jenny: Marvin
+Steffi: Teezy
+Darya: Emanuell
+Marie: Fabio
+Shakira: Peter
+Sandra: Elia
 ```
 
 #### weitere optionale Felder
