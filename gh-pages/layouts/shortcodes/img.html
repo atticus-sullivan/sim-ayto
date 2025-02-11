@@ -1,0 +1,3 @@
+{{- $src     := cond .IsNamedParams (.Get "src") (.Get 0) -}}
+{{- $alttext := default "" (cond .IsNamedParams (.Get "alt") (.Get 1)) -}}
+[![{{ $alttext }}]({{ $src }})]({{ $src }})

@@ -4,6 +4,7 @@
 *.txt
 *.png
 *.html
+!gh-pages/layouts/*.html
 
 *.xopp
 
