@@ -65,8 +65,29 @@ constraints:
       Tano: Chiara
       Dion: Tori
 
-  # - type: !Box {num: 2, comment: "E05"}
-  #   check: !Lights [0]
+  - type: !Box {num: 2, comment: "E05 -- verkauft +30.000€"}
+    check: !Nothing
+    map:
+      Levin: Camelia
+      # Danish: Joanna
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights [3]
+    # resultUnknown: true
+    # noExclude: true
+    map:
+      Josh: Nadja
+      Kaan: Anna
+      Levin: Chiara
+      Danish: Camelia
+      Enes: Nasti
+      Tano: Tori
+      Dino: Deisy
+      Joshua: Joanna
+      Sinan: Ina
+      Dion: Selina
+      # Sophia
+
+  # - type: !Box {num: 3, comment: "E07"}
+  #   check: !Lights []
   #   map:
-  #     Levin: Camelia
-  #     Danish: Joanna
