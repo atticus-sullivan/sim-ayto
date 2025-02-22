@@ -8,6 +8,9 @@
 *.html
 !gh-pages/layouts/*.html
 
+gh-pages/content/ayto/comparison/*md
+!gh-pages/content/ayto/comparison/index.*md
+
 *.dot
 *.xopp
 
