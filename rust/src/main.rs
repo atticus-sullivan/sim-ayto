@@ -100,13 +100,26 @@ fn main() {
             html_path_de,
             html_path_us,
         } => {
+            // obtain the graphs for the german seasons
             let html_content_light = graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
             let html_content_dark = graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
-            std::fs::write(html_path_de, format!(r#"---
+
+            // write the output localized for german language
+            let mut html_path_local = html_path_de.clone();
+            std::fs::write(&html_path_local, format!(r#"---
 title: 'DE'
 weight: 1
 bookToc: false
+
 ---
+# Anmerkungen
+- [generelle Hinweise](/sim-ayto#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
+  Letztlich ist `I` aber einfach nur eine Größe wieviel neue Informationen das gebracht hat und `H` nur eine andere Schreibweise für die Anzahl an übrigen Möglichkeiten.
+- durch einen einfachen Klick in der Legende kann man einzelne Linien ausblenden
+- durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
+- ansonsten sind die Plots (bzgl Zoom/Verschieben) eigentlich ziemlich straight forward
+
+# Plots
 <div class="theme-specific-content">
 <div class="light-theme-content" style="display: none;" data-theme="light">
 {}
@@ -117,13 +130,78 @@ bookToc: false
 </div>
 "#,  &html_content_light, &html_content_dark)).unwrap();
 
+            // write the output localized for english language
+            html_path_local.set_extension("en.md");
+            std::fs::write(&html_path_local, format!(r#"---
+title: 'DE'
+weight: 1
+bookToc: false
+
+---
+# Remarks
+- [general information](/sim-ayto/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
+  In the end `I` is just a measure for how much new information was gained and `H` just a different notation for the amount of left possibilities.
+- with a single-click on items in the legend you can hide that line in the plot
+- with a double-click on an item in the legend you can hide all other lines in the plot
+- other things like zooming or panning of the plots should be pretty straight forward
+
+# Plots
+<div class="theme-specific-content">
+<div class="light-theme-content" style="display: none;" data-theme="light">
+{}
+</div>
+<div class="dark-theme-content" style="display: none;" data-theme="dark">
+{}
+</div>
+</div>
+"#,  &html_content_light, &html_content_dark)).unwrap();
+
+
+            // obtain the graphs for the us+uk seasons
             let html_content_light = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_light).unwrap();
             let html_content_dark = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_dark).unwrap();
-            std::fs::write(html_path_us, format!(r#"---
+
+            // write the output localized for german language
+            html_path_local = html_path_us.clone();
+            std::fs::write(&html_path_local, format!(r#"---
 title: 'US + UK'
 weight: 1
 bookToc: false
 ---
+
+# Anmerkungen
+- [generelle Hinweise](/sim-ayto#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
+  Letztlich ist `I` aber einfach nur eine Größe wieviel neue Informationen das gebracht hat und `H` nur eine andere Schreibweise für die Anzahl an übrigen Möglichkeiten.
+- durch einen einfachen Klick in der Legende kann man einzelne Linien ausblenden
+- durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
+- ansonsten sind die Plots (bzgl Zoom/Verschieben) eigentlich ziemlich straight forward
+
+<div class="theme-specific-content">
+<div class="light-theme-content" style="display: none;" data-theme="light">
+{}
+</div>
+<div class="dark-theme-content" style="display: none;" data-theme="dark">
+{}
+</div>
+</div>
+"#,  &html_content_light, &html_content_dark)).unwrap();
+
+            // write the output localized for english language
+            html_path_local.set_extension("en.md");
+            std::fs::write(&html_path_local, format!(r#"---
+title: 'US + UK'
+weight: 1
+bookToc: false
+
+---
+# Remarks
+- [general information](/sim-ayto/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
+  In the end `I` is just a measure for how much new information was gained and `H` just a different notation for the amount of left possibilities.
+- with a single-click on items in the legend you can hide that line in the plot
+- with a double-click on an item in the legend you can hide all other lines in the plot
+- other things like zooming or panning of the plots should be pretty straight forward
+
+# Plots
 <div class="theme-specific-content">
 <div class="light-theme-content" style="display: none;" data-theme="light">
 {}
