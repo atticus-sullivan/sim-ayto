@@ -37,15 +37,15 @@ Josh/Monacco → Anna
 179625600 left -> 27.4204 bits left
 
 MN#1.0 E04
-0x Joshi-Josh   → Selina  
-0x Dion         → Tori    
-0x Kaan         → Joanna  
-0x Tano         → Chiara  
-0x Enes         → Anna    
-0x Levin        → Camelia 
 0x Danish       → Sophia  
+0x Levin        → Camelia 
+0x Enes         → Anna    
 0x Sinan        → Ina     
+0x Kaan         → Joanna  
+0x Joshi-Josh   → Selina  
+0x Tano         → Chiara  
 0x Dino         → Deisy   
+0x Dion         → Tori    
 0x Josh/Monacco → Nadja   
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
@@ -88,16 +88,16 @@ Nothing => I = 0 bits
 33752266 left -> 25.0085 bits left
 
 MN#2.0 E06
-0x Danish       → Camelia 
 1x Dino         → Deisy   
 0x Enes         → Nasti   
-0x Dion         → Selina  
+0x Joshi-Josh   → Joanna  
+0x Danish       → Camelia 
+1x Sinan        → Ina     
+0x Kaan         → Anna    
 0x Tano         → Tori    
 1x Josh/Monacco → Nadja   
 0x Levin        → Chiara  
-0x Joshi-Josh   → Joanna  
-0x Kaan         → Anna    
-1x Sinan        → Ina     
+0x Dion         → Selina  
 ---
 -> I[l]/bits: {0: 1.89, 1: 1.41, 2: 2.10, 3: 3.47, 4: 5.32, 5: 7.55, 6: 10.10, 7: 12.96, 8: 16.14, 9: 20.25}
 -> E[I]/bits: 2.03
@@ -141,16 +141,16 @@ Sinan → Ina
 1826680 left -> 20.8008 bits left
 
 MN#3.0 E08
-1x Joshi-Josh   → Joanna  
-2x Josh/Monacco → Nadja   
-1x Tano         → Tori    
-1x Levin        → Camelia 
-0x Dion         → Chiara  
 1x Danish       → Sophia  
+2x Josh/Monacco → Nadja   
+1x Levin        → Camelia 
 2x Dino         → Deisy   
+1x Tano         → Tori    
+1x Joshi-Josh   → Joanna  
 1x Kaan         → Anna    
-0x Sinan        → Nasti   
 0x Enes         → Selina  
+0x Dion         → Chiara  
+0x Sinan        → Nasti   
 ---
 -> I[l]/bits: {0: 7.28, 1: 2.54, 2: 1.41, 3: 1.79, 4: 3.08, 5: 4.96, 6: 7.34, 7: 10.64, 8: 16.16}
 -> E[I]/bits: 2.11
@@ -193,4 +193,4 @@ MN#3.0 E08
 ╰────────┴───┴──────────────┴─────────┴────────┴───────┴────────┴─────────────┴───────────────┴────────┴─────────────┴─────────┴───────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 215729  Initial combinations for each pair: 19958400
 
-Ran in 69.54s
+Ran in 67.84s
