@@ -103,6 +103,7 @@ fn main() {
             // obtain the graphs for the german seasons
             let html_content_light = graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
             let html_content_dark = graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
+            let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("de")).unwrap();
 
             // write the output localized for german language
             let mut html_path_local = html_path_de.clone();
@@ -119,6 +120,9 @@ bookToc: false
 - durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
 - ansonsten sind die Plots (bzgl Zoom/Verschieben) eigentlich ziemlich straight forward
 
+# Regeln je Staffel
+{}
+
 # Plots
 <div class="theme-specific-content">
 <div class="light-theme-content" style="display: none;" data-theme="light">
@@ -128,7 +132,7 @@ bookToc: false
 {}
 </div>
 </div>
-"#,  &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // write the output localized for english language
             html_path_local.set_extension("en.md");
@@ -145,6 +149,9 @@ bookToc: false
 - with a double-click on an item in the legend you can hide all other lines in the plot
 - other things like zooming or panning of the plots should be pretty straight forward
 
+# Ruleset per Season
+{}
+
 # Plots
 <div class="theme-specific-content">
 <div class="light-theme-content" style="display: none;" data-theme="light">
@@ -154,12 +161,13 @@ bookToc: false
 {}
 </div>
 </div>
-"#,  &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
 
             // obtain the graphs for the us+uk seasons
             let html_content_light = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_light).unwrap();
             let html_content_dark = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_dark).unwrap();
+            let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
 
             // write the output localized for german language
             html_path_local = html_path_us.clone();
@@ -176,6 +184,11 @@ bookToc: false
 - durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
 - ansonsten sind die Plots (bzgl Zoom/Verschieben) eigentlich ziemlich straight forward
 
+
+# Regeln je Staffel
+{}
+
+# Plots
 <div class="theme-specific-content">
 <div class="light-theme-content" style="display: none;" data-theme="light">
 {}
@@ -184,7 +197,7 @@ bookToc: false
 {}
 </div>
 </div>
-"#,  &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // write the output localized for english language
             html_path_local.set_extension("en.md");
@@ -201,6 +214,9 @@ bookToc: false
 - with a double-click on an item in the legend you can hide all other lines in the plot
 - other things like zooming or panning of the plots should be pretty straight forward
 
+# Ruleset per Season
+{}
+
 # Plots
 <div class="theme-specific-content">
 <div class="light-theme-content" style="display: none;" data-theme="light">
@@ -210,7 +226,7 @@ bookToc: false
 {}
 </div>
 </div>
-"#,  &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
         }
     }
 }
