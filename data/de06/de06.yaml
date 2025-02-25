@@ -88,6 +88,29 @@ constraints:
       Dion: Selina
       # Sophia
 
-  # - type: !Box {num: 3, comment: "E07"}
-  #   check: !Lights []
+  - type: !Box {num: 3, comment: "E07"}
+    check: !Lights [0]
+    map:
+      # Danish: Camelia
+      Sinan: Ina
+
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights [4]
+    # resultUnknown: true
+    # noExclude: true
+    map:
+      Joshua: Joanna
+      Dion: Chiara
+      Dino: Deisy
+      Kaan: Anna
+      # Levin: Ina
+      Tano: Tori
+      Josh: Nadja
+      Enes: Selina
+      Sinan: Nasti
+      Danish: Sophia
+      Levin: Camelia
+
+  # - type: !Box {num: 4, comment: "E09"}
+  #   check: !Lights [0]
   #   map:
