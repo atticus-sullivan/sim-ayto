@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+use std::path::Path;
+
 use anyhow::Result;
 use plotly::common::{Mode, Title};
 use plotly::{Layout, Plot, Scatter};
@@ -23,6 +25,38 @@ use walkdir::WalkDir;
 use catppuccin::PALETTE;
 
 use crate::constraint::{CSVEntry, CSVEntryMB};
+
+use crate::game::Game;
+
+pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
+    let mut tab_lines = vec![];
+    for entry in WalkDir::new("./data")
+        .max_depth(1)
+        .min_depth(1)
+        .sort_by_file_name()
+        .into_iter()
+        .filter_entry(|e| {
+            e.file_name().to_str().map_or(false, |e| filter_dirs(e))
+                && e.metadata().map_or(false, |e| e.is_dir())
+        })
+        .filter_map(Result::ok)
+    {
+        let mut dat = entry.path().join(entry.file_name());
+        dat.set_extension("yaml");
+        let g = Game::new_from_yaml(dat.as_path(), Path::new("/tmp/")).expect("Parsing failed");
+
+        let name = entry.file_name().to_str().unwrap_or("unknown").to_owned();
+
+        let r = g.ruleset_str();
+        tab_lines.push(format!("| {} | {} | {} | {{{{< i18n \"{}\" >}}}} |", name, g.players_str(), r.1, r.0));
+    }
+    tab_lines.sort();
+
+    Ok(format!(r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "players" >}}}} | {{{{< i18n "rulesetShort" >}}}} | {{{{< i18n "rulesetDesc" >}}}} |
+| --- | --- | --- | --- |
+{}
+    "#, tab_lines.join("\n")))
+}
 
 pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<String> {
     let palette = match theme {

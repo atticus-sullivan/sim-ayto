@@ -104,6 +104,21 @@ struct GameParse {
 }
 
 impl Game {
+    // returns (translationKeyForExplanation, shortcode)
+    pub fn ruleset_str(self: &Self) -> (&str, &str) {
+        match self.rule_set{
+            RuleSet::SomeoneIsDup => ("rs-SomeoneIsDup", "?2"),
+            RuleSet::SomeoneIsTrip => ("rs-SomeoneIsTrip", "?3"),
+            RuleSet::NToN => ("rs-NToN", "N:N"),
+            RuleSet::FixedDup(_) => ("rs-FixedDup", "=2"),
+            RuleSet::FixedTrip(_) => ("rs-FixedTrip", "=3"),
+            RuleSet::Eq => ("rs-Eq", "="),
+        }
+    }
+    pub fn players_str(self: &Self) -> String {
+        format!("{}/{}", self.map_a.len(), self.map_b.len())
+    }
+
     pub fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
         let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
