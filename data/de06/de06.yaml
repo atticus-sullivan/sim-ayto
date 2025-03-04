@@ -111,6 +111,31 @@ constraints:
       Danish: Sophia
       Levin: Camelia
 
-  # - type: !Box {num: 4, comment: "E09"}
-  #   check: !Lights [0]
+  - type: !Box {num: 4, comment: "E09"}
+    check: !Lights [1]
+    map:
+      # Tano: Tori
+      Danish: Nadja
+
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights [4]
+    # resultUnknown: true
+    # noExclude: true
+    map:
+      Danish: Nadja
+      Enes: Selina
+      Levin: Camelia
+      Tano: Tori
+      Dino: Deisy
+      Josh: Ina
+      Dion: Nasti
+      Sinan: Sophia
+      Kaan: Anna
+      Joshua: Joanna
+      # Chiara
+
+  # - type: !Box {num: 5, comment: "E11"}
+  #   check: !Lights [1]
   #   map:
+  #     # Enes: Selina
+  #     Dino: Deisy
