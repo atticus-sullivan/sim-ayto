@@ -134,8 +134,31 @@ constraints:
       Joshua: Joanna
       # Chiara
 
-  # - type: !Box {num: 5, comment: "E11"}
-  #   check: !Lights [1]
+  - type: !Box {num: 5, comment: "E11"}
+    check: !Lights [1]
+    map:
+      # Enes: Selina
+      Dino: Deisy
+
+  - type: !Night {num: 5, comment: "E12"}
+    check: !Lights [4]
+    # resultUnknown: true
+    # noExclude: true
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Sinan: Nasti
+      Joshua: Joanna
+      Josh: Ina
+      Kaan: Sophia
+      Enes: Selina
+      Dion: Chiara
+      Levin: Camelia
+      Tano: Tori
+      # Tano: Anna
+
+  # - type: !Box {num: 6, comment: "E13"}
+  #   check: !Lights [0]
   #   map:
-  #     # Enes: Selina
-  #     Dino: Deisy
+  #     Tano: Tori
+  #     # Josh: Ina
