@@ -100,7 +100,7 @@ impl ConstraintParse {
         map_b: &Vec<String>,
         add_exclude: bool,
         sort_constraint: bool,
-        rename: (&Rename, &Rename)
+        rename: (&Rename, &Rename),
     ) -> Result<Constraint> {
         let exclude_s = if add_exclude {
             match self.add_exclude(map_b) {
@@ -125,17 +125,17 @@ impl ConstraintParse {
             left_after: None,
         };
 
-        c.map = c.map_s
-                .iter()
-                .map(&|(k, v)| {
-                    let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
-                    let v = *lut_b
-                        .get(v)
-                        .with_context(|| format!("Invalid Value {}", v))?
-                        as u8;
-                    Ok((k, v))
-                })
-                .collect::<Result<_>>()?;
+        c.map = c
+            .map_s
+            .iter()
+            .map(&|(k, v)| {
+                let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
+                let v = *lut_b
+                    .get(v)
+                    .with_context(|| format!("Invalid Value {}", v))? as u8;
+                Ok((k, v))
+            })
+            .collect::<Result<_>>()?;
 
         // check if map size is valid
         match c.r#type {
@@ -146,7 +146,7 @@ impl ConstraintParse {
                     map_len,
                     c.map_s.len()
                 );
-                let value_len = c.map_s.iter().map(|(_,v)| v).collect::<HashSet<_>>().len();
+                let value_len = c.map_s.iter().map(|(_, v)| v).collect::<HashSet<_>>().len();
                 ensure!(
                     value_len == c.map_s.len(),
                     "Keys in the map of a night must be unique"
@@ -172,10 +172,10 @@ impl ConstraintParse {
 
         // rename names in map_s for output use
         let mut map_s = MapS::default();
-        for (k,v) in &c.map_s {
+        for (k, v) in &c.map_s {
             map_s.insert(
                 rename.0.get(k).unwrap_or(k).to_owned(),
-                rename.1.get(v).unwrap_or(v).to_owned()
+                rename.1.get(v).unwrap_or(v).to_owned(),
             );
         }
         c.map_s = map_s;
@@ -675,8 +675,16 @@ impl Constraint {
 
     pub fn md_title(&self) -> String {
         match &self.r#type {
-            ConstraintType::Night { num, comment, .. } => format!("MN#{:02.1} {}", num, comment.split("--").collect::<Vec<_>>()[0]),
-            ConstraintType::Box { num, comment, .. } => format!("MB#{:02.1} {}", num, comment.split("--").collect::<Vec<_>>()[0]),
+            ConstraintType::Night { num, comment, .. } => format!(
+                "MN#{:02.1} {}",
+                num,
+                comment.split("--").collect::<Vec<_>>()[0]
+            ),
+            ConstraintType::Box { num, comment, .. } => format!(
+                "MB#{:02.1} {}",
+                num,
+                comment.split("--").collect::<Vec<_>>()[0]
+            ),
         }
     }
 
@@ -962,7 +970,15 @@ mod tests {
         let lut_b = lut_a.clone();
 
         let constraint = constraint
-            .finalize_parsing(&lut_a, &lut_b, 3, &vec![], false, false, (&Default::default(), &Default::default()))
+            .finalize_parsing(
+                &lut_a,
+                &lut_b,
+                3,
+                &vec![],
+                false,
+                false,
+                (&Default::default(), &Default::default()),
+            )
             .unwrap();
 
         let map = HashMap::from_iter(vec![(0, 1), (2, 1), (3, 1)].into_iter());
@@ -1000,7 +1016,15 @@ mod tests {
         let lut_b = lut_a.clone();
 
         let constraint = constraint
-            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], true, false, (&Default::default(), &Default::default()))
+            .finalize_parsing(
+                &lut_a,
+                &lut_b,
+                20,
+                &vec![],
+                true,
+                false,
+                (&Default::default(), &Default::default()),
+            )
             .unwrap();
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
@@ -1042,7 +1066,15 @@ mod tests {
         let lut_b = lut_a.clone();
 
         let constraint = constraint
-            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], false, false, (&Default::default(), &Default::default()))
+            .finalize_parsing(
+                &lut_a,
+                &lut_b,
+                20,
+                &vec![],
+                false,
+                false,
+                (&Default::default(), &Default::default()),
+            )
             .unwrap();
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
