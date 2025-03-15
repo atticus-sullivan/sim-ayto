@@ -91,6 +91,7 @@ impl ConstraintParse {
     /// - `map_b`: Reference to the set of elements in set_b used to generate the exclude map
     /// - `add_exclude`: whether to automatically add the exclude map
     /// - `sort_constraint`: whether to sort the maps used for this constraint
+    /// - `rename`: Maps one name to another name for renaming the names of set_a and set_b
     pub fn finalize_parsing(
         self,
         lut_a: &Lut,
@@ -961,7 +962,7 @@ mod tests {
         let lut_b = lut_a.clone();
 
         let constraint = constraint
-            .finalize_parsing(&lut_a, &lut_b, 3, &vec![], false, false)
+            .finalize_parsing(&lut_a, &lut_b, 3, &vec![], false, false, (&Default::default(), &Default::default()))
             .unwrap();
 
         let map = HashMap::from_iter(vec![(0, 1), (2, 1), (3, 1)].into_iter());
@@ -999,7 +1000,7 @@ mod tests {
         let lut_b = lut_a.clone();
 
         let constraint = constraint
-            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], true, false)
+            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], true, false, (&Default::default(), &Default::default()))
             .unwrap();
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
@@ -1041,7 +1042,7 @@ mod tests {
         let lut_b = lut_a.clone();
 
         let constraint = constraint
-            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], false, false)
+            .finalize_parsing(&lut_a, &lut_b, 20, &vec![], false, false, (&Default::default(), &Default::default()))
             .unwrap();
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
