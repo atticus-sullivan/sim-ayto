@@ -59,6 +59,26 @@ const COLOR_ALT_BG: Color = Color::Rgb {
     b: 60,
 };
 
+#[derive(clap::ValueEnum, Clone, Debug)]
+pub enum DumpMode {
+    Full,
+    FullNames,
+    Winning,
+    WinningNames,
+}
+
+use permutator::CartesianProduct;
+
+fn foreach_unwrapped_matching<F>(matching: &Vec<Vec<u8>>, mut f: F)
+where
+    F: FnMut(Vec<&u8>),
+{
+    let matching_slices: Vec<&[u8]> = matching.iter().map(|v| v.as_slice()).collect();
+    for p in matching_slices.cart_prod() {
+        f(p);
+    }
+}
+
 #[derive(Debug)]
 pub struct Game {
     constraints_orig: Vec<Constraint>,
@@ -106,7 +126,7 @@ struct GameParse {
 impl Game {
     // returns (translationKeyForExplanation, shortcode)
     pub fn ruleset_str(self: &Self) -> (&str, &str) {
-        match self.rule_set{
+        match self.rule_set {
             RuleSet::SomeoneIsDup => ("rs-SomeoneIsDup", "?2"),
             RuleSet::SomeoneIsTrip => ("rs-SomeoneIsTrip", "?3"),
             RuleSet::NToN => ("rs-NToN", "N:N"),
@@ -165,7 +185,7 @@ impl Game {
                 &g.map_b,
                 g.rule_set.must_add_exclude(),
                 g.rule_set.must_sort_constraint(),
-                (&gp.rename_a, &gp.rename_b)
+                (&gp.rename_a, &gp.rename_b),
             )?);
         }
 
@@ -173,7 +193,7 @@ impl Game {
         for q in &gp.query_matchings_s {
             let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
             for (k, v) in q {
-                let x = v
+                let mut x = v
                     .iter()
                     .map(|v| {
                         g.lut_b
@@ -182,6 +202,7 @@ impl Game {
                             .with_context(|| format!("{} not found in lut_b", v))
                     })
                     .collect::<Result<Vec<_>>>()?;
+                x.sort();
                 matching[*g
                     .lut_a
                     .get(k)
@@ -200,13 +221,13 @@ impl Game {
         Ok(g)
     }
 
-    pub fn sim(&mut self, print_transposed: bool) -> Result<()> {
+    pub fn sim(&mut self, print_transposed: bool, dump_mode: Option<DumpMode>) -> Result<()> {
         let perm_amount = self
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len());
 
         let mut is = IterState::new(
-            self.tree_gen,
+            self.tree_gen || dump_mode.is_some(),
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
@@ -219,7 +240,7 @@ impl Game {
 
         // track table indices
         let mut tab_idx = 0;
-        let mut md_tables: Vec<(String,u16,bool)> = vec![];
+        let mut md_tables: Vec<(String, u16, bool)> = vec![];
 
         // generate additional tables
         if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
@@ -323,6 +344,50 @@ impl Game {
             )?;
         }
 
+        if let Some(d) = dump_mode {
+            match d {
+                DumpMode::Full => {
+                    for p in is.left_poss.iter() {
+                        println!("{:?}", p.iter().enumerate().collect::<Vec<_>>())
+                    }
+                }
+                DumpMode::FullNames => {
+                    for p in is.left_poss.iter() {
+                        println!(
+                            "{:?}",
+                            p.into_iter()
+                                .enumerate()
+                                .map(|(a, bs)| (
+                                    &self.map_a[a],
+                                    bs.into_iter()
+                                        .map(|b| &self.map_b[*b as usize])
+                                        .collect::<Vec<_>>()
+                                ))
+                                .collect::<Vec<_>>()
+                        )
+                    }
+                }
+                DumpMode::Winning => {
+                    for p in is.left_poss.iter() {
+                        foreach_unwrapped_matching(p, |m| println!("{:?}", m));
+                    }
+                }
+                DumpMode::WinningNames => {
+                    for p in is.left_poss.iter() {
+                        foreach_unwrapped_matching(p, |m| {
+                            println!(
+                                "{:?}",
+                                m.into_iter()
+                                    .enumerate()
+                                    .map(|(a, b)| (&self.map_a[a], &self.map_b[*b as usize]))
+                                    .collect::<Vec<_>>()
+                            )
+                        });
+                    }
+                }
+            }
+        }
+
         self.do_statistics(is.total as f64, &constr)?;
 
         println!(
@@ -334,7 +399,7 @@ impl Game {
         Ok(())
     }
 
-    fn md_output(&self, out: &mut File, md_tables: &Vec<(String,u16, bool)>) -> Result<()> {
+    fn md_output(&self, out: &mut File, md_tables: &Vec<(String, u16, bool)>) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
         writeln!(out, "---")?;
@@ -343,18 +408,27 @@ impl Game {
 
         writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png\" %}}}}")?;
-        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_sum.png\" %}}}}")?;
+        writeln!(
+            out,
+            "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png\" %}}}}"
+        )?;
+        writeln!(
+            out,
+            "{{{{% img src=\"/sim-ayto/{stem}/{stem}_sum.png\" %}}}}"
+        )?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "\n{{{{% translateHdr \"tab-individual\" %}}}}")?;
-        for (name,idx,detail) in md_tables.iter() {
+        for (name, idx, detail) in md_tables.iter() {
             if *detail {
                 writeln!(out, "\n{{{{% details \"{name}\" %}}}}")?;
             } else {
                 writeln!(out, "\n{{{{% translatedDetails \"{name}\" %}}}}")?;
             }
-            writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}.png\" %}}}}")?;
+            writeln!(
+                out,
+                "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}.png\" %}}}}"
+            )?;
             if *detail {
                 writeln!(out, "{{{{% /details %}}}}")?;
             } else {
@@ -364,7 +438,10 @@ impl Game {
 
         writeln!(out, "\n{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details \"\" %}}}}")?;
-        writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}.col.png\" %}}}}")?;
+        writeln!(
+            out,
+            "{{{{% img src=\"/sim-ayto/{stem}/{stem}.col.png\" %}}}}"
+        )?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         if self.tree_gen {
@@ -376,7 +453,6 @@ impl Game {
 
         Ok(())
     }
-
 
     fn do_statistics(&self, total: f64, merged_constraints: &Vec<Constraint>) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
@@ -786,7 +862,7 @@ impl Game {
 
 pub struct IterState {
     constraints: Vec<Constraint>,
-    tree_gen: bool,
+    keep_rem: bool,
     each: u128,
     total: u128,
     eliminated: u128,
@@ -798,14 +874,14 @@ pub struct IterState {
 
 impl IterState {
     pub fn new(
-        tree_gen: bool,
+        keep_rem: bool,
         perm_amount: usize,
         constraints: Vec<Constraint>,
         query_matchings: &Vec<Matching>,
     ) -> IterState {
         let is = IterState {
             constraints,
-            tree_gen,
+            keep_rem,
             query_matchings: query_matchings.iter().map(|i| (i.clone(), None)).collect(),
             each: 0,
             total: 0,
@@ -854,7 +930,7 @@ impl IterState {
                 break;
             }
         }
-        if left && self.tree_gen {
+        if left && self.keep_rem {
             self.left_poss.push(p);
         }
         Ok(())
@@ -864,4 +940,35 @@ impl IterState {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_unwraped_matching() {
+        let m = vec![
+            vec![6],
+            vec![3],
+            vec![2, 10],
+            vec![4],
+            vec![1],
+            vec![5],
+            vec![0],
+            vec![7],
+            vec![8],
+            vec![9],
+        ];
+        foreach_unwrapped_matching(&m, |m| println!("{:?}", m));
+        println!();
+        let m = vec![
+            vec![6],
+            vec![3],
+            vec![2, 10],
+            vec![4],
+            vec![1],
+            vec![5, 20],
+            vec![0],
+            vec![7],
+            vec![8],
+            vec![9],
+        ];
+        foreach_unwrapped_matching(&m, |m| println!("{:?}", m));
+    }
 }

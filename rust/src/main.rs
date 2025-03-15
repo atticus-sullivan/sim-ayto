@@ -24,6 +24,7 @@ mod ruleset;
 use crate::game::Game;
 
 use clap::{Parser, Subcommand};
+use game::DumpMode;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
@@ -60,15 +61,18 @@ enum Commands {
 
         #[arg(short = 'o', long = "output")]
         stem: PathBuf,
+
+        #[arg(long = "dump")]
+        dump: Option<DumpMode>,
     },
     Check {
         /// The path to the file to read
         yaml_path: PathBuf,
     },
     Graph {
-        #[arg(short = 'l', long = "theme-light", default_value="1")]
+        #[arg(short = 'l', long = "theme-light", default_value = "1")]
         theme_light: u8,
-        #[arg(short = 'd', long = "theme-dark", default_value="3")]
+        #[arg(short = 'd', long = "theme-dark", default_value = "3")]
         theme_dark: u8,
         html_path_de: PathBuf,
         html_path_us: PathBuf,
@@ -84,10 +88,11 @@ fn main() {
             colored: _,
             transpose_tabs,
             stem,
+            dump,
         } => {
             let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
             let start = Instant::now();
-            g.sim(transpose_tabs).unwrap();
+            g.sim(transpose_tabs, dump).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Check { yaml_path } => {
@@ -101,8 +106,10 @@ fn main() {
             html_path_us,
         } => {
             // obtain the graphs for the german seasons
-            let html_content_light = graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
-            let html_content_dark = graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
+            let html_content_light =
+                graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
+            let html_content_dark =
+                graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
             let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("de")).unwrap();
 
             // write the output localized for german language
@@ -163,11 +170,19 @@ bookToc: false
 </div>
 "#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
-
             // obtain the graphs for the us+uk seasons
-            let html_content_light = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_light).unwrap();
-            let html_content_dark = graph::build_stats_graph(|e| e.starts_with("uk") || e.starts_with("us"), theme_dark).unwrap();
-            let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
+            let html_content_light = graph::build_stats_graph(
+                |e| e.starts_with("uk") || e.starts_with("us"),
+                theme_light,
+            )
+            .unwrap();
+            let html_content_dark = graph::build_stats_graph(
+                |e| e.starts_with("uk") || e.starts_with("us"),
+                theme_dark,
+            )
+            .unwrap();
+            let md_ruleset_tab =
+                graph::ruleset_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
 
             // write the output localized for german language
             html_path_local = html_path_us.clone();
