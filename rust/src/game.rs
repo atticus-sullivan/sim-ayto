@@ -193,7 +193,7 @@ impl Game {
         for q in &gp.query_matchings_s {
             let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
             for (k, v) in q {
-                let x = v
+                let mut x = v
                     .iter()
                     .map(|v| {
                         g.lut_b
