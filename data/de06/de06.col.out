@@ -37,16 +37,16 @@ Josh/Monacco → Anna
 179625600 left -> 27.4204 bits left
 
 MN#1.0 E04
-0x Sinan        → Ina     
-0x Enes         → Anna    
-0x Kaan         → Joanna  
-0x Levin        → Camelia 
-0x Dion         → Tori    
-0x Danish       → Sophia  
 0x Tano         → Chiara  
-0x Josh/Monacco → Nadja   
-0x Dino         → Deisy   
+0x Enes         → Anna    
+0x Danish       → Sophia  
 0x Joshi-Josh   → Selina  
+0x Dino         → Deisy   
+0x Levin        → Camelia 
+0x Josh/Monacco → Nadja   
+0x Sinan        → Ina     
+0x Kaan         → Joanna  
+0x Dion         → Tori    
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89
@@ -89,15 +89,15 @@ Nothing => I = 0 bits
 
 MN#2.0 E06
 0x Enes         → Nasti   
+0x Danish       → Camelia 
+0x Dion         → Selina  
+0x Tano         → Tori    
+1x Josh/Monacco → Nadja   
+0x Joshi-Josh   → Joanna  
 1x Dino         → Deisy   
 1x Sinan        → Ina     
-0x Kaan         → Anna    
-1x Josh/Monacco → Nadja   
-0x Danish       → Camelia 
-0x Joshi-Josh   → Joanna  
-0x Dion         → Selina  
 0x Levin        → Chiara  
-0x Tano         → Tori    
+0x Kaan         → Anna    
 ---
 -> I[l]/bits: {0: 1.89, 1: 1.41, 2: 2.10, 3: 3.47, 4: 5.32, 5: 7.55, 6: 10.10, 7: 12.96, 8: 16.14, 9: 20.25}
 -> E[I]/bits: 2.03
@@ -141,16 +141,16 @@ Sinan → Ina
 1826680 left -> 20.8008 bits left
 
 MN#3.0 E08
-0x Enes         → Selina  
+1x Levin        → Camelia 
+1x Kaan         → Anna    
 0x Dion         → Chiara  
-2x Josh/Monacco → Nadja   
+1x Danish       → Sophia  
 2x Dino         → Deisy   
 0x Sinan        → Nasti   
 1x Joshi-Josh   → Joanna  
-1x Danish       → Sophia  
+0x Enes         → Selina  
+2x Josh/Monacco → Nadja   
 1x Tano         → Tori    
-1x Kaan         → Anna    
-1x Levin        → Camelia 
 ---
 -> I[l]/bits: {0: 7.28, 1: 2.54, 2: 1.41, 3: 1.79, 4: 3.08, 5: 4.96, 6: 7.34, 7: 10.64, 8: 16.16}
 -> E[I]/bits: 2.11
@@ -195,14 +195,14 @@ Danish → Nadja
 
 MN#4.0 E10
 2x Kaan         → Anna    
-1x Enes         → Selina  
-0x Josh/Monacco → Ina     
+2x Joshi-Josh   → Joanna  
 3x Dino         → Deisy   
 0x Danish       → Nadja   
-2x Joshi-Josh   → Joanna  
-0x Dion         → Nasti   
-2x Levin        → Camelia 
 0x Sinan        → Sophia  
+0x Josh/Monacco → Ina     
+2x Levin        → Camelia 
+1x Enes         → Selina  
+0x Dion         → Nasti   
 2x Tano         → Tori    
 ---
 -> I[l]/bits: {3: 8.15, 4: 1.27, 5: 1.49, 6: 2.53, 7: 4.39, 8: 7.60}
@@ -248,15 +248,15 @@ Dino → Deisy
 
 MN#5.0 E12
 2x Enes         → Selina  
-3x Joshi-Josh   → Joanna  
-1x Dion         → Chiara  
+3x Tano         → Tori    
+3x Levin        → Camelia 
+4x Dino         → Deisy   
 1x Danish       → Nadja   
+1x Dion         → Chiara  
+1x Josh/Monacco → Ina     
+3x Joshi-Josh   → Joanna  
 0x Kaan         → Sophia  
 1x Sinan        → Nasti   
-4x Dino         → Deisy   
-3x Tano         → Tori    
-1x Josh/Monacco → Ina     
-3x Levin        → Camelia 
 ---
 -> I[l]/bits: {4: 0.87, 5: 1.50, 6: 3.35, 7: 10.17}
 -> E[I]/bits: 1.34
@@ -307,4 +307,4 @@ MN#5.0 E12
 ╰────────┴───┴──────────────┴─────────┴────────┴───────┴───────────────┴─────────────┴───────────────┴────────┴─────────────┴─────────┴───────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1263  Initial combinations for each pair: 19958400
 
-Ran in 68.81s
+Ran in 67.94s
