@@ -202,6 +202,7 @@ impl Game {
                             .with_context(|| format!("{} not found in lut_b", v))
                     })
                     .collect::<Result<Vec<_>>>()?;
+                x.sort();
                 matching[*g
                     .lut_a
                     .get(k)
