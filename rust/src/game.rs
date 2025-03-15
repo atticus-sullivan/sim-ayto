@@ -59,6 +59,26 @@ const COLOR_ALT_BG: Color = Color::Rgb {
     b: 60,
 };
 
+#[derive(clap::ValueEnum, Clone, Debug)]
+pub enum DumpMode {
+    Full,
+    FullNames,
+    Winning,
+    WinningNames,
+}
+
+use permutator::CartesianProduct;
+
+fn foreach_unwrapped_matching<F>(matching: &Vec<Vec<u8>>, mut f: F)
+where
+    F: FnMut(Vec<&u8>),
+{
+    let matching_slices: Vec<&[u8]> = matching.iter().map(|v| v.as_slice()).collect();
+    for p in matching_slices.cart_prod() {
+        f(p);
+    }
+}
+
 #[derive(Debug)]
 pub struct Game {
     constraints_orig: Vec<Constraint>,
@@ -200,13 +220,13 @@ impl Game {
         Ok(g)
     }
 
-    pub fn sim(&mut self, print_transposed: bool) -> Result<()> {
+    pub fn sim(&mut self, print_transposed: bool, dump_mode: Option<DumpMode>) -> Result<()> {
         let perm_amount = self
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len());
 
         let mut is = IterState::new(
-            self.tree_gen,
+            self.tree_gen || dump_mode.is_some(),
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
@@ -321,6 +341,31 @@ impl Game {
                 &(constr[constr.len() - 1].type_str() + " / " + constr[constr.len() - 1].comment()),
                 &mut File::create(dot_path.clone())?,
             )?;
+        }
+
+        if let Some(d) = dump_mode {
+            match d {
+                DumpMode::Full => {
+                    for p in is.left_poss.iter() {
+                        println!("{:?}", p.iter().enumerate().collect::<Vec<_>>())
+                    }
+                },
+                DumpMode::FullNames => {
+                    for p in is.left_poss.iter() {
+                        println!("{:?}", p.into_iter().enumerate().map(|(a,bs)| (&self.map_a[a], bs.into_iter().map(|b| &self.map_b[*b as usize]).collect::<Vec<_>>())).collect::<Vec<_>>())
+                    }
+                },
+                DumpMode::Winning => {
+                    for p in is.left_poss.iter() {
+                        foreach_unwrapped_matching(p, |m| println!("{:?}", m));
+                    }
+                },
+                DumpMode::WinningNames => {
+                    for p in is.left_poss.iter() {
+                        foreach_unwrapped_matching(p, |m| println!("{:?}", m.into_iter().enumerate().map(|(a,b)| (&self.map_a[a], &self.map_b[*b as usize])).collect::<Vec<_>>()));
+                    }
+                },
+            }
         }
 
         self.do_statistics(is.total as f64, &constr)?;
@@ -786,7 +831,7 @@ impl Game {
 
 pub struct IterState {
     constraints: Vec<Constraint>,
-    tree_gen: bool,
+    keep_rem: bool,
     each: u128,
     total: u128,
     eliminated: u128,
@@ -798,14 +843,14 @@ pub struct IterState {
 
 impl IterState {
     pub fn new(
-        tree_gen: bool,
+        keep_rem: bool,
         perm_amount: usize,
         constraints: Vec<Constraint>,
         query_matchings: &Vec<Matching>,
     ) -> IterState {
         let is = IterState {
             constraints,
-            tree_gen,
+            keep_rem,
             query_matchings: query_matchings.iter().map(|i| (i.clone(), None)).collect(),
             each: 0,
             total: 0,
@@ -854,7 +899,7 @@ impl IterState {
                 break;
             }
         }
-        if left && self.tree_gen {
+        if left && self.keep_rem {
             self.left_poss.push(p);
         }
         Ok(())
@@ -864,4 +909,13 @@ impl IterState {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_unwraped_matching() {
+        let m = vec![vec![6], vec![3], vec![2, 10], vec![4], vec![1], vec![5], vec![0], vec![7], vec![8], vec![9]];
+        foreach_unwrapped_matching(&m, |m| println!("{:?}", m));
+        println!();
+        let m = vec![vec![6], vec![3], vec![2, 10], vec![4], vec![1], vec![5, 20], vec![0], vec![7], vec![8], vec![9]];
+        foreach_unwrapped_matching(&m, |m| println!("{:?}", m));
+    }
 }

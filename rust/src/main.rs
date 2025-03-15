@@ -24,6 +24,7 @@ mod ruleset;
 use crate::game::Game;
 
 use clap::{Parser, Subcommand};
+use game::DumpMode;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
@@ -60,6 +61,9 @@ enum Commands {
 
         #[arg(short = 'o', long = "output")]
         stem: PathBuf,
+
+        #[arg(long = "dump")]
+        dump: Option<DumpMode>,
     },
     Check {
         /// The path to the file to read
@@ -84,10 +88,11 @@ fn main() {
             colored: _,
             transpose_tabs,
             stem,
+            dump,
         } => {
             let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
             let start = Instant::now();
-            g.sim(transpose_tabs).unwrap();
+            g.sim(transpose_tabs, dump).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Check { yaml_path } => {
