@@ -6,7 +6,7 @@ frontmatter:
   identifier: de-season6
   weight: 1
 
-tree_gen: false
+tree_gen: true
 
 rule_set: !SomeoneIsDup
 # rule_set: !FixedDup Tori
@@ -157,8 +157,31 @@ constraints:
       Tano: Tori
       # Tano: Anna
 
-  # - type: !Box {num: 6, comment: "E13"}
+  - type: !Box {num: 6, comment: "E13 -- verkauft d. Tano+Tori 2 x 20k"}
+    check: !Nothing
+    map:
+      Tano: Tori
+      # Josh: Ina
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights [5]
+    # resultUnknown: true
+    # noExclude: true
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Dion: Anna
+      Levin: Chiara
+      Josh: Nasti
+      Sinan: Camelia
+      Kaan: Sophia
+      Tano: Tori
+      Enes: Selina
+      Joshua: Ina
+      # Joanna
+
+  # - type: !Box {num: 7, comment: "E15"}
   #   check: !Lights [0]
   #   map:
-  #     Tano: Tori
-  #     # Josh: Ina
+  #     Kaan: Sophia
+  #     # Tano: Anna
