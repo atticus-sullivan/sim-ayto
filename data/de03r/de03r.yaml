@@ -6,8 +6,6 @@ frontmatter:
   identifier: deR-season3
   weight: 1
 
-tree_gen: true
-
 # rule_set: !SomeoneIsDup
 rule_set: !FixedDup Max
 
@@ -240,5 +238,3 @@ constraints:
       Sandra: Steffen
       Paulina: Max
       Jenny: Paco
-
-# tree_top: Kim

@@ -6,8 +6,6 @@ frontmatter:
   identifier: de-season1
   weight: 1
 
-tree_gen: true
-
 # rule_set: !SomeoneIsDup
 rule_set: !FixedDup Edin
 # rule_set: !Eq
@@ -143,6 +141,7 @@ constraints:
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [5]
+    buildTree: true
     map:
       Aline: Mo
       Melissa: Laurin
@@ -158,11 +157,13 @@ constraints:
 
   - type: !Box {num: 7, comment: "E14"}
     check: !Lights [0]
+    buildTree: true
     map:
       Ivana: Edin
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [5]
+    buildTree: true
     map:
       Aline: Mo
       Melissa: Laurin
@@ -178,11 +179,13 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
+    buildTree: true
     map:
       Sabrina: Axel
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [6]
+    buildTree: true
     map:
       Aline: Mo
       Melissa: Laurin
@@ -198,11 +201,13 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
+    buildTree: true
     map:
       Luisa: Ferhat
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [7]
+    buildTree: true
     map:
       Aline: Mo
       Melissa: Laurin
@@ -218,11 +223,13 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
+    buildTree: true
     map:
       Kathi: Kevin
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [10]
+    buildTree: true
     map:
       Aline: Mo
       Melissa: Laurin

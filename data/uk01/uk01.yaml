@@ -6,8 +6,6 @@ frontmatter:
   identifier: uk-season1
   weight: 1
 
-tree_gen: true
-
 # rule_set: !SomeoneIsDup
 # rule_set: !FixedDup 
 rule_set: !Eq

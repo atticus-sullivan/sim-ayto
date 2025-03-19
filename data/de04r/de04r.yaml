@@ -6,8 +6,6 @@ frontmatter:
   identifier: deR-season4
   weight: 1
 
-tree_gen: true
-
 rule_set: !FixedDup Dana
 
 setA:
