@@ -164,8 +164,6 @@ constraints:
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [5]
     buildTree: true
-    # resultUnknown: true
-    # noExclude: true
     map:
       Danish: Nadja
       Dino: Deisy
