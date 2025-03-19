@@ -1,0 +1,40 @@
+digraph D { labelloc="b"; label="Stand: MB#10 / E14"; ranksep=0.8;
+"root/8"[label="Kenya\nTevin"]
+"root" -> "root/8";
+"root/8/7"[label="Maria\nShamoy"]
+"root/8" -> "root/8/7";
+"root/8/7/1"[label="Nutsa\nBrett"]
+"root/8/7" -> "root/8/7/1";
+"root/8/7/1/9"[label="Asia\nTomas"]
+"root/8/7/1" -> "root/8/7/1/9";
+"root/8/7/1/9/2"[label="Bria\nCam"]
+"root/8/7/1/9" -> "root/8/7/1/9/2";
+"root/8/7/1/9/2/0"[label="Cali\nAndrew"]
+"root/8/7/1/9/2" -> "root/8/7/1/9/2/0";
+"root/8/7/1/9/2/0/3"[label="Jasmine\nDaniel"]
+"root/8/7/1/9/2/0" -> "root/8/7/1/9/2/0/3";
+"root/8/7/1/9/2/0/3/6"[label="Kayla\nMoe"]
+"root/8/7/1/9/2/0/3" -> "root/8/7/1/9/2/0/3/6";
+"root/8/7/1/9/2/0/3/6/10"[label="Morgan\nZak"]
+"root/8/7/1/9/2/0/3/6" -> "root/8/7/1/9/2/0/3/6/10";
+"root/8/7/1/9/2/0/3/6/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/2/0/3/6/10" -> "root/8/7/1/9/2/0/3/6/10/5";
+"root/8/7/1/9/2/0/3/6/10/5/4"[label="Lauren\nKwasi"]
+"root/8/7/1/9/2/0/3/6/10/5" -> "root/8/7/1/9/2/0/3/6/10/5/4";
+"root/8/7/1/4"[label="Asia\nKwasi"]
+"root/8/7/1" -> "root/8/7/1/4";
+"root/8/7/1/4/9"[label="Bria\nTomas"]
+"root/8/7/1/4" -> "root/8/7/1/4/9";
+"root/8/7/1/4/9/6"[label="Cali\nMoe"]
+"root/8/7/1/4/9" -> "root/8/7/1/4/9/6";
+"root/8/7/1/4/9/6/5"[label="Jasmine\nLewis"]
+"root/8/7/1/4/9/6" -> "root/8/7/1/4/9/6/5";
+"root/8/7/1/4/9/6/5/10"[label="Kayla\nZak"]
+"root/8/7/1/4/9/6/5" -> "root/8/7/1/4/9/6/5/10";
+"root/8/7/1/4/9/6/5/10/2"[label="Morgan\nCam"]
+"root/8/7/1/4/9/6/5/10" -> "root/8/7/1/4/9/6/5/10/2";
+"root/8/7/1/4/9/6/5/10/2/0"[label="Samantha\nAndrew"]
+"root/8/7/1/4/9/6/5/10/2" -> "root/8/7/1/4/9/6/5/10/2/0";
+"root/8/7/1/4/9/6/5/10/2/0/3"[label="Lauren\nDaniel"]
+"root/8/7/1/4/9/6/5/10/2/0" -> "root/8/7/1/4/9/6/5/10/2/0/3";
+}

@@ -1,0 +1,40 @@
+digraph D { labelloc="b"; label="Stand: MB#10 / E20"; ranksep=0.8;
+"root/5"[label="Aaron\nMelissa"]
+"root" -> "root/5";
+"root/5/7"[label="Dario\nSabrina"]
+"root/5" -> "root/5/7";
+"root/5/7/0"[label="Germain\nChristin"]
+"root/5/7" -> "root/5/7/0";
+"root/5/7/0/6"[label="Marc\nMirjam"]
+"root/5/7/0" -> "root/5/7/0/6";
+"root/5/7/0/6/4"[label="Marcel\nLeonie"]
+"root/5/7/0/6" -> "root/5/7/0/6/4";
+"root/5/7/0/6/4/2"[label="Marko\nKathleen"]
+"root/5/7/0/6/4" -> "root/5/7/0/6/4/2";
+"root/5/7/0/6/4/2/8,10"[label="Dominic\nVanessa\nVanessaM"]
+"root/5/7/0/6/4/2" -> "root/5/7/0/6/4/2/8,10";
+"root/5/7/0/6/4/2/8,10/1"[label="Marvin\nJill"]
+"root/5/7/0/6/4/2/8,10" -> "root/5/7/0/6/4/2/8,10/1";
+"root/5/7/0/6/4/2/8,10/1/9"[label="Maximilian\nVictoria"]
+"root/5/7/0/6/4/2/8,10/1" -> "root/5/7/0/6/4/2/8,10/1/9";
+"root/5/7/0/6/4/2/8,10/1/9/3"[label="Sascha\nLaura"]
+"root/5/7/0/6/4/2/8,10/1/9" -> "root/5/7/0/6/4/2/8,10/1/9/3";
+"root/5/7/0/6/4/2/8"[label="Dominic\nVanessa"]
+"root/5/7/0/6/4/2" -> "root/5/7/0/6/4/2/8";
+"root/5/7/0/6/4/2/8/1,10"[label="Marvin\nJill\nVanessaM"]
+"root/5/7/0/6/4/2/8" -> "root/5/7/0/6/4/2/8/1,10";
+"root/5/7/0/6/4/2/8/1,10/9"[label="Maximilian\nVictoria"]
+"root/5/7/0/6/4/2/8/1,10" -> "root/5/7/0/6/4/2/8/1,10/9";
+"root/5/7/0/6/4/2/8/1,10/9/3"[label="Sascha\nLaura"]
+"root/5/7/0/6/4/2/8/1,10/9" -> "root/5/7/0/6/4/2/8/1,10/9/3";
+"root/5/7/0/6/4/2/8/1"[label="Marvin\nJill"]
+"root/5/7/0/6/4/2/8" -> "root/5/7/0/6/4/2/8/1";
+"root/5/7/0/6/4/2/8/1/9,10"[label="Maximilian\nVictoria\nVanessaM"]
+"root/5/7/0/6/4/2/8/1" -> "root/5/7/0/6/4/2/8/1/9,10";
+"root/5/7/0/6/4/2/8/1/9,10/3"[label="Sascha\nLaura"]
+"root/5/7/0/6/4/2/8/1/9,10" -> "root/5/7/0/6/4/2/8/1/9,10/3";
+"root/5/7/0/6/4/2/8/1/9"[label="Maximilian\nVictoria"]
+"root/5/7/0/6/4/2/8/1" -> "root/5/7/0/6/4/2/8/1/9";
+"root/5/7/0/6/4/2/8/1/9/3,10"[label="Sascha\nLaura\nVanessaM"]
+"root/5/7/0/6/4/2/8/1/9" -> "root/5/7/0/6/4/2/8/1/9/3,10";
+}

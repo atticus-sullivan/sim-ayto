@@ -64,38 +64,47 @@ weight: 1
 
 {{% details "MN#6.0 E14" %}}
 {{% img src="/sim-ayto/de03r/de03r_12.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_12_tree.png" %}}
 {{% /details %}}
 
 {{% details "MB#7.0 E15" %}}
 {{% img src="/sim-ayto/de03r/de03r_13.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_13_tree.png" %}}
 {{% /details %}}
 
 {{% details "MN#7.0 E16" %}}
 {{% img src="/sim-ayto/de03r/de03r_14.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_14_tree.png" %}}
 {{% /details %}}
 
 {{% details "MB#8.0 E17" %}}
 {{% img src="/sim-ayto/de03r/de03r_15.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_15_tree.png" %}}
 {{% /details %}}
 
 {{% details "MN#8.0 E18 " %}}
 {{% img src="/sim-ayto/de03r/de03r_16.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_16_tree.png" %}}
 {{% /details %}}
 
 {{% details "MB#9.0 E19" %}}
 {{% img src="/sim-ayto/de03r/de03r_17.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_17_tree.png" %}}
 {{% /details %}}
 
 {{% details "MN#9.0 E20" %}}
 {{% img src="/sim-ayto/de03r/de03r_18.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_18_tree.png" %}}
 {{% /details %}}
 
 {{% details "MB#10.0 E21" %}}
 {{% img src="/sim-ayto/de03r/de03r_19.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_19_tree.png" %}}
 {{% /details %}}
 
 {{% details "MN#10.0 E22" %}}
 {{% img src="/sim-ayto/de03r/de03r_20.png" %}}
+{{% img src="/sim-ayto/de03r/de03r_20_tree.png" %}}
 {{% /details %}}
 
 {{% translateHdr "tab-everything" %}}

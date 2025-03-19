@@ -1,0 +1,52 @@
+digraph D { labelloc="b"; label="Stand: MB#8 / E17"; ranksep=0.8;
+"root/0"[label="Darya\nDanilo"]
+"root" -> "root/0";
+"root/0/6"[label="Alicia\nPaco"]
+"root/0" -> "root/0/6";
+"root/0/6/4"[label="Jenny\nMarvin"]
+"root/0/6" -> "root/0/6/4";
+"root/0/6/4/1"[label="Marie\nElia"]
+"root/0/6/4" -> "root/0/6/4/1";
+"root/0/6/4/1/3"[label="Paulina\nFabio"]
+"root/0/6/4/1" -> "root/0/6/4/1/3";
+"root/0/6/4/1/3/2"[label="Sabrina\nEmanuell"]
+"root/0/6/4/1/3" -> "root/0/6/4/1/3/2";
+"root/0/6/4/1/3/2/5"[label="Sandra\nMike"]
+"root/0/6/4/1/3/2" -> "root/0/6/4/1/3/2/5";
+"root/0/6/4/1/3/2/5/8"[label="Shakira\nSteffen"]
+"root/0/6/4/1/3/2/5" -> "root/0/6/4/1/3/2/5/8";
+"root/0/6/4/1/3/2/5/8/9"[label="Steffi\nTeezy"]
+"root/0/6/4/1/3/2/5/8" -> "root/0/6/4/1/3/2/5/8/9";
+"root/0/6/4/1/3/2/5/8/9/7,10"[label="Kim\nPeter\nMax"]
+"root/0/6/4/1/3/2/5/8/9" -> "root/0/6/4/1/3/2/5/8/9/7,10";
+"root/0/6/4/1/7,10"[label="Paulina\nPeter\nMax"]
+"root/0/6/4/1" -> "root/0/6/4/1/7,10";
+"root/0/6/4/1/7,10/2"[label="Sabrina\nEmanuell"]
+"root/0/6/4/1/7,10" -> "root/0/6/4/1/7,10/2";
+"root/0/6/4/1/7,10/2/5"[label="Sandra\nMike"]
+"root/0/6/4/1/7,10/2" -> "root/0/6/4/1/7,10/2/5";
+"root/0/6/4/1/7,10/2/5/8"[label="Shakira\nSteffen"]
+"root/0/6/4/1/7,10/2/5" -> "root/0/6/4/1/7,10/2/5/8";
+"root/0/6/4/1/7,10/2/5/8/9"[label="Steffi\nTeezy"]
+"root/0/6/4/1/7,10/2/5/8" -> "root/0/6/4/1/7,10/2/5/8/9";
+"root/0/6/4/1/7,10/2/5/8/9/3"[label="Kim\nFabio"]
+"root/0/6/4/1/7,10/2/5/8/9" -> "root/0/6/4/1/7,10/2/5/8/9/3";
+"root/0/1"[label="Alicia\nElia"]
+"root/0" -> "root/0/1";
+"root/0/1/6"[label="Jenny\nPaco"]
+"root/0/1" -> "root/0/1/6";
+"root/0/1/6/3"[label="Marie\nFabio"]
+"root/0/1/6" -> "root/0/1/6/3";
+"root/0/1/6/3/7,10"[label="Paulina\nPeter\nMax"]
+"root/0/1/6/3" -> "root/0/1/6/3/7,10";
+"root/0/1/6/3/7,10/5"[label="Sabrina\nMike"]
+"root/0/1/6/3/7,10" -> "root/0/1/6/3/7,10/5";
+"root/0/1/6/3/7,10/5/8"[label="Sandra\nSteffen"]
+"root/0/1/6/3/7,10/5" -> "root/0/1/6/3/7,10/5/8";
+"root/0/1/6/3/7,10/5/8/4"[label="Shakira\nMarvin"]
+"root/0/1/6/3/7,10/5/8" -> "root/0/1/6/3/7,10/5/8/4";
+"root/0/1/6/3/7,10/5/8/4/2"[label="Steffi\nEmanuell"]
+"root/0/1/6/3/7,10/5/8/4" -> "root/0/1/6/3/7,10/5/8/4/2";
+"root/0/1/6/3/7,10/5/8/4/2/9"[label="Kim\nTeezy"]
+"root/0/1/6/3/7,10/5/8/4/2" -> "root/0/1/6/3/7,10/5/8/4/2/9";
+}

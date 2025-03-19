@@ -1,0 +1,46 @@
+digraph D { labelloc="b"; label="Stand: MN#6 / E07"; ranksep=0.8;
+"root/7"[label="ChrisT\nPaige"]
+"root" -> "root/7";
+"root/7/3"[label="Dillan\nColeysia"]
+"root/7" -> "root/7/3";
+"root/7/3/0"[label="Ethan\nAmber"]
+"root/7/3" -> "root/7/3/0";
+"root/7/3/0/8"[label="Adam\nShanley"]
+"root/7/3/0" -> "root/7/3/0/8";
+"root/7/3/0/8/9"[label="Dre\nSimone"]
+"root/7/3/0/8" -> "root/7/3/0/8/9";
+"root/7/3/0/8/9/6"[label="Joey\nKayla"]
+"root/7/3/0/8/9" -> "root/7/3/0/8/9/6";
+"root/7/3/0/8/9/6/5"[label="Ryan\nJess"]
+"root/7/3/0/8/9/6" -> "root/7/3/0/8/9/6/5";
+"root/7/3/0/8/9/6/5/2"[label="Wes\nBrittany"]
+"root/7/3/0/8/9/6/5" -> "root/7/3/0/8/9/6/5/2";
+"root/7/3/0/8/9/6/5/2/1"[label="Scali\nAshleigh"]
+"root/7/3/0/8/9/6/5/2" -> "root/7/3/0/8/9/6/5/2/1";
+"root/7/3/0/8/9/6/5/2/1/4"[label="John\nJacy"]
+"root/7/3/0/8/9/6/5/2/1" -> "root/7/3/0/8/9/6/5/2/1/4";
+"root/7/3/0/1"[label="Adam\nAshleigh"]
+"root/7/3/0" -> "root/7/3/0/1";
+"root/7/3/0/1/5"[label="Dre\nJess"]
+"root/7/3/0/1" -> "root/7/3/0/1/5";
+"root/7/3/0/1/5/2"[label="Joey\nBrittany"]
+"root/7/3/0/1/5" -> "root/7/3/0/1/5/2";
+"root/7/3/0/1/5/2/4"[label="Ryan\nJacy"]
+"root/7/3/0/1/5/2" -> "root/7/3/0/1/5/2/4";
+"root/7/3/0/1/5/2/4/6"[label="Wes\nKayla"]
+"root/7/3/0/1/5/2/4" -> "root/7/3/0/1/5/2/4/6";
+"root/7/3/0/1/5/2/4/6/9"[label="Scali\nSimone"]
+"root/7/3/0/1/5/2/4/6" -> "root/7/3/0/1/5/2/4/6/9";
+"root/7/3/0/1/5/2/4/6/9/8"[label="John\nShanley"]
+"root/7/3/0/1/5/2/4/6/9" -> "root/7/3/0/1/5/2/4/6/9/8";
+"root/7/3/0/8/9/2"[label="Joey\nBrittany"]
+"root/7/3/0/8/9" -> "root/7/3/0/8/9/2";
+"root/7/3/0/8/9/2/5"[label="Ryan\nJess"]
+"root/7/3/0/8/9/2" -> "root/7/3/0/8/9/2/5";
+"root/7/3/0/8/9/2/5/6"[label="Wes\nKayla"]
+"root/7/3/0/8/9/2/5" -> "root/7/3/0/8/9/2/5/6";
+"root/7/3/0/8/9/2/5/6/4"[label="Scali\nJacy"]
+"root/7/3/0/8/9/2/5/6" -> "root/7/3/0/8/9/2/5/6/4";
+"root/7/3/0/8/9/2/5/6/4/1"[label="John\nAshleigh"]
+"root/7/3/0/8/9/2/5/6/4" -> "root/7/3/0/8/9/2/5/6/4/1";
+}

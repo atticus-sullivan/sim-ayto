@@ -1,0 +1,68 @@
+digraph D { labelloc="b"; label="Stand: MB#8 / E08"; ranksep=0.8;
+"root/4"[label="Alex\nJasmine"]
+"root" -> "root/4";
+"root/4/8"[label="Curtis\nShelby"]
+"root/4" -> "root/4/8";
+"root/4/8/5"[label="John\nJenni"]
+"root/4/8" -> "root/4/8/5";
+"root/4/8/5/3"[label="Nathan\nEllie"]
+"root/4/8/5" -> "root/4/8/5/3";
+"root/4/8/5/3/7"[label="TylerPratt\nParis"]
+"root/4/8/5/3" -> "root/4/8/5/3/7";
+"root/4/8/5/3/7/2"[label="Brandon\nBriana"]
+"root/4/8/5/3/7" -> "root/4/8/5/3/7/2";
+"root/4/8/5/3/7/2/0,10"[label="Anthony\nAlex\nChristina"]
+"root/4/8/5/3/7/2" -> "root/4/8/5/3/7/2/0,10";
+"root/4/8/5/3/7/2/0,10/1"[label="Dario\nAshley"]
+"root/4/8/5/3/7/2/0,10" -> "root/4/8/5/3/7/2/0,10/1";
+"root/4/8/5/3/7/2/0,10/1/6"[label="Garland\nJess"]
+"root/4/8/5/3/7/2/0,10/1" -> "root/4/8/5/3/7/2/0,10/1/6";
+"root/4/8/5/3/7/2/0,10/1/6/9"[label="Layton\nTyler"]
+"root/4/8/5/3/7/2/0,10/1/6" -> "root/4/8/5/3/7/2/0,10/1/6/9";
+"root/4/8/5/3/7/2/0"[label="Anthony\nAlex"]
+"root/4/8/5/3/7/2" -> "root/4/8/5/3/7/2/0";
+"root/4/8/5/3/7/2/0/1,10"[label="Dario\nAshley\nChristina"]
+"root/4/8/5/3/7/2/0" -> "root/4/8/5/3/7/2/0/1,10";
+"root/4/8/5/3/7/2/0/1,10/6"[label="Garland\nJess"]
+"root/4/8/5/3/7/2/0/1,10" -> "root/4/8/5/3/7/2/0/1,10/6";
+"root/4/8/5/3/7/2/0/1,10/6/9"[label="Layton\nTyler"]
+"root/4/8/5/3/7/2/0/1,10/6" -> "root/4/8/5/3/7/2/0/1,10/6/9";
+"root/4/8/5/3/7/2/0/1"[label="Dario\nAshley"]
+"root/4/8/5/3/7/2/0" -> "root/4/8/5/3/7/2/0/1";
+"root/4/8/5/3/7/2/0/1/6,10"[label="Garland\nJess\nChristina"]
+"root/4/8/5/3/7/2/0/1" -> "root/4/8/5/3/7/2/0/1/6,10";
+"root/4/8/5/3/7/2/0/1/6,10/9"[label="Layton\nTyler"]
+"root/4/8/5/3/7/2/0/1/6,10" -> "root/4/8/5/3/7/2/0/1/6,10/9";
+"root/4/8/5/3/7/2/0/1/6"[label="Garland\nJess"]
+"root/4/8/5/3/7/2/0/1" -> "root/4/8/5/3/7/2/0/1/6";
+"root/4/8/5/3/7/2/0/1/6/9,10"[label="Layton\nTyler\nChristina"]
+"root/4/8/5/3/7/2/0/1/6" -> "root/4/8/5/3/7/2/0/1/6/9,10";
+"root/4/8/5/3/7/9"[label="Brandon\nTyler"]
+"root/4/8/5/3/7" -> "root/4/8/5/3/7/9";
+"root/4/8/5/3/7/9/2,10"[label="Anthony\nBriana\nChristina"]
+"root/4/8/5/3/7/9" -> "root/4/8/5/3/7/9/2,10";
+"root/4/8/5/3/7/9/2,10/6"[label="Dario\nJess"]
+"root/4/8/5/3/7/9/2,10" -> "root/4/8/5/3/7/9/2,10/6";
+"root/4/8/5/3/7/9/2,10/6/0"[label="Garland\nAlex"]
+"root/4/8/5/3/7/9/2,10/6" -> "root/4/8/5/3/7/9/2,10/6/0";
+"root/4/8/5/3/7/9/2,10/6/0/1"[label="Layton\nAshley"]
+"root/4/8/5/3/7/9/2,10/6/0" -> "root/4/8/5/3/7/9/2,10/6/0/1";
+"root/4/8/5/3/7/9/2"[label="Anthony\nBriana"]
+"root/4/8/5/3/7/9" -> "root/4/8/5/3/7/9/2";
+"root/4/8/5/3/7/9/2/6,10"[label="Dario\nJess\nChristina"]
+"root/4/8/5/3/7/9/2" -> "root/4/8/5/3/7/9/2/6,10";
+"root/4/8/5/3/7/9/2/6,10/0"[label="Garland\nAlex"]
+"root/4/8/5/3/7/9/2/6,10" -> "root/4/8/5/3/7/9/2/6,10/0";
+"root/4/8/5/3/7/9/2/6,10/0/1"[label="Layton\nAshley"]
+"root/4/8/5/3/7/9/2/6,10/0" -> "root/4/8/5/3/7/9/2/6,10/0/1";
+"root/4/8/5/3/7/9/2/6"[label="Dario\nJess"]
+"root/4/8/5/3/7/9/2" -> "root/4/8/5/3/7/9/2/6";
+"root/4/8/5/3/7/9/2/6/0,10"[label="Garland\nAlex\nChristina"]
+"root/4/8/5/3/7/9/2/6" -> "root/4/8/5/3/7/9/2/6/0,10";
+"root/4/8/5/3/7/9/2/6/0,10/1"[label="Layton\nAshley"]
+"root/4/8/5/3/7/9/2/6/0,10" -> "root/4/8/5/3/7/9/2/6/0,10/1";
+"root/4/8/5/3/7/9/2/6/0"[label="Garland\nAlex"]
+"root/4/8/5/3/7/9/2/6" -> "root/4/8/5/3/7/9/2/6/0";
+"root/4/8/5/3/7/9/2/6/0/1,10"[label="Layton\nAshley\nChristina"]
+"root/4/8/5/3/7/9/2/6/0" -> "root/4/8/5/3/7/9/2/6/0/1,10";
+}

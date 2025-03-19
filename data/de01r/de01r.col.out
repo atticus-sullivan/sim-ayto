@@ -37,16 +37,16 @@ Danilo → Finnja
 32659200 left -> 24.961 bits left
 
 MN#1.0 E02
-0x Danilo    → Stefanie   
-0x Diogo     → Aurelia    
-0x Jamy      → Jill       
-0x Francesco → Finnja     
-0x Josua     → Sarah      
-0x Salvatore → Jacqueline 
-0x Eugen     → Walentina  
-0x Tommy     → Melina     
-0x Manuel    → Kathleen   
 0x Alexander → Jules      
+0x Francesco → Finnja     
+0x Salvatore → Jacqueline 
+0x Jamy      → Jill       
+0x Eugen     → Walentina  
+0x Manuel    → Kathleen   
+0x Tommy     → Melina     
+0x Josua     → Sarah      
+0x Diogo     → Aurelia    
+0x Danilo    → Stefanie   
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -112,16 +112,16 @@ Tommy → Walentina
 128781 left -> 16.9746 bits left
 
 MN#3.0 E06
-1x Manuel    → Kathleen   
-1x Salvatore → Jacqueline 
-0x Alexander → Finnja     
-1x Tommy     → Melina     
-1x Jamy      → Jill       
-0x Francesco → Jules      
-1x Diogo     → Aurelia    
-0x Eugen     → Stefanie   
-0x Josua     → Walentina  
 0x Danilo    → Sarah      
+1x Manuel    → Kathleen   
+0x Francesco → Jules      
+1x Jamy      → Jill       
+0x Eugen     → Stefanie   
+1x Tommy     → Melina     
+0x Josua     → Walentina  
+0x Alexander → Finnja     
+1x Salvatore → Jacqueline 
+1x Diogo     → Aurelia    
 ---
 -> I[l]/bits: {1: 5.75, 2: 2.01, 3: 1.37, 4: 2.12, 5: 3.55, 6: 5.20, 7: 7.56, 8: 10.48}
 -> E[I]/bits: 2.11
@@ -163,16 +163,16 @@ Nothing => I = 0 bits
 49698 left -> 15.6009 bits left
 
 MN#4.0 E08
-2x Manuel    → Kathleen  
 0x Eugen     → Finnja    
-2x Diogo     → Aurelia   
-0x Alexander → Stefanie  
-1x Francesco → Jules     
 0x Danilo    → Melina    
-0x Jamy      → Vanessa   
+2x Manuel    → Kathleen  
+1x Josua     → Sarah     
 0x Salvatore → Walentina 
 0x Tommy     → Jill      
-1x Josua     → Sarah     
+0x Jamy      → Vanessa   
+0x Alexander → Stefanie  
+1x Francesco → Jules     
+2x Diogo     → Aurelia   
 ---
 -> I[l]/bits: {1: 2.81, 2: 1.60, 3: 1.79, 4: 2.69, 5: 4.08, 6: 5.76, 7: 7.84, 8: 10.24, 9: 12.14, 10: 15.60}
 -> E[I]/bits: 2.26
@@ -214,16 +214,16 @@ Nothing => I = 0 bits
 7703 left -> 12.9112 bits left
 
 MN#5.0 E10
+0x Manuel    → Jill      
+0x Salvatore → Kathleen  
 0x Diogo     → Vanessa   
+2x Tommy     → Melina    
 1x Josua     → Walentina 
 2x Francesco → Jules     
-0x Alexander → Sarah     
-2x Tommy     → Melina    
-0x Salvatore → Kathleen  
-0x Manuel    → Jill      
 0x Danilo    → Aurelia   
 1x Eugen     → Finnja    
 0x Jamy      → Stefanie  
+0x Alexander → Sarah     
 ---
 -> I[l]/bits: {1: 1.50, 2: 1.51, 3: 2.31, 4: 3.81, 5: 5.74, 6: 8.05, 7: 11.91}
 -> E[I]/bits: 1.94
@@ -267,16 +267,16 @@ Salvatore → Finnja
 1432 left -> 10.4838 bits left
 
 MN#6.0 E12
-3x Diogo     → Aurelia    
+0x Danilo    → Jill       
+2x Salvatore → Jacqueline 
+2x Eugen     → Finnja     
+1x Alexander → Stefanie   
 3x Manuel    → Kathleen   
 3x Tommy     → Melina     
-0x Danilo    → Jill       
 3x Francesco → Jules      
 0x Jamy      → Sarah      
-1x Alexander → Stefanie   
-2x Salvatore → Jacqueline 
 2x Josua     → Walentina  
-2x Eugen     → Finnja     
+3x Diogo     → Aurelia    
 ---
 -> I[l]/bits: {2: 4.38, 3: 1.46, 4: 1.27, 5: 2.67, 6: 5.96}
 -> E[I]/bits: 1.78
@@ -320,16 +320,16 @@ Eugen → Finnja
 274 left -> 8.098 bits left
 
 MN#7.0 E14
-4x Tommy     → Melina     
+0x Alexander → Jacqueline 
+0x Jamy      → Finnja     
 2x Josua     → Sarah      
+4x Tommy     → Melina     
 0x Eugen     → Jill       
 4x Manuel    → Kathleen   
-1x Diogo     → Vanessa    
-0x Jamy      → Finnja     
-4x Francesco → Jules      
 1x Danilo    → Aurelia    
-0x Alexander → Jacqueline 
+1x Diogo     → Vanessa    
 1x Salvatore → Walentina  
+4x Francesco → Jules      
 ---
 -> I[l]/bits: {1: 4.40, 2: 2.37, 3: 3.01, 4: 2.12, 5: 2.10, 6: 3.40, 7: 4.64, 8: 6.51, 9: 5.29}
 -> E[I]/bits: 2.73
@@ -373,16 +373,16 @@ Eugen → Stefanie
 53 left -> 5.7279 bits left
 
 MN#8.0 E16
-1x Jamy      → Sarah      
+0x Alexander → Melina     
 0x Tommy     → Stefanie   
-0x Manuel    → Finnja     
+2x Danilo    → Aurelia    
 3x Josua     → Walentina  
 5x Francesco → Jules      
-0x Eugen     → Jacqueline 
-0x Alexander → Melina     
-0x Salvatore → Jill       
-2x Danilo    → Aurelia    
+1x Jamy      → Sarah      
 2x Diogo     → Vanessa    
+0x Eugen     → Jacqueline 
+0x Salvatore → Jill       
+0x Manuel    → Finnja     
 ---
 -> I[l]/bits: {1: 0.87, 2: 1.27, 3: 4.73}
 -> E[I]/bits: 1.18
@@ -448,16 +448,16 @@ Tommy → Melina
 19 left -> 4.2479 bits left
 
 MN#9.0 E18
-5x Manuel    → Kathleen  
+0x Josua     → Vanessa   
+0x Tommy     → Finnja    
 1x Jamy      → Stefanie  
+5x Manuel    → Kathleen  
+6x Francesco → Jules     
 4x Diogo     → Aurelia   
 1x Danilo    → Jill      
-6x Francesco → Jules     
-0x Tommy     → Finnja    
-1x Alexander → Sarah     
-0x Josua     → Vanessa   
-2x Salvatore → Walentina 
 0x Eugen     → Melina    
+2x Salvatore → Walentina 
+1x Alexander → Sarah     
 ---
 -> I[l]/bits: {3: 4.25, 4: 1.25, 5: 1.25, 6: 3.25}
 -> E[I]/bits: 1.62
@@ -501,16 +501,16 @@ Josua → Aurelia
 6 left -> 2.585 bits left
 
 MN#10.0 E20
+7x Francesco → Jules      
 0x Josua     → Aurelia    
+0x Diogo     → Jill       
+1x Eugen     → Walentina  
 3x Salvatore → Jacqueline 
+6x Manuel    → Kathleen   
+2x Jamy      → Stefanie   
 0x Alexander → Vanessa    
 1x Danilo    → Sarah      
-0x Diogo     → Jill       
 1x Tommy     → Finnja     
-6x Manuel    → Kathleen   
-1x Eugen     → Walentina  
-7x Francesco → Jules      
-2x Jamy      → Stefanie   
 ---
 -> I[l]/bits: {6: 0.26, 7: 2.58}
 -> E[I]/bits: 0.65
@@ -581,4 +581,4 @@ MN#10.0 E20
 ╰─────────┴───┴─────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.86s
+Ran in 10.66s
