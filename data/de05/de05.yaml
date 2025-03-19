@@ -6,8 +6,6 @@ frontmatter:
   identifier: de-season5
   weight: 1
 
-tree_gen: true
-
 # rule_set: !SomeoneIsTrip
 rule_set: !FixedTrip Melanie
 # rule_set: !FixedDup Max
