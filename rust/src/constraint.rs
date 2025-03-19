@@ -496,12 +496,9 @@ impl Constraint {
         map_a: &Vec<String>,
         map_b: &Vec<String>,
     ) -> Result<bool> {
-        eprintln!("build tree = ?");
         if !self.build_tree {
             return Ok(false);
         }
-
-        eprintln!("build tree = true");
 
         let ordering = crate::utils::tree_ordering(&self.left_poss, map_a);
         crate::utils::dot_tree(
