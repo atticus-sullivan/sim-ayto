@@ -167,7 +167,7 @@ jobs:
           path: |
             ${{ env.STEM }}.col.out
             ${{ env.STEM }}.md
-            ${{ env.STEM }}.dot
+            ${{ env.STEM }}*.dot
             ${{ env.STEMD }}/statInfo.csv
             ${{ env.STEMD }}/statMB.csv
             ${{ env.STEMD }}/statMN.csv
