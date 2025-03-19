@@ -130,8 +130,12 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	# colored output
 	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml)" $(ANSITOIMG_SUFFIX)
 	# tree if available
-	test ! -e "$(basename $<).dot" || dot -Tpng -o "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).png" "$(basename $<).dot"
-	test ! -e "$(basename $<).dot" || dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml).pdf" "$(basename $<).dot"
+	for dot_file in "$(basename $<)"*.dot ; do \
+		test -e "$${dot_file}" && \
+			name="$$(echo $${dot_file} | sed -E 's/^.*\/(.*)\.dot$$/\1/')" && \
+			dot -Tpng -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.png" "$${dot_file}" && \
+			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" ; \
+	done
 	@date
 
 
