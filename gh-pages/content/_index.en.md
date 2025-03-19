@@ -41,8 +41,7 @@ For each seson you can see the whole process of the season. This means what
 information was collected and what this means for the remaining possibilities.
 
 *Tree* precisely shows the remaining matchings that are still possible. This
-only makes sense when there are not too many possibilities left. Also, this only
-shows the current state without any history.
+only makes sense when there are not too many possibilities left.
 
 ### Information regarding Spoilers
 The pages are constructed in a way that you explicitly need to expand what you

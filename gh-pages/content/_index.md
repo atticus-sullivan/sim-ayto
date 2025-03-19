@@ -35,8 +35,7 @@ ist gemeint welche Informationen gesammelt wurden und was das für die noch
 verbleibenden Möglichkeiten bedeutet.
 
 *Baum* zeigt die genauen Matchings an, die noch möglich sind. Dies ist aber erst
-sinnvoll wenn es nicht mehr all zu viele Möglichkeiten gibt. Außerdem kann hier
-nur der aktuellste Stand dargestellt werden und keine Historie.
+sinnvoll wenn es nicht mehr all zu viele Möglichkeiten gibt.
 
 ### Infos zu Spoilern
 Die Seiten sind immer so aufgebaut, dass man explizit ausklappen muss was man
