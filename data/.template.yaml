@@ -24,4 +24,5 @@ constraints:
   #   check: !Lights [2]
   #   resultUnknown: true
   #   # noExclude: true
+  #   # buildTreee: true
   #   map:
