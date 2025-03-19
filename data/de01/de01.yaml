@@ -6,7 +6,6 @@ frontmatter:
   identifier: de-season1
   weight: 1
 
-# rule_set: !SomeoneIsDup
 rule_set: !FixedDup Edin
 # rule_set: !Eq
 
