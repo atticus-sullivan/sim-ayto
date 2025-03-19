@@ -428,7 +428,7 @@ impl Constraint {
 
         if !fits {
             self.eliminate(m);
-        } else if self.build_tree {
+        } else if self.build_tree && !self.hidden {
             self.left_poss.push(m.clone());
         }
 
@@ -442,7 +442,6 @@ impl Constraint {
         self.hidden
     }
 
-    // TODO left_poss
     pub fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
         ensure!(
