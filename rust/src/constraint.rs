@@ -20,6 +20,8 @@ use anyhow::{ensure, Context, Result};
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::collections::HashSet;
+use std::fs::File;
+use std::path::PathBuf;
 
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
@@ -58,6 +60,8 @@ pub struct ConstraintParse {
     exclude_s: Option<(String, Vec<String>)>,
     #[serde(default, rename = "resultUnknown")]
     result_unknown: bool,
+    #[serde(default, rename = "buildTree")]
+    build_tree: bool,
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -66,6 +70,7 @@ pub struct Constraint {
     check: CheckType,
     hidden: bool,
     result_unknown: bool,
+    build_tree: bool,
 
     map: Map,
     map_s: MapS,
@@ -75,6 +80,7 @@ pub struct Constraint {
 
     information: Option<f64>,
     left_after: Option<u128>,
+    left_poss: Vec<Matching>,
 }
 
 // functions for initialization / startup
@@ -116,6 +122,7 @@ impl ConstraintParse {
             check: self.check,
             hidden: self.hidden,
             result_unknown: self.result_unknown,
+            build_tree: self.build_tree,
             map_s: self.map_s,
             map: Map::default(),
             exclude: None,
@@ -123,6 +130,7 @@ impl ConstraintParse {
             eliminated_tab: vec![vec![0; lut_b.len()]; lut_a.len()],
             information: None,
             left_after: None,
+            left_poss: Default::default(),
         };
 
         c.map = c
@@ -417,8 +425,11 @@ impl Constraint {
                 m, self
             )
         })? || self.result_unknown;
+
         if !fits {
             self.eliminate(m);
+        } else if self.build_tree {
+            self.left_poss.push(m.clone());
         }
 
         Ok(fits)
@@ -431,6 +442,7 @@ impl Constraint {
         self.hidden
     }
 
+    // TODO left_poss
     pub fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
         ensure!(
@@ -476,6 +488,31 @@ impl Constraint {
         };
 
         Some(rem)
+    }
+
+    pub fn build_tree(
+        &self,
+        path: PathBuf,
+        map_a: &Vec<String>,
+        map_b: &Vec<String>,
+    ) -> Result<bool> {
+        eprintln!("build tree = ?");
+        if !self.build_tree {
+            return Ok(false);
+        }
+
+        eprintln!("build tree = true");
+
+        let ordering = crate::utils::tree_ordering(&self.left_poss, map_a);
+        crate::utils::dot_tree(
+            &self.left_poss,
+            &ordering,
+            &(self.type_str() + " / " + self.comment()),
+            &mut File::create(path)?,
+            &map_a,
+            &map_b,
+        )?;
+        Ok(true)
     }
 
     pub fn stat_row(

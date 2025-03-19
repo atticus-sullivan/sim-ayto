@@ -24,7 +24,6 @@ use indicatif::{ProgressBar, ProgressStyle};
 
 use serde::Deserialize;
 
-use std::collections::HashSet;
 use std::fs::File;
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -83,9 +82,7 @@ where
 pub struct Game {
     constraints_orig: Vec<Constraint>,
     rule_set: RuleSet,
-    tree_gen: bool,
     frontmatter: serde_yaml::Value,
-    tree_top: Option<String>,
 
     // maps u8/usize to string
     map_a: Vec<String>,
@@ -106,9 +103,7 @@ struct GameParse {
     #[serde(rename = "constraints")]
     constraints_orig: Vec<ConstraintParse>,
     rule_set: RuleSet,
-    tree_gen: bool,
     frontmatter: serde_yaml::Value,
-    tree_top: Option<String>,
     #[serde(rename = "queryMatchings", default)]
     query_matchings_s: Vec<MatchingS>,
 
@@ -147,8 +142,6 @@ impl Game {
             map_b: gp.map_b,
             constraints_orig: Vec::default(),
             rule_set: gp.rule_set,
-            tree_gen: gp.tree_gen,
-            tree_top: gp.tree_top,
             dir: stem
                 .parent()
                 .context("parent dir of stem not found")?
@@ -227,7 +220,7 @@ impl Game {
             .get_perms_amount(self.map_a.len(), self.map_b.len());
 
         let mut is = IterState::new(
-            self.tree_gen || dump_mode.is_some(),
+            dump_mode.is_some(),
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
@@ -240,7 +233,7 @@ impl Game {
 
         // track table indices
         let mut tab_idx = 0;
-        let mut md_tables: Vec<(String, u16, bool)> = vec![];
+        let mut md_tables: Vec<(String, u16, bool, bool)> = vec![];
 
         // generate additional tables
         if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
@@ -293,7 +286,7 @@ impl Game {
             self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                 .context("Error printing")?;
         }
-        md_tables.push(("tab-start".to_owned(), tab_idx, false));
+        md_tables.push(("tab-start".to_owned(), tab_idx, false, false));
         tab_idx += 1;
         println!();
 
@@ -312,18 +305,26 @@ impl Game {
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
                 c.print_hdr(&past_constraints)?;
                 if c.show_rem_table() {
+                    let tree = c.build_tree(
+                        self.dir
+                            .join(format!("{}_{}_tree", self.stem, tab_idx))
+                            .with_extension("dot"),
+                        &self.map_a,
+                        &self.map_b,
+                    )?;
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;
-                        md_tables.push((c.md_title(), tab_idx, true));
+                        md_tables.push((c.md_title(), tab_idx, tree, true));
                         tab_idx += 1;
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                             .context("Error printing")?;
-                        md_tables.push((c.md_title(), tab_idx, true));
+                        md_tables.push((c.md_title(), tab_idx, tree, true));
                         tab_idx += 1;
                     }
                 }
+
                 past_constraints.push(&c_);
                 println!();
                 constr.push(c);
@@ -332,17 +333,6 @@ impl Game {
 
         let md_path = self.dir.join(self.stem.clone()).with_extension("md");
         self.md_output(&mut File::create(md_path.clone())?, &md_tables)?;
-
-        if self.tree_gen {
-            let dot_path = self.dir.join(self.stem.clone()).with_extension("dot");
-            let ordering = self.tree_ordering(&is.left_poss);
-            self.dot_tree(
-                &is.left_poss,
-                &ordering,
-                &(constr[constr.len() - 1].type_str() + " / " + constr[constr.len() - 1].comment()),
-                &mut File::create(dot_path.clone())?,
-            )?;
-        }
 
         if let Some(d) = dump_mode {
             match d {
@@ -399,7 +389,7 @@ impl Game {
         Ok(())
     }
 
-    fn md_output(&self, out: &mut File, md_tables: &Vec<(String, u16, bool)>) -> Result<()> {
+    fn md_output(&self, out: &mut File, md_tables: &Vec<(String, u16, bool, bool)>) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
         writeln!(out, "---")?;
@@ -419,16 +409,24 @@ impl Game {
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "\n{{{{% translateHdr \"tab-individual\" %}}}}")?;
-        for (name, idx, detail) in md_tables.iter() {
+        for (name, idx, tree, detail) in md_tables.iter() {
             if *detail {
                 writeln!(out, "\n{{{{% details \"{name}\" %}}}}")?;
             } else {
                 writeln!(out, "\n{{{{% translatedDetails \"{name}\" %}}}}")?;
             }
+
             writeln!(
                 out,
                 "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}.png\" %}}}}"
             )?;
+            if *tree {
+                writeln!(
+                    out,
+                    "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}_tree.png\" %}}}}"
+                )?;
+            }
+
             if *detail {
                 writeln!(out, "{{{{% /details %}}}}")?;
             } else {
@@ -443,13 +441,6 @@ impl Game {
             "{{{{% img src=\"/sim-ayto/{stem}/{stem}.col.png\" %}}}}"
         )?;
         writeln!(out, "{{{{% /details %}}}}")?;
-
-        if self.tree_gen {
-            writeln!(out, "\n{{{{% translateHdr \"tree-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
-            writeln!(out, "{{{{% details \"\" %}}}}")?;
-            writeln!(out, "{{{{% img src=\"/sim-ayto/{stem}/{stem}.png\" %}}}}")?;
-            writeln!(out, "{{{{% /details %}}}}")?;
-        }
 
         Ok(())
     }
@@ -752,111 +743,6 @@ impl Game {
                 .trim_end_matches('.')
         );
         Ok(())
-    }
-
-    fn dot_tree(
-        &self,
-        data: &Vec<Matching>,
-        ordering: &Vec<(usize, usize)>,
-        title: &str,
-        writer: &mut File,
-    ) -> Result<()> {
-        let mut nodes: HashSet<String> = HashSet::new();
-        writeln!(
-            writer,
-            "digraph D {{ labelloc=\"b\"; label=\"Stand: {}\"; ranksep=0.8;",
-            title
-        )?;
-        for p in data {
-            let mut parent = String::from("root");
-            for (i, _) in ordering {
-                let mut node = parent.clone();
-                node.push('/');
-                node.push_str(
-                    &p[*i]
-                        .iter()
-                        .map(|b| b.to_string())
-                        .collect::<Vec<_>>()
-                        .join(","),
-                );
-
-                if nodes.insert(node.clone()) {
-                    // if node is new
-                    if p[*i].iter().filter(|&b| *b != u8::MAX).count() == 0 {
-                        writeln!(writer, "\"{node}\"[label=\"\"]")?;
-                    } else {
-                        // only put content in that node if there is something meaning-full
-                        // don't just skip the whole node since this would mess up the layering
-                        writeln!(
-                            writer,
-                            "\"{node}\"[label=\"{}\"]",
-                            self.map_a[*i].clone()
-                                + "\\n"
-                                + &p[*i]
-                                    .iter()
-                                    .filter(|&b| *b != u8::MAX)
-                                    .map(|b| self.map_b[*b as usize].clone())
-                                    .collect::<Vec<_>>()
-                                    .join("\\n")
-                        )?;
-                    }
-                    writeln!(writer, "\"{parent}\" -> \"{node}\";")?;
-                }
-
-                parent = node;
-            }
-        }
-        writeln!(writer, "}}")?;
-        Ok(())
-    }
-
-    fn tree_ordering(&self, data: &Vec<Matching>) -> Vec<(usize, usize)> {
-        // tab maps people from set_a -> possible matches (set -> no duplicates)
-        let mut tab = vec![HashSet::new(); self.map_a.len()];
-        for p in data {
-            for (i, js) in p.iter().enumerate() {
-                // if js[0] != u8::MAX {
-                tab[i].insert(js);
-                // }
-            }
-        }
-
-        // pairs people of set_a with amount of different matches
-        let mut ordering: Vec<_> = tab
-            .iter()
-            .enumerate()
-            .filter_map(|(i, x)| {
-                if x.len() == 0 || x.iter().all(|y| y.len() == 1 && y[0] == u8::MAX) {
-                    None
-                } else {
-                    Some((i, x.len()))
-                }
-            })
-            .collect();
-
-        match &self.tree_top {
-            Some(ts) => {
-                let t = self.lut_a[ts];
-                ordering.sort_unstable_by_key(|(i, x)| {
-                    // x values will always be positive, 1 will be the minimum / value for already
-                    // fixed matches
-                    // with (x-1)*2 we move that minimum to 0 and spread the values.
-                    // In effect the value 1 will be unused. To sort the specified tree_top right
-                    // below the already fixed matches this level is mapped to the value 1
-                    // Why so complicated? To avoid using floats here, while still ensuring the
-                    // order as specified.
-                    if *i == t {
-                        1
-                    } else {
-                        ((*x) - 1) * 2
-                    }
-                })
-            }
-            None => {
-                ordering.sort_unstable_by_key(|(_, x)| *x);
-            }
-        }
-        ordering
     }
 }
 
