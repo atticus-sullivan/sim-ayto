@@ -263,6 +263,7 @@ jobs:
 
       - name: Compute for ${{ matrix.sim }}
         run: |
+          set -x
           sim="${{ matrix.sim }}"
           input_file="./data/${sim}/${sim}.col.out"
           output_dir="./gh-pages/static/${sim}"
@@ -274,6 +275,7 @@ jobs:
             # Generate pictures using your Python script
             python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
+            ls -al "./data/${sim}/${sim}"*.dot
             for dot_file in "./data/${sim}/${sim}"*.dot ; do
             if [[ -e "${dot_file}" ]]; then
               name="${dotfile##*/}"
