@@ -103,9 +103,3 @@ weight: 1
 {{% details "" %}}
 {{% img src="/sim-ayto/de03r/de03r.col.png" %}}
 {{% /details %}}
-
-{{% translateHdr "tree-current" %}}
-:warning: {{< i18n "spoiler-warning" >}} :warning:
-{{% details "" %}}
-{{% img src="/sim-ayto/de03r/de03r.png" %}}
-{{% /details %}}
