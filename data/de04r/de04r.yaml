@@ -140,6 +140,7 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [5]
+    buildTree: true
     map:
       Chris: Emmy
       Ozan: Dana
@@ -155,12 +156,14 @@ constraints:
 
   - type: !Box {num: 6, comment: "E13"}
     check: !Lights [1]
+    buildTree: true
     map:
       # MarcRobin: LauraM
       Ozan: Anastasia
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       Chris: Emmy
@@ -177,12 +180,14 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [0]
+    buildTree: true
     map:
       Lukas: Jenny
       #Lars: Linda
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       Chris: Emmy
@@ -199,12 +204,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E18"}
     check: !Lights [1]
+    buildTree: true
     noExclude: true
     hidden: true
     map:
       Tim: Dana
   - type: !Box {num: 8, comment: "E18"}
     check: !Lights [1]
+    buildTree: true
     noExclude: true
     map:
       Tim: Linda
@@ -212,6 +219,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E19"}
     check: !Lights [7]
+    buildTree: true
     # resultUnknown: true
     map:
       Chris: Emmy
@@ -227,12 +235,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [0]
+    buildTree: true
     map:
       Lars: LauraL
       # Nikola: LauraM
 
   - type: !Night {num: 8, comment: "E20"}
     check: !Lights [10]
+    buildTree: true
     # resultUnknown: true
     map:
       Chris: Emmy

@@ -174,6 +174,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [3]
+    buildTree: true
     # resultUnknown: true
     map:
       Connor: Chelsey
@@ -189,6 +190,7 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Hunter: Amanda
       Nelson: Kiki
@@ -196,6 +198,7 @@ constraints:
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [3]
+    buildTree: true
     # resultUnknown: true
     map:
       Connor: Chelsey
@@ -211,6 +214,7 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Zak: Hannah
       # Hunter: Britni
@@ -218,6 +222,7 @@ constraints:
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [2]
+    buildTree: true
     # resultUnknown: true
     map:
       Connor: Chelsey
@@ -233,6 +238,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
+    buildTree: true
     map:
       Zak: Kayla
       # Devin: Rashida
@@ -240,6 +246,7 @@ constraints:
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
+    buildTree: true
     # resultUnknown: true
     map:
       Connor: Chelsey

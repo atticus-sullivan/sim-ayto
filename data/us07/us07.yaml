@@ -193,6 +193,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E11"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Maria: Shamoy
@@ -209,6 +210,7 @@ constraints:
 
   - type: !Box {num: 8, comment: "E12"}
     check: !Lights [1]
+    buildTree: true
     map:
       Kenya: Tevin
       # Tevin
@@ -218,6 +220,7 @@ constraints:
 
   - type: !Night {num: 8, comment: "E12"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Maria: Shamoy
@@ -234,6 +237,7 @@ constraints:
 
   - type: !Box {num: 9, comment: "E12"}
     check: !Lights [0]
+    buildTree: true
     map:
       Samantha: Cam
       # Cam
@@ -243,6 +247,7 @@ constraints:
 
   - type: !Night {num: 9, comment: "E13"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Maria: Shamoy
@@ -259,6 +264,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E14"}
     check: !Lights [1]
+    buildTree: true
     map:
       Nutsa: Brett
       # Moe
@@ -268,6 +274,7 @@ constraints:
 
   - type: !Night {num: 10, comment: "E14"}
     check: !Lights [11]
+    buildTree: true
     # resultUnknown: true
     map:
       Maria: Shamoy

@@ -170,6 +170,7 @@ constraints:
 
   - type: !Box {num: 7, comment: "E07"}
     check: !Lights [1]
+    buildTree: true
     map:
       John: Jenni
       # Alex: Alex
@@ -177,6 +178,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [6]
+    buildTree: true
     map:
       TylerPratt: Paris
       Curtis: Shelby
@@ -192,6 +194,7 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Brandon: Briana
       # Anthony: Jess
@@ -199,6 +202,7 @@ constraints:
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [5]
+    buildTree: true
     map:
       TylerPratt: Paris
       Curtis: Shelby
@@ -214,6 +218,7 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Brandon: Briana
       Alex: Jasmine
@@ -221,6 +226,7 @@ constraints:
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [8]
+    buildTree: true
     map:
       TylerPratt: Paris
       Curtis: Shelby
@@ -236,6 +242,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
+    buildTree: true
     map:
       Dario: Ashley
       # Layton: Tyler
@@ -243,6 +250,7 @@ constraints:
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
+    buildTree: true
     map:
       TylerPratt: Paris
       Curtis: Shelby

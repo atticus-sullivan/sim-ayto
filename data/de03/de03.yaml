@@ -137,6 +137,7 @@ constraints:
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [4]
+    buildTree: true
     map:
       Antonino: Dana
       Jordi: Desiree
@@ -151,11 +152,13 @@ constraints:
 
   - type: !Box {num: 7, comment: "E14"}
     check: !Lights [1]
+    buildTree: true
     map:
       Marius: Zaira
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [6]
+    buildTree: true
     map:
       Antonino: Dana
       Andre: Desiree
@@ -170,11 +173,13 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
+    buildTree: true
     map:
       Jordi: Raphaela
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [4]
+    buildTree: true
     map:
       Antonino: Dana
       Mike: Estelle
@@ -189,11 +194,13 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
+    buildTree: true
     map:
       Max: Kerstin
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [2]
+    buildTree: true
     map:
       Dustin: Dana
       Andre: Desiree
@@ -208,11 +215,13 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [0]
+    buildTree: true
     map:
       Dustin: Isabelle
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [10]
+    buildTree: true
     map:
       Antonino: Dana
       Jordi: Estelle
@@ -227,6 +236,7 @@ constraints:
 
   - type: !Night {num: 11, comment: "reunion"}
     check: !Lights [10]
+    buildTree: true
     map:
       Antonino: Dana
       Jordi: Estelle

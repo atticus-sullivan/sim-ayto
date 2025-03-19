@@ -133,6 +133,7 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
+    buildTree: true
     map:
       Steffi: Chris
       Caro: Ken
@@ -148,12 +149,14 @@ constraints:
 
   - type: !Box {num: 6, comment: "E13"}
     check: !Lights [0]
+    buildTree: true
     map:
       Dorna: Burim
         # Larissa: Marwin
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [3]
+    buildTree: true
     map:
       Steffi: Chris
       Caro: Ken
@@ -169,12 +172,14 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [0]
+    buildTree: true
     map:
       Juliette: Joel
      # Vanessa: Marwin
 
   - type: !Night {num: 7, comment: "E16 -- Blackout"}
     check: !Lights [2]
+    buildTree: true
     map:
      Steffi: Chris
      Caro: Ken
@@ -189,11 +194,13 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [0]
+    buildTree: true
     map:
       Dorna: Marwin
 
   - type: !Night {num: 8, comment: "E18 -- Blackout"}
     check: !Lights [2]
+    buildTree: true
     map:
       Steffi: Chris
       Caro: Ken
@@ -208,12 +215,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [0]
+    buildTree: true
     map:
       Carina: Pascal
       # Burim: Aurelia
 
   - type: !Night {num: 9, comment: "E21 -- finale"}
     check: !Lights [10]
+    buildTree: true
     map:
       Steffi: Chris
       Caro: Ken

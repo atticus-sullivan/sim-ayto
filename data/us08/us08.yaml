@@ -173,6 +173,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E08"}
     check: !Lights [3]
+    buildTree: true
     map:
       Brandon: Aasha
       Kari: Remy
@@ -185,6 +186,7 @@ constraints:
 
   - type: !Box {num: 8, comment: "E09"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Amber: Max
       # Danny: Nour
@@ -192,6 +194,7 @@ constraints:
 
   - type: !Night {num: 8, comment: "E11"}
     check: !Lights [3]
+    buildTree: true
     map:
       Brandon: Aasha
       Jasmine: Nour
@@ -204,6 +207,7 @@ constraints:
 
   - type: !Box {num: 9, comment: "E11"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Danny: Kai
       Max: Amber
@@ -211,6 +215,7 @@ constraints:
 
   - type: !Night {num: 9, comment: "E11"}
     check: !Lights [6]
+    buildTree: true
     map:
       Brandon: Aasha
       Paige: Jenna
@@ -223,6 +228,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E12"}
     check: !Lights [0]
+    buildTree: true
     map:
       Kylie: Amber
       # Basit: Jonathan
@@ -230,6 +236,7 @@ constraints:
 
   - type: !Night {num: 10, comment: "E12"}
     check: !Lights [8]
+    buildTree: true
     map:
       Brandon: Aasha
       Paige: Jenna

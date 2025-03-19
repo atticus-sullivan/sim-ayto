@@ -154,6 +154,7 @@ constraints:
 
   - type: !Night {num: 6, comment: "E06"}
     check: !Lights [2]
+    buildTree: true
     # resultUnknown: true
     map:
       Olivia: Ismail
@@ -169,12 +170,14 @@ constraints:
 
   - type: !Box {num: 7, comment: "E07"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Sapphia: Cach
       Thea: Charlie
 
   - type: !Night {num: 7, comment: "E07 -- Blackout"}
     check: !Lights [1]
+    buildTree: true
     # resultUnknown: true
     map:
       Olivia: Ismail
@@ -190,12 +193,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
+    buildTree: true
     map:
       Vic: Jacob
       # Thea: Jordan
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       Olivia: Ismail
@@ -211,12 +216,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Therese: Cach
       Libby: Joshy
 
   - type: !Night {num: 9, comment: "E10"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       Olivia: Ismail
@@ -232,11 +239,13 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
+    buildTree: true
     map:
       Tasha: Charlie
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
+    buildTree: true
     # resultUnknown: true
     map:
       Olivia: Ismail

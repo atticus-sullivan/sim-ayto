@@ -105,6 +105,7 @@ constraints:
 
   - type: !Night {num: 4, comment: "E04"}
     check: !Lights [2]
+    buildTree: true
     map:
       Dillan: Coleysia
       Scali: Paige
@@ -119,6 +120,7 @@ constraints:
 
   - type: !Box {num: 5, comment: "E05"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Ethan: Shanley
       Dre: Ashleigh
@@ -126,6 +128,7 @@ constraints:
       # Dillan: Coleysia
   - type: !Box {num: 5.1, comment: "E05 -- 2nd MB"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Ethan: Shanley
       # Dre: Ashleigh
@@ -134,6 +137,7 @@ constraints:
 
   - type: !Night {num: 5, comment: "E05"}
     check: !Lights [5]
+    buildTree: true
     map:
       Dillan: Coleysia
       Ethan: Amber
@@ -148,6 +152,7 @@ constraints:
 
   - type: !Box {num: 6, comment: "E06"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Joey: Brittany
       # Ethan: Amber
@@ -156,6 +161,7 @@ constraints:
 
   - type: !Night {num: 6, comment: "E07"}
     check: !Lights [5]
+    buildTree: true
     map:
       Dillan: Coleysia
       ChrisT: Paige
@@ -170,6 +176,7 @@ constraints:
 
   - type: !Box {num: 7, comment: "E08"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Joey: Ashleigh
       Ryan: Kayla
@@ -177,6 +184,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E08"}
     check: !Lights [7]
+    buildTree: true
     map:
       Dillan: Coleysia
       ChrisT: Paige
@@ -191,6 +199,7 @@ constraints:
 
   - type: !Box {num: 8, comment: "E09"}
     check: !Lights [0]
+    buildTree: true
     map:
       John: Jacy
       # Dre: Ashleigh
@@ -199,6 +208,7 @@ constraints:
 
   - type: !Night {num: 8, comment: "E09"}
     check: !Lights [10]
+    buildTree: true
     map:
       Dillan: Coleysia
       ChrisT: Paige

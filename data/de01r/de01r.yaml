@@ -148,6 +148,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [2]
+    buildTree: true
     map:
       Alexander: Jacqueline
       Danilo: Aurelia
@@ -162,11 +163,13 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
+    buildTree: true
     map:
       Eugen: Stefanie
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [1]
+    buildTree: true
     map:
       Alexander: Melina
       Danilo: Aurelia
@@ -181,16 +184,19 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
+    buildTree: true
     map:
       Josua: Sarah
 
   - type: !Box {num: 9.1, comment: "E18/15 -- geschenkte Matchbox"}
     check: !Lights [0]
+    buildTree: true
     map:
       Tommy: Melina
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [4]
+    buildTree: true
     map:
       Alexander: Sarah
       Danilo: Jill
@@ -206,11 +212,13 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
+    buildTree: true
     map:
       Josua: Aurelia
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [7]
+    buildTree: true
     map:
       Alexander: Vanessa
       Danilo: Sarah
