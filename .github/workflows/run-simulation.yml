@@ -137,6 +137,11 @@ jobs:
         with:
           name: ayto
 
+      - name: Debug
+        if: ${{ matrix.sim != '' }}
+        uses: mxschmitt/action-tmate@v3
+
+
       - name: Compute for ${{ matrix.sim }}
         if: ${{ matrix.sim != '' }}
         run: |
