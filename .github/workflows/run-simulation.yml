@@ -137,11 +137,6 @@ jobs:
         with:
           name: ayto
 
-      - name: Debug
-        if: ${{ matrix.sim != '' }}
-        uses: mxschmitt/action-tmate@v3
-
-
       - name: Compute for ${{ matrix.sim }}
         if: ${{ matrix.sim != '' }}
         run: |
@@ -172,7 +167,7 @@ jobs:
           path: |
             ${{ env.STEM }}.col.out
             ${{ env.STEM }}.md
-            ${{ env.STEM }}.dot
+            ${{ env.STEM }}*.dot
             ${{ env.STEMD }}/statInfo.csv
             ${{ env.STEMD }}/statMB.csv
             ${{ env.STEMD }}/statMN.csv
