@@ -278,7 +278,7 @@ jobs:
             ls -al "./data/${sim}/${sim}"*.dot
             for dot_file in "./data/${sim}/${sim}"*.dot ; do
             if [[ -e "${dot_file}" ]]; then
-              name="${dotfile##*/}"
+              name="${dot_file##*/}"
               name="${name%.dot}"
               dot -Tpdf -o "${output_dir}/${name}.pdf" "${dot_file}"
               dot -Tpng -o "${output_dir}/${name}.png" "${dot_file}"

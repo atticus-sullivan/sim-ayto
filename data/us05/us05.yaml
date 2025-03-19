@@ -183,6 +183,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Edward: Kam
@@ -199,12 +200,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [1]
+    buildTree: true
     map:
       Hayden: Carolina
       # Michael: Kathryn
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [5]
+    buildTree: true
     # resultUnknown: true
     map:
       Edward: Kam
@@ -221,12 +224,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09 -- sold for +150,000$"}
     check: !Nothing
+    buildTree: true
     map:
       # Mike: Casandra
       Derrick: Tyranny
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [9]
+    buildTree: true
     # resultUnknown: true
     map:
       Edward: Kam
@@ -243,12 +248,14 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10 -- sold +150,000$"}
     check: !Nothing
+    buildTree: true
     map:
       Joey: Casandra
       # Derrick: Tyranny
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [8]
+    buildTree: true
     # resultUnknown: true
     map:
       Edward: Kam

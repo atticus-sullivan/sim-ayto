@@ -176,11 +176,13 @@ constraints:
 
   - type: !Box {num: 7.1, comment: "E08 -- Sam left"}
     check: !Lights [1]
+    buildTree: true
     map:
       Mijntje: Samuel
 
   - type: !Night {num: 7, comment: "E08"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       JuliaRuth: Brendan
@@ -197,12 +199,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E09"}
     check: !Lights [1]
+    buildTree: true
     map:
       Taylor: Clay
       # Jordanne: Eduardo
 
   - type: !Night {num: 8, comment: "E09"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       JuliaRuth: Brendan
@@ -219,12 +223,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E10"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Anissa: Leo
       Roz: Mikey
 
   - type: !Night {num: 9, comment: "E10"}
     check: !Lights [11]
+    buildTree: true
     # resultUnknown: true
     map:
       JuliaRuth: Brendan

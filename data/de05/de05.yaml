@@ -150,6 +150,7 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -164,12 +165,14 @@ constraints:
 
   - type: !Box {num: 6, comment: "E13"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Paulo: Maja
       Sandro: Sina
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [5]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -184,12 +187,14 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Sandro: Afra
       Paulo: Julia
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [5]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -204,12 +209,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17 -- verkauft"}
     check: !Nothing
+    buildTree: true
     map:
       Eti: Maja
       # Paddy: Edda
 
   - type: !Night {num: 8, comment: "E18"}
     check: !Lights [4]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -224,12 +231,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Sidar: Julia
       Sandro: Afra
 
   - type: !Night {num: 9, comment: "E19"}
     check: !Lights [6]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -244,6 +253,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E19"}
     check: !Lights [1]
+    buildTree: true
     map:
       Kevin: Lina
       # Sidar: Sina
@@ -251,6 +261,7 @@ constraints:
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [7]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -265,6 +276,7 @@ constraints:
 
   - type: !Night {num: 11, comment: "E21 -- Reunion"}
     check: !Lights [10]
+    buildTree: true
     map:
       Gerrit: Tais
       Wilson: Shelly

@@ -141,6 +141,7 @@ constraints:
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [4]
+    buildTree: true
     map:
       Darya: Danilo
       Alicia: Paco
@@ -156,6 +157,7 @@ constraints:
 
   # Max hat sein "double" verkauft => das "double" wurde bekannt
   - type: !Box {num: 7, comment: "E15"}
+    buildTree: true
     # Eq meint nur, dass die beiden values gleich sein müssen. Die jeweiligen
     # keys sind dabei vollkommen egal.
     # Notwendig für dieses Szenario (es wird bekannt Max und Peter haben
@@ -167,6 +169,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [3]
+    buildTree: true
     map:
       Darya: Danilo
       Steffi: Elia
@@ -181,12 +184,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Sandra: Mike
       Sabrina: Max
 
   - type: !Night {num: 8, comment: "E18 -- Blackout"}
     check: !Lights [1]
+    buildTree: true
     map:
       Darya: Danilo
       Sandra: Fabio
@@ -201,12 +206,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Sabrina: Mike
       Steffi: Emanuell
 
   - type: !Night {num: 9, comment: "E20"}
     check: !Lights [6]
+    buildTree: true
     map:
       Steffi: Emanuell
       Darya: Danilo
@@ -221,12 +228,14 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Shakira: Marvin
       Alicia: Elia
 
   - type: !Night {num: 10, comment: "E22"}
     check: !Lights [10]
+    buildTree: true
     map:
       Steffi: Emanuell
       Darya: Danilo

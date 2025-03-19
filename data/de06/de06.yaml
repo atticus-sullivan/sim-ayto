@@ -140,7 +140,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
-    # resultUnknown: true
     # noExclude: true
     map:
       Danish: Nadja

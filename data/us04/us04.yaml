@@ -122,12 +122,14 @@ constraints:
 
   - type: !Box {num: 5, comment: "E05"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Nicole: Prosper
       Kaylen: Gio
 
   - type: !Night {num: 5, comment: "E05"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Mikala: Cameron
@@ -143,12 +145,14 @@ constraints:
 
   - type: !Box {num: 6, comment: "E06"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Emma: John
       Alyssa: Sam
 
   - type: !Night {num: 6, comment: "E06"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Mikala: Cameron
@@ -164,12 +168,14 @@ constraints:
 
   - type: !Box {num: 7, comment: "E07"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Tori: Morgan
       Victoria: Cam
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [4]
+    buildTree: true
     # resultUnknown: true
     map:
       Mikala: Cameron
@@ -185,12 +191,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Kaylen: John
       Julia: Gio
 
   - type: !Night {num: 8, comment: "E08 -- blackout -250.000$"}
     check: !Lights [2]
+    buildTree: true
     # resultUnknown: true
     map:
       Mikala: Cameron
@@ -206,12 +214,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [1]
+    buildTree: true
     map:
       Emma: Prosper
       # Francesca: Asaf
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [6]
+    buildTree: true
     # resultUnknown: true
     map:
       Mikala: Cameron
@@ -227,12 +237,14 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
+    buildTree: true
     map:
       Julia: Cam
       # Nicole: John
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
+    buildTree: true
     map:
       Mikala: Cameron
       Alyssa: Sam

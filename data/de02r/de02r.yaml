@@ -148,12 +148,14 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [1]
+    buildTree: true
     map:
       Cecilia: Amadu
       # Gina: Fabio
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [4]
+    buildTree: true
     map:
       Anna: Micha
       Cecilia: Amadu
@@ -169,12 +171,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [1]
+    buildTree: true
     map:
       Anna: Micha
       # Ricarda: Pharrell
 
   - type: !Night {num: 8, comment: "E18"}
     check: !Lights [5]
+    buildTree: true
     map:
       Anna: Micha
       Cecilia: Amadu
@@ -190,12 +194,14 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [0]
+    buildTree: true
     map:
       Ricarda: Pharrell
       # Gina: Fabio
 
   - type: !Night {num: 9, comment: "E20"}
     check: !Lights [7]
+    buildTree: true
     map:
       Anna: Micha
       Cecilia: Amadu
@@ -211,12 +217,14 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [0]
+    buildTree: true
     map:
       Franzi: Max
       # Karina: Martin
 
   - type: !Night {num: 10, comment: "E21"}
     check: !Lights [10]
+    buildTree: true
     map:
       Anna: Micha
       Cecilia: Amadu

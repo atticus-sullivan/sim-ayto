@@ -156,6 +156,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [4]
+    buildTree: true
     map:
       Aaron: Melissa
       Dario: Sabrina
@@ -170,11 +171,13 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
+    buildTree: true
     map:
       Marko: Sabrina
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [1]
+    buildTree: true
     map:
       Aaron: Vanessa
       Dario: Victoria
@@ -189,11 +192,13 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [1]
+    buildTree: true
     map:
       Aaron: Melissa
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [3]
+    buildTree: true
     map:
       Aaron: Melissa
       Dario: Kathleen
@@ -208,11 +213,13 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
+    buildTree: true
     map:
       Marc: Mirjam
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [10]
+    buildTree: true
     map:
       Aaron: Melissa
       Dario: Sabrina

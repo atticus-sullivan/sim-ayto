@@ -181,6 +181,7 @@ constraints:
 
   - type: !Night {num: 7, comment: "E09"}
     check: !Lights [5]
+    buildTree: true
     # resultUnknown: true
     map:
       Kareem: Nurys
@@ -197,12 +198,14 @@ constraints:
 
   - type: !Box {num: 8, comment: "E10"}
     check: !Lights [0]
+    buildTree: true
     map:
       Michael: Audrey
       # Joe: Alivia
 
   - type: !Night {num: 8, comment: "E09"}
     check: !Lights [3]
+    buildTree: true
     # resultUnknown: true
     map:
       Dimitri: Diandra
@@ -219,6 +222,7 @@ constraints:
 
   - type: !Box {num: 9, comment: "E11"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Keith: Diandra
       Tyler: Nicole
@@ -226,6 +230,7 @@ constraints:
 
   - type: !Night {num: 9, comment: "E11"}
     check: !Lights [5]
+    buildTree: true
     map:
       Tyler: Nicole
       Anthony: Uche
@@ -241,12 +246,14 @@ constraints:
 
   - type: !Box {num: 10, comment: "E12"}
     check: !Lights [0]
+    buildTree: true
     map:
       # Malcolm: Keyana
       Dimitri: Jada
 
   - type: !Night {num: 10, comment: "E12"}
     check: !Lights [11]
+    buildTree: true
     map:
       Tyler: Nicole
       Clinton: Geles
