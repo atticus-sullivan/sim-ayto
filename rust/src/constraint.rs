@@ -26,6 +26,7 @@ use std::path::PathBuf;
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
+use crate::ruleset::RuleSetData;
 use crate::{Lut, Map, MapS, Matching, Rem, Rename};
 
 pub type CSVEntry = (f64, f64, String);
@@ -62,9 +63,11 @@ pub struct ConstraintParse {
     result_unknown: bool,
     #[serde(default, rename = "buildTree")]
     build_tree: bool,
+    #[serde(default, rename = "hideRulesetData")]
+    hide_ruleset_data: bool,
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Debug, Clone)]
 pub struct Constraint {
     r#type: ConstraintType,
     check: CheckType,
@@ -81,6 +84,9 @@ pub struct Constraint {
     information: Option<f64>,
     left_after: Option<u128>,
     left_poss: Vec<Matching>,
+
+    hide_ruleset_data: bool,
+    pub ruleset_data: Box<dyn RuleSetData>,
 }
 
 // functions for initialization / startup
@@ -107,6 +113,7 @@ impl ConstraintParse {
         add_exclude: bool,
         sort_constraint: bool,
         rename: (&Rename, &Rename),
+        ruleset_data: Box<dyn RuleSetData>,
     ) -> Result<Constraint> {
         let exclude_s = if add_exclude {
             match self.add_exclude(map_b) {
@@ -131,6 +138,8 @@ impl ConstraintParse {
             information: None,
             left_after: None,
             left_poss: Default::default(),
+            ruleset_data,
+            hide_ruleset_data: self.hide_ruleset_data,
         };
 
         c.map = c
@@ -428,8 +437,13 @@ impl Constraint {
 
         if !fits {
             self.eliminate(m);
-        } else if self.build_tree && !self.hidden {
-            self.left_poss.push(m.clone());
+        } else {
+            if self.build_tree && !self.hidden {
+                self.left_poss.push(m.clone());
+            }
+            if !self.hide_ruleset_data && !self.hidden {
+                self.ruleset_data.push(m)?;
+            }
         }
 
         Ok(fits)

@@ -30,9 +30,8 @@ use std::path::{Path, PathBuf};
 
 use anyhow::{anyhow, ensure, Context, Result};
 
-use crate::constraint::Constraint;
-use crate::constraint::ConstraintParse;
-use crate::ruleset::RuleSet;
+use crate::constraint::{Constraint, ConstraintParse};
+use crate::ruleset::{RuleSet, RuleSetParse};
 use crate::{Lut, Matching, MatchingS, Rem, Rename};
 
 // colors for tables
@@ -102,7 +101,7 @@ pub struct Game {
 struct GameParse {
     #[serde(rename = "constraints")]
     constraints_orig: Vec<ConstraintParse>,
-    rule_set: RuleSet,
+    rule_set: RuleSetParse,
     frontmatter: serde_yaml::Value,
     #[serde(rename = "queryMatchings", default)]
     query_matchings_s: Vec<MatchingS>,
@@ -141,7 +140,7 @@ impl Game {
             map_a: gp.map_a,
             map_b: gp.map_b,
             constraints_orig: Vec::default(),
-            rule_set: gp.rule_set,
+            rule_set: gp.rule_set.finalize_parsing(),
             dir: stem
                 .parent()
                 .context("parent dir of stem not found")?
@@ -179,6 +178,7 @@ impl Game {
                 g.rule_set.must_add_exclude(),
                 g.rule_set.must_sort_constraint(),
                 (&gp.rename_a, &gp.rename_b),
+                g.rule_set.init_data(),
             )?);
         }
 
@@ -214,7 +214,12 @@ impl Game {
         Ok(g)
     }
 
-    pub fn sim(&mut self, print_transposed: bool, dump_mode: Option<DumpMode>) -> Result<()> {
+    pub fn sim(
+        &mut self,
+        print_transposed: bool,
+        dump_mode: Option<DumpMode>,
+        full: bool,
+    ) -> Result<()> {
         let perm_amount = self
             .rule_set
             .get_perms_amount(self.map_a.len(), self.map_b.len());
@@ -315,6 +320,8 @@ impl Game {
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;
+                        c.ruleset_data
+                            .print(full, &self.rule_set, &self.map_a, &self.map_b, rem.1);
                         md_tables.push((c.md_title(), tab_idx, tree, true));
                         tab_idx += 1;
                     } else {

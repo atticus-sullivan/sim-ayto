@@ -20,8 +20,9 @@ use anyhow::{ensure, Context, Result};
 use core::iter::zip;
 use permutator::{Combination, Permutation};
 use serde::Deserialize;
+use std::collections::HashMap;
 
-use crate::{game::IterState, Lut};
+use crate::{game::IterState, Lut, Matching};
 
 fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
     vals: I,
@@ -100,7 +101,242 @@ fn someone_is_trip<I: Iterator<Item = Vec<Vec<u8>>>>(
     })
 }
 
+pub trait RuleSetDataClone {
+    fn clone_box(&self) -> Box<dyn RuleSetData>;
+}
+impl<T> RuleSetDataClone for T
+where
+    T: 'static + RuleSetData + Clone,
+{
+    fn clone_box(&self) -> Box<dyn RuleSetData> {
+        Box::new(self.clone())
+    }
+}
+
+pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
+    fn push(&mut self, m: &Matching) -> Result<()>;
+    fn print(
+        &self,
+        full: bool,
+        ruleset: &RuleSet,
+        map_a: &Vec<String>,
+        map_b: &Vec<String>,
+        total: u128,
+    );
+}
+
+impl Clone for Box<dyn RuleSetData> {
+    fn clone(&self) -> Box<dyn RuleSetData> {
+        self.clone_box()
+    }
+}
+
+#[derive(Debug, Clone)]
+struct DupData {
+    cnt: HashMap<(usize, Vec<u8>), usize>,
+}
+
+impl std::default::Default for DupData {
+    fn default() -> Self {
+        Self {
+            cnt: Default::default(),
+        }
+    }
+}
+
+impl RuleSetData for DupData {
+    fn push(&mut self, m: &Matching) -> Result<()> {
+        let k = m
+            .iter()
+            .enumerate()
+            .find(|(_, j)| j.len() > 1)
+            .map(|(i, j)| (i, j.clone()))
+            .with_context(|| format!(""))?;
+        let e = self.cnt.entry(k).or_default();
+        *e = *e + 1;
+        Ok(())
+    }
+
+    fn print(
+        &self,
+        full: bool,
+        ruleset: &RuleSet,
+        map_a: &Vec<String>,
+        map_b: &Vec<String>,
+        total: u128,
+    ) {
+        let word = match ruleset {
+            RuleSet::SomeoneIsDup | RuleSet::FixedDup(_) => "Dup",
+            RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => "Trip",
+
+            RuleSet::NToN => todo!(),
+            RuleSet::Eq => todo!(),
+        };
+
+        let mut d = self.cnt.clone().into_iter().collect::<Vec<_>>();
+        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        let mut first = true;
+        let iter: Box<dyn Iterator<Item = _>> = if full {
+            print!("Pr[{word}]: ");
+            Box::new(d.into_iter())
+        } else {
+            print!("top4 Pr[{word}]: ");
+            Box::new(d.into_iter().take(4))
+        };
+        for ((a, bs), cnt) in iter {
+            print!(
+                "{}{}{:.1}%/{}: {} -> {:?}",
+                if full { "\n  " } else { "" },
+                if !first { " | " } else { "" },
+                (cnt as f64 / total as f64) * 100.0,
+                cnt,
+                map_a[a],
+                bs.iter()
+                    .map(|b| map_b[*b as usize].clone())
+                    .collect::<Vec<_>>()
+            );
+            first = false;
+        }
+        println!();
+
+        let mut d = self
+            .cnt
+            .iter()
+            .fold::<HashMap<Vec<u8>, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
+                let x = acc.entry(js.clone()).or_default();
+                *x += *c;
+                acc
+            })
+            .into_iter()
+            .collect::<Vec<_>>();
+        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        let mut first = true;
+        let iter: Box<dyn Iterator<Item = _>> = if full {
+            print!("Pr[{word}]: ");
+            Box::new(d.into_iter())
+        } else {
+            print!("top5 Pr[{word}]: ");
+            Box::new(d.into_iter().take(5))
+        };
+        for (bs, cnt) in iter {
+            print!(
+                "{}{}{:.1}%/{}: {:?}",
+                if full { "\n  " } else { "" },
+                if !first { " | " } else { "" },
+                (cnt as f64 / total as f64) * 100.0,
+                cnt,
+                bs.iter()
+                    .map(|b| map_b[*b as usize].clone())
+                    .collect::<Vec<_>>()
+            );
+            first = false;
+        }
+        println!();
+
+        let mut d = self
+            .cnt
+            .iter()
+            .fold::<HashMap<&u8, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
+                for j in js.iter() {
+                    let x = acc.entry(j).or_default();
+                    *x += *c;
+                }
+                acc
+            })
+            .into_iter()
+            .collect::<Vec<_>>();
+        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        let mut first = true;
+        let iter: Box<dyn Iterator<Item = _>> = if full {
+            print!("Pr[{word}]: ");
+            Box::new(d.into_iter())
+        } else {
+            print!("top5 Pr[{word}]: ");
+            Box::new(d.into_iter().take(5))
+        };
+        for (b, cnt) in iter {
+            print!(
+                "{}{}{:.1}%/{}: {}",
+                if full { "\n  " } else { "" },
+                if !first { " | " } else { "" },
+                (cnt as f64 / total as f64) * 100.0,
+                cnt,
+                map_b[*b as usize]
+            );
+            first = false;
+        }
+        println!();
+
+        let mut d = self
+            .cnt
+            .iter()
+            .fold::<HashMap<&usize, usize>, _>(HashMap::new(), |mut acc, ((j, _), c)| {
+                let x = acc.entry(j).or_default();
+                *x += *c;
+                acc
+            })
+            .into_iter()
+            .collect::<Vec<_>>();
+        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        let mut first = true;
+        let iter: Box<dyn Iterator<Item = _>> = if full {
+            print!("Pr[{word}]: ");
+            Box::new(d.into_iter())
+        } else {
+            print!("top5 Pr[{word}]: ");
+            Box::new(d.into_iter().take(5))
+        };
+        for (a, cnt) in iter {
+            print!(
+                "{}{}{:.1}%/{}: {}",
+                if full { "\n  " } else { "" },
+                if !first { " | " } else { "" },
+                (cnt as f64 / total as f64) * 100.0,
+                cnt,
+                map_a[*a as usize]
+            );
+            first = false;
+        }
+        println!();
+    }
+}
+
+#[derive(Debug, Clone)]
+struct DummyData {}
+
+impl std::default::Default for DummyData {
+    fn default() -> Self {
+        Self {}
+    }
+}
+
+impl RuleSetData for DummyData {
+    fn push(&mut self, _m: &Matching) -> Result<()> {
+        Ok(())
+    }
+
+    fn print(
+        &self,
+        _full: bool,
+        _ruleset: &RuleSet,
+        _map_a: &Vec<String>,
+        _map_b: &Vec<String>,
+        _total: u128,
+    ) {
+    }
+}
+
 #[derive(Deserialize, Debug)]
+pub enum RuleSetParse {
+    SomeoneIsDup,
+    SomeoneIsTrip,
+    NToN,
+    FixedDup(String),
+    FixedTrip(String),
+    Eq,
+}
+
+#[derive(Debug)]
 pub enum RuleSet {
     SomeoneIsDup,
     SomeoneIsTrip,
@@ -108,6 +344,18 @@ pub enum RuleSet {
     FixedDup(String),
     FixedTrip(String),
     Eq,
+}
+impl RuleSetParse {
+    pub fn finalize_parsing(self) -> RuleSet {
+        match self {
+            RuleSetParse::SomeoneIsDup => RuleSet::SomeoneIsDup,
+            RuleSetParse::SomeoneIsTrip => RuleSet::SomeoneIsTrip,
+            RuleSetParse::NToN => RuleSet::NToN,
+            RuleSetParse::FixedDup(s) => RuleSet::FixedDup(s),
+            RuleSetParse::FixedTrip(s) => RuleSet::FixedTrip(s),
+            RuleSetParse::Eq => RuleSet::Eq,
+        }
+    }
 }
 
 impl std::default::Default for RuleSet {
@@ -117,6 +365,17 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
+    pub fn init_data(&self) -> Box<dyn RuleSetData> {
+        match &self {
+            RuleSet::SomeoneIsDup => Box::new(DupData::default()),
+            RuleSet::SomeoneIsTrip => Box::new(DupData::default()),
+            RuleSet::FixedDup(_) => Box::new(DupData::default()),
+            RuleSet::FixedTrip(_) => Box::new(DupData::default()),
+            RuleSet::NToN => Box::new(DummyData::default()),
+            RuleSet::Eq => Box::new(DummyData::default()),
+        }
+    }
+
     pub fn must_add_exclude(&self) -> bool {
         match &self {
             RuleSet::SomeoneIsDup
