@@ -35,18 +35,22 @@ Paulo → Jana
 │[48;2;69;76;102m Wilson [49m┆  9.899 ┆  9.899 ┆[48;2;65;77;71m 11.111 [49m┆  9.899 ┆  9.899 ┆  9.899     ┆  9.899 ┆  9.899 ┆  9.899 ┆  9.899 ┆  9.899 ┆[48;2;74;68;89m 10.101  [49m│
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 179625600 left -> 27.4204 bits left
+top4 Pr[Trip]: 0.2%/362880: Kevin -> ["Jana", "Tais", "Melanie"] | 0.2%/362880: Martin -> ["Maja", "Jana", "Melanie"] | 0.2%/362880: Gerrit -> ["Pia", "Jana", "Melanie"] | 0.2%/362880: Gerrit -> ["Shelly", "Jana", "Melanie"]
+top5 Pr[Trip]: 1.8%/3265920: ["Edda", "Lisa-Marie", "Melanie"] | 1.8%/3265920: ["Lina", "Afra", "Melanie"] | 1.8%/3265920: ["Afra", "Sina", "Melanie"] | 1.8%/3265920: ["Lisa-Marie", "Tais", "Melanie"] | 1.8%/3265920: ["Lina", "Julia", "Melanie"]
+top5 Pr[Trip]: 100.0%/179625600: Melanie | 18.2%/32659200: Maja | 18.2%/32659200: Lisa-Marie | 18.2%/32659200: Shelly | 18.2%/32659200: Jana
+top5 Pr[Trip]: 10.1%/18144000: Martin | 10.1%/18144000: Ryan | 10.1%/18144000: Wilson | 10.1%/18144000: Kevin | 10.1%/18144000: Gerrit
 
 MN#1.0 E04
-0x Ryan   → Lina       
-0x Martin → Julia      
-0x Sidar  → Jana       
-0x Kevin  → Sina       
-0x Wilson → Shelly     
-0x Sandro → Edda       
 0x Eti    → Lisa-Marie 
-0x Paddy  → Maja       
+0x Sandro → Edda       
+0x Kevin  → Sina       
+0x Sidar  → Jana       
 0x Gerrit → Pia        
 0x Paulo  → Tais       
+0x Wilson → Shelly     
+0x Paddy  → Maja       
+0x Ryan   → Lina       
+0x Martin → Julia      
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89
@@ -66,6 +70,10 @@ MN#1.0 E04
 │[48;2;69;76;102m Wilson [49m┆  8.872 ┆  8.73  ┆  9.756 ┆  8.872 ┆  8.872 ┆  8.872     ┆[48;2;65;77;71m 19.562 [49m┆  9.925 ┆  8.872 ┆  8.872 ┆  8.872 ┆ 10.076  │
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 33752266 left -> 25.0085 bits left
+top4 Pr[Trip]: 0.4%/133497: Paulo -> ["Afra", "Tais", "Melanie"] | 0.4%/133497: Sidar -> ["Afra", "Jana", "Melanie"] | 0.4%/133496: Sidar -> ["Maja", "Jana", "Melanie"] | 0.4%/133496: Gerrit -> ["Pia", "Jana", "Melanie"]
+top5 Pr[Trip]: 1.8%/623908: ["Julia", "Jana", "Melanie"] | 1.8%/623908: ["Edda", "Jana", "Melanie"] | 1.8%/623908: ["Lisa-Marie", "Jana", "Melanie"] | 1.8%/623908: ["Shelly", "Jana", "Melanie"] | 1.8%/623908: ["Lina", "Jana", "Melanie"]
+top5 Pr[Trip]: 100.0%/33752266: Melanie | 18.2%/6151015: Lisa-Marie | 18.2%/6151015: Maja | 18.2%/6151015: Sina | 18.2%/6151015: Lina
+top5 Pr[Trip]: 10.2%/3441233: Sidar | 10.1%/3400906: Kevin | 10.1%/3400906: Paddy | 10.1%/3400906: Sandro | 10.1%/3400906: Martin
 
 MB#2.0 E05
 Ryan → Lina 
@@ -88,18 +96,22 @@ Ryan → Lina
 │[48;2;69;76;102m Wilson [49m┆  8.407 ┆  8.239 ┆  9.158 ┆  8.407 ┆  8.407 ┆  8.407     ┆[48;2;65;77;71m 21.702 [49m┆  9.719 ┆  8.407 ┆  8.407 ┆ 11.029 ┆ 10.291  │
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 27149771 left -> 24.6944 bits left
+top4 Pr[Trip]: 0.5%/133496: Paulo -> ["Lina", "Tais", "Melanie"] | 0.5%/133496: Sidar -> ["Lina", "Jana", "Melanie"] | 0.4%/118928: Paddy -> ["Lina", "Maja", "Melanie"] | 0.4%/118928: Kevin -> ["Lina", "Sina", "Melanie"]
+top5 Pr[Trip]: 1.9%/503126: ["Jana", "Sina", "Melanie"] | 1.9%/503126: ["Pia", "Jana", "Melanie"] | 1.9%/503126: ["Maja", "Jana", "Melanie"] | 1.9%/503126: ["Edda", "Jana", "Melanie"] | 1.9%/503126: ["Shelly", "Jana", "Melanie"]
+top5 Pr[Trip]: 100.0%/27149771: Melanie | 18.2%/4951140: Pia | 18.2%/4951140: Maja | 18.2%/4951140: Shelly | 18.2%/4951140: Edda
+top5 Pr[Trip]: 10.4%/2832157: Sidar | 10.3%/2793949: Paddy | 10.3%/2793949: Kevin | 10.3%/2793949: Wilson | 10.3%/2793949: Sandro
 
 MN#2.0 E06
-1x Kevin  → Sina       
 1x Sandro → Edda       
+0x Eti    → Afra       
+1x Kevin  → Sina       
+0x Paddy  → Shelly     
+0x Wilson → Maja       
+0x Gerrit → Tais       
 0x Paulo  → Lisa-Marie 
 0x Ryan   → Pia        
-0x Wilson → Maja       
-0x Paddy  → Shelly     
-0x Eti    → Afra       
-0x Martin → Lina       
-0x Gerrit → Tais       
 1x Sidar  → Jana       
+0x Martin → Lina       
 ---
 -> I[l]/bits: {0: 2.07, 1: 1.42, 2: 2.01, 3: 3.31, 4: 5.11, 5: 7.29, 6: 9.80, 7: 12.64, 8: 15.83, 9: 19.99}
 -> E[I]/bits: 2.07
@@ -119,6 +131,10 @@ MN#2.0 E06
 │[48;2;69;76;102m Wilson [49m┆  7.676 ┆  9.166 ┆  8.23  ┆  9.316 ┆  8.968 ┆  9.192     ┆[48;2;65;77;71m 16.285 [49m┆  9.711 ┆  7.676 ┆ 12.789 ┆ 10.839 ┆  9.847  │
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 6755599 left -> 22.6877 bits left
+top4 Pr[Trip]: 0.7%/48748: Sidar -> ["Lina", "Jana", "Melanie"] | 0.7%/45538: Paulo -> ["Lisa-Marie", "Tais", "Melanie"] | 0.7%/44304: Martin -> ["Lina", "Julia", "Melanie"] | 0.6%/43576: Sandro -> ["Lina", "Edda", "Melanie"]
+top5 Pr[Trip]: 2.3%/152360: ["Maja", "Shelly", "Melanie"] | 2.1%/139193: ["Lisa-Marie", "Tais", "Melanie"] | 2.0%/136917: ["Pia", "Tais", "Melanie"] | 2.0%/136124: ["Afra", "Lisa-Marie", "Melanie"] | 2.0%/135376: ["Lina", "Julia", "Melanie"]
+top5 Pr[Trip]: 100.0%/6755599: Melanie | 18.3%/1239108: Shelly | 18.3%/1239108: Maja | 18.3%/1236781: Lisa-Marie | 18.2%/1232157: Tais
+top5 Pr[Trip]: 11.2%/756248: Sidar | 10.9%/738990: Sandro | 10.9%/738990: Kevin | 10.1%/684568: Martin | 9.9%/671388: Eti
 
 MB#3.0 E06
 Kevin → Maja 
@@ -141,6 +157,10 @@ Kevin → Maja
 │[48;2;69;76;102m Wilson [49m┆  7.417 ┆  9.133 ┆  8.275 ┆  9.278 ┆  8.939 ┆  9.152     ┆[48;2;65;77;71m 15.846 [49m┆  9.625 ┆  7.698 ┆ 13.885 ┆ 10.73  ┆  9.978  │
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 6222309 left -> 22.569 bits left
+top4 Pr[Trip]: 0.7%/43595: Sidar -> ["Lina", "Jana", "Melanie"] | 0.7%/43576: Kevin -> ["Lina", "Sina", "Melanie"] | 0.7%/43114: Sidar -> ["Maja", "Jana", "Melanie"] | 0.7%/42580: Kevin -> ["Jana", "Sina", "Melanie"]
+top5 Pr[Trip]: 2.3%/144812: ["Maja", "Shelly", "Melanie"] | 2.1%/127737: ["Lisa-Marie", "Tais", "Melanie"] | 2.0%/125805: ["Pia", "Tais", "Melanie"] | 2.0%/125047: ["Afra", "Lisa-Marie", "Melanie"] | 2.0%/124388: ["Lina", "Julia", "Melanie"]
+top5 Pr[Trip]: 100.0%/6222309: Melanie | 18.4%/1147932: Shelly | 18.4%/1141872: Lisa-Marie | 18.3%/1137881: Tais | 18.2%/1135547: Lina
+top5 Pr[Trip]: 11.2%/699521: Sidar | 11.0%/684108: Sandro | 10.2%/635092: Martin | 10.1%/630560: Kevin | 10.0%/623393: Eti
 
 MB#3.1 E07
 Eti → Melanie 
@@ -163,18 +183,22 @@ Eti → Melanie
 │[48;2;69;76;102m Wilson [49m┆  7.476 ┆  9.22  ┆  8.34  ┆  9.358 ┆  9.025 ┆  9.305     ┆[48;2;65;77;71m 16.008 [49m┆  9.785 ┆  7.758 ┆ 13.971 ┆ 10.843 ┆ 11.089  │
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 5598916 left -> 22.4167 bits left
+top4 Pr[Trip]: 0.8%/43595: Sidar -> ["Lina", "Jana", "Melanie"] | 0.8%/43576: Kevin -> ["Lina", "Sina", "Melanie"] | 0.8%/43114: Sidar -> ["Maja", "Jana", "Melanie"] | 0.8%/42580: Kevin -> ["Jana", "Sina", "Melanie"]
+top5 Pr[Trip]: 2.4%/135476: ["Maja", "Shelly", "Melanie"] | 2.1%/117409: ["Pia", "Tais", "Melanie"] | 2.0%/113299: ["Lina", "Julia", "Melanie"] | 2.0%/112338: ["Jana", "Sina", "Melanie"] | 2.0%/111445: ["Lisa-Marie", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/5598916: Melanie | 18.7%/1047912: Edda | 18.7%/1047050: Shelly | 18.6%/1040596: Jana | 18.5%/1037928: Tais
+top5 Pr[Trip]: 12.5%/699521: Sidar | 12.2%/684108: Sandro | 11.3%/635092: Martin | 11.3%/630560: Kevin | 11.1%/622674: Paddy
 
 MN#3.0 E08
-0x Ryan   → Jana       
-0x Kevin  → Melanie    
-0x Eti    → Maja       
-0x Sidar  → Afra       
-1x Wilson → Shelly     
 0x Paddy  → Julia      
-1x Gerrit → Tais       
 0x Martin → Lisa-Marie 
-0x Paulo  → Edda       
+1x Gerrit → Tais       
+1x Wilson → Shelly     
+0x Sidar  → Afra       
 0x Sandro → Sina       
+0x Eti    → Maja       
+0x Kevin  → Melanie    
+0x Paulo  → Edda       
+0x Ryan   → Jana       
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.42, 2: 2.44, 3: 4.05, 4: 6.07, 5: 8.40, 6: 11.03, 7: 14.01, 8: 17.51, 9: 21.42}
 -> E[I]/bits: 1.88
@@ -194,6 +218,10 @@ MN#3.0 E08
 │[48;2;69;76;102m Wilson [49m┆  2.359 ┆  2.792 ┆  2.671 ┆  3.345 ┆  5.705 ┆  3.404     ┆[48;2;65;77;71m[38;5;14m 72.091 [49m[39m┆  3.844 ┆  2.947 ┆  4.759 ┆  6.817 ┆ 10.734  │
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 83141 left -> 16.3433 bits left
+top4 Pr[Trip]: 2.5%/2118: Kevin -> ["Lina", "Sina", "Melanie"] | 2.3%/1915: Kevin -> ["Pia", "Sina", "Melanie"] | 2.1%/1744: Gerrit -> ["Pia", "Tais", "Melanie"] | 1.9%/1552: Kevin -> ["Jana", "Sina", "Melanie"]
+top5 Pr[Trip]: 3.8%/3147: ["Edda", "Sina", "Melanie"] | 3.4%/2867: ["Lina", "Sina", "Melanie"] | 3.2%/2648: ["Pia", "Sina", "Melanie"] | 2.9%/2385: ["Pia", "Tais", "Melanie"] | 2.8%/2318: ["Jana", "Sina", "Melanie"]
+top5 Pr[Trip]: 100.0%/83141: Melanie | 27.1%/22525: Sina | 19.8%/16458: Pia | 19.6%/16301: Lina | 18.3%/15178: Afra
+top5 Pr[Trip]: 30.1%/25044: Kevin | 10.7%/8924: Wilson | 10.5%/8692: Gerrit | 9.2%/7650: Sidar | 8.7%/7196: Sandro
 
 MB#4.0 E09
 Wilson → Shelly 
@@ -216,18 +244,22 @@ Wilson → Shelly
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 51701 left -> 15.6579 bits left
+top4 Pr[Trip]: 1.9%/994: Kevin -> ["Jana", "Sina", "Melanie"] | 1.9%/965: Kevin -> ["Lina", "Sina", "Melanie"] | 1.8%/921: Kevin -> ["Pia", "Sina", "Melanie"] | 1.8%/909: Kevin -> ["Lisa-Marie", "Sina", "Melanie"]
+top5 Pr[Trip]: 3.8%/1955: ["Edda", "Sina", "Melanie"] | 3.2%/1672: ["Jana", "Sina", "Melanie"] | 3.1%/1590: ["Lisa-Marie", "Sina", "Melanie"] | 3.1%/1583: ["Lina", "Sina", "Melanie"] | 3.0%/1545: ["Julia", "Sina", "Melanie"]
+top5 Pr[Trip]: 100.0%/51701: Melanie | 25.7%/13277: Sina | 21.1%/10914: Lisa-Marie | 20.8%/10736: Jana | 20.5%/10607: Lina
+top5 Pr[Trip]: 28.0%/14451: Kevin | 12.4%/6392: Gerrit | 11.1%/5760: Sidar | 10.7%/5535: Sandro | 10.3%/5307: Martin
 
 MN#4.0 E10
-2x Kevin  → Sina       
+2x Sidar  → Jana       
 2x Wilson → Shelly     
 0x Sandro → Pia        
-1x Paulo  → Lisa-Marie 
-1x Eti    → Afra       
-1x Martin → Julia      
-0x Ryan   → Edda       
-0x Paddy  → Lina       
 2x Gerrit → Tais       
-2x Sidar  → Jana       
+0x Ryan   → Edda       
+1x Paulo  → Lisa-Marie 
+0x Paddy  → Lina       
+1x Martin → Julia      
+2x Kevin  → Sina       
+1x Eti    → Afra       
 ---
 -> I[l]/bits: {1: 4.29, 2: 1.45, 3: 1.43, 4: 2.54, 5: 4.74, 6: 8.01, 7: 12.66}
 -> E[I]/bits: 1.93
@@ -247,6 +279,10 @@ MN#4.0 E10
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 19143 left -> 14.2245 bits left
+top4 Pr[Trip]: 2.9%/552: Kevin -> ["Lina", "Sina", "Melanie"] | 2.8%/533: Kevin -> ["Pia", "Sina", "Melanie"] | 2.5%/476: Kevin -> ["Edda", "Sina", "Melanie"] | 2.2%/420: Kevin -> ["Jana", "Sina", "Melanie"]
+top5 Pr[Trip]: 4.0%/774: ["Lina", "Sina", "Melanie"] | 3.7%/704: ["Pia", "Sina", "Melanie"] | 3.6%/680: ["Edda", "Sina", "Melanie"] | 3.5%/675: ["Edda", "Pia", "Melanie"] | 3.2%/606: ["Jana", "Sina", "Melanie"]
+top5 Pr[Trip]: 100.0%/19143: Melanie | 26.7%/5115: Sina | 21.6%/4144: Edda | 21.2%/4061: Pia | 21.0%/4016: Lina
+top5 Pr[Trip]: 29.3%/5608: Kevin | 13.7%/2621: Gerrit | 12.0%/2290: Sidar | 9.6%/1835: Paulo | 9.5%/1823: Martin
 
 MB#5.0 E11
 Gerrit → Tais 
@@ -269,18 +305,22 @@ Gerrit → Tais
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴────────┴─────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 291 left -> 8.1849 bits left
+top4 Pr[Trip]: 100.0%/291: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/291: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/291: Melanie | 100.0%/291: Pia | 100.0%/291: Tais
+top5 Pr[Trip]: 100.0%/291: Gerrit
 
 MN#5.0 E12
-1x Paulo  → Edda       
-3x Gerrit → Tais       
-1x Eti    → Maja       
 1x Sidar  → Afra       
-1x Martin → Lisa-Marie 
 1x Paddy  → Lina       
-1x Sandro → Sina       
 0x Kevin  → Julia      
-1x Ryan   → Jana       
+1x Eti    → Maja       
+1x Sandro → Sina       
 3x Wilson → Shelly     
+3x Gerrit → Tais       
+1x Martin → Lisa-Marie 
+1x Paulo  → Edda       
+1x Ryan   → Jana       
 ---
 -> I[l]/bits: {3: 1.16, 4: 1.34, 5: 2.66}
 -> E[I]/bits: 1.47
@@ -300,6 +340,10 @@ MN#5.0 E12
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴────────┴─────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 115 left -> 6.8455 bits left
+top4 Pr[Trip]: 100.0%/115: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/115: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/115: Pia | 100.0%/115: Melanie | 100.0%/115: Tais
+top5 Pr[Trip]: 100.0%/115: Gerrit
 
 MB#6.0 E13
 Sandro → Sina 
@@ -322,18 +366,22 @@ Sandro → Sina
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴────────┴─────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 61 left -> 5.9307 bits left
+top4 Pr[Trip]: 100.0%/61: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/61: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/61: Pia | 100.0%/61: Melanie | 100.0%/61: Tais
+top5 Pr[Trip]: 100.0%/61: Gerrit
 
 MN#6.0 E14
-0x Sandro → Afra       
+0x Paddy  → Edda       
+4x Wilson → Shelly     
 0x Kevin  → Lina       
+2x Martin → Lisa-Marie 
+0x Sidar  → Julia      
+0x Sandro → Afra       
 2x Eti    → Maja       
 0x Paulo  → Sina       
-4x Wilson → Shelly     
-0x Paddy  → Edda       
-0x Sidar  → Julia      
-4x Gerrit → Tais       
 2x Ryan   → Jana       
-2x Martin → Lisa-Marie 
+4x Gerrit → Tais       
 ---
 -> I[l]/bits: {3: 2.47, 4: 1.41, 5: 1.68, 6: 3.93, 7: 4.93, 8: 4.93}
 -> E[I]/bits: 2.08
@@ -353,6 +401,10 @@ MN#6.0 E14
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴────────┴─────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 19 left -> 4.2479 bits left
+top4 Pr[Trip]: 100.0%/19: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/19: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/19: Tais | 100.0%/19: Melanie | 100.0%/19: Pia
+top5 Pr[Trip]: 100.0%/19: Gerrit
 
 MB#7.0 E15
 Paulo → Julia 
@@ -375,18 +427,22 @@ Paulo → Julia
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴────────┴─────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 18 left -> 4.1699 bits left
+top4 Pr[Trip]: 100.0%/18: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/18: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/18: Tais | 100.0%/18: Pia | 100.0%/18: Melanie
+top5 Pr[Trip]: 100.0%/18: Gerrit
 
 MN#7.0 E16
+5x Wilson → Shelly     
+0x Sandro → Julia      
+5x Gerrit → Tais       
+1x Ryan   → Edda       
 1x Paulo  → Sina       
 0x Paddy  → Jana       
 3x Eti    → Maja       
-0x Sidar  → Lisa-Marie 
-1x Ryan   → Edda       
 0x Martin → Afra       
-5x Wilson → Shelly     
-5x Gerrit → Tais       
+0x Sidar  → Lisa-Marie 
 1x Kevin  → Lina       
-0x Sandro → Julia      
 ---
 -> I[l]/bits: {2: 3.17, 3: 1.58, 4: 1.58, 5: 2.58, 6: 4.17}
 -> E[I]/bits: 2.07
@@ -406,6 +462,10 @@ MN#7.0 E16
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴───────┴─────┴────────────┴────────┴────────┴────────┴──────┴──────┴─────────╯
 3 left -> 1.585 bits left
+top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Tais | 100.0%/3: Melanie
+top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#8.0 E17 -- verkauft
 Eti → Maja 
@@ -426,17 +486,21 @@ Nothing => I = 0 bits
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴───────┴─────┴────────────┴────────┴────────┴────────┴──────┴──────┴─────────╯
 3 left -> 1.585 bits left
+top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Tais | 100.0%/3: Melanie
+top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#8.0 E18
-0x Sidar  → Maja       
-2x Kevin  → Lina       
-2x Eti    → Afra       
-6x Wilson → Shelly     
 2x Paulo  → Sina       
-3x Martin → Lisa-Marie 
-2x Ryan   → Edda       
-1x Sandro → Julia      
+0x Sidar  → Maja       
 1x Paddy  → Jana       
+2x Ryan   → Edda       
+2x Kevin  → Lina       
+3x Martin → Lisa-Marie 
+1x Sandro → Julia      
+6x Wilson → Shelly     
+2x Eti    → Afra       
 6x Gerrit → Tais       
 ---
 -> I[l]/bits: {4: 0.00}
@@ -457,6 +521,10 @@ MN#8.0 E18
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴───────┴─────┴────────────┴────────┴────────┴────────┴──────┴──────┴─────────╯
 3 left -> 1.585 bits left
+top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Melanie | 100.0%/3: Tais
+top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#9.0 E18
 Sandro → Afra 
@@ -479,18 +547,22 @@ Sandro → Afra
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴───────┴─────┴────────────┴────────┴────────┴────────┴──────┴──────┴─────────╯
 3 left -> 1.585 bits left
+top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Tais | 100.0%/3: Melanie
+top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#9.0 E19
 3x Kevin  → Lina       
+4x Martin → Lisa-Marie 
+7x Gerrit → Tais       
 4x Eti    → Maja       
+2x Sidar  → Afra       
 7x Wilson → Shelly     
 3x Ryan   → Jana       
-0x Paddy  → Sina       
-2x Paulo  → Edda       
-2x Sidar  → Afra       
-7x Gerrit → Tais       
-4x Martin → Lisa-Marie 
 2x Sandro → Julia      
+2x Paulo  → Edda       
+0x Paddy  → Sina       
 ---
 -> I[l]/bits: {6: 0.00}
 -> E[I]/bits: 0.00
@@ -510,6 +582,10 @@ MN#9.0 E19
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴───────┴─────┴────────────┴────────┴────────┴────────┴──────┴──────┴─────────╯
 3 left -> 1.585 bits left
+top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: Tais | 100.0%/3: Melanie | 100.0%/3: Pia
+top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#10.0 E19
 Kevin → Lina 
@@ -532,18 +608,22 @@ Kevin → Lina
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴────────┴──────┴────────┴───────┴─────┴────────────┴────────┴────────┴────────┴──────┴──────┴─────────╯
 3 left -> 1.585 bits left
+top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
+top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#10.0 E20
-8x Wilson → Shelly     
-2x Paulo  → Lisa-Marie 
 3x Sandro → Julia      
-5x Eti    → Maja       
-8x Gerrit → Tais       
-4x Kevin  → Lina       
-0x Sidar  → Sina       
 4x Ryan   → Jana       
 1x Paddy  → Edda       
+2x Paulo  → Lisa-Marie 
+8x Wilson → Shelly     
+8x Gerrit → Tais       
+0x Sidar  → Sina       
+5x Eti    → Maja       
 1x Martin → Afra       
+4x Kevin  → Lina       
 ---
 -> I[l]/bits: {7: 0.58, 8: 1.58}
 -> E[I]/bits: 0.92
@@ -563,18 +643,22 @@ MN#10.0 E20
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴──────┴──────┴──────┴───────┴─────┴────────────┴────────┴──────┴──────┴──────┴──────┴─────────╯
 2 left -> 1 bits left
+top4 Pr[Trip]: 100.0%/2: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/2: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/2: Tais | 100.0%/2: Melanie | 100.0%/2: Pia
+top5 Pr[Trip]: 100.0%/2: Gerrit
 
 MN#11.0 E21 -- Reunion
-6x Eti    → Maja       
-9x Wilson → Shelly     
-4x Sandro → Julia      
+5x Ryan   → Jana       
 0x Martin → Sina       
 0x Paddy  → Afra       
 9x Gerrit → Tais       
+9x Wilson → Shelly     
+5x Kevin  → Lina       
 0x Sidar  → Edda       
 3x Paulo  → Lisa-Marie 
-5x Kevin  → Lina       
-5x Ryan   → Jana       
+4x Sandro → Julia      
+6x Eti    → Maja       
 ---
 -> I[l]/bits: {6: 1.00, 10: 1.00}
 -> E[I]/bits: 1.00
@@ -594,6 +678,10 @@ MN#11.0 E21 -- Reunion
 │[48;2;69;76;102m[38;5;10m Wilson [49m[39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0    [39m┆[38;5;9m  0  [39m┆[38;5;9m  0         [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m│
 ╰────────┴──────┴──────┴──────┴───────┴─────┴────────────┴────────┴──────┴──────┴──────┴──────┴─────────╯
 1 left -> 0 bits left
+top4 Pr[Trip]: 100.0%/1: Gerrit -> ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/1: ["Pia", "Tais", "Melanie"]
+top5 Pr[Trip]: 100.0%/1: Pia | 100.0%/1: Tais | 100.0%/1: Melanie
+top5 Pr[Trip]: 100.0%/1: Gerrit
 
 ╭─────────┬────┬─────────────┬────────┬──────────┬─────────────┬─────────┬─────────────┬───────┬────────┬─────────────┬─────────┬───┬────────┬──────┬──────────╮
 │         ┆  L ┆     Eti     ┆ Gerrit ┆   Kevin  ┆    Martin   ┆  Paddy  ┆    Paulo    ┆  Ryan ┆ Sandro ┆    Sidar    ┆  Wilson ┆   ┆    I   ┆ #new ┆ min dist │
@@ -649,4 +737,4 @@ MN#11.0 E21 -- Reunion
 ╰─────────┴────┴─────────┴─────────┴────────┴─────────┴─────────┴────────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 79.62s
+Ran in 79.16s
