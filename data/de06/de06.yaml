@@ -176,8 +176,29 @@ constraints:
       Joshua: Ina
       # Joanna
 
-  # - type: !Box {num: 7, comment: "E15"}
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights [0]
+    map:
+      Kaan: Sophia
+      # Tano: Anna
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [6]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Kaan: Selina
+      Joshua: Joanna
+      Josh: Camelia
+      Enes: Sophia
+      Sinan: Nasti
+      Dion: Tori
+      Tano: Anna
+      Levin: Chiara
+      # Levin: Ina
+
+  # - type: !Box {num: 8, comment: "E17"}
   #   check: !Lights [0]
   #   map:
-  #     Kaan: Sophia
-  #     # Tano: Anna
