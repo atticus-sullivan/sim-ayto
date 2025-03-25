@@ -144,7 +144,20 @@ Daher werden bei einer Matchbox mit "einem Licht" (aka Perfect-Match) über den 
 Sollte dies unerwünscht sein, kann der entwerder `noExclude: true` gesetzt werden oder der `exclude` manuell gesetzt werden (bei letzterem ist ist die syntax aber etwas komplizierter).
 
 Wenn nichts angegeben wird ist `noExclude: false` der Standard.
-   
+
+##### buildTree
+- `buildTree: true`: generiert für diesen Constraint eine `.dot` Datei mit einer
+  Baumdarstellung der verbliebenen Matches (wenn `hidden=true` ist, wird NIE ein
+  Baum gebaut).
+- wenn nicht angegeben, ist `buildTree: false` der standard.
+
+##### resultUnknown
+- `resultUnknown: true`: Sorgt dafür, dieser Constraint quasi ignoriert wird und
+  auch keine Tabelle erstellt wird. Die Statistiken bzgl dem `check` Parameter
+  (zB Erwartungswert und Wahrscheinlichkeitsverteilung der verschiedenen
+  Ausgänge) werden weiterhin ausgegeben.
+- wenn nicht angegeben, ist `resultUnknown: false` der standard.
+
 </details>
 </details>
 

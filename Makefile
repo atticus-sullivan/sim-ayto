@@ -32,7 +32,7 @@ EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 
 .PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) graph
 
-GENARGS ?= --transpose -c
+GENARGS ?= --transpose -c --full
 
 -include Makefile.conf
 # eg in case ansitoimg is installed in a venv which needs to be sourced before

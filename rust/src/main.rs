@@ -65,6 +65,9 @@ enum Commands {
 
         #[arg(long = "dump")]
         dump: Option<DumpMode>,
+
+        #[arg(long = "full")]
+        full: bool,
     },
     Check {
         /// The path to the file to read
@@ -90,10 +93,11 @@ fn main() {
             transpose_tabs,
             stem,
             dump,
+            full,
         } => {
             let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
             let start = Instant::now();
-            g.sim(transpose_tabs, dump).unwrap();
+            g.sim(transpose_tabs, dump, full).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Check { yaml_path } => {
