@@ -327,6 +327,8 @@ impl Game {
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                             .context("Error printing")?;
+                        c.ruleset_data
+                            .print(full, &self.rule_set, &self.map_a, &self.map_b, rem.1);
                         md_tables.push((c.md_title(), tab_idx, tree, true));
                         tab_idx += 1;
                     }
