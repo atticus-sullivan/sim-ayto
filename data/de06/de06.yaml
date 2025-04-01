@@ -199,6 +199,29 @@ constraints:
       Levin: Chiara
       # Levin: Ina
 
-  # - type: !Box {num: 8, comment: "E17"}
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights [0]
+    map:
+      # Levin: Ina
+      Joshua: Joanna
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights [5]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Joshua: Anna
+      Josh: Camelia
+      Enes: Sophia
+      Levin: Ina
+      Kaan: Selina
+      Dion: Chiara
+      Sinan: Nasti
+      Tano: Joanna
+      # Tori
+
+  # - type: !Box {num: 9, comment: "E19"}
   #   check: !Lights [0]
   #   map:
