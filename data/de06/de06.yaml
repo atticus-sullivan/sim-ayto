@@ -222,6 +222,29 @@ constraints:
       Tano: Joanna
       # Tori
 
-  # - type: !Box {num: 9, comment: "E19"}
+  - type: !Box {num: 9, comment: "E19"}
+    check: !Lights [1]
+    map:
+      # Dion: Chiara
+      Sinan: Nasti
+
+  - type: !Night {num: 9, comment: "E20"}
+    check: !Lights [7]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Sinan: Nasti
+      Dion: Sophia
+      Tano: Joanna
+      Kaan: Anna
+      Levin: Chiara
+      Josh: Camelia
+      Enes: Ina
+      # Joshua: Selina
+      Joshua: Tori
+
+  # - type: !Box {num: 10, comment: "E21"}
   #   check: !Lights [0]
   #   map:
