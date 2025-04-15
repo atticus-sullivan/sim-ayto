@@ -1,0 +1,32 @@
+digraph D { labelloc="b"; label="Stand: MN#10 / E21"; ranksep=0.8;
+"root/6"[label="Danish\nNadja"]
+"root" -> "root/6";
+"root/6/3"[label="Dino\nDeisy"]
+"root/6" -> "root/6/3";
+"root/6/3/10"[label="Dion\nTori"]
+"root/6/3" -> "root/6/3/10";
+"root/6/3/10/8"[label="Enes\nSelina"]
+"root/6/3/10" -> "root/6/3/10/8";
+"root/6/3/10/8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/10/8" -> "root/6/3/10/8/1";
+"root/6/3/10/8/1/0"[label="Kaan\nAnna"]
+"root/6/3/10/8/1" -> "root/6/3/10/8/1/0";
+"root/6/3/10/8/1/0/7"[label="Sinan\nNasti"]
+"root/6/3/10/8/1/0" -> "root/6/3/10/8/1/0/7";
+"root/6/3/10/8/1/0/7/4"[label="Joshi-Josh\nIna"]
+"root/6/3/10/8/1/0/7" -> "root/6/3/10/8/1/0/7/4";
+"root/6/3/10/8/1/0/7/4/2"[label="Levin\nChiara"]
+"root/6/3/10/8/1/0/7/4" -> "root/6/3/10/8/1/0/7/4/2";
+"root/6/3/10/8/1/0/7/4/2/9,5"[label="Tano\nSophia\nJoanna"]
+"root/6/3/10/8/1/0/7/4/2" -> "root/6/3/10/8/1/0/7/4/2/9,5";
+"root/6/3/10/8/1/0/7/9,4"[label="Joshi-Josh\nSophia\nIna"]
+"root/6/3/10/8/1/0/7" -> "root/6/3/10/8/1/0/7/9,4";
+"root/6/3/10/8/1/0/7/9,4/2"[label="Levin\nChiara"]
+"root/6/3/10/8/1/0/7/9,4" -> "root/6/3/10/8/1/0/7/9,4/2";
+"root/6/3/10/8/1/0/7/9,4/2/5"[label="Tano\nJoanna"]
+"root/6/3/10/8/1/0/7/9,4/2" -> "root/6/3/10/8/1/0/7/9,4/2/5";
+"root/6/3/10/8/1/0/7/4/9,2"[label="Levin\nSophia\nChiara"]
+"root/6/3/10/8/1/0/7/4" -> "root/6/3/10/8/1/0/7/4/9,2";
+"root/6/3/10/8/1/0/7/4/9,2/5"[label="Tano\nJoanna"]
+"root/6/3/10/8/1/0/7/4/9,2" -> "root/6/3/10/8/1/0/7/4/9,2/5";
+}
