@@ -245,6 +245,40 @@ constraints:
       # Joshua: Selina
       Joshua: Tori
 
-  # - type: !Box {num: 10, comment: "E21"}
-  #   check: !Lights [0]
+  - type: !Box {num: 10, comment: "E21"}
+    check: !Lights [1]
+    map:
+      # Tano: Joanna
+      Josh: Camelia
+
+  - type: !Night {num: 10, comment: "E21"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Sinan: Nasti
+      Josh: Camelia
+      Tano: Joanna
+      Levin: Chiara
+      Kaan: Anna
+      Enes: Selina
+      Dion: Tori
+      Joshua: Ina
+      # Sophia
+
+  # - type: !Night {num: 11, comment: "Reunion"}
+  #   check: !Lights [10]
   #   map:
+  #     Danish: Nadja
+  #     Dino: Deisy
+  #     Sinan: Nasti
+  #     Josh: Camelia
+  #     # Tano: Joanna
+  #     # Levin: Chiara
+  #     Kaan: Anna
+  #     Enes: Selina
+  #     Dion: Tori
+  #     # Joshua: Ina
+  #     # Sophia

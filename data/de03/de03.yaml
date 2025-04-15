@@ -234,7 +234,7 @@ constraints:
       William: Raphaela
       Marius: Zaira
 
-  - type: !Night {num: 11, comment: "reunion"}
+  - type: !Night {num: 11, comment: "Reunion"}
     check: !Lights [10]
     buildTree: true
     map:
