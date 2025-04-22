@@ -268,17 +268,17 @@ constraints:
       Joshua: Ina
       # Sophia
 
-  # - type: !Night {num: 11, comment: "Reunion"}
-  #   check: !Lights [10]
-  #   map:
-  #     Danish: Nadja
-  #     Dino: Deisy
-  #     Sinan: Nasti
-  #     Josh: Camelia
-  #     # Tano: Joanna
-  #     # Levin: Chiara
-  #     Kaan: Anna
-  #     Enes: Selina
-  #     Dion: Tori
-  #     # Joshua: Ina
-  #     # Sophia
+  - type: !Night {num: 11, comment: "Reunion"}
+    check: !Lights [10]
+    map:
+      Danish: Nadja
+      Dino: Deisy
+      Sinan: Nasti
+      Josh: Camelia
+      # Tano: Joanna
+      Levin: Chiara
+      Kaan: Anna
+      Enes: Selina
+      Dion: Tori
+      Joshua: Ina
+      Tano: Sophia
