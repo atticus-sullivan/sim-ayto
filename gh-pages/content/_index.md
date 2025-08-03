@@ -17,8 +17,8 @@ weight: 1
 | Staffel  2 | [:white_check_mark:](ayto/de/02/) | [:white_check_mark:](ayto/de-rsil/02/) | [:white_check_mark:](ayto/us/02/) |                                   |
 | Staffel  3 | [:white_check_mark:](ayto/de/03/) | [:white_check_mark:](ayto/de-rsil/03/) | [:white_check_mark:](ayto/us/03/) |                                   |
 | Staffel  4 | [:white_check_mark:](ayto/de/04/) | [:white_check_mark:](ayto/de-rsil/04/) | [:white_check_mark:](ayto/us/04/) |                                   |
-| Staffel  5 | [:white_check_mark:](ayto/de/05/) |                                        | [:white_check_mark:](ayto/us/05/) |                                   |
-| Staffel  6 | [:hourglass:       ](ayto/de/06/) |                                        | [:white_check_mark:](ayto/us/06/) |                                   |
+| Staffel  5 | [:white_check_mark:](ayto/de/05/) | [:hourglass:       ](ayto/de-rsil/05/) | [:white_check_mark:](ayto/us/05/) |                                   |
+| Staffel  6 | [:white_check_mark:](ayto/de/06/) |                                        | [:white_check_mark:](ayto/us/06/) |                                   |
 | Staffel  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
 | Staffel  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
 | Staffel  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
