@@ -157,3 +157,8 @@ module:
       target: content/ayto/de-rsil/04.md
     - source: ../data/de04r/de04r.md
       target: content/ayto/de-rsil/04.en.md
+
+    - source: ../data/de05r/de05r.md
+      target: content/ayto/de-rsil/05.md
+    - source: ../data/de05r/de05r.md
+      target: content/ayto/de-rsil/05.en.md
