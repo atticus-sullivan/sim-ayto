@@ -275,7 +275,7 @@ jobs:
             # Generate pictures using your Python script
             python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
-            ls -al "./data/${sim}/${sim}"*.dot
+            # ls -al "./data/${sim}/${sim}"*.dot
             for dot_file in "./data/${sim}/${sim}"*.dot ; do
             if [[ -e "${dot_file}" ]]; then
               name="${dot_file##*/}"
