@@ -33,22 +33,22 @@ Nothing => I = 0 bits
 │[48;2;69;76;102m Viki         [49m┆[48;2;65;77;71m 10      [49m┆[48;2;65;77;71m 10      [49m┆[48;2;65;77;71m 10    [49m┆[48;2;65;77;71m 10    [49m┆[48;2;65;77;71m 10      [49m┆[48;2;65;77;71m 10   [49m┆[48;2;65;77;71m 10   [49m┆[48;2;65;77;71m 10  [49m┆[48;2;65;77;71m 10    [49m┆[48;2;65;77;71m 10     [49m┆[48;2;65;77;71m 10      [49m│
 ╰──────────────┴─────────┴─────────┴───────┴───────┴─────────┴──────┴──────┴─────┴───────┴────────┴─────────╯
 199584000 left -> 27.5724 bits left
-top4 Pr[Dup]: 0.2%/362880: Beverly -> ["Rob", "Nico"] | 0.2%/362880: Elli -> ["Nico", "CalvinO"] | 0.2%/362880: Ariel -> ["Olli", "Jonny"] | 0.2%/362880: Joanna -> ["Rob", "CalvinO"]
-top5 Pr[Dup]: 1.8%/3628800: ["Kevin", "CalvinO"] | 1.8%/3628800: ["Xander", "CalvinO"] | 1.8%/3628800: ["Jonny", "CalvinO"] | 1.8%/3628800: ["Sidar", "Jonny"] | 1.8%/3628800: ["Leandro", "Rob"]
-top5 Pr[Dup]: 18.2%/36288000: Nico | 18.2%/36288000: Olli | 18.2%/36288000: Lennert | 18.2%/36288000: Xander | 18.2%/36288000: CalvinO
-top5 Pr[Dup]: 10.0%/19958400: Hati | 10.0%/19958400: Ariel | 10.0%/19958400: Henna | 10.0%/19958400: Nelly | 10.0%/19958400: Elli
+top4 Pr[Dup]: 0.2%/362880: Hati -> ["Kevin", "CalvinS"] | 0.2%/362880: Hati -> ["Rob", "Olli"] | 0.2%/362880: Joanna -> ["Rob", "Lennert"] | 0.2%/362880: Joanna -> ["Xander", "Kevin"]
+top5 Pr[Dup]: 1.8%/3628800: ["Leandro", "Sidar"] | 1.8%/3628800: ["Lennert", "Jonny"] | 1.8%/3628800: ["Nico", "CalvinS"] | 1.8%/3628800: ["Lennert", "Kevin"] | 1.8%/3628800: ["Xander", "Rob"]
+top5 Pr[Dup]: 18.2%/36288000: Kevin | 18.2%/36288000: Olli | 18.2%/36288000: Xander | 18.2%/36288000: Rob | 18.2%/36288000: CalvinS
+top5 Pr[Dup]: 10.0%/19958400: Beverly | 10.0%/19958400: Nelly | 10.0%/19958400: SandraJanina | 10.0%/19958400: Henna | 10.0%/19958400: Viki
 
 MN#1.0 E02
-0x Elli         → Xander  
 0x Antonina     → Lennert 
-0x Ariel        → Nico    
 0x Henna        → Jonny   
-0x Joanna       → Rob     
-0x SandraJanina → Kevin   
 0x Viki         → Leandro 
-0x Hati         → CalvinO 
-0x Nelly        → Sidar   
+0x SandraJanina → Kevin   
+0x Ariel        → Nico    
 0x Beverly      → CalvinS 
+0x Hati         → CalvinO 
+0x Elli         → Xander  
+0x Nelly        → Sidar   
+0x Joanna       → Rob     
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.09, 5: 8.50, 6: 11.21, 7: 14.19, 8: 17.38, 9: 21.08, 10: 24.25}
 -> E[I]/bits: 1.88
@@ -68,10 +68,10 @@ MN#1.0 E02
 │[48;2;69;76;102m Viki         [49m┆  8.889  ┆  8.889  ┆  8.889 ┆  8.889 ┆  8.889  ┆  8.889 ┆[48;2;74;68;89m 10   [49m┆  8.889 ┆  8.889 ┆  8.889 ┆[48;2;65;77;71m 20      [49m│
 ╰──────────────┴─────────┴─────────┴────────┴────────┴─────────┴────────┴──────┴────────┴────────┴────────┴─────────╯
 37045170 left -> 25.1428 bits left
-top4 Pr[Dup]: 0.4%/133497: Beverly -> ["Olli", "CalvinS"] | 0.4%/133497: Elli -> ["Xander", "Olli"] | 0.4%/133497: Antonina -> ["Olli", "Lennert"] | 0.4%/133497: Ariel -> ["Olli", "Nico"]
-top5 Pr[Dup]: 1.8%/674896: ["Xander", "Kevin"] | 1.8%/674896: ["Sidar", "Nico"] | 1.8%/674896: ["Leandro", "CalvinO"] | 1.8%/674896: ["Nico", "Jonny"] | 1.8%/674896: ["Lennert", "CalvinO"]
-top5 Pr[Dup]: 18.2%/6741549: Sidar | 18.2%/6741549: Nico | 18.2%/6741549: Xander | 18.2%/6741549: CalvinS | 18.2%/6741549: Rob
-top5 Pr[Dup]: 10.0%/3704517: Ariel | 10.0%/3704517: Joanna | 10.0%/3704517: Beverly | 10.0%/3704517: Henna | 10.0%/3704517: Nelly
+top4 Pr[Dup]: 0.4%/133497: Elli -> ["Xander", "Olli"] | 0.4%/133497: Henna -> ["Olli", "Jonny"] | 0.4%/133497: Ariel -> ["Olli", "Nico"] | 0.4%/133497: Antonina -> ["Olli", "Lennert"]
+top5 Pr[Dup]: 1.8%/674896: ["Xander", "Sidar"] | 1.8%/674896: ["Leandro", "Rob"] | 1.8%/674896: ["Leandro", "Xander"] | 1.8%/674896: ["Jonny", "CalvinO"] | 1.8%/674896: ["Nico", "Lennert"]
+top5 Pr[Dup]: 18.2%/6741549: Jonny | 18.2%/6741549: CalvinO | 18.2%/6741549: Lennert | 18.2%/6741549: Kevin | 18.2%/6741549: Xander
+top5 Pr[Dup]: 10.0%/3704517: Elli | 10.0%/3704517: Joanna | 10.0%/3704517: Antonina | 10.0%/3704517: Ariel | 10.0%/3704517: SandraJanina
 
 ╭────────┬───┬──────────┬───────┬──────────┬─────────┬──────────┬────────┬────────┬────────┬──────────────┬──────────┬───┬────────┬──────┬──────────╮
 │        ┆ L ┆ Antonina ┆ Ariel ┆  Beverly ┆   Elli  ┆   Hati   ┆  Henna ┆ Joanna ┆  Nelly ┆ SandraJanina ┆   Viki   ┆   ┆    I   ┆ #new ┆ min dist │
@@ -87,4 +87,4 @@ top5 Pr[Dup]: 10.0%/3704517: Ariel | 10.0%/3704517: Joanna | 10.0%/3704517: Beve
 ╰────────┴───┴─────────┴──────────┴────────┴───────────────┴───────────┴────────┴──────┴─────────┴────────┴────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 37045170  Initial combinations for each pair: 19958400
 
-Ran in 75.11s
+Ran in 73.63s
