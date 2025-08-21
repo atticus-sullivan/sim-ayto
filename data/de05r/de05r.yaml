@@ -29,13 +29,13 @@ setB:
   - CalvinS
   - Jonny
   - Kevin
-  - Leandro
   - Lennert
   - Nico
   - Olli
   - Rob
   - Sidar
   - Xander
+  - Leandro
   # - JimiBlue
 
 constraints:
@@ -49,3 +49,24 @@ constraints:
   #   # noExclude: true
   #   # buildTreee: true
   #   map:
+  
+   - type: !Box {num: 1, comment: "E01 -- verkauft 20€"}
+     check: !Nothing
+     map:
+       SandraJanina: Kevin
+
+   - type: !Night {num: 1, comment: "E02"}
+     check: !Lights [2]
+     # noExclude: true
+     # buildTreee: true
+     map:
+       Elli: Xander
+       Viki: Leandro
+       Hati: CalvinO
+       Nelly: Sidar
+       SandraJanina: Kevin
+       Joanna: Rob
+       Ariel: Nico
+       Antonina: Lennert
+       Beverly: CalvinS
+       # Antonia: Oliver
