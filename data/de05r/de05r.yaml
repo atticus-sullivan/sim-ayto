@@ -9,11 +9,11 @@ frontmatter:
 tree_gen: false
 
 rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Christina
+# rule_set: !FixedDup Leandro
 # rule_set: !Eq
 
 setA:
-  - Antonina
+  - Antonia
   - Ariel
   - Beverly
   - Elli
@@ -21,53 +21,72 @@ setA:
   - Henna
   - Joanna
   - Nelly
-  - SandraJanina
+  - Sandra # SandraJanina
   - Viki
 
 setB:
-  - CalvinO
-  - CalvinS
+  - CalvinBlond # CalvinS
+  - CalvinHot # CalvinO
   - Jonny
   - Kevin
-  - Lennert
+  - Lennert # JustinBiber
   - Nico
   - Olli
   - Rob
   - Sidar
   - Xander
+  ##
   - Leandro
   # - JimiBlue
 
 constraints:
-  # - type: !Box {num: 1, comment: "E01"}
+  - type: !Box {num: 1, comment: "E03 -- verkauft > 20€ > Joanna"}
+    check: !Nothing
+    map:
+      Sandra: Kevin
+      # Olli: Elli
+
+  - type: !Night {num: 1, comment: "E04"}
+    check: !Lights [2]
+    map:
+      Viki: Leandro
+      Hati: CalvinHot
+      Henna: Jonny
+      Nelly: Sidar
+      Sandra: Kevin
+      Joanna: Rob
+      Ariel: Nico
+      Antonia: Lennert
+      Elli: Xander
+      Beverly: CalvinBlond
+      # Antonia: Olli
+
+  - type: !Box {num: 2, comment: "E05"}
+    check: !Lights [1]
+    map:
+      Elli: Xander
+      # Joanna: Rob
+
+  - type: !Night {num: 2, comment: "E06 -50k Kamera verdeckt (Kevin+Ariel)"}
+    check: !Lights [2]
+    # noExclude: true
+    # buildTreee: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Joanna: CalvinBlond
+      Nelly: Rob
+      Sandra: Kevin
+      Ariel: Nico
+      Beverly: Sidar
+      Henna: Olli
+      Hati: CalvinHot
+      Viki: Leandro
+      Antonia: Jonny
+      # Lennert
+
+  # - type: !Box {num: 3, comment: "E07"}
   #   check: !Lights [0]
   #   map:
-
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTreee: true
-  #   map:
-  
-   - type: !Box {num: 1, comment: "E01 -- verkauft 20€"}
-     check: !Nothing
-     map:
-       SandraJanina: Kevin
-
-   - type: !Night {num: 1, comment: "E02"}
-     check: !Lights [2]
-     # noExclude: true
-     # buildTreee: true
-     map:
-       Elli: Xander
-       Viki: Leandro
-       Hati: CalvinO
-       Henna: Jonny
-       Nelly: Sidar
-       SandraJanina: Kevin
-       Joanna: Rob
-       Ariel: Nico
-       Antonina: Lennert
-       Beverly: CalvinS
-       # Antonia: Oliver
+  #     Nelly: CalvinBlond
+  #     Henna: Leandro
