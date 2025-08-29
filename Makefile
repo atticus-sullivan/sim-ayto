@@ -32,7 +32,7 @@ EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 
 .PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) graph
 
-GENARGS ?= --transpose -c --full
+GENARGS ?= --transpose -c
 
 -include Makefile.conf
 # eg in case ansitoimg is installed in a venv which needs to be sourced before
@@ -134,7 +134,7 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 		test -e "$${dot_file}" && \
 			name="$$(echo $${dot_file} | sed -E 's/^.*\/(.*)\.dot$$/\1/')" && \
 			dot -Tpng -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.png" "$${dot_file}" && \
-			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" ; \
+			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" || continue ; \
 	done
 	@date
 
