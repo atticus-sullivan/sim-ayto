@@ -67,7 +67,7 @@ constraints:
       Elli: Xander
       # Joanna: Rob
 
-  - type: !Night {num: 2, comment: "E06 -50k Kamera verdeckt (Kevin+Ariel)"}
+  - type: !Night {num: 2, comment: "E06 -- -50k Kamera verdeckt (Kevin+Ariel)"}
     check: !Lights [2]
     # noExclude: true
     # buildTreee: true
