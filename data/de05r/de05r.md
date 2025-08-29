@@ -30,7 +30,7 @@ weight: 1
 {{% img src="/sim-ayto/de05r/de05r_3.png" %}}
 {{% /details %}}
 
-{{% details "MN#2.0 E06 -50k Kamera verdeckt (Kevin+Ariel)" %}}
+{{% details "MN#2.0 E06 " %}}
 {{% img src="/sim-ayto/de05r/de05r_4.png" %}}
 {{% /details %}}
 

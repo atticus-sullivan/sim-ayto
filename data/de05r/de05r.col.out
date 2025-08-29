@@ -33,22 +33,22 @@ Nothing => I = 0 bits
 │[48;2;69;76;102m Viki    [49m┆[48;2;65;77;71m 10          [49m┆[48;2;65;77;71m 10        [49m┆[48;2;65;77;71m 10    [49m┆[48;2;65;77;71m 10    [49m┆[48;2;65;77;71m 10      [49m┆[48;2;65;77;71m 10   [49m┆[48;2;65;77;71m 10   [49m┆[48;2;65;77;71m 10  [49m┆[48;2;65;77;71m 10    [49m┆[48;2;65;77;71m 10     [49m┆[48;2;65;77;71m 10      [49m│
 ╰─────────┴─────────────┴───────────┴───────┴───────┴─────────┴──────┴──────┴─────┴───────┴────────┴─────────╯
 199584000 left -> 27.5724 bits left
-top4 Pr[Dup]: 0.2%/362880: Nelly -> ["Kevin", "Jonny"] | 0.2%/362880: Ariel -> ["Xander", "Kevin"] | 0.2%/362880: Sandra -> ["Xander", "CalvinBlond"] | 0.2%/362880: Elli -> ["Sidar", "Jonny"]
-top5 Pr[Dup]: 1.8%/3628800: ["Xander", "CalvinBlond"] | 1.8%/3628800: ["Xander", "Jonny"] | 1.8%/3628800: ["Sidar", "Nico"] | 1.8%/3628800: ["Nico", "Kevin"] | 1.8%/3628800: ["CalvinHot", "CalvinBlond"]
-top5 Pr[Dup]: 18.2%/36288000: Rob | 18.2%/36288000: Sidar | 18.2%/36288000: CalvinBlond | 18.2%/36288000: Xander | 18.2%/36288000: Lennert
-top5 Pr[Dup]: 10.0%/19958400: Viki | 10.0%/19958400: Nelly | 10.0%/19958400: Beverly | 10.0%/19958400: Ariel | 10.0%/19958400: Elli
+top4 Pr[Dup]: 0.2%/362880: Sandra -> ["Leandro", "Lennert"] | 0.2%/362880: Antonia -> ["Leandro", "Lennert"] | 0.2%/362880: Joanna -> ["Kevin", "Jonny"] | 0.2%/362880: Nelly -> ["Sidar", "Rob"]
+top5 Pr[Dup]: 1.8%/3628800: ["Leandro", "Rob"] | 1.8%/3628800: ["Rob", "Olli"] | 1.8%/3628800: ["Xander", "Olli"] | 1.8%/3628800: ["Xander", "CalvinBlond"] | 1.8%/3628800: ["Rob", "Lennert"]
+top5 Pr[Dup]: 18.2%/36288000: Kevin | 18.2%/36288000: CalvinHot | 18.2%/36288000: Rob | 18.2%/36288000: Leandro | 18.2%/36288000: Lennert
+top5 Pr[Dup]: 10.0%/19958400: Nelly | 10.0%/19958400: Elli | 10.0%/19958400: Hati | 10.0%/19958400: Sandra | 10.0%/19958400: Ariel
 
 MN#1.0 E04
+0x Sandra  → Kevin       
+0x Viki    → Leandro     
+0x Joanna  → Rob         
 0x Antonia → Lennert     
 0x Ariel   → Nico        
-0x Nelly   → Sidar       
 0x Henna   → Jonny       
-0x Sandra  → Kevin       
-0x Hati    → CalvinHot   
+0x Nelly   → Sidar       
 0x Elli    → Xander      
+0x Hati    → CalvinHot   
 0x Beverly → CalvinBlond 
-0x Joanna  → Rob         
-0x Viki    → Leandro     
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.09, 5: 8.50, 6: 11.21, 7: 14.19, 8: 17.38, 9: 21.08, 10: 24.25}
 -> E[I]/bits: 1.88
@@ -68,10 +68,10 @@ MN#1.0 E04
 │[48;2;69;76;102m Viki    [49m┆  8.889      ┆  8.889    ┆  8.889 ┆  8.889 ┆  8.889  ┆  8.889 ┆[48;2;74;68;89m 10   [49m┆  8.889 ┆  8.889 ┆  8.889 ┆[48;2;65;77;71m 20      [49m│
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴──────┴────────┴────────┴────────┴─────────╯
 37045170 left -> 25.1428 bits left
-top4 Pr[Dup]: 0.4%/133497: Joanna -> ["Rob", "Olli"] | 0.4%/133497: Beverly -> ["Olli", "CalvinBlond"] | 0.4%/133497: Henna -> ["Olli", "Jonny"] | 0.4%/133497: Antonia -> ["Olli", "Lennert"]
-top5 Pr[Dup]: 1.8%/674896: ["Lennert", "CalvinHot"] | 1.8%/674896: ["Xander", "Jonny"] | 1.8%/674896: ["Leandro", "Xander"] | 1.8%/674896: ["Xander", "Kevin"] | 1.8%/674896: ["Xander", "Rob"]
-top5 Pr[Dup]: 18.2%/6741549: Kevin | 18.2%/6741549: CalvinHot | 18.2%/6741549: Xander | 18.2%/6741549: Jonny | 18.2%/6741549: CalvinBlond
-top5 Pr[Dup]: 10.0%/3704517: Joanna | 10.0%/3704517: Hati | 10.0%/3704517: Ariel | 10.0%/3704517: Beverly | 10.0%/3704517: Nelly
+top4 Pr[Dup]: 0.4%/133497: Sandra -> ["Olli", "Kevin"] | 0.4%/133497: Joanna -> ["Rob", "Olli"] | 0.4%/133497: Elli -> ["Xander", "Olli"] | 0.4%/133497: Nelly -> ["Sidar", "Olli"]
+top5 Pr[Dup]: 1.8%/674896: ["Lennert", "Jonny"] | 1.8%/674896: ["Leandro", "CalvinBlond"] | 1.8%/674896: ["Lennert", "Kevin"] | 1.8%/674896: ["Leandro", "Lennert"] | 1.8%/674896: ["Rob", "CalvinHot"]
+top5 Pr[Dup]: 18.2%/6741549: Sidar | 18.2%/6741549: Leandro | 18.2%/6741549: CalvinBlond | 18.2%/6741549: Nico | 18.2%/6741549: CalvinHot
+top5 Pr[Dup]: 10.0%/3704517: Viki | 10.0%/3704517: Henna | 10.0%/3704517: Sandra | 10.0%/3704517: Hati | 10.0%/3704517: Joanna
 
 MB#2.0 E05
 Elli → Xander 
@@ -94,22 +94,22 @@ Elli → Xander
 │[48;2;69;76;102m Viki    [49m┆[48;2;65;77;71m 11.111      [49m┆[48;2;65;77;71m 11.111    [49m┆[48;2;65;77;71m 11.111 [49m┆[48;2;65;77;71m 11.111 [49m┆[48;2;65;77;71m 11.111  [49m┆[48;2;65;77;71m 11.111 [49m┆[48;2;65;77;71m 11.111 [49m┆[48;2;65;77;71m 11.111 [49m┆[48;2;65;77;71m 11.111 [49m┆[38;5;9m  0     [39m┆[48;2;65;77;71m 11.111  [49m│
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 6074073 left -> 22.5342 bits left
-top4 Pr[Dup]: 0.3%/16687: Sandra -> ["Rob", "Kevin"] | 0.3%/16687: Nelly -> ["Sidar", "Lennert"] | 0.3%/16687: Beverly -> ["Jonny", "CalvinBlond"] | 0.3%/16687: Antonia -> ["Lennert", "Kevin"]
-top5 Pr[Dup]: 2.2%/135350: ["Jonny", "CalvinBlond"] | 2.2%/135350: ["Rob", "Lennert"] | 2.2%/135350: ["Sidar", "Jonny"] | 2.2%/135350: ["Nico", "Kevin"] | 2.2%/135350: ["Rob", "CalvinBlond"]
-top5 Pr[Dup]: 20.0%/1216297: CalvinHot | 20.0%/1216297: Kevin | 20.0%/1216297: Jonny | 20.0%/1216297: CalvinBlond | 20.0%/1216297: Lennert
-top5 Pr[Dup]: 11.1%/674897: Antonia | 11.1%/674897: Joanna | 11.1%/674897: Beverly | 11.1%/674897: Viki | 11.1%/674897: Henna
+top4 Pr[Dup]: 0.3%/16687: Ariel -> ["Rob", "Nico"] | 0.3%/16687: Joanna -> ["Sidar", "Rob"] | 0.3%/16687: Nelly -> ["Sidar", "CalvinHot"] | 0.3%/16687: Viki -> ["Leandro", "CalvinHot"]
+top5 Pr[Dup]: 2.2%/135350: ["Sidar", "Nico"] | 2.2%/135350: ["Nico", "Lennert"] | 2.2%/135350: ["Rob", "CalvinBlond"] | 2.2%/135350: ["Leandro", "CalvinBlond"] | 2.2%/135350: ["Jonny", "CalvinHot"]
+top5 Pr[Dup]: 20.0%/1216297: Leandro | 20.0%/1216297: Jonny | 20.0%/1216297: Lennert | 20.0%/1216297: Sidar | 20.0%/1216297: CalvinBlond
+top5 Pr[Dup]: 11.1%/674897: Nelly | 11.1%/674897: Ariel | 11.1%/674897: Antonia | 11.1%/674897: Sandra | 11.1%/674897: Viki
 
-MN#2.0 E06 -50k Kamera verdeckt (Kevin+Ariel)
-1x Elli    → Xander      
-1x Hati    → CalvinHot   
+MN#2.0 E06 -- -50k Kamera verdeckt (Kevin+Ariel)
 0x Henna   → Olli        
-1x Sandra  → Kevin       
+0x Antonia → Jonny       
+1x Elli    → Xander      
+0x Joanna  → CalvinBlond 
 1x Ariel   → Nico        
 1x Viki    → Leandro     
-0x Beverly → Sidar       
-0x Antonia → Jonny       
 0x Nelly   → Rob         
-0x Joanna  → CalvinBlond 
+1x Hati    → CalvinHot   
+1x Sandra  → Kevin       
+0x Beverly → Sidar       
 ---
 -> I[l]/bits: {1: 1.54, 2: 1.35, 3: 2.35, 4: 4.15, 5: 6.64, 6: 9.90, 7: 14.29}
 -> E[I]/bits: 1.83
@@ -129,10 +129,10 @@ MN#2.0 E06 -50k Kamera verdeckt (Kevin+Ariel)
 │[48;2;69;76;102m Viki    [49m┆ 11.265      ┆ 10.439    ┆ 11     ┆ 10.439 ┆ 10.776  ┆ 10.439 ┆ 10.776 ┆ 11.265 ┆ 11.265 ┆[38;5;9m  0     [39m┆[48;2;65;77;71m 13.929  [49m│
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 2384998 left -> 21.1856 bits left
-top4 Pr[Dup]: 0.5%/10948: Beverly -> ["Sidar", "CalvinBlond"] | 0.5%/10948: Joanna -> ["Rob", "CalvinBlond"] | 0.5%/10948: Nelly -> ["Sidar", "Rob"] | 0.4%/9447: Ariel -> ["Sidar", "Nico"]
-top5 Pr[Dup]: 2.5%/58510: ["Sidar", "CalvinBlond"] | 2.5%/58510: ["Rob", "CalvinBlond"] | 2.5%/58510: ["Sidar", "Rob"] | 2.4%/57116: ["Olli", "Jonny"] | 2.4%/57116: ["Lennert", "Jonny"]
-top5 Pr[Dup]: 20.2%/481220: CalvinBlond | 20.2%/481220: Rob | 20.2%/481220: Sidar | 20.0%/477726: Kevin | 20.0%/477726: Leandro
-top5 Pr[Dup]: 11.6%/276479: Hati | 11.6%/276479: Viki | 11.6%/276479: Ariel | 11.6%/276479: Sandra | 10.8%/258733: Henna
+top4 Pr[Dup]: 0.5%/10948: Nelly -> ["Sidar", "Rob"] | 0.5%/10948: Beverly -> ["Sidar", "CalvinBlond"] | 0.5%/10948: Joanna -> ["Rob", "CalvinBlond"] | 0.4%/9447: Ariel -> ["Sidar", "Nico"]
+top5 Pr[Dup]: 2.5%/58510: ["Rob", "CalvinBlond"] | 2.5%/58510: ["Sidar", "Rob"] | 2.5%/58510: ["Sidar", "CalvinBlond"] | 2.4%/57116: ["Lennert", "Jonny"] | 2.4%/57116: ["Olli", "Jonny"]
+top5 Pr[Dup]: 20.2%/481220: Rob | 20.2%/481220: CalvinBlond | 20.2%/481220: Sidar | 20.0%/477726: Leandro | 20.0%/477726: Nico
+top5 Pr[Dup]: 11.6%/276479: Viki | 11.6%/276479: Sandra | 11.6%/276479: Ariel | 11.6%/276479: Hati | 10.8%/258733: Antonia
 
 ╭────────┬───┬──────────┬───────┬──────────────┬─────────┬────────────┬────────┬──────────────┬────────┬────────┬──────────┬───┬────────┬──────┬──────────╮
 │        ┆ L ┆  Antonia ┆ Ariel ┆    Beverly   ┆   Elli  ┆    Hati    ┆  Henna ┆    Joanna    ┆  Nelly ┆ Sandra ┆   Viki   ┆   ┆    I   ┆ #new ┆ min dist │
@@ -152,4 +152,4 @@ top5 Pr[Dup]: 11.6%/276479: Hati | 11.6%/276479: Viki | 11.6%/276479: Ariel | 11
 ╰────────┴───┴─────────────┴───────────┴──────────┴─────────┴──────────┴────────┴────────┴─────────┴──────────┴────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 2384998  Initial combinations for each pair: 19958400
 
-Ran in 76.88s
+Ran in 80.39s
