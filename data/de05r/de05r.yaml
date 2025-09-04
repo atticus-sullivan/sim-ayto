@@ -69,7 +69,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E06 -- -50k Kamera verdeckt (Kevin+Ariel)"}
     check: !Lights [2]
-    # noExclude: true
     # buildTreee: true
     # resultUnknown: true
     map:
@@ -85,8 +84,31 @@ constraints:
       Antonia: Jonny
       # Lennert
 
-  # - type: !Box {num: 3, comment: "E07"}
+  - type: !Box {num: 3, comment: "E07"}
+    check: !Lights [0]
+    map:
+      Nelly: CalvinBlond
+      # Henna: Leandro
+
+  - type: !Night {num: 3, comment: "E08 -- +20€ aus Grosszuegigkeit :)"}
+    check: !Lights [2]
+    # buildTreee: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Joanna: CalvinBlond
+      Antonia: Olli
+      Beverly: Nico
+      Viki: Jonny
+      Hati: Rob
+      Sandra: Kevin
+      Henna: Leandro
+      Nelly: Lennert
+      Ariel: CalvinHot
+      # Sandra: Sidar
+
+  # - type: !Box {num: 4, comment: "E09"}
   #   check: !Lights [0]
   #   map:
-  #     Nelly: CalvinBlond
-  #     Henna: Leandro
+  #     # Nelly: Rob
+  #     Beverly: Jonny
