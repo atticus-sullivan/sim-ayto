@@ -39,17 +39,17 @@ Maria → Tomas
 36288000 left -> 25.113 bits left
 
 MN#1.0 E02
+0x Cali     → Brett  
+0x Asia     → Kwasi  
+0x Jasmine  → Moe    
 0x Kayla    → Cam    
 0x Lauren   → Andrew 
-0x Samantha → Lewis  
-0x Asia     → Kwasi  
-0x Morgan   → Tomas  
-0x Kenya    → Tevin  
-0x Maria    → Shamoy 
-0x Jasmine  → Moe    
 0x Nutsa    → Daniel 
 0x Bria     → Zak    
-0x Cali     → Brett  
+0x Kenya    → Tevin  
+0x Samantha → Lewis  
+0x Maria    → Shamoy 
+0x Morgan   → Tomas  
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
 -> E[I]/bits: 1.89
@@ -95,17 +95,17 @@ Asia → Andrew
 2104123 left -> 21.0048 bits left
 
 MN#2.0 E03
-1x Kenya    → Tevin  
 0x Samantha → Zak    
 0x Morgan   → Andrew 
-0x Cali     → Tomas  
+0x Asia     → Brett  
 1x Nutsa    → Daniel 
 0x Bria     → Moe    
+0x Jasmine  → Lewis  
+0x Cali     → Tomas  
 1x Kayla    → Cam    
 1x Maria    → Shamoy 
-0x Jasmine  → Lewis  
+1x Kenya    → Tevin  
 0x Lauren   → Kwasi  
-0x Asia     → Brett  
 ---
 -> I[l]/bits: {0: 2.65, 1: 1.49, 2: 1.80, 3: 2.87, 4: 4.45, 5: 6.41, 6: 8.68, 7: 11.18, 8: 13.97, 9: 16.25}
 -> E[I]/bits: 2.17
@@ -151,17 +151,17 @@ Maria → Shamoy
 136848 left -> 17.0622 bits left
 
 MN#3.0 E04
+1x Lauren   → Andrew 
 0x Samantha → Daniel 
 0x Bria     → Tomas  
-0x Nutsa    → Moe    
-2x Kayla    → Cam    
-1x Lauren   → Andrew 
 2x Kenya    → Tevin  
-0x Morgan   → Zak    
-1x Cali     → Brett  
+0x Nutsa    → Moe    
 0x Asia     → Lewis  
-2x Maria    → Shamoy 
+1x Cali     → Brett  
+0x Morgan   → Zak    
 0x Jasmine  → Kwasi  
+2x Maria    → Shamoy 
+2x Kayla    → Cam    
 ---
 -> I[l]/bits: {1: 2.47, 2: 1.39, 3: 1.86, 4: 3.07, 5: 4.84, 6: 7.07, 7: 9.64, 8: 13.16, 9: 17.06}
 -> E[I]/bits: 2.09
@@ -207,17 +207,17 @@ Kenya → Brett
 35322 left -> 15.1083 bits left
 
 MN#4.0 E06
-0x Kayla    → Brett  
-0x Asia     → Cam    
 1x Cali     → Tomas  
-0x Bria     → Kwasi  
-3x Maria    → Shamoy 
-0x Samantha → Moe    
-1x Morgan   → Zak    
 0x Lauren   → Daniel 
-0x Nutsa    → Andrew 
 0x Kenya    → Lewis  
+0x Bria     → Kwasi  
 0x Jasmine  → Tevin  
+1x Morgan   → Zak    
+0x Nutsa    → Andrew 
+0x Samantha → Moe    
+0x Asia     → Cam    
+0x Kayla    → Brett  
+3x Maria    → Shamoy 
 ---
 -> I[l]/bits: {1: 1.30, 2: 1.46, 3: 2.60, 4: 4.31, 5: 6.38, 6: 8.84, 7: 10.94, 8: 15.11, 9: 15.11}
 -> E[I]/bits: 1.81
@@ -264,16 +264,16 @@ Bria → Zak
 
 MN#5.0 E08
 1x Jasmine  → Kwasi  
-0x Asia     → Moe    
-3x Kenya    → Tevin  
-4x Maria    → Shamoy 
-2x Morgan   → Zak    
-0x Nutsa    → Brett  
-2x Cali     → Tomas  
-3x Kayla    → Cam    
 0x Lauren   → Lewis  
-0x Samantha → Andrew 
+2x Morgan   → Zak    
 0x Bria     → Daniel 
+4x Maria    → Shamoy 
+0x Samantha → Andrew 
+0x Asia     → Moe    
+3x Kayla    → Cam    
+2x Cali     → Tomas  
+0x Nutsa    → Brett  
+3x Kenya    → Tevin  
 ---
 -> I[l]/bits: {1: 3.55, 2: 1.31, 3: 1.68, 4: 2.77, 5: 4.46, 6: 7.02, 7: 11.91}
 -> E[I]/bits: 2.02
@@ -319,17 +319,17 @@ Cali → Brett
 1524 left -> 10.5736 bits left
 
 MN#6.0 E09
+1x Asia     → Kwasi  
+5x Maria    → Shamoy 
+1x Jasmine  → Moe    
+4x Kayla    → Cam    
 0x Bria     → Lewis  
+1x Samantha → Daniel 
 3x Cali     → Tomas  
 2x Lauren   → Andrew 
-4x Kayla    → Cam    
-1x Samantha → Daniel 
-3x Morgan   → Zak    
-1x Asia     → Kwasi  
-4x Kenya    → Tevin  
-1x Jasmine  → Moe    
 1x Nutsa    → Brett  
-5x Maria    → Shamoy 
+4x Kenya    → Tevin  
+3x Morgan   → Zak    
 ---
 -> I[l]/bits: {2: 2.75, 3: 1.63, 4: 1.41, 5: 3.16, 6: 5.05, 7: 6.77}
 -> E[I]/bits: 2.04
@@ -375,17 +375,17 @@ Nutsa → Zak
 538 left -> 9.0715 bits left
 
 MN#7.0 E11
-0x Cali     → Cam    
 6x Maria    → Shamoy 
+2x Asia     → Kwasi  
+5x Kenya    → Tevin  
+3x Lauren   → Andrew 
+4x Morgan   → Zak    
+2x Nutsa    → Brett  
+0x Kayla    → Tomas  
 2x Jasmine  → Moe    
 1x Bria     → Lewis  
 2x Samantha → Daniel 
-2x Asia     → Kwasi  
-4x Morgan   → Zak    
-0x Kayla    → Tomas  
-5x Kenya    → Tevin  
-3x Lauren   → Andrew 
-2x Nutsa    → Brett  
+0x Cali     → Cam    
 ---
 -> I[l]/bits: {2: 3.26, 3: 0.86, 4: 2.07, 5: 3.34, 6: 6.75}
 -> E[I]/bits: 1.70
@@ -431,17 +431,17 @@ Kenya → Tevin
 128 left -> 7 bits left
 
 MN#8.0 E12
-0x Kayla    → Moe    
+7x Maria    → Shamoy 
 6x Kenya    → Tevin  
-2x Bria     → Lewis  
+0x Lauren   → Cam    
+0x Asia     → Daniel 
+1x Samantha → Andrew 
+3x Nutsa    → Brett  
 1x Morgan   → Tomas  
 2x Jasmine  → Kwasi  
-0x Lauren   → Cam    
 0x Cali     → Zak    
-3x Nutsa    → Brett  
-0x Asia     → Daniel 
-7x Maria    → Shamoy 
-1x Samantha → Andrew 
+0x Kayla    → Moe    
+2x Bria     → Lewis  
 ---
 -> I[l]/bits: {2: 2.25, 3: 1.33, 4: 1.91, 5: 3.54, 6: 4.68}
 -> E[I]/bits: 2.00
@@ -487,17 +487,17 @@ Samantha → Cam
 34 left -> 5.0875 bits left
 
 MN#9.0 E13
-1x Asia     → Lewis  
-0x Cali     → Andrew 
-1x Lauren   → Daniel 
-0x Jasmine  → Tomas  
 8x Maria    → Shamoy 
+7x Kenya    → Tevin  
+1x Lauren   → Daniel 
+0x Morgan   → Cam    
+0x Jasmine  → Tomas  
+0x Cali     → Andrew 
+1x Kayla    → Moe    
 1x Samantha → Zak    
 0x Bria     → Brett  
-7x Kenya    → Tevin  
-0x Morgan   → Cam    
 0x Nutsa    → Kwasi  
-1x Kayla    → Moe    
+1x Asia     → Lewis  
 ---
 -> I[l]/bits: {2: 1.18, 3: 1.50, 4: 2.77, 5: 4.09}
 -> E[I]/bits: 1.70
@@ -543,17 +543,17 @@ Nutsa → Brett
 2 left -> 1 bits left
 
 MN#10.0 E14
-0x Asia     → Tomas  
-0x Bria     → Cam    
-1x Samantha → Lewis  
-0x Jasmine  → Daniel 
-2x Kayla    → Moe    
-4x Nutsa    → Brett  
-1x Cali     → Andrew 
 1x Lauren   → Kwasi  
 9x Maria    → Shamoy 
+1x Cali     → Andrew 
+1x Samantha → Lewis  
+4x Nutsa    → Brett  
+2x Kayla    → Moe    
+0x Asia     → Tomas  
 5x Morgan   → Zak    
 8x Kenya    → Tevin  
+0x Jasmine  → Daniel 
+0x Bria     → Cam    
 ---
 -> I[l]/bits: {3: 1.00, 11: 1.00}
 -> E[I]/bits: 1.00
@@ -625,4 +625,4 @@ MN#10.0 E14
 ╰─────────┴────┴───────────┴────────┴──────────┴───────────┴──────────┴───────────┴───────────┴────────┴──────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 10.71s
+Ran in 10.67s
