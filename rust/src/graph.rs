@@ -182,7 +182,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, _id: &str) ->
                     .line_color(palette.colors.overlay0.hex.to_string())
                     .grid_color(palette.colors.overlay1.hex.to_string())
                     .zero_line_color(palette.colors.overlay2.hex.to_string())
-                    .title(Title::with_text("#MB/#MN"))
+                    .title(Title::with_text("#MB"))
                     .mirror(true)
                     .show_line(true),
             )
@@ -203,7 +203,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, _id: &str) ->
                     .line_color(palette.colors.overlay0.hex.to_string())
                     .grid_color(palette.colors.overlay1.hex.to_string())
                     .zero_line_color(palette.colors.overlay2.hex.to_string())
-                    .title(Title::with_text("#MB/#MN"))
+                    .title(Title::with_text("#MN"))
                     .mirror(true)
                     .show_line(true),
             )
@@ -224,7 +224,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, _id: &str) ->
                     .line_color(palette.colors.overlay0.hex.to_string())
                     .grid_color(palette.colors.overlay1.hex.to_string())
                     .zero_line_color(palette.colors.overlay2.hex.to_string())
-                    .title(Title::with_text("#MB/#MN"))
+                    .title(Title::with_text("#MN"))
                     .mirror(true)
                     .show_line(true),
             )
