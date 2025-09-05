@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+MODE ?= release
+
 DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05 de05r de06
 DAT_RUST += us01 us02 us03 us04 us05 us06 us07 us08 us09
 DAT_RUST += uk01
@@ -57,7 +59,7 @@ NOTIF ?=
 # ZATHURA ?=
 
 # what is the file to figure out when to rebuild output files (for local run,
-# probably this should be set to rust/target/release/ayto (but just the
+# probably this should be set to rust/target/<MODE>/ayto (but just the
 # following should also work)
 RUST_DEP ?= $(wildcard rust/src/*.rs)
 
@@ -81,7 +83,7 @@ $(CLALIAS):
 check: $(CHALIAS)
 	
 $(CHALIAS):
-	./rust/target/release/ayto check $(let i,$(patsubst check_%,%,$@),data/$i/$i.yaml)
+	./rust/target/$(MODE)/ayto check $(let i,$(patsubst check_%,%,$@),data/$i/$i.yaml)
 
 cat: cat_$(CUR)
 
@@ -124,7 +126,7 @@ $(ALIAS):
 
 $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	@date
-	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/release/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
+	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
@@ -143,9 +145,10 @@ graph: gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/u
 
 hugo: graph
 	cd ./gh-pages && hugo build
+	echo "$(pwd)/gh-pages/public/ayto"
 
-gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md: rust/target/release/ayto $(wildcard data/*/*.csv)
-	./rust/target/release/ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
+gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.csv)
+	./rust/target/$(MODE)/ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
 
-rust/target/release/ayto: ./rust/src/*
-	make -C rust buildRelease
+rust/target/$(MODE)/ayto: ./rust/src/*
+	make -C rust target/$(MODE)/ayto
