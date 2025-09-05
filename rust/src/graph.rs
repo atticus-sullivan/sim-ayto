@@ -102,8 +102,8 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
     // .width(1000)
     // .height(800);
 
-    let mut plots = [Plot::new(), Plot::new(), Plot::new(), Plot::new(), Plot::new(), Plot::new()];
-    plots[0].set_layout(
+    let mut plots = [("MN/MC", Plot::new()), ("MB/TB", Plot::new()), ("Combined", Plot::new()), ("#Lights MB/TB", Plot::new()), ("#Lights MN/MC", Plot::new()), ("#Lights-known MN/MC", Plot::new())];
+    plots[0].1.set_layout(
         layout
             .clone()
             .title("Matchingnight / matching ceremony")
@@ -124,7 +124,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                     .title(Title::with_text("I [bit]")),
             ),
     );
-    plots[1].set_layout(
+    plots[1].1.set_layout(
         layout
             .clone()
             .title("Matchbox / truth booth")
@@ -145,7 +145,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                     .title(Title::with_text("I [bit]")),
             ),
     );
-    plots[2].set_layout(
+    plots[2].1.set_layout(
         layout
             .clone()
             .title("Left possibilities")
@@ -166,7 +166,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                     .title(Title::with_text("H [bit]")),
             ),
     );
-    plots[3].set_layout(
+    plots[3].1.set_layout(
         layout
             .clone()
             .title("#Lights -- MB")
@@ -187,7 +187,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                     .title(Title::with_text("#Lights")),
             ),
     );
-    plots[4].set_layout(
+    plots[4].1.set_layout(
         layout
             .clone()
             .title("#Lights -- MN")
@@ -208,7 +208,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                     .title(Title::with_text("#Lights")),
             ),
     );
-    plots[5].set_layout(
+    plots[5].1.set_layout(
         layout
             .clone()
             .title("#Lights - known_lights -- MN")
@@ -230,7 +230,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
             ),
     );
 
-    for p in &mut plots {
+    for (_, p) in &mut plots {
         p.set_configuration(
             plotly::Configuration::new()
                 .display_logo(false)
@@ -280,7 +280,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
         .mode(Mode::Lines);
-        plots[0].add_trace(trace);
+        plots[0].1.add_trace(trace);
 
         let trace = Scatter::new(
             field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
@@ -288,8 +288,8 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
-        .mode(Mode::Lines);
-        plots[4].add_trace(trace);
+        .mode(Mode::LinesMarkers);
+        plots[4].1.add_trace(trace);
 
         let trace = Scatter::new(
             field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
@@ -297,8 +297,8 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
-        .mode(Mode::Lines);
-        plots[5].add_trace(trace);
+        .mode(Mode::LinesMarkers);
+        plots[5].1.add_trace(trace);
 
         // read matchbox stats
         let fn_param = "statMB.csv";
@@ -321,7 +321,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
         .mode(Mode::Lines);
-        plots[1].add_trace(trace);
+        plots[1].1.add_trace(trace);
 
         let trace = Scatter::new(
             field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
@@ -329,8 +329,8 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
-        .mode(Mode::Lines);
-        plots[3].add_trace(trace);
+        .mode(Mode::LinesMarkers);
+        plots[3].1.add_trace(trace);
 
         // read overall stats
         let fn_param = "statInfo.csv";
@@ -353,15 +353,17 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
         .mode(Mode::Lines);
-        plots[2].add_trace(trace);
+        plots[2].1.add_trace(trace);
     }
     let dat = plots
         .iter()
-        .map(|i| i.to_inline_html(None))
+        .map(|(j,i)| format!("{{{{% tab \"{j}\" %}}}}").to_string()+&i.to_inline_html(None)+"{{% /tab %}}")
         .fold(String::new(), |a, b| a + &b);
     let complete_html = format!(
         r#"<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{{{{< tabs "id" >}}}}
 {}
+{{{{< /tabs >}}}}
 <script>window.dispatchEvent(new Event('resize'));</script>"#,
         dat
     );
