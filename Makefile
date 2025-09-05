@@ -30,7 +30,7 @@ INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
 MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) graph
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) graph hugo
 
 GENARGS ?= --transpose -c
 
@@ -65,7 +65,7 @@ RUST_DEP ?= $(wildcard rust/src/*.rs)
 EDITOR_OPTS ?= ""
 
 
-all: $(OUT) graph
+all: $(OUT) graph hugo
 	
 
 
@@ -140,6 +140,9 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 
 
 graph: gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
+
+hugo: graph
+	cd ./gh-pages && hugo build
 
 gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md: rust/target/release/ayto $(wildcard data/*/*.csv)
 	./rust/target/release/ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
