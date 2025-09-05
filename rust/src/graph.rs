@@ -260,7 +260,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         println!("MN");
         let mut field: Vec<CSVEntryMN> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
-            .delimiter(b';')
+            .delimiter(b',')
             .has_headers(false)
             .from_path(entry.path().join(fn_param))?;
         for result in rdr.deserialize() {
@@ -309,7 +309,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         println!("MB");
         let mut field: Vec<CSVEntryMB> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
-            .delimiter(b';')
+            .delimiter(b',')
             .has_headers(false)
             .from_path(entry.path().join(fn_param))?;
         for result in rdr.deserialize() {
@@ -342,7 +342,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         println!("INFO");
         let mut field: Vec<CSVEntry> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
-            .delimiter(b';')
+            .delimiter(b',')
             .has_headers(false)
             .from_path(entry.path().join(fn_param))?;
         for result in rdr.deserialize() {

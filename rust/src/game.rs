@@ -461,15 +461,15 @@ impl Game {
 
         let (mut mbo, mut mno, mut info) = (
             csv::WriterBuilder::new()
-                .delimiter(b';')
+                .delimiter(b',')
                 .has_headers(false)
                 .from_path(out_mb_path)?,
             csv::WriterBuilder::new()
-                .delimiter(b';')
+                .delimiter(b',')
                 .has_headers(false)
                 .from_path(out_mn_path)?,
             csv::WriterBuilder::new()
-                .delimiter(b';')
+                .delimiter(b',')
                 .has_headers(false)
                 .from_path(out_info_path)?,
         );
