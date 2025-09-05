@@ -24,7 +24,7 @@ use plotly::common::{Mode, Title};
 use plotly::{Layout, Plot, Scatter};
 use walkdir::WalkDir;
 
-use crate::constraint::{CSVEntry, CSVEntryMB};
+use crate::constraint::{CSVEntry, CSVEntryMB, CSVEntryMN};
 
 use crate::game::Game;
 
@@ -102,7 +102,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
     // .width(1000)
     // .height(800);
 
-    let mut plots = [Plot::new(), Plot::new(), Plot::new()];
+    let mut plots = [Plot::new(), Plot::new(), Plot::new(), Plot::new(), Plot::new(), Plot::new()];
     plots[0].set_layout(
         layout
             .clone()
@@ -166,6 +166,69 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                     .title(Title::with_text("H [bit]")),
             ),
     );
+    plots[3].set_layout(
+        layout
+            .clone()
+            .title("#Lights -- MB")
+            .x_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+                    .title(Title::with_text("#MB/#MN"))
+                    .mirror(true)
+                    .show_line(true),
+            )
+            .y_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+                    .title(Title::with_text("#Lights")),
+            ),
+    );
+    plots[4].set_layout(
+        layout
+            .clone()
+            .title("#Lights -- MN")
+            .x_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+                    .title(Title::with_text("#MB/#MN"))
+                    .mirror(true)
+                    .show_line(true),
+            )
+            .y_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+                    .title(Title::with_text("#Lights")),
+            ),
+    );
+    plots[5].set_layout(
+        layout
+            .clone()
+            .title("#Lights - known_lights -- MN")
+            .x_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+                    .title(Title::with_text("#MB/#MN"))
+                    .mirror(true)
+                    .show_line(true),
+            )
+            .y_axis(
+                plotly::layout::Axis::new()
+                    .line_color(palette.colors.overlay0.hex.to_string())
+                    .grid_color(palette.colors.overlay1.hex.to_string())
+                    .zero_line_color(palette.colors.overlay2.hex.to_string())
+                    .title(Title::with_text("#Lights - known_lights")),
+            ),
+    );
 
     for p in &mut plots {
         p.set_configuration(
@@ -188,12 +251,62 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         })
         .filter_map(Result::ok)
     {
-        // read the matchbox csv first, since it has a different type and also to find out whether
+        // read the matchingnight csv first, since it has a different type and also to find out whether
         // they won or not
         let fn_param = "statMN.csv";
         if !entry.path().join(fn_param).exists() {
             continue;
         }
+        println!("MN");
+        let mut field: Vec<CSVEntryMN> = Vec::new();
+        let mut rdr = csv::ReaderBuilder::new()
+            .delimiter(b';')
+            .has_headers(false)
+            .from_path(entry.path().join(fn_param))?;
+        for result in rdr.deserialize() {
+            let record: CSVEntryMN = result?;
+            field.push(record);
+        }
+        let name_suffix = match field.iter().find(|x| x.num == 10.0) {
+            Some(x) => {if x.won{"- W"}else{"-L"}},
+            None => match field.last() {
+                Some(x) => {if x.won{"- W"}else{"-L"}},
+                None => "",
+            },
+        };
+        let trace = Scatter::new(
+            field.iter().map(|i| i.num).collect(),
+            field.iter().map(|i| i.bits_gained).collect(),
+        )
+        .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+        .text_array(field.iter().map(|i| i.comment.clone()).collect())
+        .mode(Mode::Lines);
+        plots[0].add_trace(trace);
+
+        let trace = Scatter::new(
+            field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
+            field.iter().filter_map(|i| i.lights_total).collect(),
+        )
+        .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+        .text_array(field.iter().map(|i| i.comment.clone()).collect())
+        .mode(Mode::Lines);
+        plots[4].add_trace(trace);
+
+        let trace = Scatter::new(
+            field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
+            field.iter().filter_map(|i| i.lights_total.map(|lt| lt - i.lights_known_before.unwrap_or(0))).collect(),
+        )
+        .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+        .text_array(field.iter().map(|i| i.comment.clone()).collect())
+        .mode(Mode::Lines);
+        plots[5].add_trace(trace);
+
+        // read matchbox stats
+        let fn_param = "statMB.csv";
+        if !entry.path().join(fn_param).exists() {
+            continue;
+        }
+        println!("MB");
         let mut field: Vec<CSVEntryMB> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
             .delimiter(b';')
@@ -203,47 +316,47 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
             let record: CSVEntryMB = result?;
             field.push(record);
         }
-        let name_suffix = match field.iter().find(|x| x.1 == 10.0) {
-            Some((true, _, _, _)) => "- W",
-            Some((false, _, _, _)) => "- L",
-            None => match field.last() {
-                Some((true, _, _, _)) => "- W",
-                Some((false, _, _, _)) => "- L",
-                None => "",
-            },
-        };
         let trace = Scatter::new(
-            field.iter().map(|i| i.1).collect(),
-            field.iter().map(|i| i.2).collect(),
+            field.iter().map(|i| i.num).collect(),
+            field.iter().map(|i| i.bits_gained).collect(),
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
-        .text_array(field.iter().map(|i| i.3.clone()).collect())
+        .text_array(field.iter().map(|i| i.comment.clone()).collect())
         .mode(Mode::Lines);
-        plots[0].add_trace(trace);
+        plots[1].add_trace(trace);
 
-        // read the other csv files both have the same structure -> use a loop
-        for (plot_idx, fn_param) in ["statMB.csv", "statInfo.csv"].iter().enumerate() {
-            if !entry.path().join(fn_param).exists() {
-                continue;
-            }
-            let mut field: Vec<CSVEntry> = Vec::new();
-            let mut rdr = csv::ReaderBuilder::new()
-                .delimiter(b';')
-                .has_headers(false)
-                .from_path(entry.path().join(fn_param))?;
-            for result in rdr.deserialize() {
-                let record: CSVEntry = result?;
-                field.push(record);
-            }
-            let trace = Scatter::new(
-                field.iter().map(|i| i.0).collect(),
-                field.iter().map(|i| i.1).collect(),
-            )
-            .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
-            .text_array(field.iter().map(|i| i.2.clone()).collect())
-            .mode(Mode::Lines);
-            plots[plot_idx + 1].add_trace(trace);
+        let trace = Scatter::new(
+            field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
+            field.iter().filter_map(|i| i.lights_total).collect(),
+        )
+        .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+        .text_array(field.iter().map(|i| i.comment.clone()).collect())
+        .mode(Mode::Lines);
+        plots[3].add_trace(trace);
+
+        // read overall stats
+        let fn_param = "statInfo.csv";
+        if !entry.path().join(fn_param).exists() {
+            continue;
         }
+        println!("INFO");
+        let mut field: Vec<CSVEntry> = Vec::new();
+        let mut rdr = csv::ReaderBuilder::new()
+            .delimiter(b';')
+            .has_headers(false)
+            .from_path(entry.path().join(fn_param))?;
+        for result in rdr.deserialize() {
+            let record: CSVEntry = result?;
+            field.push(record);
+        }
+        let trace = Scatter::new(
+            field.iter().map(|i| i.num).collect(),
+            field.iter().map(|i| i.bits_left).collect(),
+        )
+        .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
+        .text_array(field.iter().map(|i| i.comment.clone()).collect())
+        .mode(Mode::Lines);
+        plots[2].add_trace(trace);
     }
     let dat = plots
         .iter()

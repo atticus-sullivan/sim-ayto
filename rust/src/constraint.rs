@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 use anyhow::{ensure, Context, Result};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::collections::HashSet;
 use std::fs::File;
@@ -29,14 +29,49 @@ use comfy_table::{Cell, Row, Table};
 use crate::ruleset::RuleSetData;
 use crate::{Lut, Map, MapS, Matching, Rem, Rename};
 
-pub type CSVEntry = (f64, f64, String);
-pub type CSVEntryMB = (bool, f64, f64, String);
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CSVEntry {
+    pub num: f64,
+    pub bits_left: f64,
+    pub lights_total: Option<u8>,
+    pub lights_known_before: Option<u8>,
+    pub comment: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CSVEntryMB {
+    pub num: f64,
+    pub lights_total: Option<u8>,
+    pub lights_known_before: Option<u8>,
+    pub bits_gained: f64,
+    pub comment: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CSVEntryMN {
+    pub won: bool,
+    pub lights_total: Option<u8>,
+    pub lights_known_before: Option<u8>,
+    pub num: f64,
+    pub bits_gained: f64,
+    pub comment: String,
+}
 
 #[derive(Deserialize, Debug, Clone)]
 enum CheckType {
     Eq,
     Nothing,
     Lights(u8, #[serde(skip)] BTreeMap<u8, u128>),
+}
+
+impl CheckType {
+    pub fn as_lights(&self) -> Option<u8> {
+        if let CheckType::Lights(l,_) = *self {
+            Some(l)
+        } else {
+            None
+        }
+    }
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -676,7 +711,7 @@ impl Constraint {
     pub fn get_stats(
         &self,
         required_lights: usize,
-    ) -> Result<(Option<CSVEntry>, Option<CSVEntryMB>, Option<CSVEntry>)> {
+    ) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
         if self.hidden {
             return Ok((None, None, None));
         }
@@ -692,30 +727,38 @@ impl Constraint {
         match self.r#type {
             ConstraintType::Night { num, .. } => Ok((
                 None,
-                Some((
+                Some(CSVEntryMN{
                     won,
-                    num.into(),
-                    self.information.unwrap_or(std::f64::INFINITY),
-                    meta_a,
-                )),
-                Some((
-                    (num * 2.0).into(),
-                    (self.left_after.context("total_left unset")? as f64).log2(),
-                    meta_b,
-                )),
+                    num: num.into(),
+                    lights_total: self.check.as_lights(),
+                    lights_known_before: None,
+                    bits_gained: self.information.unwrap_or(std::f64::INFINITY),
+                    comment: meta_a,
+                }),
+                Some(CSVEntry{
+                    num: (num * 2.0).into(),
+                    lights_total: self.check.as_lights(),
+                    lights_known_before: None,
+                    bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
+                    comment: meta_b,
+                }),
             )),
             ConstraintType::Box { num, .. } => Ok((
-                Some((
-                    num.into(),
-                    self.information.unwrap_or(std::f64::INFINITY),
-                    meta_a,
-                )),
+                Some(CSVEntryMB{
+                    num: num.into(),
+                    lights_total: self.check.as_lights(),
+                    lights_known_before: None,
+                    bits_gained: self.information.unwrap_or(std::f64::INFINITY),
+                    comment: meta_a,
+                }),
                 None,
-                Some((
-                    (num * 2.0 - 1.0).into(),
-                    (self.left_after.context("total_left unset")? as f64).log2(),
-                    meta_b,
-                )),
+                Some(CSVEntry{
+                    num: (num * 2.0 - 1.0).into(),
+                    lights_total: self.check.as_lights(),
+                    lights_known_before: None,
+                    bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
+                    comment: meta_b,
+                }),
             )),
         }
     }

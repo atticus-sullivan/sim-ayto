@@ -30,7 +30,7 @@ use std::path::{Path, PathBuf};
 
 use anyhow::{anyhow, ensure, Context, Result};
 
-use crate::constraint::{Constraint, ConstraintParse};
+use crate::constraint::{Constraint, ConstraintParse, CSVEntryMB, CSVEntryMN, CSVEntry};
 use crate::ruleset::{RuleSet, RuleSetParse};
 use crate::{Lut, Matching, MatchingS, Rem, Rename};
 
@@ -473,7 +473,8 @@ impl Game {
                 .has_headers(false)
                 .from_path(out_info_path)?,
         );
-        info.serialize((0, total.log2(), "initial"))?;
+        info.serialize(CSVEntry{num: 0.0, lights_total: None, lights_known_before: None, bits_left: total.log2(), comment: "initial".to_string()})?;
+        let mut known_lights = 0 as u8;
         for i in merged_constraints.iter().map(|c| {
             c.get_stats(
                 self.rule_set
@@ -481,14 +482,38 @@ impl Game {
             )
         }) {
             let i = i?;
-            if let Some(j) = &i.0 {
-                mbo.serialize(j)?
-            }
             if let Some(j) = &i.1 {
+                let j = CSVEntryMN{
+                    num: j.num,
+                    won: j.won,
+                    lights_total: j.lights_total,
+                    lights_known_before: Some(known_lights),
+                    bits_gained: j.bits_gained,
+                    comment: j.comment.clone(),
+                };
                 mno.serialize(j)?
             }
             if let Some(j) = &i.2 {
+                let j = CSVEntry{
+                    num: j.num,
+                    lights_total: j.lights_total,
+                    lights_known_before: Some(known_lights),
+                    bits_left: j.bits_left,
+                    comment: j.comment.clone(),
+                };
                 info.serialize(j)?
+            }
+            // potentially updates known_lights -> do this in the end of the loop
+            if let Some(j) = &i.0 {
+                let j = CSVEntryMB{
+                    num: j.num,
+                    lights_total: j.lights_total,
+                    lights_known_before: Some(known_lights),
+                    bits_gained: j.bits_gained,
+                    comment: j.comment.clone(),
+                };
+                known_lights += j.lights_total.unwrap_or(0);
+                mbo.serialize(j)?
             }
         }
         mbo.flush()?;
