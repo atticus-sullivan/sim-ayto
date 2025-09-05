@@ -49,14 +49,14 @@ Nour → Justin
 1891890 left -> 20.8514 bits left
 
 MN#1.0 E02
-0x Nour     → Amber   
 0x Max      → Justin  
-0x Kylie    → Kari    
-0x Paige    → Aasha   
-0x Jenna    → Jasmine 
-0x Kai      → Danny   
 0x Remy     → Brandon 
+0x Jenna    → Jasmine 
+0x Nour     → Amber   
 0x Jonathan → Basit   
+0x Paige    → Aasha   
+0x Kylie    → Kari    
+0x Kai      → Danny   
 ---
 -> I[l]/bits: {0: 0.77, 1: 1.67, 2: 3.56, 3: 6.02, 4: 8.87, 5: 12.08, 6: 15.07, 8: 20.85}
 -> E[I]/bits: 1.39
@@ -84,13 +84,13 @@ MN#1.0 E02
 160060 left -> 17.2883 bits left
 
 MN#2.0 E03
-0x Remy     → Danny   
-1x Kylie    → Kari    
-1x Jonathan → Basit   
 0x Kai      → Jenna   
-0x Paige    → Max     
 1x Nour     → Amber   
+1x Jonathan → Basit   
 0x Justin   → Jasmine 
+0x Remy     → Danny   
+0x Paige    → Max     
+1x Kylie    → Kari    
 0x Brandon  → Aasha   
 ---
 -> I[l]/bits: {0: 1.72, 1: 1.18, 2: 2.37, 3: 4.32, 4: 6.76, 5: 9.62, 6: 12.43}
@@ -150,10 +150,10 @@ MN#3.0 E03
 0x Jonathan → Brandon 
 0x Nour     → Jasmine 
 0x Justin   → Jenna   
-0x Remy     → Basit   
-0x Max      → Aasha   
 2x Kylie    → Kari    
 0x Paige    → Amber   
+0x Remy     → Basit   
+0x Max      → Aasha   
 1x Kai      → Danny   
 ---
 -> I[l]/bits: {0: 1.48, 1: 1.24, 2: 2.54, 3: 4.67, 4: 7.23, 5: 10.32, 6: 13.13}
@@ -210,14 +210,14 @@ Jenna → Danny
 4328 left -> 12.0795 bits left
 
 MN#4.0 E05
-1x Max     → Justin   
 0x Jasmine → Brandon  
 0x Kari    → Kai      
-0x Remy    → Aasha    
 0x Danny   → Basit    
+1x Max     → Justin   
+0x Remy    → Aasha    
+0x Kylie   → Jonathan 
 0x Paige   → Jenna    
 2x Nour    → Amber    
-0x Kylie   → Jonathan 
 ---
 -> I[l]/bits: {0: 1.01, 1: 1.42, 2: 3.17, 3: 5.93, 4: 9.27}
 -> E[I]/bits: 1.50
@@ -274,12 +274,12 @@ Kylie → Kari
 
 MN#5.0 E06
 1x Remy   → Basit    
-0x Kai    → Aasha    
-0x Paige  → Jasmine  
 0x Justin → Jonathan 
-0x Kylie  → Jenna    
-0x Kari   → Danny    
+0x Paige  → Jasmine  
 0x Max    → Brandon  
+0x Kylie  → Jenna    
+0x Kai    → Aasha    
+0x Kari   → Danny    
 3x Nour   → Amber    
 ---
 -> I[l]/bits: {0: 2.78, 1: 0.93, 2: 2.15, 3: 3.62, 4: 5.66, 5: 8.66}
@@ -336,14 +336,14 @@ Brandon → Aasha
 11 left -> 3.4594 bits left
 
 MN#6.0 E07
-2x Max      → Justin  
-2x Kai      → Danny   
-2x Jonathan → Basit   
-1x Brandon  → Aasha   
 0x Remy     → Nour    
-0x Paige    → Kari    
-0x Kylie    → Jasmine 
 0x Jenna    → Amber   
+2x Jonathan → Basit   
+0x Kylie    → Jasmine 
+0x Paige    → Kari    
+2x Kai      → Danny   
+1x Brandon  → Aasha   
+2x Max      → Justin  
 ---
 -> I[l]/bits: {3: 0.00}
 -> E[I]/bits: 0.00
@@ -399,14 +399,14 @@ Jenna → Jasmine
 11 left -> 3.4594 bits left
 
 MN#7.0 E08
-1x Paige    → Jenna   
-0x Remy     → Kari    
-0x Danny    → Amber   
-0x Kai      → Jasmine 
-3x Jonathan → Basit   
-2x Brandon  → Aasha   
 0x Nour     → Kylie   
 3x Max      → Justin  
+0x Kai      → Jasmine 
+0x Danny    → Amber   
+3x Jonathan → Basit   
+0x Remy     → Kari    
+2x Brandon  → Aasha   
+1x Paige    → Jenna   
 ---
 -> I[l]/bits: {3: 0.29, 4: 2.46}
 -> E[I]/bits: 0.68
@@ -462,14 +462,14 @@ Remy → Paige
 9 left -> 3.1699 bits left
 
 MN#8.0 E11
-4x Max      → Justin  
-1x Nour     → Jasmine 
+3x Brandon  → Aasha   
+1x Paige    → Amber   
 0x Kari     → Jenna   
 0x Remy     → Kai     
-0x Kylie    → Danny   
-3x Brandon  → Aasha   
 4x Jonathan → Basit   
-1x Paige    → Amber   
+0x Kylie    → Danny   
+1x Nour     → Jasmine 
+4x Max      → Justin  
 ---
 -> I[l]/bits: {3: 0.17, 8: 3.17}
 -> E[I]/bits: 0.50
@@ -526,12 +526,12 @@ Max → Amber
 
 MN#9.0 E11
 0x Remy     → Justin  
+0x Kylie    → Amber   
+2x Paige    → Jenna   
+2x Nour     → Jasmine 
+4x Brandon  → Aasha   
 0x Max      → Kari    
 5x Jonathan → Basit   
-2x Paige    → Jenna   
-4x Brandon  → Aasha   
-0x Kylie    → Amber   
-2x Nour     → Jasmine 
 3x Kai      → Danny   
 ---
 -> I[l]/bits: {5: 1.81, 6: 0.81, 8: 2.81}
@@ -588,14 +588,14 @@ Kylie → Amber
 3 left -> 1.585 bits left
 
 MN#10.0 E12
-0x Remy     → Amber   
-3x Nour     → Jasmine 
-0x Kylie    → Justin  
-4x Kai      → Danny   
-5x Brandon  → Aasha   
-6x Jonathan → Basit   
 1x Max      → Kari    
 3x Paige    → Jenna   
+0x Kylie    → Justin  
+0x Remy     → Amber   
+3x Nour     → Jasmine 
+5x Brandon  → Aasha   
+6x Jonathan → Basit   
+4x Kai      → Danny   
 ---
 -> I[l]/bits: {5: 1.58, 6: 1.58, 8: 1.58}
 -> E[I]/bits: 1.58
@@ -670,4 +670,4 @@ MN#10.0 E12
 ╰─────────┴───┴──────────┴────────┴───────────┴───────────┴────────┴─────────┴─────────┴──────────┴────────┴───────┴────────┴───────┴────────┴───────┴───────┴──────┴───┴────────┴──────┴──────────╯
 Total permutations: 2027025  Permutations left: 1  Initial combinations for each pair: 135135
 
-Ran in 164.81s
+Ran in 162.43s

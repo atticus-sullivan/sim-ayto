@@ -35,22 +35,22 @@ Jenny → Danilo
 │[48;2;69;76;102m Steffi  [49m┆[48;2;65;77;71m 11.111 [49m┆  9.877 ┆  9.877   ┆  9.877 ┆  9.877 ┆  9.877 ┆  9.877 ┆  9.877 ┆  9.877  ┆  9.877 ┆[48;2;74;68;89m 10  [49m│
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 32659200 left -> 24.961 bits left
-top4 Pr[Dup]: 1.1%/362880: Sandra -> ["Danilo", "Max"] | 1.1%/362880: Jenny -> ["Elia", "Max"] | 1.1%/362880: Darya -> ["Danilo", "Max"] | 1.1%/362880: Jenny -> ["Fabio", "Max"]
-top5 Pr[Dup]: 10.0%/3265920: ["Fabio", "Max"] | 10.0%/3265920: ["Danilo", "Max"] | 10.0%/3265920: ["Elia", "Max"] | 10.0%/3265920: ["Steffen", "Max"] | 10.0%/3265920: ["Mike", "Max"]
-top5 Pr[Dup]: 100.0%/32659200: Max | 10.0%/3265920: Teezy | 10.0%/3265920: Marvin | 10.0%/3265920: Danilo | 10.0%/3265920: Steffen
-top5 Pr[Dup]: 10.0%/3265920: Paulina | 10.0%/3265920: Sandra | 10.0%/3265920: Jenny | 10.0%/3265920: Marie | 10.0%/3265920: Alicia
+top4 Pr[Dup]: 1.1%/362880: Shakira -> ["Danilo", "Max"] | 1.1%/362880: Jenny -> ["Peter", "Max"] | 1.1%/362880: Darya -> ["Danilo", "Max"] | 1.1%/362880: Jenny -> ["Elia", "Max"]
+top5 Pr[Dup]: 10.0%/3265920: ["Fabio", "Max"] | 10.0%/3265920: ["Paco", "Max"] | 10.0%/3265920: ["Elia", "Max"] | 10.0%/3265920: ["Danilo", "Max"] | 10.0%/3265920: ["Marvin", "Max"]
+top5 Pr[Dup]: 100.0%/32659200: Max | 10.0%/3265920: Mike | 10.0%/3265920: Emanuell | 10.0%/3265920: Paco | 10.0%/3265920: Fabio
+top5 Pr[Dup]: 10.0%/3265920: Sandra | 10.0%/3265920: Alicia | 10.0%/3265920: Sabrina | 10.0%/3265920: Paulina | 10.0%/3265920: Steffi
 
 MN#1.0 E04
-0x Alicia  → Peter    
-0x Jenny   → Elia     
-0x Darya   → Danilo   
-0x Steffi  → Teezy    
-0x Paulina → Steffen  
 0x Marie   → Fabio    
-0x Sandra  → Paco     
-0x Shakira → Marvin   
-0x Sabrina → Emanuell 
 0x Kim     → Mike     
+0x Steffi  → Teezy    
+0x Sandra  → Paco     
+0x Sabrina → Emanuell 
+0x Darya   → Danilo   
+0x Jenny   → Elia     
+0x Alicia  → Peter    
+0x Paulina → Steffen  
+0x Shakira → Marvin   
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -70,10 +70,10 @@ MN#1.0 E04
 │[48;2;69;76;102m Steffi  [49m┆  8.434 ┆  7.53  ┆  7.81    ┆  7.81  ┆  7.81  ┆  7.81  ┆  7.81  ┆  7.81  ┆  7.81   ┆[48;2;65;77;71m 29.367 [49m┆[48;2;74;68;89m 10  [49m│
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 2051760 left -> 20.9684 bits left
-top4 Pr[Dup]: 3.3%/66744: Darya -> ["Danilo", "Max"] | 3.3%/66744: Jenny -> ["Elia", "Max"] | 2.9%/60255: Sabrina -> ["Emanuell", "Max"] | 2.9%/60255: Kim -> ["Mike", "Max"]
-top5 Pr[Dup]: 10.0%/205176: ["Steffen", "Max"] | 10.0%/205176: ["Emanuell", "Max"] | 10.0%/205176: ["Fabio", "Max"] | 10.0%/205176: ["Mike", "Max"] | 10.0%/205176: ["Peter", "Max"]
-top5 Pr[Dup]: 100.0%/2051760: Max | 10.0%/205176: Teezy | 10.0%/205176: Fabio | 10.0%/205176: Emanuell | 10.0%/205176: Danilo
-top5 Pr[Dup]: 10.0%/205176: Steffi | 10.0%/205176: Alicia | 10.0%/205176: Sandra | 10.0%/205176: Kim | 10.0%/205176: Paulina
+top4 Pr[Dup]: 3.3%/66744: Jenny -> ["Elia", "Max"] | 3.3%/66744: Darya -> ["Danilo", "Max"] | 2.9%/60255: Sandra -> ["Paco", "Max"] | 2.9%/60255: Kim -> ["Mike", "Max"]
+top5 Pr[Dup]: 10.0%/205176: ["Paco", "Max"] | 10.0%/205176: ["Elia", "Max"] | 10.0%/205176: ["Steffen", "Max"] | 10.0%/205176: ["Emanuell", "Max"] | 10.0%/205176: ["Danilo", "Max"]
+top5 Pr[Dup]: 100.0%/2051760: Max | 10.0%/205176: Steffen | 10.0%/205176: Teezy | 10.0%/205176: Emanuell | 10.0%/205176: Danilo
+top5 Pr[Dup]: 10.0%/205176: Paulina | 10.0%/205176: Marie | 10.0%/205176: Steffi | 10.0%/205176: Shakira | 10.0%/205176: Sabrina
 
 MB#2.0 E05
 Jenny → Elia 
@@ -96,22 +96,22 @@ Jenny → Elia
 │[48;2;69;76;102m Steffi  [49m┆  7.812 ┆[48;2;74;68;89m 11.16 [49m┆  6.888   ┆  6.888 ┆  6.888 ┆  6.888 ┆  6.888 ┆  6.888 ┆  6.888  ┆[48;2;65;77;71m 32.812 [49m┆[48;2;74;68;89m 10  [49m│
 ╰─────────┴────────┴───────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 1384320 left -> 20.4007 bits left
-top4 Pr[Dup]: 3.8%/51912: Darya -> ["Danilo", "Max"] | 3.3%/45423: Steffi -> ["Teezy", "Max"] | 3.3%/45423: Alicia -> ["Peter", "Max"] | 3.3%/45423: Sandra -> ["Paco", "Max"]
-top5 Pr[Dup]: 10.0%/138432: ["Paco", "Max"] | 10.0%/138432: ["Marvin", "Max"] | 10.0%/138432: ["Elia", "Max"] | 10.0%/138432: ["Teezy", "Max"] | 10.0%/138432: ["Emanuell", "Max"]
-top5 Pr[Dup]: 100.0%/1384320: Max | 10.0%/138432: Danilo | 10.0%/138432: Paco | 10.0%/138432: Marvin | 10.0%/138432: Emanuell
-top5 Pr[Dup]: 10.0%/138432: Jenny | 10.0%/138432: Sandra | 10.0%/138432: Steffi | 10.0%/138432: Darya | 10.0%/138432: Paulina
+top4 Pr[Dup]: 3.8%/51912: Darya -> ["Danilo", "Max"] | 3.3%/45423: Marie -> ["Fabio", "Max"] | 3.3%/45423: Steffi -> ["Teezy", "Max"] | 3.3%/45423: Sandra -> ["Paco", "Max"]
+top5 Pr[Dup]: 10.0%/138432: ["Steffen", "Max"] | 10.0%/138432: ["Elia", "Max"] | 10.0%/138432: ["Mike", "Max"] | 10.0%/138432: ["Paco", "Max"] | 10.0%/138432: ["Danilo", "Max"]
+top5 Pr[Dup]: 100.0%/1384320: Max | 10.0%/138432: Steffen | 10.0%/138432: Marvin | 10.0%/138432: Teezy | 10.0%/138432: Peter
+top5 Pr[Dup]: 10.0%/138432: Sandra | 10.0%/138432: Marie | 10.0%/138432: Alicia | 10.0%/138432: Shakira | 10.0%/138432: Steffi
 
 MN#2.0 E06
 0x Kim     → Paco     
-0x Jenny   → Marvin   
-0x Alicia  → Steffen  
 1x Marie   → Fabio    
-0x Sabrina → Mike     
-0x Darya   → Emanuell 
-1x Steffi  → Teezy    
-0x Shakira → Peter    
-0x Sandra  → Elia     
 0x Paulina → Danilo   
+0x Sandra  → Elia     
+0x Darya   → Emanuell 
+0x Sabrina → Mike     
+0x Shakira → Peter    
+0x Alicia  → Steffen  
+0x Jenny   → Marvin   
+1x Steffi  → Teezy    
 ---
 -> I[l]/bits: {0: 1.98, 1: 1.44, 2: 2.05, 3: 3.34, 4: 5.08, 5: 7.15, 6: 9.49, 7: 12.38, 8: 14.27}
 -> E[I]/bits: 2.07
@@ -131,10 +131,10 @@ MN#2.0 E06
 │[48;2;69;76;102m Steffi  [49m┆  6.227 ┆  8.214 ┆  5.633   ┆  2.944 ┆  5.115 ┆  5.543 ┆  5.642 ┆  5.546 ┆  5.567  ┆[48;2;65;77;71m[38;5;11m 49.568 [49m[39m┆[48;2;74;68;89m 10  [49m│
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 333560 left -> 18.3476 bits left
-top4 Pr[Dup]: 5.0%/16534: Marie -> ["Fabio", "Max"] | 5.0%/16534: Steffi -> ["Teezy", "Max"] | 3.2%/10797: Darya -> ["Danilo", "Max"] | 2.9%/9525: Sabrina -> ["Emanuell", "Max"]
-top5 Pr[Dup]: 10.0%/33356: ["Fabio", "Max"] | 10.0%/33356: ["Elia", "Max"] | 10.0%/33356: ["Peter", "Max"] | 10.0%/33356: ["Steffen", "Max"] | 10.0%/33356: ["Emanuell", "Max"]
-top5 Pr[Dup]: 100.0%/333560: Max | 10.0%/33356: Teezy | 10.0%/33356: Elia | 10.0%/33356: Emanuell | 10.0%/33356: Mike
-top5 Pr[Dup]: 10.0%/33356: Sandra | 10.0%/33356: Darya | 10.0%/33356: Alicia | 10.0%/33356: Sabrina | 10.0%/33356: Steffi
+top4 Pr[Dup]: 5.0%/16534: Steffi -> ["Teezy", "Max"] | 5.0%/16534: Marie -> ["Fabio", "Max"] | 3.2%/10797: Darya -> ["Danilo", "Max"] | 2.9%/9525: Sabrina -> ["Emanuell", "Max"]
+top5 Pr[Dup]: 10.0%/33356: ["Teezy", "Max"] | 10.0%/33356: ["Fabio", "Max"] | 10.0%/33356: ["Steffen", "Max"] | 10.0%/33356: ["Emanuell", "Max"] | 10.0%/33356: ["Elia", "Max"]
+top5 Pr[Dup]: 100.0%/333560: Max | 10.0%/33356: Paco | 10.0%/33356: Mike | 10.0%/33356: Steffen | 10.0%/33356: Emanuell
+top5 Pr[Dup]: 10.0%/33356: Sandra | 10.0%/33356: Steffi | 10.0%/33356: Paulina | 10.0%/33356: Alicia | 10.0%/33356: Kim
 
 MB#3.0 E07
 Darya → Elia 
@@ -157,22 +157,22 @@ Darya → Elia
 │[48;2;69;76;102m Steffi  [49m┆  5.984 ┆  9.216 ┆  5.57    ┆  3.054 ┆  5.136 ┆  5.519 ┆  5.664 ┆  5.55  ┆  5.546  ┆[48;2;65;77;71m[38;5;11m 48.761 [49m[39m┆[48;2;74;68;89m 10  [49m│
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 297310 left -> 18.1816 bits left
-top4 Pr[Dup]: 4.9%/14497: Marie -> ["Fabio", "Max"] | 4.9%/14497: Steffi -> ["Teezy", "Max"] | 3.6%/10797: Darya -> ["Danilo", "Max"] | 2.8%/8389: Alicia -> ["Peter", "Max"]
-top5 Pr[Dup]: 10.0%/29731: ["Teezy", "Max"] | 10.0%/29731: ["Mike", "Max"] | 10.0%/29731: ["Elia", "Max"] | 10.0%/29731: ["Emanuell", "Max"] | 10.0%/29731: ["Fabio", "Max"]
-top5 Pr[Dup]: 100.0%/297310: Max | 10.0%/29731: Mike | 10.0%/29731: Marvin | 10.0%/29731: Fabio | 10.0%/29731: Emanuell
-top5 Pr[Dup]: 10.0%/29731: Darya | 10.0%/29731: Paulina | 10.0%/29731: Sandra | 10.0%/29731: Kim | 10.0%/29731: Jenny
+top4 Pr[Dup]: 4.9%/14497: Steffi -> ["Teezy", "Max"] | 4.9%/14497: Marie -> ["Fabio", "Max"] | 3.6%/10797: Darya -> ["Danilo", "Max"] | 2.8%/8389: Kim -> ["Mike", "Max"]
+top5 Pr[Dup]: 10.0%/29731: ["Steffen", "Max"] | 10.0%/29731: ["Elia", "Max"] | 10.0%/29731: ["Danilo", "Max"] | 10.0%/29731: ["Paco", "Max"] | 10.0%/29731: ["Teezy", "Max"]
+top5 Pr[Dup]: 100.0%/297310: Max | 10.0%/29731: Steffen | 10.0%/29731: Elia | 10.0%/29731: Mike | 10.0%/29731: Fabio
+top5 Pr[Dup]: 10.0%/29731: Shakira | 10.0%/29731: Paulina | 10.0%/29731: Sabrina | 10.0%/29731: Jenny | 10.0%/29731: Alicia
 
 MN#3.0 E08
-0x Kim     → Teezy    
-0x Sabrina → Peter    
+0x Steffi  → Marvin   
+0x Marie   → Elia     
 0x Jenny   → Emanuell 
 0x Paulina → Mike     
-0x Shakira → Fabio    
-0x Steffi  → Marvin   
-1x Alicia  → Steffen  
-0x Marie   → Elia     
 1x Sandra  → Paco     
 1x Darya   → Danilo   
+0x Shakira → Fabio    
+0x Sabrina → Peter    
+0x Kim     → Teezy    
+1x Alicia  → Steffen  
 ---
 -> I[l]/bits: {0: 1.92, 1: 1.41, 2: 2.10, 3: 3.46, 4: 5.27, 5: 7.24, 6: 9.57, 7: 12.27, 8: 13.86}
 -> E[I]/bits: 2.04
@@ -193,9 +193,9 @@ MN#3.0 E08
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 69560 left -> 16.086 bits left
 top4 Pr[Dup]: 5.6%/3881: Darya -> ["Danilo", "Max"] | 4.7%/3277: Steffi -> ["Teezy", "Max"] | 4.4%/3094: Marie -> ["Fabio", "Max"] | 4.1%/2868: Sandra -> ["Paco", "Max"]
-top5 Pr[Dup]: 10.0%/6956: ["Elia", "Max"] | 10.0%/6956: ["Paco", "Max"] | 10.0%/6956: ["Marvin", "Max"] | 10.0%/6956: ["Mike", "Max"] | 10.0%/6956: ["Danilo", "Max"]
-top5 Pr[Dup]: 100.0%/69560: Max | 10.0%/6956: Teezy | 10.0%/6956: Peter | 10.0%/6956: Steffen | 10.0%/6956: Fabio
-top5 Pr[Dup]: 10.0%/6956: Kim | 10.0%/6956: Marie | 10.0%/6956: Sabrina | 10.0%/6956: Sandra | 10.0%/6956: Steffi
+top5 Pr[Dup]: 10.0%/6956: ["Peter", "Max"] | 10.0%/6956: ["Mike", "Max"] | 10.0%/6956: ["Steffen", "Max"] | 10.0%/6956: ["Danilo", "Max"] | 10.0%/6956: ["Teezy", "Max"]
+top5 Pr[Dup]: 100.0%/69560: Max | 10.0%/6956: Mike | 10.0%/6956: Emanuell | 10.0%/6956: Danilo | 10.0%/6956: Teezy
+top5 Pr[Dup]: 10.0%/6956: Steffi | 10.0%/6956: Marie | 10.0%/6956: Darya | 10.0%/6956: Kim | 10.0%/6956: Sandra
 
 MB#4.0 E09
 Kim → Mike 
@@ -219,21 +219,21 @@ Kim → Mike
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴─────╯
 53720 left -> 15.7132 bits left
 top4 Pr[Dup]: 5.9%/3180: Darya -> ["Danilo", "Max"] | 4.9%/2631: Steffi -> ["Teezy", "Max"] | 4.8%/2577: Marie -> ["Fabio", "Max"] | 4.3%/2297: Sandra -> ["Paco", "Max"]
-top5 Pr[Dup]: 10.0%/5372: ["Fabio", "Max"] | 10.0%/5372: ["Teezy", "Max"] | 10.0%/5372: ["Paco", "Max"] | 10.0%/5372: ["Marvin", "Max"] | 10.0%/5372: ["Danilo", "Max"]
-top5 Pr[Dup]: 100.0%/53720: Max | 10.0%/5372: Danilo | 10.0%/5372: Mike | 10.0%/5372: Emanuell | 10.0%/5372: Steffen
-top5 Pr[Dup]: 10.0%/5372: Alicia | 10.0%/5372: Marie | 10.0%/5372: Sandra | 10.0%/5372: Jenny | 10.0%/5372: Steffi
+top5 Pr[Dup]: 10.0%/5372: ["Mike", "Max"] | 10.0%/5372: ["Danilo", "Max"] | 10.0%/5372: ["Marvin", "Max"] | 10.0%/5372: ["Paco", "Max"] | 10.0%/5372: ["Emanuell", "Max"]
+top5 Pr[Dup]: 100.0%/53720: Max | 10.0%/5372: Elia | 10.0%/5372: Steffen | 10.0%/5372: Emanuell | 10.0%/5372: Mike
+top5 Pr[Dup]: 10.0%/5372: Sabrina | 10.0%/5372: Steffi | 10.0%/5372: Shakira | 10.0%/5372: Kim | 10.0%/5372: Sandra
 
 MN#4.0 E10
-0x Sabrina → Paco     
 0x Paulina → Max      
 1x Shakira → Fabio    
-1x Marie   → Elia     
-0x Alicia  → Teezy    
 0x Steffi  → Emanuell 
-0x Kim     → Peter    
-1x Jenny   → Marvin   
 0x Sandra  → Steffen  
+0x Kim     → Peter    
+0x Sabrina → Paco     
+1x Marie   → Elia     
+1x Jenny   → Marvin   
 2x Darya   → Danilo   
+0x Alicia  → Teezy    
 ---
 -> I[l]/bits: {0: 2.39, 1: 1.40, 2: 1.82, 3: 3.16, 4: 5.08, 5: 7.32, 6: 11.13}
 -> E[I]/bits: 2.06
@@ -256,7 +256,7 @@ MN#4.0 E10
 top4 Pr[Dup]: 10.6%/168: Paulina -> ["Steffen", "Max"] | 7.2%/114: Darya -> ["Danilo", "Max"] | 6.1%/97: Jenny -> ["Marvin", "Max"] | 4.2%/67: Paulina -> ["Mike", "Max"]
 top5 Pr[Dup]: 15.0%/238: ["Steffen", "Max"] | 11.0%/175: ["Mike", "Max"] | 10.2%/162: ["Elia", "Max"] | 9.9%/157: ["Paco", "Max"] | 9.8%/155: ["Peter", "Max"]
 top5 Pr[Dup]: 100.0%/1587: Max | 15.0%/238: Steffen | 11.0%/175: Mike | 10.2%/162: Elia | 9.9%/157: Paco
-top5 Pr[Dup]: 31.9%/507: Paulina | 7.6%/120: Darya | 7.6%/120: Jenny | 7.6%/120: Sandra | 7.6%/120: Alicia
+top5 Pr[Dup]: 31.9%/507: Paulina | 7.6%/120: Kim | 7.6%/120: Darya | 7.6%/120: Jenny | 7.6%/120: Marie
 
 MB#5.0 E11
 Darya → Danilo 
@@ -282,19 +282,19 @@ Darya → Danilo
 top4 Pr[Dup]: 10.3%/142: Paulina -> ["Steffen", "Max"] | 6.6%/91: Jenny -> ["Marvin", "Max"] | 4.4%/61: Paulina -> ["Mike", "Max"] | 3.9%/54: Paulina -> ["Elia", "Max"]
 top5 Pr[Dup]: 15.3%/211: ["Steffen", "Max"] | 11.8%/163: ["Mike", "Max"] | 11.1%/153: ["Elia", "Max"] | 10.9%/150: ["Paco", "Max"] | 10.8%/149: ["Peter", "Max"]
 top5 Pr[Dup]: 100.0%/1376: Max | 15.3%/211: Steffen | 11.8%/163: Mike | 11.1%/153: Elia | 10.9%/150: Paco
-top5 Pr[Dup]: 33.7%/464: Paulina | 8.3%/114: Sabrina | 8.3%/114: Sandra | 8.3%/114: Kim | 8.3%/114: Steffi
+top5 Pr[Dup]: 33.7%/464: Paulina | 8.3%/114: Shakira | 8.3%/114: Marie | 8.3%/114: Jenny | 8.3%/114: Steffi
 
 MN#5.0 E12
-3x Darya   → Danilo   
-1x Paulina → Mike     
-2x Marie   → Fabio    
-0x Sandra  → Max      
 0x Shakira → Paco     
-2x Alicia  → Steffen  
-1x Kim     → Teezy    
-2x Jenny   → Marvin   
-1x Sabrina → Emanuell 
 0x Steffi  → Elia     
+2x Marie   → Fabio    
+1x Sabrina → Emanuell 
+2x Jenny   → Marvin   
+0x Sandra  → Max      
+1x Paulina → Mike     
+1x Kim     → Teezy    
+2x Alicia  → Steffen  
+3x Darya   → Danilo   
 ---
 -> I[l]/bits: {1: 3.23, 2: 1.51, 3: 1.58, 4: 2.86, 5: 4.30, 6: 5.78, 7: 8.43}
 -> E[I]/bits: 2.14
@@ -317,7 +317,7 @@ MN#5.0 E12
 top4 Pr[Dup]: 7.4%/34: Paulina -> ["Steffen", "Max"] | 7.0%/32: Jenny -> ["Marvin", "Max"] | 6.1%/28: Paulina -> ["Mike", "Max"] | 4.8%/22: Kim -> ["Peter", "Max"]
 top5 Pr[Dup]: 14.8%/68: ["Mike", "Max"] | 13.3%/61: ["Steffen", "Max"] | 12.4%/57: ["Peter", "Max"] | 10.9%/50: ["Emanuell", "Max"] | 10.7%/49: ["Teezy", "Max"]
 top5 Pr[Dup]: 100.0%/459: Max | 14.8%/68: Mike | 13.3%/61: Steffen | 12.4%/57: Peter | 10.9%/50: Emanuell
-top5 Pr[Dup]: 32.2%/148: Paulina | 9.8%/45: Sandra | 8.3%/38: Sabrina | 8.3%/38: Kim | 8.3%/38: Alicia
+top5 Pr[Dup]: 32.2%/148: Paulina | 9.8%/45: Sandra | 8.3%/38: Sabrina | 8.3%/38: Jenny | 8.3%/38: Kim
 
 MB#6.0 E13
 Alicia → Teezy 
@@ -343,19 +343,19 @@ Alicia → Teezy
 top4 Pr[Dup]: 7.9%/26: Paulina -> ["Steffen", "Max"] | 7.6%/25: Paulina -> ["Mike", "Max"] | 7.0%/23: Jenny -> ["Marvin", "Max"] | 4.9%/16: Kim -> ["Peter", "Max"]
 top5 Pr[Dup]: 17.0%/56: ["Mike", "Max"] | 13.1%/43: ["Steffen", "Max"] | 12.5%/41: ["Peter", "Max"] | 11.2%/37: ["Emanuell", "Max"] | 10.9%/36: ["Teezy", "Max"]
 top5 Pr[Dup]: 100.0%/329: Max | 17.0%/56: Mike | 13.1%/43: Steffen | 12.5%/41: Peter | 11.2%/37: Emanuell
-top5 Pr[Dup]: 35.6%/117: Paulina | 11.2%/37: Sandra | 7.6%/25: Shakira | 7.6%/25: Steffi | 7.6%/25: Kim
+top5 Pr[Dup]: 35.6%/117: Paulina | 11.2%/37: Sandra | 7.6%/25: Shakira | 7.6%/25: Steffi | 7.6%/25: Sabrina
 
 MN#6.0 E14
+2x Marie   → Elia     
 2x Paulina → Mike     
 1x Sandra  → Steffen  
+1x Sabrina → Peter    
 3x Jenny   → Marvin   
 2x Shakira → Fabio    
-1x Sabrina → Peter    
-2x Marie   → Elia     
-1x Steffi  → Emanuell 
 0x Alicia  → Paco     
-2x Kim     → Teezy    
+1x Steffi  → Emanuell 
 4x Darya   → Danilo   
+2x Kim     → Teezy    
 ---
 -> I[l]/bits: {1: 8.36, 2: 2.81, 3: 1.01, 4: 1.70, 5: 4.27}
 -> E[I]/bits: 1.67
@@ -375,10 +375,10 @@ MN#6.0 E14
 │[48;2;69;76;102m Steffi  [49m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆ 21.782   ┆  6.931 ┆[38;5;9m  0     [39m┆[48;2;74;68;89m 21.782 [49m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;11m 49.505 [49m[39m┆  9.901 │
 ╰─────────┴────────┴────────┴──────────┴────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────╯
 101 left -> 6.6582 bits left
-top4 Pr[Dup]: 9.9%/10: Jenny -> ["Marvin", "Max"] | 7.9%/8: Sabrina -> ["Emanuell", "Max"] | 6.9%/7: Paulina -> ["Mike", "Max"] | 5.0%/5: Alicia -> ["Peter", "Max"]
+top4 Pr[Dup]: 9.9%/10: Jenny -> ["Marvin", "Max"] | 7.9%/8: Sabrina -> ["Emanuell", "Max"] | 6.9%/7: Paulina -> ["Mike", "Max"] | 5.0%/5: Steffi -> ["Teezy", "Max"]
 top5 Pr[Dup]: 17.8%/18: ["Mike", "Max"] | 12.9%/13: ["Peter", "Max"] | 11.9%/12: ["Emanuell", "Max"] | 10.9%/11: ["Teezy", "Max"] | 10.9%/11: ["Marvin", "Max"]
 top5 Pr[Dup]: 100.0%/101: Max | 17.8%/18: Mike | 12.9%/13: Peter | 11.9%/12: Emanuell | 10.9%/11: Teezy
-top5 Pr[Dup]: 18.8%/19: Paulina | 11.9%/12: Sandra | 9.9%/10: Shakira | 9.9%/10: Sabrina | 9.9%/10: Marie
+top5 Pr[Dup]: 18.8%/19: Paulina | 11.9%/12: Sandra | 9.9%/10: Shakira | 9.9%/10: Jenny | 9.9%/10: Alicia
 
 MB#7.0 E15
 Alicia → Peter 
@@ -406,16 +406,16 @@ top5 Pr[Dup]: 100.0%/13: Max | 100.0%/13: Peter
 top5 Pr[Dup]: 38.5%/5: Alicia | 30.8%/4: Paulina | 23.1%/3: Kim | 7.7%/1: Marie
 
 MN#7.0 E16
-3x Kim     → Teezy    
-1x Steffi  → Elia     
-2x Sabrina → Emanuell 
-5x Darya   → Danilo   
-0x Jenny   → Paco     
-0x Paulina → Marvin   
-0x Alicia  → Fabio    
-0x Shakira → Max      
-0x Sandra  → Mike     
 0x Marie   → Steffen  
+1x Steffi  → Elia     
+0x Paulina → Marvin   
+0x Shakira → Max      
+0x Jenny   → Paco     
+5x Darya   → Danilo   
+3x Kim     → Teezy    
+0x Sandra  → Mike     
+0x Alicia  → Fabio    
+2x Sabrina → Emanuell 
 ---
 -> I[l]/bits: {1: 2.70, 2: 1.12, 3: 2.12, 4: 2.70}
 -> E[I]/bits: 1.83
@@ -463,20 +463,20 @@ Sabrina → Max
 3 left -> 1.585 bits left
 top4 Pr[Dup]: 66.7%/2: Paulina -> ["Peter", "Max"] | 33.3%/1: Kim -> ["Peter", "Max"]
 top5 Pr[Dup]: 100.0%/3: ["Peter", "Max"]
-top5 Pr[Dup]: 100.0%/3: Max | 100.0%/3: Peter
+top5 Pr[Dup]: 100.0%/3: Peter | 100.0%/3: Max
 top5 Pr[Dup]: 66.7%/2: Paulina | 33.3%/1: Kim
 
 MN#8.0 E18 -- Blackout
-6x Darya   → Danilo   
-0x Paulina → Teezy    
 0x Kim     → Max      
+0x Paulina → Teezy    
 0x Shakira → Steffen  
+6x Darya   → Danilo   
+0x Steffi  → Mike     
+4x Jenny   → Marvin   
+3x Sabrina → Emanuell 
 0x Sandra  → Fabio    
 1x Alicia  → Paco     
 3x Marie   → Elia     
-4x Jenny   → Marvin   
-0x Steffi  → Mike     
-3x Sabrina → Emanuell 
 ---
 -> I[l]/bits: {1: 1.58, 6: 1.58, 7: 1.58}
 -> E[I]/bits: 1.58
@@ -528,15 +528,15 @@ top5 Pr[Dup]: 100.0%/1: Peter | 100.0%/1: Max
 top5 Pr[Dup]: 100.0%/1: Paulina
 
 MN#9.0 E20
-3x Marie   → Fabio    
+0x Paulina → Paco     
+7x Darya   → Danilo   
 1x Sabrina → Mike     
 1x Sandra  → Elia     
-7x Darya   → Danilo   
 1x Shakira → Marvin   
-3x Alicia  → Steffen  
 2x Steffi  → Emanuell 
+3x Marie   → Fabio    
 0x Jenny   → Max      
-0x Paulina → Paco     
+3x Alicia  → Steffen  
 4x Kim     → Teezy    
 ---
 -> I[l]/bits: {6: 0.00}
@@ -585,19 +585,19 @@ Alicia → Elia
 1 left -> 0 bits left
 top4 Pr[Dup]: 100.0%/1: Paulina -> ["Peter", "Max"]
 top5 Pr[Dup]: 100.0%/1: ["Peter", "Max"]
-top5 Pr[Dup]: 100.0%/1: Max | 100.0%/1: Peter
+top5 Pr[Dup]: 100.0%/1: Peter | 100.0%/1: Max
 top5 Pr[Dup]: 100.0%/1: Paulina
 
 MN#10.0 E22
 2x Shakira → Marvin   
-0x Alicia  → Elia     
 4x Marie   → Fabio    
-2x Sandra  → Steffen  
-5x Kim     → Teezy    
-8x Darya   → Danilo   
+0x Alicia  → Elia     
 1x Paulina → Max      
+2x Sandra  → Steffen  
 2x Sabrina → Mike     
 1x Jenny   → Paco     
+5x Kim     → Teezy    
+8x Darya   → Danilo   
 3x Steffi  → Emanuell 
 ---
 -> I[l]/bits: {10: 0.00}
@@ -673,4 +673,4 @@ top5 Pr[Dup]: 100.0%/1: Paulina
 ╰─────────┴────┴──────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 12.36s
+Ran in 12.44s
