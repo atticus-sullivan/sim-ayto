@@ -112,9 +112,9 @@ fn main() {
         } => {
             // obtain the graphs for the german seasons
             let html_content_light =
-                graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
+                graph::build_stats_graph(|e| e.starts_with("de"), theme_light, "de-light").unwrap();
             let html_content_dark =
-                graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
+                graph::build_stats_graph(|e| e.starts_with("de"), theme_dark, "de-dark").unwrap();
             let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("de")).unwrap();
 
             // write the output localized for german language
@@ -179,11 +179,13 @@ bookToc: false
             let html_content_light = graph::build_stats_graph(
                 |e| e.starts_with("uk") || e.starts_with("us"),
                 theme_light,
+                "uk-light",
             )
             .unwrap();
             let html_content_dark = graph::build_stats_graph(
                 |e| e.starts_with("uk") || e.starts_with("us"),
                 theme_dark,
+                "uk-dark",
             )
             .unwrap();
             let md_ruleset_tab =
