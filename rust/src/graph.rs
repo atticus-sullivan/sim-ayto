@@ -67,7 +67,7 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     ))
 }
 
-pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, id: &str) -> Result<String> {
+pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, _id: &str) -> Result<String> {
     let palette = match theme {
         1 => PALETTE.latte,
         2 => PALETTE.frappe,
@@ -391,17 +391,11 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, id: &str) -> 
     }
     let dat = plots
         .iter()
-        .map(|(j, i)| {
-            format!("{{{{% tab \"{j}\" %}}}}").to_string()
-                + &i.to_inline_html(None)
-                + "{{% /tab %}}"
-        })
+        .map(|(_, i)| i.to_inline_html(None))
         .fold(String::new(), |a, b| a + &b);
     let complete_html = format!(
         r#"<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-{{{{< tabs "{id}" >}}}}
 {}
-{{{{< /tabs >}}}}
 <script>window.dispatchEvent(new Event('resize'));</script>"#,
         dat
     );
