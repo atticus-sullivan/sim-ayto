@@ -257,7 +257,6 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         if !entry.path().join(fn_param).exists() {
             continue;
         }
-        println!("MN");
         let mut field: Vec<CSVEntryMN> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
             .delimiter(b',')
@@ -306,7 +305,6 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         if !entry.path().join(fn_param).exists() {
             continue;
         }
-        println!("MB");
         let mut field: Vec<CSVEntryMB> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
             .delimiter(b',')
@@ -339,7 +337,6 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         if !entry.path().join(fn_param).exists() {
             continue;
         }
-        println!("INFO");
         let mut field: Vec<CSVEntry> = Vec::new();
         let mut rdr = csv::ReaderBuilder::new()
             .delimiter(b',')
