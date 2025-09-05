@@ -66,7 +66,7 @@ enum CheckType {
 
 impl CheckType {
     pub fn as_lights(&self) -> Option<u8> {
-        if let CheckType::Lights(l,_) = *self {
+        if let CheckType::Lights(l, _) = *self {
             Some(l)
         } else {
             None
@@ -727,7 +727,7 @@ impl Constraint {
         match self.r#type {
             ConstraintType::Night { num, .. } => Ok((
                 None,
-                Some(CSVEntryMN{
+                Some(CSVEntryMN {
                     won,
                     num: num.into(),
                     lights_total: self.check.as_lights(),
@@ -735,7 +735,7 @@ impl Constraint {
                     bits_gained: self.information.unwrap_or(std::f64::INFINITY),
                     comment: meta_a,
                 }),
-                Some(CSVEntry{
+                Some(CSVEntry {
                     num: (num * 2.0).into(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: None,
@@ -744,7 +744,7 @@ impl Constraint {
                 }),
             )),
             ConstraintType::Box { num, .. } => Ok((
-                Some(CSVEntryMB{
+                Some(CSVEntryMB {
                     num: num.into(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: None,
@@ -752,7 +752,7 @@ impl Constraint {
                     comment: meta_a,
                 }),
                 None,
-                Some(CSVEntry{
+                Some(CSVEntry {
                     num: (num * 2.0 - 1.0).into(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: None,

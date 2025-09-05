@@ -102,7 +102,14 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
     // .width(1000)
     // .height(800);
 
-    let mut plots = [("MN/MC", Plot::new()), ("MB/TB", Plot::new()), ("Combined", Plot::new()), ("#Lights MB/TB", Plot::new()), ("#Lights MN/MC", Plot::new()), ("#Lights-known MN/MC", Plot::new())];
+    let mut plots = [
+        ("MN/MC", Plot::new()),
+        ("MB/TB", Plot::new()),
+        ("Combined", Plot::new()),
+        ("#Lights MB/TB", Plot::new()),
+        ("#Lights MN/MC", Plot::new()),
+        ("#Lights-known MN/MC", Plot::new()),
+    ];
     plots[0].1.set_layout(
         layout
             .clone()
@@ -267,9 +274,21 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
             field.push(record);
         }
         let name_suffix = match field.iter().find(|x| x.num == 10.0) {
-            Some(x) => {if x.won{"- W"}else{"-L"}},
+            Some(x) => {
+                if x.won {
+                    "- W"
+                } else {
+                    "-L"
+                }
+            }
             None => match field.last() {
-                Some(x) => {if x.won{"- W"}else{"-L"}},
+                Some(x) => {
+                    if x.won {
+                        "- W"
+                    } else {
+                        "-L"
+                    }
+                }
                 None => "",
             },
         };
@@ -283,7 +302,10 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         plots[0].1.add_trace(trace);
 
         let trace = Scatter::new(
-            field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
+            field
+                .iter()
+                .filter_map(|i| i.lights_total.map(|_| i.num))
+                .collect(),
             field.iter().filter_map(|i| i.lights_total).collect(),
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
@@ -292,8 +314,17 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         plots[4].1.add_trace(trace);
 
         let trace = Scatter::new(
-            field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
-            field.iter().filter_map(|i| i.lights_total.map(|lt| lt - i.lights_known_before.unwrap_or(0))).collect(),
+            field
+                .iter()
+                .filter_map(|i| i.lights_total.map(|_| i.num))
+                .collect(),
+            field
+                .iter()
+                .filter_map(|i| {
+                    i.lights_total
+                        .map(|lt| lt - i.lights_known_before.unwrap_or(0))
+                })
+                .collect(),
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
         .text_array(field.iter().map(|i| i.comment.clone()).collect())
@@ -324,7 +355,10 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
         plots[1].1.add_trace(trace);
 
         let trace = Scatter::new(
-            field.iter().filter_map(|i| i.lights_total.map(|_| i.num)).collect(),
+            field
+                .iter()
+                .filter_map(|i| i.lights_total.map(|_| i.num))
+                .collect(),
             field.iter().filter_map(|i| i.lights_total).collect(),
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
@@ -357,7 +391,11 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
     }
     let dat = plots
         .iter()
-        .map(|(j,i)| format!("{{{{% tab \"{j}\" %}}}}").to_string()+&i.to_inline_html(None)+"{{% /tab %}}")
+        .map(|(j, i)| {
+            format!("{{{{% tab \"{j}\" %}}}}").to_string()
+                + &i.to_inline_html(None)
+                + "{{% /tab %}}"
+        })
         .fold(String::new(), |a, b| a + &b);
     let complete_html = format!(
         r#"<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
