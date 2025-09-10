@@ -50,6 +50,10 @@ weight: 1
 {{% img src="/sim-ayto/de05r/de05r_8.png" %}}
 {{% /details %}}
 
+{{% details "MB#5.0 E11" %}}
+{{% img src="/sim-ayto/de05r/de05r_9.png" %}}
+{{% /details %}}
+
 {{% translateHdr "tab-everything" %}}
 :warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
