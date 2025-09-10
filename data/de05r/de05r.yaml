@@ -130,8 +130,8 @@ constraints:
       Antonia: Olli
       # Jonny
 
-  # - type: !Box {num: 5, comment: "E11"}
-  #   check: !Lights [0]
-  #   map:
-  #     Sandra: Leandro
-  #     # Viki: Jonny
+  - type: !Box {num: 5, comment: "E11"}
+    check: !Lights [0]
+    map:
+      Sandra: Leandro
+      # Viki: Jonny
