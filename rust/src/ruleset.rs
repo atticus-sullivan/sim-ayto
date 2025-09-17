@@ -29,15 +29,18 @@ fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
     add: u8,
 ) -> impl Iterator<Item = Vec<Vec<u8>>> {
     vals.flat_map(move |perm| {
-        (0..perm.len()).filter_map({let perm = perm.clone(); move |idx| {
-            // only add the duplicate if it becomes a duplicate (not a triple)
-            if perm[idx].len() > 1 {
-                return None
+        (0..perm.len()).filter_map({
+            let perm = perm.clone();
+            move |idx| {
+                // only add the duplicate if it becomes a duplicate (not a triple)
+                if perm[idx].len() > 1 {
+                    return None;
+                }
+                let mut c = perm.clone();
+                c[idx].push(add);
+                Some(c)
             }
-            let mut c = perm.clone();
-            c[idx].push(add);
-            Some(c)
-        }})
+        })
     })
 }
 
@@ -50,7 +53,7 @@ fn add_trip<I: Iterator<Item = Vec<Vec<u8>>>>(
         (0..perm.len() - 1).filter_map(move |idx| {
             // only add the duplicate if it becomes a duplicate (not a triple)
             if perm[idx].len() > 1 {
-                return None
+                return None;
             }
             // only count once regardless the ordering
             if perm[idx][0] < perm[perm.len() - 1][0] {
@@ -66,7 +69,10 @@ fn add_trip<I: Iterator<Item = Vec<Vec<u8>>>>(
     })
 }
 
-fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I, cnt: usize) -> impl Iterator<Item = Vec<Vec<u8>>> {
+fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
+    vals: I,
+    cnt: usize,
+) -> impl Iterator<Item = Vec<Vec<u8>>> {
     vals.flat_map(move |perm| {
         let split = perm.len() - cnt;
 
@@ -94,7 +100,7 @@ fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I, cnt: usize) -> impl
                 let mut c = recipients.clone();
                 for (j, &rec_idx) in cur.iter().enumerate() {
                     if c[rec_idx][0] > dups[j] {
-                        return
+                        return;
                     }
                     c[rec_idx].push(dups[j]);
                 }
@@ -104,7 +110,7 @@ fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(vals: I, cnt: usize) -> impl
             // select/search index where to insert duplicate
             for i in start..recipients.len() {
                 cur.push(i);
-                dfs(recipients, dups, i+1, cur, outputs);
+                dfs(recipients, dups, i + 1, cur, outputs);
                 cur.pop();
             }
         }
@@ -393,7 +399,7 @@ impl RuleSetParse {
                 let nc = s.iter().filter(|s| s.is_none()).count();
                 let ss = s.into_iter().filter_map(|s| s).collect::<Vec<_>>();
                 RuleSet::XTimesDup(nc, ss)
-            },
+            }
         }
     }
 }
@@ -419,9 +425,7 @@ impl RuleSet {
 
     pub fn must_add_exclude(&self) -> bool {
         match &self {
-            RuleSet::XTimesDup(_, _)
-            | RuleSet::SomeoneIsTrip
-            | RuleSet::FixedTrip(_) => true,
+            RuleSet::XTimesDup(_, _) | RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => true,
             RuleSet::Eq | RuleSet::NToN => false,
         }
     }
@@ -449,7 +453,7 @@ impl RuleSet {
     pub fn validate_lut(&self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
         match self {
             RuleSet::XTimesDup(unkown_cnt, fixed) => {
-                let d = fixed.len()+unkown_cnt;
+                let d = fixed.len() + unkown_cnt;
                 ensure!(
                     lut_a.len() == lut_b.len() - d,
                     "length of setA ({}) and setB ({}) does not fit to XTimesDup (len: {}",
@@ -553,14 +557,14 @@ impl RuleSet {
                 let iter = someone_is_dup(iter, *unkown_cnt);
 
                 let first_iter: Box<dyn Iterator<Item = Vec<Vec<u8>>>> = Box::new(iter);
-                let final_iter = fixed_num.into_iter().fold(first_iter, |iter, add| {
-                    Box::new(add_dup(iter, add))
-                });
+                let final_iter = fixed_num
+                    .into_iter()
+                    .fold(first_iter, |iter, add| Box::new(add_dup(iter, add)));
 
                 for (i, p) in final_iter.into_iter().enumerate() {
                     is.step(i, p, output)?;
                 }
-            },
+            }
             RuleSet::SomeoneIsTrip => {
                 let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
                 let x = x.permutation();
@@ -630,18 +634,19 @@ impl RuleSet {
 
                 // choose which buckets should be double-buckets
                 //   => choose (s+f) positions out of a positions
-                let f_a = permutator::divide_factorial(a, a-(s+f));
+                let f_a = permutator::divide_factorial(a, a - (s + f));
                 // choose which "items" to place in the single-buckets
                 //   => choose a-(s+f) items from b-f available items
                 //   (simplified the denominator)
-                let f_b = permutator::divide_factorial(b-f, b-(a-s));
+                let f_b = permutator::divide_factorial(b - f, b - (a - s));
                 // "items" left to distribute: 2l = b-(a-s-f)
                 //   -> make l pairs out of them
                 //   -> order all items (1), then remove duplicates (just swapped) (2), then ignore oder of pairs (3)
                 //   => (2l)! / 2^l / l!
                 //   -> assign pairs to double-bucket position
                 //   => l!
-                let f_c = permutator::divide_factorial(b - (a-s-f), s+f) / (2 as usize).pow((s+f) as u32);
+                let f_c = permutator::divide_factorial(b - (a - s - f), s + f)
+                    / (2 as usize).pow((s + f) as u32);
                 f_a * f_b * f_c
             }
             // choose one of setA to have the triple (a) and distribute the remaining ones (b!/3!)
@@ -854,7 +859,9 @@ mod tests {
         ]);
         let dup_rule = RuleSet::XTimesDup(2, vec![]);
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
         dup_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
 
         // check if another permutation than from ground_truth was generated
@@ -1017,82 +1024,84 @@ mod tests {
     fn test_iter_perms_xdup() {
         let mut is = IterState::new(true, 0, vec![], &vec![]);
         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-            vec![vec![0, 4], vec![1, 3], vec![2]]   ,
-            vec![vec![0, 4], vec![1],    vec![2, 3]],
-            vec![vec![0, 3], vec![1, 4], vec![2]]   ,
-            vec![vec![0],    vec![1, 4], vec![2, 3]],
-            vec![vec![0, 3], vec![1],    vec![2, 4]],
-            vec![vec![0],    vec![1, 3], vec![2, 4]],
-            vec![vec![1, 4], vec![0, 3], vec![2]]   ,
-            vec![vec![1, 4], vec![0],    vec![2, 3]],
-            vec![vec![1, 3], vec![0, 4], vec![2]]   ,
-            vec![vec![1],    vec![0, 4], vec![2, 3]],
-            vec![vec![1, 3], vec![0],    vec![2, 4]],
-            vec![vec![1],    vec![0, 3], vec![2, 4]],
-            vec![vec![2, 4], vec![0, 3], vec![1]]   ,
-            vec![vec![2, 4], vec![0],    vec![1, 3]],
-            vec![vec![2, 3], vec![0, 4], vec![1]]   ,
-            vec![vec![2],    vec![0, 4], vec![1, 3]],
-            vec![vec![2, 3], vec![0],    vec![1, 4]],
-            vec![vec![2],    vec![0, 3], vec![1, 4]],
-            vec![vec![0, 4], vec![2, 3], vec![1]]   ,
-            vec![vec![0, 4], vec![2],    vec![1, 3]],
-            vec![vec![0, 3], vec![2, 4], vec![1]]   ,
-            vec![vec![0],    vec![2, 4], vec![1, 3]],
-            vec![vec![0, 3], vec![2],    vec![1, 4]],
-            vec![vec![0],    vec![2, 3], vec![1, 4]],
-            vec![vec![1, 4], vec![2, 3], vec![0]]   ,
-            vec![vec![1, 4], vec![2],    vec![0, 3]],
-            vec![vec![1, 3], vec![2, 4], vec![0]]   ,
-            vec![vec![1],    vec![2, 4], vec![0, 3]],
-            vec![vec![1, 3], vec![2],    vec![0, 4]],
-            vec![vec![1],    vec![2, 3], vec![0, 4]],
-            vec![vec![2, 4], vec![1, 3], vec![0]]   ,
-            vec![vec![2, 4], vec![1],    vec![0, 3]],
-            vec![vec![2, 3], vec![1, 4], vec![0]]   ,
-            vec![vec![2],    vec![1, 4], vec![0, 3]],
-            vec![vec![2, 3], vec![1],    vec![0, 4]],
-            vec![vec![2],    vec![1, 3], vec![0, 4]],
-            vec![vec![3, 4], vec![1, 2], vec![0]]   ,
-            vec![vec![4],    vec![1, 2], vec![0, 3]],
-            vec![vec![3, 4], vec![1],    vec![0, 2]],
-            vec![vec![4],    vec![1, 3], vec![0, 2]],
-            vec![vec![1, 2], vec![3, 4], vec![0]]   ,
-            vec![vec![1, 2], vec![4],    vec![0, 3]],
-            vec![vec![1, 3], vec![4],    vec![0, 2]],
-            vec![vec![1],    vec![3, 4], vec![0, 2]],
-            vec![vec![0, 2], vec![3, 4], vec![1]]   ,
-            vec![vec![0, 2], vec![4],    vec![1, 3]],
-            vec![vec![0, 3], vec![4],    vec![1, 2]],
-            vec![vec![0],    vec![3, 4], vec![1, 2]],
-            vec![vec![3, 4], vec![0, 2], vec![1]]   ,
-            vec![vec![4],    vec![0, 2], vec![1, 3]],
-            vec![vec![3, 4], vec![0],    vec![1, 2]],
-            vec![vec![4],    vec![0, 3], vec![1, 2]],
-            vec![vec![1, 2], vec![0, 3], vec![4]]   ,
-            vec![vec![1, 2], vec![0],    vec![3, 4]],
-            vec![vec![1, 3], vec![0, 2], vec![4]]   ,
-            vec![vec![1],    vec![0, 2], vec![3, 4]],
-            vec![vec![0, 2], vec![1, 3], vec![4]]   ,
-            vec![vec![0, 2], vec![1],    vec![3, 4]],
-            vec![vec![0, 3], vec![1, 2], vec![4]]   ,
-            vec![vec![0],    vec![1, 2], vec![3, 4]],
-            vec![vec![0, 1], vec![2, 3], vec![4]]   ,
-            vec![vec![0, 1], vec![2],    vec![3, 4]],
-            vec![vec![2, 3], vec![0, 1], vec![4]]   ,
-            vec![vec![2],    vec![0, 1], vec![3, 4]],
-            vec![vec![3, 4], vec![0, 1], vec![2]]   ,
-            vec![vec![4],    vec![0, 1], vec![2, 3]],
-            vec![vec![0, 1], vec![3, 4], vec![2]]   ,
-            vec![vec![0, 1], vec![4],    vec![2, 3]],
-            vec![vec![2, 3], vec![4],    vec![0, 1]],
-            vec![vec![2],    vec![3, 4], vec![0, 1]],
-            vec![vec![3, 4], vec![2],    vec![0, 1]],
-            vec![vec![4],    vec![2, 3], vec![0, 1]],
+            vec![vec![0, 4], vec![1, 3], vec![2]],
+            vec![vec![0, 4], vec![1], vec![2, 3]],
+            vec![vec![0, 3], vec![1, 4], vec![2]],
+            vec![vec![0], vec![1, 4], vec![2, 3]],
+            vec![vec![0, 3], vec![1], vec![2, 4]],
+            vec![vec![0], vec![1, 3], vec![2, 4]],
+            vec![vec![1, 4], vec![0, 3], vec![2]],
+            vec![vec![1, 4], vec![0], vec![2, 3]],
+            vec![vec![1, 3], vec![0, 4], vec![2]],
+            vec![vec![1], vec![0, 4], vec![2, 3]],
+            vec![vec![1, 3], vec![0], vec![2, 4]],
+            vec![vec![1], vec![0, 3], vec![2, 4]],
+            vec![vec![2, 4], vec![0, 3], vec![1]],
+            vec![vec![2, 4], vec![0], vec![1, 3]],
+            vec![vec![2, 3], vec![0, 4], vec![1]],
+            vec![vec![2], vec![0, 4], vec![1, 3]],
+            vec![vec![2, 3], vec![0], vec![1, 4]],
+            vec![vec![2], vec![0, 3], vec![1, 4]],
+            vec![vec![0, 4], vec![2, 3], vec![1]],
+            vec![vec![0, 4], vec![2], vec![1, 3]],
+            vec![vec![0, 3], vec![2, 4], vec![1]],
+            vec![vec![0], vec![2, 4], vec![1, 3]],
+            vec![vec![0, 3], vec![2], vec![1, 4]],
+            vec![vec![0], vec![2, 3], vec![1, 4]],
+            vec![vec![1, 4], vec![2, 3], vec![0]],
+            vec![vec![1, 4], vec![2], vec![0, 3]],
+            vec![vec![1, 3], vec![2, 4], vec![0]],
+            vec![vec![1], vec![2, 4], vec![0, 3]],
+            vec![vec![1, 3], vec![2], vec![0, 4]],
+            vec![vec![1], vec![2, 3], vec![0, 4]],
+            vec![vec![2, 4], vec![1, 3], vec![0]],
+            vec![vec![2, 4], vec![1], vec![0, 3]],
+            vec![vec![2, 3], vec![1, 4], vec![0]],
+            vec![vec![2], vec![1, 4], vec![0, 3]],
+            vec![vec![2, 3], vec![1], vec![0, 4]],
+            vec![vec![2], vec![1, 3], vec![0, 4]],
+            vec![vec![3, 4], vec![1, 2], vec![0]],
+            vec![vec![4], vec![1, 2], vec![0, 3]],
+            vec![vec![3, 4], vec![1], vec![0, 2]],
+            vec![vec![4], vec![1, 3], vec![0, 2]],
+            vec![vec![1, 2], vec![3, 4], vec![0]],
+            vec![vec![1, 2], vec![4], vec![0, 3]],
+            vec![vec![1, 3], vec![4], vec![0, 2]],
+            vec![vec![1], vec![3, 4], vec![0, 2]],
+            vec![vec![0, 2], vec![3, 4], vec![1]],
+            vec![vec![0, 2], vec![4], vec![1, 3]],
+            vec![vec![0, 3], vec![4], vec![1, 2]],
+            vec![vec![0], vec![3, 4], vec![1, 2]],
+            vec![vec![3, 4], vec![0, 2], vec![1]],
+            vec![vec![4], vec![0, 2], vec![1, 3]],
+            vec![vec![3, 4], vec![0], vec![1, 2]],
+            vec![vec![4], vec![0, 3], vec![1, 2]],
+            vec![vec![1, 2], vec![0, 3], vec![4]],
+            vec![vec![1, 2], vec![0], vec![3, 4]],
+            vec![vec![1, 3], vec![0, 2], vec![4]],
+            vec![vec![1], vec![0, 2], vec![3, 4]],
+            vec![vec![0, 2], vec![1, 3], vec![4]],
+            vec![vec![0, 2], vec![1], vec![3, 4]],
+            vec![vec![0, 3], vec![1, 2], vec![4]],
+            vec![vec![0], vec![1, 2], vec![3, 4]],
+            vec![vec![0, 1], vec![2, 3], vec![4]],
+            vec![vec![0, 1], vec![2], vec![3, 4]],
+            vec![vec![2, 3], vec![0, 1], vec![4]],
+            vec![vec![2], vec![0, 1], vec![3, 4]],
+            vec![vec![3, 4], vec![0, 1], vec![2]],
+            vec![vec![4], vec![0, 1], vec![2, 3]],
+            vec![vec![0, 1], vec![3, 4], vec![2]],
+            vec![vec![0, 1], vec![4], vec![2, 3]],
+            vec![vec![2, 3], vec![4], vec![0, 1]],
+            vec![vec![2], vec![3, 4], vec![0, 1]],
+            vec![vec![3, 4], vec![2], vec![0, 1]],
+            vec![vec![4], vec![2, 3], vec![0, 1]],
         ]);
         let rule = RuleSet::XTimesDup(1, vec!["D".to_string()]);
         let lut_a = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4)].map(|(k, v)| (k.to_string(), v)),
+        );
         rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
 
         // check if another permutation than from ground_truth was generated

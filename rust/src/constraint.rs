@@ -892,8 +892,8 @@ impl Constraint {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashMap;
     use crate::ruleset::DummyData;
+    use std::collections::HashMap;
 
     #[test]
     fn test_sort_maps_basic() {
@@ -915,7 +915,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -969,7 +969,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -1024,7 +1024,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         constraint.map.insert(1, 0);
@@ -1250,7 +1250,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         }
     }
 
@@ -1279,7 +1279,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -1318,7 +1318,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -1357,7 +1357,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -1444,7 +1444,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
         let c_b = Constraint {
             result_unknown: false,
@@ -1469,7 +1469,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         c_a.merge(&c_b).unwrap();
@@ -1520,7 +1520,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         let row = c.stat_row(
@@ -1588,7 +1588,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         let row = c.stat_row(
@@ -1700,7 +1700,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         assert_eq!(c.comment(), "comment");
@@ -1736,7 +1736,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         assert_eq!(c.comment(), "comment");
@@ -1772,7 +1772,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         assert_eq!(c.type_str(), "MN#1");
@@ -1808,7 +1808,7 @@ mod tests {
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default())
+            ruleset_data: Box::new(DummyData::default()),
         };
 
         assert_eq!(c.type_str(), "MB#1");
