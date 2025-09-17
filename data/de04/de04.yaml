@@ -6,7 +6,7 @@ frontmatter:
   identifier: de-season4
   weight: 1
 
-rule_set: !SomeoneIsDup
+rule_set: !XTimesDup [null]
 
 setA:
   - Aurelia

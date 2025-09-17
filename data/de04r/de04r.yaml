@@ -6,7 +6,7 @@ frontmatter:
   identifier: deR-season4
   weight: 1
 
-rule_set: !FixedDup Dana
+rule_set: !XTimesDup [Dana]
 
 setA:
   - Alex

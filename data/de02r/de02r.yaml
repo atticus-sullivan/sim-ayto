@@ -7,7 +7,7 @@ frontmatter:
   weight: 1
 
 # rule_set: !SomeoneIsDup
-rule_set: !FixedDup Felix
+rule_set: !XTimesDup [Felix]
 
 setA:
   - Anna

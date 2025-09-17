@@ -6,7 +6,7 @@ frontmatter:
   identifier: de-season6
   weight: 1
 
-rule_set: !SomeoneIsDup
+rule_set: !XTimesDup [null]
 # rule_set: !FixedDup Tori
 # rule_set: !Eq
 
