@@ -119,14 +119,13 @@ struct GameParse {
 
 impl Game {
     // returns (translationKeyForExplanation, shortcode)
-    pub fn ruleset_str(self: &Self) -> (&str, &str) {
-        match self.rule_set {
-            RuleSet::SomeoneIsDup => ("rs-SomeoneIsDup", "?2"),
-            RuleSet::SomeoneIsTrip => ("rs-SomeoneIsTrip", "?3"),
-            RuleSet::NToN => ("rs-NToN", "N:N"),
-            RuleSet::FixedDup(_) => ("rs-FixedDup", "=2"),
-            RuleSet::FixedTrip(_) => ("rs-FixedTrip", "=3"),
-            RuleSet::Eq => ("rs-Eq", "="),
+    pub fn ruleset_str(self: &Self) -> (&str, String) {
+        match &self.rule_set {
+            RuleSet::XTimesDup(cnt, fixed) => ("rs-XTimesDup", format!("?{cnt}={}", fixed.len())),
+            RuleSet::SomeoneIsTrip => ("rs-SomeoneIsTrip", "?3".to_string()),
+            RuleSet::NToN => ("rs-NToN", "N:N".to_string()),
+            RuleSet::FixedTrip(_) => ("rs-FixedTrip", "=3".to_string()),
+            RuleSet::Eq => ("rs-Eq", "=".to_string()),
         }
     }
     pub fn players_str(self: &Self) -> String {
@@ -839,7 +838,7 @@ impl IterState {
         if i % self.cnt_update == 0 && output {
             self.progress.inc(2);
         }
-        if p[1].contains(&0) {
+        if p[0].contains(&0) {
             self.each += 1;
         }
         self.total += 1;
