@@ -8,9 +8,7 @@ frontmatter:
 
 tree_gen: false
 
-rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Leandro
-# rule_set: !Eq
+rule_set: !XTimesDup [null, JimiBlue]
 
 setA:
   - Antonia
@@ -37,7 +35,7 @@ setB:
   - Xander
   ##
   - Leandro
-  # - JimiBlue
+  - JimiBlue
 
 constraints:
   - type: !Box {num: 1, comment: "E03 -- verkauft > 20€ > Joanna"}
@@ -130,8 +128,31 @@ constraints:
       Antonia: Olli
       # Jonny
 
-  - type: !Box {num: 5, comment: "E11"}
+  - type: !Box {num: 5, comment: "E10"}
     check: !Lights [0]
     map:
       Sandra: Leandro
       # Viki: Jonny
+
+  - type: !Box {num: 5.2, comment: "E11 -- Geschenk wegen JimiBlue +10k €"}
+    check: !Lights [0]
+    map:
+      Nelly: JimiBlue
+
+  - type: !Night {num: 5, comment: "E12"}
+    check: !Lights [4]
+    # buildTreee: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Antonia: Olli
+      Sandra: Lennert
+      Beverly: Sidar
+      Hati: Rob
+      Joanna: CalvinBlond
+      Ariel: Nico
+      Viki: Kevin
+      # Nelly: Jonny
+      Nelly: CalvinHot
+      Henna: JimiBlue
+      # Henna: Leandro
