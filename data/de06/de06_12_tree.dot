@@ -11,562 +11,562 @@ digraph D { labelloc="b"; label="Stand: MN#6 / E14"; ranksep=0.8;
 "root/6/3/0/8" -> "root/6/3/0/8/1";
 "root/6/3/0/8/1/2"[label="Dion\nChiara"]
 "root/6/3/0/8/1" -> "root/6/3/0/8/1/2";
-"root/6/3/0/8/1/2/4"[label="Enes\nIna"]
-"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/4";
-"root/6/3/0/8/1/2/4/9,7"[label="Josh/Monacco\nSophia\nNasti"]
-"root/6/3/0/8/1/2/4" -> "root/6/3/0/8/1/2/4/9,7";
-"root/6/3/0/8/1/2/4/9,7/5"[label="Levin\nJoanna"]
-"root/6/3/0/8/1/2/4/9,7" -> "root/6/3/0/8/1/2/4/9,7/5";
-"root/6/3/0/8/1/2/4/9,7/5/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/4/9,7/5" -> "root/6/3/0/8/1/2/4/9,7/5/10";
 "root/6/3/0/8/1/2/5"[label="Enes\nJoanna"]
 "root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/5";
-"root/6/3/0/8/1/2/5/9,7"[label="Josh/Monacco\nSophia\nNasti"]
-"root/6/3/0/8/1/2/5" -> "root/6/3/0/8/1/2/5/9,7";
-"root/6/3/0/8/1/2/5/9,7/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/2/5/9,7" -> "root/6/3/0/8/1/2/5/9,7/4";
-"root/6/3/0/8/1/2/5/9,7/4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/5/9,7/4" -> "root/6/3/0/8/1/2/5/9,7/4/10";
-"root/6/3/0/8/1/2/9,5"[label="Enes\nSophia\nJoanna"]
-"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/9,5";
-"root/6/3/0/8/1/2/9,5/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/2/9,5" -> "root/6/3/0/8/1/2/9,5/7";
-"root/6/3/0/8/1/2/9,5/7/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/2/9,5/7" -> "root/6/3/0/8/1/2/9,5/7/4";
-"root/6/3/0/8/1/2/9,5/7/4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/9,5/7/4" -> "root/6/3/0/8/1/2/9,5/7/4/10";
-"root/6/3/0/8/1/2/9"[label="Enes\nSophia"]
-"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/9";
-"root/6/3/0/8/1/2/9/7,5"[label="Josh/Monacco\nNasti\nJoanna"]
-"root/6/3/0/8/1/2/9" -> "root/6/3/0/8/1/2/9/7,5";
-"root/6/3/0/8/1/2/9/7,5/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/2/9/7,5" -> "root/6/3/0/8/1/2/9/7,5/4";
-"root/6/3/0/8/1/2/9/7,5/4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/9/7,5/4" -> "root/6/3/0/8/1/2/9/7,5/4/10";
-"root/6/3/0/8/1/2/9/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/2/9" -> "root/6/3/0/8/1/2/9/7";
-"root/6/3/0/8/1/2/9/7/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/2/9/7" -> "root/6/3/0/8/1/2/9/7/4";
-"root/6/3/0/8/1/2/9/7/4/10,5"[label="Tano\nTori\nJoanna"]
-"root/6/3/0/8/1/2/9/7/4" -> "root/6/3/0/8/1/2/9/7/4/10,5";
-"root/6/3/0/8/1/2/4/7,5"[label="Josh/Monacco\nNasti\nJoanna"]
-"root/6/3/0/8/1/2/4" -> "root/6/3/0/8/1/2/4/7,5";
-"root/6/3/0/8/1/2/4/7,5/9"[label="Levin\nSophia"]
-"root/6/3/0/8/1/2/4/7,5" -> "root/6/3/0/8/1/2/4/7,5/9";
-"root/6/3/0/8/1/2/4/7,5/9/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/4/7,5/9" -> "root/6/3/0/8/1/2/4/7,5/9/10";
+"root/6/3/0/8/1/2/5/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2/5" -> "root/6/3/0/8/1/2/5/7";
+"root/6/3/0/8/1/2/5/7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2/5/7" -> "root/6/3/0/8/1/2/5/7/4";
+"root/6/3/0/8/1/2/5/7/4/9,10"[label="Tano\nSophia\nTori"]
+"root/6/3/0/8/1/2/5/7/4" -> "root/6/3/0/8/1/2/5/7/4/9,10";
+"root/6/3/0/8/1/2/4"[label="Enes\nIna"]
+"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/4";
 "root/6/3/0/8/1/2/4/7"[label="Josh/Monacco\nNasti"]
 "root/6/3/0/8/1/2/4" -> "root/6/3/0/8/1/2/4/7";
-"root/6/3/0/8/1/2/4/7/9,5"[label="Levin\nSophia\nJoanna"]
-"root/6/3/0/8/1/2/4/7" -> "root/6/3/0/8/1/2/4/7/9,5";
-"root/6/3/0/8/1/2/4/7/9,5/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/4/7/9,5" -> "root/6/3/0/8/1/2/4/7/9,5/10";
-"root/6/3/0/8/1/2/4/7/9"[label="Levin\nSophia"]
-"root/6/3/0/8/1/2/4/7" -> "root/6/3/0/8/1/2/4/7/9";
-"root/6/3/0/8/1/2/4/7/9/10,5"[label="Tano\nTori\nJoanna"]
-"root/6/3/0/8/1/2/4/7/9" -> "root/6/3/0/8/1/2/4/7/9/10,5";
+"root/6/3/0/8/1/2/4/7/5"[label="Levin\nJoanna"]
+"root/6/3/0/8/1/2/4/7" -> "root/6/3/0/8/1/2/4/7/5";
+"root/6/3/0/8/1/2/4/7/5/9,10"[label="Tano\nSophia\nTori"]
+"root/6/3/0/8/1/2/4/7/5" -> "root/6/3/0/8/1/2/4/7/5/9,10";
 "root/6/3/0/4"[label="Joshi-Josh\nIna"]
 "root/6/3/0" -> "root/6/3/0/4";
 "root/6/3/0/4/7"[label="Sinan\nNasti"]
 "root/6/3/0/4" -> "root/6/3/0/4/7";
-"root/6/3/0/4/7/10,5"[label="Dion\nTori\nJoanna"]
-"root/6/3/0/4/7" -> "root/6/3/0/4/7/10,5";
-"root/6/3/0/4/7/10,5/8"[label="Enes\nSelina"]
-"root/6/3/0/4/7/10,5" -> "root/6/3/0/4/7/10,5/8";
-"root/6/3/0/4/7/10,5/8/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/4/7/10,5/8" -> "root/6/3/0/4/7/10,5/8/1";
-"root/6/3/0/4/7/10,5/8/1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10,5/8/1" -> "root/6/3/0/4/7/10,5/8/1/2";
-"root/6/3/0/4/7/10,5/8/1/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7/10,5/8/1/2" -> "root/6/3/0/4/7/10,5/8/1/2/9";
-"root/6/3/0/4/7/10"[label="Dion\nTori"]
-"root/6/3/0/4/7" -> "root/6/3/0/4/7/10";
-"root/6/3/0/4/7/10/8,5"[label="Enes\nSelina\nJoanna"]
-"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/8,5";
-"root/6/3/0/4/7/10/8,5/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/4/7/10/8,5" -> "root/6/3/0/4/7/10/8,5/1";
-"root/6/3/0/4/7/10/8,5/1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8,5/1" -> "root/6/3/0/4/7/10/8,5/1/2";
-"root/6/3/0/4/7/10/8,5/1/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7/10/8,5/1/2" -> "root/6/3/0/4/7/10/8,5/1/2/9";
-"root/6/3/0/4/7,5"[label="Sinan\nNasti\nJoanna"]
-"root/6/3/0/4" -> "root/6/3/0/4/7,5";
-"root/6/3/0/4/7,5/10"[label="Dion\nTori"]
-"root/6/3/0/4/7,5" -> "root/6/3/0/4/7,5/10";
-"root/6/3/0/4/7,5/10/8"[label="Enes\nSelina"]
-"root/6/3/0/4/7,5/10" -> "root/6/3/0/4/7,5/10/8";
-"root/6/3/0/4/7,5/10/8/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/4/7,5/10/8" -> "root/6/3/0/4/7,5/10/8/1";
-"root/6/3/0/4/7,5/10/8/1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7,5/10/8/1" -> "root/6/3/0/4/7,5/10/8/1/2";
-"root/6/3/0/4/7,5/10/8/1/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7,5/10/8/1/2" -> "root/6/3/0/4/7,5/10/8/1/2/9";
-"root/6/3/0/4/7/10/8"[label="Enes\nSelina"]
-"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/8";
-"root/6/3/0/4/7/10/8/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/1";
-"root/6/3/0/4/7/10/8/1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8/1" -> "root/6/3/0/4/7/10/8/1/2";
-"root/6/3/0/4/7/10/8/1/2/9,5"[label="Tano\nSophia\nJoanna"]
-"root/6/3/0/4/7/10/8/1/2" -> "root/6/3/0/4/7/10/8/1/2/9,5";
-"root/6/3/0/4/7/10,5/8/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4/7/10,5/8" -> "root/6/3/0/4/7/10,5/8/9";
-"root/6/3/0/4/7/10,5/8/9/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10,5/8/9" -> "root/6/3/0/4/7/10,5/8/9/2";
-"root/6/3/0/4/7/10,5/8/9/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10,5/8/9/2" -> "root/6/3/0/4/7/10,5/8/9/2/1";
-"root/6/3/0/4/7/10/8,5/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4/7/10/8,5" -> "root/6/3/0/4/7/10/8,5/9";
-"root/6/3/0/4/7/10/8,5/9/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8,5/9" -> "root/6/3/0/4/7/10/8,5/9/2";
-"root/6/3/0/4/7/10/8,5/9/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10/8,5/9/2" -> "root/6/3/0/4/7/10/8,5/9/2/1";
-"root/6/3/0/4/7/10/8/9,5"[label="Josh/Monacco\nSophia\nJoanna"]
-"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/9,5";
-"root/6/3/0/4/7/10/8/9,5/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8/9,5" -> "root/6/3/0/4/7/10/8/9,5/2";
-"root/6/3/0/4/7/10/8/9,5/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10/8/9,5/2" -> "root/6/3/0/4/7/10/8/9,5/2/1";
-"root/6/3/0/4/7,5/10/8/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4/7,5/10/8" -> "root/6/3/0/4/7,5/10/8/9";
-"root/6/3/0/4/7,5/10/8/9/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7,5/10/8/9" -> "root/6/3/0/4/7,5/10/8/9/2";
-"root/6/3/0/4/7,5/10/8/9/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7,5/10/8/9/2" -> "root/6/3/0/4/7,5/10/8/9/2/1";
-"root/6/3/0/8/1/2/9,4"[label="Enes\nSophia\nIna"]
-"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/9,4";
-"root/6/3/0/8/1/2/9,4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/2/9,4" -> "root/6/3/0/8/1/2/9,4/7";
-"root/6/3/0/8/1/2/9,4/7/5"[label="Levin\nJoanna"]
-"root/6/3/0/8/1/2/9,4/7" -> "root/6/3/0/8/1/2/9,4/7/5";
-"root/6/3/0/8/1/2/9,4/7/5/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/9,4/7/5" -> "root/6/3/0/8/1/2/9,4/7/5/10";
-"root/6/3/0/8/1/2/9/7/5,4"[label="Levin\nJoanna\nIna"]
-"root/6/3/0/8/1/2/9/7" -> "root/6/3/0/8/1/2/9/7/5,4";
-"root/6/3/0/8/1/2/9/7/5,4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/9/7/5,4" -> "root/6/3/0/8/1/2/9/7/5,4/10";
+"root/6/3/0/4/7/1,10"[label="Dion\nCamelia\nTori"]
+"root/6/3/0/4/7" -> "root/6/3/0/4/7/1,10";
+"root/6/3/0/4/7/1,10/8"[label="Enes\nSelina"]
+"root/6/3/0/4/7/1,10" -> "root/6/3/0/4/7/1,10/8";
+"root/6/3/0/4/7/1,10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4/7/1,10/8" -> "root/6/3/0/4/7/1,10/8/5";
+"root/6/3/0/4/7/1,10/8/5/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/1,10/8/5" -> "root/6/3/0/4/7/1,10/8/5/2";
+"root/6/3/0/4/7/1,10/8/5/2/9"[label="Tano\nSophia"]
+"root/6/3/0/4/7/1,10/8/5/2" -> "root/6/3/0/4/7/1,10/8/5/2/9";
+"root/6/3/0/4/7/5,10"[label="Dion\nJoanna\nTori"]
+"root/6/3/0/4/7" -> "root/6/3/0/4/7/5,10";
+"root/6/3/0/4/7/5,10/8"[label="Enes\nSelina"]
+"root/6/3/0/4/7/5,10" -> "root/6/3/0/4/7/5,10/8";
+"root/6/3/0/4/7/5,10/8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4/7/5,10/8" -> "root/6/3/0/4/7/5,10/8/1";
+"root/6/3/0/4/7/5,10/8/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/5,10/8/1" -> "root/6/3/0/4/7/5,10/8/1/2";
+"root/6/3/0/4/7/5,10/8/1/2/9"[label="Tano\nSophia"]
+"root/6/3/0/4/7/5,10/8/1/2" -> "root/6/3/0/4/7/5,10/8/1/2/9";
+"root/6/3/0/4/7/5,10/8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4/7/5,10/8" -> "root/6/3/0/4/7/5,10/8/9";
+"root/6/3/0/4/7/5,10/8/9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/5,10/8/9" -> "root/6/3/0/4/7/5,10/8/9/2";
+"root/6/3/0/4/7/5,10/8/9/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/5,10/8/9/2" -> "root/6/3/0/4/7/5,10/8/9/2/1";
+"root/6/3/0/4/7/9,10"[label="Dion\nSophia\nTori"]
+"root/6/3/0/4/7" -> "root/6/3/0/4/7/9,10";
+"root/6/3/0/4/7/9,10/8"[label="Enes\nSelina"]
+"root/6/3/0/4/7/9,10" -> "root/6/3/0/4/7/9,10/8";
+"root/6/3/0/4/7/9,10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4/7/9,10/8" -> "root/6/3/0/4/7/9,10/8/5";
+"root/6/3/0/4/7/9,10/8/5/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/9,10/8/5" -> "root/6/3/0/4/7/9,10/8/5/2";
+"root/6/3/0/4/7/9,10/8/5/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/9,10/8/5/2" -> "root/6/3/0/4/7/9,10/8/5/2/1";
+"root/6/3/0/8/1/2/9"[label="Enes\nSophia"]
+"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/9";
+"root/6/3/0/8/1/2/9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2/9" -> "root/6/3/0/8/1/2/9/7";
 "root/6/3/0/8/1/2/9/7/5"[label="Levin\nJoanna"]
 "root/6/3/0/8/1/2/9/7" -> "root/6/3/0/8/1/2/9/7/5";
-"root/6/3/0/8/1/2/9/7/5/10,4"[label="Tano\nTori\nIna"]
-"root/6/3/0/8/1/2/9/7/5" -> "root/6/3/0/8/1/2/9/7/5/10,4";
-"root/6/3/0/8,4"[label="Joshi-Josh\nSelina\nIna"]
-"root/6/3/0" -> "root/6/3/0/8,4";
-"root/6/3/0/8,4/1"[label="Sinan\nCamelia"]
-"root/6/3/0/8,4" -> "root/6/3/0/8,4/1";
-"root/6/3/0/8,4/1/2"[label="Dion\nChiara"]
-"root/6/3/0/8,4/1" -> "root/6/3/0/8,4/1/2";
-"root/6/3/0/8,4/1/2/5"[label="Enes\nJoanna"]
-"root/6/3/0/8,4/1/2" -> "root/6/3/0/8,4/1/2/5";
-"root/6/3/0/8,4/1/2/5/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/8,4/1/2/5" -> "root/6/3/0/8,4/1/2/5/9";
-"root/6/3/0/8,4/1/2/5/9/7"[label="Levin\nNasti"]
-"root/6/3/0/8,4/1/2/5/9" -> "root/6/3/0/8,4/1/2/5/9/7";
-"root/6/3/0/8,4/1/2/5/9/7/10"[label="Tano\nTori"]
-"root/6/3/0/8,4/1/2/5/9/7" -> "root/6/3/0/8,4/1/2/5/9/7/10";
-"root/6/3/0/8,4/1/2/9"[label="Enes\nSophia"]
-"root/6/3/0/8,4/1/2" -> "root/6/3/0/8,4/1/2/9";
-"root/6/3/0/8,4/1/2/9/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/8,4/1/2/9" -> "root/6/3/0/8,4/1/2/9/5";
-"root/6/3/0/8,4/1/2/9/5/7"[label="Levin\nNasti"]
-"root/6/3/0/8,4/1/2/9/5" -> "root/6/3/0/8,4/1/2/9/5/7";
-"root/6/3/0/8,4/1/2/9/5/7/10"[label="Tano\nTori"]
-"root/6/3/0/8,4/1/2/9/5/7" -> "root/6/3/0/8,4/1/2/9/5/7/10";
-"root/6/3/0/8/1/2/5,4"[label="Enes\nJoanna\nIna"]
-"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/5,4";
-"root/6/3/0/8/1/2/5,4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/2/5,4" -> "root/6/3/0/8/1/2/5,4/7";
-"root/6/3/0/8/1/2/5,4/7/9"[label="Levin\nSophia"]
-"root/6/3/0/8/1/2/5,4/7" -> "root/6/3/0/8/1/2/5,4/7/9";
-"root/6/3/0/8/1/2/5,4/7/9/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/5,4/7/9" -> "root/6/3/0/8/1/2/5,4/7/9/10";
-"root/6/3/0/8/1/2/5/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/2/5" -> "root/6/3/0/8/1/2/5/7";
-"root/6/3/0/8/1/2/5/7/9,4"[label="Levin\nSophia\nIna"]
-"root/6/3/0/8/1/2/5/7" -> "root/6/3/0/8/1/2/5/7/9,4";
-"root/6/3/0/8/1/2/5/7/9,4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/2/5/7/9,4" -> "root/6/3/0/8/1/2/5/7/9,4/10";
+"root/6/3/0/8/1/2/9/7/5/4,10"[label="Tano\nIna\nTori"]
+"root/6/3/0/8/1/2/9/7/5" -> "root/6/3/0/8/1/2/9/7/5/4,10";
 "root/6/3/0/8/1/2/5/7/9"[label="Levin\nSophia"]
 "root/6/3/0/8/1/2/5/7" -> "root/6/3/0/8/1/2/5/7/9";
-"root/6/3/0/8/1/2/5/7/9/10,4"[label="Tano\nTori\nIna"]
-"root/6/3/0/8/1/2/5/7/9" -> "root/6/3/0/8/1/2/5/7/9/10,4";
-"root/6/3/0/8,4/5"[label="Sinan\nJoanna"]
-"root/6/3/0/8,4" -> "root/6/3/0/8,4/5";
-"root/6/3/0/8,4/5/2"[label="Dion\nChiara"]
-"root/6/3/0/8,4/5" -> "root/6/3/0/8,4/5/2";
-"root/6/3/0/8,4/5/2/1"[label="Enes\nCamelia"]
-"root/6/3/0/8,4/5/2" -> "root/6/3/0/8,4/5/2/1";
-"root/6/3/0/8,4/5/2/1/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8,4/5/2/1" -> "root/6/3/0/8,4/5/2/1/7";
-"root/6/3/0/8,4/5/2/1/7/9"[label="Levin\nSophia"]
-"root/6/3/0/8,4/5/2/1/7" -> "root/6/3/0/8,4/5/2/1/7/9";
-"root/6/3/0/8,4/5/2/1/7/9/10"[label="Tano\nTori"]
-"root/6/3/0/8,4/5/2/1/7/9" -> "root/6/3/0/8,4/5/2/1/7/9/10";
-"root/6/3/0/9,4"[label="Joshi-Josh\nSophia\nIna"]
-"root/6/3/0" -> "root/6/3/0/9,4";
-"root/6/3/0/9,4/7"[label="Sinan\nNasti"]
-"root/6/3/0/9,4" -> "root/6/3/0/9,4/7";
-"root/6/3/0/9,4/7/10"[label="Dion\nTori"]
-"root/6/3/0/9,4/7" -> "root/6/3/0/9,4/7/10";
-"root/6/3/0/9,4/7/10/8"[label="Enes\nSelina"]
-"root/6/3/0/9,4/7/10" -> "root/6/3/0/9,4/7/10/8";
-"root/6/3/0/9,4/7/10/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/9,4/7/10/8" -> "root/6/3/0/9,4/7/10/8/5";
-"root/6/3/0/9,4/7/10/8/5/2"[label="Levin\nChiara"]
-"root/6/3/0/9,4/7/10/8/5" -> "root/6/3/0/9,4/7/10/8/5/2";
-"root/6/3/0/9,4/7/10/8/5/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/9,4/7/10/8/5/2" -> "root/6/3/0/9,4/7/10/8/5/2/1";
-"root/6/3/0/9,4/7/10/8/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/9,4/7/10/8" -> "root/6/3/0/9,4/7/10/8/1";
-"root/6/3/0/9,4/7/10/8/1/2"[label="Levin\nChiara"]
-"root/6/3/0/9,4/7/10/8/1" -> "root/6/3/0/9,4/7/10/8/1/2";
-"root/6/3/0/9,4/7/10/8/1/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/9,4/7/10/8/1/2" -> "root/6/3/0/9,4/7/10/8/1/2/5";
-"root/6/3/0/4/7/10/8/1/9,2"[label="Levin\nSophia\nChiara"]
-"root/6/3/0/4/7/10/8/1" -> "root/6/3/0/4/7/10/8/1/9,2";
-"root/6/3/0/4/7/10/8/1/9,2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4/7/10/8/1/9,2" -> "root/6/3/0/4/7/10/8/1/9,2/5";
-"root/6/3/0/8/1/4,2"[label="Dion\nIna\nChiara"]
-"root/6/3/0/8/1" -> "root/6/3/0/8/1/4,2";
-"root/6/3/0/8/1/4,2/9"[label="Enes\nSophia"]
-"root/6/3/0/8/1/4,2" -> "root/6/3/0/8/1/4,2/9";
-"root/6/3/0/8/1/4,2/9/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/4,2/9" -> "root/6/3/0/8/1/4,2/9/7";
-"root/6/3/0/8/1/4,2/9/7/5"[label="Levin\nJoanna"]
-"root/6/3/0/8/1/4,2/9/7" -> "root/6/3/0/8/1/4,2/9/7/5";
-"root/6/3/0/8/1/4,2/9/7/5/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/4,2/9/7/5" -> "root/6/3/0/8/1/4,2/9/7/5/10";
-"root/6/3/0/8/1/9,2"[label="Dion\nSophia\nChiara"]
-"root/6/3/0/8/1" -> "root/6/3/0/8/1/9,2";
-"root/6/3/0/8/1/9,2/4"[label="Enes\nIna"]
-"root/6/3/0/8/1/9,2" -> "root/6/3/0/8/1/9,2/4";
-"root/6/3/0/8/1/9,2/4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/9,2/4" -> "root/6/3/0/8/1/9,2/4/7";
-"root/6/3/0/8/1/9,2/4/7/5"[label="Levin\nJoanna"]
-"root/6/3/0/8/1/9,2/4/7" -> "root/6/3/0/8/1/9,2/4/7/5";
-"root/6/3/0/8/1/9,2/4/7/5/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/9,2/4/7/5" -> "root/6/3/0/8/1/9,2/4/7/5/10";
-"root/6/3/0/8/1/5,2"[label="Dion\nJoanna\nChiara"]
-"root/6/3/0/8/1" -> "root/6/3/0/8/1/5,2";
-"root/6/3/0/8/1/5,2/4"[label="Enes\nIna"]
-"root/6/3/0/8/1/5,2" -> "root/6/3/0/8/1/5,2/4";
-"root/6/3/0/8/1/5,2/4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/5,2/4" -> "root/6/3/0/8/1/5,2/4/7";
-"root/6/3/0/8/1/5,2/4/7/9"[label="Levin\nSophia"]
-"root/6/3/0/8/1/5,2/4/7" -> "root/6/3/0/8/1/5,2/4/7/9";
-"root/6/3/0/8/1/5,2/4/7/9/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/5,2/4/7/9" -> "root/6/3/0/8/1/5,2/4/7/9/10";
-"root/6/3/0/8/1/4,2/5"[label="Enes\nJoanna"]
-"root/6/3/0/8/1/4,2" -> "root/6/3/0/8/1/4,2/5";
-"root/6/3/0/8/1/4,2/5/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/4,2/5" -> "root/6/3/0/8/1/4,2/5/7";
-"root/6/3/0/8/1/4,2/5/7/9"[label="Levin\nSophia"]
-"root/6/3/0/8/1/4,2/5/7" -> "root/6/3/0/8/1/4,2/5/7/9";
-"root/6/3/0/8/1/4,2/5/7/9/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/4,2/5/7/9" -> "root/6/3/0/8/1/4,2/5/7/9/10";
-"root/6/3/0/8/1/5,2/9"[label="Enes\nSophia"]
-"root/6/3/0/8/1/5,2" -> "root/6/3/0/8/1/5,2/9";
-"root/6/3/0/8/1/5,2/9/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/5,2/9" -> "root/6/3/0/8/1/5,2/9/7";
-"root/6/3/0/8/1/5,2/9/7/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/5,2/9/7" -> "root/6/3/0/8/1/5,2/9/7/4";
-"root/6/3/0/8/1/5,2/9/7/4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/5,2/9/7/4" -> "root/6/3/0/8/1/5,2/9/7/4/10";
-"root/6/3/0/8/1/9,2/5"[label="Enes\nJoanna"]
-"root/6/3/0/8/1/9,2" -> "root/6/3/0/8/1/9,2/5";
-"root/6/3/0/8/1/9,2/5/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/1/9,2/5" -> "root/6/3/0/8/1/9,2/5/7";
-"root/6/3/0/8/1/9,2/5/7/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/9,2/5/7" -> "root/6/3/0/8/1/9,2/5/7/4";
-"root/6/3/0/8/1/9,2/5/7/4/10"[label="Tano\nTori"]
-"root/6/3/0/8/1/9,2/5/7/4" -> "root/6/3/0/8/1/9,2/5/7/4/10";
-"root/6/3/0/4/7/10/8/1/5,2"[label="Levin\nJoanna\nChiara"]
-"root/6/3/0/4/7/10/8/1" -> "root/6/3/0/4/7/10/8/1/5,2";
-"root/6/3/0/4/7/10/8/1/5,2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7/10/8/1/5,2" -> "root/6/3/0/4/7/10/8/1/5,2/9";
-"root/6/3/0/4/7/10/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/5";
-"root/6/3/0/4/7/10/8/5/9,2"[label="Levin\nSophia\nChiara"]
-"root/6/3/0/4/7/10/8/5" -> "root/6/3/0/4/7/10/8/5/9,2";
-"root/6/3/0/4/7/10/8/5/9,2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10/8/5/9,2" -> "root/6/3/0/4/7/10/8/5/9,2/1";
-"root/6/3/0/4/7/10/8/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/9";
-"root/6/3/0/4/7/10/8/9/5,2"[label="Levin\nJoanna\nChiara"]
-"root/6/3/0/4/7/10/8/9" -> "root/6/3/0/4/7/10/8/9/5,2";
-"root/6/3/0/4/7/10/8/9/5,2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10/8/9/5,2" -> "root/6/3/0/4/7/10/8/9/5,2/1";
+"root/6/3/0/8/1/2/5/7/9/4,10"[label="Tano\nIna\nTori"]
+"root/6/3/0/8/1/2/5/7/9" -> "root/6/3/0/8/1/2/5/7/9/4,10";
+"root/6/3/0/8/1/2/9/7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2/9/7" -> "root/6/3/0/8/1/2/9/7/4";
+"root/6/3/0/8/1/2/9/7/4/5,10"[label="Tano\nJoanna\nTori"]
+"root/6/3/0/8/1/2/9/7/4" -> "root/6/3/0/8/1/2/9/7/4/5,10";
+"root/6/3/0/8/1/2/4/7/9"[label="Levin\nSophia"]
+"root/6/3/0/8/1/2/4/7" -> "root/6/3/0/8/1/2/4/7/9";
+"root/6/3/0/8/1/2/4/7/9/5,10"[label="Tano\nJoanna\nTori"]
+"root/6/3/0/8/1/2/4/7/9" -> "root/6/3/0/8/1/2/4/7/9/5,10";
+"root/6/3/0/4/7/9,10/8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4/7/9,10/8" -> "root/6/3/0/4/7/9,10/8/1";
+"root/6/3/0/4/7/9,10/8/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/9,10/8/1" -> "root/6/3/0/4/7/9,10/8/1/2";
+"root/6/3/0/4/7/9,10/8/1/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/4/7/9,10/8/1/2" -> "root/6/3/0/4/7/9,10/8/1/2/5";
+"root/6/3/0/4/7/1,10/8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4/7/1,10/8" -> "root/6/3/0/4/7/1,10/8/9";
+"root/6/3/0/4/7/1,10/8/9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/1,10/8/9" -> "root/6/3/0/4/7/1,10/8/9/2";
+"root/6/3/0/4/7/1,10/8/9/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/4/7/1,10/8/9/2" -> "root/6/3/0/4/7/1,10/8/9/2/5";
+"root/6/3/0/4/5,7"[label="Sinan\nJoanna\nNasti"]
+"root/6/3/0/4" -> "root/6/3/0/4/5,7";
+"root/6/3/0/4/5,7/10"[label="Dion\nTori"]
+"root/6/3/0/4/5,7" -> "root/6/3/0/4/5,7/10";
+"root/6/3/0/4/5,7/10/8"[label="Enes\nSelina"]
+"root/6/3/0/4/5,7/10" -> "root/6/3/0/4/5,7/10/8";
+"root/6/3/0/4/5,7/10/8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4/5,7/10/8" -> "root/6/3/0/4/5,7/10/8/1";
+"root/6/3/0/4/5,7/10/8/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4/5,7/10/8/1" -> "root/6/3/0/4/5,7/10/8/1/2";
+"root/6/3/0/4/5,7/10/8/1/2/9"[label="Tano\nSophia"]
+"root/6/3/0/4/5,7/10/8/1/2" -> "root/6/3/0/4/5,7/10/8/1/2/9";
+"root/6/3/0/4/5,7/10/8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4/5,7/10/8" -> "root/6/3/0/4/5,7/10/8/9";
+"root/6/3/0/4/5,7/10/8/9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/5,7/10/8/9" -> "root/6/3/0/4/5,7/10/8/9/2";
+"root/6/3/0/4/5,7/10/8/9/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/5,7/10/8/9/2" -> "root/6/3/0/4/5,7/10/8/9/2/1";
 "root/6/3/0/9"[label="Joshi-Josh\nSophia"]
 "root/6/3/0" -> "root/6/3/0/9";
-"root/6/3/0/9/7,1"[label="Sinan\nNasti\nCamelia"]
-"root/6/3/0/9" -> "root/6/3/0/9/7,1";
-"root/6/3/0/9/7,1/10"[label="Dion\nTori"]
-"root/6/3/0/9/7,1" -> "root/6/3/0/9/7,1/10";
-"root/6/3/0/9/7,1/10/8"[label="Enes\nSelina"]
-"root/6/3/0/9/7,1/10" -> "root/6/3/0/9/7,1/10/8";
-"root/6/3/0/9/7,1/10/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/9/7,1/10/8" -> "root/6/3/0/9/7,1/10/8/5";
-"root/6/3/0/9/7,1/10/8/5/2"[label="Levin\nChiara"]
-"root/6/3/0/9/7,1/10/8/5" -> "root/6/3/0/9/7,1/10/8/5/2";
-"root/6/3/0/9/7,1/10/8/5/2/4"[label="Tano\nIna"]
-"root/6/3/0/9/7,1/10/8/5/2" -> "root/6/3/0/9/7,1/10/8/5/2/4";
-"root/6/3/0/4/7/10,1"[label="Dion\nTori\nCamelia"]
-"root/6/3/0/4/7" -> "root/6/3/0/4/7/10,1";
-"root/6/3/0/4/7/10,1/8"[label="Enes\nSelina"]
-"root/6/3/0/4/7/10,1" -> "root/6/3/0/4/7/10,1/8";
-"root/6/3/0/4/7/10,1/8/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4/7/10,1/8" -> "root/6/3/0/4/7/10,1/8/9";
-"root/6/3/0/4/7/10,1/8/9/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10,1/8/9" -> "root/6/3/0/4/7/10,1/8/9/2";
-"root/6/3/0/4/7/10,1/8/9/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4/7/10,1/8/9/2" -> "root/6/3/0/4/7/10,1/8/9/2/5";
-"root/6/3/0/4/7/10/8,1"[label="Enes\nSelina\nCamelia"]
-"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/8,1";
-"root/6/3/0/4/7/10/8,1/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4/7/10/8,1" -> "root/6/3/0/4/7/10/8,1/9";
-"root/6/3/0/4/7/10/8,1/9/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8,1/9" -> "root/6/3/0/4/7/10/8,1/9/2";
-"root/6/3/0/4/7/10/8,1/9/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4/7/10/8,1/9/2" -> "root/6/3/0/4/7/10/8,1/9/2/5";
-"root/6/3/0/4/7/10/8/9,1"[label="Josh/Monacco\nSophia\nCamelia"]
-"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/9,1";
-"root/6/3/0/4/7/10/8/9,1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8/9,1" -> "root/6/3/0/4/7/10/8/9,1/2";
-"root/6/3/0/4/7/10/8/9,1/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4/7/10/8/9,1/2" -> "root/6/3/0/4/7/10/8/9,1/2/5";
-"root/6/3/0/4,1"[label="Joshi-Josh\nIna\nCamelia"]
-"root/6/3/0" -> "root/6/3/0/4,1";
-"root/6/3/0/4,1/7"[label="Sinan\nNasti"]
-"root/6/3/0/4,1" -> "root/6/3/0/4,1/7";
-"root/6/3/0/4,1/7/10"[label="Dion\nTori"]
-"root/6/3/0/4,1/7" -> "root/6/3/0/4,1/7/10";
-"root/6/3/0/4,1/7/10/8"[label="Enes\nSelina"]
-"root/6/3/0/4,1/7/10" -> "root/6/3/0/4,1/7/10/8";
-"root/6/3/0/4,1/7/10/8/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/0/4,1/7/10/8" -> "root/6/3/0/4,1/7/10/8/9";
-"root/6/3/0/4,1/7/10/8/9/2"[label="Levin\nChiara"]
-"root/6/3/0/4,1/7/10/8/9" -> "root/6/3/0/4,1/7/10/8/9/2";
-"root/6/3/0/4,1/7/10/8/9/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4,1/7/10/8/9/2" -> "root/6/3/0/4,1/7/10/8/9/2/5";
+"root/6/3/0/9/1,7"[label="Sinan\nCamelia\nNasti"]
+"root/6/3/0/9" -> "root/6/3/0/9/1,7";
+"root/6/3/0/9/1,7/10"[label="Dion\nTori"]
+"root/6/3/0/9/1,7" -> "root/6/3/0/9/1,7/10";
+"root/6/3/0/9/1,7/10/8"[label="Enes\nSelina"]
+"root/6/3/0/9/1,7/10" -> "root/6/3/0/9/1,7/10/8";
+"root/6/3/0/9/1,7/10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/9/1,7/10/8" -> "root/6/3/0/9/1,7/10/8/5";
+"root/6/3/0/9/1,7/10/8/5/2"[label="Levin\nChiara"]
+"root/6/3/0/9/1,7/10/8/5" -> "root/6/3/0/9/1,7/10/8/5/2";
+"root/6/3/0/9/1,7/10/8/5/2/4"[label="Tano\nIna"]
+"root/6/3/0/9/1,7/10/8/5/2" -> "root/6/3/0/9/1,7/10/8/5/2/4";
+"root/6/3/0/8/1/2/9/5,7"[label="Josh/Monacco\nJoanna\nNasti"]
+"root/6/3/0/8/1/2/9" -> "root/6/3/0/8/1/2/9/5,7";
+"root/6/3/0/8/1/2/9/5,7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2/9/5,7" -> "root/6/3/0/8/1/2/9/5,7/4";
+"root/6/3/0/8/1/2/9/5,7/4/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/9/5,7/4" -> "root/6/3/0/8/1/2/9/5,7/4/10";
+"root/6/3/0/8/1/2/4/5,7"[label="Josh/Monacco\nJoanna\nNasti"]
+"root/6/3/0/8/1/2/4" -> "root/6/3/0/8/1/2/4/5,7";
+"root/6/3/0/8/1/2/4/5,7/9"[label="Levin\nSophia"]
+"root/6/3/0/8/1/2/4/5,7" -> "root/6/3/0/8/1/2/4/5,7/9";
+"root/6/3/0/8/1/2/4/5,7/9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/4/5,7/9" -> "root/6/3/0/8/1/2/4/5,7/9/10";
+"root/6/3/0,5"[label="Kaan\nAnna\nJoanna"]
+"root/6/3" -> "root/6/3/0,5";
+"root/6/3/0,5/4"[label="Joshi-Josh\nIna"]
+"root/6/3/0,5" -> "root/6/3/0,5/4";
+"root/6/3/0,5/4/1"[label="Sinan\nCamelia"]
+"root/6/3/0,5/4" -> "root/6/3/0,5/4/1";
+"root/6/3/0,5/4/1/2"[label="Dion\nChiara"]
+"root/6/3/0,5/4/1" -> "root/6/3/0,5/4/1/2";
+"root/6/3/0,5/4/1/2/9"[label="Enes\nSophia"]
+"root/6/3/0,5/4/1/2" -> "root/6/3/0,5/4/1/2/9";
+"root/6/3/0,5/4/1/2/9/8"[label="Josh/Monacco\nSelina"]
+"root/6/3/0,5/4/1/2/9" -> "root/6/3/0,5/4/1/2/9/8";
+"root/6/3/0,5/4/1/2/9/8/7"[label="Levin\nNasti"]
+"root/6/3/0,5/4/1/2/9/8" -> "root/6/3/0,5/4/1/2/9/8/7";
+"root/6/3/0,5/4/1/2/9/8/7/10"[label="Tano\nTori"]
+"root/6/3/0,5/4/1/2/9/8/7" -> "root/6/3/0,5/4/1/2/9/8/7/10";
+"root/6/3/0/8/1/2,5"[label="Dion\nChiara\nJoanna"]
+"root/6/3/0/8/1" -> "root/6/3/0/8/1/2,5";
+"root/6/3/0/8/1/2,5/9"[label="Enes\nSophia"]
+"root/6/3/0/8/1/2,5" -> "root/6/3/0/8/1/2,5/9";
+"root/6/3/0/8/1/2,5/9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2,5/9" -> "root/6/3/0/8/1/2,5/9/7";
+"root/6/3/0/8/1/2,5/9/7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2,5/9/7" -> "root/6/3/0/8/1/2,5/9/7/4";
+"root/6/3/0/8/1/2,5/9/7/4/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2,5/9/7/4" -> "root/6/3/0/8/1/2,5/9/7/4/10";
+"root/6/3/0/8/1/2/9/7/4,5"[label="Levin\nIna\nJoanna"]
+"root/6/3/0/8/1/2/9/7" -> "root/6/3/0/8/1/2/9/7/4,5";
+"root/6/3/0/8/1/2/9/7/4,5/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/9/7/4,5" -> "root/6/3/0/8/1/2/9/7/4,5/10";
+"root/6/3/0/8/1,5"[label="Sinan\nCamelia\nJoanna"]
+"root/6/3/0/8" -> "root/6/3/0/8/1,5";
+"root/6/3/0/8/1,5/2"[label="Dion\nChiara"]
+"root/6/3/0/8/1,5" -> "root/6/3/0/8/1,5/2";
+"root/6/3/0/8/1,5/2/9"[label="Enes\nSophia"]
+"root/6/3/0/8/1,5/2" -> "root/6/3/0/8/1,5/2/9";
+"root/6/3/0/8/1,5/2/9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1,5/2/9" -> "root/6/3/0/8/1,5/2/9/7";
+"root/6/3/0/8/1,5/2/9/7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1,5/2/9/7" -> "root/6/3/0/8/1,5/2/9/7/4";
+"root/6/3/0/8/1,5/2/9/7/4/10"[label="Tano\nTori"]
+"root/6/3/0/8/1,5/2/9/7/4" -> "root/6/3/0/8/1,5/2/9/7/4/10";
+"root/6/3/0/8/1/2,5/4"[label="Enes\nIna"]
+"root/6/3/0/8/1/2,5" -> "root/6/3/0/8/1/2,5/4";
+"root/6/3/0/8/1/2,5/4/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2,5/4" -> "root/6/3/0/8/1/2,5/4/7";
+"root/6/3/0/8/1/2,5/4/7/9"[label="Levin\nSophia"]
+"root/6/3/0/8/1/2,5/4/7" -> "root/6/3/0/8/1/2,5/4/7/9";
+"root/6/3/0/8/1/2,5/4/7/9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2,5/4/7/9" -> "root/6/3/0/8/1/2,5/4/7/9/10";
+"root/6/3/0/8/1/2/4,5"[label="Enes\nIna\nJoanna"]
+"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/4,5";
+"root/6/3/0/8/1/2/4,5/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2/4,5" -> "root/6/3/0/8/1/2/4,5/7";
+"root/6/3/0/8/1/2/4,5/7/9"[label="Levin\nSophia"]
+"root/6/3/0/8/1/2/4,5/7" -> "root/6/3/0/8/1/2/4,5/7/9";
+"root/6/3/0/8/1/2/4,5/7/9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/4,5/7/9" -> "root/6/3/0/8/1/2/4,5/7/9/10";
+"root/6/3/0/8/1,5/2/4"[label="Enes\nIna"]
+"root/6/3/0/8/1,5/2" -> "root/6/3/0/8/1,5/2/4";
+"root/6/3/0/8/1,5/2/4/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1,5/2/4" -> "root/6/3/0/8/1,5/2/4/7";
+"root/6/3/0/8/1,5/2/4/7/9"[label="Levin\nSophia"]
+"root/6/3/0/8/1,5/2/4/7" -> "root/6/3/0/8/1,5/2/4/7/9";
+"root/6/3/0/8/1,5/2/4/7/9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1,5/2/4/7/9" -> "root/6/3/0/8/1,5/2/4/7/9/10";
+"root/6/3/0,5/9"[label="Joshi-Josh\nSophia"]
+"root/6/3/0,5" -> "root/6/3/0,5/9";
+"root/6/3/0,5/9/1"[label="Sinan\nCamelia"]
+"root/6/3/0,5/9" -> "root/6/3/0,5/9/1";
+"root/6/3/0,5/9/1/2"[label="Dion\nChiara"]
+"root/6/3/0,5/9/1" -> "root/6/3/0,5/9/1/2";
+"root/6/3/0,5/9/1/2/4"[label="Enes\nIna"]
+"root/6/3/0,5/9/1/2" -> "root/6/3/0,5/9/1/2/4";
+"root/6/3/0,5/9/1/2/4/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0,5/9/1/2/4" -> "root/6/3/0,5/9/1/2/4/7";
+"root/6/3/0,5/9/1/2/4/7/8"[label="Levin\nSelina"]
+"root/6/3/0,5/9/1/2/4/7" -> "root/6/3/0,5/9/1/2/4/7/8";
+"root/6/3/0,5/9/1/2/4/7/8/10"[label="Tano\nTori"]
+"root/6/3/0,5/9/1/2/4/7/8" -> "root/6/3/0,5/9/1/2/4/7/8/10";
+"root/6/3/0,5/4/8"[label="Sinan\nSelina"]
+"root/6/3/0,5/4" -> "root/6/3/0,5/4/8";
+"root/6/3/0,5/4/8/2"[label="Dion\nChiara"]
+"root/6/3/0,5/4/8" -> "root/6/3/0,5/4/8/2";
+"root/6/3/0,5/4/8/2/1"[label="Enes\nCamelia"]
+"root/6/3/0,5/4/8/2" -> "root/6/3/0,5/4/8/2/1";
+"root/6/3/0,5/4/8/2/1/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0,5/4/8/2/1" -> "root/6/3/0,5/4/8/2/1/7";
+"root/6/3/0,5/4/8/2/1/7/9"[label="Levin\nSophia"]
+"root/6/3/0,5/4/8/2/1/7" -> "root/6/3/0,5/4/8/2/1/7/9";
+"root/6/3/0,5/4/8/2/1/7/9/10"[label="Tano\nTori"]
+"root/6/3/0,5/4/8/2/1/7/9" -> "root/6/3/0,5/4/8/2/1/7/9/10";
+"root/6/3/0/4/7/10"[label="Dion\nTori"]
+"root/6/3/0/4/7" -> "root/6/3/0/4/7/10";
+"root/6/3/0/4/7/10/8"[label="Enes\nSelina"]
+"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/8";
+"root/6/3/0/4/7/10/8/1,5"[label="Josh/Monacco\nCamelia\nJoanna"]
+"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/1,5";
+"root/6/3/0/4/7/10/8/1,5/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/8/1,5" -> "root/6/3/0/4/7/10/8/1,5/2";
+"root/6/3/0/4/7/10/8/1,5/2/9"[label="Tano\nSophia"]
+"root/6/3/0/4/7/10/8/1,5/2" -> "root/6/3/0/4/7/10/8/1,5/2/9";
+"root/6/3/0/4/7/10/8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/1";
+"root/6/3/0/4/7/10/8/1/2,5"[label="Levin\nChiara\nJoanna"]
+"root/6/3/0/4/7/10/8/1" -> "root/6/3/0/4/7/10/8/1/2,5";
+"root/6/3/0/4/7/10/8/1/2,5/9"[label="Tano\nSophia"]
+"root/6/3/0/4/7/10/8/1/2,5" -> "root/6/3/0/4/7/10/8/1/2,5/9";
+"root/6/3/0,5/4/7"[label="Sinan\nNasti"]
+"root/6/3/0,5/4" -> "root/6/3/0,5/4/7";
+"root/6/3/0,5/4/7/1"[label="Dion\nCamelia"]
+"root/6/3/0,5/4/7" -> "root/6/3/0,5/4/7/1";
+"root/6/3/0,5/4/7/1/8"[label="Enes\nSelina"]
+"root/6/3/0,5/4/7/1" -> "root/6/3/0,5/4/7/1/8";
+"root/6/3/0,5/4/7/1/8/10"[label="Josh/Monacco\nTori"]
+"root/6/3/0,5/4/7/1/8" -> "root/6/3/0,5/4/7/1/8/10";
+"root/6/3/0,5/4/7/1/8/10/2"[label="Levin\nChiara"]
+"root/6/3/0,5/4/7/1/8/10" -> "root/6/3/0,5/4/7/1/8/10/2";
+"root/6/3/0,5/4/7/1/8/10/2/9"[label="Tano\nSophia"]
+"root/6/3/0,5/4/7/1/8/10/2" -> "root/6/3/0,5/4/7/1/8/10/2/9";
+"root/6/3/0,5/4/7/9"[label="Dion\nSophia"]
+"root/6/3/0,5/4/7" -> "root/6/3/0,5/4/7/9";
+"root/6/3/0,5/4/7/9/8"[label="Enes\nSelina"]
+"root/6/3/0,5/4/7/9" -> "root/6/3/0,5/4/7/9/8";
+"root/6/3/0,5/4/7/9/8/10"[label="Josh/Monacco\nTori"]
+"root/6/3/0,5/4/7/9/8" -> "root/6/3/0,5/4/7/9/8/10";
+"root/6/3/0,5/4/7/9/8/10/2"[label="Levin\nChiara"]
+"root/6/3/0,5/4/7/9/8/10" -> "root/6/3/0,5/4/7/9/8/10/2";
+"root/6/3/0,5/4/7/9/8/10/2/1"[label="Tano\nCamelia"]
+"root/6/3/0,5/4/7/9/8/10/2" -> "root/6/3/0,5/4/7/9/8/10/2/1";
+"root/6/3/0/4/7/10/8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/9";
+"root/6/3/0/4/7/10/8/9/2,5"[label="Levin\nChiara\nJoanna"]
+"root/6/3/0/4/7/10/8/9" -> "root/6/3/0/4/7/10/8/9/2,5";
+"root/6/3/0/4/7/10/8/9/2,5/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/10/8/9/2,5" -> "root/6/3/0/4/7/10/8/9/2,5/1";
 "root/6/3/0/4/7/10/8/9/2"[label="Levin\nChiara"]
 "root/6/3/0/4/7/10/8/9" -> "root/6/3/0/4/7/10/8/9/2";
-"root/6/3/0/4/7/10/8/9/2/5,1"[label="Tano\nJoanna\nCamelia"]
-"root/6/3/0/4/7/10/8/9/2" -> "root/6/3/0/4/7/10/8/9/2/5,1";
-"root/6/3/0/8/5,1"[label="Sinan\nJoanna\nCamelia"]
-"root/6/3/0/8" -> "root/6/3/0/8/5,1";
-"root/6/3/0/8/5,1/2"[label="Dion\nChiara"]
-"root/6/3/0/8/5,1" -> "root/6/3/0/8/5,1/2";
-"root/6/3/0/8/5,1/2/4"[label="Enes\nIna"]
-"root/6/3/0/8/5,1/2" -> "root/6/3/0/8/5,1/2/4";
-"root/6/3/0/8/5,1/2/4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/5,1/2/4" -> "root/6/3/0/8/5,1/2/4/7";
-"root/6/3/0/8/5,1/2/4/7/9"[label="Levin\nSophia"]
-"root/6/3/0/8/5,1/2/4/7" -> "root/6/3/0/8/5,1/2/4/7/9";
-"root/6/3/0/8/5,1/2/4/7/9/10"[label="Tano\nTori"]
-"root/6/3/0/8/5,1/2/4/7/9" -> "root/6/3/0/8/5,1/2/4/7/9/10";
-"root/6/3/0/8/5,1/2/9"[label="Enes\nSophia"]
-"root/6/3/0/8/5,1/2" -> "root/6/3/0/8/5,1/2/9";
-"root/6/3/0/8/5,1/2/9/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/8/5,1/2/9" -> "root/6/3/0/8/5,1/2/9/7";
-"root/6/3/0/8/5,1/2/9/7/4"[label="Levin\nIna"]
-"root/6/3/0/8/5,1/2/9/7" -> "root/6/3/0/8/5,1/2/9/7/4";
-"root/6/3/0/8/5,1/2/9/7/4/10"[label="Tano\nTori"]
-"root/6/3/0/8/5,1/2/9/7/4" -> "root/6/3/0/8/5,1/2/9/7/4/10";
-"root/6/3/0/4/7/10,1/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/4/7/10,1/8" -> "root/6/3/0/4/7/10,1/8/5";
-"root/6/3/0/4/7/10,1/8/5/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10,1/8/5" -> "root/6/3/0/4/7/10,1/8/5/2";
-"root/6/3/0/4/7/10,1/8/5/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7/10,1/8/5/2" -> "root/6/3/0/4/7/10,1/8/5/2/9";
-"root/6/3/0/4/7/10/8,1/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/4/7/10/8,1" -> "root/6/3/0/4/7/10/8,1/5";
-"root/6/3/0/4/7/10/8,1/5/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8,1/5" -> "root/6/3/0/4/7/10/8,1/5/2";
-"root/6/3/0/4/7/10/8,1/5/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7/10/8,1/5/2" -> "root/6/3/0/4/7/10/8,1/5/2/9";
-"root/6/3/0/4/7/10/8/5,1"[label="Josh/Monacco\nJoanna\nCamelia"]
-"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/5,1";
-"root/6/3/0/4/7/10/8/5,1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/8/5,1" -> "root/6/3/0/4/7/10/8/5,1/2";
-"root/6/3/0/4/7/10/8/5,1/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4/7/10/8/5,1/2" -> "root/6/3/0/4/7/10/8/5,1/2/9";
-"root/6/3/0/4,1/7/10/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/4,1/7/10/8" -> "root/6/3/0/4,1/7/10/8/5";
-"root/6/3/0/4,1/7/10/8/5/2"[label="Levin\nChiara"]
-"root/6/3/0/4,1/7/10/8/5" -> "root/6/3/0/4,1/7/10/8/5/2";
-"root/6/3/0/4,1/7/10/8/5/2/9"[label="Tano\nSophia"]
-"root/6/3/0/4,1/7/10/8/5/2" -> "root/6/3/0/4,1/7/10/8/5/2/9";
+"root/6/3/0/4/7/10/8/9/2/1,5"[label="Tano\nCamelia\nJoanna"]
+"root/6/3/0/4/7/10/8/9/2" -> "root/6/3/0/4/7/10/8/9/2/1,5";
+"root/6/3/0/8/1/2,4"[label="Dion\nChiara\nIna"]
+"root/6/3/0/8/1" -> "root/6/3/0/8/1/2,4";
+"root/6/3/0/8/1/2,4/9"[label="Enes\nSophia"]
+"root/6/3/0/8/1/2,4" -> "root/6/3/0/8/1/2,4/9";
+"root/6/3/0/8/1/2,4/9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2,4/9" -> "root/6/3/0/8/1/2,4/9/7";
+"root/6/3/0/8/1/2,4/9/7/5"[label="Levin\nJoanna"]
+"root/6/3/0/8/1/2,4/9/7" -> "root/6/3/0/8/1/2,4/9/7/5";
+"root/6/3/0/8/1/2,4/9/7/5/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2,4/9/7/5" -> "root/6/3/0/8/1/2,4/9/7/5/10";
+"root/6/3/0,4"[label="Kaan\nAnna\nIna"]
+"root/6/3" -> "root/6/3/0,4";
+"root/6/3/0,4/8"[label="Joshi-Josh\nSelina"]
+"root/6/3/0,4" -> "root/6/3/0,4/8";
+"root/6/3/0,4/8/1"[label="Sinan\nCamelia"]
+"root/6/3/0,4/8" -> "root/6/3/0,4/8/1";
+"root/6/3/0,4/8/1/2"[label="Dion\nChiara"]
+"root/6/3/0,4/8/1" -> "root/6/3/0,4/8/1/2";
+"root/6/3/0,4/8/1/2/9"[label="Enes\nSophia"]
+"root/6/3/0,4/8/1/2" -> "root/6/3/0,4/8/1/2/9";
+"root/6/3/0,4/8/1/2/9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0,4/8/1/2/9" -> "root/6/3/0,4/8/1/2/9/7";
+"root/6/3/0,4/8/1/2/9/7/5"[label="Levin\nJoanna"]
+"root/6/3/0,4/8/1/2/9/7" -> "root/6/3/0,4/8/1/2/9/7/5";
+"root/6/3/0,4/8/1/2/9/7/5/10"[label="Tano\nTori"]
+"root/6/3/0,4/8/1/2/9/7/5" -> "root/6/3/0,4/8/1/2/9/7/5/10";
+"root/6/3/0/8/1/2,4/5"[label="Enes\nJoanna"]
+"root/6/3/0/8/1/2,4" -> "root/6/3/0/8/1/2,4/5";
+"root/6/3/0/8/1/2,4/5/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2,4/5" -> "root/6/3/0/8/1/2,4/5/7";
+"root/6/3/0/8/1/2,4/5/7/9"[label="Levin\nSophia"]
+"root/6/3/0/8/1/2,4/5/7" -> "root/6/3/0/8/1/2,4/5/7/9";
+"root/6/3/0/8/1/2,4/5/7/9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2,4/5/7/9" -> "root/6/3/0/8/1/2,4/5/7/9/10";
+"root/6/3/0,4/8/1/2/5"[label="Enes\nJoanna"]
+"root/6/3/0,4/8/1/2" -> "root/6/3/0,4/8/1/2/5";
+"root/6/3/0,4/8/1/2/5/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0,4/8/1/2/5" -> "root/6/3/0,4/8/1/2/5/7";
+"root/6/3/0,4/8/1/2/5/7/9"[label="Levin\nSophia"]
+"root/6/3/0,4/8/1/2/5/7" -> "root/6/3/0,4/8/1/2/5/7/9";
+"root/6/3/0,4/8/1/2/5/7/9/10"[label="Tano\nTori"]
+"root/6/3/0,4/8/1/2/5/7/9" -> "root/6/3/0,4/8/1/2/5/7/9/10";
+"root/6/3/0/1,4"[label="Joshi-Josh\nCamelia\nIna"]
+"root/6/3/0" -> "root/6/3/0/1,4";
+"root/6/3/0/1,4/7"[label="Sinan\nNasti"]
+"root/6/3/0/1,4" -> "root/6/3/0/1,4/7";
+"root/6/3/0/1,4/7/10"[label="Dion\nTori"]
+"root/6/3/0/1,4/7" -> "root/6/3/0/1,4/7/10";
+"root/6/3/0/1,4/7/10/8"[label="Enes\nSelina"]
+"root/6/3/0/1,4/7/10" -> "root/6/3/0/1,4/7/10/8";
+"root/6/3/0/1,4/7/10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/1,4/7/10/8" -> "root/6/3/0/1,4/7/10/8/5";
+"root/6/3/0/1,4/7/10/8/5/2"[label="Levin\nChiara"]
+"root/6/3/0/1,4/7/10/8/5" -> "root/6/3/0/1,4/7/10/8/5/2";
+"root/6/3/0/1,4/7/10/8/5/2/9"[label="Tano\nSophia"]
+"root/6/3/0/1,4/7/10/8/5/2" -> "root/6/3/0/1,4/7/10/8/5/2/9";
+"root/6/3/0/1,4/7/10/8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/1,4/7/10/8" -> "root/6/3/0/1,4/7/10/8/9";
+"root/6/3/0/1,4/7/10/8/9/2"[label="Levin\nChiara"]
+"root/6/3/0/1,4/7/10/8/9" -> "root/6/3/0/1,4/7/10/8/9/2";
+"root/6/3/0/1,4/7/10/8/9/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/1,4/7/10/8/9/2" -> "root/6/3/0/1,4/7/10/8/9/2/5";
+"root/6/3/0,1"[label="Kaan\nAnna\nCamelia"]
+"root/6/3" -> "root/6/3/0,1";
+"root/6/3/0,1/4"[label="Joshi-Josh\nIna"]
+"root/6/3/0,1" -> "root/6/3/0,1/4";
+"root/6/3/0,1/4/7"[label="Sinan\nNasti"]
+"root/6/3/0,1/4" -> "root/6/3/0,1/4/7";
+"root/6/3/0,1/4/7/10"[label="Dion\nTori"]
+"root/6/3/0,1/4/7" -> "root/6/3/0,1/4/7/10";
+"root/6/3/0,1/4/7/10/8"[label="Enes\nSelina"]
+"root/6/3/0,1/4/7/10" -> "root/6/3/0,1/4/7/10/8";
+"root/6/3/0,1/4/7/10/8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0,1/4/7/10/8" -> "root/6/3/0,1/4/7/10/8/9";
+"root/6/3/0,1/4/7/10/8/9/2"[label="Levin\nChiara"]
+"root/6/3/0,1/4/7/10/8/9" -> "root/6/3/0,1/4/7/10/8/9/2";
+"root/6/3/0,1/4/7/10/8/9/2/5"[label="Tano\nJoanna"]
+"root/6/3/0,1/4/7/10/8/9/2" -> "root/6/3/0,1/4/7/10/8/9/2/5";
+"root/6/3/0,1/4/7/10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0,1/4/7/10/8" -> "root/6/3/0,1/4/7/10/8/5";
+"root/6/3/0,1/4/7/10/8/5/2"[label="Levin\nChiara"]
+"root/6/3/0,1/4/7/10/8/5" -> "root/6/3/0,1/4/7/10/8/5/2";
+"root/6/3/0,1/4/7/10/8/5/2/9"[label="Tano\nSophia"]
+"root/6/3/0,1/4/7/10/8/5/2" -> "root/6/3/0,1/4/7/10/8/5/2/9";
+"root/6/3/0/4/7/10/1,8"[label="Enes\nCamelia\nSelina"]
+"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/1,8";
+"root/6/3/0/4/7/10/1,8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4/7/10/1,8" -> "root/6/3/0/4/7/10/1,8/9";
+"root/6/3/0/4/7/10/1,8/9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/1,8/9" -> "root/6/3/0/4/7/10/1,8/9/2";
+"root/6/3/0/4/7/10/1,8/9/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/4/7/10/1,8/9/2" -> "root/6/3/0/4/7/10/1,8/9/2/5";
+"root/6/3/0/4,8"[label="Joshi-Josh\nIna\nSelina"]
+"root/6/3/0" -> "root/6/3/0/4,8";
+"root/6/3/0/4,8/5"[label="Sinan\nJoanna"]
+"root/6/3/0/4,8" -> "root/6/3/0/4,8/5";
+"root/6/3/0/4,8/5/2"[label="Dion\nChiara"]
+"root/6/3/0/4,8/5" -> "root/6/3/0/4,8/5/2";
+"root/6/3/0/4,8/5/2/1"[label="Enes\nCamelia"]
+"root/6/3/0/4,8/5/2" -> "root/6/3/0/4,8/5/2/1";
+"root/6/3/0/4,8/5/2/1/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/4,8/5/2/1" -> "root/6/3/0/4,8/5/2/1/7";
+"root/6/3/0/4,8/5/2/1/7/9"[label="Levin\nSophia"]
+"root/6/3/0/4,8/5/2/1/7" -> "root/6/3/0/4,8/5/2/1/7/9";
+"root/6/3/0/4,8/5/2/1/7/9/10"[label="Tano\nTori"]
+"root/6/3/0/4,8/5/2/1/7/9" -> "root/6/3/0/4,8/5/2/1/7/9/10";
+"root/6/3/0/4,8/1"[label="Sinan\nCamelia"]
+"root/6/3/0/4,8" -> "root/6/3/0/4,8/1";
+"root/6/3/0/4,8/1/2"[label="Dion\nChiara"]
+"root/6/3/0/4,8/1" -> "root/6/3/0/4,8/1/2";
+"root/6/3/0/4,8/1/2/9"[label="Enes\nSophia"]
+"root/6/3/0/4,8/1/2" -> "root/6/3/0/4,8/1/2/9";
+"root/6/3/0/4,8/1/2/9/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4,8/1/2/9" -> "root/6/3/0/4,8/1/2/9/5";
+"root/6/3/0/4,8/1/2/9/5/7"[label="Levin\nNasti"]
+"root/6/3/0/4,8/1/2/9/5" -> "root/6/3/0/4,8/1/2/9/5/7";
+"root/6/3/0/4,8/1/2/9/5/7/10"[label="Tano\nTori"]
+"root/6/3/0/4,8/1/2/9/5/7" -> "root/6/3/0/4,8/1/2/9/5/7/10";
+"root/6/3/0/4,8/1/2/5"[label="Enes\nJoanna"]
+"root/6/3/0/4,8/1/2" -> "root/6/3/0/4,8/1/2/5";
+"root/6/3/0/4,8/1/2/5/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4,8/1/2/5" -> "root/6/3/0/4,8/1/2/5/9";
+"root/6/3/0/4,8/1/2/5/9/7"[label="Levin\nNasti"]
+"root/6/3/0/4,8/1/2/5/9" -> "root/6/3/0/4,8/1/2/5/9/7";
+"root/6/3/0/4,8/1/2/5/9/7/10"[label="Tano\nTori"]
+"root/6/3/0/4,8/1/2/5/9/7" -> "root/6/3/0/4,8/1/2/5/9/7/10";
+"root/6/3/0/4/7/10/5,8"[label="Enes\nJoanna\nSelina"]
+"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/5,8";
+"root/6/3/0/4/7/10/5,8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4/7/10/5,8" -> "root/6/3/0/4/7/10/5,8/1";
+"root/6/3/0/4/7/10/5,8/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/5,8/1" -> "root/6/3/0/4/7/10/5,8/1/2";
+"root/6/3/0/4/7/10/5,8/1/2/9"[label="Tano\nSophia"]
+"root/6/3/0/4/7/10/5,8/1/2" -> "root/6/3/0/4/7/10/5,8/1/2/9";
+"root/6/3/0/4/7/10/1,8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4/7/10/1,8" -> "root/6/3/0/4/7/10/1,8/5";
+"root/6/3/0/4/7/10/1,8/5/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/1,8/5" -> "root/6/3/0/4/7/10/1,8/5/2";
+"root/6/3/0/4/7/10/1,8/5/2/9"[label="Tano\nSophia"]
+"root/6/3/0/4/7/10/1,8/5/2" -> "root/6/3/0/4/7/10/1,8/5/2/9";
+"root/6/3/0/4/7/10/5,8/9"[label="Josh/Monacco\nSophia"]
+"root/6/3/0/4/7/10/5,8" -> "root/6/3/0/4/7/10/5,8/9";
+"root/6/3/0/4/7/10/5,8/9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/5,8/9" -> "root/6/3/0/4/7/10/5,8/9/2";
+"root/6/3/0/4/7/10/5,8/9/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/10/5,8/9/2" -> "root/6/3/0/4/7/10/5,8/9/2/1";
+"root/6/3/0/4/7/10/8,9"[label="Enes\nSelina\nSophia"]
+"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/8,9";
+"root/6/3/0/4/7/10/8,9/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4/7/10/8,9" -> "root/6/3/0/4/7/10/8,9/5";
+"root/6/3/0/4/7/10/8,9/5/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/8,9/5" -> "root/6/3/0/4/7/10/8,9/5/2";
+"root/6/3/0/4/7/10/8,9/5/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/10/8,9/5/2" -> "root/6/3/0/4/7/10/8,9/5/2/1";
+"root/6/3/0/4/7/10/8/5,9"[label="Josh/Monacco\nJoanna\nSophia"]
+"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/5,9";
+"root/6/3/0/4/7/10/8/5,9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/8/5,9" -> "root/6/3/0/4/7/10/8/5,9/2";
+"root/6/3/0/4/7/10/8/5,9/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/10/8/5,9/2" -> "root/6/3/0/4/7/10/8/5,9/2/1";
+"root/6/3/0/4,9"[label="Joshi-Josh\nIna\nSophia"]
+"root/6/3/0" -> "root/6/3/0/4,9";
+"root/6/3/0/4,9/7"[label="Sinan\nNasti"]
+"root/6/3/0/4,9" -> "root/6/3/0/4,9/7";
+"root/6/3/0/4,9/7/10"[label="Dion\nTori"]
+"root/6/3/0/4,9/7" -> "root/6/3/0/4,9/7/10";
+"root/6/3/0/4,9/7/10/8"[label="Enes\nSelina"]
+"root/6/3/0/4,9/7/10" -> "root/6/3/0/4,9/7/10/8";
+"root/6/3/0/4,9/7/10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4,9/7/10/8" -> "root/6/3/0/4,9/7/10/8/5";
+"root/6/3/0/4,9/7/10/8/5/2"[label="Levin\nChiara"]
+"root/6/3/0/4,9/7/10/8/5" -> "root/6/3/0/4,9/7/10/8/5/2";
+"root/6/3/0/4,9/7/10/8/5/2/1"[label="Tano\nCamelia"]
+"root/6/3/0/4,9/7/10/8/5/2" -> "root/6/3/0/4,9/7/10/8/5/2/1";
+"root/6/3/0/4/7/10/8/5"[label="Josh/Monacco\nJoanna"]
+"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/5";
+"root/6/3/0/4/7/10/8/5/2,9"[label="Levin\nChiara\nSophia"]
+"root/6/3/0/4/7/10/8/5" -> "root/6/3/0/4/7/10/8/5/2,9";
+"root/6/3/0/4/7/10/8/5/2,9/1"[label="Tano\nCamelia"]
+"root/6/3/0/4/7/10/8/5/2,9" -> "root/6/3/0/4/7/10/8/5/2,9/1";
 "root/6/3/0/4/7/10/8/5/2"[label="Levin\nChiara"]
 "root/6/3/0/4/7/10/8/5" -> "root/6/3/0/4/7/10/8/5/2";
-"root/6/3/0/4/7/10/8/5/2/9,1"[label="Tano\nSophia\nCamelia"]
-"root/6/3/0/4/7/10/8/5/2" -> "root/6/3/0/4/7/10/8/5/2/9,1";
-"root/6/3/0/4/7/10/9,8"[label="Enes\nSophia\nSelina"]
-"root/6/3/0/4/7/10" -> "root/6/3/0/4/7/10/9,8";
-"root/6/3/0/4/7/10/9,8/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/4/7/10/9,8" -> "root/6/3/0/4/7/10/9,8/1";
-"root/6/3/0/4/7/10/9,8/1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/9,8/1" -> "root/6/3/0/4/7/10/9,8/1/2";
-"root/6/3/0/4/7/10/9,8/1/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4/7/10/9,8/1/2" -> "root/6/3/0/4/7/10/9,8/1/2/5";
-"root/6/3/0/9,8"[label="Joshi-Josh\nSophia\nSelina"]
-"root/6/3/0" -> "root/6/3/0/9,8";
-"root/6/3/0/9,8/1"[label="Sinan\nCamelia"]
-"root/6/3/0/9,8" -> "root/6/3/0/9,8/1";
-"root/6/3/0/9,8/1/2"[label="Dion\nChiara"]
-"root/6/3/0/9,8/1" -> "root/6/3/0/9,8/1/2";
-"root/6/3/0/9,8/1/2/5"[label="Enes\nJoanna"]
-"root/6/3/0/9,8/1/2" -> "root/6/3/0/9,8/1/2/5";
-"root/6/3/0/9,8/1/2/5/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/9,8/1/2/5" -> "root/6/3/0/9,8/1/2/5/7";
-"root/6/3/0/9,8/1/2/5/7/4"[label="Levin\nIna"]
-"root/6/3/0/9,8/1/2/5/7" -> "root/6/3/0/9,8/1/2/5/7/4";
-"root/6/3/0/9,8/1/2/5/7/4/10"[label="Tano\nTori"]
-"root/6/3/0/9,8/1/2/5/7/4" -> "root/6/3/0/9,8/1/2/5/7/4/10";
-"root/6/3/0/9,8/1/2/4"[label="Enes\nIna"]
-"root/6/3/0/9,8/1/2" -> "root/6/3/0/9,8/1/2/4";
-"root/6/3/0/9,8/1/2/4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/0/9,8/1/2/4" -> "root/6/3/0/9,8/1/2/4/7";
-"root/6/3/0/9,8/1/2/4/7/5"[label="Levin\nJoanna"]
-"root/6/3/0/9,8/1/2/4/7" -> "root/6/3/0/9,8/1/2/4/7/5";
-"root/6/3/0/9,8/1/2/4/7/5/10"[label="Tano\nTori"]
-"root/6/3/0/9,8/1/2/4/7/5" -> "root/6/3/0/9,8/1/2/4/7/5/10";
-"root/6/3/0/4/7/10/9,8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/4/7/10/9,8" -> "root/6/3/0/4/7/10/9,8/5";
-"root/6/3/0/4/7/10/9,8/5/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10/9,8/5" -> "root/6/3/0/4/7/10/9,8/5/2";
-"root/6/3/0/4/7/10/9,8/5/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10/9,8/5/2" -> "root/6/3/0/4/7/10/9,8/5/2/1";
-"root/6/3/0/4/7/10,9"[label="Dion\nTori\nSophia"]
-"root/6/3/0/4/7" -> "root/6/3/0/4/7/10,9";
-"root/6/3/0/4/7/10,9/8"[label="Enes\nSelina"]
-"root/6/3/0/4/7/10,9" -> "root/6/3/0/4/7/10,9/8";
-"root/6/3/0/4/7/10,9/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/0/4/7/10,9/8" -> "root/6/3/0/4/7/10,9/8/5";
-"root/6/3/0/4/7/10,9/8/5/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10,9/8/5" -> "root/6/3/0/4/7/10,9/8/5/2";
-"root/6/3/0/4/7/10,9/8/5/2/1"[label="Tano\nCamelia"]
-"root/6/3/0/4/7/10,9/8/5/2" -> "root/6/3/0/4/7/10,9/8/5/2/1";
-"root/6/3/0/4/7/10,9/8/1"[label="Josh/Monacco\nCamelia"]
-"root/6/3/0/4/7/10,9/8" -> "root/6/3/0/4/7/10,9/8/1";
-"root/6/3/0/4/7/10,9/8/1/2"[label="Levin\nChiara"]
-"root/6/3/0/4/7/10,9/8/1" -> "root/6/3/0/4/7/10,9/8/1/2";
-"root/6/3/0/4/7/10,9/8/1/2/5"[label="Tano\nJoanna"]
-"root/6/3/0/4/7/10,9/8/1/2" -> "root/6/3/0/4/7/10,9/8/1/2/5";
-"root/6/3/0/8/1/2/5/7/4"[label="Levin\nIna"]
-"root/6/3/0/8/1/2/5/7" -> "root/6/3/0/8/1/2/5/7/4";
-"root/6/3/0/8/1/2/5/7/4/10,9"[label="Tano\nTori\nSophia"]
-"root/6/3/0/8/1/2/5/7/4" -> "root/6/3/0/8/1/2/5/7/4/10,9";
-"root/6/3/0/8/1/2/4/7/5"[label="Levin\nJoanna"]
-"root/6/3/0/8/1/2/4/7" -> "root/6/3/0/8/1/2/4/7/5";
-"root/6/3/0/8/1/2/4/7/5/10,9"[label="Tano\nTori\nSophia"]
-"root/6/3/0/8/1/2/4/7/5" -> "root/6/3/0/8/1/2/4/7/5/10,9";
-"root/6/3/5,0"[label="Kaan\nJoanna\nAnna"]
-"root/6/3" -> "root/6/3/5,0";
-"root/6/3/5,0/4"[label="Joshi-Josh\nIna"]
-"root/6/3/5,0" -> "root/6/3/5,0/4";
-"root/6/3/5,0/4/7"[label="Sinan\nNasti"]
-"root/6/3/5,0/4" -> "root/6/3/5,0/4/7";
-"root/6/3/5,0/4/7/9"[label="Dion\nSophia"]
-"root/6/3/5,0/4/7" -> "root/6/3/5,0/4/7/9";
-"root/6/3/5,0/4/7/9/8"[label="Enes\nSelina"]
-"root/6/3/5,0/4/7/9" -> "root/6/3/5,0/4/7/9/8";
-"root/6/3/5,0/4/7/9/8/10"[label="Josh/Monacco\nTori"]
-"root/6/3/5,0/4/7/9/8" -> "root/6/3/5,0/4/7/9/8/10";
-"root/6/3/5,0/4/7/9/8/10/2"[label="Levin\nChiara"]
-"root/6/3/5,0/4/7/9/8/10" -> "root/6/3/5,0/4/7/9/8/10/2";
-"root/6/3/5,0/4/7/9/8/10/2/1"[label="Tano\nCamelia"]
-"root/6/3/5,0/4/7/9/8/10/2" -> "root/6/3/5,0/4/7/9/8/10/2/1";
-"root/6/3/1,0"[label="Kaan\nCamelia\nAnna"]
-"root/6/3" -> "root/6/3/1,0";
-"root/6/3/1,0/4"[label="Joshi-Josh\nIna"]
-"root/6/3/1,0" -> "root/6/3/1,0/4";
-"root/6/3/1,0/4/7"[label="Sinan\nNasti"]
-"root/6/3/1,0/4" -> "root/6/3/1,0/4/7";
-"root/6/3/1,0/4/7/10"[label="Dion\nTori"]
-"root/6/3/1,0/4/7" -> "root/6/3/1,0/4/7/10";
-"root/6/3/1,0/4/7/10/8"[label="Enes\nSelina"]
-"root/6/3/1,0/4/7/10" -> "root/6/3/1,0/4/7/10/8";
-"root/6/3/1,0/4/7/10/8/9"[label="Josh/Monacco\nSophia"]
-"root/6/3/1,0/4/7/10/8" -> "root/6/3/1,0/4/7/10/8/9";
-"root/6/3/1,0/4/7/10/8/9/2"[label="Levin\nChiara"]
-"root/6/3/1,0/4/7/10/8/9" -> "root/6/3/1,0/4/7/10/8/9/2";
-"root/6/3/1,0/4/7/10/8/9/2/5"[label="Tano\nJoanna"]
-"root/6/3/1,0/4/7/10/8/9/2" -> "root/6/3/1,0/4/7/10/8/9/2/5";
-"root/6/3/5,0/4/8"[label="Sinan\nSelina"]
-"root/6/3/5,0/4" -> "root/6/3/5,0/4/8";
-"root/6/3/5,0/4/8/2"[label="Dion\nChiara"]
-"root/6/3/5,0/4/8" -> "root/6/3/5,0/4/8/2";
-"root/6/3/5,0/4/8/2/1"[label="Enes\nCamelia"]
-"root/6/3/5,0/4/8/2" -> "root/6/3/5,0/4/8/2/1";
-"root/6/3/5,0/4/8/2/1/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/5,0/4/8/2/1" -> "root/6/3/5,0/4/8/2/1/7";
-"root/6/3/5,0/4/8/2/1/7/9"[label="Levin\nSophia"]
-"root/6/3/5,0/4/8/2/1/7" -> "root/6/3/5,0/4/8/2/1/7/9";
-"root/6/3/5,0/4/8/2/1/7/9/10"[label="Tano\nTori"]
-"root/6/3/5,0/4/8/2/1/7/9" -> "root/6/3/5,0/4/8/2/1/7/9/10";
-"root/6/3/4,0"[label="Kaan\nIna\nAnna"]
-"root/6/3" -> "root/6/3/4,0";
-"root/6/3/4,0/8"[label="Joshi-Josh\nSelina"]
-"root/6/3/4,0" -> "root/6/3/4,0/8";
-"root/6/3/4,0/8/1"[label="Sinan\nCamelia"]
-"root/6/3/4,0/8" -> "root/6/3/4,0/8/1";
-"root/6/3/4,0/8/1/2"[label="Dion\nChiara"]
-"root/6/3/4,0/8/1" -> "root/6/3/4,0/8/1/2";
-"root/6/3/4,0/8/1/2/9"[label="Enes\nSophia"]
-"root/6/3/4,0/8/1/2" -> "root/6/3/4,0/8/1/2/9";
-"root/6/3/4,0/8/1/2/9/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/4,0/8/1/2/9" -> "root/6/3/4,0/8/1/2/9/7";
-"root/6/3/4,0/8/1/2/9/7/5"[label="Levin\nJoanna"]
-"root/6/3/4,0/8/1/2/9/7" -> "root/6/3/4,0/8/1/2/9/7/5";
-"root/6/3/4,0/8/1/2/9/7/5/10"[label="Tano\nTori"]
-"root/6/3/4,0/8/1/2/9/7/5" -> "root/6/3/4,0/8/1/2/9/7/5/10";
-"root/6/3/5,0/9"[label="Joshi-Josh\nSophia"]
-"root/6/3/5,0" -> "root/6/3/5,0/9";
-"root/6/3/5,0/9/1"[label="Sinan\nCamelia"]
-"root/6/3/5,0/9" -> "root/6/3/5,0/9/1";
-"root/6/3/5,0/9/1/2"[label="Dion\nChiara"]
-"root/6/3/5,0/9/1" -> "root/6/3/5,0/9/1/2";
-"root/6/3/5,0/9/1/2/4"[label="Enes\nIna"]
-"root/6/3/5,0/9/1/2" -> "root/6/3/5,0/9/1/2/4";
-"root/6/3/5,0/9/1/2/4/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/5,0/9/1/2/4" -> "root/6/3/5,0/9/1/2/4/7";
-"root/6/3/5,0/9/1/2/4/7/8"[label="Levin\nSelina"]
-"root/6/3/5,0/9/1/2/4/7" -> "root/6/3/5,0/9/1/2/4/7/8";
-"root/6/3/5,0/9/1/2/4/7/8/10"[label="Tano\nTori"]
-"root/6/3/5,0/9/1/2/4/7/8" -> "root/6/3/5,0/9/1/2/4/7/8/10";
-"root/6/3/4,0/8/1/2/5"[label="Enes\nJoanna"]
-"root/6/3/4,0/8/1/2" -> "root/6/3/4,0/8/1/2/5";
-"root/6/3/4,0/8/1/2/5/7"[label="Josh/Monacco\nNasti"]
-"root/6/3/4,0/8/1/2/5" -> "root/6/3/4,0/8/1/2/5/7";
-"root/6/3/4,0/8/1/2/5/7/9"[label="Levin\nSophia"]
-"root/6/3/4,0/8/1/2/5/7" -> "root/6/3/4,0/8/1/2/5/7/9";
-"root/6/3/4,0/8/1/2/5/7/9/10"[label="Tano\nTori"]
-"root/6/3/4,0/8/1/2/5/7/9" -> "root/6/3/4,0/8/1/2/5/7/9/10";
-"root/6/3/5,0/4/1"[label="Sinan\nCamelia"]
-"root/6/3/5,0/4" -> "root/6/3/5,0/4/1";
-"root/6/3/5,0/4/1/2"[label="Dion\nChiara"]
-"root/6/3/5,0/4/1" -> "root/6/3/5,0/4/1/2";
-"root/6/3/5,0/4/1/2/9"[label="Enes\nSophia"]
-"root/6/3/5,0/4/1/2" -> "root/6/3/5,0/4/1/2/9";
-"root/6/3/5,0/4/1/2/9/8"[label="Josh/Monacco\nSelina"]
-"root/6/3/5,0/4/1/2/9" -> "root/6/3/5,0/4/1/2/9/8";
-"root/6/3/5,0/4/1/2/9/8/7"[label="Levin\nNasti"]
-"root/6/3/5,0/4/1/2/9/8" -> "root/6/3/5,0/4/1/2/9/8/7";
-"root/6/3/5,0/4/1/2/9/8/7/10"[label="Tano\nTori"]
-"root/6/3/5,0/4/1/2/9/8/7" -> "root/6/3/5,0/4/1/2/9/8/7/10";
-"root/6/3/5,0/4/7/1"[label="Dion\nCamelia"]
-"root/6/3/5,0/4/7" -> "root/6/3/5,0/4/7/1";
-"root/6/3/5,0/4/7/1/8"[label="Enes\nSelina"]
-"root/6/3/5,0/4/7/1" -> "root/6/3/5,0/4/7/1/8";
-"root/6/3/5,0/4/7/1/8/10"[label="Josh/Monacco\nTori"]
-"root/6/3/5,0/4/7/1/8" -> "root/6/3/5,0/4/7/1/8/10";
-"root/6/3/5,0/4/7/1/8/10/2"[label="Levin\nChiara"]
-"root/6/3/5,0/4/7/1/8/10" -> "root/6/3/5,0/4/7/1/8/10/2";
-"root/6/3/5,0/4/7/1/8/10/2/9"[label="Tano\nSophia"]
-"root/6/3/5,0/4/7/1/8/10/2" -> "root/6/3/5,0/4/7/1/8/10/2/9";
-"root/6/3/1,0/4/7/10/8/5"[label="Josh/Monacco\nJoanna"]
-"root/6/3/1,0/4/7/10/8" -> "root/6/3/1,0/4/7/10/8/5";
-"root/6/3/1,0/4/7/10/8/5/2"[label="Levin\nChiara"]
-"root/6/3/1,0/4/7/10/8/5" -> "root/6/3/1,0/4/7/10/8/5/2";
-"root/6/3/1,0/4/7/10/8/5/2/9"[label="Tano\nSophia"]
-"root/6/3/1,0/4/7/10/8/5/2" -> "root/6/3/1,0/4/7/10/8/5/2/9";
+"root/6/3/0/4/7/10/8/5/2/1,9"[label="Tano\nCamelia\nSophia"]
+"root/6/3/0/4/7/10/8/5/2" -> "root/6/3/0/4/7/10/8/5/2/1,9";
+"root/6/3/0/4/7/10/8,9/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4/7/10/8,9" -> "root/6/3/0/4/7/10/8,9/1";
+"root/6/3/0/4/7/10/8,9/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/8,9/1" -> "root/6/3/0/4/7/10/8,9/1/2";
+"root/6/3/0/4/7/10/8,9/1/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/4/7/10/8,9/1/2" -> "root/6/3/0/4/7/10/8,9/1/2/5";
+"root/6/3/0/4/7/10/8/1,9"[label="Josh/Monacco\nCamelia\nSophia"]
+"root/6/3/0/4/7/10/8" -> "root/6/3/0/4/7/10/8/1,9";
+"root/6/3/0/4/7/10/8/1,9/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/8/1,9" -> "root/6/3/0/4/7/10/8/1,9/2";
+"root/6/3/0/4/7/10/8/1,9/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/4/7/10/8/1,9/2" -> "root/6/3/0/4/7/10/8/1,9/2/5";
+"root/6/3/0/4,9/7/10/8/1"[label="Josh/Monacco\nCamelia"]
+"root/6/3/0/4,9/7/10/8" -> "root/6/3/0/4,9/7/10/8/1";
+"root/6/3/0/4,9/7/10/8/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4,9/7/10/8/1" -> "root/6/3/0/4,9/7/10/8/1/2";
+"root/6/3/0/4,9/7/10/8/1/2/5"[label="Tano\nJoanna"]
+"root/6/3/0/4,9/7/10/8/1/2" -> "root/6/3/0/4,9/7/10/8/1/2/5";
+"root/6/3/0/4/7/10/8/1/2,9"[label="Levin\nChiara\nSophia"]
+"root/6/3/0/4/7/10/8/1" -> "root/6/3/0/4/7/10/8/1/2,9";
+"root/6/3/0/4/7/10/8/1/2,9/5"[label="Tano\nJoanna"]
+"root/6/3/0/4/7/10/8/1/2,9" -> "root/6/3/0/4/7/10/8/1/2,9/5";
+"root/6/3/0/4/7/10/8/1/2"[label="Levin\nChiara"]
+"root/6/3/0/4/7/10/8/1" -> "root/6/3/0/4/7/10/8/1/2";
+"root/6/3/0/4/7/10/8/1/2/5,9"[label="Tano\nJoanna\nSophia"]
+"root/6/3/0/4/7/10/8/1/2" -> "root/6/3/0/4/7/10/8/1/2/5,9";
+"root/6/3/0/8/1/2,9"[label="Dion\nChiara\nSophia"]
+"root/6/3/0/8/1" -> "root/6/3/0/8/1/2,9";
+"root/6/3/0/8/1/2,9/5"[label="Enes\nJoanna"]
+"root/6/3/0/8/1/2,9" -> "root/6/3/0/8/1/2,9/5";
+"root/6/3/0/8/1/2,9/5/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2,9/5" -> "root/6/3/0/8/1/2,9/5/7";
+"root/6/3/0/8/1/2,9/5/7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2,9/5/7" -> "root/6/3/0/8/1/2,9/5/7/4";
+"root/6/3/0/8/1/2,9/5/7/4/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2,9/5/7/4" -> "root/6/3/0/8/1/2,9/5/7/4/10";
+"root/6/3/0/8/1/2/5,9"[label="Enes\nJoanna\nSophia"]
+"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/5,9";
+"root/6/3/0/8/1/2/5,9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2/5,9" -> "root/6/3/0/8/1/2/5,9/7";
+"root/6/3/0/8/1/2/5,9/7/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2/5,9/7" -> "root/6/3/0/8/1/2/5,9/7/4";
+"root/6/3/0/8/1/2/5,9/7/4/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/5,9/7/4" -> "root/6/3/0/8/1/2/5,9/7/4/10";
+"root/6/3/0/8/1/2/5/7,9"[label="Josh/Monacco\nNasti\nSophia"]
+"root/6/3/0/8/1/2/5" -> "root/6/3/0/8/1/2/5/7,9";
+"root/6/3/0/8/1/2/5/7,9/4"[label="Levin\nIna"]
+"root/6/3/0/8/1/2/5/7,9" -> "root/6/3/0/8/1/2/5/7,9/4";
+"root/6/3/0/8/1/2/5/7,9/4/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/5/7,9/4" -> "root/6/3/0/8/1/2/5/7,9/4/10";
+"root/6/3/0/8,9"[label="Joshi-Josh\nSelina\nSophia"]
+"root/6/3/0" -> "root/6/3/0/8,9";
+"root/6/3/0/8,9/1"[label="Sinan\nCamelia"]
+"root/6/3/0/8,9" -> "root/6/3/0/8,9/1";
+"root/6/3/0/8,9/1/2"[label="Dion\nChiara"]
+"root/6/3/0/8,9/1" -> "root/6/3/0/8,9/1/2";
+"root/6/3/0/8,9/1/2/5"[label="Enes\nJoanna"]
+"root/6/3/0/8,9/1/2" -> "root/6/3/0/8,9/1/2/5";
+"root/6/3/0/8,9/1/2/5/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8,9/1/2/5" -> "root/6/3/0/8,9/1/2/5/7";
+"root/6/3/0/8,9/1/2/5/7/4"[label="Levin\nIna"]
+"root/6/3/0/8,9/1/2/5/7" -> "root/6/3/0/8,9/1/2/5/7/4";
+"root/6/3/0/8,9/1/2/5/7/4/10"[label="Tano\nTori"]
+"root/6/3/0/8,9/1/2/5/7/4" -> "root/6/3/0/8,9/1/2/5/7/4/10";
+"root/6/3/0/8/1/2/5/7/4,9"[label="Levin\nIna\nSophia"]
+"root/6/3/0/8/1/2/5/7" -> "root/6/3/0/8/1/2/5/7/4,9";
+"root/6/3/0/8/1/2/5/7/4,9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/5/7/4,9" -> "root/6/3/0/8/1/2/5/7/4,9/10";
+"root/6/3/0/8/1/2,9/4"[label="Enes\nIna"]
+"root/6/3/0/8/1/2,9" -> "root/6/3/0/8/1/2,9/4";
+"root/6/3/0/8/1/2,9/4/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2,9/4" -> "root/6/3/0/8/1/2,9/4/7";
+"root/6/3/0/8/1/2,9/4/7/5"[label="Levin\nJoanna"]
+"root/6/3/0/8/1/2,9/4/7" -> "root/6/3/0/8/1/2,9/4/7/5";
+"root/6/3/0/8/1/2,9/4/7/5/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2,9/4/7/5" -> "root/6/3/0/8/1/2,9/4/7/5/10";
+"root/6/3/0/8/1/2/4,9"[label="Enes\nIna\nSophia"]
+"root/6/3/0/8/1/2" -> "root/6/3/0/8/1/2/4,9";
+"root/6/3/0/8/1/2/4,9/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8/1/2/4,9" -> "root/6/3/0/8/1/2/4,9/7";
+"root/6/3/0/8/1/2/4,9/7/5"[label="Levin\nJoanna"]
+"root/6/3/0/8/1/2/4,9/7" -> "root/6/3/0/8/1/2/4,9/7/5";
+"root/6/3/0/8/1/2/4,9/7/5/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/4,9/7/5" -> "root/6/3/0/8/1/2/4,9/7/5/10";
+"root/6/3/0/8/1/2/4/7,9"[label="Josh/Monacco\nNasti\nSophia"]
+"root/6/3/0/8/1/2/4" -> "root/6/3/0/8/1/2/4/7,9";
+"root/6/3/0/8/1/2/4/7,9/5"[label="Levin\nJoanna"]
+"root/6/3/0/8/1/2/4/7,9" -> "root/6/3/0/8/1/2/4/7,9/5";
+"root/6/3/0/8/1/2/4/7,9/5/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/4/7,9/5" -> "root/6/3/0/8/1/2/4/7,9/5/10";
+"root/6/3/0/8,9/1/2/4"[label="Enes\nIna"]
+"root/6/3/0/8,9/1/2" -> "root/6/3/0/8,9/1/2/4";
+"root/6/3/0/8,9/1/2/4/7"[label="Josh/Monacco\nNasti"]
+"root/6/3/0/8,9/1/2/4" -> "root/6/3/0/8,9/1/2/4/7";
+"root/6/3/0/8,9/1/2/4/7/5"[label="Levin\nJoanna"]
+"root/6/3/0/8,9/1/2/4/7" -> "root/6/3/0/8,9/1/2/4/7/5";
+"root/6/3/0/8,9/1/2/4/7/5/10"[label="Tano\nTori"]
+"root/6/3/0/8,9/1/2/4/7/5" -> "root/6/3/0/8,9/1/2/4/7/5/10";
+"root/6/3/0/8/1/2/4/7/5,9"[label="Levin\nJoanna\nSophia"]
+"root/6/3/0/8/1/2/4/7" -> "root/6/3/0/8/1/2/4/7/5,9";
+"root/6/3/0/8/1/2/4/7/5,9/10"[label="Tano\nTori"]
+"root/6/3/0/8/1/2/4/7/5,9" -> "root/6/3/0/8/1/2/4/7/5,9/10";
 }

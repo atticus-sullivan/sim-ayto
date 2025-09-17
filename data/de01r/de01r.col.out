@@ -35,22 +35,18 @@ Danilo → Finnja
 │[48;2;69;76;102m Jamy      [49m┆  9.877  ┆[48;2;65;77;71m 11.111 [49m┆  9.877     ┆  9.877 ┆  9.877   ┆  9.877 ┆  9.877 ┆  9.877   ┆  9.877    ┆  9.877 ┆[48;2;74;68;89m 10      [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴────────┴─────────╯
 32659200 left -> 24.961 bits left
-top4 Pr[Dup]: 1.1%/362880: Diogo -> ["Finnja", "Vanessa"] | 1.1%/362880: Jamy -> ["Finnja", "Vanessa"] | 1.1%/362880: Manuel -> ["Finnja", "Vanessa"] | 1.1%/362880: Danilo -> ["Jules", "Vanessa"]
-top5 Pr[Dup]: 10.0%/3265920: ["Aurelia", "Vanessa"] | 10.0%/3265920: ["Melina", "Vanessa"] | 10.0%/3265920: ["Stefanie", "Vanessa"] | 10.0%/3265920: ["Jacqueline", "Vanessa"] | 10.0%/3265920: ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 100.0%/32659200: Vanessa | 10.0%/3265920: Jacqueline | 10.0%/3265920: Jules | 10.0%/3265920: Finnja | 10.0%/3265920: Sarah
-top5 Pr[Dup]: 10.0%/3265920: Salvatore | 10.0%/3265920: Eugen | 10.0%/3265920: Diogo | 10.0%/3265920: Josua | 10.0%/3265920: Jamy
 
 MN#1.0 E02
-0x Diogo     → Aurelia    
-0x Danilo    → Stefanie   
-0x Alexander → Jules      
+0x Tommy     → Melina     
 0x Francesco → Finnja     
+0x Jamy      → Jill       
+0x Eugen     → Walentina  
+0x Diogo     → Aurelia    
+0x Alexander → Jules      
+0x Salvatore → Jacqueline 
+0x Danilo    → Stefanie   
 0x Manuel    → Kathleen   
 0x Josua     → Sarah      
-0x Eugen     → Walentina  
-0x Tommy     → Melina     
-0x Salvatore → Jacqueline 
-0x Jamy      → Jill       
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -70,10 +66,6 @@ MN#1.0 E02
 │[48;2;69;76;102m Jamy      [49m┆  7.81   ┆  8.434 ┆  7.81      ┆[48;2;65;77;71m 29.367 [49m┆  7.81    ┆  7.81  ┆  7.81  ┆  7.53    ┆  7.81     ┆  7.81  ┆[48;2;74;68;89m 10      [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴────────┴─────────╯
 2051760 left -> 20.9684 bits left
-top4 Pr[Dup]: 3.3%/66744: Danilo -> ["Stefanie", "Vanessa"] | 3.3%/66744: Francesco -> ["Finnja", "Vanessa"] | 2.9%/60255: Alexander -> ["Jules", "Vanessa"] | 2.9%/60255: Eugen -> ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 10.0%/205176: ["Kathleen", "Vanessa"] | 10.0%/205176: ["Jill", "Vanessa"] | 10.0%/205176: ["Jacqueline", "Vanessa"] | 10.0%/205176: ["Sarah", "Vanessa"] | 10.0%/205176: ["Stefanie", "Vanessa"]
-top5 Pr[Dup]: 100.0%/2051760: Vanessa | 10.0%/205176: Melina | 10.0%/205176: Jules | 10.0%/205176: Kathleen | 10.0%/205176: Jacqueline
-top5 Pr[Dup]: 10.0%/205176: Tommy | 10.0%/205176: Josua | 10.0%/205176: Danilo | 10.0%/205176: Francesco | 10.0%/205176: Alexander
 
 MB#2.0 E03 -- Francesco muss ausziehen
 Francesco → Jules 
@@ -96,10 +88,6 @@ Francesco → Jules
 │[48;2;69;76;102m Jamy      [49m┆  7.379  ┆ 12.007 ┆  7.379     ┆[48;2;65;77;71m 36.857 [49m┆  7.379   ┆  7.379 ┆  7.379 ┆  6.861   ┆  7.379    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 11.111  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 139041 left -> 17.0852 bits left
-top4 Pr[Dup]: 4.7%/6489: Danilo -> ["Stefanie", "Vanessa"] | 4.1%/5694: Jamy -> ["Jill", "Vanessa"] | 4.1%/5694: Salvatore -> ["Jacqueline", "Vanessa"] | 4.1%/5694: Eugen -> ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 11.1%/15449: ["Stefanie", "Vanessa"] | 11.1%/15449: ["Aurelia", "Vanessa"] | 11.1%/15449: ["Jill", "Vanessa"] | 11.1%/15449: ["Jacqueline", "Vanessa"] | 11.1%/15449: ["Kathleen", "Vanessa"]
-top5 Pr[Dup]: 100.0%/139041: Vanessa | 11.1%/15449: Melina | 11.1%/15449: Stefanie | 11.1%/15449: Aurelia | 11.1%/15449: Finnja
-top5 Pr[Dup]: 11.1%/15449: Josua | 11.1%/15449: Jamy | 11.1%/15449: Salvatore | 11.1%/15449: Tommy | 11.1%/15449: Alexander
 
 MB#3.0 E06
 Tommy → Walentina 
@@ -122,22 +110,18 @@ Tommy → Walentina
 │[48;2;69;76;102m Jamy      [49m┆  7.506  ┆ 11.985 ┆  7.506     ┆[48;2;65;77;71m 35.907 [49m┆  7.506   ┆  7.1   ┆  7.506 ┆  7.017   ┆  7.967    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 11.111  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 128781 left -> 16.9746 bits left
-top4 Pr[Dup]: 4.5%/5849: Danilo -> ["Stefanie", "Vanessa"] | 4.4%/5694: Tommy -> ["Melina", "Vanessa"] | 4.4%/5694: Eugen -> ["Walentina", "Vanessa"] | 4.0%/5138: Manuel -> ["Kathleen", "Vanessa"]
-top5 Pr[Dup]: 11.1%/14309: ["Melina", "Vanessa"] | 11.1%/14309: ["Sarah", "Vanessa"] | 11.1%/14309: ["Kathleen", "Vanessa"] | 11.1%/14309: ["Aurelia", "Vanessa"] | 11.1%/14309: ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 100.0%/128781: Vanessa | 11.1%/14309: Aurelia | 11.1%/14309: Stefanie | 11.1%/14309: Melina | 11.1%/14309: Kathleen
-top5 Pr[Dup]: 11.1%/14309: Diogo | 11.1%/14309: Alexander | 11.1%/14309: Josua | 11.1%/14309: Tommy | 11.1%/14309: Salvatore
 
 MN#3.0 E06
-0x Eugen     → Stefanie   
-1x Salvatore → Jacqueline 
-0x Francesco → Jules      
-0x Danilo    → Sarah      
-1x Jamy      → Jill       
-0x Alexander → Finnja     
-1x Manuel    → Kathleen   
-1x Tommy     → Melina     
-1x Diogo     → Aurelia    
 0x Josua     → Walentina  
+0x Danilo    → Sarah      
+1x Salvatore → Jacqueline 
+1x Tommy     → Melina     
+1x Manuel    → Kathleen   
+0x Eugen     → Stefanie   
+1x Jamy      → Jill       
+0x Francesco → Jules      
+1x Diogo     → Aurelia    
+0x Alexander → Finnja     
 ---
 -> I[l]/bits: {1: 5.75, 2: 2.01, 3: 1.37, 4: 2.12, 5: 3.55, 6: 5.20, 7: 7.56, 8: 10.48}
 -> E[I]/bits: 2.11
@@ -157,10 +141,6 @@ MN#3.0 E06
 │[48;2;69;76;102m Jamy      [49m┆  6.338  ┆ 11.409 ┆  6.338     ┆[48;2;65;77;71m 36.816 [49m┆  6.338   ┆  5.813 ┆  8.837 ┆  8.185   ┆  9.924    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 11.111  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 49698 left -> 15.6009 bits left
-top4 Pr[Dup]: 4.6%/2296: Tommy -> ["Melina", "Vanessa"] | 4.4%/2198: Danilo -> ["Stefanie", "Vanessa"] | 4.1%/2033: Salvatore -> ["Jacqueline", "Vanessa"] | 4.1%/2033: Manuel -> ["Kathleen", "Vanessa"]
-top5 Pr[Dup]: 11.1%/5522: ["Finnja", "Vanessa"] | 11.1%/5522: ["Walentina", "Vanessa"] | 11.1%/5522: ["Stefanie", "Vanessa"] | 11.1%/5522: ["Kathleen", "Vanessa"] | 11.1%/5522: ["Melina", "Vanessa"]
-top5 Pr[Dup]: 100.0%/49698: Vanessa | 11.1%/5522: Sarah | 11.1%/5522: Jill | 11.1%/5522: Aurelia | 11.1%/5522: Melina
-top5 Pr[Dup]: 11.1%/5522: Eugen | 11.1%/5522: Jamy | 11.1%/5522: Danilo | 11.1%/5522: Josua | 11.1%/5522: Manuel
 
 MB#4.0 E08 -- verkauft?
 Diogo → Aurelia 
@@ -181,21 +161,17 @@ Nothing => I = 0 bits
 │[48;2;69;76;102m Jamy      [49m┆  6.338  ┆ 11.409 ┆  6.338     ┆[48;2;65;77;71m 36.816 [49m┆  6.338   ┆  5.813 ┆  8.837 ┆  8.185   ┆  9.924    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 11.111  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 49698 left -> 15.6009 bits left
-top4 Pr[Dup]: 4.6%/2296: Tommy -> ["Melina", "Vanessa"] | 4.4%/2198: Danilo -> ["Stefanie", "Vanessa"] | 4.1%/2033: Jamy -> ["Jill", "Vanessa"] | 4.1%/2033: Salvatore -> ["Jacqueline", "Vanessa"]
-top5 Pr[Dup]: 11.1%/5522: ["Kathleen", "Vanessa"] | 11.1%/5522: ["Stefanie", "Vanessa"] | 11.1%/5522: ["Walentina", "Vanessa"] | 11.1%/5522: ["Sarah", "Vanessa"] | 11.1%/5522: ["Finnja", "Vanessa"]
-top5 Pr[Dup]: 100.0%/49698: Vanessa | 11.1%/5522: Sarah | 11.1%/5522: Finnja | 11.1%/5522: Jill | 11.1%/5522: Stefanie
-top5 Pr[Dup]: 11.1%/5522: Jamy | 11.1%/5522: Josua | 11.1%/5522: Manuel | 11.1%/5522: Alexander | 11.1%/5522: Diogo
 
 MN#4.0 E08
-0x Danilo    → Melina    
-0x Jamy      → Vanessa   
-1x Francesco → Jules     
 2x Diogo     → Aurelia   
-0x Eugen     → Finnja    
 0x Tommy     → Jill      
-2x Manuel    → Kathleen  
-1x Josua     → Sarah     
 0x Alexander → Stefanie  
+1x Francesco → Jules     
+2x Manuel    → Kathleen  
+0x Jamy      → Vanessa   
+0x Eugen     → Finnja    
+1x Josua     → Sarah     
+0x Danilo    → Melina    
 0x Salvatore → Walentina 
 ---
 -> I[l]/bits: {1: 2.81, 2: 1.60, 3: 1.79, 4: 2.69, 5: 4.08, 6: 5.76, 7: 7.84, 8: 10.24, 9: 12.14, 10: 15.60}
@@ -216,10 +192,6 @@ MN#4.0 E08
 │[48;2;69;76;102m Jamy      [49m┆  6.024  ┆ 12.437 ┆  9.386     ┆[48;2;65;77;71m 27.249 [49m┆  6.024   ┆  8.244 ┆  7.555 ┆ 11.1     ┆ 11.982    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 20.239  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 7703 left -> 12.9112 bits left
-top4 Pr[Dup]: 6.8%/523: Jamy -> ["Jill", "Vanessa"] | 6.7%/515: Josua -> ["Sarah", "Vanessa"] | 5.7%/439: Manuel -> ["Kathleen", "Vanessa"] | 5.7%/439: Diogo -> ["Aurelia", "Vanessa"]
-top5 Pr[Dup]: 14.2%/1094: ["Jill", "Vanessa"] | 11.3%/871: ["Finnja", "Vanessa"] | 11.0%/846: ["Sarah", "Vanessa"] | 10.9%/836: ["Walentina", "Vanessa"] | 10.7%/822: ["Stefanie", "Vanessa"]
-top5 Pr[Dup]: 100.0%/7703: Vanessa | 14.2%/1094: Jill | 11.3%/871: Finnja | 11.0%/846: Sarah | 10.9%/836: Walentina
-top5 Pr[Dup]: 20.2%/1559: Jamy | 10.0%/768: Alexander | 10.0%/768: Eugen | 10.0%/768: Diogo | 10.0%/768: Josua
 
 MB#5.0 E10 -- verkauft?
 Tommy → Melina 
@@ -240,22 +212,18 @@ Nothing => I = 0 bits
 │[48;2;69;76;102m Jamy      [49m┆  6.024  ┆ 12.437 ┆  9.386     ┆[48;2;65;77;71m 27.249 [49m┆  6.024   ┆  8.244 ┆  7.555 ┆ 11.1     ┆ 11.982    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 20.239  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 7703 left -> 12.9112 bits left
-top4 Pr[Dup]: 6.8%/523: Jamy -> ["Jill", "Vanessa"] | 6.7%/515: Josua -> ["Sarah", "Vanessa"] | 5.7%/439: Manuel -> ["Kathleen", "Vanessa"] | 5.7%/439: Diogo -> ["Aurelia", "Vanessa"]
-top5 Pr[Dup]: 14.2%/1094: ["Jill", "Vanessa"] | 11.3%/871: ["Finnja", "Vanessa"] | 11.0%/846: ["Sarah", "Vanessa"] | 10.9%/836: ["Walentina", "Vanessa"] | 10.7%/822: ["Stefanie", "Vanessa"]
-top5 Pr[Dup]: 100.0%/7703: Vanessa | 14.2%/1094: Jill | 11.3%/871: Finnja | 11.0%/846: Sarah | 10.9%/836: Walentina
-top5 Pr[Dup]: 20.2%/1559: Jamy | 10.0%/768: Salvatore | 10.0%/768: Diogo | 10.0%/768: Tommy | 10.0%/768: Danilo
 
 MN#5.0 E10
-0x Jamy      → Stefanie  
+1x Josua     → Walentina 
+0x Alexander → Sarah     
+0x Danilo    → Aurelia   
+1x Eugen     → Finnja    
 0x Diogo     → Vanessa   
-2x Francesco → Jules     
 2x Tommy     → Melina    
 0x Salvatore → Kathleen  
-0x Danilo    → Aurelia   
-1x Josua     → Walentina 
+0x Jamy      → Stefanie  
 0x Manuel    → Jill      
-1x Eugen     → Finnja    
-0x Alexander → Sarah     
+2x Francesco → Jules     
 ---
 -> I[l]/bits: {1: 1.50, 2: 1.51, 3: 2.31, 4: 3.81, 5: 5.74, 6: 8.05, 7: 11.91}
 -> E[I]/bits: 1.94
@@ -275,10 +243,6 @@ MN#5.0 E10
 │[48;2;69;76;102m Jamy      [49m┆  7.925  ┆  7.152 ┆ 10.438     ┆[48;2;65;77;71m 22.809 [49m┆  8.119   ┆  4.704 ┆  4.897 ┆ 18.75    ┆ 15.206    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 17.977  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 1552 left -> 10.5999 bits left
-top4 Pr[Dup]: 9.8%/152: Diogo -> ["Aurelia", "Vanessa"] | 7.0%/109: Josua -> ["Sarah", "Vanessa"] | 6.6%/102: Eugen -> ["Finnja", "Vanessa"] | 5.9%/91: Tommy -> ["Melina", "Vanessa"]
-top5 Pr[Dup]: 15.3%/238: ["Aurelia", "Vanessa"] | 11.7%/182: ["Finnja", "Vanessa"] | 11.6%/180: ["Stefanie", "Vanessa"] | 11.2%/174: ["Jill", "Vanessa"] | 10.8%/167: ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 100.0%/1552: Vanessa | 15.3%/238: Aurelia | 11.7%/182: Finnja | 11.6%/180: Stefanie | 11.2%/174: Jill
-top5 Pr[Dup]: 18.0%/279: Jamy | 17.1%/265: Diogo | 9.3%/144: Tommy | 9.3%/144: Danilo | 9.3%/144: Josua
 
 MB#6.0 E12
 Salvatore → Finnja 
@@ -301,22 +265,18 @@ Salvatore → Finnja
 │[48;2;69;76;102m Jamy      [49m┆  8.31   ┆  7.751 ┆  9.846     ┆[48;2;65;77;71m 24.441 [49m┆  8.101   ┆  5.028 ┆  5.028 ┆ 17.528   ┆ 13.966    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 17.249  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 1432 left -> 10.4838 bits left
-top4 Pr[Dup]: 9.5%/136: Diogo -> ["Aurelia", "Vanessa"] | 7.1%/102: Eugen -> ["Finnja", "Vanessa"] | 7.1%/102: Josua -> ["Sarah", "Vanessa"] | 5.9%/84: Tommy -> ["Melina", "Vanessa"]
-top5 Pr[Dup]: 15.3%/219: ["Aurelia", "Vanessa"] | 12.1%/173: ["Finnja", "Vanessa"] | 11.2%/160: ["Jill", "Vanessa"] | 10.8%/154: ["Sarah", "Vanessa"] | 10.6%/152: ["Stefanie", "Vanessa"]
-top5 Pr[Dup]: 100.0%/1432: Vanessa | 15.3%/219: Aurelia | 12.1%/173: Finnja | 11.2%/160: Jill | 10.8%/154: Sarah
-top5 Pr[Dup]: 17.2%/247: Jamy | 16.8%/240: Diogo | 9.4%/135: Josua | 9.4%/135: Eugen | 9.4%/135: Tommy
 
 MN#6.0 E12
-0x Jamy      → Sarah      
-2x Salvatore → Jacqueline 
-0x Danilo    → Jill       
-3x Francesco → Jules      
 3x Diogo     → Aurelia    
-3x Manuel    → Kathleen   
-2x Eugen     → Finnja     
+0x Jamy      → Sarah      
+3x Tommy     → Melina     
 1x Alexander → Stefanie   
 2x Josua     → Walentina  
-3x Tommy     → Melina     
+3x Francesco → Jules      
+3x Manuel    → Kathleen   
+2x Salvatore → Jacqueline 
+2x Eugen     → Finnja     
+0x Danilo    → Jill       
 ---
 -> I[l]/bits: {2: 4.38, 3: 1.46, 4: 1.27, 5: 2.67, 6: 5.96}
 -> E[I]/bits: 1.78
@@ -336,10 +296,6 @@ MN#6.0 E12
 │[48;2;69;76;102m Jamy      [49m┆  1.149  ┆ 10.536 ┆  2.299     ┆[48;2;65;77;71m[38;5;14m 55.172 [49m[39m┆  1.533   ┆  1.149 ┆[38;5;9m  0     [39m┆[48;2;74;68;89m 27.586   [49m┆[38;5;9m  0.575    [39m┆[38;5;9m  0    [39m┆ 23.755  │
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 522 left -> 9.0279 bits left
-top4 Pr[Dup]: 14.2%/74: Diogo -> ["Aurelia", "Vanessa"] | 9.8%/51: Jamy -> ["Jill", "Vanessa"] | 5.4%/28: Josua -> ["Sarah", "Vanessa"] | 5.4%/28: Jamy -> ["Stefanie", "Vanessa"]
-top5 Pr[Dup]: 19.2%/100: ["Aurelia", "Vanessa"] | 12.8%/67: ["Jill", "Vanessa"] | 12.1%/63: ["Finnja", "Vanessa"] | 11.5%/60: ["Stefanie", "Vanessa"] | 9.2%/48: ["Jacqueline", "Vanessa"]
-top5 Pr[Dup]: 100.0%/522: Vanessa | 19.2%/100: Aurelia | 12.8%/67: Jill | 12.1%/63: Finnja | 11.5%/60: Stefanie
-top5 Pr[Dup]: 23.9%/125: Diogo | 23.8%/124: Jamy | 7.5%/39: Manuel | 7.5%/39: Salvatore | 7.5%/39: Eugen
 
 MB#7.0 E14
 Eugen → Finnja 
@@ -362,22 +318,18 @@ Eugen → Finnja
 │[48;2;69;76;102m Jamy      [49m┆  2.19   ┆ 20.073 ┆  4.38      ┆ 14.599 ┆  2.92    ┆  2.19  ┆[38;5;9m  0     [39m┆[48;2;65;77;71m[38;5;11m 52.555   [49m[39m┆  1.095    ┆[38;5;9m  0    [39m┆[48;2;74;68;89m 28.467  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 274 left -> 8.098 bits left
-top4 Pr[Dup]: 18.6%/51: Diogo -> ["Aurelia", "Vanessa"] | 10.2%/28: Jamy -> ["Stefanie", "Vanessa"] | 8.8%/24: Jamy -> ["Finnja", "Vanessa"] | 4.7%/13: Josua -> ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 23.4%/64: ["Aurelia", "Vanessa"] | 15.3%/42: ["Finnja", "Vanessa"] | 13.1%/36: ["Stefanie", "Vanessa"] | 9.1%/25: ["Jacqueline", "Vanessa"] | 8.8%/24: ["Kathleen", "Vanessa"]
-top5 Pr[Dup]: 100.0%/274: Vanessa | 23.4%/64: Aurelia | 15.3%/42: Finnja | 13.1%/36: Stefanie | 9.1%/25: Jacqueline
-top5 Pr[Dup]: 28.5%/78: Jamy | 25.5%/70: Diogo | 6.6%/18: Eugen | 6.6%/18: Danilo | 6.6%/18: Josua
 
 MN#7.0 E14
-1x Salvatore → Walentina  
-2x Josua     → Sarah      
-4x Tommy     → Melina     
-0x Eugen     → Jill       
-1x Diogo     → Vanessa    
 4x Manuel    → Kathleen   
-0x Alexander → Jacqueline 
-4x Francesco → Jules      
-1x Danilo    → Aurelia    
 0x Jamy      → Finnja     
+2x Josua     → Sarah      
+1x Diogo     → Vanessa    
+1x Danilo    → Aurelia    
+0x Alexander → Jacqueline 
+0x Eugen     → Jill       
+4x Francesco → Jules      
+4x Tommy     → Melina     
+1x Salvatore → Walentina  
 ---
 -> I[l]/bits: {1: 4.40, 2: 2.37, 3: 3.01, 4: 2.12, 5: 2.10, 6: 3.40, 7: 4.64, 8: 6.51, 9: 5.29}
 -> E[I]/bits: 2.73
@@ -397,10 +349,6 @@ MN#7.0 E14
 │[48;2;69;76;102m Jamy      [49m┆[38;5;9m  0      [39m┆  3.774 ┆[38;5;9m  0         [39m┆  7.547 ┆  3.774   ┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[48;2;65;77;71m[38;5;10m 84.906   [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[48;2;74;68;89m 20.755  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 53 left -> 5.7279 bits left
-top4 Pr[Dup]: 17.0%/9: Jamy -> ["Stefanie", "Vanessa"] | 13.2%/7: Diogo -> ["Aurelia", "Vanessa"] | 7.5%/4: Danilo -> ["Melina", "Vanessa"] | 7.5%/4: Eugen -> ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 17.0%/9: ["Stefanie", "Vanessa"] | 15.1%/8: ["Aurelia", "Vanessa"] | 11.3%/6: ["Finnja", "Vanessa"] | 9.4%/5: ["Sarah", "Vanessa"] | 9.4%/5: ["Jacqueline", "Vanessa"]
-top5 Pr[Dup]: 100.0%/53: Vanessa | 17.0%/9: Stefanie | 15.1%/8: Aurelia | 11.3%/6: Finnja | 9.4%/5: Kathleen
-top5 Pr[Dup]: 20.8%/11: Jamy | 13.2%/7: Diogo | 9.4%/5: Manuel | 9.4%/5: Salvatore | 9.4%/5: Alexander
 
 MB#8.0 E16
 Eugen → Stefanie 
@@ -423,22 +371,18 @@ Eugen → Stefanie
 │[48;2;69;76;102m Jamy      [49m┆[38;5;9m  0      [39m┆  3.774 ┆[38;5;9m  0         [39m┆  7.547 ┆  3.774   ┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[48;2;65;77;71m[38;5;10m 84.906   [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[48;2;74;68;89m 20.755  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 53 left -> 5.7279 bits left
-top4 Pr[Dup]: 17.0%/9: Jamy -> ["Stefanie", "Vanessa"] | 13.2%/7: Diogo -> ["Aurelia", "Vanessa"] | 7.5%/4: Manuel -> ["Kathleen", "Vanessa"] | 7.5%/4: Danilo -> ["Melina", "Vanessa"]
-top5 Pr[Dup]: 17.0%/9: ["Stefanie", "Vanessa"] | 15.1%/8: ["Aurelia", "Vanessa"] | 11.3%/6: ["Finnja", "Vanessa"] | 9.4%/5: ["Jill", "Vanessa"] | 9.4%/5: ["Jacqueline", "Vanessa"]
-top5 Pr[Dup]: 100.0%/53: Vanessa | 17.0%/9: Stefanie | 15.1%/8: Aurelia | 11.3%/6: Finnja | 9.4%/5: Walentina
-top5 Pr[Dup]: 20.8%/11: Jamy | 13.2%/7: Diogo | 9.4%/5: Danilo | 9.4%/5: Manuel | 9.4%/5: Salvatore
 
 MN#8.0 E16
-0x Manuel    → Finnja     
-1x Jamy      → Sarah      
-0x Alexander → Melina     
-2x Diogo     → Vanessa    
-2x Danilo    → Aurelia    
-3x Josua     → Walentina  
 0x Tommy     → Stefanie   
-0x Salvatore → Jill       
-0x Eugen     → Jacqueline 
+1x Jamy      → Sarah      
+2x Diogo     → Vanessa    
 5x Francesco → Jules      
+0x Salvatore → Jill       
+3x Josua     → Walentina  
+0x Alexander → Melina     
+2x Danilo    → Aurelia    
+0x Eugen     → Jacqueline 
+0x Manuel    → Finnja     
 ---
 -> I[l]/bits: {1: 0.87, 2: 1.27, 3: 4.73}
 -> E[I]/bits: 1.18
@@ -458,10 +402,6 @@ MN#8.0 E16
 │[48;2;69;76;102m Jamy      [49m┆[38;5;9m  0      [39m┆  3.448 ┆[38;5;9m  0         [39m┆[38;5;9m  0     [39m┆[38;5;9m  0       [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[48;2;65;77;71m[38;5;10m 96.552   [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[48;2;74;68;89m 27.586  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴────────┴──────────┴───────────┴───────┴─────────╯
 29 left -> 4.858 bits left
-top4 Pr[Dup]: 24.1%/7: Jamy -> ["Stefanie", "Vanessa"] | 6.9%/2: Alexander -> ["Sarah", "Vanessa"] | 6.9%/2: Danilo -> ["Melina", "Vanessa"] | 6.9%/2: Salvatore -> ["Jacqueline", "Vanessa"]
-top5 Pr[Dup]: 24.1%/7: ["Stefanie", "Vanessa"] | 10.3%/3: ["Melina", "Vanessa"] | 10.3%/3: ["Sarah", "Vanessa"] | 10.3%/3: ["Jacqueline", "Vanessa"] | 10.3%/3: ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 100.0%/29: Vanessa | 24.1%/7: Stefanie | 10.3%/3: Sarah | 10.3%/3: Kathleen | 10.3%/3: Melina
-top5 Pr[Dup]: 27.6%/8: Jamy | 10.3%/3: Salvatore | 10.3%/3: Danilo | 10.3%/3: Manuel | 10.3%/3: Tommy
 
 MB#9.0 E18
 Josua → Sarah 
@@ -484,10 +424,6 @@ Josua → Sarah
 │[48;2;69;76;102m Jamy      [49m┆[38;5;9m  0      [39m┆  5.263 ┆[38;5;9m  0         [39m┆[38;5;9m  0     [39m┆[38;5;9m  0       [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[48;2;65;77;71m[38;5;10m 94.737   [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[48;2;74;68;89m 26.316  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴───────┴──────────┴───────────┴───────┴─────────╯
 19 left -> 4.2479 bits left
-top4 Pr[Dup]: 21.1%/4: Jamy -> ["Stefanie", "Vanessa"] | 10.5%/2: Alexander -> ["Sarah", "Vanessa"] | 10.5%/2: Tommy -> ["Jill", "Vanessa"] | 10.5%/2: Eugen -> ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 21.1%/4: ["Stefanie", "Vanessa"] | 10.5%/2: ["Jacqueline", "Vanessa"] | 10.5%/2: ["Finnja", "Vanessa"] | 10.5%/2: ["Kathleen", "Vanessa"] | 10.5%/2: ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 100.0%/19: Vanessa | 21.1%/4: Stefanie | 10.5%/2: Jacqueline | 10.5%/2: Finnja | 10.5%/2: Jill
-top5 Pr[Dup]: 26.3%/5: Jamy | 10.5%/2: Eugen | 10.5%/2: Manuel | 10.5%/2: Salvatore | 10.5%/2: Alexander
 
 MB#9.1 E18/15 -- geschenkte Matchbox
 Tommy → Melina 
@@ -510,21 +446,17 @@ Tommy → Melina
 │[48;2;69;76;102m Jamy      [49m┆[38;5;9m  0      [39m┆  5.263 ┆[38;5;9m  0         [39m┆[38;5;9m  0     [39m┆[38;5;9m  0       [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[48;2;65;77;71m[38;5;10m 94.737   [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[48;2;74;68;89m 26.316  [49m│
 ╰───────────┴─────────┴────────┴────────────┴────────┴──────────┴────────┴───────┴──────────┴───────────┴───────┴─────────╯
 19 left -> 4.2479 bits left
-top4 Pr[Dup]: 21.1%/4: Jamy -> ["Stefanie", "Vanessa"] | 10.5%/2: Eugen -> ["Walentina", "Vanessa"] | 10.5%/2: Tommy -> ["Jill", "Vanessa"] | 10.5%/2: Alexander -> ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 21.1%/4: ["Stefanie", "Vanessa"] | 10.5%/2: ["Kathleen", "Vanessa"] | 10.5%/2: ["Jill", "Vanessa"] | 10.5%/2: ["Finnja", "Vanessa"] | 10.5%/2: ["Melina", "Vanessa"]
-top5 Pr[Dup]: 100.0%/19: Vanessa | 21.1%/4: Stefanie | 10.5%/2: Jacqueline | 10.5%/2: Walentina | 10.5%/2: Melina
-top5 Pr[Dup]: 26.3%/5: Jamy | 10.5%/2: Danilo | 10.5%/2: Manuel | 10.5%/2: Eugen | 10.5%/2: Josua
 
 MN#9.0 E18
-2x Salvatore → Walentina 
-1x Alexander → Sarah     
-4x Diogo     → Aurelia   
-0x Tommy     → Finnja    
-0x Eugen     → Melina    
 5x Manuel    → Kathleen  
+0x Eugen     → Melina    
 1x Jamy      → Stefanie  
-0x Josua     → Vanessa   
+2x Salvatore → Walentina 
 6x Francesco → Jules     
+0x Tommy     → Finnja    
+0x Josua     → Vanessa   
+4x Diogo     → Aurelia   
+1x Alexander → Sarah     
 1x Danilo    → Jill      
 ---
 -> I[l]/bits: {3: 4.25, 4: 1.25, 5: 1.25, 6: 3.25}
@@ -545,10 +477,6 @@ MN#9.0 E18
 │[48;2;69;76;102m[38;5;10m Jamy      [49m[39m┆[38;5;9m  0      [39m┆[38;5;9m  0     [39m┆[38;5;9m  0         [39m┆[38;5;9m  0   [39m┆[38;5;9m  0       [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[48;2;65;77;71m[38;5;10m 100      [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[48;2;74;68;89m 25      [49m│
 ╰───────────┴─────────┴────────┴────────────┴──────┴──────────┴────────┴───────┴──────────┴───────────┴───────┴─────────╯
 8 left -> 3 bits left
-top4 Pr[Dup]: 25.0%/2: Jamy -> ["Stefanie", "Vanessa"] | 12.5%/1: Danilo -> ["Melina", "Vanessa"] | 12.5%/1: Salvatore -> ["Jacqueline", "Vanessa"] | 12.5%/1: Alexander -> ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 25.0%/2: ["Stefanie", "Vanessa"] | 12.5%/1: ["Jill", "Vanessa"] | 12.5%/1: ["Sarah", "Vanessa"] | 12.5%/1: ["Walentina", "Vanessa"] | 12.5%/1: ["Melina", "Vanessa"]
-top5 Pr[Dup]: 100.0%/8: Vanessa | 25.0%/2: Stefanie | 12.5%/1: Jill | 12.5%/1: Sarah | 12.5%/1: Melina
-top5 Pr[Dup]: 25.0%/2: Jamy | 12.5%/1: Alexander | 12.5%/1: Tommy | 12.5%/1: Danilo | 12.5%/1: Manuel
 
 MB#10.0 E20
 Josua → Aurelia 
@@ -571,22 +499,18 @@ Josua → Aurelia
 │[48;2;69;76;102m[38;5;10m Jamy      [49m[39m┆[38;5;9m  0      [39m┆[38;5;9m  0     [39m┆[38;5;9m  0         [39m┆[38;5;9m  0   [39m┆[38;5;9m  0       [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[48;2;65;77;71m[38;5;10m 100      [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[38;5;9m  0      [39m│
 ╰───────────┴─────────┴────────┴────────────┴──────┴──────────┴────────┴───────┴──────────┴───────────┴───────┴─────────╯
 6 left -> 2.585 bits left
-top4 Pr[Dup]: 16.7%/1: Tommy -> ["Jill", "Vanessa"] | 16.7%/1: Manuel -> ["Kathleen", "Vanessa"] | 16.7%/1: Salvatore -> ["Jacqueline", "Vanessa"] | 16.7%/1: Eugen -> ["Walentina", "Vanessa"]
-top5 Pr[Dup]: 16.7%/1: ["Walentina", "Vanessa"] | 16.7%/1: ["Kathleen", "Vanessa"] | 16.7%/1: ["Jacqueline", "Vanessa"] | 16.7%/1: ["Sarah", "Vanessa"] | 16.7%/1: ["Melina", "Vanessa"]
-top5 Pr[Dup]: 100.0%/6: Vanessa | 16.7%/1: Jacqueline | 16.7%/1: Jill | 16.7%/1: Walentina | 16.7%/1: Sarah
-top5 Pr[Dup]: 16.7%/1: Alexander | 16.7%/1: Manuel | 16.7%/1: Eugen | 16.7%/1: Danilo | 16.7%/1: Tommy
 
 MN#10.0 E20
-1x Eugen     → Walentina  
-7x Francesco → Jules      
-0x Diogo     → Jill       
 2x Jamy      → Stefanie   
-0x Alexander → Vanessa    
 1x Danilo    → Sarah      
-0x Josua     → Aurelia    
-1x Tommy     → Finnja     
-3x Salvatore → Jacqueline 
 6x Manuel    → Kathleen   
+1x Tommy     → Finnja     
+0x Alexander → Vanessa    
+0x Diogo     → Jill       
+3x Salvatore → Jacqueline 
+1x Eugen     → Walentina  
+0x Josua     → Aurelia    
+7x Francesco → Jules      
 ---
 -> I[l]/bits: {6: 0.26, 7: 2.58}
 -> E[I]/bits: 0.65
@@ -606,10 +530,6 @@ MN#10.0 E20
 │[48;2;69;76;102m[38;5;10m Jamy      [49m[39m┆[38;5;9m  0      [39m┆[38;5;9m  0     [39m┆[38;5;9m  0         [39m┆[38;5;9m  0   [39m┆[38;5;9m  0       [39m┆[38;5;9m  0     [39m┆[38;5;9m  0    [39m┆[48;2;65;77;71m[38;5;10m 100      [49m[39m┆[38;5;9m  0        [39m┆[38;5;9m  0    [39m┆[38;5;9m  0      [39m│
 ╰───────────┴─────────┴────────┴────────────┴──────┴──────────┴────────┴───────┴──────────┴───────────┴───────┴─────────╯
 1 left -> 0 bits left
-top4 Pr[Dup]: 100.0%/1: Alexander -> ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 100.0%/1: ["Sarah", "Vanessa"]
-top5 Pr[Dup]: 100.0%/1: Sarah | 100.0%/1: Vanessa
-top5 Pr[Dup]: 100.0%/1: Alexander
 
 ╭─────────┬───┬─────────────┬───────────┬──────────┬─────────────┬────────────┬───────────┬─────────────┬───────────┬───────────┬───────────┬───┬────────┬──────┬──────────╮
 │         ┆ L ┆  Alexander  ┆   Danilo  ┆   Diogo  ┆    Eugen    ┆    Josua   ┆   Manuel  ┆  Salvatore  ┆   Tommy   ┆ Francesco ┆    Jamy   ┆   ┆    I   ┆ #new ┆ min dist │
@@ -661,4 +581,4 @@ top5 Pr[Dup]: 100.0%/1: Alexander
 ╰─────────┴───┴─────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 12.40s
+Ran in 13.00s
