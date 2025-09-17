@@ -201,7 +201,8 @@ impl ConstraintParse {
                 let value_len = c.map_s.iter().map(|(_, v)| v).collect::<HashSet<_>>().len();
                 ensure!(
                     value_len == c.map_s.len(),
-                    "Keys in the map of a night must be unique"
+                    "Keys in the map of a night must be unique {:?}",
+                    c.map_s
                 );
                 ensure!(
                     self.exclude_s.is_none(),
@@ -892,6 +893,7 @@ impl Constraint {
 mod tests {
     use super::*;
     use std::collections::HashMap;
+    use crate::ruleset::DummyData;
 
     #[test]
     fn test_sort_maps_basic() {
@@ -910,6 +912,10 @@ mod tests {
             information: None,
             left_after: None,
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -960,6 +966,10 @@ mod tests {
             information: None,
             left_after: None,
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -1011,6 +1021,10 @@ mod tests {
             information: None,
             left_after: None,
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         constraint.map.insert(1, 0);
@@ -1040,12 +1054,14 @@ mod tests {
             no_exclude: false,
             result_unknown: false,
             exclude_s: None,
+            build_tree: false,
+            hide_ruleset_data: false,
         };
 
         // Initialize the maps with unordered key/value pairs
         constraint.map_s.insert("A".to_string(), "B".to_string());
-        constraint.map_s.insert("C".to_string(), "B".to_string());
-        constraint.map_s.insert("D".to_string(), "B".to_string());
+        constraint.map_s.insert("C".to_string(), "D".to_string());
+        constraint.map_s.insert("D".to_string(), "C".to_string());
 
         // Initialize lookup tables
         let lut_a = HashMap::from_iter(
@@ -1068,10 +1084,11 @@ mod tests {
                 false,
                 false,
                 (&Default::default(), &Default::default()),
+                Box::new(DummyData::default()),
             )
             .unwrap();
 
-        let map = HashMap::from_iter(vec![(0, 1), (2, 1), (3, 1)].into_iter());
+        let map = HashMap::from_iter(vec![(0, 1), (2, 3), (3, 2)].into_iter());
         assert_eq!(map, constraint.map);
     }
 
@@ -1088,6 +1105,8 @@ mod tests {
             result_unknown: false,
             exclude_s: Some(("A".to_string(), vec!["C".to_string(), "D".to_string()])),
             no_exclude: false,
+            build_tree: false,
+            hide_ruleset_data: false,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -1114,6 +1133,7 @@ mod tests {
                 true,
                 false,
                 (&Default::default(), &Default::default()),
+                Box::new(DummyData::default()),
             )
             .unwrap();
 
@@ -1138,6 +1158,8 @@ mod tests {
             result_unknown: false,
             exclude_s: None,
             no_exclude: false,
+            build_tree: false,
+            hide_ruleset_data: false,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -1164,6 +1186,7 @@ mod tests {
                 false,
                 false,
                 (&Default::default(), &Default::default()),
+                Box::new(DummyData::default()),
             )
             .unwrap();
 
@@ -1186,6 +1209,8 @@ mod tests {
             exclude_s: None,
             no_exclude: false,
             result_unknown: false,
+            build_tree: false,
+            hide_ruleset_data: false,
         };
 
         constraint.map_s.insert("A".to_string(), "b".to_string());
@@ -1222,6 +1247,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         }
     }
 
@@ -1247,6 +1276,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -1282,6 +1315,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -1317,6 +1354,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -1400,6 +1441,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
         let c_b = Constraint {
             result_unknown: false,
@@ -1421,6 +1466,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         c_a.merge(&c_b).unwrap();
@@ -1468,6 +1517,10 @@ mod tests {
                 num: 1.0,
                 comment: String::from(""),
             },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         let row = c.stat_row(
@@ -1532,6 +1585,10 @@ mod tests {
                 comment: String::from(""),
             },
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         let row = c.stat_row(
@@ -1640,6 +1697,10 @@ mod tests {
                 comment: String::from("comment"),
             },
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         assert_eq!(c.comment(), "comment");
@@ -1672,6 +1733,10 @@ mod tests {
                 comment: String::from("comment"),
             },
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         assert_eq!(c.comment(), "comment");
@@ -1704,6 +1769,10 @@ mod tests {
                 comment: String::from("comment"),
             },
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         assert_eq!(c.type_str(), "MN#1");
@@ -1736,6 +1805,10 @@ mod tests {
                 comment: String::from("comment"),
             },
             result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default())
         };
 
         assert_eq!(c.type_str(), "MB#1");
