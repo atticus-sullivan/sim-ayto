@@ -35,16 +35,16 @@ Nothing => I = 0 bits
 1796256000 left -> 30.7423 bits left
 
 MN#1.0 E04
+0x Elli    → Xander      
 0x Nelly   → Sidar       
 0x Sandra  → Kevin       
+0x Henna   → Jonny       
 0x Beverly → CalvinBlond 
 0x Joanna  → Rob         
 0x Viki    → Leandro     
-0x Elli    → Xander      
-0x Henna   → Jonny       
-0x Hati    → CalvinHot   
 0x Ariel   → Nico        
 0x Antonia → Lennert     
+0x Hati    → CalvinHot   
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.09, 5: 8.50, 6: 11.21, 7: 14.19, 8: 17.38, 9: 21.08, 10: 24.25}
 -> E[I]/bits: 1.88
@@ -88,16 +88,16 @@ Elli → Xander
 48592584 left -> 25.5342 bits left
 
 MN#2.0 E06 -- -50k Kamera verdeckt (Kevin+Ariel)
+1x Hati    → CalvinHot   
+1x Sandra  → Kevin       
 1x Viki    → Leandro     
+1x Ariel   → Nico        
+0x Henna   → Olli        
+0x Antonia → Jonny       
 1x Elli    → Xander      
 0x Nelly   → Rob         
-1x Sandra  → Kevin       
 0x Beverly → Sidar       
-0x Henna   → Olli        
-1x Ariel   → Nico        
 0x Joanna  → CalvinBlond 
-0x Antonia → Jonny       
-1x Hati    → CalvinHot   
 ---
 -> I[l]/bits: {1: 1.54, 2: 1.35, 3: 2.35, 4: 4.15, 5: 6.64, 6: 9.90, 7: 14.29}
 -> E[I]/bits: 1.83
@@ -141,16 +141,16 @@ Nelly → CalvinBlond
 16640896 left -> 23.9882 bits left
 
 MN#3.0 E08 -- +20€ aus Grosszuegigkeit :)
-0x Antonia → Olli        
-2x Sandra  → Kevin       
 0x Henna   → Leandro     
-0x Nelly   → Lennert     
+0x Beverly → Nico        
 2x Elli    → Xander      
+0x Viki    → Jonny       
+0x Nelly   → Lennert     
+0x Antonia → Olli        
 0x Ariel   → CalvinHot   
 1x Joanna  → CalvinBlond 
-0x Beverly → Nico        
 0x Hati    → Rob         
-0x Viki    → Jonny       
+2x Sandra  → Kevin       
 ---
 -> I[l]/bits: {1: 1.47, 2: 1.43, 3: 2.42, 4: 4.01, 5: 6.05, 6: 8.48, 7: 11.25, 8: 14.43, 9: 18.40}
 -> E[I]/bits: 1.88
@@ -194,15 +194,15 @@ Beverly → Jonny
 5399288 left -> 22.3643 bits left
 
 MN#4.0 E10
-0x Sandra  → Leandro     
-0x Henna   → Lennert     
-1x Antonia → Olli        
+0x Nelly   → CalvinHot   
 3x Elli    → Xander      
-2x Ariel   → Nico        
+0x Henna   → Lennert     
+2x Joanna  → CalvinBlond 
+1x Antonia → Olli        
 0x Viki    → Kevin       
 1x Beverly → Sidar       
-0x Nelly   → CalvinHot   
-2x Joanna  → CalvinBlond 
+2x Ariel   → Nico        
+0x Sandra  → Leandro     
 1x Hati    → Rob         
 ---
 -> I[l]/bits: {1: 1.45, 2: 1.39, 3: 2.42, 4: 4.19, 5: 6.49, 6: 9.39, 7: 13.32}
@@ -269,16 +269,16 @@ Nelly → JimiBlue
 692049 left -> 19.4005 bits left
 
 MN#5.0 E12
-2x Hati    → Rob         
-1x Nelly   → CalvinHot   
-0x Sandra  → Lennert     
-4x Elli    → Xander      
-2x Antonia → Olli        
-1x Viki    → Kevin       
 3x Ariel   → Nico        
+1x Viki    → Kevin       
+1x Nelly   → CalvinHot   
+2x Antonia → Olli        
+2x Hati    → Rob         
 0x Henna   → JimiBlue    
-3x Joanna  → CalvinBlond 
+0x Sandra  → Lennert     
 2x Beverly → Sidar       
+4x Elli    → Xander      
+3x Joanna  → CalvinBlond 
 ---
 -> I[l]/bits: {2: 2.26, 3: 0.77, 4: 2.40, 5: 6.00}
 -> E[I]/bits: 1.47
@@ -331,4 +331,4 @@ MN#5.0 E12
 ╰────────┴───┴─────────────┴───────────┴──────────┴─────────┴──────────┴──────────┴──────────┴─────────┴──────────┴────────┴─────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 1796256000  Permutations left: 131330  Initial combinations for each pair: 179625600
 
-Ran in 669.07s
+Ran in 664.27s
