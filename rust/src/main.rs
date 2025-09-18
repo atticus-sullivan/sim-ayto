@@ -21,7 +21,7 @@ mod game;
 mod graph;
 mod ruleset;
 mod ruleset_data;
-mod utils;
+mod tree;
 
 use crate::game::Game;
 

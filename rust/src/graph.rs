@@ -24,7 +24,7 @@ use plotly::common::{Mode, Title};
 use plotly::{Layout, Plot, Scatter};
 use walkdir::WalkDir;
 
-use crate::constraint::{CSVEntry, CSVEntryMB, CSVEntryMN};
+use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN};
 
 use crate::game::Game;
 
