@@ -26,7 +26,7 @@ use std::path::PathBuf;
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
-use crate::ruleset::RuleSetData;
+use crate::ruleset_data::RuleSetData;
 use crate::{Lut, Map, MapS, Matching, Rem, Rename};
 
 #[derive(Serialize, Deserialize, Debug)]
