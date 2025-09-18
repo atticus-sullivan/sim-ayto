@@ -121,7 +121,10 @@ impl Game {
     // returns (translationKeyForExplanation, shortcode)
     pub fn ruleset_str(self: &Self) -> (String, String) {
         match &self.rule_set {
-            RuleSet::XTimesDup(cnt, fixed) => (format!("rs-XTimesDup-{}-{}", fixed.len(), cnt), format!("?{cnt}={}", fixed.len())),
+            RuleSet::XTimesDup(cnt, fixed) => (
+                format!("rs-XTimesDup-{}-{}", fixed.len(), cnt),
+                format!("?{cnt}={}", fixed.len()),
+            ),
             RuleSet::SomeoneIsTrip => ("rs-SomeoneIsTrip".to_string(), "?3".to_string()),
             RuleSet::NToN => ("rs-NToN".to_string(), "N:N".to_string()),
             RuleSet::FixedTrip(_) => ("rs-FixedTrip".to_string(), "=3".to_string()),
