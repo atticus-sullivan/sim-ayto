@@ -210,6 +210,7 @@ impl RuleSetData for DupXData {
         total: u128,
     ) -> Result<()> {
         for d in self.rs.1.iter() {
+            println!("Pr[]s for dup with {d}");
             let not = self
                 .rs
                 .1
@@ -237,6 +238,7 @@ impl RuleSetData for DupXData {
         }
 
         if self.rs.0 > 0 {
+            println!("Pr[]s for unknown dup");
             let not = self
                 .rs
                 .1
