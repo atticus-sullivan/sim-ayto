@@ -156,4 +156,9 @@ constraints:
       Nelly: CalvinHot
       Henna: JimiBlue
       # Henna: Leandro
-      #
+
+  # - type: !Box {num: 6, comment: "E13"}
+  #   check: !Lights [0]
+  #   map:
+  #     Sandra: Lennert
+  #     # Ariel: Nico

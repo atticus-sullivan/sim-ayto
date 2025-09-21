@@ -20,7 +20,8 @@ mod constraint;
 mod game;
 mod graph;
 mod ruleset;
-mod utils;
+mod ruleset_data;
+mod tree;
 
 use crate::game::Game;
 
