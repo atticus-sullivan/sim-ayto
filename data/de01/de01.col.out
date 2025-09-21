@@ -35,18 +35,24 @@ Ivana → Mo
 │[48;2;69;76;102m Sabrina  [49m┆  9.877 ┆  9.877 ┆  9.877  ┆  9.877 ┆  9.877 ┆  9.877  ┆  9.877 ┆  9.877 ┆[48;2;65;77;71m 11.111 [49m┆  9.877 ┆[48;2;74;68;89m 10   [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴──────╯
 32659200 left -> 24.961 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 1.1%/362880: Sabrina -> ["Mo", "Edin"] | 1.1%/362880: Ivana -> ["Aleks", "Edin"] | 1.1%/362880: Luisa -> ["Mo", "Edin"] | 1.1%/362880: Madleine -> ["Mo", "Edin"]
+top5 Pr[Dup]: 10.0%/3265920: ["Axel", "Edin"] | 10.0%/3265920: ["Aleks", "Edin"] | 10.0%/3265920: ["Laurin", "Edin"] | 10.0%/3265920: ["Kevin", "Edin"] | 10.0%/3265920: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/32659200: Edin | 10.0%/3265920: Juliano | 10.0%/3265920: Mo | 10.0%/3265920: Rene | 10.0%/3265920: Axel
+top5 Pr[Dup]: 10.0%/3265920: Sabrina | 10.0%/3265920: Melissa | 10.0%/3265920: Ivana | 10.0%/3265920: Michelle | 10.0%/3265920: Aline
+
 
 MN#1.0 E03
-0x Nadine   → Elisha  
-0x Michelle → Mo      
-0x Melissa  → Dominic 
-0x Ivana    → Juliano 
-0x Madleine → Laurin  
-0x Kathi    → Rene    
-0x Laura    → Ferhat  
-0x Aline    → Kevin   
 0x Luisa    → Axel    
+0x Ivana    → Juliano 
+0x Aline    → Kevin   
+0x Madleine → Laurin  
+0x Nadine   → Elisha  
 0x Sabrina  → Aleks   
+0x Laura    → Ferhat  
+0x Michelle → Mo      
+0x Kathi    → Rene    
+0x Melissa  → Dominic 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -66,6 +72,12 @@ MN#1.0 E03
 │[48;2;69;76;102m Sabrina  [49m┆  9.722 ┆  9.899 ┆  9.899  ┆  9.899 ┆  9.899 ┆  9.877  ┆  9.899 ┆  9.899 ┆[48;2;65;77;71m 11.111 [49m┆  9.899 ┆[48;2;74;68;89m 10   [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴──────╯
 12014640 left -> 23.5183 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 1.1%/133496: Ivana -> ["Ferhat", "Edin"] | 1.1%/133496: Madleine -> ["Mo", "Edin"] | 1.1%/133496: Aline -> ["Mo", "Edin"] | 1.1%/133496: Ivana -> ["Rene", "Edin"]
+top5 Pr[Dup]: 10.0%/1201464: ["Rene", "Edin"] | 10.0%/1201464: ["Mo", "Edin"] | 10.0%/1201464: ["Axel", "Edin"] | 10.0%/1201464: ["Elisha", "Edin"] | 10.0%/1201464: ["Ferhat", "Edin"]
+top5 Pr[Dup]: 100.0%/12014640: Edin | 10.0%/1201464: Rene | 10.0%/1201464: Dominic | 10.0%/1201464: Ferhat | 10.0%/1201464: Juliano
+top5 Pr[Dup]: 10.0%/1201464: Michelle | 10.0%/1201464: Sabrina | 10.0%/1201464: Aline | 10.0%/1201464: Nadine | 10.0%/1201464: Kathi
+
 
 MB#2.0 E04
 Melissa → Dominic 
@@ -88,18 +100,24 @@ Melissa → Dominic
 │[48;2;69;76;102m Sabrina  [49m┆ 10.769 ┆  9.65  ┆[48;2;69;76;102m 10.965  [49m┆  9.65  ┆  9.65  ┆  9.597  ┆  9.65  ┆  9.65  ┆ 10.769 ┆  9.65  ┆[48;2;74;68;89m 10   [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴──────╯
 10846550 left -> 23.3707 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 1.2%/133496: Michelle -> ["Mo", "Edin"] | 1.2%/133496: Melissa -> ["Mo", "Edin"] | 1.2%/133496: Ivana -> ["Dominic", "Edin"] | 1.2%/133496: Ivana -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 10.0%/1084655: ["Aleks", "Edin"] | 10.0%/1084655: ["Mo", "Edin"] | 10.0%/1084655: ["Rene", "Edin"] | 10.0%/1084655: ["Laurin", "Edin"] | 10.0%/1084655: ["Ferhat", "Edin"]
+top5 Pr[Dup]: 100.0%/10846550: Edin | 10.0%/1084655: Rene | 10.0%/1084655: Aleks | 10.0%/1084655: Laurin | 10.0%/1084655: Dominic
+top5 Pr[Dup]: 10.0%/1084655: Nadine | 10.0%/1084655: Ivana | 10.0%/1084655: Laura | 10.0%/1084655: Michelle | 10.0%/1084655: Madleine
+
 
 MN#2.0 E04
+0x Kathi    → Kevin   
 0x Melissa  → Laurin  
 0x Aline    → Ferhat  
-1x Michelle → Mo      
-0x Sabrina  → Dominic 
 0x Madleine → Axel    
-0x Laura    → Juliano 
+0x Sabrina  → Dominic 
 0x Ivana    → Elisha  
 0x Nadine   → Aleks   
+0x Laura    → Juliano 
+1x Michelle → Mo      
 0x Luisa    → Rene    
-0x Kathi    → Kevin   
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.45, 2: 2.42, 3: 3.94, 4: 5.85, 5: 8.04, 6: 10.40, 7: 13.13, 8: 15.29, 10: 20.05}
 -> E[I]/bits: 1.91
@@ -119,6 +137,12 @@ MN#2.0 E04
 │[48;2;69;76;102m Sabrina  [49m┆  9.364 ┆  8.647 ┆[48;2;65;77;71m 21.351  [49m┆  8.472 ┆  8.666 ┆  8.597  ┆  8.65  ┆  8.453 ┆  9.143 ┆  8.656 ┆[48;2;74;68;89m 10   [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴──────╯
 2029330 left -> 20.9526 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 2.4%/48717: Michelle -> ["Mo", "Edin"] | 2.1%/43329: Sabrina -> ["Dominic", "Edin"] | 2.1%/43323: Melissa -> ["Laurin", "Edin"] | 2.1%/42537: Ivana -> ["Elisha", "Edin"]
+top5 Pr[Dup]: 10.0%/202933: ["Rene", "Edin"] | 10.0%/202933: ["Ferhat", "Edin"] | 10.0%/202933: ["Aleks", "Edin"] | 10.0%/202933: ["Axel", "Edin"] | 10.0%/202933: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/2029330: Edin | 10.0%/202933: Juliano | 10.0%/202933: Laurin | 10.0%/202933: Elisha | 10.0%/202933: Aleks
+top5 Pr[Dup]: 10.0%/202933: Melissa | 10.0%/202933: Aline | 10.0%/202933: Michelle | 10.0%/202933: Laura | 10.0%/202933: Ivana
+
 
 MB#3.0 E06
 Aline → Mo 
@@ -141,18 +165,24 @@ Aline → Mo
 │[48;2;69;76;102m Sabrina  [49m┆ 13.865 ┆  8.011 ┆[48;2;65;77;71m 28.424  [49m┆  7.99  ┆  9.641 ┆  8.016  ┆  8.568 ┆  7.537 ┆[38;5;9m  0  [39m┆  7.948 ┆[48;2;74;68;89m 11.111 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴────────┴────────╯
 171108 left -> 17.3845 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 3.2%/5404: Sabrina -> ["Dominic", "Edin"] | 3.2%/5392: Melissa -> ["Laurin", "Edin"] | 2.8%/4725: Kathi -> ["Kevin", "Edin"] | 2.6%/4516: Laura -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 11.1%/19012: ["Axel", "Edin"] | 11.1%/19012: ["Ferhat", "Edin"] | 11.1%/19012: ["Elisha", "Edin"] | 11.1%/19012: ["Aleks", "Edin"] | 11.1%/19012: ["Laurin", "Edin"]
+top5 Pr[Dup]: 100.0%/171108: Edin | 11.1%/19012: Dominic | 11.1%/19012: Elisha | 11.1%/19012: Aleks | 11.1%/19012: Rene
+top5 Pr[Dup]: 11.1%/19012: Luisa | 11.1%/19012: Laura | 11.1%/19012: Michelle | 11.1%/19012: Nadine | 11.1%/19012: Sabrina
+
 
 MN#3.0 E06
-1x Madleine → Axel    
-1x Luisa    → Rene    
-1x Ivana    → Elisha  
-0x Aline    → Mo      
+1x Laura    → Juliano 
+1x Kathi    → Kevin   
 1x Melissa  → Laurin  
 1x Sabrina  → Dominic 
 1x Nadine   → Aleks   
+0x Aline    → Mo      
+1x Madleine → Axel    
 0x Michelle → Ferhat  
-1x Kathi    → Kevin   
-1x Laura    → Juliano 
+1x Ivana    → Elisha  
+1x Luisa    → Rene    
 ---
 -> I[l]/bits: {3: 0.19, 4: 3.03}
 -> E[I]/bits: 0.54
@@ -172,6 +202,12 @@ MN#3.0 E06
 │[48;2;69;76;102m Sabrina  [49m┆ 13.494 ┆  7.865 ┆[48;2;65;77;71m 28.366  [49m┆  7.847 ┆ 10.988 ┆  7.895  ┆  8.356 ┆  7.415 ┆[38;5;9m  0  [39m┆  7.775 ┆[48;2;74;68;89m 11.111 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴────────┴────────╯
 150138 left -> 17.1959 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 3.2%/4732: Sabrina -> ["Dominic", "Edin"] | 3.1%/4720: Melissa -> ["Laurin", "Edin"] | 2.8%/4149: Kathi -> ["Kevin", "Edin"] | 2.6%/3958: Luisa -> ["Rene", "Edin"]
+top5 Pr[Dup]: 11.1%/16682: ["Dominic", "Edin"] | 11.1%/16682: ["Ferhat", "Edin"] | 11.1%/16682: ["Elisha", "Edin"] | 11.1%/16682: ["Laurin", "Edin"] | 11.1%/16682: ["Axel", "Edin"]
+top5 Pr[Dup]: 100.0%/150138: Edin | 11.1%/16682: Laurin | 11.1%/16682: Dominic | 11.1%/16682: Ferhat | 11.1%/16682: Kevin
+top5 Pr[Dup]: 11.1%/16682: Madleine | 11.1%/16682: Ivana | 11.1%/16682: Luisa | 11.1%/16682: Nadine | 11.1%/16682: Melissa
+
 
 MB#4.0 E08
 Melissa → Laurin 
@@ -194,18 +230,24 @@ Melissa → Laurin
 │[48;2;69;76;102m Sabrina  [49m┆[48;2;65;77;71m 16.165 [49m┆ 10.975 ┆[48;2;74;68;89m 14.576  [49m┆ 11.059 ┆ 13.559 ┆ 11.038  ┆ 11.737 ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆ 10.89  ┆[48;2;74;68;89m 12.5 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴────────┴──────╯
 37760 left -> 15.2046 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 2.4%/900: Laura -> ["Ferhat", "Edin"] | 2.0%/767: Luisa -> ["Axel", "Edin"] | 2.0%/767: Kathi -> ["Rene", "Edin"] | 2.0%/764: Ivana -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 12.5%/4720: ["Kevin", "Edin"] | 12.5%/4720: ["Aleks", "Edin"] | 12.5%/4720: ["Axel", "Edin"] | 12.5%/4720: ["Elisha", "Edin"] | 12.5%/4720: ["Ferhat", "Edin"]
+top5 Pr[Dup]: 100.0%/37760: Edin | 12.5%/4720: Dominic | 12.5%/4720: Kevin | 12.5%/4720: Ferhat | 12.5%/4720: Axel
+top5 Pr[Dup]: 12.5%/4720: Laura | 12.5%/4720: Madleine | 12.5%/4720: Nadine | 12.5%/4720: Ivana | 12.5%/4720: Sabrina
+
 
 MN#4.0 E08 -- Blackout
-0x Ivana    → Axel    
-0x Michelle → Elisha  
-0x Laura    → Kevin   
-2x Melissa  → Laurin  
+0x Nadine   → Dominic 
 2x Luisa    → Rene    
 1x Sabrina  → Aleks   
+2x Melissa  → Laurin  
+0x Michelle → Elisha  
+0x Laura    → Kevin   
 0x Madleine → Ferhat  
 1x Aline    → Mo      
+0x Ivana    → Axel    
 0x Kathi    → Juliano 
-0x Nadine   → Dominic 
 ---
 -> I[l]/bits: {2: 1.48, 3: 1.46, 4: 2.45, 5: 3.87, 6: 5.70, 7: 7.96, 8: 9.20, 10: 12.20}
 -> E[I]/bits: 1.93
@@ -225,6 +267,12 @@ MN#4.0 E08 -- Blackout
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0     [39m┆ 12.972 ┆[48;2;65;77;71m 17.335  [49m┆ 13.797 ┆ 16.568 ┆ 12.913  ┆ 13.149 ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆ 13.267 ┆[48;2;74;68;89m 12.5 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴────────┴──────╯
 13568 left -> 13.7279 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 2.9%/389: Laura -> ["Ferhat", "Edin"] | 2.5%/337: Kathi -> ["Rene", "Edin"] | 2.4%/332: Luisa -> ["Axel", "Edin"] | 2.4%/322: Nadine -> ["Elisha", "Edin"]
+top5 Pr[Dup]: 12.5%/1696: ["Dominic", "Edin"] | 12.5%/1696: ["Aleks", "Edin"] | 12.5%/1696: ["Juliano", "Edin"] | 12.5%/1696: ["Elisha", "Edin"] | 12.5%/1696: ["Kevin", "Edin"]
+top5 Pr[Dup]: 100.0%/13568: Edin | 12.5%/1696: Dominic | 12.5%/1696: Elisha | 12.5%/1696: Aleks | 12.5%/1696: Juliano
+top5 Pr[Dup]: 12.5%/1696: Kathi | 12.5%/1696: Madleine | 12.5%/1696: Sabrina | 12.5%/1696: Michelle | 12.5%/1696: Nadine
+
 
 MB#5.0 E10
 Ivana → Elisha 
@@ -247,18 +295,24 @@ Ivana → Elisha
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0     [39m┆ 12.011 ┆[48;2;65;77;71m 20.531  [49m┆ 16.341 ┆ 15.992 ┆ 11.103  ┆ 11.383 ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆ 12.64  ┆[48;2;74;68;89m 12.5 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴────────┴──────╯
 11456 left -> 13.4838 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 2.8%/322: Nadine -> ["Elisha", "Edin"] | 2.8%/316: Ivana -> ["Juliano", "Edin"] | 2.6%/298: Nadine -> ["Aleks", "Edin"] | 2.6%/294: Sabrina -> ["Dominic", "Edin"]
+top5 Pr[Dup]: 12.5%/1432: ["Dominic", "Edin"] | 12.5%/1432: ["Elisha", "Edin"] | 12.5%/1432: ["Rene", "Edin"] | 12.5%/1432: ["Kevin", "Edin"] | 12.5%/1432: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/11456: Edin | 12.5%/1432: Ferhat | 12.5%/1432: Dominic | 12.5%/1432: Axel | 12.5%/1432: Aleks
+top5 Pr[Dup]: 12.5%/1432: Madleine | 12.5%/1432: Luisa | 12.5%/1432: Laura | 12.5%/1432: Sabrina | 12.5%/1432: Kathi
+
 
 MN#5.0 E10
-0x Luisa    → Ferhat  
-0x Madleine → Aleks   
 2x Laura    → Juliano 
-0x Nadine   → Rene    
+0x Sabrina  → Elisha  
+0x Michelle → Axel    
+0x Luisa    → Ferhat  
+0x Ivana    → Dominic 
 2x Kathi    → Kevin   
+0x Nadine   → Rene    
+0x Madleine → Aleks   
 2x Aline    → Mo      
 3x Melissa  → Laurin  
-0x Michelle → Axel    
-0x Sabrina  → Elisha  
-0x Ivana    → Dominic 
 ---
 -> I[l]/bits: {2: 1.81, 3: 1.50, 4: 2.17, 5: 3.31, 6: 4.99, 7: 7.48, 8: 8.90}
 -> E[I]/bits: 2.08
@@ -278,6 +332,12 @@ MN#5.0 E10
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0     [39m┆ 12.5   ┆  5.556  ┆[48;2;65;77;71m 38.889 [49m┆ 14.583 ┆  8.333  ┆  8.333 ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆ 11.806 ┆[48;2;74;68;89m 12.5 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴────────┴──────╯
 1152 left -> 10.1699 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 5.8%/67: Kathi -> ["Kevin", "Edin"] | 5.0%/58: Ivana -> ["Dominic", "Edin"] | 4.9%/57: Laura -> ["Juliano", "Edin"] | 4.9%/56: Sabrina -> ["Elisha", "Edin"]
+top5 Pr[Dup]: 12.5%/144: ["Rene", "Edin"] | 12.5%/144: ["Kevin", "Edin"] | 12.5%/144: ["Aleks", "Edin"] | 12.5%/144: ["Dominic", "Edin"] | 12.5%/144: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1152: Edin | 12.5%/144: Kevin | 12.5%/144: Aleks | 12.5%/144: Elisha | 12.5%/144: Juliano
+top5 Pr[Dup]: 12.5%/144: Ivana | 12.5%/144: Laura | 12.5%/144: Madleine | 12.5%/144: Kathi | 12.5%/144: Sabrina
+
 
 MB#6.0 E12
 Michelle → Rene 
@@ -300,18 +360,24 @@ Michelle → Rene
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0    [39m┆ 25   ┆[38;5;9m  0      [39m┆[48;2;65;77;71m 40     [49m┆ 20     ┆ 10      ┆  5    ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[48;2;74;68;89m 14.286 [49m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴────────╯
 140 left -> 7.1293 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 10.0%/14: Madleine -> ["Aleks", "Edin"] | 10.0%/14: Ivana -> ["Dominic", "Edin"] | 7.9%/11: Kathi -> ["Kevin", "Edin"] | 6.4%/9: Laura -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 14.3%/20: ["Elisha", "Edin"] | 14.3%/20: ["Axel", "Edin"] | 14.3%/20: ["Kevin", "Edin"] | 14.3%/20: ["Juliano", "Edin"] | 14.3%/20: ["Aleks", "Edin"]
+top5 Pr[Dup]: 100.0%/140: Edin | 14.3%/20: Aleks | 14.3%/20: Axel | 14.3%/20: Ferhat | 14.3%/20: Kevin
+top5 Pr[Dup]: 14.3%/20: Kathi | 14.3%/20: Madleine | 14.3%/20: Ivana | 14.3%/20: Sabrina | 14.3%/20: Luisa
+
 
 MN#6.0 E12
-1x Madleine → Aleks   
+2x Sabrina  → Dominic 
+0x Michelle → Rene    
+0x Laura    → Edin    
 1x Ivana    → Juliano 
 3x Kathi    → Kevin   
-0x Laura    → Edin    
-1x Luisa    → Axel    
-0x Michelle → Rene    
-2x Sabrina  → Dominic 
 4x Melissa  → Laurin  
+1x Luisa    → Axel    
 3x Aline    → Mo      
 1x Nadine   → Elisha  
+1x Madleine → Aleks   
 ---
 -> I[l]/bits: {4: 2.96, 5: 0.90, 6: 1.74, 7: 4.81}
 -> E[I]/bits: 1.56
@@ -331,6 +397,12 @@ MN#6.0 E12
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0     [39m┆ 33.333 ┆[38;5;9m  0      [39m┆[48;2;65;77;71m 34.667 [49m┆ 16     ┆  8      ┆  8     ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[48;2;74;68;89m 16   [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴──────┴──────╯
 75 left -> 6.2288 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 12.0%/9: Madleine -> ["Aleks", "Edin"] | 10.7%/8: Ivana -> ["Dominic", "Edin"] | 6.7%/5: Luisa -> ["Axel", "Edin"] | 6.7%/5: Kathi -> ["Kevin", "Edin"]
+top5 Pr[Dup]: 16.0%/12: ["Dominic", "Edin"] | 16.0%/12: ["Elisha", "Edin"] | 16.0%/12: ["Axel", "Edin"] | 16.0%/12: ["Kevin", "Edin"] | 14.7%/11: ["Ferhat", "Edin"]
+top5 Pr[Dup]: 100.0%/75: Edin | 16.0%/12: Dominic | 16.0%/12: Elisha | 16.0%/12: Kevin | 16.0%/12: Axel
+top5 Pr[Dup]: 16.0%/12: Luisa | 16.0%/12: Nadine | 16.0%/12: Ivana | 16.0%/12: Kathi | 16.0%/12: Sabrina
+
 
 MB#7.0 E14
 Ivana → Edin 
@@ -353,17 +425,23 @@ Ivana → Edin
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0     [39m┆ 33.333 ┆[38;5;9m  0      [39m┆[48;2;65;77;71m 34.921 [49m┆ 15.873 ┆  7.937  ┆  7.937 ┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[48;2;74;68;89m 19.048 [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴──────┴────────╯
 63 left -> 5.9773 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 14.3%/9: Madleine -> ["Aleks", "Edin"] | 7.9%/5: Luisa -> ["Axel", "Edin"] | 7.9%/5: Kathi -> ["Kevin", "Edin"] | 6.3%/4: Nadine -> ["Elisha", "Edin"]
+top5 Pr[Dup]: 19.0%/12: ["Elisha", "Edin"] | 19.0%/12: ["Axel", "Edin"] | 15.9%/10: ["Ferhat", "Edin"] | 15.9%/10: ["Kevin", "Edin"] | 14.3%/9: ["Aleks", "Edin"]
+top5 Pr[Dup]: 100.0%/63: Edin | 19.0%/12: Elisha | 19.0%/12: Axel | 15.9%/10: Ferhat | 15.9%/10: Kevin
+top5 Pr[Dup]: 19.0%/12: Madleine | 19.0%/12: Luisa | 19.0%/12: Nadine | 19.0%/12: Kathi | 19.0%/12: Sabrina
+
 
 MN#7.0 E14
-2x Madleine → Aleks   
 5x Melissa  → Laurin  
+4x Aline    → Mo      
+0x Kathi    → Elisha  
 1x Michelle → Rene    
 3x Laura    → Juliano 
 0x Ivana    → Kevin   
-0x Kathi    → Elisha  
-2x Luisa    → Axel    
+2x Madleine → Aleks   
 0x Nadine   → Ferhat  
-4x Aline    → Mo      
+2x Luisa    → Axel    
 3x Sabrina  → Dominic 
 ---
 -> I[l]/bits: {3: 2.52, 4: 2.52, 5: 2.07, 6: 2.52, 7: 3.66, 8: 2.66}
@@ -384,6 +462,12 @@ MN#7.0 E14
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0     [39m┆[48;2;65;77;71m 33.333 [49m┆[38;5;9m  0      [39m┆[48;2;69;76;102m 33.333 [49m┆[48;2;65;77;71m 33.333 [49m┆[38;5;9m  0      [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[48;2;74;68;89m 20   [49m│
 ╰──────────┴────────┴────────┴─────────┴────────┴────────┴─────────┴────────┴────────┴─────┴──────┴──────╯
 15 left -> 3.9069 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 13.3%/2: Madleine -> ["Aleks", "Edin"] | 13.3%/2: Luisa -> ["Kevin", "Edin"] | 13.3%/2: Nadine -> ["Elisha", "Edin"] | 6.7%/1: Sabrina -> ["Ferhat", "Edin"]
+top5 Pr[Dup]: 20.0%/3: ["Ferhat", "Edin"] | 20.0%/3: ["Axel", "Edin"] | 20.0%/3: ["Kevin", "Edin"] | 20.0%/3: ["Elisha", "Edin"] | 13.3%/2: ["Aleks", "Edin"]
+top5 Pr[Dup]: 100.0%/15: Edin | 20.0%/3: Axel | 20.0%/3: Elisha | 20.0%/3: Ferhat | 20.0%/3: Kevin
+top5 Pr[Dup]: 20.0%/3: Madleine | 20.0%/3: Kathi | 20.0%/3: Nadine | 20.0%/3: Luisa | 20.0%/3: Sabrina
+
 
 MB#8.0 E16
 Sabrina → Axel 
@@ -406,18 +490,24 @@ Sabrina → Axel
 │[48;2;69;76;102m Sabrina  [49m┆[38;5;9m  0    [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;11m 50     [49m[39m┆[48;2;65;77;71m[38;5;11m 50     [49m[39m┆[38;5;9m  0      [39m┆[38;5;9m  0    [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[48;2;74;68;89m 20   [49m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴──────╯
 10 left -> 3.3219 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 10.0%/1: Nadine -> ["Elisha", "Edin"] | 10.0%/1: Sabrina -> ["Ferhat", "Edin"] | 10.0%/1: Madleine -> ["Juliano", "Edin"] | 10.0%/1: Kathi -> ["Kevin", "Edin"]
+top5 Pr[Dup]: 20.0%/2: ["Axel", "Edin"] | 20.0%/2: ["Elisha", "Edin"] | 20.0%/2: ["Ferhat", "Edin"] | 20.0%/2: ["Kevin", "Edin"] | 10.0%/1: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/10: Edin | 20.0%/2: Kevin | 20.0%/2: Axel | 20.0%/2: Elisha | 20.0%/2: Ferhat
+top5 Pr[Dup]: 20.0%/2: Sabrina | 20.0%/2: Kathi | 20.0%/2: Madleine | 20.0%/2: Luisa | 20.0%/2: Nadine
+
 
 MN#8.0 E16
-5x Aline    → Mo      
+6x Melissa  → Laurin  
+4x Laura    → Juliano 
+2x Michelle → Rene    
 1x Nadine   → Ferhat  
+1x Ivana    → Kevin   
 3x Luisa    → Axel    
 4x Sabrina  → Dominic 
-2x Michelle → Rene    
-0x Madleine → Edin    
-4x Laura    → Juliano 
-1x Ivana    → Kevin   
-6x Melissa  → Laurin  
+5x Aline    → Mo      
 0x Kathi    → Aleks   
+0x Madleine → Edin    
 ---
 -> I[l]/bits: {4: 1.32, 5: 1.00, 6: 3.32}
 -> E[I]/bits: 1.36
@@ -437,6 +527,12 @@ MN#8.0 E16
 │[48;2;69;76;102m[38;5;10m Sabrina  [49m[39m┆[38;5;9m  0    [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[38;5;9m  0    [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴──────╯
 1 left -> 0 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 100.0%/1: Madleine -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: Juliano | 100.0%/1: Edin
+top5 Pr[Dup]: 100.0%/1: Madleine
+
 
 MB#9.0 E18
 Luisa → Ferhat 
@@ -459,18 +555,24 @@ Luisa → Ferhat
 │[48;2;69;76;102m[38;5;10m Sabrina  [49m[39m┆[38;5;9m  0    [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[38;5;9m  0    [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴──────╯
 1 left -> 0 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 100.0%/1: Madleine -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: Juliano | 100.0%/1: Edin
+top5 Pr[Dup]: 100.0%/1: Madleine
+
 
 MN#9.0 E18
-1x Kathi    → Aleks   
-0x Madleine → Kevin   
-4x Luisa    → Axel    
-2x Nadine   → Ferhat  
-1x Ivana    → Dominic 
-3x Michelle → Rene    
 5x Laura    → Juliano 
+1x Ivana    → Dominic 
+7x Melissa  → Laurin  
+2x Nadine   → Ferhat  
+3x Michelle → Rene    
+4x Luisa    → Axel    
 6x Aline    → Mo      
 1x Sabrina  → Elisha  
-7x Melissa  → Laurin  
+1x Kathi    → Aleks   
+0x Madleine → Kevin   
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00
@@ -490,6 +592,12 @@ MN#9.0 E18
 │[48;2;69;76;102m[38;5;10m Sabrina  [49m[39m┆[38;5;9m  0    [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[38;5;9m  0    [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴──────╯
 1 left -> 0 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 100.0%/1: Madleine -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: Juliano | 100.0%/1: Edin
+top5 Pr[Dup]: 100.0%/1: Madleine
+
 
 MB#10.0 E20
 Kathi → Kevin 
@@ -512,18 +620,24 @@ Kathi → Kevin
 │[48;2;69;76;102m[38;5;10m Sabrina  [49m[39m┆[38;5;9m  0    [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[38;5;9m  0    [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴──────╯
 1 left -> 0 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 100.0%/1: Madleine -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: Edin | 100.0%/1: Juliano
+top5 Pr[Dup]: 100.0%/1: Madleine
+
 
 MN#10.0 E20
-2x Sabrina  → Elisha  
-1x Madleine → Edin    
-4x Kathi    → Kevin   
-7x Aline    → Mo      
-5x Luisa    → Axel    
-2x Ivana    → Dominic 
-8x Melissa  → Laurin  
-0x Laura    → Aleks   
 4x Michelle → Rene    
+4x Kathi    → Kevin   
+5x Luisa    → Axel    
+8x Melissa  → Laurin  
+7x Aline    → Mo      
+2x Ivana    → Dominic 
+1x Madleine → Edin    
+0x Laura    → Aleks   
 3x Nadine   → Ferhat  
+2x Sabrina  → Elisha  
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -543,6 +657,12 @@ MN#10.0 E20
 │[48;2;69;76;102m[38;5;10m Sabrina  [49m[39m┆[38;5;9m  0    [39m┆[38;5;9m  0   [39m┆[38;5;9m  0      [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[38;5;9m  0    [39m┆[38;5;9m  0     [39m┆[38;5;9m  0  [39m┆[38;5;9m  0   [39m┆[38;5;9m  0   [39m│
 ╰──────────┴───────┴──────┴─────────┴────────┴────────┴─────────┴───────┴────────┴─────┴──────┴──────╯
 1 left -> 0 bits left
+Pr[]s for dup with Edin
+top4 Pr[Dup]: 100.0%/1: Madleine -> ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: ["Juliano", "Edin"]
+top5 Pr[Dup]: 100.0%/1: Edin | 100.0%/1: Juliano
+top5 Pr[Dup]: 100.0%/1: Madleine
+
 
 ╭─────────┬────┬─────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┬──────────┬──────────┬──────────┬───┬────────┬──────┬──────────╮
 │         ┆  L ┆  Aline  ┆   Ivana  ┆   Kathi  ┆   Laura  ┆  Luisa  ┆ Madleine ┆  Melissa ┆ Michelle ┆  Nadine  ┆  Sabrina ┆   ┆    I   ┆ #new ┆ min dist │
@@ -594,4 +714,4 @@ MN#10.0 E20
 ╰─────────┴────┴───────────┴───────────┴──────────┴───────────┴───────────┴─────────┴───────────┴───────────┴───────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 13.55s
+Ran in 16.73s
