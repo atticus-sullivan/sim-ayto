@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 use crate::ruleset_data::dummy::DummyData;
 use crate::ruleset_data::dup::DupData;
+use crate::ruleset_data::dup_x::DupXData;
 use crate::ruleset_data::RuleSetData;
 use anyhow::{ensure, Context, Result};
 use core::iter::zip;
@@ -157,9 +158,10 @@ pub enum RuleSetParse {
     Eq,
 }
 
-#[derive(Debug)]
+pub type RuleSetDupX = (usize, Vec<String>);
+#[derive(Debug, Clone)]
 pub enum RuleSet {
-    XTimesDup(usize, Vec<String>),
+    XTimesDup(RuleSetDupX),
     SomeoneIsTrip,
     NToN,
     FixedTrip(String),
@@ -175,7 +177,7 @@ impl RuleSetParse {
             RuleSetParse::XTimesDup(s) => {
                 let nc = s.iter().filter(|s| s.is_none()).count();
                 let ss = s.into_iter().filter_map(|s| s).collect::<Vec<_>>();
-                RuleSet::XTimesDup(nc, ss)
+                RuleSet::XTimesDup((nc, ss))
             }
         }
     }
@@ -188,28 +190,28 @@ impl std::default::Default for RuleSet {
 }
 
 impl RuleSet {
-    pub fn init_data(&self) -> Box<dyn RuleSetData> {
-        match &self {
+    pub fn init_data(&self) -> Result<Box<dyn RuleSetData>> {
+        Ok(match &self {
             RuleSet::SomeoneIsTrip => Box::new(DupData::default()),
             RuleSet::FixedTrip(_) => Box::new(DupData::default()),
             RuleSet::NToN => Box::new(DummyData::default()),
             RuleSet::Eq => Box::new(DummyData::default()),
 
             // RuleSet::XTimesDup(_, _) => Box::new(DupData::default()),
-            RuleSet::XTimesDup(_, _) => Box::new(DummyData::default()),
-        }
+            RuleSet::XTimesDup(rs) => Box::new(DupXData::new(rs.clone())?),
+        })
     }
 
     pub fn must_add_exclude(&self) -> bool {
         match &self {
-            RuleSet::XTimesDup(_, _) | RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => true,
+            RuleSet::XTimesDup(_) | RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => true,
             RuleSet::Eq | RuleSet::NToN => false,
         }
     }
 
     pub fn constr_map_len(&self, a: usize, _b: usize) -> usize {
         match &self {
-            RuleSet::XTimesDup(_, _)
+            RuleSet::XTimesDup(_)
             | RuleSet::SomeoneIsTrip
             | RuleSet::FixedTrip(_)
             | RuleSet::Eq => a,
@@ -219,7 +221,7 @@ impl RuleSet {
 
     pub fn must_sort_constraint(&self) -> bool {
         match &self {
-            RuleSet::XTimesDup(_, _)
+            RuleSet::XTimesDup(_)
             | RuleSet::SomeoneIsTrip
             | RuleSet::FixedTrip(_)
             | RuleSet::Eq => false,
@@ -229,7 +231,7 @@ impl RuleSet {
 
     pub fn validate_lut(&self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
         match self {
-            RuleSet::XTimesDup(unkown_cnt, fixed) => {
+            RuleSet::XTimesDup((unkown_cnt, fixed)) => {
                 let d = fixed.len() + unkown_cnt;
                 ensure!(
                     lut_a.len() == lut_b.len() - d,
@@ -294,7 +296,7 @@ impl RuleSet {
     pub fn ignore_pairing(&self, a: usize, b: usize) -> bool {
         match self {
             RuleSet::Eq
-            | RuleSet::XTimesDup(_, _)
+            | RuleSet::XTimesDup(_)
             | RuleSet::SomeoneIsTrip
             | RuleSet::FixedTrip(_) => false,
             RuleSet::NToN => a <= b,
@@ -322,7 +324,7 @@ impl RuleSet {
                     is.step(i, p, output)?;
                 }
             }
-            RuleSet::XTimesDup(unkown_cnt, fixed) => {
+            RuleSet::XTimesDup((unkown_cnt, fixed)) => {
                 let fixed_num = fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>();
                 let mut x = (0..lut_b.len() as u8)
                     .filter(|i| !fixed_num.contains(i))
@@ -397,7 +399,7 @@ impl RuleSet {
 
     pub fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> usize {
         match self {
-            RuleSet::XTimesDup(unkown_cnt, fixed) => {
+            RuleSet::XTimesDup((unkown_cnt, fixed)) => {
                 // number of buckets / each permutation
                 let a = size_map_a;
                 // number of "items" to distribute
@@ -477,7 +479,7 @@ mod tests {
 
     #[test]
     fn test_validate_lut_fixed_dup() {
-        let dup_rule = RuleSet::XTimesDup(0, vec!["x".to_string()]);
+        let dup_rule = RuleSet::XTimesDup((0, vec!["x".to_string()]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
@@ -513,7 +515,7 @@ mod tests {
 
     #[test]
     fn test_validate_lut_someone_is_dup() {
-        let dup_rule = RuleSet::XTimesDup(1, vec![]);
+        let dup_rule = RuleSet::XTimesDup((1, vec![]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
@@ -593,7 +595,7 @@ mod tests {
             vec![vec![0, 2], vec![1]],
             vec![vec![2], vec![0, 1]],
         ]);
-        let dup_rule = RuleSet::XTimesDup(1, vec![]);
+        let dup_rule = RuleSet::XTimesDup((1, vec![]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
@@ -634,7 +636,7 @@ mod tests {
             vec![vec![1, 3], vec![0, 2]],
             vec![vec![2, 3], vec![0, 1]],
         ]);
-        let dup_rule = RuleSet::XTimesDup(2, vec![]);
+        let dup_rule = RuleSet::XTimesDup((2, vec![]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
@@ -722,7 +724,7 @@ mod tests {
             vec![vec![1, 2], vec![0]],
             vec![vec![1], vec![0, 2]],
         ]);
-        let dup_rule = RuleSet::XTimesDup(0, vec!["C".to_string()]);
+        let dup_rule = RuleSet::XTimesDup((0, vec!["C".to_string()]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         dup_rule.iter_perms(&lut_a, &lut_b, &mut is, false).unwrap();
@@ -874,7 +876,7 @@ mod tests {
             vec![vec![3, 4], vec![2], vec![0, 1]],
             vec![vec![4], vec![2, 3], vec![0, 1]],
         ]);
-        let rule = RuleSet::XTimesDup(1, vec!["D".to_string()]);
+        let rule = RuleSet::XTimesDup((1, vec!["D".to_string()]));
         let lut_a = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from(
             [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4)].map(|(k, v)| (k.to_string(), v)),
@@ -954,17 +956,17 @@ mod tests {
         assert_eq!(rs.get_perms_amount(2, 2), 2);
         assert_eq!(rs.get_perms_amount(3, 3), 6);
 
-        let rs = RuleSet::XTimesDup(1, vec![]);
+        let rs = RuleSet::XTimesDup((1, vec![]));
         assert_eq!(rs.get_perms_amount(1, 2), 1);
         assert_eq!(rs.get_perms_amount(2, 3), 6);
         assert_eq!(rs.get_perms_amount(3, 4), 36);
 
-        let rs = RuleSet::XTimesDup(0, vec!["A".to_string()]);
+        let rs = RuleSet::XTimesDup((0, vec!["A".to_string()]));
         assert_eq!(rs.get_perms_amount(1, 2), 1);
         assert_eq!(rs.get_perms_amount(2, 3), 4);
         assert_eq!(rs.get_perms_amount(3, 4), 18);
 
-        let rs = RuleSet::XTimesDup(1, vec!["A".to_string()]);
+        let rs = RuleSet::XTimesDup((1, vec!["A".to_string()]));
         assert_eq!(rs.get_perms_amount(2, 4), 6);
         assert_eq!(rs.get_perms_amount(3, 5), 72);
 

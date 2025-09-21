@@ -18,9 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 pub mod dummy;
 pub mod dup;
+pub mod dup_x;
 
 use crate::ruleset::RuleSet;
-use crate::Matching;
+use crate::{Lut, Matching};
 use anyhow::Result;
 
 pub trait RuleSetDataClone {
@@ -43,8 +44,9 @@ pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
         ruleset: &RuleSet,
         map_a: &Vec<String>,
         map_b: &Vec<String>,
+        lut_b: &Lut,
         total: u128,
-    );
+    ) -> Result<()>;
 }
 
 impl Clone for Box<dyn RuleSetData> {

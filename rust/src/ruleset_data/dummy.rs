@@ -1,5 +1,6 @@
 use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
+use crate::Lut;
 use crate::Matching;
 use anyhow::Result;
 
@@ -23,7 +24,9 @@ impl RuleSetData for DummyData {
         _ruleset: &RuleSet,
         _map_a: &Vec<String>,
         _map_b: &Vec<String>,
+        _lut_b: &Lut,
         _total: u128,
-    ) {
+    ) -> Result<()> {
+        Ok(())
     }
 }

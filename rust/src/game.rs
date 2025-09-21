@@ -125,7 +125,7 @@ impl Game {
     // returns (translationKeyForExplanation, shortcode)
     pub fn ruleset_str(self: &Self) -> (String, String) {
         match &self.rule_set {
-            RuleSet::XTimesDup(cnt, fixed) => (
+            RuleSet::XTimesDup((cnt, fixed)) => (
                 format!("rs-XTimesDup-{}-{}", fixed.len(), cnt),
                 format!("?{cnt}={}", fixed.len()),
             ),
@@ -184,7 +184,7 @@ impl Game {
                 g.rule_set.must_add_exclude(),
                 g.rule_set.must_sort_constraint(),
                 (&gp.rename_a, &gp.rename_b),
-                g.rule_set.init_data(),
+                g.rule_set.init_data()?,
             )?);
         }
 

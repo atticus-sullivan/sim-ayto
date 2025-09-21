@@ -1,44 +1,37 @@
 use crate::ruleset::RuleSet;
+use crate::ruleset::RuleSetDupX;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
 use crate::Matching;
 use anyhow::{Context, Result};
 use std::collections::HashMap;
+use std::collections::HashSet;
 
 #[derive(Debug, Clone)]
-pub struct DupData {
+pub struct DupXData {
+    // HashMap.key: (index in set_a maps to [...])
+    // HashMap.value: count
     cnt: HashMap<(usize, Vec<u8>), usize>,
+    rs: RuleSetDupX,
 }
 
-impl std::default::Default for DupData {
-    fn default() -> Self {
-        Self {
-            cnt: Default::default(),
-        }
-    }
-}
-
-impl RuleSetData for DupData {
-    fn push(&mut self, m: &Matching) -> Result<()> {
-        let k = m
-            .iter()
-            .enumerate()
-            .find(|(_, j)| j.len() > 1)
-            .map(|(i, j)| (i, j.clone()))
-            .with_context(|| format!(""))?;
-        let e = self.cnt.entry(k).or_default();
-        *e = *e + 1;
-        Ok(())
+impl DupXData {
+    pub fn new(rs: RuleSetDupX) -> Result<Self> {
+        Ok(Self {
+            cnt: HashMap::default(),
+            rs: rs.clone(),
+        })
     }
 
-    fn print(
+    fn print_one(
         &self,
         full: bool,
         ruleset: &RuleSet,
         map_a: &Vec<String>,
         map_b: &Vec<String>,
-        _lut_b: &Lut,
         total: u128,
+        query: Option<u8>,
+        query_not: &HashSet<u8>,
     ) -> Result<()> {
         let word = match ruleset {
             RuleSet::XTimesDup(_) => "Dup",
@@ -48,7 +41,20 @@ impl RuleSetData for DupData {
             RuleSet::Eq => todo!(),
         };
 
-        let mut d = self.cnt.clone().into_iter().collect::<Vec<_>>();
+        let mut d = match query {
+            Some(q) => self
+                .cnt
+                .iter()
+                .filter(|i| i.0 .1.contains(&q) && i.0 .1.iter().all(|j| !query_not.contains(j)))
+                .collect::<Vec<_>>(),
+            None => self
+                .cnt
+                .iter()
+                .filter(|i| i.0 .1.iter().all(|j| !query_not.contains(j)))
+                .collect::<Vec<_>>(),
+        };
+
+        // print all (or the most common) full duplicate matchings
         d.sort_by(|(_, a), (_, b)| b.cmp(a));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
@@ -63,9 +69,9 @@ impl RuleSetData for DupData {
                 "{}{}{:.1}%/{}: {} -> {:?}",
                 if full { "\n  " } else { "" },
                 if !first { " | " } else { "" },
-                (cnt as f64 / total as f64) * 100.0,
+                (*cnt as f64 / total as f64) * 100.0,
                 cnt,
-                map_a[a],
+                map_a[*a],
                 bs.iter()
                     .map(|b| map_b[*b as usize].clone())
                     .collect::<Vec<_>>()
@@ -74,6 +80,7 @@ impl RuleSetData for DupData {
         }
         println!();
 
+        // print all (or the most common) people (set_b) together being part of the duplicate matching
         let mut d = self
             .cnt
             .iter()
@@ -108,6 +115,7 @@ impl RuleSetData for DupData {
         }
         println!();
 
+        // print all (or the most common) people (set_a) being part of the duplicate matching
         let mut d = self
             .cnt
             .iter()
@@ -142,6 +150,7 @@ impl RuleSetData for DupData {
         }
         println!();
 
+        // print all (or the most common) people (set_b) being part of the duplicate matching
         let mut d = self
             .cnt
             .iter()
@@ -173,6 +182,74 @@ impl RuleSetData for DupData {
             first = false;
         }
         println!();
+        Ok(())
+    }
+}
+
+impl RuleSetData for DupXData {
+    fn push(&mut self, m: &Matching) -> Result<()> {
+        let ks = m
+            .iter()
+            .enumerate()
+            .filter(|(_, j)| j.len() > 1)
+            .map(|(i, j)| (i, j.clone()));
+        for k in ks {
+            let e = self.cnt.entry(k).or_default();
+            *e = *e + 1;
+        }
+        Ok(())
+    }
+
+    fn print(
+        &self,
+        full: bool,
+        ruleset: &RuleSet,
+        map_a: &Vec<String>,
+        map_b: &Vec<String>,
+        lut_b: &Lut,
+        total: u128,
+    ) -> Result<()> {
+        for d in self.rs.1.iter() {
+            let not = self
+                .rs
+                .1
+                .iter()
+                .filter_map(|i| {
+                    if i != d {
+                        Some(
+                            lut_b
+                                .get(i)
+                                .map(|x| *x as u8)
+                                .with_context(|| format!("{i} not found")),
+                        )
+                    } else {
+                        None
+                    }
+                })
+                .collect::<Result<HashSet<_>>>()?;
+            let q = lut_b
+                .get(d)
+                .map(|d| *d as u8)
+                .with_context(|| format!("{d} not found"))?;
+            self.print_one(full, ruleset, map_a, map_b, total, Some(q), &not)
+                .unwrap();
+            println!();
+        }
+        if self.rs.0 > 0 {
+            let not = self
+                .rs
+                .1
+                .iter()
+                .map(|i| {
+                    lut_b
+                        .get(i)
+                        .map(|x| *x as u8)
+                        .with_context(|| format!("{i} not found"))
+                })
+                .collect::<Result<HashSet<_>>>()?;
+            self.print_one(full, ruleset, map_a, map_b, total, None, &not)
+                .unwrap();
+        }
         Ok(())
     }
 }

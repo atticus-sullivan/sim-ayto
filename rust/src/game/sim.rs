@@ -120,15 +120,27 @@ impl Game {
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;
-                        c.ruleset_data
-                            .print(full, &self.rule_set, &self.map_a, &self.map_b, rem.1);
+                        c.ruleset_data.print(
+                            full,
+                            &self.rule_set,
+                            &self.map_a,
+                            &self.map_b,
+                            &self.lut_b,
+                            rem.1,
+                        )?;
                         md_tables.push((c.md_title(), tab_idx, tree, true));
                         tab_idx += 1;
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
                             .context("Error printing")?;
-                        c.ruleset_data
-                            .print(full, &self.rule_set, &self.map_a, &self.map_b, rem.1);
+                        c.ruleset_data.print(
+                            full,
+                            &self.rule_set,
+                            &self.map_a,
+                            &self.map_b,
+                            &self.lut_b,
+                            rem.1,
+                        )?;
                         md_tables.push((c.md_title(), tab_idx, tree, true));
                         tab_idx += 1;
                     }
