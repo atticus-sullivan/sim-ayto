@@ -5,17 +5,9 @@ use crate::Matching;
 use anyhow::{Context, Result};
 use std::collections::HashMap;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct DupData {
     cnt: HashMap<(usize, Vec<u8>), usize>,
-}
-
-impl std::default::Default for DupData {
-    fn default() -> Self {
-        Self {
-            cnt: Default::default(),
-        }
-    }
 }
 
 impl RuleSetData for DupData {
@@ -25,9 +17,9 @@ impl RuleSetData for DupData {
             .enumerate()
             .find(|(_, j)| j.len() > 1)
             .map(|(i, j)| (i, j.clone()))
-            .with_context(|| format!(""))?;
+            .with_context(|| format!("something went wrong"))?;
         let e = self.cnt.entry(k).or_default();
-        *e = *e + 1;
+        *e += 1;
         Ok(())
     }
 
@@ -35,8 +27,8 @@ impl RuleSetData for DupData {
         &self,
         full: bool,
         ruleset: &RuleSet,
-        map_a: &Vec<String>,
-        map_b: &Vec<String>,
+        map_a: &[String],
+        map_b: &[String],
         _lut_b: &Lut,
         total: u128,
     ) -> Result<()> {
@@ -168,7 +160,7 @@ impl RuleSetData for DupData {
                 if !first { " | " } else { "" },
                 (cnt as f64 / total as f64) * 100.0,
                 cnt,
-                map_a[*a as usize]
+                map_a[*a]
             );
             first = false;
         }

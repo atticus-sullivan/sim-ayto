@@ -43,12 +43,13 @@ impl ConstraintParse {
     /// - `add_exclude`: whether to automatically add the exclude map
     /// - `sort_constraint`: whether to sort the maps used for this constraint
     /// - `rename`: Maps one name to another name for renaming the names of set_a and set_b
+    #[allow(clippy::too_many_arguments)]
     pub fn finalize_parsing(
         self,
         lut_a: &Lut,
         lut_b: &Lut,
         map_len: usize,
-        map_b: &Vec<String>,
+        map_b: &[String],
         add_exclude: bool,
         sort_constraint: bool,
         rename: (&Rename, &Rename),
@@ -102,7 +103,7 @@ impl ConstraintParse {
                     map_len,
                     c.map_s.len()
                 );
-                let value_len = c.map_s.iter().map(|(_, v)| v).collect::<HashSet<_>>().len();
+                let value_len = c.map_s.values().collect::<HashSet<_>>().len();
                 ensure!(
                     value_len == c.map_s.len(),
                     "Keys in the map of a night must be unique {:?}",
@@ -168,7 +169,7 @@ impl ConstraintParse {
     /// # Arguments
     ///
     /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be drawn. The function will create a new exclusion vector by removing any elements from `map_b` that match the current value in `self.map_s`.
-    fn add_exclude(&self, map_b: &Vec<String>) -> Option<(String, Vec<String>)> {
+    fn add_exclude(&self, map_b: &[String]) -> Option<(String, Vec<String>)> {
         if self.no_exclude {
             return None;
         }
@@ -177,8 +178,8 @@ impl ConstraintParse {
                 return None;
             }
             if let ConstraintType::Box { .. } = self.r#type {
-                // if the constraint is a box constraint the for loop will only run once anyhow
-                for (k, v) in &self.map_s {
+                // if the constraint is a box constraint the map contains only one item anyhow
+                if let Some((k, v)) = self.map_s.iter().next() {
                     let bs: Vec<String> = map_b
                         .iter()
                         .filter(|&i| i != v)

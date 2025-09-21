@@ -159,12 +159,13 @@ pub enum RuleSetParse {
 }
 
 pub type RuleSetDupX = (usize, Vec<String>);
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub enum RuleSet {
     XTimesDup(RuleSetDupX),
     SomeoneIsTrip,
     NToN,
     FixedTrip(String),
+    #[default]
     Eq,
 }
 impl RuleSetParse {
@@ -176,16 +177,10 @@ impl RuleSetParse {
             RuleSetParse::Eq => RuleSet::Eq,
             RuleSetParse::XTimesDup(s) => {
                 let nc = s.iter().filter(|s| s.is_none()).count();
-                let ss = s.into_iter().filter_map(|s| s).collect::<Vec<_>>();
+                let ss = s.into_iter().flatten().collect::<Vec<_>>();
                 RuleSet::XTimesDup((nc, ss))
             }
         }
-    }
-}
-
-impl std::default::Default for RuleSet {
-    fn default() -> Self {
-        RuleSet::Eq
     }
 }
 
@@ -370,7 +365,7 @@ impl RuleSet {
             }
             RuleSet::NToN => {
                 let len = lut_a.len() / 2;
-                let mut i = 0 as usize;
+                let mut i = 0_usize;
                 for ks in (0..lut_a.len() as u8).collect::<Vec<_>>().combination(len) {
                     let mut vs = (0..lut_a.len() as u8)
                         .filter(|x| !ks.contains(&x))
@@ -425,7 +420,7 @@ impl RuleSet {
                 //   -> assign pairs to double-bucket position
                 //   => l!
                 let f_c = permutator::divide_factorial(b - (a - s - f), s + f)
-                    / (2 as usize).pow((s + f) as u32);
+                    / (2_usize).pow((s + f) as u32);
                 f_a * f_b * f_c
             }
             // choose one of setA to have the triple (a) and distribute the remaining ones (b!/3!)
@@ -437,7 +432,7 @@ impl RuleSet {
             // first choose the items for the first set, then distribute the rest. Avoid double
             // counting. binom(X,2X) * X! / 2
             RuleSet::NToN => {
-                permutator::divide_factorial(size_map_a, size_map_a / 2) / (1 << size_map_a / 2)
+                permutator::divide_factorial(size_map_a, size_map_a / 2) / (1 << (size_map_a / 2))
             }
         }
     }

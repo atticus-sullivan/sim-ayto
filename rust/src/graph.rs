@@ -36,8 +36,8 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
         .sort_by_file_name()
         .into_iter()
         .filter_entry(|e| {
-            e.file_name().to_str().map_or(false, |e| filter_dirs(e))
-                && e.metadata().map_or(false, |e| e.is_dir())
+            e.file_name().to_str().is_some_and(filter_dirs)
+                && e.metadata().is_ok_and(|e| e.is_dir())
         })
         .filter_map(Result::ok)
     {
@@ -253,8 +253,8 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8, id: &str) -> 
         .sort_by_file_name()
         .into_iter()
         .filter_entry(|e| {
-            e.file_name().to_str().map_or(false, |e| filter_dirs(e))
-                && e.metadata().map_or(false, |e| e.is_dir())
+            e.file_name().to_str().is_some_and(filter_dirs)
+                && e.metadata().is_ok_and(|e| e.is_dir())
         })
         .filter_map(Result::ok)
     {

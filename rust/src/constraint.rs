@@ -126,10 +126,10 @@ impl Constraint {
         let mut fits = None;
         match &mut self.check {
             CheckType::Eq => {
-                fits = Some(m.iter().enumerate().all(|(_, js)| {
+                fits = Some(m.iter().all(|js| {
                     self.map
-                        .iter()
-                        .map(|(_, i2)| js.contains(i2))
+                        .values()
+                        .map(|i2| js.contains(i2))
                         .fold(None, |acc, b| match acc {
                             Some(a) => Some(a == b),
                             None => Some(b),
@@ -188,8 +188,8 @@ impl Constraint {
 impl Constraint {
     pub fn comment(&self) -> &str {
         match &self.r#type {
-            ConstraintType::Night { num: _, comment } => &comment,
-            ConstraintType::Box { num: _, comment } => &comment,
+            ConstraintType::Night { num: _, comment } => comment,
+            ConstraintType::Box { num: _, comment } => comment,
         }
     }
 

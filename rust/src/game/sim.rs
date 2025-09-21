@@ -44,37 +44,34 @@ impl Game {
         if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
             println!("Trace at which point a particular matching was elimiated:");
             for (q, id) in &is.query_matchings {
-                match id {
-                    Some(id) => {
-                        let mut tab = Table::new();
-                        tab
-                            .force_no_tty()
-                            .enforce_styling()
-                            .load_preset(NOTHING)
-                            .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-                        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-                        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-                        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
-                        ;
-                        let mut rows = vec![Row::new(); q.len()];
-                        for (a, b) in q.iter().enumerate() {
-                            let ass = self.map_a.get(a).unwrap();
-                            let bs = b
-                                .iter()
-                                .map(|b| self.map_b.get(*b as usize).unwrap())
-                                .collect::<Vec<_>>();
-                            rows[a].add_cell(ass.into());
-                            rows[a].add_cell(format!("{:?}", bs).into());
-                        }
-                        tab.add_rows(rows);
-                        tab.column_mut(0)
-                            .context("no 0th column in table found")?
-                            .set_padding((0, 1));
-                        println!("{tab}");
-                        println!("=> Eliminated in {}", id);
-                        tab_idx += 1;
+                if let Some(id) = id {
+                    let mut tab = Table::new();
+                    tab
+                        .force_no_tty()
+                        .enforce_styling()
+                        .load_preset(NOTHING)
+                        .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
+                    // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
+                    // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
+                    // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
+                    ;
+                    let mut rows = vec![Row::new(); q.len()];
+                    for (a, b) in q.iter().enumerate() {
+                        let ass = self.map_a.get(a).unwrap();
+                        let bs = b
+                            .iter()
+                            .map(|b| self.map_b.get(*b as usize).unwrap())
+                            .collect::<Vec<_>>();
+                        rows[a].add_cell(ass.into());
+                        rows[a].add_cell(format!("{:?}", bs).into());
                     }
-                    None => {}
+                    tab.add_rows(rows);
+                    tab.column_mut(0)
+                        .context("no 0th column in table found")?
+                        .set_padding((0, 1));
+                    println!("{tab}");
+                    println!("=> Eliminated in {}", id);
+                    tab_idx += 1;
                 }
             }
             println!();
@@ -146,7 +143,7 @@ impl Game {
                     }
                 }
 
-                past_constraints.push(&c_);
+                past_constraints.push(c_);
                 println!();
                 constr.push(c);
             }
@@ -166,11 +163,11 @@ impl Game {
                     for p in is.left_poss.iter() {
                         println!(
                             "{:?}",
-                            p.into_iter()
+                            p.iter()
                                 .enumerate()
                                 .map(|(a, bs)| (
                                     &self.map_a[a],
-                                    bs.into_iter()
+                                    bs.iter()
                                         .map(|b| &self.map_b[*b as usize])
                                         .collect::<Vec<_>>()
                                 ))

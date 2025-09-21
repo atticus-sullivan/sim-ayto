@@ -39,12 +39,7 @@ pub struct CSVEntryMN {
 }
 
 impl Constraint {
-    pub fn build_tree(
-        &self,
-        path: PathBuf,
-        map_a: &Vec<String>,
-        map_b: &Vec<String>,
-    ) -> Result<bool> {
+    pub fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
         if !self.build_tree {
             return Ok(false);
         }
@@ -55,8 +50,8 @@ impl Constraint {
             &ordering,
             &(self.type_str() + " / " + self.comment()),
             &mut File::create(path)?,
-            &map_a,
-            &map_b,
+            map_a,
+            map_b,
         )?;
         Ok(true)
     }
@@ -138,18 +133,18 @@ impl Constraint {
                     }
                 } else {
                     match color {
-                        Some(c) => Cell::new(&String::from(v2)).fg(c),
-                        None => Cell::new(&String::from(v2)),
+                        Some(c) => Cell::new(String::from(v2)).fg(c),
+                        None => Cell::new(String::from(v2)),
                     }
                 }
             }
-            None => Cell::new(&String::from("")),
+            None => Cell::new(String::from("")),
         }));
         ret.push(Cell::new(String::from("")));
 
         match &self.check {
             CheckType::Eq | CheckType::Lights(..) => ret.push(Cell::new(
-                format!("{:6.4}", self.information.unwrap_or(std::f64::INFINITY))
+                format!("{:6.4}", self.information.unwrap_or(f64::INFINITY))
                     .trim_end_matches('0')
                     .trim_end_matches('.'),
             )),
@@ -223,6 +218,7 @@ impl Constraint {
             CheckType::Lights(l, _) => l as usize == required_lights,
         };
 
+        #[allow(clippy::useless_format)]
         let meta_a = format!("{}", self.comment());
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
@@ -233,7 +229,7 @@ impl Constraint {
                     num: num.into(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: None,
-                    bits_gained: self.information.unwrap_or(std::f64::INFINITY),
+                    bits_gained: self.information.unwrap_or(f64::INFINITY),
                     comment: meta_a,
                 }),
                 Some(CSVEntry {
@@ -249,7 +245,7 @@ impl Constraint {
                     num: num.into(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: None,
-                    bits_gained: self.information.unwrap_or(std::f64::INFINITY),
+                    bits_gained: self.information.unwrap_or(f64::INFINITY),
                     comment: meta_a,
                 }),
                 None,
@@ -360,7 +356,7 @@ impl Constraint {
 
         println!(
             "=> I = {} bits",
-            format!("{:.4}", self.information.unwrap_or(std::f64::INFINITY))
+            format!("{:.4}", self.information.unwrap_or(f64::INFINITY))
                 .trim_end_matches('0')
                 .trim_end_matches('.')
         );
@@ -368,6 +364,6 @@ impl Constraint {
     }
 
     pub fn show_rem_table(&self) -> bool {
-        return !self.result_unknown;
+        !self.result_unknown
     }
 }

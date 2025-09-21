@@ -23,12 +23,13 @@ impl DupXData {
         })
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn print_one(
         &self,
         full: bool,
         ruleset: &RuleSet,
-        map_a: &Vec<String>,
-        map_b: &Vec<String>,
+        map_a: &[String],
+        map_b: &[String],
         total: u128,
         query: Option<u8>,
         query_not: &HashSet<u8>,
@@ -176,7 +177,7 @@ impl DupXData {
                 if !first { " | " } else { "" },
                 (cnt as f64 / total as f64) * 100.0,
                 cnt,
-                map_a[*a as usize]
+                map_a[*a]
             );
             first = false;
         }
@@ -194,7 +195,7 @@ impl RuleSetData for DupXData {
             .map(|(i, j)| (i, j.clone()));
         for k in ks {
             let e = self.cnt.entry(k).or_default();
-            *e = *e + 1;
+            *e += 1;
         }
         Ok(())
     }
@@ -203,8 +204,8 @@ impl RuleSetData for DupXData {
         &self,
         full: bool,
         ruleset: &RuleSet,
-        map_a: &Vec<String>,
-        map_b: &Vec<String>,
+        map_a: &[String],
+        map_b: &[String],
         lut_b: &Lut,
         total: u128,
     ) -> Result<()> {

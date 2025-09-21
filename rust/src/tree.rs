@@ -28,8 +28,8 @@ pub fn dot_tree(
     ordering: &Vec<(usize, usize)>,
     title: &str,
     writer: &mut File,
-    map_a: &Vec<String>,
-    map_b: &Vec<String>,
+    map_a: &[String],
+    map_b: &[String],
 ) -> Result<()> {
     let mut nodes: HashSet<String> = HashSet::new();
     writeln!(
@@ -80,7 +80,7 @@ pub fn dot_tree(
     Ok(())
 }
 
-pub fn tree_ordering(data: &Vec<Matching>, map_a: &Vec<String>) -> Vec<(usize, usize)> {
+pub fn tree_ordering(data: &[Matching], map_a: &[String]) -> Vec<(usize, usize)> {
     // tab maps people from set_a -> possible matches (set -> no duplicates)
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {
@@ -96,7 +96,7 @@ pub fn tree_ordering(data: &Vec<Matching>, map_a: &Vec<String>) -> Vec<(usize, u
         .iter()
         .enumerate()
         .filter_map(|(i, x)| {
-            if x.len() == 0 || x.iter().all(|y| y.len() == 1 && y[0] == u8::MAX) {
+            if x.is_empty() || x.iter().all(|y| y.len() == 1 && y[0] == u8::MAX) {
                 None
             } else {
                 Some((i, x.len()))

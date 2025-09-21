@@ -42,8 +42,8 @@ pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
         &self,
         full: bool,
         ruleset: &RuleSet,
-        map_a: &Vec<String>,
-        map_b: &Vec<String>,
+        map_a: &[String],
+        map_b: &[String],
         lut_b: &Lut,
         total: u128,
     ) -> Result<()>;

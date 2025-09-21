@@ -71,7 +71,7 @@ pub enum DumpMode {
 
 use permutator::CartesianProduct;
 
-fn foreach_unwrapped_matching<F>(matching: &Vec<Vec<u8>>, mut f: F)
+fn foreach_unwrapped_matching<F>(matching: &[Vec<u8>], mut f: F)
 where
     F: FnMut(Vec<&u8>),
 {
@@ -123,7 +123,7 @@ struct GameParse {
 
 impl Game {
     // returns (translationKeyForExplanation, shortcode)
-    pub fn ruleset_str(self: &Self) -> (String, String) {
+    pub fn ruleset_str(&self) -> (String, String) {
         match &self.rule_set {
             RuleSet::XTimesDup((cnt, fixed)) => (
                 format!("rs-XTimesDup-{}-{}", fixed.len(), cnt),
@@ -135,7 +135,7 @@ impl Game {
             RuleSet::Eq => ("rs-Eq".to_string(), "=".to_string()),
         }
     }
-    pub fn players_str(self: &Self) -> String {
+    pub fn players_str(&self) -> String {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
@@ -220,7 +220,7 @@ impl Game {
         Ok(g)
     }
 
-    fn md_output(&self, out: &mut File, md_tables: &Vec<(String, u16, bool, bool)>) -> Result<()> {
+    fn md_output(&self, out: &mut File, md_tables: &[(String, u16, bool, bool)]) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
         writeln!(out, "---")?;
@@ -276,7 +276,7 @@ impl Game {
         Ok(())
     }
 
-    fn do_statistics(&self, total: f64, merged_constraints: &Vec<Constraint>) -> Result<()> {
+    fn do_statistics(&self, total: f64, merged_constraints: &[Constraint]) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
         let out_mn_path = self.dir.join("statMN").with_extension("csv");
         let out_info_path = self.dir.join("statInfo").with_extension("csv");
@@ -302,7 +302,7 @@ impl Game {
             bits_left: total.log2(),
             comment: "initial".to_string(),
         })?;
-        let mut known_lights = 0 as u8;
+        let mut known_lights = 0;
         for i in merged_constraints.iter().map(|c| {
             c.get_stats(
                 self.rule_set
@@ -353,16 +353,15 @@ impl Game {
         Ok(())
     }
 
-    fn summary_table(&self, transpose: bool, merged_constraints: &Vec<Constraint>) -> Result<()> {
-        let map_hor;
+    fn summary_table(&self, transpose: bool, merged_constraints: &[Constraint]) -> Result<()> {
         // let map_vert;
-        if !transpose {
-            map_hor = &self.map_a;
+        let map_hor = if !transpose {
+            &self.map_a
             // map_vert = &self.map_b;
         } else {
-            map_hor = &self.map_b;
+            &self.map_b
             // map_vert = &self.map_a;
-        }
+        };
 
         let mut hdr = vec![
             Cell::new(""),
@@ -406,8 +405,8 @@ impl Game {
     fn print_rem_generic(
         &self,
         rem: &Rem,
-        map_vert: &Vec<String>,
-        map_hor: &Vec<String>,
+        map_vert: &[String],
+        map_hor: &[String],
         norm_idx: fn(v: usize, h: usize) -> (usize, usize),
     ) -> Result<()> {
         let table_content = map_vert
@@ -451,7 +450,7 @@ impl Game {
                         } else if acc.1 == value {
                             acc.0.push(col_idx);
                         }
-                        return acc;
+                        acc
                     })
             })
             .collect::<Vec<_>>();
@@ -473,7 +472,7 @@ impl Game {
                         } else if acc.1 == value {
                             acc.0.push(row_idx);
                         }
-                        return acc;
+                        acc
                     })
             })
             .collect::<Vec<_>>();
@@ -575,6 +574,7 @@ impl Game {
                                     cell.bg(COLOR_ROW_MAX)
                                 }
                             } else {
+                                #[allow(clippy::collapsible_else_if)]
                                 if max_v {
                                     // column max
                                     cell.bg(COLOR_COL_MAX)
@@ -589,7 +589,6 @@ impl Game {
                             }
                         })
                     })
-                    .into_iter()
                     .collect::<Result<Vec<_>>>()?,
             );
 
@@ -625,7 +624,7 @@ impl IterState {
         keep_rem: bool,
         perm_amount: usize,
         constraints: Vec<Constraint>,
-        query_matchings: &Vec<Matching>,
+        query_matchings: &[Matching],
     ) -> IterState {
         let is = IterState {
             constraints,
