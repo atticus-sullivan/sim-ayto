@@ -54,6 +54,8 @@ impl DupXData {
                 .collect::<Vec<_>>(),
         };
 
+        let cnt_filtered = d.clone();
+
         // print all (or the most common) full duplicate matchings
         d.sort_by(|(_, a), (_, b)| b.cmp(a));
         let mut first = true;
@@ -81,8 +83,7 @@ impl DupXData {
         println!();
 
         // print all (or the most common) people (set_b) together being part of the duplicate matching
-        let mut d = self
-            .cnt
+        let mut d = cnt_filtered
             .iter()
             .fold::<HashMap<Vec<u8>, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
                 let x = acc.entry(js.clone()).or_default();
@@ -116,8 +117,7 @@ impl DupXData {
         println!();
 
         // print all (or the most common) people (set_a) being part of the duplicate matching
-        let mut d = self
-            .cnt
+        let mut d = cnt_filtered
             .iter()
             .fold::<HashMap<&u8, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
                 for j in js.iter() {
@@ -151,8 +151,7 @@ impl DupXData {
         println!();
 
         // print all (or the most common) people (set_b) being part of the duplicate matching
-        let mut d = self
-            .cnt
+        let mut d = cnt_filtered
             .iter()
             .fold::<HashMap<&usize, usize>, _>(HashMap::new(), |mut acc, ((j, _), c)| {
                 let x = acc.entry(j).or_default();
@@ -235,6 +234,7 @@ impl RuleSetData for DupXData {
                 .unwrap();
             println!();
         }
+
         if self.rs.0 > 0 {
             let not = self
                 .rs
