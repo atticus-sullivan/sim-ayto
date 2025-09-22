@@ -39,17 +39,17 @@ Taylor → Nathan
 36288000 left -> 25.113 bits left
 
 MN#1.0 E02 -- blackout -250.000$
-0x Roz       → Eduardo 
 0x Taylor    → Hamudi  
-0x Brooke    → Leo     
-0x JuliaRuth → Samuel  
+0x CC        → Brendan 
+0x Roz       → Eduardo 
 0x Jordanne  → Will    
-0x Mijntje   → Nathan  
 0x Anissa    → Ollie   
+0x Mijntje   → Nathan  
+0x Dew       → Clay    
 0x Danielle  → Mikey   
 0x Courtney  → Aquel   
-0x CC        → Brendan 
-0x Dew       → Clay    
+0x JuliaRuth → Samuel  
+0x Brooke    → Leo     
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
 -> E[I]/bits: 1.89
@@ -96,16 +96,16 @@ Anissa → Hamudi
 
 MN#2.0 E03
 0x Dew       → Samuel  
-0x Jordanne  → Brendan 
+0x Anissa    → Aquel   
+0x JuliaRuth → Nathan  
 0x Courtney  → Leo     
+0x Brooke    → Ollie   
 0x Taylor    → Will    
+0x Roz       → Mikey   
+0x Jordanne  → Brendan 
 0x CC        → Clay    
 0x Mijntje   → Hamudi  
-0x JuliaRuth → Nathan  
-0x Brooke    → Ollie   
 0x Danielle  → Eduardo 
-0x Anissa    → Aquel   
-0x Roz       → Mikey   
 ---
 -> I[l]/bits: {0: 1.62, 1: 1.45, 2: 2.28, 3: 3.70, 4: 5.53, 5: 7.68, 6: 10.09, 7: 12.69, 8: 15.69, 9: 18.08, 11: 23.50}
 -> E[I]/bits: 1.98
@@ -151,17 +151,17 @@ Taylor → Will
 1959300 left -> 20.9019 bits left
 
 MN#3.0 E04
-0x Courtney  → Will    
+1x Anissa    → Aquel   
 0x Danielle  → Hamudi  
-0x Dew       → Nathan  
 1x CC        → Clay    
+0x Dew       → Nathan  
+0x Courtney  → Will    
 0x JuliaRuth → Brendan 
+0x Roz       → Samuel  
+0x Mijntje   → Mikey   
 0x Jordanne  → Eduardo 
 0x Taylor    → Leo     
 1x Brooke    → Ollie   
-0x Mijntje   → Mikey   
-0x Roz       → Samuel  
-1x Anissa    → Aquel   
 ---
 -> I[l]/bits: {0: 2.02, 1: 1.49, 2: 2.03, 3: 3.22, 4: 4.85, 5: 6.81, 6: 9.05, 7: 11.45, 8: 14.24, 9: 16.65}
 -> E[I]/bits: 2.12
@@ -207,17 +207,17 @@ JuliaRuth → Brendan
 20228 left -> 14.3041 bits left
 
 MN#4.0 E05
-2x Anissa    → Aquel   
-0x Taylor    → Samuel  
-1x JuliaRuth → Brendan 
-1x Mijntje   → Hamudi  
 1x Courtney  → Will    
-0x Dew       → Ollie   
-0x CC        → Mikey   
-1x Jordanne  → Eduardo 
-0x Roz       → Nathan  
-0x Danielle  → Leo     
 0x Brooke    → Clay    
+0x CC        → Mikey   
+2x Anissa    → Aquel   
+0x Roz       → Nathan  
+0x Dew       → Ollie   
+1x Mijntje   → Hamudi  
+1x Jordanne  → Eduardo 
+0x Danielle  → Leo     
+1x JuliaRuth → Brendan 
+0x Taylor    → Samuel  
 ---
 -> I[l]/bits: {1: 2.60, 2: 1.57, 3: 1.83, 4: 2.81, 5: 4.23, 6: 5.92, 7: 7.84, 8: 10.30, 9: 11.72, 11: 14.30}
 -> E[I]/bits: 2.24
@@ -263,17 +263,17 @@ CC → Clay
 3880 left -> 11.9218 bits left
 
 MN#5.0 E06
-1x Taylor    → Samuel  
-2x Courtney  → Will    
-2x Brooke    → Ollie   
+1x Dew       → Nathan  
 2x Jordanne  → Eduardo 
+2x Courtney  → Will    
+1x CC        → Mikey   
+2x Brooke    → Ollie   
+1x Taylor    → Samuel  
+1x Danielle  → Leo     
+2x JuliaRuth → Brendan 
 0x Roz       → Clay    
 2x Mijntje   → Hamudi  
-2x JuliaRuth → Brendan 
-1x Dew       → Nathan  
 3x Anissa    → Aquel   
-1x CC        → Mikey   
-1x Danielle  → Leo     
 ---
 -> I[l]/bits: {2: 2.51, 3: 0.82, 4: 2.10, 5: 5.45}
 -> E[I]/bits: 1.52
@@ -319,17 +319,17 @@ Brooke → Ollie
 1485 left -> 10.5362 bits left
 
 MN#6.0 E07
-0x Danielle  → Will    
-3x JuliaRuth → Brendan 
-0x Mijntje   → Aquel   
 0x Taylor    → Clay    
-0x Roz       → Hamudi  
-0x Courtney  → Nathan  
+0x Danielle  → Will    
 2x CC        → Mikey   
-0x Anissa    → Samuel  
-0x Jordanne  → Leo     
+3x JuliaRuth → Brendan 
+0x Roz       → Hamudi  
 3x Brooke    → Ollie   
+0x Mijntje   → Aquel   
+0x Anissa    → Samuel  
+0x Courtney  → Nathan  
 0x Dew       → Eduardo 
+0x Jordanne  → Leo     
 ---
 -> I[l]/bits: {2: 1.68, 3: 1.42, 4: 2.18, 5: 3.69, 6: 6.29, 7: 8.54, 8: 10.54}
 -> E[I]/bits: 1.93
@@ -398,17 +398,17 @@ Mijntje → Samuel
 61 left -> 5.9307 bits left
 
 MN#7.0 E08
-0x Roz       → Leo     
-0x Jordanne  → Nathan  
+4x Anissa    → Aquel   
 4x JuliaRuth → Brendan 
 4x Brooke    → Ollie   
 1x Dew       → Eduardo 
-4x Anissa    → Aquel   
-0x Mijntje   → Samuel  
 3x CC        → Mikey   
-1x Danielle  → Will    
-0x Courtney  → Hamudi  
 1x Taylor    → Clay    
+0x Jordanne  → Nathan  
+1x Danielle  → Will    
+0x Mijntje   → Samuel  
+0x Roz       → Leo     
+0x Courtney  → Hamudi  
 ---
 -> I[l]/bits: {3: 2.47, 4: 1.18, 5: 2.12, 6: 3.35, 7: 4.35}
 -> E[I]/bits: 2.00
@@ -456,15 +456,15 @@ Taylor → Clay
 MN#8.0 E09
 2x Taylor    → Clay    
 1x Mijntje   → Samuel  
+5x Anissa    → Aquel   
+1x Roz       → Leo     
+5x Brooke    → Ollie   
+0x Dew       → Mikey   
+1x Courtney  → Hamudi  
 0x Danielle  → Nathan  
 3x Jordanne  → Eduardo 
 5x JuliaRuth → Brendan 
-1x Courtney  → Hamudi  
-5x Brooke    → Ollie   
 0x CC        → Will    
-1x Roz       → Leo     
-0x Dew       → Mikey   
-5x Anissa    → Aquel   
 ---
 -> I[l]/bits: {5: 1.58, 6: 0.58}
 -> E[I]/bits: 0.92
@@ -510,17 +510,17 @@ Roz → Mikey
 2 left -> 1 bits left
 
 MN#9.0 E10
-6x Anissa    → Aquel   
-1x Danielle  → Hamudi  
 0x Jordanne  → Mikey   
-6x Brooke    → Ollie   
-0x Dew       → Will    
-0x CC        → Nathan  
+3x Taylor    → Clay    
+1x Danielle  → Hamudi  
 6x JuliaRuth → Brendan 
-2x Mijntje   → Samuel  
 2x Roz       → Leo     
 0x Courtney  → Eduardo 
-3x Taylor    → Clay    
+2x Mijntje   → Samuel  
+6x Brooke    → Ollie   
+6x Anissa    → Aquel   
+0x Dew       → Will    
+0x CC        → Nathan  
 ---
 -> I[l]/bits: {7: 1.00, 11: 1.00}
 -> E[I]/bits: 1.00
@@ -590,4 +590,4 @@ MN#9.0 E10
 ╰────────┴────┴───────────┴────────────┴─────────┴───────────┴───────────┴───────────┴───────────┴────────────┴─────────┴────────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 11.50s
+Ran in 11.36s
