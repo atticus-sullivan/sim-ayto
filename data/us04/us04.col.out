@@ -38,15 +38,15 @@ Tori → Prosper
 
 MN#1.0 E01
 0x Nicole    → Stephen 
-0x Kaylen    → Gio     
-0x Camille   → Prosper 
 0x Alyssa    → Sam     
-0x Francesca → Asaf    
-0x Julia     → Morgan  
 0x Mikala    → Cameron 
-0x Victoria  → Cam     
+0x Francesca → Asaf    
 0x Tori      → Tyler   
 0x Emma      → John    
+0x Julia     → Morgan  
+0x Victoria  → Cam     
+0x Kaylen    → Gio     
+0x Camille   → Prosper 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -90,16 +90,16 @@ Julia → John
 189152 left -> 17.5292 bits left
 
 MN#2.0 E02
-0x Victoria  → Tyler   
-0x Alyssa    → Morgan  
-0x Camille   → Asaf    
 1x Kaylen    → Gio     
-0x Tori      → Stephen 
 1x Mikala    → Cameron 
+0x Alyssa    → Morgan  
+0x Tori      → Stephen 
+0x Nicole    → John    
+0x Camille   → Asaf    
+0x Francesca → Sam     
+0x Victoria  → Tyler   
 0x Julia     → Cam     
 0x Emma      → Prosper 
-0x Nicole    → John    
-0x Francesca → Sam     
 ---
 -> I[l]/bits: {0: 1.79, 1: 1.44, 2: 2.16, 3: 3.51, 4: 5.31, 5: 7.43, 6: 9.83, 7: 12.62, 8: 14.53}
 -> E[I]/bits: 2.03
@@ -143,16 +143,16 @@ Mikala → Cameron
 10053 left -> 13.2953 bits left
 
 MN#3.0 E03
-0x Francesca → Morgan  
-0x Julia     → Tyler   
-2x Mikala    → Cameron 
-1x Camille   → Asaf    
-0x Victoria  → John    
-1x Emma      → Prosper 
 1x Tori      → Stephen 
 0x Nicole    → Cam     
+0x Francesca → Morgan  
+1x Camille   → Asaf    
+0x Victoria  → John    
 1x Alyssa    → Sam     
+1x Emma      → Prosper 
 2x Kaylen    → Gio     
+0x Julia     → Tyler   
+2x Mikala    → Cameron 
 ---
 -> I[l]/bits: {1: 2.72, 2: 1.44, 3: 1.75, 4: 2.99, 5: 4.57, 6: 6.39, 7: 9.21, 8: 13.30}
 -> E[I]/bits: 2.13
@@ -196,14 +196,14 @@ Tori → Asaf
 1153 left -> 10.1712 bits left
 
 MN#4.0 E04
-3x Mikala    → Cameron 
-0x Emma      → Cam     
-3x Kaylen    → Gio     
-0x Francesca → Tyler   
-0x Julia     → Stephen 
-0x Tori      → Morgan  
-2x Camille   → Asaf    
 1x Victoria  → John    
+0x Tori      → Morgan  
+3x Kaylen    → Gio     
+3x Mikala    → Cameron 
+0x Julia     → Stephen 
+2x Camille   → Asaf    
+0x Emma      → Cam     
+0x Francesca → Tyler   
 0x Nicole    → Prosper 
 2x Alyssa    → Sam     
 ---
@@ -249,15 +249,15 @@ Kaylen → Gio
 73 left -> 6.1898 bits left
 
 MN#5.0 E05
-0x Tori      → John    
-0x Kaylen    → Tyler   
-3x Camille   → Asaf    
+0x Victoria  → Prosper 
 4x Mikala    → Cameron 
+3x Camille   → Asaf    
+1x Emma      → Cam     
 0x Francesca → Gio     
 1x Julia     → Morgan  
 1x Nicole    → Stephen 
-1x Emma      → Cam     
-0x Victoria  → Prosper 
+0x Tori      → John    
+0x Kaylen    → Tyler   
 3x Alyssa    → Sam     
 ---
 -> I[l]/bits: {2: 3.02, 3: 1.24, 4: 1.80, 5: 3.19, 6: 5.19, 7: 5.19}
@@ -302,16 +302,16 @@ Alyssa → Sam
 18 left -> 4.1699 bits left
 
 MN#6.0 E06
-5x Mikala    → Cameron 
-4x Alyssa    → Sam     
 4x Camille   → Asaf    
-1x Francesca → Gio     
-1x Emma      → John    
-1x Victoria  → Cam     
+4x Alyssa    → Sam     
 0x Kaylen    → Prosper 
 0x Nicole    → Tyler   
-1x Julia     → Stephen 
 1x Tori      → Morgan  
+1x Victoria  → Cam     
+1x Emma      → John    
+1x Julia     → Stephen 
+1x Francesca → Gio     
+5x Mikala    → Cameron 
 ---
 -> I[l]/bits: {3: 1.58, 4: 1.17, 5: 3.17, 6: 4.17, 7: 4.17}
 -> E[I]/bits: 1.86
@@ -355,15 +355,15 @@ Victoria → Cam
 6 left -> 2.585 bits left
 
 MN#7.0 E07
-0x Emma      → Gio     
-1x Francesca → Asaf    
+6x Mikala    → Cameron 
 2x Julia     → Stephen 
-0x Kaylen    → John    
 2x Tori      → Morgan  
 1x Nicole    → Cam     
+0x Emma      → Gio     
 5x Alyssa    → Sam     
-6x Mikala    → Cameron 
 1x Victoria  → Prosper 
+0x Kaylen    → John    
+1x Francesca → Asaf    
 0x Camille   → Tyler   
 ---
 -> I[l]/bits: {2: 1.00, 3: 2.58, 4: 2.58, 5: 2.58}
@@ -409,13 +409,13 @@ Julia → Gio
 
 MN#8.0 E08 -- blackout -250.000$
 5x Camille   → Asaf    
-3x Julia     → Stephen 
-0x Emma      → Tyler   
-7x Mikala    → Cameron 
-0x Nicole    → Gio     
-0x Victoria  → Morgan  
-6x Alyssa    → Sam     
 0x Francesca → Prosper 
+3x Julia     → Stephen 
+0x Victoria  → Morgan  
+7x Mikala    → Cameron 
+6x Alyssa    → Sam     
+0x Emma      → Tyler   
+0x Nicole    → Gio     
 0x Tori      → Cam     
 1x Kaylen    → John    
 ---
@@ -461,16 +461,16 @@ Emma → Prosper
 1 left -> 0 bits left
 
 MN#9.0 E09
-1x Camille   → Tyler   
-2x Julia     → Morgan  
-0x Tori      → Asaf    
-7x Alyssa    → Sam     
-2x Emma      → Prosper 
-2x Nicole    → Cam     
-2x Victoria  → John    
-2x Francesca → Gio     
-0x Kaylen    → Stephen 
 8x Mikala    → Cameron 
+0x Kaylen    → Stephen 
+0x Tori      → Asaf    
+2x Francesca → Gio     
+2x Emma      → Prosper 
+1x Camille   → Tyler   
+2x Victoria  → John    
+2x Nicole    → Cam     
+7x Alyssa    → Sam     
+2x Julia     → Morgan  
 ---
 -> I[l]/bits: {6: 0.00}
 -> E[I]/bits: 0.00
@@ -514,16 +514,16 @@ Julia → Cam
 1 left -> 0 bits left
 
 MN#10.0 E10
-9x Mikala    → Cameron 
-0x Kaylen    → Asaf    
+3x Tori      → Morgan  
+3x Victoria  → John    
 2x Nicole    → Stephen 
 2x Camille   → Tyler   
-3x Francesca → Gio     
-3x Tori      → Morgan  
-8x Alyssa    → Sam     
+9x Mikala    → Cameron 
 1x Julia     → Cam     
-3x Victoria  → John    
 3x Emma      → Prosper 
+3x Francesca → Gio     
+0x Kaylen    → Asaf    
+8x Alyssa    → Sam     
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -594,4 +594,4 @@ MN#10.0 E10
 ╰─────────┴────┴────────────┴───────────┴─────────┴────────────┴───────────┴────────────┴────────────┴────────────┴─────────┴────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 3628800  Permutations left: 1  Initial combinations for each pair: 362880
 
-Ran in 0.94s
+Ran in 0.93s
