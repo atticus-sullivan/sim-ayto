@@ -149,7 +149,7 @@ impl DupXData {
             );
             first = false;
         }
-        println!();
+        println!("   / 200 %");
 
         // print all (or the most common) people (set_b) being part of the duplicate matching
         let mut d = cnt_filtered
