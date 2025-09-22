@@ -234,7 +234,7 @@ impl RuleSetData for DupXData {
                 .with_context(|| format!("{d} not found"))?;
             self.print_one(full, ruleset, map_a, map_b, total, Some(q), &not)
                 .unwrap();
-            println!();
+            println!(".");
         }
 
         if self.rs.0 > 0 {
