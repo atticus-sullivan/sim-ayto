@@ -24,11 +24,12 @@ use anyhow::{Context, Result};
 use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::collections::HashSet;
+use std::hash::{Hash, Hasher};
 
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, Map, MapS, Matching};
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, Hash)]
 enum CheckType {
     Eq,
     Nothing,
@@ -49,6 +50,23 @@ impl CheckType {
 enum ConstraintType {
     Night { num: f32, comment: String },
     Box { num: f32, comment: String },
+}
+
+impl Hash for ConstraintType {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        match self {
+            ConstraintType::Night { num, comment } => {
+                0.hash(state); // A constant to distinguish this variant
+                num.to_bits().hash(state); // Hash the f32 value
+                comment.hash(state); // Hash the String
+            }
+            ConstraintType::Box { num, comment } => {
+                1.hash(state); // A constant to distinguish this variant
+                num.to_bits().hash(state);
+                comment.hash(state);
+            }
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

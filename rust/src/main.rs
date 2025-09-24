@@ -69,6 +69,9 @@ enum Commands {
 
         #[arg(long = "full")]
         full: bool,
+
+        #[arg(long = "use-cache")]
+        use_cache: bool,
     },
     Check {
         /// The path to the file to read
@@ -95,10 +98,11 @@ fn main() {
             stem,
             dump,
             full,
+            use_cache,
         } => {
             let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
             let start = Instant::now();
-            g.sim(transpose_tabs, dump, full).unwrap();
+            g.sim(transpose_tabs, dump, full, use_cache).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Check { yaml_path } => {
