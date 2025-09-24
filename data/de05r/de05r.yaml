@@ -157,8 +157,32 @@ constraints:
       Henna: JimiBlue
       # Henna: Leandro
 
-  # - type: !Box {num: 6, comment: "E13"}
+  - type: !Box {num: 6, comment: "E13"}
+    check: !Lights [1]
+    map:
+      Sandra: Lennert
+      # Ariel: Nico
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights [4]
+    # buildTreee: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Henna: Olli
+      Hati: JimiBlue
+      Beverly: Leandro
+      Viki: Jonny
+      Ariel: Kevin
+      Antonia: CalvinBlond
+      Joanna: Sidar
+      Nelly: CalvinHot
+      # Rob
+      # Nico
+
+  # - type: !Box {num: 7, comment: "E15"}
   #   check: !Lights [0]
   #   map:
-  #     Sandra: Lennert
-  #     # Ariel: Nico
+  #     # JimiBlue: Hati
+  #     # Olli: Antonia
