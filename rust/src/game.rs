@@ -721,9 +721,13 @@ impl IterState {
         if i % self.cnt_update == 0 && output {
             self.progress.inc(2);
         }
-        for (a,i) in p.iter().enumerate() {
+        for (a, i) in p.iter().enumerate() {
             for b in i.iter() {
-                self.each[a][*b as usize] += 1;
+                if let Some(x) = self.each.get_mut(a) {
+                    if let Some(x_val) = x.get_mut(*b as usize) {
+                        *x_val += 1;
+                    }
+                }
             }
         }
         self.total += 1;

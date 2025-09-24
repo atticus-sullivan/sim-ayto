@@ -37,7 +37,7 @@ impl Game {
             } else {
                 &None
             },
-            (self.map_a.len(), self.map_b.len())
+            (self.map_a.len(), self.map_b.len()),
         )?;
         self.rule_set
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
