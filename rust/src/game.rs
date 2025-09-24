@@ -25,12 +25,14 @@ use comfy_table::{Cell, Color, Table};
 use indicatif::{ProgressBar, ProgressStyle};
 
 use serde::Deserialize;
+use serde_json::to_writer;
+use std::hash::{Hash, Hasher};
 
 use std::fs::File;
-use std::io::Write;
+use std::io::{BufWriter, Write};
 use std::path::{Path, PathBuf};
 
-use anyhow::{anyhow, ensure, Context, Result};
+use anyhow::{ensure, Context, Result};
 
 use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN};
 use crate::constraint::parse::ConstraintParse;
@@ -98,6 +100,8 @@ pub struct Game {
     dir: PathBuf,
     stem: String,
     query_matchings: Vec<Matching>,
+    cache_file: Option<PathBuf>,
+    final_cache_hash: Option<PathBuf>,
 }
 
 // this struct is only used for parsing the yaml file
@@ -119,6 +123,9 @@ struct GameParse {
     rename_a: Rename,
     #[serde(rename = "renameB", default)]
     rename_b: Rename,
+
+    #[serde(rename = "gen_cache", default)]
+    gen_cache: bool,
 }
 
 impl Game {
@@ -142,6 +149,53 @@ impl Game {
     pub fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
         let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
+        // derive hash of the input
+        let mut input_hashes = vec![];
+        let mut prev_hash = {
+            let mut hasher = std::collections::hash_map::DefaultHasher::new();
+            gp.map_a.hash(&mut hasher);
+            gp.map_b.hash(&mut hasher);
+            hasher.finish()
+        };
+        for c in gp.constraints_orig.iter() {
+            let mut hasher = std::collections::hash_map::DefaultHasher::new();
+            prev_hash.hash(&mut hasher);
+            if c.has_impact() {
+                c.hash(&mut hasher);
+                prev_hash = hasher.finish();
+                input_hashes.push(prev_hash);
+            }
+        }
+
+        let cache_dir = Path::new("./.cache/");
+        let found_cache_file = input_hashes.iter().rev().skip(1).find_map(|&hash| {
+            let cache_file_path = cache_dir
+                .join(format!("{:x}", hash))
+                .with_extension("cache");
+            if Path::new(&cache_file_path).exists() {
+                Some(cache_file_path)
+            } else {
+                None
+            }
+        });
+        let final_cache_hash = if gp.gen_cache {
+            Some(
+                cache_dir
+                    .join(format!(
+                        "{:x}",
+                        input_hashes
+                            .iter()
+                            .last()
+                            .context("no input hash was generated")?
+                    ))
+                    .with_extension("cache"),
+            )
+        } else {
+            None
+        };
+
+        println!("Could use cache file: {:?}", found_cache_file);
+
         let mut g = Game {
             map_a: gp.map_a,
             map_b: gp.map_b,
@@ -160,6 +214,8 @@ impl Game {
             lut_b: Lut::default(),
             query_matchings: Vec::default(),
             frontmatter: gp.frontmatter,
+            cache_file: found_cache_file,
+            final_cache_hash,
         };
 
         // build up the look up tables (LUT)
@@ -553,10 +609,7 @@ impl Game {
                                     )
                                     .fg(Color::Red))
                                 } else {
-                                    return Err(anyhow!(
-                                        "unexpected value encountered in table {:6.3}",
-                                        val
-                                    ));
+                                    Ok(Cell::new(""))
                                 }
                             }
                             None => Ok(Cell::new("")),
@@ -610,13 +663,14 @@ impl Game {
 pub struct IterState {
     constraints: Vec<Constraint>,
     keep_rem: bool,
-    each: u128,
+    each: Vec<Vec<u128>>,
     total: u128,
     eliminated: u128,
     pub left_poss: Vec<Matching>,
     query_matchings: Vec<(Matching, Option<String>)>,
     cnt_update: usize,
     progress: ProgressBar,
+    cache_file: Option<BufWriter<File>>,
 }
 
 impl IterState {
@@ -625,17 +679,25 @@ impl IterState {
         perm_amount: usize,
         constraints: Vec<Constraint>,
         query_matchings: &[Matching],
-    ) -> IterState {
+        cache_file: &Option<PathBuf>,
+        map_lens: (usize, usize),
+    ) -> Result<IterState> {
+        let file = cache_file
+            .clone()
+            .map(|f| File::create(f))
+            .map_or(Ok(None), |r| r.map(Some))?
+            .map(|g| BufWriter::new(g));
         let is = IterState {
             constraints,
             keep_rem,
             query_matchings: query_matchings.iter().map(|i| (i.clone(), None)).collect(),
-            each: 0,
+            each: vec![vec![0; map_lens.1]; map_lens.0],
             total: 0,
             eliminated: 0,
             left_poss: vec![],
             progress: ProgressBar::new(100),
             cnt_update: std::cmp::max(perm_amount / 50, 1),
+            cache_file: file,
         };
         is.progress.set_style(
             ProgressStyle::with_template(
@@ -644,7 +706,7 @@ impl IterState {
             .unwrap()
             .progress_chars("#>-"),
         );
-        is
+        Ok(is)
     }
 
     pub fn start(&mut self) {
@@ -656,12 +718,13 @@ impl IterState {
     }
 
     pub fn step(&mut self, i: usize, p: Matching, output: bool) -> Result<()> {
-        // eprintln!("{:} {:?}", i, p);
         if i % self.cnt_update == 0 && output {
             self.progress.inc(2);
         }
-        if p[0].contains(&0) {
-            self.each += 1;
+        for (a,i) in p.iter().enumerate() {
+            for b in i.iter() {
+                self.each[a][*b as usize] += 1;
+            }
         }
         self.total += 1;
         let mut left = true;
@@ -677,8 +740,14 @@ impl IterState {
                 break;
             }
         }
-        if left && self.keep_rem {
-            self.left_poss.push(p);
+        if left {
+            if let Some(fs) = &mut self.cache_file {
+                to_writer(&mut *fs, &p)?;
+                writeln!(fs)?;
+            }
+            if self.keep_rem {
+                self.left_poss.push(p);
+            }
         }
         Ok(())
     }

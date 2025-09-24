@@ -24,6 +24,11 @@ use anyhow::{ensure, Context, Result};
 use core::iter::zip;
 use permutator::{Combination, Permutation};
 use serde::Deserialize;
+use std::path::PathBuf;
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+};
 
 use crate::{game::IterState, Lut};
 
@@ -304,84 +309,95 @@ impl RuleSet {
         lut_b: &Lut,
         is: &mut IterState,
         output: bool,
+        cache: &Option<PathBuf>,
     ) -> Result<()> {
         if output {
             is.start();
         }
-        match self {
-            RuleSet::Eq => {
-                for (i, p) in (0..lut_a.len() as u8)
-                    .map(|i| vec![i])
-                    .collect::<Vec<_>>()
-                    .permutation()
-                    .enumerate()
-                {
-                    is.step(i, p, output)?;
-                }
+        if let Some(c) = cache {
+            let file = File::open(c)?;
+            let reader = BufReader::new(file);
+            for (i, line) in reader.lines().enumerate() {
+                let p = serde_json::from_str::<Vec<Vec<u8>>>(&line?)?;
+                is.step(i, p, output)?;
             }
-            RuleSet::XTimesDup((unkown_cnt, fixed)) => {
-                let fixed_num = fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>();
-                let mut x = (0..lut_b.len() as u8)
-                    .filter(|i| !fixed_num.contains(i))
-                    .map(|i| vec![i])
-                    .collect::<Vec<_>>();
-
-                let iter = x.permutation();
-
-                let iter = someone_is_dup(iter, *unkown_cnt);
-
-                let first_iter: Box<dyn Iterator<Item = Vec<Vec<u8>>>> = Box::new(iter);
-                let final_iter = fixed_num
-                    .into_iter()
-                    .fold(first_iter, |iter, add| Box::new(add_dup(iter, add)));
-
-                for (i, p) in final_iter.into_iter().enumerate() {
-                    is.step(i, p, output)?;
-                }
-            }
-            RuleSet::SomeoneIsTrip => {
-                let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
-                let x = x.permutation();
-                for (i, p) in someone_is_trip(x).enumerate() {
-                    is.step(i, p, output)?;
-                }
-            }
-            RuleSet::FixedTrip(s) => {
-                let mut x = (0..lut_b.len() as u8)
-                    .filter(|i| *i != (*lut_b.get(s).unwrap() as u8))
-                    .map(|i| vec![i])
-                    .collect::<Vec<_>>();
-                let x = x.permutation();
-                for (i, p) in add_trip(
-                    x,
-                    *lut_b
-                        .get(s)
-                        .with_context(|| format!("Invalid index {}", s))? as u8,
-                )
-                .enumerate()
-                {
-                    is.step(i, p, output)?;
-                }
-            }
-            RuleSet::NToN => {
-                let len = lut_a.len() / 2;
-                let mut i = 0_usize;
-                for ks in (0..lut_a.len() as u8).collect::<Vec<_>>().combination(len) {
-                    let mut vs = (0..lut_a.len() as u8)
-                        .filter(|x| !ks.contains(&x))
-                        .collect::<Vec<_>>();
-                    for p in vs.permutation().filter_map(|x| {
-                        let mut c = vec![vec![u8::MAX]; lut_a.len()];
-                        for (k, v) in zip(ks.clone(), x) {
-                            if k <= &v {
-                                return None;
-                            }
-                            c[*k as usize] = vec![v];
-                        }
-                        Some(c)
-                    }) {
+        } else {
+            match self {
+                RuleSet::Eq => {
+                    for (i, p) in (0..lut_a.len() as u8)
+                        .map(|i| vec![i])
+                        .collect::<Vec<_>>()
+                        .permutation()
+                        .enumerate()
+                    {
                         is.step(i, p, output)?;
-                        i += 1;
+                    }
+                }
+                RuleSet::XTimesDup((unkown_cnt, fixed)) => {
+                    let fixed_num = fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>();
+                    let mut x = (0..lut_b.len() as u8)
+                        .filter(|i| !fixed_num.contains(i))
+                        .map(|i| vec![i])
+                        .collect::<Vec<_>>();
+
+                    let iter = x.permutation();
+
+                    let iter = someone_is_dup(iter, *unkown_cnt);
+
+                    let first_iter: Box<dyn Iterator<Item = Vec<Vec<u8>>>> = Box::new(iter);
+                    let final_iter = fixed_num
+                        .into_iter()
+                        .fold(first_iter, |iter, add| Box::new(add_dup(iter, add)));
+
+                    for (i, p) in final_iter.into_iter().enumerate() {
+                        is.step(i, p, output)?;
+                    }
+                }
+                RuleSet::SomeoneIsTrip => {
+                    let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
+                    let x = x.permutation();
+                    for (i, p) in someone_is_trip(x).enumerate() {
+                        is.step(i, p, output)?;
+                    }
+                }
+                RuleSet::FixedTrip(s) => {
+                    let mut x = (0..lut_b.len() as u8)
+                        .filter(|i| *i != (*lut_b.get(s).unwrap() as u8))
+                        .map(|i| vec![i])
+                        .collect::<Vec<_>>();
+                    let x = x.permutation();
+                    for (i, p) in add_trip(
+                        x,
+                        *lut_b
+                            .get(s)
+                            .with_context(|| format!("Invalid index {}", s))?
+                            as u8,
+                    )
+                    .enumerate()
+                    {
+                        is.step(i, p, output)?;
+                    }
+                }
+                RuleSet::NToN => {
+                    let len = lut_a.len() / 2;
+                    let mut i = 0_usize;
+                    for ks in (0..lut_a.len() as u8).collect::<Vec<_>>().combination(len) {
+                        let mut vs = (0..lut_a.len() as u8)
+                            .filter(|x| !ks.contains(&x))
+                            .collect::<Vec<_>>();
+                        for p in vs.permutation().filter_map(|x| {
+                            let mut c = vec![vec![u8::MAX]; lut_a.len()];
+                            for (k, v) in zip(ks.clone(), x) {
+                                if k <= &v {
+                                    return None;
+                                }
+                                c[*k as usize] = vec![v];
+                            }
+                            Some(c)
+                        }) {
+                            is.step(i, p, output)?;
+                            i += 1;
+                        }
                     }
                 }
             }
@@ -392,8 +408,19 @@ impl RuleSet {
         Ok(())
     }
 
-    pub fn get_perms_amount(&self, size_map_a: usize, size_map_b: usize) -> usize {
-        match self {
+    pub fn get_perms_amount(
+        &self,
+        size_map_a: usize,
+        size_map_b: usize,
+        cache: &Option<PathBuf>,
+    ) -> Result<usize> {
+        if let Some(c) = cache {
+            let file = File::open(c)?;
+            let reader = BufReader::new(file);
+            let line_count = reader.lines().count();
+            return Ok(line_count);
+        }
+        Ok(match self {
             RuleSet::XTimesDup((unkown_cnt, fixed)) => {
                 // number of buckets / each permutation
                 let a = size_map_a;
@@ -434,7 +461,7 @@ impl RuleSet {
             RuleSet::NToN => {
                 permutator::divide_factorial(size_map_a, size_map_a / 2) / (1 << (size_map_a / 2))
             }
-        }
+        })
     }
 }
 

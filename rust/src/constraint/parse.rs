@@ -1,6 +1,7 @@
 use anyhow::{ensure, Context, Result};
 use serde::Deserialize;
 use std::collections::HashSet;
+use std::hash::{Hash, Hasher};
 
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, Map, MapS, Rename};
@@ -22,11 +23,43 @@ pub struct ConstraintParse {
     #[serde(rename = "exclude")]
     exclude_s: Option<(String, Vec<String>)>,
     #[serde(default, rename = "resultUnknown")]
-    result_unknown: bool,
+    pub result_unknown: bool,
     #[serde(default, rename = "buildTree")]
     build_tree: bool,
     #[serde(default, rename = "hideRulesetData")]
     hide_ruleset_data: bool,
+}
+
+impl Hash for ConstraintParse {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        // Hash the r#type field
+        self.r#type.hash(state);
+
+        // Sort the map_s entries by key to ensure stable hashing
+        let mut sorted_entries: Vec<_> = self.map_s.iter().collect();
+        sorted_entries.sort_by(|(key_a, _), (key_b, _)| key_a.cmp(key_b)); // Sort by key lexicographically
+
+        // Hash each sorted entry
+        for (key, value) in sorted_entries {
+            key.hash(state);
+            value.hash(state);
+        }
+
+        // Hash the check field
+        self.check.hash(state);
+    }
+}
+
+impl ConstraintParse {
+    pub fn has_impact(&self) -> bool {
+        if self.result_unknown {
+            return false;
+        }
+        if let CheckType::Nothing = &self.check {
+            return false;
+        }
+        true
+    }
 }
 
 impl ConstraintParse {

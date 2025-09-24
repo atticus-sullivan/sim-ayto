@@ -6,7 +6,7 @@ frontmatter:
   identifier: deR-season5
   weight: 1
 
-tree_gen: false
+gen_cache: true
 
 rule_set: !XTimesDup [null, JimiBlue]
 

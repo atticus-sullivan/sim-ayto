@@ -19,19 +19,28 @@ impl Game {
         print_transposed: bool,
         dump_mode: Option<DumpMode>,
         full: bool,
+        use_cache: bool,
     ) -> Result<()> {
-        let perm_amount = self
-            .rule_set
-            .get_perms_amount(self.map_a.len(), self.map_b.len());
+        let input_file = if use_cache { &self.cache_file } else { &None };
+
+        let perm_amount =
+            self.rule_set
+                .get_perms_amount(self.map_a.len(), self.map_b.len(), input_file)?;
 
         let mut is = IterState::new(
             dump_mode.is_some(),
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
-        );
+            if use_cache {
+                &self.final_cache_hash
+            } else {
+                &None
+            },
+            (self.map_a.len(), self.map_b.len())
+        )?;
         self.rule_set
-            .iter_perms(&self.lut_a, &self.lut_b, &mut is, true)?;
+            .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
 
         // fix is so that it can't be mutated anymore
         let is = &is;
@@ -77,10 +86,7 @@ impl Game {
             println!();
         }
 
-        let mut rem: Rem = (
-            vec![vec![is.each; self.map_b.len()]; self.map_a.len()],
-            is.total,
-        );
+        let mut rem: Rem = (is.each.clone(), is.total);
         if print_transposed {
             self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                 .context("Error printing")?;
@@ -202,7 +208,7 @@ impl Game {
             "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",
             is.total,
             is.total - is.eliminated,
-            is.each
+            is.each[0][0]
         );
         Ok(())
     }
