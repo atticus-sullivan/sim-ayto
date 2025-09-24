@@ -1,3 +1,4 @@
+Could use cache file: None
 ╭──────────┬──────┬─────────┬──────────┬─────────┬─────────┬─────────┬───────┬────────┬──────────┬───────┬─────────╮
 │          ┆[48;2;74;68;89m Dana [49m┆[48;2;74;68;89m Estelle [49m┆[48;2;74;68;89m Isabelle [49m┆[48;2;74;68;89m Jessica [49m┆[48;2;74;68;89m Joelina [49m┆[48;2;74;68;89m Kerstin [49m┆[48;2;74;68;89m Marie [49m┆[48;2;74;68;89m Monami [49m┆[48;2;74;68;89m Raphaela [49m┆[48;2;74;68;89m Zaira [49m┆[48;2;74;68;89m Desiree [49m│
 ╞══════════╪══════╪═════════╪══════════╪═════════╪═════════╪═════════╪═══════╪════════╪══════════╪═══════╪═════════╡
@@ -36,22 +37,22 @@ Mike → Jessica
 ╰──────────┴────────┴─────────┴──────────┴─────────┴─────────┴─────────┴────────┴────────┴──────────┴────────┴─────────╯
 32659200 left -> 24.961 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 1.1%/362880: Mike -> ["Estelle", "Desiree"] | 1.1%/362880: Mike -> ["Joelina", "Desiree"] | 1.1%/362880: Mike -> ["Raphaela", "Desiree"] | 1.1%/362880: Mike -> ["Dana", "Desiree"]
-top5 Pr[Dup]: 10.0%/3265920: ["Kerstin", "Desiree"] | 10.0%/3265920: ["Estelle", "Desiree"] | 10.0%/3265920: ["Joelina", "Desiree"] | 10.0%/3265920: ["Dana", "Desiree"] | 10.0%/3265920: ["Isabelle", "Desiree"]
-top5 Pr[Dup]: 100.0%/32659200: Desiree | 10.0%/3265920: Marie | 10.0%/3265920: Kerstin | 10.0%/3265920: Dana | 10.0%/3265920: Raphaela   / 200 %
-top5 Pr[Dup]: 10.0%/3265920: Mike | 10.0%/3265920: Marius | 10.0%/3265920: Andre | 10.0%/3265920: Antonino | 10.0%/3265920: Tim
+top4 Pr[Dup]: 1.1%/362880: Tim -> ["Jessica", "Desiree"] | 1.1%/362880: Mike -> ["Zaira", "Desiree"] | 1.1%/362880: Mike -> ["Isabelle", "Desiree"] | 1.1%/362880: Mike -> ["Raphaela", "Desiree"]
+top5 Pr[Dup]: 10.0%/3265920: ["Jessica", "Desiree"] | 10.0%/3265920: ["Monami", "Desiree"] | 10.0%/3265920: ["Joelina", "Desiree"] | 10.0%/3265920: ["Estelle", "Desiree"] | 10.0%/3265920: ["Marie", "Desiree"]
+top5 Pr[Dup]: 100.0%/32659200: Desiree | 10.0%/3265920: Monami | 10.0%/3265920: Jessica | 10.0%/3265920: Estelle | 10.0%/3265920: Dana   / 200 %
+top5 Pr[Dup]: 10.0%/3265920: Tim | 10.0%/3265920: Marius | 10.0%/3265920: Dustin | 10.0%/3265920: Andre | 10.0%/3265920: William
 .
 
 MN#1.0 E02
-0x Andre    → Raphaela 
-0x Jordi    → Estelle  
-0x Tim      → Marie    
-0x Mike     → Joelina  
-0x Marius   → Isabelle 
-0x Antonino → Monami   
-0x William  → Dana     
-0x Dustin   → Zaira    
 0x Max      → Kerstin  
+0x Marius   → Isabelle 
+0x Dustin   → Zaira    
+0x William  → Dana     
+0x Jordi    → Estelle  
+0x Andre    → Raphaela 
+0x Antonino → Monami   
+0x Mike     → Joelina  
+0x Tim      → Marie    
 0x Leon     → Jessica  
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
@@ -73,10 +74,10 @@ MN#1.0 E02
 ╰──────────┴────────┴─────────┴──────────┴─────────┴─────────┴─────────┴────────┴────────┴──────────┴────────┴─────────╯
 2051760 left -> 20.9684 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 3.3%/66744: Mike -> ["Joelina", "Desiree"] | 3.3%/66744: Leon -> ["Jessica", "Desiree"] | 2.9%/60255: Tim -> ["Marie", "Desiree"] | 2.9%/60255: Dustin -> ["Zaira", "Desiree"]
-top5 Pr[Dup]: 10.0%/205176: ["Isabelle", "Desiree"] | 10.0%/205176: ["Kerstin", "Desiree"] | 10.0%/205176: ["Marie", "Desiree"] | 10.0%/205176: ["Jessica", "Desiree"] | 10.0%/205176: ["Raphaela", "Desiree"]
-top5 Pr[Dup]: 100.0%/2051760: Desiree | 10.0%/205176: Jessica | 10.0%/205176: Isabelle | 10.0%/205176: Joelina | 10.0%/205176: Zaira   / 200 %
-top5 Pr[Dup]: 10.0%/205176: William | 10.0%/205176: Max | 10.0%/205176: Antonino | 10.0%/205176: Dustin | 10.0%/205176: Mike
+top4 Pr[Dup]: 3.3%/66744: Leon -> ["Jessica", "Desiree"] | 3.3%/66744: Mike -> ["Joelina", "Desiree"] | 2.9%/60255: Max -> ["Kerstin", "Desiree"] | 2.9%/60255: Andre -> ["Raphaela", "Desiree"]
+top5 Pr[Dup]: 10.0%/205176: ["Kerstin", "Desiree"] | 10.0%/205176: ["Monami", "Desiree"] | 10.0%/205176: ["Estelle", "Desiree"] | 10.0%/205176: ["Raphaela", "Desiree"] | 10.0%/205176: ["Jessica", "Desiree"]
+top5 Pr[Dup]: 100.0%/2051760: Desiree | 10.0%/205176: Marie | 10.0%/205176: Isabelle | 10.0%/205176: Zaira | 10.0%/205176: Kerstin   / 200 %
+top5 Pr[Dup]: 10.0%/205176: Jordi | 10.0%/205176: Andre | 10.0%/205176: Mike | 10.0%/205176: Marius | 10.0%/205176: Dustin
 .
 
 MB#2.0 E04
@@ -101,23 +102,23 @@ Leon → Monami
 ╰──────────┴────────┴─────────┴──────────┴─────────┴─────────┴─────────┴────────┴────────┴──────────┴────────┴─────────╯
 1897270 left -> 20.8555 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 3.5%/66744: Leon -> ["Jessica", "Desiree"] | 3.2%/60255: Mike -> ["Joelina", "Desiree"] | 3.2%/60255: Antonino -> ["Monami", "Desiree"] | 2.9%/54561: Jordi -> ["Estelle", "Desiree"]
-top5 Pr[Dup]: 10.0%/189727: ["Joelina", "Desiree"] | 10.0%/189727: ["Dana", "Desiree"] | 10.0%/189727: ["Isabelle", "Desiree"] | 10.0%/189727: ["Monami", "Desiree"] | 10.0%/189727: ["Zaira", "Desiree"]
-top5 Pr[Dup]: 100.0%/1897270: Desiree | 10.0%/189727: Kerstin | 10.0%/189727: Isabelle | 10.0%/189727: Jessica | 10.0%/189727: Estelle   / 200 %
-top5 Pr[Dup]: 10.0%/189727: William | 10.0%/189727: Tim | 10.0%/189727: Mike | 10.0%/189727: Leon | 10.0%/189727: Antonino
+top4 Pr[Dup]: 3.5%/66744: Leon -> ["Jessica", "Desiree"] | 3.2%/60255: Antonino -> ["Monami", "Desiree"] | 3.2%/60255: Mike -> ["Joelina", "Desiree"] | 2.9%/54561: Tim -> ["Marie", "Desiree"]
+top5 Pr[Dup]: 10.0%/189727: ["Joelina", "Desiree"] | 10.0%/189727: ["Zaira", "Desiree"] | 10.0%/189727: ["Estelle", "Desiree"] | 10.0%/189727: ["Marie", "Desiree"] | 10.0%/189727: ["Isabelle", "Desiree"]
+top5 Pr[Dup]: 100.0%/1897270: Desiree | 10.0%/189727: Jessica | 10.0%/189727: Dana | 10.0%/189727: Isabelle | 10.0%/189727: Raphaela   / 200 %
+top5 Pr[Dup]: 10.0%/189727: Tim | 10.0%/189727: Dustin | 10.0%/189727: William | 10.0%/189727: Marius | 10.0%/189727: Leon
 .
 
 MN#2.0 E04
-1x Antonino → Monami   
-1x Max      → Kerstin  
-0x Leon     → Estelle  
-0x Andre    → Dana     
-0x Dustin   → Isabelle 
 1x Mike     → Joelina  
+1x Max      → Kerstin  
+0x Andre    → Dana     
 0x Jordi    → Zaira    
 0x Tim      → Jessica  
-0x William  → Raphaela 
+0x Leon     → Estelle  
 0x Marius   → Marie    
+0x William  → Raphaela 
+1x Antonino → Monami   
+0x Dustin   → Isabelle 
 ---
 -> I[l]/bits: {0: 2.35, 1: 1.45, 2: 1.90, 3: 3.06, 4: 4.70, 5: 6.67, 6: 8.92, 7: 11.65, 8: 13.63, 10: 17.53}
 -> E[I]/bits: 2.14
@@ -139,9 +140,9 @@ MN#2.0 E04
 507210 left -> 18.9522 bits left
 Pr[]s for dup with Desiree
 top4 Pr[Dup]: 4.3%/21969: Antonino -> ["Monami", "Desiree"] | 4.3%/21969: Mike -> ["Joelina", "Desiree"] | 3.9%/19887: Max -> ["Kerstin", "Desiree"] | 2.9%/14686: Leon -> ["Jessica", "Desiree"]
-top5 Pr[Dup]: 10.0%/50721: ["Raphaela", "Desiree"] | 10.0%/50721: ["Kerstin", "Desiree"] | 10.0%/50721: ["Marie", "Desiree"] | 10.0%/50721: ["Dana", "Desiree"] | 10.0%/50721: ["Monami", "Desiree"]
-top5 Pr[Dup]: 100.0%/507210: Desiree | 10.0%/50721: Zaira | 10.0%/50721: Isabelle | 10.0%/50721: Kerstin | 10.0%/50721: Estelle   / 200 %
-top5 Pr[Dup]: 10.0%/50721: Tim | 10.0%/50721: Antonino | 10.0%/50721: William | 10.0%/50721: Jordi | 10.0%/50721: Max
+top5 Pr[Dup]: 10.0%/50721: ["Isabelle", "Desiree"] | 10.0%/50721: ["Dana", "Desiree"] | 10.0%/50721: ["Monami", "Desiree"] | 10.0%/50721: ["Estelle", "Desiree"] | 10.0%/50721: ["Joelina", "Desiree"]
+top5 Pr[Dup]: 100.0%/507210: Desiree | 10.0%/50721: Jessica | 10.0%/50721: Dana | 10.0%/50721: Kerstin | 10.0%/50721: Zaira   / 200 %
+top5 Pr[Dup]: 10.0%/50721: William | 10.0%/50721: Andre | 10.0%/50721: Dustin | 10.0%/50721: Jordi | 10.0%/50721: Antonino
 .
 
 MB#3.0 E06
@@ -166,23 +167,23 @@ Andre → Raphaela
 ╰──────────┴────────┴─────────┴──────────┴─────────┴─────────┴─────────┴────────┴────────┴──────────┴────────┴─────────╯
 384190 left -> 18.5515 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 4.5%/17255: Mike -> ["Joelina", "Desiree"] | 4.5%/17255: Antonino -> ["Monami", "Desiree"] | 4.1%/15732: Max -> ["Kerstin", "Desiree"] | 3.3%/12583: Leon -> ["Jessica", "Desiree"]
-top5 Pr[Dup]: 10.0%/38419: ["Monami", "Desiree"] | 10.0%/38419: ["Isabelle", "Desiree"] | 10.0%/38419: ["Zaira", "Desiree"] | 10.0%/38419: ["Estelle", "Desiree"] | 10.0%/38419: ["Jessica", "Desiree"]
-top5 Pr[Dup]: 100.0%/384190: Desiree | 10.0%/38419: Raphaela | 10.0%/38419: Kerstin | 10.0%/38419: Zaira | 10.0%/38419: Joelina   / 200 %
-top5 Pr[Dup]: 10.0%/38419: Antonino | 10.0%/38419: William | 10.0%/38419: Dustin | 10.0%/38419: Andre | 10.0%/38419: Max
+top4 Pr[Dup]: 4.5%/17255: Antonino -> ["Monami", "Desiree"] | 4.5%/17255: Mike -> ["Joelina", "Desiree"] | 4.1%/15732: Max -> ["Kerstin", "Desiree"] | 3.3%/12583: Leon -> ["Jessica", "Desiree"]
+top5 Pr[Dup]: 10.0%/38419: ["Isabelle", "Desiree"] | 10.0%/38419: ["Dana", "Desiree"] | 10.0%/38419: ["Monami", "Desiree"] | 10.0%/38419: ["Estelle", "Desiree"] | 10.0%/38419: ["Raphaela", "Desiree"]
+top5 Pr[Dup]: 100.0%/384190: Desiree | 10.0%/38419: Jessica | 10.0%/38419: Raphaela | 10.0%/38419: Joelina | 10.0%/38419: Estelle   / 200 %
+top5 Pr[Dup]: 10.0%/38419: Andre | 10.0%/38419: William | 10.0%/38419: Mike | 10.0%/38419: Marius | 10.0%/38419: Leon
 .
 
 MN#3.0 E06
-0x Max      → Monami   
-0x Antonino → Kerstin  
+0x Jordi    → Jessica  
+1x Marius   → Isabelle 
 1x William  → Dana     
 1x Leon     → Estelle  
-1x Marius   → Isabelle 
+2x Mike     → Joelina  
+0x Antonino → Kerstin  
+1x Andre    → Raphaela 
 1x Tim      → Marie    
 1x Dustin   → Zaira    
-2x Mike     → Joelina  
-1x Andre    → Raphaela 
-0x Jordi    → Jessica  
+0x Max      → Monami   
 ---
 -> I[l]/bits: {0: 3.79, 1: 1.40, 2: 1.66, 3: 2.64, 4: 4.28, 5: 5.91, 6: 8.28, 7: 12.64}
 -> E[I]/bits: 2.10
@@ -204,9 +205,9 @@ MN#3.0 E06
 121660 left -> 16.8925 bits left
 Pr[]s for dup with Desiree
 top4 Pr[Dup]: 6.4%/7832: Mike -> ["Joelina", "Desiree"] | 4.1%/5007: Antonino -> ["Monami", "Desiree"] | 3.4%/4165: Max -> ["Kerstin", "Desiree"] | 3.3%/4025: Marius -> ["Isabelle", "Desiree"]
-top5 Pr[Dup]: 10.0%/12166: ["Estelle", "Desiree"] | 10.0%/12166: ["Zaira", "Desiree"] | 10.0%/12166: ["Marie", "Desiree"] | 10.0%/12166: ["Isabelle", "Desiree"] | 10.0%/12166: ["Jessica", "Desiree"]
-top5 Pr[Dup]: 100.0%/121660: Desiree | 10.0%/12166: Monami | 10.0%/12166: Kerstin | 10.0%/12166: Joelina | 10.0%/12166: Jessica   / 200 %
-top5 Pr[Dup]: 10.0%/12166: Andre | 10.0%/12166: Marius | 10.0%/12166: Mike | 10.0%/12166: Jordi | 10.0%/12166: Antonino
+top5 Pr[Dup]: 10.0%/12166: ["Kerstin", "Desiree"] | 10.0%/12166: ["Isabelle", "Desiree"] | 10.0%/12166: ["Marie", "Desiree"] | 10.0%/12166: ["Jessica", "Desiree"] | 10.0%/12166: ["Joelina", "Desiree"]
+top5 Pr[Dup]: 100.0%/121660: Desiree | 10.0%/12166: Monami | 10.0%/12166: Marie | 10.0%/12166: Joelina | 10.0%/12166: Dana   / 200 %
+top5 Pr[Dup]: 10.0%/12166: William | 10.0%/12166: Andre | 10.0%/12166: Mike | 10.0%/12166: Marius | 10.0%/12166: Tim
 .
 
 MB#4.0 E08 -- verkauft
@@ -230,22 +231,22 @@ Nothing => I = 0 bits
 121660 left -> 16.8925 bits left
 Pr[]s for dup with Desiree
 top4 Pr[Dup]: 6.4%/7832: Mike -> ["Joelina", "Desiree"] | 4.1%/5007: Antonino -> ["Monami", "Desiree"] | 3.4%/4165: Max -> ["Kerstin", "Desiree"] | 3.3%/4025: Marius -> ["Isabelle", "Desiree"]
-top5 Pr[Dup]: 10.0%/12166: ["Monami", "Desiree"] | 10.0%/12166: ["Dana", "Desiree"] | 10.0%/12166: ["Raphaela", "Desiree"] | 10.0%/12166: ["Isabelle", "Desiree"] | 10.0%/12166: ["Marie", "Desiree"]
-top5 Pr[Dup]: 100.0%/121660: Desiree | 10.0%/12166: Raphaela | 10.0%/12166: Dana | 10.0%/12166: Isabelle | 10.0%/12166: Jessica   / 200 %
-top5 Pr[Dup]: 10.0%/12166: Max | 10.0%/12166: Antonino | 10.0%/12166: Dustin | 10.0%/12166: William | 10.0%/12166: Mike
+top5 Pr[Dup]: 10.0%/12166: ["Joelina", "Desiree"] | 10.0%/12166: ["Estelle", "Desiree"] | 10.0%/12166: ["Raphaela", "Desiree"] | 10.0%/12166: ["Marie", "Desiree"] | 10.0%/12166: ["Isabelle", "Desiree"]
+top5 Pr[Dup]: 100.0%/121660: Desiree | 10.0%/12166: Zaira | 10.0%/12166: Monami | 10.0%/12166: Isabelle | 10.0%/12166: Raphaela   / 200 %
+top5 Pr[Dup]: 10.0%/12166: Jordi | 10.0%/12166: Max | 10.0%/12166: Dustin | 10.0%/12166: William | 10.0%/12166: Antonino
 .
 
 MN#4.0 E08
-2x Leon     → Estelle  
-0x Max      → Marie    
-2x Antonino → Monami   
-0x Tim      → Kerstin  
-2x Dustin   → Zaira    
 0x Jordi    → Raphaela 
 0x Marius   → Jessica  
-0x Andre    → Isabelle 
-2x William  → Dana     
 3x Mike     → Joelina  
+2x Antonino → Monami   
+2x William  → Dana     
+0x Tim      → Kerstin  
+0x Andre    → Isabelle 
+0x Max      → Marie    
+2x Dustin   → Zaira    
+2x Leon     → Estelle  
 ---
 -> I[l]/bits: {0: 4.95, 1: 1.89, 2: 1.51, 3: 2.17, 4: 3.46, 5: 5.25, 6: 7.36, 7: 9.87, 8: 12.57}
 -> E[I]/bits: 2.19
@@ -267,9 +268,9 @@ MN#4.0 E08
 26990 left -> 14.7201 bits left
 Pr[]s for dup with Desiree
 top4 Pr[Dup]: 7.2%/1932: Mike -> ["Joelina", "Desiree"] | 5.8%/1567: Antonino -> ["Monami", "Desiree"] | 4.5%/1203: Dustin -> ["Zaira", "Desiree"] | 4.4%/1188: William -> ["Dana", "Desiree"]
-top5 Pr[Dup]: 10.0%/2699: ["Zaira", "Desiree"] | 10.0%/2699: ["Marie", "Desiree"] | 10.0%/2699: ["Kerstin", "Desiree"] | 10.0%/2699: ["Dana", "Desiree"] | 10.0%/2699: ["Joelina", "Desiree"]
-top5 Pr[Dup]: 100.0%/26990: Desiree | 10.0%/2699: Marie | 10.0%/2699: Isabelle | 10.0%/2699: Dana | 10.0%/2699: Zaira   / 200 %
-top5 Pr[Dup]: 10.0%/2699: Leon | 10.0%/2699: Andre | 10.0%/2699: Tim | 10.0%/2699: Jordi | 10.0%/2699: Dustin
+top5 Pr[Dup]: 10.0%/2699: ["Kerstin", "Desiree"] | 10.0%/2699: ["Jessica", "Desiree"] | 10.0%/2699: ["Dana", "Desiree"] | 10.0%/2699: ["Zaira", "Desiree"] | 10.0%/2699: ["Isabelle", "Desiree"]
+top5 Pr[Dup]: 100.0%/26990: Desiree | 10.0%/2699: Marie | 10.0%/2699: Kerstin | 10.0%/2699: Isabelle | 10.0%/2699: Raphaela   / 200 %
+top5 Pr[Dup]: 10.0%/2699: Mike | 10.0%/2699: Antonino | 10.0%/2699: Marius | 10.0%/2699: Jordi | 10.0%/2699: Andre
 .
 
 MB#5.0 E10
@@ -295,22 +296,22 @@ Antonino → Monami
 11320 left -> 13.4666 bits left
 Pr[]s for dup with Desiree
 top4 Pr[Dup]: 9.1%/1029: Mike -> ["Joelina", "Desiree"] | 5.0%/563: Dustin -> ["Zaira", "Desiree"] | 4.7%/536: William -> ["Dana", "Desiree"] | 4.7%/535: Max -> ["Kerstin", "Desiree"]
-top5 Pr[Dup]: 10.0%/1132: ["Zaira", "Desiree"] | 10.0%/1132: ["Kerstin", "Desiree"] | 10.0%/1132: ["Jessica", "Desiree"] | 10.0%/1132: ["Dana", "Desiree"] | 10.0%/1132: ["Raphaela", "Desiree"]
-top5 Pr[Dup]: 100.0%/11320: Desiree | 10.0%/1132: Marie | 10.0%/1132: Dana | 10.0%/1132: Zaira | 10.0%/1132: Jessica   / 200 %
-top5 Pr[Dup]: 10.0%/1132: Max | 10.0%/1132: Antonino | 10.0%/1132: Jordi | 10.0%/1132: Tim | 10.0%/1132: Andre
+top5 Pr[Dup]: 10.0%/1132: ["Raphaela", "Desiree"] | 10.0%/1132: ["Jessica", "Desiree"] | 10.0%/1132: ["Estelle", "Desiree"] | 10.0%/1132: ["Dana", "Desiree"] | 10.0%/1132: ["Zaira", "Desiree"]
+top5 Pr[Dup]: 100.0%/11320: Desiree | 10.0%/1132: Marie | 10.0%/1132: Jessica | 10.0%/1132: Kerstin | 10.0%/1132: Isabelle   / 200 %
+top5 Pr[Dup]: 10.0%/1132: Tim | 10.0%/1132: Andre | 10.0%/1132: Dustin | 10.0%/1132: Max | 10.0%/1132: Jordi
 .
 
 MN#5.0 E10
-0x Mike     → Estelle  
 1x Antonino → Kerstin  
-0x Tim      → Desiree  
-1x Dustin   → Isabelle 
 3x William  → Dana     
-1x Leon     → Jessica  
-1x Max      → Monami   
 0x Marius   → Raphaela 
+1x Dustin   → Isabelle 
+1x Leon     → Jessica  
 1x Jordi    → Zaira    
 0x Andre    → Joelina  
+0x Tim      → Desiree  
+0x Mike     → Estelle  
+1x Max      → Monami   
 ---
 -> I[l]/bits: {0: 1.75, 1: 1.28, 2: 2.56, 3: 3.44, 4: 5.13, 5: 8.82}
 -> E[I]/bits: 1.96
@@ -334,7 +335,7 @@ Pr[]s for dup with Desiree
 top4 Pr[Dup]: 6.9%/132: William -> ["Dana", "Desiree"] | 6.5%/125: Mike -> ["Joelina", "Desiree"] | 4.4%/85: Tim -> ["Monami", "Desiree"] | 4.4%/85: Tim -> ["Kerstin", "Desiree"]
 top5 Pr[Dup]: 11.4%/219: ["Estelle", "Desiree"] | 11.2%/215: ["Monami", "Desiree"] | 11.1%/213: ["Isabelle", "Desiree"] | 10.5%/202: ["Jessica", "Desiree"] | 10.4%/200: ["Kerstin", "Desiree"]
 top5 Pr[Dup]: 100.0%/1924: Desiree | 11.4%/219: Estelle | 11.2%/215: Monami | 11.1%/213: Isabelle | 10.5%/202: Jessica   / 200 %
-top5 Pr[Dup]: 24.7%/475: Tim | 8.4%/161: Dustin | 8.4%/161: Marius | 8.4%/161: Max | 8.4%/161: Andre
+top5 Pr[Dup]: 24.7%/475: Tim | 8.4%/161: Andre | 8.4%/161: Marius | 8.4%/161: Dustin | 8.4%/161: Mike
 .
 
 MB#6.0 E12
@@ -362,20 +363,20 @@ Pr[]s for dup with Desiree
 top4 Pr[Dup]: 6.8%/126: William -> ["Dana", "Desiree"] | 6.4%/119: Mike -> ["Joelina", "Desiree"] | 4.4%/82: Tim -> ["Monami", "Desiree"] | 4.2%/79: Tim -> ["Kerstin", "Desiree"]
 top5 Pr[Dup]: 11.5%/213: ["Estelle", "Desiree"] | 11.1%/207: ["Isabelle", "Desiree"] | 11.1%/206: ["Monami", "Desiree"] | 10.5%/196: ["Jessica", "Desiree"] | 10.4%/194: ["Kerstin", "Desiree"]
 top5 Pr[Dup]: 100.0%/1859: Desiree | 11.5%/213: Estelle | 11.1%/207: Isabelle | 11.1%/206: Monami | 10.5%/196: Jessica   / 200 %
-top5 Pr[Dup]: 25.0%/464: Tim | 8.3%/155: Dustin | 8.3%/155: Andre | 8.3%/155: Mike | 8.3%/155: Antonino
+top5 Pr[Dup]: 25.0%/464: Tim | 8.3%/155: Marius | 8.3%/155: William | 8.3%/155: Andre | 8.3%/155: Dustin
 .
 
 MN#6.0 E12
-1x William  → Raphaela 
-2x Max      → Kerstin  
-0x Jordi    → Desiree  
-0x Marius   → Zaira    
-0x Tim      → Joelina  
-0x Antonino → Dana     
 0x Andre    → Marie    
-2x Leon     → Jessica  
-1x Mike     → Estelle  
 2x Dustin   → Isabelle 
+2x Max      → Kerstin  
+0x Marius   → Zaira    
+0x Antonino → Dana     
+1x Mike     → Estelle  
+2x Leon     → Jessica  
+1x William  → Raphaela 
+0x Jordi    → Desiree  
+0x Tim      → Joelina  
 ---
 -> I[l]/bits: {0: 4.20, 1: 0.71, 2: 1.95, 3: 3.98, 4: 6.61, 5: 10.86}
 -> E[I]/bits: 1.49
@@ -396,10 +397,10 @@ MN#6.0 E12
 ╰──────────┴────────┴─────────┴──────────┴─────────┴─────────┴─────────┴────────┴────────┴──────────┴────────┴─────────╯
 19 left -> 4.2479 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 15.8%/3: Jordi -> ["Estelle", "Desiree"] | 15.8%/3: Jordi -> ["Raphaela", "Desiree"] | 10.5%/2: Jordi -> ["Monami", "Desiree"] | 10.5%/2: Tim -> ["Kerstin", "Desiree"]
-top5 Pr[Dup]: 21.1%/4: ["Raphaela", "Desiree"] | 15.8%/3: ["Estelle", "Desiree"] | 15.8%/3: ["Monami", "Desiree"] | 10.5%/2: ["Marie", "Desiree"] | 10.5%/2: ["Kerstin", "Desiree"]
-top5 Pr[Dup]: 100.0%/19: Desiree | 21.1%/4: Raphaela | 15.8%/3: Monami | 15.8%/3: Estelle | 10.5%/2: Marie   / 200 %
-top5 Pr[Dup]: 42.1%/8: Jordi | 15.8%/3: Tim | 5.3%/1: Marius | 5.3%/1: Dustin | 5.3%/1: Antonino
+top4 Pr[Dup]: 15.8%/3: Jordi -> ["Raphaela", "Desiree"] | 15.8%/3: Jordi -> ["Estelle", "Desiree"] | 10.5%/2: Jordi -> ["Monami", "Desiree"] | 10.5%/2: Tim -> ["Kerstin", "Desiree"]
+top5 Pr[Dup]: 21.1%/4: ["Raphaela", "Desiree"] | 15.8%/3: ["Estelle", "Desiree"] | 15.8%/3: ["Monami", "Desiree"] | 10.5%/2: ["Kerstin", "Desiree"] | 10.5%/2: ["Marie", "Desiree"]
+top5 Pr[Dup]: 100.0%/19: Desiree | 21.1%/4: Raphaela | 15.8%/3: Monami | 15.8%/3: Estelle | 10.5%/2: Kerstin   / 200 %
+top5 Pr[Dup]: 42.1%/8: Jordi | 15.8%/3: Tim | 5.3%/1: Mike | 5.3%/1: Max | 5.3%/1: William
 .
 
 MB#7.0 E14
@@ -424,23 +425,23 @@ Marius → Zaira
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 10 left -> 3.3219 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 30.0%/3: Jordi -> ["Estelle", "Desiree"] | 10.0%/1: Andre -> ["Isabelle", "Desiree"] | 10.0%/1: Leon -> ["Jessica", "Desiree"] | 10.0%/1: Mike -> ["Joelina", "Desiree"]
-top5 Pr[Dup]: 30.0%/3: ["Estelle", "Desiree"] | 10.0%/1: ["Marie", "Desiree"] | 10.0%/1: ["Raphaela", "Desiree"] | 10.0%/1: ["Joelina", "Desiree"] | 10.0%/1: ["Dana", "Desiree"]
-top5 Pr[Dup]: 100.0%/10: Desiree | 30.0%/3: Estelle | 10.0%/1: Isabelle | 10.0%/1: Joelina | 10.0%/1: Monami   / 200 %
-top5 Pr[Dup]: 30.0%/3: Jordi | 10.0%/1: William | 10.0%/1: Antonino | 10.0%/1: Dustin | 10.0%/1: Andre
+top4 Pr[Dup]: 30.0%/3: Jordi -> ["Estelle", "Desiree"] | 10.0%/1: Max -> ["Monami", "Desiree"] | 10.0%/1: Mike -> ["Joelina", "Desiree"] | 10.0%/1: Andre -> ["Isabelle", "Desiree"]
+top5 Pr[Dup]: 30.0%/3: ["Estelle", "Desiree"] | 10.0%/1: ["Dana", "Desiree"] | 10.0%/1: ["Raphaela", "Desiree"] | 10.0%/1: ["Marie", "Desiree"] | 10.0%/1: ["Monami", "Desiree"]
+top5 Pr[Dup]: 100.0%/10: Desiree | 30.0%/3: Estelle | 10.0%/1: Joelina | 10.0%/1: Marie | 10.0%/1: Raphaela   / 200 %
+top5 Pr[Dup]: 30.0%/3: Jordi | 10.0%/1: Dustin | 10.0%/1: Mike | 10.0%/1: Leon | 10.0%/1: Andre
 .
 
 MN#7.0 E14
-3x Dustin   → Isabelle 
-1x Antonino → Dana     
-1x Marius   → Zaira    
 4x Mike     → Joelina  
-0x Jordi    → Monami   
-3x Leon     → Jessica  
-0x Andre    → Desiree  
-1x Max      → Marie    
-2x William  → Raphaela 
 1x Tim      → Kerstin  
+0x Jordi    → Monami   
+1x Marius   → Zaira    
+1x Antonino → Dana     
+0x Andre    → Desiree  
+2x William  → Raphaela 
+3x Dustin   → Isabelle 
+1x Max      → Marie    
+3x Leon     → Jessica  
 ---
 -> I[l]/bits: {5: 1.74, 6: 0.74, 7: 3.32}
 -> E[I]/bits: 1.30
@@ -461,10 +462,10 @@ MN#7.0 E14
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"]
-top5 Pr[Dup]: 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Jessica | 16.7%/1: Raphaela | 16.7%/1: Monami | 16.7%/1: Dana   / 200 %
-top5 Pr[Dup]: 16.7%/1: Dustin | 16.7%/1: Mike | 16.7%/1: Antonino | 16.7%/1: Max | 16.7%/1: Leon
+top4 Pr[Dup]: 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: William -> ["Raphaela", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"]
+top5 Pr[Dup]: 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Monami", "Desiree"]
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Marie | 16.7%/1: Dana | 16.7%/1: Raphaela | 16.7%/1: Monami   / 200 %
+top5 Pr[Dup]: 16.7%/1: Max | 16.7%/1: Mike | 16.7%/1: Antonino | 16.7%/1: William | 16.7%/1: Leon
 .
 
 MB#8.0 E16
@@ -489,23 +490,23 @@ Jordi → Raphaela
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"] | 16.7%/1: William -> ["Raphaela", "Desiree"]
+top4 Pr[Dup]: 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"] | 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"]
 top5 Pr[Dup]: 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Monami", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Joelina | 16.7%/1: Monami | 16.7%/1: Raphaela | 16.7%/1: Jessica   / 200 %
-top5 Pr[Dup]: 16.7%/1: Dustin | 16.7%/1: Max | 16.7%/1: Antonino | 16.7%/1: William | 16.7%/1: Leon
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Monami | 16.7%/1: Jessica | 16.7%/1: Raphaela | 16.7%/1: Joelina   / 200 %
+top5 Pr[Dup]: 16.7%/1: Mike | 16.7%/1: Antonino | 16.7%/1: Max | 16.7%/1: Dustin | 16.7%/1: Leon
 .
 
 MN#8.0 E16
-4x Dustin   → Isabelle 
-1x Jordi    → Monami   
-2x Mike     → Estelle  
-2x Antonino → Dana     
-1x Tim      → Joelina  
-2x Marius   → Zaira    
-1x Andre    → Marie    
 3x Max      → Kerstin  
-3x William  → Raphaela 
 4x Leon     → Jessica  
+1x Jordi    → Monami   
+1x Tim      → Joelina  
+4x Dustin   → Isabelle 
+3x William  → Raphaela 
+1x Andre    → Marie    
+2x Marius   → Zaira    
+2x Antonino → Dana     
+2x Mike     → Estelle  
 ---
 -> I[l]/bits: {4: 0.00}
 -> E[I]/bits: 0.00
@@ -526,10 +527,10 @@ MN#8.0 E16
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"]
-top5 Pr[Dup]: 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Dana", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Raphaela | 16.7%/1: Dana | 16.7%/1: Joelina | 16.7%/1: Jessica   / 200 %
-top5 Pr[Dup]: 16.7%/1: Mike | 16.7%/1: Leon | 16.7%/1: Max | 16.7%/1: William | 16.7%/1: Dustin
+top4 Pr[Dup]: 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: William -> ["Raphaela", "Desiree"]
+top5 Pr[Dup]: 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"]
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Marie | 16.7%/1: Dana | 16.7%/1: Monami | 16.7%/1: Joelina   / 200 %
+top5 Pr[Dup]: 16.7%/1: William | 16.7%/1: Dustin | 16.7%/1: Antonino | 16.7%/1: Leon | 16.7%/1: Mike
 .
 
 MB#9.0 E18
@@ -554,23 +555,23 @@ Max → Kerstin
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: William -> ["Raphaela", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"]
-top5 Pr[Dup]: 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Dana | 16.7%/1: Raphaela | 16.7%/1: Marie | 16.7%/1: Joelina   / 200 %
-top5 Pr[Dup]: 16.7%/1: Mike | 16.7%/1: Leon | 16.7%/1: Max | 16.7%/1: Antonino | 16.7%/1: Dustin
+top4 Pr[Dup]: 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"]
+top5 Pr[Dup]: 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Marie", "Desiree"]
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Dana | 16.7%/1: Jessica | 16.7%/1: Monami | 16.7%/1: Marie   / 200 %
+top5 Pr[Dup]: 16.7%/1: Antonino | 16.7%/1: Leon | 16.7%/1: Mike | 16.7%/1: Dustin | 16.7%/1: William
 .
 
 MN#9.0 E18
 1x Andre    → Desiree  
-2x Tim      → Joelina  
-0x William  → Marie    
-3x Marius   → Zaira    
-0x Max      → Raphaela 
-2x Jordi    → Monami   
+0x Dustin   → Dana     
 5x Leon     → Jessica  
 3x Mike     → Estelle  
+3x Marius   → Zaira    
+0x Max      → Raphaela 
+0x William  → Marie    
 0x Antonino → Isabelle 
-0x Dustin   → Dana     
+2x Jordi    → Monami   
+2x Tim      → Joelina  
 ---
 -> I[l]/bits: {2: 0.00}
 -> E[I]/bits: 0.00
@@ -591,10 +592,10 @@ MN#9.0 E18
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"]
-top5 Pr[Dup]: 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Jessica | 16.7%/1: Joelina | 16.7%/1: Raphaela | 16.7%/1: Monami   / 200 %
-top5 Pr[Dup]: 16.7%/1: Antonino | 16.7%/1: Max | 16.7%/1: Mike | 16.7%/1: William | 16.7%/1: Dustin
+top4 Pr[Dup]: 16.7%/1: William -> ["Raphaela", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Dustin -> ["Marie", "Desiree"]
+top5 Pr[Dup]: 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"]
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Monami | 16.7%/1: Marie | 16.7%/1: Joelina | 16.7%/1: Raphaela   / 200 %
+top5 Pr[Dup]: 16.7%/1: Mike | 16.7%/1: Dustin | 16.7%/1: Leon | 16.7%/1: William | 16.7%/1: Max
 .
 
 MB#10.0 E20
@@ -619,23 +620,23 @@ Dustin → Isabelle
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"] | 16.7%/1: Max -> ["Monami", "Desiree"]
-top5 Pr[Dup]: 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Joelina", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Marie | 16.7%/1: Jessica | 16.7%/1: Dana | 16.7%/1: Monami   / 200 %
-top5 Pr[Dup]: 16.7%/1: Max | 16.7%/1: Dustin | 16.7%/1: Leon | 16.7%/1: Antonino | 16.7%/1: Mike
+top4 Pr[Dup]: 16.7%/1: William -> ["Raphaela", "Desiree"] | 16.7%/1: Dustin -> ["Marie", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"]
+top5 Pr[Dup]: 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"]
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Joelina | 16.7%/1: Raphaela | 16.7%/1: Marie | 16.7%/1: Dana   / 200 %
+top5 Pr[Dup]: 16.7%/1: Max | 16.7%/1: Mike | 16.7%/1: Dustin | 16.7%/1: William | 16.7%/1: Leon
 .
 
 MN#10.0 E20
-5x Mike     → Joelina  
 4x William  → Raphaela 
-2x Tim      → Kerstin  
-1x Andre    → Isabelle 
-0x Dustin   → Marie    
-1x Jordi    → Estelle  
-6x Leon     → Jessica  
-3x Antonino → Dana     
-4x Marius   → Zaira    
 2x Max      → Monami   
+0x Dustin   → Marie    
+3x Antonino → Dana     
+6x Leon     → Jessica  
+4x Marius   → Zaira    
+2x Tim      → Kerstin  
+1x Jordi    → Estelle  
+1x Andre    → Isabelle 
+5x Mike     → Joelina  
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -656,23 +657,23 @@ MN#10.0 E20
 ╰──────────┴──────┴─────────┴──────────┴─────────┴─────────┴─────────┴───────┴────────┴──────────┴───────┴─────────╯
 6 left -> 2.585 bits left
 Pr[]s for dup with Desiree
-top4 Pr[Dup]: 16.7%/1: Mike -> ["Joelina", "Desiree"] | 16.7%/1: William -> ["Raphaela", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: Antonino -> ["Dana", "Desiree"]
-top5 Pr[Dup]: 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Dana", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"]
-top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Dana | 16.7%/1: Monami | 16.7%/1: Jessica | 16.7%/1: Joelina   / 200 %
-top5 Pr[Dup]: 16.7%/1: Mike | 16.7%/1: William | 16.7%/1: Leon | 16.7%/1: Antonino | 16.7%/1: Dustin
+top4 Pr[Dup]: 16.7%/1: Max -> ["Monami", "Desiree"] | 16.7%/1: Leon -> ["Jessica", "Desiree"] | 16.7%/1: William -> ["Raphaela", "Desiree"] | 16.7%/1: Mike -> ["Joelina", "Desiree"]
+top5 Pr[Dup]: 16.7%/1: ["Joelina", "Desiree"] | 16.7%/1: ["Raphaela", "Desiree"] | 16.7%/1: ["Monami", "Desiree"] | 16.7%/1: ["Marie", "Desiree"] | 16.7%/1: ["Jessica", "Desiree"]
+top5 Pr[Dup]: 100.0%/6: Desiree | 16.7%/1: Jessica | 16.7%/1: Monami | 16.7%/1: Raphaela | 16.7%/1: Dana   / 200 %
+top5 Pr[Dup]: 16.7%/1: William | 16.7%/1: Antonino | 16.7%/1: Leon | 16.7%/1: Max | 16.7%/1: Mike
 .
 
 MN#11.0 Reunion
-3x Tim      → Kerstin  
+6x Mike     → Joelina  
 1x Dustin   → Marie    
-3x Max      → Monami   
-2x Andre    → Isabelle 
+7x Leon     → Jessica  
+5x Marius   → Zaira    
 2x Jordi    → Estelle  
 0x William  → Desiree  
+2x Andre    → Isabelle 
 4x Antonino → Dana     
-7x Leon     → Jessica  
-6x Mike     → Joelina  
-5x Marius   → Zaira    
+3x Max      → Monami   
+3x Tim      → Kerstin  
 ---
 -> I[l]/bits: {9: 0.26, 10: 2.58}
 -> E[I]/bits: 0.65
@@ -695,7 +696,7 @@ MN#11.0 Reunion
 Pr[]s for dup with Desiree
 top4 Pr[Dup]: 100.0%/1: William -> ["Raphaela", "Desiree"]
 top5 Pr[Dup]: 100.0%/1: ["Raphaela", "Desiree"]
-top5 Pr[Dup]: 100.0%/1: Raphaela | 100.0%/1: Desiree   / 200 %
+top5 Pr[Dup]: 100.0%/1: Desiree | 100.0%/1: Raphaela   / 200 %
 top5 Pr[Dup]: 100.0%/1: William
 .
 
@@ -751,4 +752,4 @@ top5 Pr[Dup]: 100.0%/1: William
 ╰─────────┴────┴───────────┴─────────┴───────────┴─────────┴─────────┴───────────┴──────────┴───────────┴──────────┴─────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 16.66s
+Ran in 16.32s

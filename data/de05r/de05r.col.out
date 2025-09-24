@@ -1,3 +1,4 @@
+Could use cache file: None
 ╭─────────┬─────────────┬───────────┬───────┬───────┬─────────┬──────┬──────┬─────┬───────┬────────┬─────────┬──────────╮
 │         ┆[48;2;74;68;89m CalvinBlond [49m┆[48;2;74;68;89m CalvinHot [49m┆[48;2;74;68;89m Jonny [49m┆[48;2;74;68;89m Kevin [49m┆[48;2;74;68;89m Lennert [49m┆[48;2;74;68;89m Nico [49m┆[48;2;74;68;89m Olli [49m┆[48;2;74;68;89m Rob [49m┆[48;2;74;68;89m Sidar [49m┆[48;2;74;68;89m Xander [49m┆[48;2;74;68;89m Leandro [49m┆[48;2;74;68;89m JimiBlue [49m│
 ╞═════════╪═════════════╪═══════════╪═══════╪═══════╪═════════╪══════╪══════╪═════╪═══════╪════════╪═════════╪══════════╡
@@ -34,28 +35,28 @@ Nothing => I = 0 bits
 ╰─────────┴─────────────┴───────────┴───────┴───────┴─────────┴──────┴──────┴─────┴───────┴────────┴─────────┴──────────╯
 1796256000 left -> 30.7423 bits left
 Pr[]s for dup with JimiBlue
-top4 Pr[Dup]: 0.9%/16329600: Elli -> ["Nico", "JimiBlue"] | 0.9%/16329600: Elli -> ["Lennert", "JimiBlue"] | 0.9%/16329600: Ariel -> ["Sidar", "JimiBlue"] | 0.9%/16329600: Viki -> ["Olli", "JimiBlue"]
-top5 Pr[Dup]: 9.1%/163296000: ["Xander", "JimiBlue"] | 9.1%/163296000: ["CalvinBlond", "JimiBlue"] | 9.1%/163296000: ["Olli", "JimiBlue"] | 9.1%/163296000: ["Jonny", "JimiBlue"] | 9.1%/163296000: ["Kevin", "JimiBlue"]
-top5 Pr[Dup]: 100.0%/1796256000: JimiBlue | 9.1%/163296000: Rob | 9.1%/163296000: Nico | 9.1%/163296000: Xander | 9.1%/163296000: Lennert   / 200 %
-top5 Pr[Dup]: 10.0%/179625600: Hati | 10.0%/179625600: Joanna | 10.0%/179625600: Antonia | 10.0%/179625600: Ariel | 10.0%/179625600: Elli
+top4 Pr[Dup]: 0.9%/16329600: Elli -> ["Leandro", "JimiBlue"] | 0.9%/16329600: Beverly -> ["Kevin", "JimiBlue"] | 0.9%/16329600: Hati -> ["CalvinHot", "JimiBlue"] | 0.9%/16329600: Henna -> ["CalvinBlond", "JimiBlue"]
+top5 Pr[Dup]: 9.1%/163296000: ["CalvinHot", "JimiBlue"] | 9.1%/163296000: ["Xander", "JimiBlue"] | 9.1%/163296000: ["Leandro", "JimiBlue"] | 9.1%/163296000: ["CalvinBlond", "JimiBlue"] | 9.1%/163296000: ["Lennert", "JimiBlue"]
+top5 Pr[Dup]: 100.0%/1796256000: JimiBlue | 9.1%/163296000: CalvinHot | 9.1%/163296000: Sidar | 9.1%/163296000: CalvinBlond | 9.1%/163296000: Nico   / 200 %
+top5 Pr[Dup]: 10.0%/179625600: Ariel | 10.0%/179625600: Viki | 10.0%/179625600: Nelly | 10.0%/179625600: Beverly | 10.0%/179625600: Antonia
 .
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.2%/3265920: Beverly -> ["CalvinHot", "Leandro"] | 0.2%/3265920: Joanna -> ["Jonny", "Nico"] | 0.2%/3265920: Antonia -> ["Rob", "Leandro"] | 0.2%/3265920: Elli -> ["Nico", "Rob"]
-top5 Pr[Dup]: 1.8%/32659200: ["Nico", "Xander"] | 1.8%/32659200: ["CalvinBlond", "Jonny"] | 1.8%/32659200: ["Kevin", "Nico"] | 1.8%/32659200: ["Kevin", "Rob"] | 1.8%/32659200: ["Jonny", "Xander"]
-top5 Pr[Dup]: 18.2%/326592000: CalvinBlond | 18.2%/326592000: Leandro | 18.2%/326592000: Xander | 18.2%/326592000: Lennert | 18.2%/326592000: Jonny   / 200 %
-top5 Pr[Dup]: 10.0%/179625600: Antonia | 10.0%/179625600: Elli | 10.0%/179625600: Sandra | 10.0%/179625600: Beverly | 10.0%/179625600: Joanna
+top4 Pr[Dup]: 0.2%/3265920: Sandra -> ["Kevin", "Leandro"] | 0.2%/3265920: Ariel -> ["Olli", "Xander"] | 0.2%/3265920: Hati -> ["Xander", "Leandro"] | 0.2%/3265920: Hati -> ["CalvinBlond", "Lennert"]
+top5 Pr[Dup]: 1.8%/32659200: ["Jonny", "Olli"] | 1.8%/32659200: ["Jonny", "Sidar"] | 1.8%/32659200: ["Nico", "Xander"] | 1.8%/32659200: ["CalvinBlond", "Xander"] | 1.8%/32659200: ["CalvinHot", "Olli"]
+top5 Pr[Dup]: 18.2%/326592000: Olli | 18.2%/326592000: Lennert | 18.2%/326592000: Xander | 18.2%/326592000: Rob | 18.2%/326592000: Nico   / 200 %
+top5 Pr[Dup]: 10.0%/179625600: Ariel | 10.0%/179625600: Beverly | 10.0%/179625600: Elli | 10.0%/179625600: Nelly | 10.0%/179625600: Henna
 
 MN#1.0 E04
 0x Antonia → Lennert     
-0x Henna   → Jonny       
-0x Beverly → CalvinBlond 
-0x Sandra  → Kevin       
-0x Joanna  → Rob         
-0x Elli    → Xander      
-0x Nelly   → Sidar       
-0x Hati    → CalvinHot   
 0x Viki    → Leandro     
+0x Elli    → Xander      
+0x Sandra  → Kevin       
+0x Hati    → CalvinHot   
 0x Ariel   → Nico        
+0x Beverly → CalvinBlond 
+0x Henna   → Jonny       
+0x Joanna  → Rob         
+0x Nelly   → Sidar       
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.09, 5: 8.50, 6: 11.21, 7: 14.19, 8: 17.38, 9: 21.08, 10: 24.25}
 -> E[I]/bits: 1.88
@@ -76,16 +77,16 @@ MN#1.0 E04
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴──────┴────────┴────────┴────────┴─────────┴──────────╯
 333406530 left -> 28.3127 bits left
 Pr[]s for dup with JimiBlue
-top4 Pr[Dup]: 1.8%/6074073: Joanna -> ["Rob", "JimiBlue"] | 1.8%/6074073: Beverly -> ["CalvinBlond", "JimiBlue"] | 1.8%/6074073: Sandra -> ["Kevin", "JimiBlue"] | 1.8%/6074073: Antonia -> ["Lennert", "JimiBlue"]
-top5 Pr[Dup]: 9.1%/30370320: ["Olli", "JimiBlue"] | 9.1%/30303621: ["Jonny", "JimiBlue"] | 9.1%/30303621: ["Leandro", "JimiBlue"] | 9.1%/30303621: ["Kevin", "JimiBlue"] | 9.1%/30303621: ["Lennert", "JimiBlue"]
-top5 Pr[Dup]: 100.0%/333406530: JimiBlue | 9.1%/30370320: Olli | 9.1%/30303621: Jonny | 9.1%/30303621: CalvinBlond | 9.1%/30303621: Lennert   / 200 %
-top5 Pr[Dup]: 10.0%/33340653: Elli | 10.0%/33340653: Beverly | 10.0%/33340653: Joanna | 10.0%/33340653: Nelly | 10.0%/33340653: Ariel
+top4 Pr[Dup]: 1.8%/6074073: Sandra -> ["Kevin", "JimiBlue"] | 1.8%/6074073: Henna -> ["Jonny", "JimiBlue"] | 1.8%/6074073: Nelly -> ["Sidar", "JimiBlue"] | 1.8%/6074073: Antonia -> ["Lennert", "JimiBlue"]
+top5 Pr[Dup]: 9.1%/30370320: ["Olli", "JimiBlue"] | 9.1%/30303621: ["Nico", "JimiBlue"] | 9.1%/30303621: ["Leandro", "JimiBlue"] | 9.1%/30303621: ["Sidar", "JimiBlue"] | 9.1%/30303621: ["Lennert", "JimiBlue"]
+top5 Pr[Dup]: 100.0%/333406530: JimiBlue | 9.1%/30370320: Olli | 9.1%/30303621: Leandro | 9.1%/30303621: Xander | 9.1%/30303621: CalvinHot   / 200 %
+top5 Pr[Dup]: 10.0%/33340653: Beverly | 10.0%/33340653: Nelly | 10.0%/33340653: Sandra | 10.0%/33340653: Viki | 10.0%/33340653: Hati
 .
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.4%/1201473: Henna -> ["Jonny", "Olli"] | 0.4%/1201473: Ariel -> ["Nico", "Olli"] | 0.4%/1201473: Beverly -> ["CalvinBlond", "Olli"] | 0.4%/1201473: Antonia -> ["Lennert", "Olli"]
-top5 Pr[Dup]: 1.8%/6074064: ["Jonny", "Sidar"] | 1.8%/6074064: ["CalvinBlond", "Jonny"] | 1.8%/6074064: ["Lennert", "Nico"] | 1.8%/6074064: ["CalvinHot", "Xander"] | 1.8%/6074064: ["CalvinHot", "Nico"]
-top5 Pr[Dup]: 18.2%/60673941: CalvinHot | 18.2%/60673941: CalvinBlond | 18.2%/60673941: Lennert | 18.2%/60673941: Nico | 18.2%/60673941: Sidar   / 200 %
-top5 Pr[Dup]: 10.0%/33340653: Sandra | 10.0%/33340653: Antonia | 10.0%/33340653: Ariel | 10.0%/33340653: Hati | 10.0%/33340653: Viki
+top4 Pr[Dup]: 0.4%/1201473: Sandra -> ["Kevin", "Olli"] | 0.4%/1201473: Henna -> ["Jonny", "Olli"] | 0.4%/1201473: Viki -> ["Olli", "Leandro"] | 0.4%/1201473: Antonia -> ["Lennert", "Olli"]
+top5 Pr[Dup]: 1.8%/6074064: ["Lennert", "Leandro"] | 1.8%/6074064: ["Jonny", "Kevin"] | 1.8%/6074064: ["CalvinBlond", "Leandro"] | 1.8%/6074064: ["CalvinBlond", "Jonny"] | 1.8%/6074064: ["CalvinHot", "Rob"]
+top5 Pr[Dup]: 18.2%/60673941: Sidar | 18.2%/60673941: Rob | 18.2%/60673941: Jonny | 18.2%/60673941: Xander | 18.2%/60673941: Lennert   / 200 %
+top5 Pr[Dup]: 10.0%/33340653: Beverly | 10.0%/33340653: Henna | 10.0%/33340653: Elli | 10.0%/33340653: Joanna | 10.0%/33340653: Nelly
 
 MB#2.0 E05
 Elli → Xander 
@@ -109,28 +110,28 @@ Elli → Xander
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴─────────┴──────────╯
 48592584 left -> 25.5342 bits left
 Pr[]s for dup with JimiBlue
-top4 Pr[Dup]: 1.1%/541401: Viki -> ["Jonny", "JimiBlue"] | 1.1%/541401: Nelly -> ["Lennert", "JimiBlue"] | 1.1%/541401: Antonia -> ["CalvinHot", "JimiBlue"] | 1.1%/541401: Viki -> ["CalvinBlond", "JimiBlue"]
-top5 Pr[Dup]: 10.0%/4872600: ["Olli", "JimiBlue"] | 10.0%/4857776: ["Nico", "JimiBlue"] | 10.0%/4857776: ["Jonny", "JimiBlue"] | 10.0%/4857776: ["Leandro", "JimiBlue"] | 10.0%/4857776: ["Rob", "JimiBlue"]
-top5 Pr[Dup]: 100.0%/48592584: JimiBlue | 10.0%/4872600: Olli | 10.0%/4857776: Leandro | 10.0%/4857776: Sidar | 10.0%/4857776: Kevin   / 200 %
-top5 Pr[Dup]: 11.1%/5399176: Joanna | 11.1%/5399176: Antonia | 11.1%/5399176: Henna | 11.1%/5399176: Nelly | 11.1%/5399176: Sandra
+top4 Pr[Dup]: 1.1%/541401: Viki -> ["Rob", "JimiBlue"] | 1.1%/541401: Sandra -> ["Rob", "JimiBlue"] | 1.1%/541401: Joanna -> ["Kevin", "JimiBlue"] | 1.1%/541401: Hati -> ["Leandro", "JimiBlue"]
+top5 Pr[Dup]: 10.0%/4872600: ["Olli", "JimiBlue"] | 10.0%/4857776: ["CalvinHot", "JimiBlue"] | 10.0%/4857776: ["Lennert", "JimiBlue"] | 10.0%/4857776: ["Rob", "JimiBlue"] | 10.0%/4857776: ["Kevin", "JimiBlue"]
+top5 Pr[Dup]: 100.0%/48592584: JimiBlue | 10.0%/4872600: Olli | 10.0%/4857776: Leandro | 10.0%/4857776: CalvinBlond | 10.0%/4857776: Sidar   / 200 %
+top5 Pr[Dup]: 11.1%/5399176: Beverly | 11.1%/5399176: Antonia | 11.1%/5399176: Hati | 11.1%/5399176: Ariel | 11.1%/5399176: Henna
 .
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.3%/133496: Viki -> ["CalvinBlond", "Leandro"] | 0.3%/133496: Beverly -> ["CalvinBlond", "Jonny"] | 0.3%/133496: Antonia -> ["CalvinBlond", "Lennert"] | 0.3%/133496: Nelly -> ["Sidar", "Leandro"]
-top5 Pr[Dup]: 2.2%/1082800: ["CalvinHot", "Kevin"] | 2.2%/1082800: ["CalvinHot", "Leandro"] | 2.2%/1082800: ["Nico", "Rob"] | 2.2%/1082800: ["CalvinHot", "Lennert"] | 2.2%/1082800: ["CalvinHot", "Sidar"]
-top5 Pr[Dup]: 20.0%/9730376: Kevin | 20.0%/9730376: CalvinHot | 20.0%/9730376: Rob | 20.0%/9730376: Jonny | 20.0%/9730376: Nico   / 200 %
-top5 Pr[Dup]: 11.1%/5399176: Antonia | 11.1%/5399176: Sandra | 11.1%/5399176: Beverly | 11.1%/5399176: Hati | 11.1%/5399176: Viki
+top4 Pr[Dup]: 0.3%/133496: Ariel -> ["Nico", "Sidar"] | 0.3%/133496: Antonia -> ["Lennert", "Nico"] | 0.3%/133496: Henna -> ["Jonny", "Nico"] | 0.3%/133496: Hati -> ["CalvinHot", "Nico"]
+top5 Pr[Dup]: 2.2%/1082800: ["Kevin", "Lennert"] | 2.2%/1082800: ["Jonny", "Leandro"] | 2.2%/1082800: ["CalvinHot", "Jonny"] | 2.2%/1082800: ["Jonny", "Nico"] | 2.2%/1082800: ["Sidar", "Leandro"]
+top5 Pr[Dup]: 20.0%/9730376: Kevin | 20.0%/9730376: Nico | 20.0%/9730376: Jonny | 20.0%/9730376: Leandro | 20.0%/9730376: CalvinBlond   / 200 %
+top5 Pr[Dup]: 11.1%/5399176: Ariel | 11.1%/5399176: Henna | 11.1%/5399176: Joanna | 11.1%/5399176: Hati | 11.1%/5399176: Nelly
 
 MN#2.0 E06 -- -50k Kamera verdeckt (Kevin+Ariel)
-0x Nelly   → Rob         
-1x Hati    → CalvinHot   
-0x Henna   → Olli        
-1x Sandra  → Kevin       
-1x Viki    → Leandro     
-0x Antonia → Jonny       
 1x Elli    → Xander      
-1x Ariel   → Nico        
+1x Sandra  → Kevin       
 0x Beverly → Sidar       
+0x Antonia → Jonny       
+1x Viki    → Leandro     
 0x Joanna  → CalvinBlond 
+1x Hati    → CalvinHot   
+1x Ariel   → Nico        
+0x Henna   → Olli        
+0x Nelly   → Rob         
 ---
 -> I[l]/bits: {1: 1.54, 2: 1.35, 3: 2.35, 4: 4.15, 5: 6.64, 6: 9.90, 7: 14.29}
 -> E[I]/bits: 1.83
@@ -151,16 +152,16 @@ MN#2.0 E06 -- -50k Kamera verdeckt (Kevin+Ariel)
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴─────────┴──────────╯
 19079984 left -> 24.1856 bits left
 Pr[]s for dup with JimiBlue
-top4 Pr[Dup]: 1.3%/254199: Ariel -> ["Nico", "JimiBlue"] | 1.3%/254199: Sandra -> ["Kevin", "JimiBlue"] | 1.3%/254199: Hati -> ["CalvinHot", "JimiBlue"] | 1.3%/254199: Viki -> ["Leandro", "JimiBlue"]
-top5 Pr[Dup]: 10.0%/1914273: ["Olli", "JimiBlue"] | 10.0%/1914273: ["Lennert", "JimiBlue"] | 10.0%/1911016: ["Jonny", "JimiBlue"] | 10.0%/1907272: ["Kevin", "JimiBlue"] | 10.0%/1907272: ["Nico", "JimiBlue"]
-top5 Pr[Dup]: 100.0%/19079984: JimiBlue | 10.0%/1914273: Olli | 10.0%/1914273: Lennert | 10.0%/1911016: Jonny | 10.0%/1907272: Nico   / 200 %
-top5 Pr[Dup]: 11.2%/2131126: Joanna | 11.2%/2131126: Nelly | 11.2%/2131126: Beverly | 11.1%/2126265: Antonia | 11.1%/2126265: Henna
+top4 Pr[Dup]: 1.3%/254199: Viki -> ["Leandro", "JimiBlue"] | 1.3%/254199: Ariel -> ["Nico", "JimiBlue"] | 1.3%/254199: Sandra -> ["Kevin", "JimiBlue"] | 1.3%/254199: Hati -> ["CalvinHot", "JimiBlue"]
+top5 Pr[Dup]: 10.0%/1914273: ["Olli", "JimiBlue"] | 10.0%/1914273: ["Lennert", "JimiBlue"] | 10.0%/1911016: ["Jonny", "JimiBlue"] | 10.0%/1907272: ["Nico", "JimiBlue"] | 10.0%/1907272: ["Leandro", "JimiBlue"]
+top5 Pr[Dup]: 100.0%/19079984: JimiBlue | 10.0%/1914273: Lennert | 10.0%/1914273: Olli | 10.0%/1911016: Jonny | 10.0%/1907272: Kevin   / 200 %
+top5 Pr[Dup]: 11.2%/2131126: Nelly | 11.2%/2131126: Joanna | 11.2%/2131126: Beverly | 11.1%/2126265: Henna | 11.1%/2126265: Antonia
 .
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.5%/87584: Nelly -> ["Rob", "Sidar"] | 0.5%/87584: Joanna -> ["CalvinBlond", "Rob"] | 0.5%/87584: Beverly -> ["CalvinBlond", "Sidar"] | 0.4%/75576: Sandra -> ["CalvinBlond", "Kevin"]
-top5 Pr[Dup]: 2.5%/468080: ["CalvinBlond", "Rob"] | 2.5%/468080: ["CalvinBlond", "Sidar"] | 2.5%/468080: ["Rob", "Sidar"] | 2.4%/456928: ["Jonny", "Lennert"] | 2.4%/456928: ["Jonny", "Olli"]
-top5 Pr[Dup]: 20.2%/3849760: Rob | 20.2%/3849760: Sidar | 20.2%/3849760: CalvinBlond | 20.0%/3821808: Leandro | 20.0%/3821808: Kevin   / 200 %
-top5 Pr[Dup]: 11.6%/2211832: Sandra | 11.6%/2211832: Hati | 11.6%/2211832: Ariel | 11.6%/2211832: Viki | 10.8%/2069864: Antonia
+top4 Pr[Dup]: 0.5%/87584: Joanna -> ["CalvinBlond", "Rob"] | 0.5%/87584: Beverly -> ["CalvinBlond", "Sidar"] | 0.5%/87584: Nelly -> ["Rob", "Sidar"] | 0.4%/75576: Ariel -> ["CalvinBlond", "Nico"]
+top5 Pr[Dup]: 2.5%/468080: ["CalvinBlond", "Sidar"] | 2.5%/468080: ["Rob", "Sidar"] | 2.5%/468080: ["CalvinBlond", "Rob"] | 2.4%/456928: ["Jonny", "Lennert"] | 2.4%/456928: ["Jonny", "Olli"]
+top5 Pr[Dup]: 20.2%/3849760: CalvinBlond | 20.2%/3849760: Rob | 20.2%/3849760: Sidar | 20.0%/3821808: Leandro | 20.0%/3821808: Nico   / 200 %
+top5 Pr[Dup]: 11.6%/2211832: Ariel | 11.6%/2211832: Viki | 11.6%/2211832: Hati | 11.6%/2211832: Sandra | 10.8%/2069864: Henna
 
 MB#3.0 E07
 Nelly → CalvinBlond 
@@ -184,28 +185,28 @@ Nelly → CalvinBlond
 ╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴─────────┴──────────╯
 16640896 left -> 23.9882 bits left
 Pr[]s for dup with JimiBlue
-top4 Pr[Dup]: 1.5%/249510: Nelly -> ["Jonny", "JimiBlue"] | 1.5%/243812: Antonia -> ["CalvinBlond", "JimiBlue"] | 1.5%/243812: Henna -> ["CalvinBlond", "JimiBlue"] | 1.4%/231331: Nelly -> ["Lennert", "JimiBlue"]
-top5 Pr[Dup]: 10.1%/1672878: ["Jonny", "JimiBlue"] | 10.1%/1672488: ["Olli", "JimiBlue"] | 10.1%/1672488: ["Lennert", "JimiBlue"] | 10.0%/1663995: ["Nico", "JimiBlue"] | 10.0%/1663995: ["CalvinHot", "JimiBlue"]
-top5 Pr[Dup]: 100.0%/16640896: JimiBlue | 10.1%/1672878: Jonny | 10.1%/1672488: Lennert | 10.1%/1672488: Olli | 10.0%/1663995: CalvinHot   / 200 %
-top5 Pr[Dup]: 11.3%/1881616: Nelly | 11.2%/1856153: Joanna | 11.2%/1856153: Beverly | 11.1%/1848643: Henna | 11.1%/1848643: Antonia
+top4 Pr[Dup]: 1.5%/249510: Nelly -> ["Jonny", "JimiBlue"] | 1.5%/243812: Henna -> ["CalvinBlond", "JimiBlue"] | 1.5%/243812: Antonia -> ["CalvinBlond", "JimiBlue"] | 1.4%/231331: Nelly -> ["Lennert", "JimiBlue"]
+top5 Pr[Dup]: 10.1%/1672878: ["Jonny", "JimiBlue"] | 10.1%/1672488: ["Olli", "JimiBlue"] | 10.1%/1672488: ["Lennert", "JimiBlue"] | 10.0%/1663995: ["Leandro", "JimiBlue"] | 10.0%/1663995: ["CalvinHot", "JimiBlue"]
+top5 Pr[Dup]: 100.0%/16640896: JimiBlue | 10.1%/1672878: Jonny | 10.1%/1672488: Olli | 10.1%/1672488: Lennert | 10.0%/1663995: CalvinHot   / 200 %
+top5 Pr[Dup]: 11.3%/1881616: Nelly | 11.2%/1856153: Beverly | 11.2%/1856153: Joanna | 11.1%/1848643: Henna | 11.1%/1848643: Antonia
 .
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.5%/87584: Beverly -> ["CalvinBlond", "Sidar"] | 0.5%/87584: Joanna -> ["CalvinBlond", "Rob"] | 0.5%/87584: Nelly -> ["Rob", "Sidar"] | 0.5%/75576: Hati -> ["CalvinBlond", "CalvinHot"]
-top5 Pr[Dup]: 2.6%/436648: ["CalvinBlond", "Rob"] | 2.6%/436648: ["CalvinBlond", "Sidar"] | 2.5%/415456: ["Rob", "Sidar"] | 2.3%/386368: ["Jonny", "Lennert"] | 2.3%/386368: ["Jonny", "Olli"]
-top5 Pr[Dup]: 20.5%/3406752: CalvinBlond | 20.4%/3389720: Rob | 20.4%/3389720: Sidar | 20.0%/3328936: Kevin | 20.0%/3328936: Nico   / 200 %
-top5 Pr[Dup]: 11.7%/1941520: Ariel | 11.7%/1941520: Sandra | 11.7%/1941520: Hati | 11.7%/1941520: Viki | 11.1%/1851752: Henna
+top4 Pr[Dup]: 0.5%/87584: Joanna -> ["CalvinBlond", "Rob"] | 0.5%/87584: Nelly -> ["Rob", "Sidar"] | 0.5%/87584: Beverly -> ["CalvinBlond", "Sidar"] | 0.5%/75576: Hati -> ["CalvinBlond", "CalvinHot"]
+top5 Pr[Dup]: 2.6%/436648: ["CalvinBlond", "Sidar"] | 2.6%/436648: ["CalvinBlond", "Rob"] | 2.5%/415456: ["Rob", "Sidar"] | 2.3%/386368: ["Jonny", "Lennert"] | 2.3%/386368: ["Jonny", "Olli"]
+top5 Pr[Dup]: 20.5%/3406752: CalvinBlond | 20.4%/3389720: Rob | 20.4%/3389720: Sidar | 20.0%/3328936: Leandro | 20.0%/3328936: Nico   / 200 %
+top5 Pr[Dup]: 11.7%/1941520: Viki | 11.7%/1941520: Hati | 11.7%/1941520: Sandra | 11.7%/1941520: Ariel | 11.1%/1851752: Henna
 
 MN#3.0 E08 -- +20€ aus Grosszuegigkeit :)
-0x Beverly → Nico        
-0x Hati    → Rob         
-0x Antonia → Olli        
-1x Joanna  → CalvinBlond 
-0x Ariel   → CalvinHot   
 0x Henna   → Leandro     
-2x Sandra  → Kevin       
-0x Nelly   → Lennert     
+1x Joanna  → CalvinBlond 
 2x Elli    → Xander      
+0x Ariel   → CalvinHot   
+0x Nelly   → Lennert     
+0x Beverly → Nico        
+0x Antonia → Olli        
 0x Viki    → Jonny       
+2x Sandra  → Kevin       
+0x Hati    → Rob         
 ---
 -> I[l]/bits: {1: 1.47, 2: 1.43, 3: 2.42, 4: 4.01, 5: 6.05, 6: 8.48, 7: 11.25, 8: 14.43, 9: 18.40}
 -> E[I]/bits: 1.88
@@ -271,16 +272,16 @@ top5 Pr[Dup]: 20.5%/1105040: CalvinBlond | 20.3%/1096368: Sidar | 20.1%/1082720:
 top5 Pr[Dup]: 11.7%/633344: Ariel | 11.7%/633040: Viki | 11.7%/631784: Hati | 11.7%/629376: Sandra | 11.3%/607608: Henna
 
 MN#4.0 E10
-0x Viki    → Kevin       
-1x Hati    → Rob         
-0x Nelly   → CalvinHot   
-1x Antonia → Olli        
-2x Joanna  → CalvinBlond 
-3x Elli    → Xander      
-0x Sandra  → Leandro     
-2x Ariel   → Nico        
 0x Henna   → Lennert     
+2x Ariel   → Nico        
+1x Antonia → Olli        
+0x Nelly   → CalvinHot   
+0x Sandra  → Leandro     
+3x Elli    → Xander      
 1x Beverly → Sidar       
+1x Hati    → Rob         
+2x Joanna  → CalvinBlond 
+0x Viki    → Kevin       
 ---
 -> I[l]/bits: {1: 1.45, 2: 1.39, 3: 2.42, 4: 4.19, 5: 6.49, 6: 9.39, 7: 13.32}
 -> E[I]/bits: 1.83
@@ -379,16 +380,16 @@ top5 Pr[Dup]: 21.0%/145257: CalvinBlond | 20.9%/144583: Nico | 20.6%/142579: Rob
 top5 Pr[Dup]: 12.4%/85694: Ariel | 11.9%/82474: Hati | 11.8%/81746: Antonia | 11.6%/80542: Viki | 11.5%/79282: Henna
 
 MN#5.0 E12
-0x Sandra  → Lennert     
-3x Ariel   → Nico        
-2x Antonia → Olli        
-2x Hati    → Rob         
-2x Beverly → Sidar       
-1x Viki    → Kevin       
-0x Henna   → JimiBlue    
 4x Elli    → Xander      
-3x Joanna  → CalvinBlond 
+0x Henna   → JimiBlue    
 1x Nelly   → CalvinHot   
+2x Antonia → Olli        
+2x Beverly → Sidar       
+0x Sandra  → Lennert     
+3x Joanna  → CalvinBlond 
+3x Ariel   → Nico        
+1x Viki    → Kevin       
+2x Hati    → Rob         
 ---
 -> I[l]/bits: {2: 2.26, 3: 0.77, 4: 2.40, 5: 6.00}
 -> E[I]/bits: 1.47
@@ -454,16 +455,16 @@ top5 Pr[Dup]: 23.8%/12670: Nico | 23.5%/12482: Sidar | 23.1%/12306: CalvinBlond 
 top5 Pr[Dup]: 13.6%/7255: Ariel | 13.1%/6984: Henna | 13.0%/6936: Nelly | 12.8%/6815: Hati | 12.7%/6760: Antonia
 
 MN#6.0 E14
+2x Nelly   → CalvinHot   
 1x Henna   → Olli        
-0x Hati    → JimiBlue    
-0x Ariel   → Kevin       
-5x Elli    → Xander      
-0x Joanna  → Sidar       
 0x Beverly → Leandro     
 1x Sandra  → Lennert     
-2x Nelly   → CalvinHot   
 0x Antonia → CalvinBlond 
+0x Joanna  → Sidar       
+0x Ariel   → Kevin       
+0x Hati    → JimiBlue    
 1x Viki    → Jonny       
+5x Elli    → Xander      
 ---
 -> I[l]/bits: {2: 1.78, 3: 1.48, 4: 2.14, 5: 3.43, 6: 5.34, 7: 7.78, 8: 10.74, 9: 14.70}
 -> E[I]/bits: 2.03
@@ -495,6 +496,39 @@ top5 Pr[Dup]: 4.0%/478: ["CalvinBlond", "Sidar"] | 3.9%/465: ["CalvinBlond", "Ol
 top5 Pr[Dup]: 24.7%/2975: Nico | 23.1%/2775: Sidar | 23.0%/2774: CalvinBlond | 22.7%/2735: Kevin | 22.7%/2732: Olli   / 200 %
 top5 Pr[Dup]: 15.8%/1901: Nelly | 13.7%/1648: Ariel | 12.8%/1540: Henna | 12.6%/1512: Antonia | 12.4%/1495: Joanna
 
+MB#7.0 E14
+Antonia → Olli 
+---
+-> I[l]/bits: {0: 0.30, 1: 2.39}
+-> E[I]/bits: 0.70
+0 lights => I = 0.3044 bits
+╭─────────┬─────────────┬───────────┬────────┬────────┬─────────┬────────┬────────┬────────┬────────┬────────┬─────────┬──────────╮
+│         ┆[48;2;74;68;89m CalvinBlond [49m┆[48;2;74;68;89m CalvinHot [49m┆[48;2;74;68;89m  Jonny [49m┆[48;2;74;68;89m  Kevin [49m┆[48;2;74;68;89m[38;5;10m Lennert [49m[39m┆[48;2;74;68;89m  Nico  [49m┆[48;2;74;68;89m  Olli  [49m┆[48;2;74;68;89m   Rob  [49m┆[48;2;74;68;89m  Sidar [49m┆[48;2;74;68;89m[38;5;10m Xander [49m[39m┆[48;2;74;68;89m Leandro [49m┆[48;2;74;68;89m JimiBlue [49m│
+╞═════════╪═════════════╪═══════════╪════════╪════════╪═════════╪════════╪════════╪════════╪════════╪════════╪═════════╪══════════╡
+│[48;2;69;76;102m Antonia [49m┆[48;2;65;77;71m 24.772      [49m┆[48;2;41;44;60m  5.949    [49m┆[48;2;41;44;60m  6.903 [49m┆[48;2;41;44;60m 15.889 [49m┆[48;2;41;44;60m[38;5;9m  0      [49m[39m┆[48;2;41;44;60m 14.453 [49m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m 11.868 [49m┆[48;2;41;44;60m 14.73  [49m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m 14.258  [49m┆[48;2;41;44;60m 15.981   [49m│
+│[48;2;69;76;102m Ariel   [49m┆  7.549      ┆  1.087    ┆ 13.263 ┆ 13.889 ┆[38;5;9m  0      [39m┆[48;2;65;77;71m 34.075 [49m┆ 14.463 ┆  7.991 ┆ 10.011 ┆[38;5;9m  0     [39m┆ 11.355  ┆ 15.017   │
+│[48;2;69;76;102m Beverly [49m┆[48;2;41;44;60m 13.601      [49m┆[48;2;41;44;60m  4.595    [49m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m 13.612 [49m┆[48;2;41;44;60m[38;5;9m  0      [49m[39m┆[48;2;41;44;60m  5.139 [49m┆[48;2;74;68;89m 19.684 [49m┆[48;2;41;44;60m 14.35  [49m┆[48;2;74;68;89m 17.345 [49m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;65;77;71m 22.474  [49m┆[48;2;41;44;60m 15.581   [49m│
+│[48;2;69;76;102m[38;5;10m Elli    [49m[39m┆[38;5;9m  0          [39m┆[38;5;9m  0        [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0      [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[38;5;9m  0     [39m┆[48;2;65;77;71m[38;5;10m 100    [49m[39m┆[38;5;9m  0      [39m┆[38;5;9m  0       [39m│
+│[48;2;69;76;102m Hati    [49m┆[48;2;41;44;60m  9.939      [49m┆[48;2;41;44;60m[38;5;9m  0.513    [49m[39m┆[48;2;41;44;60m  9.314 [49m┆[48;2;41;44;60m 10.134 [49m┆[48;2;41;44;60m[38;5;9m  0      [49m[39m┆[48;2;41;44;60m  9.396 [49m┆[48;2;41;44;60m 13.724 [49m┆[48;2;65;77;71m 37.912 [49m┆[48;2;41;44;60m 11.376 [49m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m  9.539  [49m┆[48;2;74;68;89m 22.751   [49m│
+│[48;2;69;76;102m Henna   [49m┆ 14.248      ┆  5.878    ┆[48;2;65;77;71m 25.992 [49m┆ 12.258 ┆[38;5;9m  0      [39m┆  9.673 ┆ 11.909 ┆  5.662 ┆ 12.453 ┆[38;5;9m  0     [39m┆ 15.479  ┆[38;5;9m  0       [39m│
+│[48;2;69;76;102m Joanna  [49m┆[48;2;69;76;102m 21.551      [49m┆[48;2;41;44;60m  4.913    [49m┆[48;2;41;44;60m 14.114 [49m┆[48;2;41;44;60m 10.986 [49m┆[48;2;41;44;60m[38;5;9m  0      [49m[39m┆[48;2;41;44;60m  7.837 [49m┆[48;2;41;44;60m 13.653 [49m┆[48;2;41;44;60m 13.191 [49m┆[48;2;41;44;60m 14.309 [49m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m 12.514  [49m┆[48;2;41;44;60m 15.202   [49m│
+│[48;2;69;76;102m Nelly   [49m┆[38;5;9m  0          [39m┆[48;2;65;77;71m[38;5;14m 71.064    [49m[39m┆ 11.581 ┆  5.18  ┆[38;5;9m  0      [39m┆  5.97  ┆  9.488 ┆[38;5;9m  0.554 [39m┆  5.477 ┆[38;5;9m  0     [39m┆  7.232  ┆[38;5;9m  0       [39m│
+│[48;2;69;76;102m[38;5;10m Sandra  [49m[39m┆[48;2;41;44;60m[38;5;9m  0          [49m[39m┆[48;2;41;44;60m[38;5;9m  0        [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;65;77;71m[38;5;10m 100     [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m[38;5;9m  0     [49m[39m┆[48;2;41;44;60m[38;5;9m  0      [49m[39m┆[48;2;41;44;60m[38;5;9m  0       [49m[39m│
+│[48;2;69;76;102m Viki    [49m┆  8.339      ┆  6.001    ┆[48;2;69;76;102m 18.833 [49m┆[48;2;74;68;89m 18.053 [49m┆[38;5;9m  0      [39m┆ 13.458 ┆ 17.079 ┆  8.473 ┆ 14.299 ┆[38;5;9m  0     [39m┆  7.149  ┆ 15.468   │
+╰─────────┴─────────────┴───────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴─────────┴──────────╯
+9749 left -> 13.251 bits left
+Pr[]s for dup with JimiBlue
+top4 Pr[Dup]: 9.7%/947: Hati -> ["Rob", "JimiBlue"] | 4.7%/457: Ariel -> ["Nico", "JimiBlue"] | 4.1%/399: Antonia -> ["CalvinBlond", "JimiBlue"] | 3.6%/347: Beverly -> ["Leandro", "JimiBlue"]
+top5 Pr[Dup]: 17.9%/1747: ["Rob", "JimiBlue"] | 12.4%/1206: ["Nico", "JimiBlue"] | 11.7%/1137: ["Sidar", "JimiBlue"] | 11.7%/1136: ["Olli", "JimiBlue"] | 11.6%/1135: ["Leandro", "JimiBlue"]
+top5 Pr[Dup]: 100.0%/9749: JimiBlue | 17.9%/1747: Rob | 12.4%/1206: Nico | 11.7%/1137: Sidar | 11.7%/1136: Olli   / 200 %
+top5 Pr[Dup]: 22.8%/2218: Hati | 16.0%/1558: Antonia | 15.6%/1519: Beverly | 15.5%/1508: Viki | 15.2%/1482: Joanna
+.
+Pr[]s for unknown dup
+top4 Pr[Dup]: 2.6%/256: Nelly -> ["CalvinHot", "Olli"] | 2.5%/247: Nelly -> ["CalvinHot", "Kevin"] | 2.3%/220: Nelly -> ["CalvinHot", "Sidar"] | 2.2%/210: Nelly -> ["CalvinHot", "Leandro"]
+top5 Pr[Dup]: 4.4%/428: ["CalvinBlond", "Sidar"] | 3.7%/365: ["Nico", "Sidar"] | 3.6%/347: ["Kevin", "Leandro"] | 3.6%/347: ["Jonny", "Nico"] | 3.5%/345: ["CalvinBlond", "Nico"]
+top5 Pr[Dup]: 24.6%/2394: Nico | 24.1%/2351: Sidar | 23.7%/2310: Kevin | 22.4%/2183: Jonny | 21.8%/2128: CalvinBlond   / 200 %
+top5 Pr[Dup]: 16.5%/1613: Nelly | 13.7%/1334: Ariel | 13.6%/1321: Henna | 13.1%/1274: Joanna | 11.8%/1155: Hati
+
 ╭────────┬───┬──────────────┬────────────┬──────────────┬─────────┬────────────┬───────────┬──────────────┬─────────────┬──────────┬──────────┬───┬────────┬──────┬──────────╮
 │        ┆ L ┆    Antonia   ┆    Ariel   ┆    Beverly   ┆   Elli  ┆    Hati    ┆   Henna   ┆    Joanna    ┆    Nelly    ┆  Sandra  ┆   Viki   ┆   ┆    I   ┆ #new ┆ min dist │
 ╞════════╪═══╪══════════════╪════════════╪══════════════╪═════════╪════════════╪═══════════╪══════════════╪═════════════╪══════════╪══════════╪═══╪════════╪══════╪══════════╡
@@ -511,6 +545,7 @@ top5 Pr[Dup]: 15.8%/1901: Nelly | 13.7%/1648: Ariel | 12.8%/1540: Henna | 12.6%/
 │[48;2;41;44;60m MN#5.0 [49m┆[48;2;41;44;60m 4 [49m┆[48;2;41;44;60m Olli         [49m┆[48;2;41;44;60m Nico       [49m┆[48;2;41;44;60m Sidar        [49m┆[48;2;41;44;60m Xander  [49m┆[48;2;41;44;60m Rob        [49m┆[48;2;41;44;60m JimiBlue* [49m┆[48;2;41;44;60m CalvinBlond  [49m┆[48;2;41;44;60m CalvinHot   [49m┆[48;2;41;44;60m Lennert* [49m┆[48;2;41;44;60m Kevin    [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 2.3977 [49m┆[48;2;41;44;60m 2    [49m┆[48;2;41;44;60m 2/MN#4   [49m│
 │ MB#6.0 ┆[38;5;10m 1 [39m┆              ┆            ┆              ┆         ┆            ┆           ┆              ┆             ┆[38;5;10m Lennert  [39m┆          ┆   ┆ 1.3046 ┆      ┆          │
 │[48;2;41;44;60m MN#6.0 [49m┆[48;2;41;44;60m 4 [49m┆[48;2;41;44;60m CalvinBlond* [49m┆[48;2;41;44;60m Kevin*     [49m┆[48;2;41;44;60m Leandro*     [49m┆[48;2;41;44;60m Xander  [49m┆[48;2;41;44;60m JimiBlue*  [49m┆[48;2;41;44;60m Olli      [49m┆[48;2;41;44;60m Sidar*       [49m┆[48;2;41;44;60m CalvinHot   [49m┆[48;2;41;44;60m Lennert  [49m┆[48;2;41;44;60m Jonny    [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 2.1428 [49m┆[48;2;41;44;60m 5    [49m┆[48;2;41;44;60m 7/MN#5   [49m│
+│ MB#7.0 ┆[38;5;9m 0 [39m┆[38;5;9m Olli         [39m┆            ┆              ┆         ┆            ┆           ┆              ┆             ┆          ┆          ┆   ┆ 0.3044 ┆      ┆          │
 ╰────────┴───┴──────────────┴────────────┴──────────────┴─────────┴────────────┴───────────┴──────────────┴─────────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 ╭────────┬───┬─────────────┬───────────┬──────────┬─────────┬──────────┬──────────┬──────────┬─────────┬──────────┬────────┬──────────┬──────────┬───┬────────┬──────┬──────────╮
 │        ┆ L ┆ CalvinBlond ┆ CalvinHot ┆   Jonny  ┆  Kevin  ┆  Lennert ┆   Nico   ┆   Olli   ┆   Rob   ┆   Sidar  ┆ Xander ┆  Leandro ┆ JimiBlue ┆   ┆    I   ┆ #new ┆ min dist │
@@ -528,7 +563,8 @@ top5 Pr[Dup]: 15.8%/1901: Nelly | 13.7%/1648: Ariel | 12.8%/1540: Henna | 12.6%/
 │[48;2;41;44;60m MN#5.0 [49m┆[48;2;41;44;60m 4 [49m┆[48;2;41;44;60m Joanna      [49m┆[48;2;41;44;60m Nelly     [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Viki    [49m┆[48;2;41;44;60m Sandra*  [49m┆[48;2;41;44;60m Ariel    [49m┆[48;2;41;44;60m Antonia  [49m┆[48;2;41;44;60m Hati    [49m┆[48;2;41;44;60m Beverly  [49m┆[48;2;41;44;60m Elli   [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Henna*   [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 2.3977 [49m┆[48;2;41;44;60m 2    [49m┆[48;2;41;44;60m 2/MN#4   [49m│
 │ MB#6.0 ┆[38;5;10m 1 [39m┆             ┆           ┆          ┆         ┆[38;5;10m Sandra   [39m┆          ┆          ┆         ┆          ┆        ┆          ┆          ┆   ┆ 1.3046 ┆      ┆          │
 │[48;2;41;44;60m MN#6.0 [49m┆[48;2;41;44;60m 4 [49m┆[48;2;41;44;60m Antonia*    [49m┆[48;2;41;44;60m Nelly     [49m┆[48;2;41;44;60m Viki     [49m┆[48;2;41;44;60m Ariel*  [49m┆[48;2;41;44;60m Sandra   [49m┆[48;2;41;44;60m          [49m┆[48;2;41;44;60m Henna    [49m┆[48;2;41;44;60m         [49m┆[48;2;41;44;60m Joanna*  [49m┆[48;2;41;44;60m Elli   [49m┆[48;2;41;44;60m Beverly* [49m┆[48;2;41;44;60m Hati*    [49m┆[48;2;41;44;60m   [49m┆[48;2;41;44;60m 2.1428 [49m┆[48;2;41;44;60m 5    [49m┆[48;2;41;44;60m 7/MN#5   [49m│
+│ MB#7.0 ┆[38;5;9m 0 [39m┆             ┆           ┆          ┆         ┆          ┆          ┆[38;5;9m Antonia  [39m┆         ┆          ┆        ┆          ┆          ┆   ┆ 0.3044 ┆      ┆          │
 ╰────────┴───┴─────────────┴───────────┴──────────┴─────────┴──────────┴──────────┴──────────┴─────────┴──────────┴────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
-Total permutations: 1796256000  Permutations left: 12039  Initial combinations for each pair: 179625600
+Total permutations: 1796256000  Permutations left: 9749  Initial combinations for each pair: 179625600
 
-Ran in 908.33s
+Ran in 955.12s

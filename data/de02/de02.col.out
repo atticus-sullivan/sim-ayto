@@ -1,3 +1,4 @@
+Could use cache file: None
 ╭────────────┬──────────┬──────┬──────────┬───────┬────────┬─────────┬────────┬─────────┬─────────┬──────────┬──────────╮
 │            ┆[48;2;74;68;89m Christin [49m┆[48;2;74;68;89m Jill [49m┆[48;2;74;68;89m Kathleen [49m┆[48;2;74;68;89m Laura [49m┆[48;2;74;68;89m Leonie [49m┆[48;2;74;68;89m Melissa [49m┆[48;2;74;68;89m Mirjam [49m┆[48;2;74;68;89m Sabrina [49m┆[48;2;74;68;89m Vanessa [49m┆[48;2;74;68;89m Victoria [49m┆[48;2;74;68;89m VanessaM [49m│
 ╞════════════╪══════════╪══════╪══════════╪═══════╪════════╪═════════╪════════╪═════════╪═════════╪══════════╪══════════╡
@@ -36,23 +37,23 @@ Maximilian → Jill
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 32659200 left -> 24.961 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 1.1%/362880: Marcel -> ["Jill", "VanessaM"] | 1.1%/362880: Maximilian -> ["Christin", "VanessaM"] | 1.1%/362880: Maximilian -> ["Laura", "VanessaM"] | 1.1%/362880: Maximilian -> ["Vanessa", "VanessaM"]
-top5 Pr[Dup]: 10.0%/3265920: ["Sabrina", "VanessaM"] | 10.0%/3265920: ["Melissa", "VanessaM"] | 10.0%/3265920: ["Mirjam", "VanessaM"] | 10.0%/3265920: ["Jill", "VanessaM"] | 10.0%/3265920: ["Christin", "VanessaM"]
-top5 Pr[Dup]: 100.0%/32659200: VanessaM | 10.0%/3265920: Leonie | 10.0%/3265920: Jill | 10.0%/3265920: Laura | 10.0%/3265920: Kathleen   / 200 %
-top5 Pr[Dup]: 10.0%/3265920: Dario | 10.0%/3265920: Marc | 10.0%/3265920: Aaron | 10.0%/3265920: Sascha | 10.0%/3265920: Marcel
+top4 Pr[Dup]: 1.1%/362880: Marko -> ["Jill", "VanessaM"] | 1.1%/362880: Aaron -> ["Jill", "VanessaM"] | 1.1%/362880: Marc -> ["Jill", "VanessaM"] | 1.1%/362880: Dominic -> ["Jill", "VanessaM"]
+top5 Pr[Dup]: 10.0%/3265920: ["Leonie", "VanessaM"] | 10.0%/3265920: ["Victoria", "VanessaM"] | 10.0%/3265920: ["Laura", "VanessaM"] | 10.0%/3265920: ["Christin", "VanessaM"] | 10.0%/3265920: ["Kathleen", "VanessaM"]
+top5 Pr[Dup]: 100.0%/32659200: VanessaM | 10.0%/3265920: Christin | 10.0%/3265920: Sabrina | 10.0%/3265920: Kathleen | 10.0%/3265920: Jill   / 200 %
+top5 Pr[Dup]: 10.0%/3265920: Dario | 10.0%/3265920: Marc | 10.0%/3265920: Aaron | 10.0%/3265920: Germain | 10.0%/3265920: Sascha
 .
 
 MN#1.0 E02
+0x Dominic    → Melissa  
 0x Marcel     → Laura    
-0x Sascha     → Vanessa  
 0x Germain    → Leonie   
 0x Marc       → Mirjam   
-0x Dominic    → Melissa  
+0x Sascha     → Vanessa  
+0x Marvin     → Jill     
+0x Maximilian → Christin 
 0x Aaron      → Kathleen 
 0x Dario      → Victoria 
 0x Marko      → Sabrina  
-0x Maximilian → Christin 
-0x Marvin     → Jill     
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -73,10 +74,10 @@ MN#1.0 E02
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 6081530 left -> 22.536 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 2.2%/133497: Marvin -> ["Jill", "VanessaM"] | 2.2%/133497: Maximilian -> ["Christin", "VanessaM"] | 2.0%/118664: Dario -> ["Victoria", "VanessaM"] | 2.0%/118664: Aaron -> ["Kathleen", "VanessaM"]
-top5 Pr[Dup]: 10.0%/608153: ["Christin", "VanessaM"] | 10.0%/608153: ["Mirjam", "VanessaM"] | 10.0%/608153: ["Leonie", "VanessaM"] | 10.0%/608153: ["Melissa", "VanessaM"] | 10.0%/608153: ["Sabrina", "VanessaM"]
-top5 Pr[Dup]: 100.0%/6081530: VanessaM | 10.0%/608153: Mirjam | 10.0%/608153: Victoria | 10.0%/608153: Christin | 10.0%/608153: Leonie   / 200 %
-top5 Pr[Dup]: 10.0%/608153: Marko | 10.0%/608153: Marvin | 10.0%/608153: Marc | 10.0%/608153: Aaron | 10.0%/608153: Dominic
+top4 Pr[Dup]: 2.2%/133497: Maximilian -> ["Christin", "VanessaM"] | 2.2%/133497: Marvin -> ["Jill", "VanessaM"] | 2.0%/118664: Germain -> ["Leonie", "VanessaM"] | 2.0%/118664: Marcel -> ["Laura", "VanessaM"]
+top5 Pr[Dup]: 10.0%/608153: ["Jill", "VanessaM"] | 10.0%/608153: ["Mirjam", "VanessaM"] | 10.0%/608153: ["Victoria", "VanessaM"] | 10.0%/608153: ["Melissa", "VanessaM"] | 10.0%/608153: ["Leonie", "VanessaM"]
+top5 Pr[Dup]: 100.0%/6081530: VanessaM | 10.0%/608153: Laura | 10.0%/608153: Vanessa | 10.0%/608153: Christin | 10.0%/608153: Mirjam   / 200 %
+top5 Pr[Dup]: 10.0%/608153: Germain | 10.0%/608153: Marc | 10.0%/608153: Marcel | 10.0%/608153: Maximilian | 10.0%/608153: Dominic
 .
 
 MB#2.0 E04 -- verkauft?
@@ -99,22 +100,22 @@ Nothing => I = 0 bits
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 6081530 left -> 22.536 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 2.2%/133497: Marvin -> ["Jill", "VanessaM"] | 2.2%/133497: Maximilian -> ["Christin", "VanessaM"] | 2.0%/118664: Dario -> ["Victoria", "VanessaM"] | 2.0%/118664: Marc -> ["Mirjam", "VanessaM"]
-top5 Pr[Dup]: 10.0%/608153: ["Mirjam", "VanessaM"] | 10.0%/608153: ["Victoria", "VanessaM"] | 10.0%/608153: ["Christin", "VanessaM"] | 10.0%/608153: ["Sabrina", "VanessaM"] | 10.0%/608153: ["Leonie", "VanessaM"]
-top5 Pr[Dup]: 100.0%/6081530: VanessaM | 10.0%/608153: Vanessa | 10.0%/608153: Christin | 10.0%/608153: Sabrina | 10.0%/608153: Mirjam   / 200 %
-top5 Pr[Dup]: 10.0%/608153: Aaron | 10.0%/608153: Dario | 10.0%/608153: Marvin | 10.0%/608153: Marko | 10.0%/608153: Marcel
+top4 Pr[Dup]: 2.2%/133497: Maximilian -> ["Christin", "VanessaM"] | 2.2%/133497: Marvin -> ["Jill", "VanessaM"] | 2.0%/118664: Germain -> ["Leonie", "VanessaM"] | 2.0%/118664: Dominic -> ["Melissa", "VanessaM"]
+top5 Pr[Dup]: 10.0%/608153: ["Vanessa", "VanessaM"] | 10.0%/608153: ["Sabrina", "VanessaM"] | 10.0%/608153: ["Laura", "VanessaM"] | 10.0%/608153: ["Mirjam", "VanessaM"] | 10.0%/608153: ["Leonie", "VanessaM"]
+top5 Pr[Dup]: 100.0%/6081530: VanessaM | 10.0%/608153: Victoria | 10.0%/608153: Leonie | 10.0%/608153: Sabrina | 10.0%/608153: Mirjam   / 200 %
+top5 Pr[Dup]: 10.0%/608153: Dario | 10.0%/608153: Germain | 10.0%/608153: Dominic | 10.0%/608153: Marvin | 10.0%/608153: Aaron
 .
 
 MN#2.0 E04
-1x Maximilian → Christin 
-0x Marcel     → Leonie   
-1x Marc       → Mirjam   
-0x Sascha     → Jill     
 0x Germain    → Victoria 
 1x Aaron      → Kathleen 
 1x Marko      → Sabrina  
-1x Dominic    → Melissa  
+0x Marcel     → Leonie   
+1x Maximilian → Christin 
 0x Marvin     → Vanessa  
+1x Marc       → Mirjam   
+0x Sascha     → Jill     
+1x Dominic    → Melissa  
 0x Dario      → Laura    
 ---
 -> I[l]/bits: {0: 2.50, 1: 1.35, 2: 1.83, 3: 3.15, 4: 5.01, 5: 7.39, 6: 10.46, 7: 14.89}
@@ -136,10 +137,10 @@ MN#2.0 E04
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 1708860 left -> 20.7046 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 3.0%/51156: Maximilian -> ["Christin", "VanessaM"] | 2.7%/45618: Marko -> ["Sabrina", "VanessaM"] | 2.7%/45618: Dominic -> ["Melissa", "VanessaM"] | 2.7%/45618: Marc -> ["Mirjam", "VanessaM"]
-top5 Pr[Dup]: 10.0%/170886: ["Melissa", "VanessaM"] | 10.0%/170886: ["Leonie", "VanessaM"] | 10.0%/170886: ["Kathleen", "VanessaM"] | 10.0%/170886: ["Jill", "VanessaM"] | 10.0%/170886: ["Mirjam", "VanessaM"]
-top5 Pr[Dup]: 100.0%/1708860: VanessaM | 10.0%/170886: Sabrina | 10.0%/170886: Victoria | 10.0%/170886: Vanessa | 10.0%/170886: Laura   / 200 %
-top5 Pr[Dup]: 10.0%/170886: Marcel | 10.0%/170886: Aaron | 10.0%/170886: Marvin | 10.0%/170886: Marko | 10.0%/170886: Sascha
+top4 Pr[Dup]: 3.0%/51156: Maximilian -> ["Christin", "VanessaM"] | 2.7%/45618: Marc -> ["Mirjam", "VanessaM"] | 2.7%/45618: Aaron -> ["Kathleen", "VanessaM"] | 2.7%/45618: Dominic -> ["Melissa", "VanessaM"]
+top5 Pr[Dup]: 10.0%/170886: ["Christin", "VanessaM"] | 10.0%/170886: ["Leonie", "VanessaM"] | 10.0%/170886: ["Laura", "VanessaM"] | 10.0%/170886: ["Victoria", "VanessaM"] | 10.0%/170886: ["Jill", "VanessaM"]
+top5 Pr[Dup]: 100.0%/1708860: VanessaM | 10.0%/170886: Victoria | 10.0%/170886: Sabrina | 10.0%/170886: Jill | 10.0%/170886: Mirjam   / 200 %
+top5 Pr[Dup]: 10.0%/170886: Aaron | 10.0%/170886: Dominic | 10.0%/170886: Marvin | 10.0%/170886: Maximilian | 10.0%/170886: Sascha
 .
 
 MB#3.0 E06
@@ -164,23 +165,23 @@ Aaron → Kathleen
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 1252680 left -> 20.2566 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 3.5%/44088: Maximilian -> ["Christin", "VanessaM"] | 3.2%/39608: Marko -> ["Sabrina", "VanessaM"] | 3.2%/39608: Dominic -> ["Melissa", "VanessaM"] | 3.2%/39608: Marc -> ["Mirjam", "VanessaM"]
-top5 Pr[Dup]: 10.0%/125268: ["Vanessa", "VanessaM"] | 10.0%/125268: ["Mirjam", "VanessaM"] | 10.0%/125268: ["Jill", "VanessaM"] | 10.0%/125268: ["Sabrina", "VanessaM"] | 10.0%/125268: ["Leonie", "VanessaM"]
-top5 Pr[Dup]: 100.0%/1252680: VanessaM | 10.0%/125268: Mirjam | 10.0%/125268: Kathleen | 10.0%/125268: Vanessa | 10.0%/125268: Sabrina   / 200 %
-top5 Pr[Dup]: 10.0%/125268: Maximilian | 10.0%/125268: Marc | 10.0%/125268: Dario | 10.0%/125268: Marko | 10.0%/125268: Marvin
+top4 Pr[Dup]: 3.5%/44088: Maximilian -> ["Christin", "VanessaM"] | 3.2%/39608: Marko -> ["Sabrina", "VanessaM"] | 3.2%/39608: Marc -> ["Mirjam", "VanessaM"] | 3.2%/39608: Dominic -> ["Melissa", "VanessaM"]
+top5 Pr[Dup]: 10.0%/125268: ["Kathleen", "VanessaM"] | 10.0%/125268: ["Sabrina", "VanessaM"] | 10.0%/125268: ["Melissa", "VanessaM"] | 10.0%/125268: ["Jill", "VanessaM"] | 10.0%/125268: ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 100.0%/1252680: VanessaM | 10.0%/125268: Sabrina | 10.0%/125268: Jill | 10.0%/125268: Christin | 10.0%/125268: Kathleen   / 200 %
+top5 Pr[Dup]: 10.0%/125268: Sascha | 10.0%/125268: Marvin | 10.0%/125268: Germain | 10.0%/125268: Marc | 10.0%/125268: Maximilian
 .
 
 MN#3.0 E06
-0x Germain    → Christin 
-0x Maximilian → Jill     
-0x Dominic    → Vanessa  
-1x Marcel     → Laura    
-0x Marc       → Leonie   
-1x Dario      → Victoria 
-0x Aaron      → Melissa  
-0x Marko      → Mirjam   
 0x Sascha     → Sabrina  
 0x Marvin     → Kathleen 
+0x Maximilian → Jill     
+0x Marc       → Leonie   
+0x Aaron      → Melissa  
+1x Dario      → Victoria 
+0x Dominic    → Vanessa  
+1x Marcel     → Laura    
+0x Marko      → Mirjam   
+0x Germain    → Christin 
 ---
 -> I[l]/bits: {0: 1.27, 1: 1.43, 2: 2.65, 3: 4.53, 4: 6.96, 5: 9.83, 6: 13.35, 7: 16.93}
 -> E[I]/bits: 1.74
@@ -202,9 +203,9 @@ MN#3.0 E06
 54060 left -> 15.7223 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 4.1%/2199: Dario -> ["Victoria", "VanessaM"] | 4.0%/2189: Marcel -> ["Laura", "VanessaM"] | 3.8%/2050: Marvin -> ["Kathleen", "VanessaM"] | 3.7%/2002: Aaron -> ["Melissa", "VanessaM"]
-top5 Pr[Dup]: 10.0%/5406: ["Melissa", "VanessaM"] | 10.0%/5406: ["Vanessa", "VanessaM"] | 10.0%/5406: ["Victoria", "VanessaM"] | 10.0%/5406: ["Kathleen", "VanessaM"] | 10.0%/5406: ["Christin", "VanessaM"]
-top5 Pr[Dup]: 100.0%/54060: VanessaM | 10.0%/5406: Jill | 10.0%/5406: Mirjam | 10.0%/5406: Sabrina | 10.0%/5406: Leonie   / 200 %
-top5 Pr[Dup]: 10.0%/5406: Marcel | 10.0%/5406: Marc | 10.0%/5406: Aaron | 10.0%/5406: Dominic | 10.0%/5406: Sascha
+top5 Pr[Dup]: 10.0%/5406: ["Kathleen", "VanessaM"] | 10.0%/5406: ["Mirjam", "VanessaM"] | 10.0%/5406: ["Jill", "VanessaM"] | 10.0%/5406: ["Leonie", "VanessaM"] | 10.0%/5406: ["Melissa", "VanessaM"]
+top5 Pr[Dup]: 100.0%/54060: VanessaM | 10.0%/5406: Christin | 10.0%/5406: Victoria | 10.0%/5406: Leonie | 10.0%/5406: Sabrina   / 200 %
+top5 Pr[Dup]: 10.0%/5406: Dominic | 10.0%/5406: Dario | 10.0%/5406: Sascha | 10.0%/5406: Maximilian | 10.0%/5406: Aaron
 .
 
 MB#4.0 E08
@@ -230,22 +231,22 @@ Marcel → Laura
 32170 left -> 14.9734 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 6.5%/2100: Dario -> ["Victoria", "VanessaM"] | 4.2%/1336: Marvin -> ["Kathleen", "VanessaM"] | 4.0%/1283: Aaron -> ["Melissa", "VanessaM"] | 4.0%/1272: Maximilian -> ["Christin", "VanessaM"]
-top5 Pr[Dup]: 10.0%/3217: ["Mirjam", "VanessaM"] | 10.0%/3217: ["Laura", "VanessaM"] | 10.0%/3217: ["Leonie", "VanessaM"] | 10.0%/3217: ["Melissa", "VanessaM"] | 10.0%/3217: ["Victoria", "VanessaM"]
-top5 Pr[Dup]: 100.0%/32170: VanessaM | 10.0%/3217: Sabrina | 10.0%/3217: Leonie | 10.0%/3217: Mirjam | 10.0%/3217: Kathleen   / 200 %
-top5 Pr[Dup]: 10.0%/3217: Marc | 10.0%/3217: Germain | 10.0%/3217: Aaron | 10.0%/3217: Marko | 10.0%/3217: Maximilian
+top5 Pr[Dup]: 10.0%/3217: ["Vanessa", "VanessaM"] | 10.0%/3217: ["Victoria", "VanessaM"] | 10.0%/3217: ["Laura", "VanessaM"] | 10.0%/3217: ["Kathleen", "VanessaM"] | 10.0%/3217: ["Christin", "VanessaM"]
+top5 Pr[Dup]: 100.0%/32170: VanessaM | 10.0%/3217: Jill | 10.0%/3217: Christin | 10.0%/3217: Laura | 10.0%/3217: Kathleen   / 200 %
+top5 Pr[Dup]: 10.0%/3217: Marvin | 10.0%/3217: Maximilian | 10.0%/3217: Aaron | 10.0%/3217: Dario | 10.0%/3217: Marc
 .
 
 MN#4.0 E08
-0x Marvin     → Christin 
-2x Marc       → Mirjam   
-0x Dario      → Kathleen 
-2x Marko      → Sabrina  
-1x Maximilian → Jill     
 0x Dominic    → Laura    
-1x Sascha     → Vanessa  
+1x Germain    → Victoria 
+2x Marc       → Mirjam   
+2x Marko      → Sabrina  
+0x Dario      → Kathleen 
 1x Marcel     → Leonie   
 1x Aaron      → Melissa  
-1x Germain    → Victoria 
+1x Sascha     → Vanessa  
+0x Marvin     → Christin 
+1x Maximilian → Jill     
 ---
 -> I[l]/bits: {0: 2.13, 1: 1.61, 2: 1.78, 3: 3.08, 4: 5.04, 5: 7.95}
 -> E[I]/bits: 2.08
@@ -267,9 +268,9 @@ MN#4.0 E08
 3810 left -> 11.8956 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 9.0%/343: Aaron -> ["Melissa", "VanessaM"] | 4.8%/184: Dario -> ["Victoria", "VanessaM"] | 4.7%/180: Marc -> ["Mirjam", "VanessaM"] | 4.5%/171: Marko -> ["Sabrina", "VanessaM"]
-top5 Pr[Dup]: 10.0%/381: ["Sabrina", "VanessaM"] | 10.0%/381: ["Melissa", "VanessaM"] | 10.0%/381: ["Kathleen", "VanessaM"] | 10.0%/381: ["Victoria", "VanessaM"] | 10.0%/381: ["Jill", "VanessaM"]
-top5 Pr[Dup]: 100.0%/3810: VanessaM | 10.0%/381: Christin | 10.0%/381: Sabrina | 10.0%/381: Jill | 10.0%/381: Vanessa   / 200 %
-top5 Pr[Dup]: 10.0%/381: Sascha | 10.0%/381: Marko | 10.0%/381: Germain | 10.0%/381: Maximilian | 10.0%/381: Aaron
+top5 Pr[Dup]: 10.0%/381: ["Kathleen", "VanessaM"] | 10.0%/381: ["Melissa", "VanessaM"] | 10.0%/381: ["Vanessa", "VanessaM"] | 10.0%/381: ["Laura", "VanessaM"] | 10.0%/381: ["Mirjam", "VanessaM"]
+top5 Pr[Dup]: 100.0%/3810: VanessaM | 10.0%/381: Leonie | 10.0%/381: Sabrina | 10.0%/381: Kathleen | 10.0%/381: Christin   / 200 %
+top5 Pr[Dup]: 10.0%/381: Marko | 10.0%/381: Aaron | 10.0%/381: Sascha | 10.0%/381: Marvin | 10.0%/381: Marc
 .
 
 MB#5.0 E10
@@ -295,22 +296,22 @@ Marcel → Leonie
 1476 left -> 10.5275 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 8.9%/131: Aaron -> ["Melissa", "VanessaM"] | 8.1%/120: Dario -> ["Victoria", "VanessaM"] | 5.4%/79: Marc -> ["Mirjam", "VanessaM"] | 4.1%/60: Marvin -> ["Kathleen", "VanessaM"]
-top5 Pr[Dup]: 11.1%/164: ["Kathleen", "VanessaM"] | 11.1%/164: ["Melissa", "VanessaM"] | 11.1%/164: ["Mirjam", "VanessaM"] | 11.1%/164: ["Vanessa", "VanessaM"] | 11.1%/164: ["Sabrina", "VanessaM"]
-top5 Pr[Dup]: 100.0%/1476: VanessaM | 11.1%/164: Christin | 11.1%/164: Jill | 11.1%/164: Melissa | 11.1%/164: Laura   / 200 %
-top5 Pr[Dup]: 11.1%/164: Sascha | 11.1%/164: Maximilian | 11.1%/164: Marvin | 11.1%/164: Germain | 11.1%/164: Marc
+top5 Pr[Dup]: 11.1%/164: ["Kathleen", "VanessaM"] | 11.1%/164: ["Mirjam", "VanessaM"] | 11.1%/164: ["Sabrina", "VanessaM"] | 11.1%/164: ["Melissa", "VanessaM"] | 11.1%/164: ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 100.0%/1476: VanessaM | 11.1%/164: Jill | 11.1%/164: Victoria | 11.1%/164: Kathleen | 11.1%/164: Melissa   / 200 %
+top5 Pr[Dup]: 11.1%/164: Dominic | 11.1%/164: Marc | 11.1%/164: Germain | 11.1%/164: Marko | 11.1%/164: Marvin
 .
 
 MN#5.0 E10
-0x Marko      → VanessaM 
-1x Dominic    → Vanessa  
-1x Sascha     → Jill     
-2x Marcel     → Leonie   
+0x Aaron      → Mirjam   
 1x Marvin     → Kathleen 
 2x Dario      → Victoria 
-0x Marc       → Melissa  
 1x Germain    → Christin 
+0x Marc       → Melissa  
+2x Marcel     → Leonie   
+0x Marko      → VanessaM 
 0x Maximilian → Laura    
-0x Aaron      → Mirjam   
+1x Sascha     → Jill     
+1x Dominic    → Vanessa  
 ---
 -> I[l]/bits: {1: 5.94, 2: 2.30, 3: 0.95, 4: 2.12, 5: 4.97, 6: 9.53}
 -> E[I]/bits: 1.71
@@ -332,9 +333,9 @@ MN#5.0 E10
 765 left -> 9.5793 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 10.1%/77: Dario -> ["Victoria", "VanessaM"] | 9.2%/70: Aaron -> ["Melissa", "VanessaM"] | 6.8%/52: Marc -> ["Mirjam", "VanessaM"] | 4.7%/36: Marvin -> ["Kathleen", "VanessaM"]
-top5 Pr[Dup]: 14.1%/108: ["Mirjam", "VanessaM"] | 11.6%/89: ["Victoria", "VanessaM"] | 11.5%/88: ["Kathleen", "VanessaM"] | 11.4%/87: ["Melissa", "VanessaM"] | 11.2%/86: ["Christin", "VanessaM"]
+top5 Pr[Dup]: 14.1%/108: ["Mirjam", "VanessaM"] | 11.6%/89: ["Victoria", "VanessaM"] | 11.5%/88: ["Kathleen", "VanessaM"] | 11.4%/87: ["Melissa", "VanessaM"] | 11.2%/86: ["Vanessa", "VanessaM"]
 top5 Pr[Dup]: 100.0%/765: VanessaM | 14.1%/108: Mirjam | 11.6%/89: Victoria | 11.5%/88: Kathleen | 11.4%/87: Melissa   / 200 %
-top5 Pr[Dup]: 11.9%/91: Marvin | 11.9%/91: Germain | 11.9%/91: Dario | 11.9%/91: Dominic | 11.9%/91: Sascha
+top5 Pr[Dup]: 11.9%/91: Aaron | 11.9%/91: Dominic | 11.9%/91: Sascha | 11.9%/91: Germain | 11.9%/91: Marc
 .
 
 MB#6.0 E12 -- verkauft
@@ -358,22 +359,22 @@ Nothing => I = 0 bits
 765 left -> 9.5793 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 10.1%/77: Dario -> ["Victoria", "VanessaM"] | 9.2%/70: Aaron -> ["Melissa", "VanessaM"] | 6.8%/52: Marc -> ["Mirjam", "VanessaM"] | 4.7%/36: Marvin -> ["Kathleen", "VanessaM"]
-top5 Pr[Dup]: 14.1%/108: ["Mirjam", "VanessaM"] | 11.6%/89: ["Victoria", "VanessaM"] | 11.5%/88: ["Kathleen", "VanessaM"] | 11.4%/87: ["Melissa", "VanessaM"] | 11.2%/86: ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 14.1%/108: ["Mirjam", "VanessaM"] | 11.6%/89: ["Victoria", "VanessaM"] | 11.5%/88: ["Kathleen", "VanessaM"] | 11.4%/87: ["Melissa", "VanessaM"] | 11.2%/86: ["Christin", "VanessaM"]
 top5 Pr[Dup]: 100.0%/765: VanessaM | 14.1%/108: Mirjam | 11.6%/89: Victoria | 11.5%/88: Kathleen | 11.4%/87: Melissa   / 200 %
-top5 Pr[Dup]: 11.9%/91: Maximilian | 11.9%/91: Dario | 11.9%/91: Germain | 11.9%/91: Marc | 11.9%/91: Sascha
+top5 Pr[Dup]: 11.9%/91: Germain | 11.9%/91: Sascha | 11.9%/91: Marvin | 11.9%/91: Aaron | 11.9%/91: Maximilian
 .
 
 MN#6.0 E12
+2x Dominic    → Vanessa  
+2x Germain    → Victoria 
+0x Dario      → VanessaM 
 3x Marcel     → Leonie   
-3x Marc       → Mirjam   
+2x Maximilian → Christin 
 0x Marvin     → Laura    
 2x Sascha     → Jill     
-2x Dominic    → Vanessa  
+3x Marc       → Mirjam   
 2x Aaron      → Melissa  
 3x Marko      → Sabrina  
-2x Germain    → Victoria 
-2x Maximilian → Christin 
-0x Dario      → VanessaM 
 ---
 -> I[l]/bits: {2: 3.33, 3: 1.02, 4: 1.80, 5: 3.17, 6: 6.41}
 -> E[I]/bits: 1.78
@@ -394,10 +395,10 @@ MN#6.0 E12
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 219 left -> 7.7748 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 20.5%/45: Dario -> ["Victoria", "VanessaM"] | 10.0%/22: Aaron -> ["Melissa", "VanessaM"] | 6.8%/15: Dominic -> ["Vanessa", "VanessaM"] | 6.8%/15: Germain -> ["Christin", "VanessaM"]
-top5 Pr[Dup]: 24.7%/54: ["Victoria", "VanessaM"] | 11.9%/26: ["Kathleen", "VanessaM"] | 11.0%/24: ["Vanessa", "VanessaM"] | 10.5%/23: ["Christin", "VanessaM"] | 10.0%/22: ["Jill", "VanessaM"]
+top4 Pr[Dup]: 20.5%/45: Dario -> ["Victoria", "VanessaM"] | 10.0%/22: Aaron -> ["Melissa", "VanessaM"] | 6.8%/15: Germain -> ["Christin", "VanessaM"] | 6.8%/15: Dominic -> ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 24.7%/54: ["Victoria", "VanessaM"] | 11.9%/26: ["Kathleen", "VanessaM"] | 11.0%/24: ["Vanessa", "VanessaM"] | 10.5%/23: ["Christin", "VanessaM"] | 10.0%/22: ["Melissa", "VanessaM"]
 top5 Pr[Dup]: 100.0%/219: VanessaM | 24.7%/54: Victoria | 11.9%/26: Kathleen | 11.0%/24: Vanessa | 10.5%/23: Christin   / 200 %
-top5 Pr[Dup]: 22.8%/50: Dario | 10.0%/22: Aaron | 10.0%/22: Sascha | 10.0%/22: Maximilian | 10.0%/22: Marc
+top5 Pr[Dup]: 22.8%/50: Dario | 10.0%/22: Sascha | 10.0%/22: Maximilian | 10.0%/22: Marc | 10.0%/22: Germain
 .
 
 MB#7.0 E14
@@ -422,23 +423,23 @@ Dario → Laura
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 219 left -> 7.7748 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 20.5%/45: Dario -> ["Victoria", "VanessaM"] | 10.0%/22: Aaron -> ["Melissa", "VanessaM"] | 6.8%/15: Germain -> ["Christin", "VanessaM"] | 6.8%/15: Dominic -> ["Vanessa", "VanessaM"]
+top4 Pr[Dup]: 20.5%/45: Dario -> ["Victoria", "VanessaM"] | 10.0%/22: Aaron -> ["Melissa", "VanessaM"] | 6.8%/15: Dominic -> ["Vanessa", "VanessaM"] | 6.8%/15: Germain -> ["Christin", "VanessaM"]
 top5 Pr[Dup]: 24.7%/54: ["Victoria", "VanessaM"] | 11.9%/26: ["Kathleen", "VanessaM"] | 11.0%/24: ["Vanessa", "VanessaM"] | 10.5%/23: ["Christin", "VanessaM"] | 10.0%/22: ["Melissa", "VanessaM"]
 top5 Pr[Dup]: 100.0%/219: VanessaM | 24.7%/54: Victoria | 11.9%/26: Kathleen | 11.0%/24: Vanessa | 10.5%/23: Christin   / 200 %
-top5 Pr[Dup]: 22.8%/50: Dario | 10.0%/22: Aaron | 10.0%/22: Dominic | 10.0%/22: Germain | 10.0%/22: Marvin
+top5 Pr[Dup]: 22.8%/50: Dario | 10.0%/22: Germain | 10.0%/22: Aaron | 10.0%/22: Marvin | 10.0%/22: Maximilian
 .
 
 MN#7.0 E14
-2x Marvin     → Kathleen 
-0x Dario      → Sabrina  
-4x Marcel     → Leonie   
-3x Sascha     → Jill     
-0x Germain    → VanessaM 
-3x Aaron      → Melissa  
-1x Dominic    → Laura    
-0x Marko      → Victoria 
-4x Marc       → Mirjam   
 3x Maximilian → Christin 
+3x Sascha     → Jill     
+3x Aaron      → Melissa  
+0x Germain    → VanessaM 
+4x Marc       → Mirjam   
+0x Marko      → Victoria 
+0x Dario      → Sabrina  
+2x Marvin     → Kathleen 
+4x Marcel     → Leonie   
+1x Dominic    → Laura    
 ---
 -> I[l]/bits: {2: 1.35, 3: 1.55, 4: 2.35, 5: 3.97, 6: 7.77}
 -> E[I]/bits: 1.81
@@ -459,10 +460,10 @@ MN#7.0 E14
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 43 left -> 5.4263 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 25.6%/11: Dario -> ["Victoria", "VanessaM"] | 9.3%/4: Aaron -> ["Melissa", "VanessaM"] | 9.3%/4: Dominic -> ["Vanessa", "VanessaM"] | 9.3%/4: Marc -> ["Mirjam", "VanessaM"]
-top5 Pr[Dup]: 37.2%/16: ["Victoria", "VanessaM"] | 14.0%/6: ["Jill", "VanessaM"] | 11.6%/5: ["Vanessa", "VanessaM"] | 9.3%/4: ["Melissa", "VanessaM"] | 9.3%/4: ["Mirjam", "VanessaM"]
+top4 Pr[Dup]: 25.6%/11: Dario -> ["Victoria", "VanessaM"] | 9.3%/4: Marc -> ["Mirjam", "VanessaM"] | 9.3%/4: Aaron -> ["Melissa", "VanessaM"] | 9.3%/4: Marvin -> ["Jill", "VanessaM"]
+top5 Pr[Dup]: 37.2%/16: ["Victoria", "VanessaM"] | 14.0%/6: ["Jill", "VanessaM"] | 11.6%/5: ["Vanessa", "VanessaM"] | 9.3%/4: ["Mirjam", "VanessaM"] | 9.3%/4: ["Melissa", "VanessaM"]
 top5 Pr[Dup]: 100.0%/43: VanessaM | 37.2%/16: Victoria | 14.0%/6: Jill | 11.6%/5: Vanessa | 9.3%/4: Mirjam   / 200 %
-top5 Pr[Dup]: 27.9%/12: Dario | 11.6%/5: Germain | 9.3%/4: Sascha | 9.3%/4: Marvin | 9.3%/4: Aaron
+top5 Pr[Dup]: 27.9%/12: Dario | 11.6%/5: Germain | 9.3%/4: Marvin | 9.3%/4: Maximilian | 9.3%/4: Aaron
 .
 
 MB#8.0 E16
@@ -487,23 +488,23 @@ Marko → Sabrina
 ╰────────────┴──────────┴────────┴──────────┴────────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 43 left -> 5.4263 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 25.6%/11: Dario -> ["Victoria", "VanessaM"] | 9.3%/4: Aaron -> ["Melissa", "VanessaM"] | 9.3%/4: Marvin -> ["Jill", "VanessaM"] | 9.3%/4: Marc -> ["Mirjam", "VanessaM"]
-top5 Pr[Dup]: 37.2%/16: ["Victoria", "VanessaM"] | 14.0%/6: ["Jill", "VanessaM"] | 11.6%/5: ["Vanessa", "VanessaM"] | 9.3%/4: ["Melissa", "VanessaM"] | 9.3%/4: ["Mirjam", "VanessaM"]
+top4 Pr[Dup]: 25.6%/11: Dario -> ["Victoria", "VanessaM"] | 9.3%/4: Marc -> ["Mirjam", "VanessaM"] | 9.3%/4: Dominic -> ["Vanessa", "VanessaM"] | 9.3%/4: Marvin -> ["Jill", "VanessaM"]
+top5 Pr[Dup]: 37.2%/16: ["Victoria", "VanessaM"] | 14.0%/6: ["Jill", "VanessaM"] | 11.6%/5: ["Vanessa", "VanessaM"] | 9.3%/4: ["Mirjam", "VanessaM"] | 9.3%/4: ["Melissa", "VanessaM"]
 top5 Pr[Dup]: 100.0%/43: VanessaM | 37.2%/16: Victoria | 14.0%/6: Jill | 11.6%/5: Vanessa | 9.3%/4: Mirjam   / 200 %
-top5 Pr[Dup]: 27.9%/12: Dario | 11.6%/5: Germain | 9.3%/4: Sascha | 9.3%/4: Marvin | 9.3%/4: Maximilian
+top5 Pr[Dup]: 27.9%/12: Dario | 11.6%/5: Germain | 9.3%/4: Marvin | 9.3%/4: Sascha | 9.3%/4: Maximilian
 .
 
 MN#8.0 E16
-0x Marc       → VanessaM 
-2x Dominic    → Melissa  
 0x Maximilian → Mirjam   
-0x Germain    → Jill     
-0x Marko      → Laura    
+0x Marc       → VanessaM 
 3x Dario      → Victoria 
+0x Marko      → Laura    
 0x Aaron      → Vanessa  
-1x Sascha     → Sabrina  
+0x Germain    → Jill     
+2x Dominic    → Melissa  
 3x Marvin     → Kathleen 
 5x Marcel     → Leonie   
+1x Sascha     → Sabrina  
 ---
 -> I[l]/bits: {1: 3.10, 2: 0.97, 3: 2.10, 4: 3.10, 5: 5.43}
 -> E[I]/bits: 1.83
@@ -524,10 +525,10 @@ MN#8.0 E16
 ╰────────────┴──────────┴──────┴──────────┴───────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 5 left -> 2.3219 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 20.0%/1: Aaron -> ["Melissa", "VanessaM"] | 20.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 20.0%/1: Marvin -> ["Jill", "VanessaM"] | 20.0%/1: Dominic -> ["Vanessa", "VanessaM"]
-top5 Pr[Dup]: 20.0%/1: ["Vanessa", "VanessaM"] | 20.0%/1: ["Jill", "VanessaM"] | 20.0%/1: ["Victoria", "VanessaM"] | 20.0%/1: ["Laura", "VanessaM"] | 20.0%/1: ["Melissa", "VanessaM"]
-top5 Pr[Dup]: 100.0%/5: VanessaM | 20.0%/1: Jill | 20.0%/1: Vanessa | 20.0%/1: Victoria | 20.0%/1: Laura   / 200 %
-top5 Pr[Dup]: 20.0%/1: Aaron | 20.0%/1: Dominic | 20.0%/1: Sascha | 20.0%/1: Maximilian | 20.0%/1: Marvin
+top4 Pr[Dup]: 20.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 20.0%/1: Sascha -> ["Laura", "VanessaM"] | 20.0%/1: Dominic -> ["Vanessa", "VanessaM"] | 20.0%/1: Marvin -> ["Jill", "VanessaM"]
+top5 Pr[Dup]: 20.0%/1: ["Melissa", "VanessaM"] | 20.0%/1: ["Laura", "VanessaM"] | 20.0%/1: ["Victoria", "VanessaM"] | 20.0%/1: ["Vanessa", "VanessaM"] | 20.0%/1: ["Jill", "VanessaM"]
+top5 Pr[Dup]: 100.0%/5: VanessaM | 20.0%/1: Vanessa | 20.0%/1: Jill | 20.0%/1: Laura | 20.0%/1: Melissa   / 200 %
+top5 Pr[Dup]: 20.0%/1: Maximilian | 20.0%/1: Sascha | 20.0%/1: Dominic | 20.0%/1: Marvin | 20.0%/1: Aaron
 .
 
 MB#9.0 E18
@@ -552,23 +553,23 @@ Aaron → Melissa
 ╰────────────┴──────────┴──────┴──────────┴───────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 4 left -> 2 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 25.0%/1: Dominic -> ["Vanessa", "VanessaM"] | 25.0%/1: Marvin -> ["Jill", "VanessaM"] | 25.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"]
-top5 Pr[Dup]: 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"] | 25.0%/1: ["Vanessa", "VanessaM"]
-top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Jill | 25.0%/1: Victoria | 25.0%/1: Vanessa | 25.0%/1: Laura   / 200 %
-top5 Pr[Dup]: 25.0%/1: Marvin | 25.0%/1: Sascha | 25.0%/1: Maximilian | 25.0%/1: Dominic
+top4 Pr[Dup]: 25.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"] | 25.0%/1: Marvin -> ["Jill", "VanessaM"] | 25.0%/1: Dominic -> ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 25.0%/1: ["Vanessa", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"] | 25.0%/1: ["Jill", "VanessaM"]
+top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Victoria | 25.0%/1: Laura | 25.0%/1: Vanessa | 25.0%/1: Jill   / 200 %
+top5 Pr[Dup]: 25.0%/1: Maximilian | 25.0%/1: Marvin | 25.0%/1: Sascha | 25.0%/1: Dominic
 .
 
 MN#9.0 E18
-4x Aaron      → Melissa  
-5x Marc       → Mirjam   
+1x Dario      → Kathleen 
 6x Marcel     → Leonie   
+5x Marc       → Mirjam   
+0x Germain    → Laura    
+4x Aaron      → Melissa  
+1x Marko      → Victoria 
 4x Sascha     → Jill     
 4x Maximilian → Christin 
 0x Dominic    → Sabrina  
 1x Marvin     → Vanessa  
-1x Dario      → Kathleen 
-0x Germain    → Laura    
-1x Marko      → Victoria 
 ---
 -> I[l]/bits: {3: 0.00}
 -> E[I]/bits: 0.00
@@ -589,10 +590,10 @@ MN#9.0 E18
 ╰────────────┴──────────┴──────┴──────────┴───────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 4 left -> 2 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 25.0%/1: Marvin -> ["Jill", "VanessaM"] | 25.0%/1: Dominic -> ["Vanessa", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"] | 25.0%/1: Maximilian -> ["Victoria", "VanessaM"]
-top5 Pr[Dup]: 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Vanessa", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"]
-top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Laura | 25.0%/1: Vanessa | 25.0%/1: Victoria | 25.0%/1: Jill   / 200 %
-top5 Pr[Dup]: 25.0%/1: Marvin | 25.0%/1: Maximilian | 25.0%/1: Sascha | 25.0%/1: Dominic
+top4 Pr[Dup]: 25.0%/1: Marvin -> ["Jill", "VanessaM"] | 25.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"] | 25.0%/1: Dominic -> ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"] | 25.0%/1: ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Vanessa | 25.0%/1: Laura | 25.0%/1: Jill | 25.0%/1: Victoria   / 200 %
+top5 Pr[Dup]: 25.0%/1: Marvin | 25.0%/1: Dominic | 25.0%/1: Maximilian | 25.0%/1: Sascha
 .
 
 MB#10.0 E20
@@ -618,22 +619,22 @@ Marc → Mirjam
 4 left -> 2 bits left
 Pr[]s for dup with VanessaM
 top4 Pr[Dup]: 25.0%/1: Dominic -> ["Vanessa", "VanessaM"] | 25.0%/1: Marvin -> ["Jill", "VanessaM"] | 25.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"]
-top5 Pr[Dup]: 25.0%/1: ["Vanessa", "VanessaM"] | 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"]
-top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Vanessa | 25.0%/1: Victoria | 25.0%/1: Laura | 25.0%/1: Jill   / 200 %
-top5 Pr[Dup]: 25.0%/1: Marvin | 25.0%/1: Dominic | 25.0%/1: Maximilian | 25.0%/1: Sascha
+top5 Pr[Dup]: 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Vanessa", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"]
+top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Laura | 25.0%/1: Vanessa | 25.0%/1: Victoria | 25.0%/1: Jill   / 200 %
+top5 Pr[Dup]: 25.0%/1: Sascha | 25.0%/1: Dominic | 25.0%/1: Marvin | 25.0%/1: Maximilian
 .
 
 MN#10.0 E20
-6x Marc       → Mirjam   
-3x Dominic    → Vanessa  
-2x Germain    → Christin 
-1x Marvin     → Jill     
-0x Marko      → Kathleen 
 7x Marcel     → Leonie   
 5x Aaron      → Melissa  
+2x Germain    → Christin 
+6x Marc       → Mirjam   
 0x Sascha     → Laura    
 1x Dario      → Sabrina  
+0x Marko      → Kathleen 
 0x Maximilian → Victoria 
+1x Marvin     → Jill     
+3x Dominic    → Vanessa  
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -654,10 +655,10 @@ MN#10.0 E20
 ╰────────────┴──────────┴──────┴──────────┴───────┴────────┴─────────┴────────┴─────────┴─────────┴──────────┴──────────╯
 4 left -> 2 bits left
 Pr[]s for dup with VanessaM
-top4 Pr[Dup]: 25.0%/1: Dominic -> ["Vanessa", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"] | 25.0%/1: Maximilian -> ["Victoria", "VanessaM"] | 25.0%/1: Marvin -> ["Jill", "VanessaM"]
-top5 Pr[Dup]: 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Vanessa", "VanessaM"] | 25.0%/1: ["Laura", "VanessaM"]
-top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Victoria | 25.0%/1: Jill | 25.0%/1: Vanessa | 25.0%/1: Laura   / 200 %
-top5 Pr[Dup]: 25.0%/1: Marvin | 25.0%/1: Dominic | 25.0%/1: Maximilian | 25.0%/1: Sascha
+top4 Pr[Dup]: 25.0%/1: Marvin -> ["Jill", "VanessaM"] | 25.0%/1: Dominic -> ["Vanessa", "VanessaM"] | 25.0%/1: Sascha -> ["Laura", "VanessaM"] | 25.0%/1: Maximilian -> ["Victoria", "VanessaM"]
+top5 Pr[Dup]: 25.0%/1: ["Laura", "VanessaM"] | 25.0%/1: ["Jill", "VanessaM"] | 25.0%/1: ["Victoria", "VanessaM"] | 25.0%/1: ["Vanessa", "VanessaM"]
+top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Victoria | 25.0%/1: Jill | 25.0%/1: Laura | 25.0%/1: Vanessa   / 200 %
+top5 Pr[Dup]: 25.0%/1: Maximilian | 25.0%/1: Marvin | 25.0%/1: Sascha | 25.0%/1: Dominic
 .
 
 ╭─────────┬────┬───────────┬───────────┬──────────┬───────────┬───────────┬─────────┬───────────┬───────────┬────────────┬──────────┬───┬────────┬──────┬──────────╮
@@ -710,4 +711,4 @@ top5 Pr[Dup]: 25.0%/1: Marvin | 25.0%/1: Dominic | 25.0%/1: Maximilian | 25.0%/1
 ╰─────────┴────┴─────────────┴────────────┴──────────┴─────────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴─────────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 4  Initial combinations for each pair: 3628800
 
-Ran in 16.16s
+Ran in 17.23s

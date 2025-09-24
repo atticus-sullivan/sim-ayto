@@ -1,3 +1,4 @@
+Could use cache file: None
 ╭──────────────┬──────┬─────────┬────────┬───────┬─────┬────────┬───────┬───────┬────────┬────────┬──────╮
 │              ┆[48;2;74;68;89m Anna [49m┆[48;2;74;68;89m Camelia [49m┆[48;2;74;68;89m Chiara [49m┆[48;2;74;68;89m Deisy [49m┆[48;2;74;68;89m Ina [49m┆[48;2;74;68;89m Joanna [49m┆[48;2;74;68;89m Nadja [49m┆[48;2;74;68;89m Nasti [49m┆[48;2;74;68;89m Selina [49m┆[48;2;74;68;89m Sophia [49m┆[48;2;74;68;89m Tori [49m│
 ╞══════════════╪══════╪═════════╪════════╪═══════╪═════╪════════╪═══════╪═══════╪════════╪════════╪══════╡
@@ -36,22 +37,22 @@ Josh/Monacco → Anna
 ╰──────────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────╯
 179625600 left -> 27.4204 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.2%/362880: Levin -> ["Anna", "Selina"] | 0.2%/362880: Enes -> ["Anna", "Tori"] | 0.2%/362880: Danish -> ["Anna", "Tori"] | 0.2%/362880: Josh/Monacco -> ["Deisy", "Nasti"]
-top5 Pr[Dup]: 1.8%/3265920: ["Nadja", "Nasti"] | 1.8%/3265920: ["Deisy", "Nasti"] | 1.8%/3265920: ["Joanna", "Nadja"] | 1.8%/3265920: ["Anna", "Camelia"] | 1.8%/3265920: ["Deisy", "Sophia"]
-top5 Pr[Dup]: 18.2%/32659200: Sophia | 18.2%/32659200: Deisy | 18.2%/32659200: Nasti | 18.2%/32659200: Anna | 18.2%/32659200: Chiara   / 200 %
-top5 Pr[Dup]: 10.1%/18144000: Sinan | 10.1%/18144000: Levin | 10.1%/18144000: Dion | 10.1%/18144000: Joshi-Josh | 10.1%/18144000: Tano
+top4 Pr[Dup]: 0.2%/362880: Sinan -> ["Anna", "Selina"] | 0.2%/362880: Dino -> ["Anna", "Nasti"] | 0.2%/362880: Josh/Monacco -> ["Chiara", "Joanna"] | 0.2%/362880: Joshi-Josh -> ["Anna", "Selina"]
+top5 Pr[Dup]: 1.8%/3265920: ["Chiara", "Selina"] | 1.8%/3265920: ["Chiara", "Tori"] | 1.8%/3265920: ["Nasti", "Sophia"] | 1.8%/3265920: ["Deisy", "Selina"] | 1.8%/3265920: ["Joanna", "Tori"]
+top5 Pr[Dup]: 18.2%/32659200: Tori | 18.2%/32659200: Selina | 18.2%/32659200: Deisy | 18.2%/32659200: Anna | 18.2%/32659200: Chiara   / 200 %
+top5 Pr[Dup]: 10.1%/18144000: Joshi-Josh | 10.1%/18144000: Kaan | 10.1%/18144000: Enes | 10.1%/18144000: Levin | 10.1%/18144000: Sinan
 
 MN#1.0 E04
-0x Levin        → Camelia 
-0x Danish       → Sophia  
-0x Joshi-Josh   → Selina  
-0x Kaan         → Joanna  
 0x Tano         → Chiara  
-0x Sinan        → Ina     
-0x Dino         → Deisy   
 0x Dion         → Tori    
+0x Kaan         → Joanna  
 0x Enes         → Anna    
+0x Joshi-Josh   → Selina  
 0x Josh/Monacco → Nadja   
+0x Sinan        → Ina     
+0x Danish       → Sophia  
+0x Dino         → Deisy   
+0x Levin        → Camelia 
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89
@@ -72,10 +73,10 @@ MN#1.0 E04
 ╰──────────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────╯
 33752266 left -> 25.0085 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.4%/133497: Enes -> ["Anna", "Nasti"] | 0.4%/133497: Josh/Monacco -> ["Nadja", "Nasti"] | 0.4%/133496: Enes -> ["Anna", "Tori"] | 0.4%/133496: Dino -> ["Anna", "Deisy"]
-top5 Pr[Dup]: 1.8%/623908: ["Anna", "Chiara"] | 1.8%/623908: ["Anna", "Joanna"] | 1.8%/623908: ["Anna", "Selina"] | 1.8%/623908: ["Anna", "Tori"] | 1.8%/623908: ["Anna", "Deisy"]
-top5 Pr[Dup]: 18.2%/6151015: Camelia | 18.2%/6151015: Tori | 18.2%/6151015: Joanna | 18.2%/6151015: Deisy | 18.2%/6151015: Chiara   / 200 %
-top5 Pr[Dup]: 10.2%/3441233: Enes | 10.1%/3400906: Joshi-Josh | 10.1%/3400906: Tano | 10.1%/3400906: Sinan | 10.1%/3400906: Dion
+top4 Pr[Dup]: 0.4%/133497: Josh/Monacco -> ["Nadja", "Nasti"] | 0.4%/133497: Enes -> ["Anna", "Nasti"] | 0.4%/133496: Josh/Monacco -> ["Joanna", "Nadja"] | 0.4%/133496: Enes -> ["Anna", "Sophia"]
+top5 Pr[Dup]: 1.8%/623908: ["Anna", "Ina"] | 1.8%/623908: ["Anna", "Sophia"] | 1.8%/623908: ["Anna", "Camelia"] | 1.8%/623908: ["Anna", "Tori"] | 1.8%/623908: ["Anna", "Chiara"]
+top5 Pr[Dup]: 18.2%/6151015: Chiara | 18.2%/6151015: Camelia | 18.2%/6151015: Deisy | 18.2%/6151015: Selina | 18.2%/6151015: Joanna   / 200 %
+top5 Pr[Dup]: 10.2%/3441233: Enes | 10.1%/3400906: Dion | 10.1%/3400906: Joshi-Josh | 10.1%/3400906: Kaan | 10.1%/3400906: Dino
 
 MB#2.0 E05 -- verkauft +30.000€
 Levin → Camelia 
@@ -97,22 +98,22 @@ Nothing => I = 0 bits
 ╰──────────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────╯
 33752266 left -> 25.0085 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.4%/133497: Josh/Monacco -> ["Nadja", "Nasti"] | 0.4%/133497: Enes -> ["Anna", "Nasti"] | 0.4%/133496: Enes -> ["Anna", "Selina"] | 0.4%/133496: Enes -> ["Anna", "Tori"]
-top5 Pr[Dup]: 1.8%/623908: ["Anna", "Selina"] | 1.8%/623908: ["Anna", "Sophia"] | 1.8%/623908: ["Anna", "Chiara"] | 1.8%/623908: ["Anna", "Ina"] | 1.8%/623908: ["Anna", "Deisy"]
-top5 Pr[Dup]: 18.2%/6151015: Chiara | 18.2%/6151015: Joanna | 18.2%/6151015: Camelia | 18.2%/6151015: Sophia | 18.2%/6151015: Ina   / 200 %
-top5 Pr[Dup]: 10.2%/3441233: Enes | 10.1%/3400906: Dion | 10.1%/3400906: Levin | 10.1%/3400906: Kaan | 10.1%/3400906: Dino
+top4 Pr[Dup]: 0.4%/133497: Enes -> ["Anna", "Nasti"] | 0.4%/133497: Josh/Monacco -> ["Nadja", "Nasti"] | 0.4%/133496: Josh/Monacco -> ["Ina", "Nadja"] | 0.4%/133496: Josh/Monacco -> ["Joanna", "Nadja"]
+top5 Pr[Dup]: 1.8%/623908: ["Anna", "Joanna"] | 1.8%/623908: ["Anna", "Sophia"] | 1.8%/623908: ["Anna", "Tori"] | 1.8%/623908: ["Anna", "Deisy"] | 1.8%/623908: ["Anna", "Ina"]
+top5 Pr[Dup]: 18.2%/6151015: Selina | 18.2%/6151015: Deisy | 18.2%/6151015: Camelia | 18.2%/6151015: Joanna | 18.2%/6151015: Chiara   / 200 %
+top5 Pr[Dup]: 10.2%/3441233: Enes | 10.1%/3400906: Dino | 10.1%/3400906: Levin | 10.1%/3400906: Danish | 10.1%/3400906: Sinan
 
 MN#2.0 E06
-0x Levin        → Chiara  
+1x Sinan        → Ina     
 0x Dion         → Selina  
 0x Tano         → Tori    
+0x Danish       → Camelia 
 0x Enes         → Nasti   
+1x Josh/Monacco → Nadja   
 1x Dino         → Deisy   
 0x Joshi-Josh   → Joanna  
+0x Levin        → Chiara  
 0x Kaan         → Anna    
-0x Danish       → Camelia 
-1x Sinan        → Ina     
-1x Josh/Monacco → Nadja   
 ---
 -> I[l]/bits: {0: 1.89, 1: 1.41, 2: 2.10, 3: 3.47, 4: 5.32, 5: 7.55, 6: 10.10, 7: 12.96, 8: 16.14, 9: 20.25}
 -> E[I]/bits: 2.03
@@ -133,7 +134,7 @@ MN#2.0 E06
 ╰──────────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────┴────────╯
 3045867 left -> 21.5384 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.8%/24784: Josh/Monacco -> ["Nadja", "Sophia"] | 0.8%/23466: Kaan -> ["Anna", "Joanna"] | 0.8%/23410: Danish -> ["Camelia", "Sophia"] | 0.7%/22464: Dino -> ["Deisy", "Sophia"]
+top4 Pr[Dup]: 0.8%/24784: Josh/Monacco -> ["Nadja", "Sophia"] | 0.8%/23466: Kaan -> ["Anna", "Joanna"] | 0.8%/23410: Danish -> ["Camelia", "Sophia"] | 0.7%/22464: Sinan -> ["Ina", "Sophia"]
 top5 Pr[Dup]: 2.1%/63994: ["Anna", "Joanna"] | 2.1%/63437: ["Camelia", "Sophia"] | 2.1%/62634: ["Anna", "Nasti"] | 2.0%/62165: ["Camelia", "Chiara"] | 2.0%/62130: ["Chiara", "Tori"]
 top5 Pr[Dup]: 18.5%/562024: Joanna | 18.4%/561514: Camelia | 18.4%/561073: Tori | 18.4%/560980: Chiara | 18.4%/560795: Selina   / 200 %
 top5 Pr[Dup]: 10.8%/330289: Sinan | 10.8%/330289: Dino | 10.0%/304742: Josh/Monacco | 9.8%/299901: Danish | 9.8%/299218: Enes
@@ -166,16 +167,16 @@ top5 Pr[Dup]: 18.8%/342810: Ina | 18.5%/338159: Joanna | 18.5%/338027: Camelia |
 top5 Pr[Dup]: 11.7%/213562: Dino | 10.9%/198496: Josh/Monacco | 10.2%/186608: Danish | 10.2%/186205: Enes | 10.1%/184905: Kaan
 
 MN#3.0 E08
-2x Dino         → Deisy   
-1x Tano         → Tori    
-0x Dion         → Chiara  
-1x Danish       → Sophia  
-1x Joshi-Josh   → Joanna  
 0x Sinan        → Nasti   
-2x Josh/Monacco → Nadja   
-1x Levin        → Camelia 
-0x Enes         → Selina  
+0x Dion         → Chiara  
+1x Joshi-Josh   → Joanna  
 1x Kaan         → Anna    
+0x Enes         → Selina  
+1x Tano         → Tori    
+1x Danish       → Sophia  
+2x Josh/Monacco → Nadja   
+2x Dino         → Deisy   
+1x Levin        → Camelia 
 ---
 -> I[l]/bits: {0: 7.28, 1: 2.54, 2: 1.41, 3: 1.79, 4: 3.08, 5: 4.96, 6: 7.34, 7: 10.64, 8: 16.16}
 -> E[I]/bits: 2.11
@@ -226,19 +227,19 @@ Pr[]s for unknown dup
 top4 Pr[Dup]: 3.0%/220: Levin -> ["Camelia", "Chiara"] | 2.7%/197: Tano -> ["Chiara", "Tori"] | 2.4%/174: Dino -> ["Deisy", "Ina"] | 2.3%/169: Joshi-Josh -> ["Joanna", "Selina"]
 top5 Pr[Dup]: 4.0%/296: ["Camelia", "Chiara"] | 3.9%/290: ["Chiara", "Tori"] | 3.1%/230: ["Joanna", "Selina"] | 3.1%/227: ["Chiara", "Selina"] | 2.9%/211: ["Nasti", "Selina"]
 top5 Pr[Dup]: 23.9%/1764: Chiara | 22.9%/1689: Selina | 20.3%/1499: Camelia | 20.2%/1488: Ina | 19.9%/1467: Sophia   / 200 %
-top5 Pr[Dup]: 14.6%/1074: Dino | 13.2%/974: Levin | 12.6%/931: Joshi-Josh | 12.6%/926: Tano | 12.6%/926: Kaan
+top5 Pr[Dup]: 14.6%/1074: Dino | 13.2%/974: Levin | 12.6%/931: Joshi-Josh | 12.6%/926: Kaan | 12.6%/926: Tano
 
 MN#4.0 E10
+2x Levin        → Camelia 
+3x Dino         → Deisy   
 0x Josh/Monacco → Ina     
+0x Dion         → Nasti   
 2x Joshi-Josh   → Joanna  
 0x Sinan        → Sophia  
-3x Dino         → Deisy   
-1x Enes         → Selina  
-0x Dion         → Nasti   
 2x Kaan         → Anna    
-0x Danish       → Nadja   
-2x Levin        → Camelia 
 2x Tano         → Tori    
+1x Enes         → Selina  
+0x Danish       → Nadja   
 ---
 -> I[l]/bits: {3: 8.15, 4: 1.27, 5: 1.49, 6: 2.53, 7: 4.39, 8: 7.60}
 -> E[I]/bits: 1.77
@@ -292,16 +293,16 @@ top5 Pr[Dup]: 26.1%/601: Chiara | 24.8%/570: Ina | 23.5%/542: Joanna | 23.2%/535
 top5 Pr[Dup]: 16.2%/374: Joshi-Josh | 14.7%/339: Kaan | 14.1%/324: Dion | 13.9%/320: Tano | 13.7%/315: Levin
 
 MN#5.0 E12
-1x Danish       → Nadja   
-3x Joshi-Josh   → Joanna  
-3x Levin        → Camelia 
-4x Dino         → Deisy   
-1x Dion         → Chiara  
-0x Kaan         → Sophia  
-1x Josh/Monacco → Ina     
-3x Tano         → Tori    
-2x Enes         → Selina  
 1x Sinan        → Nasti   
+3x Tano         → Tori    
+1x Dion         → Chiara  
+1x Danish       → Nadja   
+0x Kaan         → Sophia  
+3x Joshi-Josh   → Joanna  
+2x Enes         → Selina  
+3x Levin        → Camelia 
+1x Josh/Monacco → Ina     
+4x Dino         → Deisy   
 ---
 -> I[l]/bits: {4: 0.87, 5: 1.50, 6: 3.35, 7: 10.17}
 -> E[I]/bits: 1.34
@@ -322,8 +323,8 @@ MN#5.0 E12
 ╰──────────────┴──────┴─────────┴────────┴───────┴────────┴────────┴───────┴────────┴────────┴────────┴────────╯
 1263 left -> 10.3026 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 4.0%/51: Kaan -> ["Anna", "Ina"] | 4.0%/50: Kaan -> ["Anna", "Joanna"] | 3.2%/40: Joshi-Josh -> ["Joanna", "Selina"] | 2.9%/36: Sinan -> ["Chiara", "Nasti"]
-top5 Pr[Dup]: 4.8%/60: ["Chiara", "Tori"] | 4.8%/60: ["Joanna", "Selina"] | 4.0%/51: ["Anna", "Ina"] | 4.0%/51: ["Chiara", "Selina"] | 4.0%/50: ["Anna", "Joanna"]
+top4 Pr[Dup]: 4.0%/51: Kaan -> ["Anna", "Ina"] | 4.0%/50: Kaan -> ["Anna", "Joanna"] | 3.2%/40: Joshi-Josh -> ["Joanna", "Selina"] | 2.9%/36: Kaan -> ["Anna", "Chiara"]
+top5 Pr[Dup]: 4.8%/60: ["Chiara", "Tori"] | 4.8%/60: ["Joanna", "Selina"] | 4.0%/51: ["Chiara", "Selina"] | 4.0%/51: ["Anna", "Ina"] | 4.0%/50: ["Anna", "Joanna"]
 top5 Pr[Dup]: 27.9%/352: Chiara | 26.1%/330: Joanna | 24.5%/309: Camelia | 24.2%/306: Ina | 23.0%/291: Tori   / 200 %
 top5 Pr[Dup]: 17.7%/224: Kaan | 15.5%/196: Joshi-Josh | 13.5%/170: Dion | 13.0%/164: Tano | 12.0%/151: Levin
 
@@ -347,22 +348,22 @@ Nothing => I = 0 bits
 ╰──────────────┴──────┴─────────┴────────┴───────┴────────┴────────┴───────┴────────┴────────┴────────┴────────╯
 1263 left -> 10.3026 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 4.0%/51: Kaan -> ["Anna", "Ina"] | 4.0%/50: Kaan -> ["Anna", "Joanna"] | 3.2%/40: Joshi-Josh -> ["Joanna", "Selina"] | 2.9%/36: Kaan -> ["Anna", "Chiara"]
-top5 Pr[Dup]: 4.8%/60: ["Chiara", "Tori"] | 4.8%/60: ["Joanna", "Selina"] | 4.0%/51: ["Chiara", "Selina"] | 4.0%/51: ["Anna", "Ina"] | 4.0%/50: ["Anna", "Joanna"]
+top4 Pr[Dup]: 4.0%/51: Kaan -> ["Anna", "Ina"] | 4.0%/50: Kaan -> ["Anna", "Joanna"] | 3.2%/40: Joshi-Josh -> ["Joanna", "Selina"] | 2.9%/36: Sinan -> ["Chiara", "Nasti"]
+top5 Pr[Dup]: 4.8%/60: ["Chiara", "Tori"] | 4.8%/60: ["Joanna", "Selina"] | 4.0%/51: ["Anna", "Ina"] | 4.0%/51: ["Chiara", "Selina"] | 4.0%/50: ["Anna", "Joanna"]
 top5 Pr[Dup]: 27.9%/352: Chiara | 26.1%/330: Joanna | 24.5%/309: Camelia | 24.2%/306: Ina | 23.0%/291: Tori   / 200 %
 top5 Pr[Dup]: 17.7%/224: Kaan | 15.5%/196: Joshi-Josh | 13.5%/170: Dion | 13.0%/164: Tano | 12.0%/151: Levin
 
 MN#6.0 E14
 0x Joshi-Josh   → Ina     
-0x Josh/Monacco → Nasti   
-1x Levin        → Chiara  
-1x Kaan         → Sophia  
-3x Enes         → Selina  
 0x Sinan        → Camelia 
+1x Kaan         → Sophia  
+1x Levin        → Chiara  
 4x Tano         → Tori    
+5x Dino         → Deisy   
 0x Dion         → Anna    
 2x Danish       → Nadja   
-5x Dino         → Deisy   
+0x Josh/Monacco → Nasti   
+3x Enes         → Selina  
 ---
 -> I[l]/bits: {2: 1.10, 3: 1.50, 4: 3.01, 5: 4.24, 6: 7.98}
 -> E[I]/bits: 1.67
@@ -383,10 +384,10 @@ MN#6.0 E14
 ╰──────────────┴──────┴─────────┴────────┴───────┴────────┴────────┴───────┴────────┴────────┴────────┴────────╯
 67 left -> 6.0661 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 7.5%/5: Kaan -> ["Anna", "Joanna"] | 4.5%/3: Joshi-Josh -> ["Ina", "Selina"] | 3.0%/2: Enes -> ["Camelia", "Selina"] | 3.0%/2: Kaan -> ["Anna", "Camelia"]
-top5 Pr[Dup]: 7.5%/5: ["Anna", "Joanna"] | 6.0%/4: ["Chiara", "Sophia"] | 6.0%/4: ["Joanna", "Sophia"] | 6.0%/4: ["Ina", "Sophia"] | 6.0%/4: ["Sophia", "Tori"]
+top4 Pr[Dup]: 7.5%/5: Kaan -> ["Anna", "Joanna"] | 4.5%/3: Joshi-Josh -> ["Ina", "Selina"] | 3.0%/2: Joshi-Josh -> ["Camelia", "Ina"] | 3.0%/2: Sinan -> ["Camelia", "Joanna"]
+top5 Pr[Dup]: 7.5%/5: ["Anna", "Joanna"] | 6.0%/4: ["Joanna", "Sophia"] | 6.0%/4: ["Ina", "Sophia"] | 6.0%/4: ["Chiara", "Joanna"] | 6.0%/4: ["Selina", "Sophia"]
 top5 Pr[Dup]: 43.3%/29: Joanna | 35.8%/24: Sophia | 25.4%/17: Ina | 22.4%/15: Camelia | 17.9%/12: Tori   / 200 %
-top5 Pr[Dup]: 17.9%/12: Dion | 13.4%/9: Kaan | 13.4%/9: Joshi-Josh | 13.4%/9: Tano | 13.4%/9: Enes
+top5 Pr[Dup]: 17.9%/12: Dion | 13.4%/9: Joshi-Josh | 13.4%/9: Tano | 13.4%/9: Enes | 13.4%/9: Kaan
 
 MB#7.0 E15
 Kaan → Sophia 
@@ -410,22 +411,22 @@ Kaan → Sophia
 ╰──────────────┴──────┴─────────┴────────┴───────┴────────┴────────┴───────┴────────┴────────┴────────┴────────╯
 67 left -> 6.0661 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 7.5%/5: Kaan -> ["Anna", "Joanna"] | 4.5%/3: Joshi-Josh -> ["Ina", "Selina"] | 3.0%/2: Tano -> ["Ina", "Tori"] | 3.0%/2: Enes -> ["Camelia", "Selina"]
-top5 Pr[Dup]: 7.5%/5: ["Anna", "Joanna"] | 6.0%/4: ["Chiara", "Joanna"] | 6.0%/4: ["Joanna", "Tori"] | 6.0%/4: ["Chiara", "Sophia"] | 6.0%/4: ["Joanna", "Nasti"]
+top4 Pr[Dup]: 7.5%/5: Kaan -> ["Anna", "Joanna"] | 4.5%/3: Joshi-Josh -> ["Ina", "Selina"] | 3.0%/2: Dion -> ["Camelia", "Tori"] | 3.0%/2: Levin -> ["Chiara", "Joanna"]
+top5 Pr[Dup]: 7.5%/5: ["Anna", "Joanna"] | 6.0%/4: ["Joanna", "Tori"] | 6.0%/4: ["Sophia", "Tori"] | 6.0%/4: ["Selina", "Sophia"] | 6.0%/4: ["Camelia", "Joanna"]
 top5 Pr[Dup]: 43.3%/29: Joanna | 35.8%/24: Sophia | 25.4%/17: Ina | 22.4%/15: Camelia | 17.9%/12: Tori   / 200 %
-top5 Pr[Dup]: 17.9%/12: Dion | 13.4%/9: Joshi-Josh | 13.4%/9: Kaan | 13.4%/9: Tano | 13.4%/9: Enes
+top5 Pr[Dup]: 17.9%/12: Dion | 13.4%/9: Tano | 13.4%/9: Joshi-Josh | 13.4%/9: Kaan | 13.4%/9: Enes
 
 MN#7.0 E16
-1x Dion         → Tori    
-0x Enes         → Sophia  
-2x Levin        → Chiara  
-0x Kaan         → Selina  
-2x Sinan        → Nasti   
-3x Danish       → Nadja   
-6x Dino         → Deisy   
 0x Josh/Monacco → Camelia 
+0x Kaan         → Selina  
 0x Tano         → Anna    
+2x Levin        → Chiara  
+6x Dino         → Deisy   
 4x Joshi-Josh   → Joanna  
+2x Sinan        → Nasti   
+0x Enes         → Sophia  
+1x Dion         → Tori    
+3x Danish       → Nadja   
 ---
 -> I[l]/bits: {2: 1.61, 3: 2.48, 4: 5.07, 5: 1.82, 6: 2.61, 7: 6.07}
 -> E[I]/bits: 2.16
@@ -446,10 +447,10 @@ MN#7.0 E16
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 11 left -> 3.4594 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 9.1%/1: Josh/Monacco -> ["Camelia", "Joanna"] | 9.1%/1: Enes -> ["Selina", "Sophia"] | 9.1%/1: Dion -> ["Joanna", "Tori"] | 9.1%/1: Levin -> ["Chiara", "Joanna"]
-top5 Pr[Dup]: 9.1%/1: ["Sophia", "Tori"] | 9.1%/1: ["Camelia", "Joanna"] | 9.1%/1: ["Camelia", "Sophia"] | 9.1%/1: ["Ina", "Sophia"] | 9.1%/1: ["Joanna", "Selina"]
-top5 Pr[Dup]: 54.5%/6: Joanna | 54.5%/6: Sophia | 18.2%/2: Chiara | 18.2%/2: Selina | 18.2%/2: Tori   / 200 %
-top5 Pr[Dup]: 18.2%/2: Enes | 18.2%/2: Josh/Monacco | 18.2%/2: Dion | 18.2%/2: Levin | 9.1%/1: Joshi-Josh
+top4 Pr[Dup]: 9.1%/1: Dion -> ["Joanna", "Tori"] | 9.1%/1: Josh/Monacco -> ["Camelia", "Joanna"] | 9.1%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 9.1%/1: Sinan -> ["Joanna", "Nasti"]
+top5 Pr[Dup]: 9.1%/1: ["Chiara", "Joanna"] | 9.1%/1: ["Sophia", "Tori"] | 9.1%/1: ["Joanna", "Tori"] | 9.1%/1: ["Selina", "Sophia"] | 9.1%/1: ["Ina", "Sophia"]
+top5 Pr[Dup]: 54.5%/6: Sophia | 54.5%/6: Joanna | 18.2%/2: Camelia | 18.2%/2: Chiara | 18.2%/2: Tori   / 200 %
+top5 Pr[Dup]: 18.2%/2: Enes | 18.2%/2: Dion | 18.2%/2: Josh/Monacco | 18.2%/2: Levin | 9.1%/1: Sinan
 
 MB#8.0 E17
 Joshi-Josh → Joanna 
@@ -473,22 +474,22 @@ Joshi-Josh → Joanna
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 11 left -> 3.4594 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 9.1%/1: Dion -> ["Joanna", "Tori"] | 9.1%/1: Dion -> ["Sophia", "Tori"] | 9.1%/1: Levin -> ["Chiara", "Joanna"] | 9.1%/1: Sinan -> ["Joanna", "Nasti"]
-top5 Pr[Dup]: 9.1%/1: ["Joanna", "Selina"] | 9.1%/1: ["Joanna", "Sophia"] | 9.1%/1: ["Sophia", "Tori"] | 9.1%/1: ["Camelia", "Joanna"] | 9.1%/1: ["Joanna", "Tori"]
-top5 Pr[Dup]: 54.5%/6: Joanna | 54.5%/6: Sophia | 18.2%/2: Selina | 18.2%/2: Tori | 18.2%/2: Chiara   / 200 %
-top5 Pr[Dup]: 18.2%/2: Josh/Monacco | 18.2%/2: Enes | 18.2%/2: Levin | 18.2%/2: Dion | 9.1%/1: Joshi-Josh
+top4 Pr[Dup]: 9.1%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 9.1%/1: Levin -> ["Chiara", "Sophia"] | 9.1%/1: Tano -> ["Joanna", "Sophia"] | 9.1%/1: Enes -> ["Joanna", "Selina"]
+top5 Pr[Dup]: 9.1%/1: ["Ina", "Sophia"] | 9.1%/1: ["Joanna", "Selina"] | 9.1%/1: ["Chiara", "Joanna"] | 9.1%/1: ["Camelia", "Joanna"] | 9.1%/1: ["Camelia", "Sophia"]
+top5 Pr[Dup]: 54.5%/6: Sophia | 54.5%/6: Joanna | 18.2%/2: Camelia | 18.2%/2: Chiara | 18.2%/2: Selina   / 200 %
+top5 Pr[Dup]: 18.2%/2: Josh/Monacco | 18.2%/2: Levin | 18.2%/2: Enes | 18.2%/2: Dion | 9.1%/1: Tano
 
 MN#8.0 E18
-7x Dino         → Deisy   
-2x Dion         → Chiara  
 0x Joshi-Josh   → Anna    
-0x Tano         → Joanna  
-1x Enes         → Sophia  
-1x Josh/Monacco → Camelia 
 0x Levin        → Ina     
-4x Danish       → Nadja   
-1x Kaan         → Selina  
+2x Dion         → Chiara  
+1x Enes         → Sophia  
 3x Sinan        → Nasti   
+0x Tano         → Joanna  
+1x Kaan         → Selina  
+4x Danish       → Nadja   
+1x Josh/Monacco → Camelia 
+7x Dino         → Deisy   
 ---
 -> I[l]/bits: {4: 0.87, 5: 1.14}
 -> E[I]/bits: 0.99
@@ -509,10 +510,10 @@ MN#8.0 E18
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 5 left -> 2.3219 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 20.0%/1: Dion -> ["Sophia", "Tori"] | 20.0%/1: Levin -> ["Chiara", "Sophia"] | 20.0%/1: Tano -> ["Joanna", "Sophia"] | 20.0%/1: Joshi-Josh -> ["Ina", "Sophia"]
-top5 Pr[Dup]: 20.0%/1: ["Camelia", "Sophia"] | 20.0%/1: ["Sophia", "Tori"] | 20.0%/1: ["Chiara", "Sophia"] | 20.0%/1: ["Ina", "Sophia"] | 20.0%/1: ["Joanna", "Sophia"]
-top5 Pr[Dup]: 100.0%/5: Sophia | 20.0%/1: Chiara | 20.0%/1: Ina | 20.0%/1: Camelia | 20.0%/1: Tori   / 200 %
-top5 Pr[Dup]: 20.0%/1: Tano | 20.0%/1: Levin | 20.0%/1: Dion | 20.0%/1: Joshi-Josh | 20.0%/1: Josh/Monacco
+top4 Pr[Dup]: 20.0%/1: Joshi-Josh -> ["Ina", "Sophia"] | 20.0%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 20.0%/1: Levin -> ["Chiara", "Sophia"] | 20.0%/1: Dion -> ["Sophia", "Tori"]
+top5 Pr[Dup]: 20.0%/1: ["Sophia", "Tori"] | 20.0%/1: ["Chiara", "Sophia"] | 20.0%/1: ["Ina", "Sophia"] | 20.0%/1: ["Camelia", "Sophia"] | 20.0%/1: ["Joanna", "Sophia"]
+top5 Pr[Dup]: 100.0%/5: Sophia | 20.0%/1: Camelia | 20.0%/1: Ina | 20.0%/1: Joanna | 20.0%/1: Tori   / 200 %
+top5 Pr[Dup]: 20.0%/1: Joshi-Josh | 20.0%/1: Josh/Monacco | 20.0%/1: Tano | 20.0%/1: Levin | 20.0%/1: Dion
 
 MB#9.0 E19
 Sinan → Nasti 
@@ -536,22 +537,22 @@ Sinan → Nasti
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 5 left -> 2.3219 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 20.0%/1: Tano -> ["Joanna", "Sophia"] | 20.0%/1: Dion -> ["Sophia", "Tori"] | 20.0%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 20.0%/1: Joshi-Josh -> ["Ina", "Sophia"]
-top5 Pr[Dup]: 20.0%/1: ["Chiara", "Sophia"] | 20.0%/1: ["Joanna", "Sophia"] | 20.0%/1: ["Ina", "Sophia"] | 20.0%/1: ["Camelia", "Sophia"] | 20.0%/1: ["Sophia", "Tori"]
-top5 Pr[Dup]: 100.0%/5: Sophia | 20.0%/1: Camelia | 20.0%/1: Joanna | 20.0%/1: Tori | 20.0%/1: Chiara   / 200 %
-top5 Pr[Dup]: 20.0%/1: Levin | 20.0%/1: Joshi-Josh | 20.0%/1: Tano | 20.0%/1: Dion | 20.0%/1: Josh/Monacco
+top4 Pr[Dup]: 20.0%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 20.0%/1: Joshi-Josh -> ["Ina", "Sophia"] | 20.0%/1: Tano -> ["Joanna", "Sophia"] | 20.0%/1: Dion -> ["Sophia", "Tori"]
+top5 Pr[Dup]: 20.0%/1: ["Camelia", "Sophia"] | 20.0%/1: ["Joanna", "Sophia"] | 20.0%/1: ["Sophia", "Tori"] | 20.0%/1: ["Chiara", "Sophia"] | 20.0%/1: ["Ina", "Sophia"]
+top5 Pr[Dup]: 100.0%/5: Sophia | 20.0%/1: Tori | 20.0%/1: Camelia | 20.0%/1: Ina | 20.0%/1: Joanna   / 200 %
+top5 Pr[Dup]: 20.0%/1: Dion | 20.0%/1: Joshi-Josh | 20.0%/1: Levin | 20.0%/1: Tano | 20.0%/1: Josh/Monacco
 
 MN#9.0 E20
-3x Levin        → Chiara  
-0x Enes         → Ina     
-2x Josh/Monacco → Camelia 
-1x Tano         → Joanna  
-3x Kaan         → Anna    
-4x Sinan        → Nasti   
-8x Dino         → Deisy   
 5x Danish       → Nadja   
-0x Joshi-Josh   → Tori    
+4x Sinan        → Nasti   
+3x Kaan         → Anna    
+2x Josh/Monacco → Camelia 
 0x Dion         → Sophia  
+1x Tano         → Joanna  
+0x Enes         → Ina     
+0x Joshi-Josh   → Tori    
+8x Dino         → Deisy   
+3x Levin        → Chiara  
 ---
 -> I[l]/bits: {7: 0.32, 8: 2.32}
 -> E[I]/bits: 0.72
@@ -572,10 +573,10 @@ MN#9.0 E20
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 4 left -> 2 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 25.0%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 25.0%/1: Joshi-Josh -> ["Ina", "Sophia"] | 25.0%/1: Tano -> ["Joanna", "Sophia"] | 25.0%/1: Levin -> ["Chiara", "Sophia"]
-top5 Pr[Dup]: 25.0%/1: ["Camelia", "Sophia"] | 25.0%/1: ["Ina", "Sophia"] | 25.0%/1: ["Chiara", "Sophia"] | 25.0%/1: ["Joanna", "Sophia"]
-top5 Pr[Dup]: 100.0%/4: Sophia | 25.0%/1: Camelia | 25.0%/1: Ina | 25.0%/1: Joanna | 25.0%/1: Chiara   / 200 %
-top5 Pr[Dup]: 25.0%/1: Tano | 25.0%/1: Levin | 25.0%/1: Josh/Monacco | 25.0%/1: Joshi-Josh
+top4 Pr[Dup]: 25.0%/1: Joshi-Josh -> ["Ina", "Sophia"] | 25.0%/1: Levin -> ["Chiara", "Sophia"] | 25.0%/1: Josh/Monacco -> ["Camelia", "Sophia"] | 25.0%/1: Tano -> ["Joanna", "Sophia"]
+top5 Pr[Dup]: 25.0%/1: ["Chiara", "Sophia"] | 25.0%/1: ["Camelia", "Sophia"] | 25.0%/1: ["Joanna", "Sophia"] | 25.0%/1: ["Ina", "Sophia"]
+top5 Pr[Dup]: 100.0%/4: Sophia | 25.0%/1: Chiara | 25.0%/1: Camelia | 25.0%/1: Ina | 25.0%/1: Joanna   / 200 %
+top5 Pr[Dup]: 25.0%/1: Levin | 25.0%/1: Josh/Monacco | 25.0%/1: Tano | 25.0%/1: Joshi-Josh
 
 MB#10.0 E21
 Josh/Monacco → Camelia 
@@ -599,22 +600,22 @@ Josh/Monacco → Camelia
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 3 left -> 1.585 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 33.3%/1: Levin -> ["Chiara", "Sophia"] | 33.3%/1: Joshi-Josh -> ["Ina", "Sophia"] | 33.3%/1: Tano -> ["Joanna", "Sophia"]
-top5 Pr[Dup]: 33.3%/1: ["Chiara", "Sophia"] | 33.3%/1: ["Ina", "Sophia"] | 33.3%/1: ["Joanna", "Sophia"]
-top5 Pr[Dup]: 100.0%/3: Sophia | 33.3%/1: Joanna | 33.3%/1: Chiara | 33.3%/1: Ina   / 200 %
-top5 Pr[Dup]: 33.3%/1: Levin | 33.3%/1: Joshi-Josh | 33.3%/1: Tano
+top4 Pr[Dup]: 33.3%/1: Joshi-Josh -> ["Ina", "Sophia"] | 33.3%/1: Levin -> ["Chiara", "Sophia"] | 33.3%/1: Tano -> ["Joanna", "Sophia"]
+top5 Pr[Dup]: 33.3%/1: ["Ina", "Sophia"] | 33.3%/1: ["Chiara", "Sophia"] | 33.3%/1: ["Joanna", "Sophia"]
+top5 Pr[Dup]: 100.0%/3: Sophia | 33.3%/1: Ina | 33.3%/1: Chiara | 33.3%/1: Joanna   / 200 %
+top5 Pr[Dup]: 33.3%/1: Tano | 33.3%/1: Joshi-Josh | 33.3%/1: Levin
 
 MN#10.0 E21
-1x Joshi-Josh   → Ina     
 4x Kaan         → Anna    
 3x Josh/Monacco → Camelia 
+1x Joshi-Josh   → Ina     
 5x Sinan        → Nasti   
-6x Danish       → Nadja   
-4x Levin        → Chiara  
-4x Enes         → Selina  
 2x Tano         → Joanna  
-2x Dion         → Tori    
+4x Levin        → Chiara  
 9x Dino         → Deisy   
+2x Dion         → Tori    
+4x Enes         → Selina  
+6x Danish       → Nadja   
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -635,22 +636,22 @@ MN#10.0 E21
 ╰──────────────┴──────┴─────────┴────────┴───────┴─────┴────────┴───────┴───────┴────────┴────────┴──────╯
 3 left -> 1.585 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 33.3%/1: Tano -> ["Joanna", "Sophia"] | 33.3%/1: Levin -> ["Chiara", "Sophia"] | 33.3%/1: Joshi-Josh -> ["Ina", "Sophia"]
-top5 Pr[Dup]: 33.3%/1: ["Joanna", "Sophia"] | 33.3%/1: ["Ina", "Sophia"] | 33.3%/1: ["Chiara", "Sophia"]
-top5 Pr[Dup]: 100.0%/3: Sophia | 33.3%/1: Ina | 33.3%/1: Chiara | 33.3%/1: Joanna   / 200 %
-top5 Pr[Dup]: 33.3%/1: Joshi-Josh | 33.3%/1: Tano | 33.3%/1: Levin
+top4 Pr[Dup]: 33.3%/1: Joshi-Josh -> ["Ina", "Sophia"] | 33.3%/1: Tano -> ["Joanna", "Sophia"] | 33.3%/1: Levin -> ["Chiara", "Sophia"]
+top5 Pr[Dup]: 33.3%/1: ["Joanna", "Sophia"] | 33.3%/1: ["Chiara", "Sophia"] | 33.3%/1: ["Ina", "Sophia"]
+top5 Pr[Dup]: 100.0%/3: Sophia | 33.3%/1: Chiara | 33.3%/1: Ina | 33.3%/1: Joanna   / 200 %
+top5 Pr[Dup]: 33.3%/1: Levin | 33.3%/1: Joshi-Josh | 33.3%/1: Tano
 
 MN#11.0 Reunion
-2x Joshi-Josh   → Ina     
-4x Josh/Monacco → Camelia 
 6x Sinan        → Nasti   
-3x Dion         → Tori    
-0x Tano         → Sophia  
-5x Levin        → Chiara  
-5x Kaan         → Anna    
-10x Dino        → Deisy   
 5x Enes         → Selina  
+3x Dion         → Tori    
+2x Joshi-Josh   → Ina     
+10x Dino        → Deisy   
+4x Josh/Monacco → Camelia 
 7x Danish       → Nadja   
+5x Levin        → Chiara  
+0x Tano         → Sophia  
+5x Kaan         → Anna    
 ---
 -> I[l]/bits: {9: 0.58, 10: 1.58}
 -> E[I]/bits: 0.92
@@ -728,4 +729,4 @@ top5 Pr[Dup]: 100.0%/1: Tano
 ╰─────────┴────┴──────────────┴───────────────┴────────┴───────┴───────────────┴─────────────┴───────────────┴───────────────┴─────────────┴─────────┴─────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 130.94s
+Ran in 135.76s
