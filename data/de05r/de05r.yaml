@@ -181,8 +181,9 @@ constraints:
       # Rob
       # Nico
 
-  # - type: !Box {num: 7, comment: "E15"}
-  #   check: !Lights [0]
-  #   map:
-  #     # JimiBlue: Hati
-  #     # Olli: Antonia
+  - type: !Box {num: 7, comment: "E14"}
+    check: !Lights [0]
+    map:
+      Antonia: Olli
+      # Hati: JimiBlue
+
