@@ -19,9 +19,13 @@ impl Game {
         print_transposed: bool,
         dump_mode: Option<DumpMode>,
         full: bool,
-        use_cache: bool,
+        use_cache: &Option<String>,
     ) -> Result<()> {
-        let input_file = if use_cache { &self.cache_file } else { &None };
+        let input_file = if use_cache.is_some() {
+            &self.cache_file
+        } else {
+            &None
+        };
 
         let perm_amount =
             self.rule_set
@@ -32,7 +36,7 @@ impl Game {
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
-            if use_cache {
+            if use_cache.is_some() {
                 &self.final_cache_hash
             } else {
                 &None

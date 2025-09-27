@@ -43,7 +43,8 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     {
         let mut dat = entry.path().join(entry.file_name());
         dat.set_extension("yaml");
-        let g = Game::new_from_yaml(dat.as_path(), Path::new("/tmp/")).expect("Parsing failed");
+        let g =
+            Game::new_from_yaml(dat.as_path(), Path::new("/tmp/"), &None).expect("Parsing failed");
 
         let name = entry.file_name().to_str().unwrap_or("unknown").to_owned();
 

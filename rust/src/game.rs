@@ -146,7 +146,11 @@ impl Game {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
-    pub fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
+    pub fn new_from_yaml(
+        yaml_path: &Path,
+        stem: &Path,
+        use_cache: &Option<String>,
+    ) -> Result<Game> {
         let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
 
         // derive hash of the input
@@ -168,15 +172,26 @@ impl Game {
         }
 
         let cache_dir = Path::new("./.cache/");
-        let found_cache_file = input_hashes.iter().rev().skip(1).find_map(|&hash| {
-            let cache_file_path = cache_dir
-                .join(format!("{:x}", hash))
-                .with_extension("cache");
-            if Path::new(&cache_file_path).exists() {
-                Some(cache_file_path)
-            } else {
-                None
-            }
+        let found_cache_file = if let Some(c) = use_cache {
+            input_hashes
+                .iter()
+                .find(|&hash| format!("{:x}", hash) == *c)
+                .map(|x| cache_dir.join(format!("{:x}", x)).with_extension("cache"))
+        } else {
+            None
+        };
+
+        let found_cache_file = found_cache_file.or_else(|| {
+            input_hashes.iter().rev().skip(1).find_map(|&hash| {
+                let cache_file_path = cache_dir
+                    .join(format!("{:x}", hash))
+                    .with_extension("cache");
+                if Path::new(&cache_file_path).exists() {
+                    Some(cache_file_path)
+                } else {
+                    None
+                }
+            })
         });
         let final_cache_hash = if gp.gen_cache {
             Some(

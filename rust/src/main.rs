@@ -71,7 +71,7 @@ enum Commands {
         full: bool,
 
         #[arg(long = "use-cache")]
-        use_cache: bool,
+        use_cache: Option<String>,
     },
     Check {
         /// The path to the file to read
@@ -100,13 +100,13 @@ fn main() {
             full,
             use_cache,
         } => {
-            let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
+            let mut g = Game::new_from_yaml(&yaml_path, &stem, &use_cache).expect("Parsing failed");
             let start = Instant::now();
-            g.sim(transpose_tabs, dump, full, use_cache).unwrap();
+            g.sim(transpose_tabs, dump, full, &use_cache).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Check { yaml_path } => {
-            Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash"))
+            Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash"), &None)
                 .expect("Parsing failed!");
         }
         Commands::Graph {
