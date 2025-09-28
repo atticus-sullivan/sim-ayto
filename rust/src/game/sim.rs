@@ -19,7 +19,7 @@ impl Game {
         print_transposed: bool,
         dump_mode: Option<DumpMode>,
         full: bool,
-        use_cache: &Option<String>,
+        use_cache: Option<String>,
     ) -> Result<()> {
         let input_file = if use_cache.is_some() {
             &self.cache_file

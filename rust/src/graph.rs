@@ -26,8 +26,6 @@ use walkdir::WalkDir;
 
 use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN};
 
-use crate::game::Game;
-
 pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     let mut tab_lines = vec![];
     for entry in WalkDir::new("./data")
@@ -43,8 +41,11 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     {
         let mut dat = entry.path().join(entry.file_name());
         dat.set_extension("yaml");
-        let g =
-            Game::new_from_yaml(dat.as_path(), Path::new("/tmp/"), &None).expect("Parsing failed");
+        let gp = crate::game::parse::GameParse::new_from_yaml(dat.as_path(), None)
+            .expect("Parsing failed");
+        let g = gp
+            .finalize_parsing(Path::new("/tmp/"))
+            .expect("processing game failed");
 
         let name = entry.file_name().to_str().unwrap_or("unknown").to_owned();
 

@@ -974,37 +974,37 @@ mod tests {
     #[test]
     fn test_get_perms_amout() {
         let rs = RuleSet::Eq;
-        assert_eq!(rs.get_perms_amount(1, 1), 1);
-        assert_eq!(rs.get_perms_amount(2, 2), 2);
-        assert_eq!(rs.get_perms_amount(3, 3), 6);
+        assert_eq!(rs.get_perms_amount(1, 1, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 2, &None).unwrap(), 2);
+        assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 6);
 
         let rs = RuleSet::XTimesDup((1, vec![]));
-        assert_eq!(rs.get_perms_amount(1, 2), 1);
-        assert_eq!(rs.get_perms_amount(2, 3), 6);
-        assert_eq!(rs.get_perms_amount(3, 4), 36);
+        assert_eq!(rs.get_perms_amount(1, 2, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 3, &None).unwrap(), 6);
+        assert_eq!(rs.get_perms_amount(3, 4, &None).unwrap(), 36);
 
         let rs = RuleSet::XTimesDup((0, vec!["A".to_string()]));
-        assert_eq!(rs.get_perms_amount(1, 2), 1);
-        assert_eq!(rs.get_perms_amount(2, 3), 4);
-        assert_eq!(rs.get_perms_amount(3, 4), 18);
+        assert_eq!(rs.get_perms_amount(1, 2, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 3, &None).unwrap(), 4);
+        assert_eq!(rs.get_perms_amount(3, 4, &None).unwrap(), 18);
 
         let rs = RuleSet::XTimesDup((1, vec!["A".to_string()]));
-        assert_eq!(rs.get_perms_amount(2, 4), 6);
-        assert_eq!(rs.get_perms_amount(3, 5), 72);
+        assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 6);
+        assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 72);
 
         let rs = RuleSet::SomeoneIsTrip;
-        assert_eq!(rs.get_perms_amount(1, 3), 1);
-        assert_eq!(rs.get_perms_amount(2, 4), 8);
-        assert_eq!(rs.get_perms_amount(3, 5), 60);
+        assert_eq!(rs.get_perms_amount(1, 3, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 8);
+        assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 60);
 
         let rs = RuleSet::FixedTrip("A".to_string());
-        assert_eq!(rs.get_perms_amount(1, 3), 1);
-        assert_eq!(rs.get_perms_amount(2, 4), 6);
-        assert_eq!(rs.get_perms_amount(3, 5), 36);
+        assert_eq!(rs.get_perms_amount(1, 3, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 6);
+        assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 36);
 
         let rs = RuleSet::NToN;
-        assert_eq!(rs.get_perms_amount(3, 3), 3);
-        assert_eq!(rs.get_perms_amount(4, 4), 3);
-        assert_eq!(rs.get_perms_amount(5, 5), 15);
+        assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 3);
+        assert_eq!(rs.get_perms_amount(4, 4, &None).unwrap(), 3);
+        assert_eq!(rs.get_perms_amount(5, 5, &None).unwrap(), 15);
     }
 }
