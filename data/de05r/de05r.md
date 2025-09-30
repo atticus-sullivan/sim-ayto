@@ -74,6 +74,14 @@ weight: 1
 {{% img src="/sim-ayto/de05r/de05r_14.png" %}}
 {{% /details %}}
 
+{{% details "MB#7.2 E15" %}}
+{{% img src="/sim-ayto/de05r/de05r_15.png" %}}
+{{% /details %}}
+
+{{% details "MN#7.0 E16" %}}
+{{% img src="/sim-ayto/de05r/de05r_16.png" %}}
+{{% /details %}}
+
 {{% translateHdr "tab-everything" %}}
 :warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
