@@ -187,3 +187,24 @@ constraints:
       Antonia: Olli
       # Hati: JimiBlue
 
+  - type: !Box {num: 7.2, comment: "E15"}
+    check: !Lights [0]
+    map:
+      Hati: JimiBlue
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [5]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Hati: Jonny
+      Antonia: CalvinBlond
+      Joanna: Sidar
+      Ariel: Leandro
+      Henna: Olli
+      Viki: Kevin
+      Beverly: Nico
+      # Nelly: CalvinHot
+      Nelly: Rob
