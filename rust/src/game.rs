@@ -27,6 +27,7 @@ use indicatif::{ProgressBar, ProgressStyle};
 
 use serde_json::to_writer;
 
+use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::path::PathBuf;
@@ -98,6 +99,7 @@ pub struct Game {
     dir: PathBuf,
     stem: String,
     query_matchings: Vec<Matching>,
+    query_pair: (HashSet<u8>, HashSet<u8>),
     cache_file: Option<PathBuf>,
     final_cache_hash: Option<PathBuf>,
 }
@@ -512,6 +514,10 @@ pub struct IterState {
     eliminated: u128,
     pub left_poss: Vec<Matching>,
     query_matchings: Vec<(Matching, Option<String>)>,
+    query_pair: (
+        HashMap<u8, HashMap<Vec<u8>, u64>>,
+        HashMap<u8, HashMap<Vec<u8>, u64>>,
+    ),
     cnt_update: usize,
     progress: ProgressBar,
     cache_file: Option<BufWriter<File>>,
@@ -523,6 +529,7 @@ impl IterState {
         perm_amount: usize,
         constraints: Vec<Constraint>,
         query_matchings: &[Matching],
+        query_pair: &(HashSet<u8>, HashSet<u8>),
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
     ) -> Result<IterState> {
@@ -535,6 +542,18 @@ impl IterState {
             constraints,
             keep_rem,
             query_matchings: query_matchings.iter().map(|i| (i.clone(), None)).collect(),
+            query_pair: (
+                query_pair
+                    .0
+                    .iter()
+                    .map(|i| (*i, Default::default()))
+                    .collect(),
+                query_pair
+                    .1
+                    .iter()
+                    .map(|i| (*i, Default::default()))
+                    .collect(),
+            ),
             each: vec![vec![0; map_lens.1]; map_lens.0],
             total: 0,
             eliminated: 0,
@@ -589,6 +608,24 @@ impl IterState {
             }
         }
         if left {
+            if !self.query_pair.0.is_empty() || !self.query_pair.1.is_empty() {
+                for (a, bs) in p.iter().enumerate() {
+                    if self.query_pair.0.contains_key(&(a as u8)) {
+                        if let Some(val) = self.query_pair.0.get_mut(&(a as u8)) {
+                            val.entry(bs.clone())
+                                .and_modify(|cnt| *cnt += 1)
+                                .or_insert(0);
+                        };
+                    }
+                    for b in bs.iter() {
+                        if let Some(val) = self.query_pair.1.get_mut(b) {
+                            val.entry(vec![a as u8])
+                                .and_modify(|cnt| *cnt += 1)
+                                .or_insert(0);
+                        };
+                    }
+                }
+            }
             if let Some(fs) = &mut self.cache_file {
                 to_writer(&mut *fs, &p)?;
                 writeln!(fs)?;

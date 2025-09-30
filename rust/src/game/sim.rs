@@ -3,7 +3,7 @@ use crate::game::IterState;
 use crate::DumpMode;
 use crate::Game;
 
-use comfy_table::presets::NOTHING;
+use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
 use comfy_table::{Row, Table};
 
 use std::fs::File;
@@ -36,6 +36,7 @@ impl Game {
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
+            &self.query_pair,
             if use_cache.is_some() {
                 &self.final_cache_hash
             } else {
@@ -88,6 +89,49 @@ impl Game {
                 }
             }
             println!();
+        }
+        if !is.query_pair.0.is_empty() {
+            for (a, i) in is.query_pair.0.iter() {
+                let mut tab = Table::new();
+                tab.force_no_tty()
+                    .enforce_styling()
+                    .load_preset(UTF8_FULL_CONDENSED)
+                    .set_header(vec!["", self.map_a.get(*a as usize).unwrap()]);
+                for b in i.iter() {
+                    tab.add_row(vec![
+                        format!("{}", b.1),
+                        format!(
+                            "{:?}",
+                            b.0.iter()
+                                .map(|b| self.map_b.get(*b as usize).unwrap())
+                                .collect::<Vec<_>>()
+                        ),
+                    ]);
+                }
+                println!("{tab}")
+            }
+        }
+        if !is.query_pair.1.is_empty() {
+            for (b, i) in is.query_pair.1.iter() {
+                let mut tab = Table::new();
+                tab.force_no_tty()
+                    .enforce_styling()
+                    .load_preset(UTF8_FULL_CONDENSED)
+                    .set_header(vec!["", self.map_b.get(*b as usize).unwrap()]);
+                println!("{}", self.map_b.get(*b as usize).unwrap());
+                for a in i.iter() {
+                    tab.add_row(vec![
+                        format!("{}", a.1),
+                        format!(
+                            "{:?}",
+                            a.0.iter()
+                                .map(|a| self.map_a.get(*a as usize).unwrap())
+                                .collect::<Vec<_>>()
+                        ),
+                    ]);
+                }
+                println!("{tab}")
+            }
         }
 
         let mut rem: Rem = (is.each.clone(), is.total);

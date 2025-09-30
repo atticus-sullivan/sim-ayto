@@ -17,6 +17,14 @@ use crate::{Lut, Matching, MatchingS, Rename};
 
 use crate::game::Game;
 
+#[derive(Deserialize, Debug, Default)]
+struct QueryPair {
+    #[serde(rename = "setA", default)]
+    map_a: Vec<String>,
+    #[serde(rename = "setB", default)]
+    map_b: Vec<String>,
+}
+
 // this struct is only used for parsing the yaml file
 #[derive(Deserialize, Debug)]
 pub struct GameParse {
@@ -26,6 +34,8 @@ pub struct GameParse {
     frontmatter: serde_yaml::Value,
     #[serde(rename = "queryMatchings", default)]
     query_matchings_s: Vec<MatchingS>,
+    #[serde(rename = "queryPair", default)]
+    query_pair_s: QueryPair,
 
     #[serde(rename = "setA")]
     map_a: Vec<String>,
@@ -195,6 +205,7 @@ impl GameParse {
             lut_a: Lut::default(),
             lut_b: Lut::default(),
             query_matchings: Vec::default(),
+            query_pair: (Default::default(), Default::default()),
             frontmatter: self.frontmatter,
             cache_file: self.found_cache_file.map(|(_, hash)| hash),
             final_cache_hash: self.final_cache_hash,
@@ -246,6 +257,24 @@ impl GameParse {
                     .with_context(|| format!("{} not found in lut_a", k))?] = x;
             }
             g.query_matchings.push(matching);
+        }
+
+        // translate the pairs that were querried for tracing
+        for a in self.query_pair_s.map_a.iter() {
+            let v = g
+                .lut_a
+                .get(a)
+                .map(|v| *v as u8)
+                .with_context(|| format!("{} not found in lut_a", a))?;
+            g.query_pair.0.insert(v);
+        }
+        for b in self.query_pair_s.map_b.iter() {
+            let v = g
+                .lut_b
+                .get(b)
+                .map(|v| *v as u8)
+                .with_context(|| format!("{} not found in lut_b", b))?;
+            g.query_pair.1.insert(v);
         }
 
         // rename names in map_a and map_b for output use
