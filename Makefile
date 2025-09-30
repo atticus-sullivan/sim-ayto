@@ -25,14 +25,15 @@ OUT_RUST := $(addsuffix .txt, $(basename $(DAT_RUST)))
 
 OUT    := $(OUT_RUST)
 ALIAS  := $(basename $(notdir $(OUT)))
-CHALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 CAALIAS := $(patsubst %.yaml,cat_%,$(notdir $(DAT_RUST)))
+CEALIAS := $(patsubst %.yaml,cache_%,$(notdir $(DAT_RUST)))
+CHALIAS := $(patsubst %.yaml,check_%,$(notdir $(DAT_RUST)))
 CLALIAS := $(patsubst %.yaml,clean_%,$(notdir $(DAT_RUST)))
+EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
 MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
-EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(MOALIAS) graph hugo
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(CEALIAS) $(MOALIAS) graph hugo cache
 
 GENARGS ?= --transpose -c
 
@@ -97,7 +98,6 @@ ifdef ZATHURA
 endif
 	$(CAT) $(f:.txt=.col.out)
 
-
 $(INITDIR):
 	$(eval show := $(let i,$@,$(patsubst data/%,%,$i)))
 	mkdir ./data/$(show)
@@ -140,6 +140,11 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	done
 	@date
 
+
+cache: cache_$(CUR)
+$(CEALIAS): $(RUST_DEP)
+	$(eval f := $(let i,$@,data/$(patsubst cache_%,%,$i)/$(patsubst cache_%,%,$i).yaml))
+	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto cache $(f)
 
 graph: gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
 

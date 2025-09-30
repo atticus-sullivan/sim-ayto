@@ -62,6 +62,24 @@ impl ConstraintParse {
     }
 }
 
+// getter functions
+impl ConstraintParse {
+    #[allow(dead_code)]
+    pub fn comment(&self) -> &str {
+        match &self.r#type {
+            ConstraintType::Night { num: _, comment } => comment,
+            ConstraintType::Box { num: _, comment } => comment,
+        }
+    }
+
+    pub fn type_str(&self) -> String {
+        match &self.r#type {
+            ConstraintType::Night { num, comment: _ } => format!("MN#{}", num),
+            ConstraintType::Box { num, comment: _ } => format!("MB#{}", num),
+        }
+    }
+}
+
 impl ConstraintParse {
     /// Finalize the initialization phase by translating the names (strings) to ids, validating the
     /// stored data, initialize the internal state of the constraint, optionally add an exclude map

@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+pub mod parse;
 mod sim;
 
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;
@@ -24,21 +25,19 @@ use comfy_table::{Cell, Color, Table};
 
 use indicatif::{ProgressBar, ProgressStyle};
 
-use serde::Deserialize;
 use serde_json::to_writer;
-use std::hash::{Hash, Hasher};
 
+use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{BufWriter, Write};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
-use anyhow::{ensure, Context, Result};
+use anyhow::Result;
 
 use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN};
-use crate::constraint::parse::ConstraintParse;
 use crate::constraint::Constraint;
-use crate::ruleset::{RuleSet, RuleSetParse};
-use crate::{Lut, Matching, MatchingS, Rem, Rename};
+use crate::ruleset::RuleSet;
+use crate::{Lut, Matching, Rem};
 
 // colors for tables
 const COLOR_ROW_MAX: Color = Color::Rgb {
@@ -57,7 +56,7 @@ const COLOR_COL_MAX: Color = Color::Rgb {
     b: 89,
 };
 
-const COLOR_ALT_BG: Color = Color::Rgb {
+pub const COLOR_ALT_BG: Color = Color::Rgb {
     r: 41,
     g: 44,
     b: 60,
@@ -100,32 +99,9 @@ pub struct Game {
     dir: PathBuf,
     stem: String,
     query_matchings: Vec<Matching>,
+    query_pair: (HashSet<u8>, HashSet<u8>),
     cache_file: Option<PathBuf>,
     final_cache_hash: Option<PathBuf>,
-}
-
-// this struct is only used for parsing the yaml file
-#[derive(Deserialize, Debug)]
-struct GameParse {
-    #[serde(rename = "constraints")]
-    constraints_orig: Vec<ConstraintParse>,
-    rule_set: RuleSetParse,
-    frontmatter: serde_yaml::Value,
-    #[serde(rename = "queryMatchings", default)]
-    query_matchings_s: Vec<MatchingS>,
-
-    #[serde(rename = "setA")]
-    map_a: Vec<String>,
-    #[serde(rename = "setB")]
-    map_b: Vec<String>,
-
-    #[serde(rename = "renameA", default)]
-    rename_a: Rename,
-    #[serde(rename = "renameB", default)]
-    rename_b: Rename,
-
-    #[serde(rename = "gen_cache", default)]
-    gen_cache: bool,
 }
 
 impl Game {
@@ -144,136 +120,6 @@ impl Game {
     }
     pub fn players_str(&self) -> String {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
-    }
-
-    pub fn new_from_yaml(yaml_path: &Path, stem: &Path) -> Result<Game> {
-        let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
-
-        // derive hash of the input
-        let mut input_hashes = vec![];
-        let mut prev_hash = {
-            let mut hasher = std::collections::hash_map::DefaultHasher::new();
-            gp.map_a.hash(&mut hasher);
-            gp.map_b.hash(&mut hasher);
-            hasher.finish()
-        };
-        for c in gp.constraints_orig.iter() {
-            let mut hasher = std::collections::hash_map::DefaultHasher::new();
-            prev_hash.hash(&mut hasher);
-            if c.has_impact() {
-                c.hash(&mut hasher);
-                prev_hash = hasher.finish();
-                input_hashes.push(prev_hash);
-            }
-        }
-
-        let cache_dir = Path::new("./.cache/");
-        let found_cache_file = input_hashes.iter().rev().skip(1).find_map(|&hash| {
-            let cache_file_path = cache_dir
-                .join(format!("{:x}", hash))
-                .with_extension("cache");
-            if Path::new(&cache_file_path).exists() {
-                Some(cache_file_path)
-            } else {
-                None
-            }
-        });
-        let final_cache_hash = if gp.gen_cache {
-            Some(
-                cache_dir
-                    .join(format!(
-                        "{:x}",
-                        input_hashes
-                            .iter()
-                            .last()
-                            .context("no input hash was generated")?
-                    ))
-                    .with_extension("cache"),
-            )
-        } else {
-            None
-        };
-
-        println!("Could use cache file: {:?}", found_cache_file);
-
-        let mut g = Game {
-            map_a: gp.map_a,
-            map_b: gp.map_b,
-            constraints_orig: Vec::default(),
-            rule_set: gp.rule_set.finalize_parsing(),
-            dir: stem
-                .parent()
-                .context("parent dir of stem not found")?
-                .to_path_buf(),
-            stem: stem
-                .file_stem()
-                .context("No filename provided in stem")?
-                .to_string_lossy()
-                .into_owned(),
-            lut_a: Lut::default(),
-            lut_b: Lut::default(),
-            query_matchings: Vec::default(),
-            frontmatter: gp.frontmatter,
-            cache_file: found_cache_file,
-            final_cache_hash,
-        };
-
-        // build up the look up tables (LUT)
-        for (lut, map) in [(&mut g.lut_a, &g.map_a), (&mut g.lut_b, &g.map_b)] {
-            for (index, name) in map.iter().enumerate() {
-                lut.insert(name.clone(), index);
-            }
-        }
-
-        ensure!(g.lut_a.len() == g.map_a.len(), "something is wrong with the sets. There might be duplicates in setA (len: {}, dedup len: {}).", g.lut_a.len(), g.map_a.len());
-        ensure!(g.lut_b.len() == g.map_b.len(), "something is wrong with the sets. There might be duplicates in setB (len: {}, dedup len: {}).", g.lut_b.len(), g.map_b.len());
-        // validate the lut in combination with the ruleset
-        g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
-
-        // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
-        for c in gp.constraints_orig {
-            g.constraints_orig.push(c.finalize_parsing(
-                &g.lut_a,
-                &g.lut_b,
-                g.rule_set.constr_map_len(g.lut_a.len(), g.lut_b.len()),
-                &g.map_b,
-                g.rule_set.must_add_exclude(),
-                g.rule_set.must_sort_constraint(),
-                (&gp.rename_a, &gp.rename_b),
-                g.rule_set.init_data()?,
-            )?);
-        }
-
-        // translate the matchings that were querried for tracing
-        for q in &gp.query_matchings_s {
-            let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
-            for (k, v) in q {
-                let mut x = v
-                    .iter()
-                    .map(|v| {
-                        g.lut_b
-                            .get(v)
-                            .map(|v| *v as u8)
-                            .with_context(|| format!("{} not found in lut_b", v))
-                    })
-                    .collect::<Result<Vec<_>>>()?;
-                x.sort();
-                matching[*g
-                    .lut_a
-                    .get(k)
-                    .with_context(|| format!("{} not found in lut_a", k))?] = x;
-            }
-            g.query_matchings.push(matching);
-        }
-
-        // rename names in map_a and map_b for output use
-        for (rename, map) in [(&gp.rename_a, &mut g.map_a), (&gp.rename_b, &mut g.map_b)] {
-            for n in map {
-                *n = rename.get(n).unwrap_or(n).to_owned();
-            }
-        }
-
-        Ok(g)
     }
 
     fn md_output(&self, out: &mut File, md_tables: &[(String, u16, bool, bool)]) -> Result<()> {
@@ -668,6 +514,10 @@ pub struct IterState {
     eliminated: u128,
     pub left_poss: Vec<Matching>,
     query_matchings: Vec<(Matching, Option<String>)>,
+    query_pair: (
+        HashMap<u8, HashMap<Vec<u8>, u64>>,
+        HashMap<u8, HashMap<Vec<u8>, u64>>,
+    ),
     cnt_update: usize,
     progress: ProgressBar,
     cache_file: Option<BufWriter<File>>,
@@ -679,6 +529,7 @@ impl IterState {
         perm_amount: usize,
         constraints: Vec<Constraint>,
         query_matchings: &[Matching],
+        query_pair: &(HashSet<u8>, HashSet<u8>),
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
     ) -> Result<IterState> {
@@ -691,6 +542,18 @@ impl IterState {
             constraints,
             keep_rem,
             query_matchings: query_matchings.iter().map(|i| (i.clone(), None)).collect(),
+            query_pair: (
+                query_pair
+                    .0
+                    .iter()
+                    .map(|i| (*i, Default::default()))
+                    .collect(),
+                query_pair
+                    .1
+                    .iter()
+                    .map(|i| (*i, Default::default()))
+                    .collect(),
+            ),
             each: vec![vec![0; map_lens.1]; map_lens.0],
             total: 0,
             eliminated: 0,
@@ -745,6 +608,24 @@ impl IterState {
             }
         }
         if left {
+            if !self.query_pair.0.is_empty() || !self.query_pair.1.is_empty() {
+                for (a, bs) in p.iter().enumerate() {
+                    if self.query_pair.0.contains_key(&(a as u8)) {
+                        if let Some(val) = self.query_pair.0.get_mut(&(a as u8)) {
+                            val.entry(bs.clone())
+                                .and_modify(|cnt| *cnt += 1)
+                                .or_insert(0);
+                        };
+                    }
+                    for b in bs.iter() {
+                        if let Some(val) = self.query_pair.1.get_mut(b) {
+                            val.entry(vec![a as u8])
+                                .and_modify(|cnt| *cnt += 1)
+                                .or_insert(0);
+                        };
+                    }
+                }
+            }
             if let Some(fs) = &mut self.cache_file {
                 to_writer(&mut *fs, &p)?;
                 writeln!(fs)?;

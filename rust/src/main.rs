@@ -71,7 +71,7 @@ enum Commands {
         full: bool,
 
         #[arg(long = "use-cache")]
-        use_cache: bool,
+        use_cache: Option<String>,
     },
     Check {
         /// The path to the file to read
@@ -84,6 +84,9 @@ enum Commands {
         theme_dark: u8,
         html_path_de: PathBuf,
         html_path_us: PathBuf,
+    },
+    Cache {
+        yaml_path: PathBuf,
     },
 }
 
@@ -100,14 +103,23 @@ fn main() {
             full,
             use_cache,
         } => {
-            let mut g = Game::new_from_yaml(&yaml_path, &stem).expect("Parsing failed");
+            let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, use_cache.clone())
+                .expect("Parsing failed");
+            let mut g = gp.finalize_parsing(&stem).expect("processing game failed");
             let start = Instant::now();
             g.sim(transpose_tabs, dump, full, use_cache).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
+        Commands::Cache { yaml_path } => {
+            let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, Some("".to_string()))
+                .expect("Parsing failed");
+            gp.show_caches().expect("Failed evaluating caches");
+        }
         Commands::Check { yaml_path } => {
-            Game::new_from_yaml(&yaml_path, std::path::Path::new(".trash"))
-                .expect("Parsing failed!");
+            let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, None)
+                .expect("Parsing failed");
+            gp.finalize_parsing(std::path::Path::new(".trash"))
+                .expect("processing game failed");
         }
         Commands::Graph {
             theme_light,

@@ -67,7 +67,7 @@ constraints:
 
   - type: !Night {num: 2, comment: "E06 -- -50k Kamera verdeckt (Kevin+Ariel)"}
     check: !Lights [2]
-    # buildTreee: true
+    # buildTree: true
     # resultUnknown: true
     map:
       Elli: Xander
@@ -90,7 +90,7 @@ constraints:
 
   - type: !Night {num: 3, comment: "E08 -- +20€ aus Grosszuegigkeit :)"}
     check: !Lights [2]
-    # buildTreee: true
+    # buildTree: true
     # resultUnknown: true
     map:
       Elli: Xander
@@ -113,7 +113,7 @@ constraints:
 
   - type: !Night {num: 4, comment: "E10"}
     check: !Lights [3]
-    # buildTreee: true
+    # buildTree: true
     # resultUnknown: true
     map:
       Elli: Xander
@@ -141,7 +141,7 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
-    # buildTreee: true
+    # buildTree: true
     # resultUnknown: true
     map:
       Elli: Xander
@@ -165,7 +165,7 @@ constraints:
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [4]
-    # buildTreee: true
+    # buildTree: true
     # resultUnknown: true
     map:
       Elli: Xander
@@ -187,3 +187,24 @@ constraints:
       Antonia: Olli
       # Hati: JimiBlue
 
+  - type: !Box {num: 7.2, comment: "E15"}
+    check: !Lights [0]
+    map:
+      Hati: JimiBlue
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [5]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Hati: Jonny
+      Antonia: CalvinBlond
+      Joanna: Sidar
+      Ariel: Leandro
+      Henna: Olli
+      Viki: Kevin
+      Beverly: Nico
+      # Nelly: CalvinHot
+      Nelly: Rob
