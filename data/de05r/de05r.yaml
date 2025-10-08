@@ -208,3 +208,26 @@ constraints:
       Beverly: Nico
       # Nelly: CalvinHot
       Nelly: Rob
+
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights [0]
+    map:
+      Henna: Sidar
+      # CalvinHot: Nelly
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights [4]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Henna: Olli
+      Ariel: Kevin
+      Beverly: Nico
+      Viki: Leandro
+      Hati: Jonny
+      Antonia: CalvinBlond
+      Nelly: Rob
+      Joanna: CalvinHot
+      # Sidar
