@@ -231,3 +231,37 @@ constraints:
       Nelly: Rob
       Joanna: CalvinHot
       # Sidar
+
+  - type: !Box {num: 9, comment: "E19 -- verkauft 5k Sidar"}
+    check: !Nothing
+    map:
+      # Beverly: Sidar
+      Nelly: CalvinHot
+
+  - type: !Night {num: 9, comment: "E19"}
+    check: !Lights [4]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Rob
+      Henna: Olli
+      Ariel: Leandro
+      Hati: Kevin
+      Beverly: Sidar
+      Antonia: Jonny
+      Joanna: CalvinBlond
+      # Joanna: Nico
+
+  - type: !Box {num: 9.6, comment: "E20 -- Geschenk: MN Überprüfung -40k = 115k"}
+    check: !Lights [1]
+    buildTree: true
+    map:
+      Nelly: CalvinHot
+
+  # - type: !Box {num: 10, comment: "E21"}
+  #   check: !Lights [1]
+  #   buildTree: true
+  #   map:
