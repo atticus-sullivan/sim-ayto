@@ -90,6 +90,20 @@ weight: 1
 {{% img src="/sim-ayto/de05r/de05r_18.png" %}}
 {{% /details %}}
 
+{{% details "MB#9.0 E19 " %}}
+{{% img src="/sim-ayto/de05r/de05r_19.png" %}}
+{{% /details %}}
+
+{{% details "MN#9.0 E19" %}}
+{{% img src="/sim-ayto/de05r/de05r_20.png" %}}
+{{% img src="/sim-ayto/de05r/de05r_20_tree.png" %}}
+{{% /details %}}
+
+{{% details "MB#9.6 E20 " %}}
+{{% img src="/sim-ayto/de05r/de05r_21.png" %}}
+{{% img src="/sim-ayto/de05r/de05r_21_tree.png" %}}
+{{% /details %}}
+
 {{% translateHdr "tab-everything" %}}
 :warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details "" %}}
