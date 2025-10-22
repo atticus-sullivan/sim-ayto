@@ -261,7 +261,25 @@ constraints:
     map:
       Nelly: CalvinHot
 
-  # - type: !Box {num: 10, comment: "E21"}
-  #   check: !Lights [1]
-  #   buildTree: true
-  #   map:
+  - type: !Box {num: 10, comment: "E21"}
+    check: !Lights [0]
+    buildTree: true
+    map:
+      Joanna: CalvinBlond
+
+  - type: !Night {num: 10, comment: "E21"}
+    check: !Lights [7]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Joanna: Rob
+      Antonia: CalvinBlond
+      Henna: Leandro
+      Viki: Kevin
+      Beverly: Nico
+      Hati: Sidar
+      Ariel: Olli
+      # Jonny
