@@ -283,3 +283,56 @@ constraints:
       Hati: Sidar
       Ariel: Olli
       # Jonny
+
+  - type: !Night {num: 11, comment: "E22 (Wiedersehen)"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Kevin
+      Beverly: Nico
+      Joanna: Rob
+      Hati: Sidar
+      Henna: Olli
+      Ariel: CalvinBlond
+      Antonia: Leandro
+      # Beverly: JimiBlue
+      # Joanna: Jonny
+
+  - type: !Night {num: 11, comment: "E22 (Wiedersehen)"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Kevin
+      Beverly: Nico
+      Joanna: Rob
+      Hati: Sidar
+      Henna: Olli
+      Ariel: CalvinBlond
+      Antonia: Leandro
+      # Beverly: JimiBlue
+      # Joanna: Jonny
+  - type: !Night {num: 11.2, comment: "E22 (Wiedersehen-2)"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Kevin
+      # Beverly: Nico
+      # Joanna: Rob
+      Hati: Sidar
+      Henna: Olli
+      Ariel: CalvinBlond
+      Antonia: Leandro
+      Beverly: JimiBlue
+      Joanna: Jonny
