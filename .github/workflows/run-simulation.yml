@@ -259,7 +259,7 @@ jobs:
           if [[ ! -e "${output_dir}/${sim}_tab.png" ]]; then
             sudo apt install graphviz python3 python3-pip python3-venv
             python3 -m venv venv
-            source venv/bin/activate && pip install ansitoimg
+            source venv/bin/activate && pip install ansitoimg install-playwright==0.1.1
           fi
 
       - name: Compute for ${{ matrix.sim }}
