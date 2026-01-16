@@ -16,7 +16,7 @@
 
 MODE ?= release
 
-DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05 de05r de06
+DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05 de05r de06 de07
 DAT_RUST += us01 us02 us03 us04 us05 us06 us07 us08 us09
 DAT_RUST += uk01
 
