@@ -257,8 +257,9 @@ jobs:
           sim="${{ matrix.sim }}"
           output_dir="./gh-pages/static/${sim}"
           if [[ ! -e "${output_dir}/${sim}_tab.png" ]]; then
-            sudo apt install graphviz python3 python3-pip
-            pip install --break-system-packages ansitoimg
+            sudo apt install graphviz python3 python3-pip python3-venv
+            python3 -m venv venv
+            source venv && pip install ansitoimg
           fi
 
       - name: Compute for ${{ matrix.sim }}
@@ -273,7 +274,7 @@ jobs:
             echo "Generating pictures for simulation: ${sim}"
 
             # Generate pictures using your Python script
-            python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
+            source venv && python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
             # ls -al "./data/${sim}/${sim}"*.dot
             for dot_file in "./data/${sim}/${sim}"*.dot ; do
