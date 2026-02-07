@@ -51,7 +51,7 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
 
         let r = g.ruleset_str();
         tab_lines.push(format!(
-            "| {} | {} | {} | {{{{< i18n \"{}\" >}}}} |",
+            "| {} | {} | {} | {{{{< tr \"{}\" >}}}} |",
             name,
             g.players_str(),
             r.1,
@@ -61,7 +61,7 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     tab_lines.sort();
 
     Ok(format!(
-        r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "players" >}}}} | {{{{< i18n "rulesetShort" >}}}} | {{{{< i18n "rulesetDesc" >}}}} |
+        r#"| {{{{< tr "season" >}}}} | {{{{< tr "players" >}}}} | {{{{< tr "rulesetShort" >}}}} | {{{{< tr "rulesetDesc" >}}}} |
 | --- | --- | --- | --- |
 {}
     "#,

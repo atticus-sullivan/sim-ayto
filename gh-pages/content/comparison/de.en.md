@@ -12,20 +12,20 @@ toc: false
 - other things like zooming or panning of the plots should be pretty straight forward
 
 # Ruleset per Season
-| {{< i18n "season" >}} | {{< i18n "players" >}} | {{< i18n "rulesetShort" >}} | {{< i18n "rulesetDesc" >}} |
+| {{< tr "season" >}} | {{< tr "players" >}} | {{< tr "rulesetShort" >}} | {{< tr "rulesetDesc" >}} |
 | --- | --- | --- | --- |
-| de01 | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de01r | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de02 | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de02r | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de03 | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de03r | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de04 | 10/11 | ?1=0 | {{< i18n "rs-XTimesDup-0-1" >}} |
-| de04r | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
-| de05 | 10/12 | =3 | {{< i18n "rs-FixedTrip" >}} |
-| de05r | 10/12 | ?1=1 | {{< i18n "rs-XTimesDup-1-1" >}} |
-| de06 | 10/11 | ?1=0 | {{< i18n "rs-XTimesDup-0-1" >}} |
-| de07 | 10/11 | ?1=0 | {{< i18n "rs-XTimesDup-0-1" >}} |
+| de01 | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de01r | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de02 | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de02r | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de03 | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de03r | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de04 | 10/11 | ?1=0 | {{< tr "rs-XTimesDup-0-1" >}} |
+| de04r | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
+| de05 | 10/12 | =3 | {{< tr "rs-FixedTrip" >}} |
+| de05r | 10/12 | ?1=1 | {{< tr "rs-XTimesDup-1-1" >}} |
+| de06 | 10/11 | ?1=0 | {{< tr "rs-XTimesDup-0-1" >}} |
+| de07 | 10/11 | ?1=0 | {{< tr "rs-XTimesDup-0-1" >}} |
     
 
 # Plots

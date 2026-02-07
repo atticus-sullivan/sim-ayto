@@ -129,7 +129,7 @@ impl Game {
 
         let stem = &self.stem;
 
-        writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
+        writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< tr \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
         writeln!(
             out,
@@ -167,7 +167,7 @@ impl Game {
             }
         }
 
-        writeln!(out, "\n{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
+        writeln!(out, "\n{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< tr \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
         writeln!(
             out,
