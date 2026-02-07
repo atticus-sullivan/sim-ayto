@@ -143,7 +143,7 @@ toc: false
 
 ---
 # Anmerkungen
-- [generelle Hinweise](/sim-ayto#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
+- [generelle Hinweise](/#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
   Letztlich ist `I` aber einfach nur eine Größe wieviel neue Informationen das gebracht hat und `H` nur eine andere Schreibweise für die Anzahl an übrigen Möglichkeiten.
 - durch einen einfachen Klick in der Legende kann man einzelne Linien ausblenden
 - durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
@@ -179,7 +179,7 @@ toc: false
 
 ---
 # Remarks
-- [general information](/sim-ayto/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
+- [general information](/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
   In the end `I` is just a measure for how much new information was gained and `H` just a different notation for the amount of left possibilities.
 - with a single-click on items in the legend you can hide that line in the plot
 - with a double-click on an item in the legend you can hide all other lines in the plot
@@ -229,7 +229,7 @@ toc: false
 ---
 
 # Anmerkungen
-- [generelle Hinweise](/sim-ayto#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
+- [generelle Hinweise](/#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
   Letztlich ist `I` aber einfach nur eine Größe wieviel neue Informationen das gebracht hat und `H` nur eine andere Schreibweise für die Anzahl an übrigen Möglichkeiten.
 - durch einen einfachen Klick in der Legende kann man einzelne Linien ausblenden
 - durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
@@ -266,7 +266,7 @@ toc: false
 
 ---
 # Remarks
-- [general information](/sim-ayto/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
+- [general information](/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
   In the end `I` is just a measure for how much new information was gained and `H` just a different notation for the amount of left possibilities.
 - with a single-click on items in the legend you can hide that line in the plot
 - with a double-click on an item in the legend you can hide all other lines in the plot

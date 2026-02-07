@@ -133,11 +133,11 @@ impl Game {
         writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
         writeln!(
             out,
-            "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png\" %}}}}"
+            "{{{{% img src=\"/{stem}/{stem}_tab.png\" %}}}}"
         )?;
         writeln!(
             out,
-            "{{{{% img src=\"/sim-ayto/{stem}/{stem}_sum.png\" %}}}}"
+            "{{{{% img src=\"/{stem}/{stem}_sum.png\" %}}}}"
         )?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
@@ -151,12 +151,12 @@ impl Game {
 
             writeln!(
                 out,
-                "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}.png\" %}}}}"
+                "{{{{% img src=\"/{stem}/{stem}_{idx}.png\" %}}}}"
             )?;
             if *tree {
                 writeln!(
                     out,
-                    "{{{{% img src=\"/sim-ayto/{stem}/{stem}_{idx}_tree.png\" %}}}}"
+                    "{{{{% img src=\"/{stem}/{stem}_{idx}_tree.png\" %}}}}"
                 )?;
             }
 
@@ -171,7 +171,7 @@ impl Game {
         writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
         writeln!(
             out,
-            "{{{{% img src=\"/sim-ayto/{stem}/{stem}.col.png\" %}}}}"
+            "{{{{% img src=\"/{stem}/{stem}.col.png\" %}}}}"
         )?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
