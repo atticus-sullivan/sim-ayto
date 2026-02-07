@@ -346,6 +346,17 @@ jobs:
           chmod +x ./ayto
           ./ayto graph gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
+
+      - name: Build with Hugo
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+        run: |
+          echo "$HUGO_CACHEDIR"
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
