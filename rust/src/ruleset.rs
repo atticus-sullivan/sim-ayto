@@ -578,8 +578,16 @@ mod tests {
         let eq_rule = RuleSet::Eq;
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         eq_rule
             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
@@ -622,8 +630,16 @@ mod tests {
         let dup_rule = RuleSet::XTimesDup((1, vec![]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         dup_rule
             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
@@ -668,8 +684,16 @@ mod tests {
         let lut_b = HashMap::from(
             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
         );
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         dup_rule
             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
@@ -716,8 +740,16 @@ mod tests {
         let lut_b = HashMap::from(
             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
         );
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         trip_rule
             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
@@ -758,8 +790,16 @@ mod tests {
         let dup_rule = RuleSet::XTimesDup((0, vec!["C".to_string()]));
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         dup_rule
             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
@@ -804,8 +844,16 @@ mod tests {
         let lut_b = HashMap::from(
             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
         );
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         trip_rule
             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
@@ -916,8 +964,16 @@ mod tests {
         let lut_b = HashMap::from(
             [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4)].map(|(k, v)| (k.to_string(), v)),
         );
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut_a.len(), lut_b.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut_a.len(), lut_b.len()),
+        )
+        .unwrap();
         rule.iter_perms(&lut_a, &lut_b, &mut is, false, &None)
             .unwrap();
 
@@ -970,8 +1026,16 @@ mod tests {
             [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4), ("F", 5)]
                 .map(|(k, v)| (k.to_string(), v)),
         );
-        let mut is =
-            IterState::new(true, 0, vec![], &vec![], &(HashSet::new(), HashSet::new()), &None, (lut.len(), lut.len())).unwrap();
+        let mut is = IterState::new(
+            true,
+            0,
+            vec![],
+            &vec![],
+            &(HashSet::new(), HashSet::new()),
+            &None,
+            (lut.len(), lut.len()),
+        )
+        .unwrap();
         nn_rule
             .iter_perms(&lut, &lut, &mut is, false, &None)
             .unwrap();
