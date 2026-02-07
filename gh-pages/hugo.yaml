@@ -85,6 +85,11 @@ module:
     - source: ../data/de06/de06.md
       target: content/ayto/de/06.en.md
 
+    - source: ../data/de07/de07.md
+      target: content/ayto/de/07.md
+    - source: ../data/de07/de07.md
+      target: content/ayto/de/07.en.md
+
 
     - source: ../data/uk01/uk01.md
       target: content/ayto/uk/01.md
