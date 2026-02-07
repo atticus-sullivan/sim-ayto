@@ -64,13 +64,13 @@ enum Commands {
         #[arg(short = 'o', long = "output")]
         stem: PathBuf,
 
-        #[arg(long = "dump")]
+        #[arg(long = "dump", help = "dump all combinations ({winning,all}{nums,names} in the end of the simulation")]
         dump: Option<DumpMode>,
 
-        #[arg(long = "full")]
+        #[arg(long = "full", help = "print all probabilities instead of just the topX below the tables")]
         full: bool,
 
-        #[arg(long = "use-cache")]
+        #[arg(long = "use-cache", help = "Normally the optimal cache is used. This influences the output. Thus, this flag can be used to base the simulation on an not optimal cache")]
         use_cache: Option<String>,
     },
     Check {
