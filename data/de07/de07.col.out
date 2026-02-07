@@ -38,10 +38,10 @@ Evi → Tiziana
 ╰──────────┴──────────┴────────┴────────┴────────┴────────┴────────┴────────┴──────────┴─────────┴────────┴────────╯
 179625600 left -> 27.4204 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.2%/362880: Ema -> ["Michelle", "Tiziana"] | 0.2%/362880: Evi -> ["Laura", "Linda"] | 0.2%/362880: Noel -> ["Ella", "Tiziana"] | 0.2%/362880: Jeronymo -> ["Tiziana", "Aurora"]
-top5 Pr[Dup]: 1.8%/3265920: ["Alicia", "Aurora"] | 1.8%/3265920: ["Michelle", "Tiziana"] | 1.8%/3265920: ["Elena", "Tiziana"] | 1.8%/3265920: ["Elena", "Michelle"] | 1.8%/3265920: ["Adrianna", "Elena"]
-top5 Pr[Dup]: 18.2%/32659200: Linda | 18.2%/32659200: Marla | 18.2%/32659200: Tiziana | 18.2%/32659200: Michelle | 18.2%/32659200: Adrianna   / 200 %
-top5 Pr[Dup]: 10.1%/18144000: Chris | 10.1%/18144000: Meji | 10.1%/18144000: Ema | 10.1%/18144000: Luke | 10.1%/18144000: Jeronymo
+top4 Pr[Dup]: 0.2%/362880: JulianA -> ["Tiziana", "Tonia"] | 0.2%/362880: Evi -> ["Adrianna", "Laura"] | 0.2%/362880: Noel -> ["Tiziana", "Aurora"] | 0.2%/362880: Jeronymo -> ["Marla", "Tiziana"]
+top5 Pr[Dup]: 1.8%/3265920: ["Ella", "Aurora"] | 1.8%/3265920: ["Michelle", "Aurora"] | 1.8%/3265920: ["Tiziana", "Tonia"] | 1.8%/3265920: ["Linda", "Aurora"] | 1.8%/3265920: ["Ella", "Linda"]
+top5 Pr[Dup]: 18.2%/32659200: Alicia | 18.2%/32659200: Adrianna | 18.2%/32659200: Laura | 18.2%/32659200: Marla | 18.2%/32659200: Tiziana   / 200 %
+top5 Pr[Dup]: 10.1%/18144000: Jerry | 10.1%/18144000: Jeronymo | 10.1%/18144000: Ema | 10.1%/18144000: Luke | 10.1%/18144000: JulianB
 
 ╭────────┬───┬───────┬─────┬─────────┬──────────┬───────┬─────────┬─────────┬──────┬──────┬──────┬───┬───────┬──────┬──────────╮
 │        ┆ L ┆ Chris ┆ Ema ┆   Evi   ┆ Jeronymo ┆ Jerry ┆ JulianA ┆ JulianB ┆ Luke ┆ Meji ┆ Noel ┆   ┆   I   ┆ #new ┆ min dist │
@@ -55,4 +55,4 @@ top5 Pr[Dup]: 10.1%/18144000: Chris | 10.1%/18144000: Meji | 10.1%/18144000: Ema
 ╰────────┴───┴──────────┴────────┴───────┴──────┴───────┴───────┴───────┴──────────┴─────────┴───────┴────────┴───┴───────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 179625600  Initial combinations for each pair: 19958400
 
-Ran in 99.46s
+Ran in 118.31s
