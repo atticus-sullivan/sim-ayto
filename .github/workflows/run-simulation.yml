@@ -171,6 +171,7 @@ jobs:
             ${{ env.STEMD }}/statInfo.csv
             ${{ env.STEMD }}/statMB.csv
             ${{ env.STEMD }}/statMN.csv
+            ${{ env.STEMD }}/statSum.json
             ./data/.gitkeep
 
   commit-results:
