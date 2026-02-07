@@ -110,10 +110,10 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     }
     tab_lines.sort();
 
-    tab_lines.push("".to_string());
+    tab_lines.push("| | | | | |".to_string());
     tab_lines.push(format!(
         "| {} | {} | {} | {} | {} |",
-        "{{{{< i18n \"total\" >}}}}",
+        "{{< i18n \"total\" >}}",
         total_counts.blackouts,
         total_counts.sold,
         total_counts.sold_but_match,

@@ -249,6 +249,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -303,6 +304,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         // Initialize the maps with unordered key/value pairs
@@ -358,6 +360,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         constraint.map.insert(1, 0);
@@ -399,6 +402,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         }
     }
 
@@ -428,6 +432,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -467,6 +472,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -506,6 +512,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
@@ -593,6 +600,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
         let c_b = Constraint {
             result_unknown: false,
@@ -618,6 +626,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         c_a.merge(&c_b).unwrap();
@@ -669,6 +678,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         let row = c.stat_row(
@@ -737,6 +747,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         let row = c.stat_row(
@@ -849,6 +860,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         assert_eq!(c.comment(), "comment");
@@ -885,6 +897,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         assert_eq!(c.comment(), "comment");
@@ -921,6 +934,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         assert_eq!(c.type_str(), "MN#1");
@@ -957,6 +971,7 @@ mod tests {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         };
 
         assert_eq!(c.type_str(), "MB#1");

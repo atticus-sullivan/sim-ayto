@@ -555,9 +555,9 @@ impl IterState {
     ) -> Result<IterState> {
         let file = cache_file
             .clone()
-            .map(|f| File::create(f))
+            .map(File::create)
             .map_or(Ok(None), |r| r.map(Some))?
-            .map(|g| BufWriter::new(g));
+            .map(BufWriter::new);
         let is = IterState {
             constraints,
             keep_rem,
@@ -601,7 +601,7 @@ impl IterState {
     }
 
     pub fn step(&mut self, i: usize, p: Matching, output: bool) -> Result<()> {
-        if i % self.cnt_update == 0 && output {
+        if i.is_multiple_of(self.cnt_update) && output {
             self.progress.inc(2);
         }
         for (a, i) in p.iter().enumerate() {

@@ -397,8 +397,8 @@ impl Constraint {
                 }
                 if self.show_expected_information() {
                     let mut expected: f64 = ls
-                        .iter()
-                        .map(|(_, c)| {
+                        .values()
+                        .map(|c| {
                             let p = *c as f64 / total;
                             p * p.log2()
                         })

@@ -306,6 +306,7 @@ mod tests {
                 false,
                 (&Default::default(), &Default::default()),
                 Box::new(DummyData::default()),
+                0,
             )
             .unwrap();
 
@@ -355,6 +356,7 @@ mod tests {
                 false,
                 (&Default::default(), &Default::default()),
                 Box::new(DummyData::default()),
+                0,
             )
             .unwrap();
 
@@ -408,6 +410,7 @@ mod tests {
                 false,
                 (&Default::default(), &Default::default()),
                 Box::new(DummyData::default()),
+                0,
             )
             .unwrap();
 
