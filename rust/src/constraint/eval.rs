@@ -52,7 +52,7 @@ impl SumCounts {
         self.blackouts += other.blackouts;
         self.sold += other.sold;
         self.sold_but_match += other.sold_but_match;
-        self.sold_but_match_active &= other.sold_but_match_active;
+        // self.sold_but_match_active &= other.sold_but_match_active;
         self.matches_found += other.matches_found;
     }
 }
