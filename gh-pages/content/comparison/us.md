@@ -13,18 +13,18 @@ toc: false
 
 
 # Regeln je Staffel
-| {{< tr "season" >}} | {{< tr "players" >}} | {{< tr "rulesetShort" >}} | {{< tr "rulesetDesc" >}} |
+| {{< i18n "season" >}} | {{< i18n "players" >}} | {{< i18n "rulesetShort" >}} | {{< i18n "rulesetDesc" >}} |
 | --- | --- | --- | --- |
-| uk01 | 10/10 | = | {{< tr "rs-Eq" >}} |
-| us01 | 10/10 | = | {{< tr "rs-Eq" >}} |
-| us02 | 10/11 | ?0=1 | {{< tr "rs-XTimesDup-1-0" >}} |
-| us03 | 10/10 | = | {{< tr "rs-Eq" >}} |
-| us04 | 10/10 | = | {{< tr "rs-Eq" >}} |
-| us05 | 11/11 | = | {{< tr "rs-Eq" >}} |
-| us06 | 11/11 | = | {{< tr "rs-Eq" >}} |
-| us07 | 11/11 | = | {{< tr "rs-Eq" >}} |
-| us08 | 16/16 | N:N | {{< tr "rs-NToN" >}} |
-| us09 | 11/11 | = | {{< tr "rs-Eq" >}} |
+| uk01 | 10/10 | = | {{< i18n "rs-Eq" >}} |
+| us01 | 10/10 | = | {{< i18n "rs-Eq" >}} |
+| us02 | 10/11 | ?0=1 | {{< i18n "rs-XTimesDup-1-0" >}} |
+| us03 | 10/10 | = | {{< i18n "rs-Eq" >}} |
+| us04 | 10/10 | = | {{< i18n "rs-Eq" >}} |
+| us05 | 11/11 | = | {{< i18n "rs-Eq" >}} |
+| us06 | 11/11 | = | {{< i18n "rs-Eq" >}} |
+| us07 | 11/11 | = | {{< i18n "rs-Eq" >}} |
+| us08 | 16/16 | N:N | {{< i18n "rs-NToN" >}} |
+| us09 | 11/11 | = | {{< i18n "rs-Eq" >}} |
     
 
 # Plots

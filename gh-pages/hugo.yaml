@@ -67,15 +67,6 @@ module:
     - source: content
       target: content
 
-    - source: layouts
-      target: layouts
-
-    - source: static
-      target: static
-
-    - source: assets
-      target: assets
-
     - source: ../data/de01/de01.md
       target: content/de/01.md
     - source: ../data/de01/de01.md

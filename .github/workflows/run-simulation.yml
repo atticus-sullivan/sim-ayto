@@ -5,9 +5,9 @@ on:
     branches:
       - main
     paths:
-      # - 'rust/**'
+      - 'rust/**'
       - 'data/**.yaml'
-      # - 'gh-pages/**'
+      - 'gh-pages/**'
 
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -46,15 +46,15 @@ jobs:
         run: |
           set +o pipefail
           # Check if there's a push affecting the `rust/**` path or if it's a manual trigger
-          # if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" || echo "")" != "" ]]; then
-          #   echo "re-generate all"
-          #   # If `rust/**` is changed or it's a manual trigger, run all simulations
-          #   sims="[\"$(find ./data -not -path '*/[@.]*' -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
-          # else
-          #   echo "re-generate only required"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" || echo "")" != "" ]]; then
+            echo "re-generate all"
+            # If `rust/**` is changed or it's a manual trigger, run all simulations
+            sims="[\"$(find ./data -not -path '*/[@.]*' -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
+          else
+            echo "re-generate only required"
             # Detect which simulation inputs have changed
             sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
-          # fi
+          fi
 
           echo "$sims"
 
@@ -346,25 +346,12 @@ jobs:
           chmod +x ./ayto
           ./ayto graph gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
-
-      - name: Build with Hugo
-        env:
-          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
-          HUGO_ENVIRONMENT: production
-        run: |
-          echo "$HUGO_CACHEDIR"
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
         run: |
           cd gh-pages
-          hugo config mounts
-          hugo version
           hugo \
             --gc \
             --minify \
