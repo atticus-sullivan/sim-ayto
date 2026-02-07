@@ -77,7 +77,7 @@ clean: $(CLALIAS)
 
 $(CLALIAS):
 	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/$i{.txt,.col.out,.pdf,.col.png,_tab.png,_sum.png,.dot,.csv,.md} )
-	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/stat{Info,MB,MN}.csv)
+	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/stat{Info,MB,MN,Sum}.{csv,json})
 
 
 # check all input files

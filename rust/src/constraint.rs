@@ -33,6 +33,7 @@ use crate::{Lut, Map, MapS, Matching};
 enum CheckType {
     Eq,
     Nothing,
+    Sold,
     Lights(u8, #[serde(skip)] BTreeMap<u8, u128>),
 }
 
@@ -89,6 +90,7 @@ pub struct Constraint {
 
     hide_ruleset_data: bool,
     pub ruleset_data: Box<dyn RuleSetData>,
+    known_lights: u8,
 }
 
 // functions for initialization / startup
@@ -155,7 +157,7 @@ impl Constraint {
                         .unwrap()
                 }));
             }
-            CheckType::Nothing => fits = Some(true),
+            CheckType::Nothing | CheckType::Sold => fits = Some(true),
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let mut l = 0;
                 for (i1, i2) in self.map.iter() {
@@ -433,7 +435,7 @@ mod tests {
         // change amount of lights
         match &mut c.check {
             CheckType::Eq => {}
-            CheckType::Nothing => {}
+            CheckType::Nothing | CheckType::Sold => {}
             CheckType::Lights(l, _) => *l = 1,
         }
         assert!(c.process(&m).unwrap());

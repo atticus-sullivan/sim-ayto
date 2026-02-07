@@ -6,7 +6,7 @@ use std::path::PathBuf;
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
-use crate::MapS;
+use crate::{MapS, Matching};
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 
@@ -15,7 +15,7 @@ pub struct CSVEntry {
     pub num: f64,
     pub bits_left: f64,
     pub lights_total: Option<u8>,
-    pub lights_known_before: Option<u8>,
+    pub lights_known_before: u8,
     pub comment: String,
 }
 
@@ -23,7 +23,7 @@ pub struct CSVEntry {
 pub struct CSVEntryMB {
     pub num: f64,
     pub lights_total: Option<u8>,
-    pub lights_known_before: Option<u8>,
+    pub lights_known_before: u8,
     pub bits_gained: f64,
     pub comment: String,
 }
@@ -32,10 +32,29 @@ pub struct CSVEntryMB {
 pub struct CSVEntryMN {
     pub won: bool,
     pub lights_total: Option<u8>,
-    pub lights_known_before: Option<u8>,
+    pub lights_known_before: u8,
     pub num: f64,
     pub bits_gained: f64,
     pub comment: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct SumCounts {
+    pub blackouts: u8,
+    pub sold: u8,
+    pub sold_but_match: u8,
+    pub sold_but_match_active: bool,
+    pub matches_found: u8,
+}
+
+impl SumCounts {
+    pub fn add(&mut self, other: &Self) {
+        self.blackouts += other.blackouts;
+        self.sold += other.sold;
+        self.sold_but_match += other.sold_but_match;
+        self.sold_but_match_active &= other.sold_but_match_active;
+        self.matches_found += other.matches_found;
+    }
 }
 
 impl Constraint {
@@ -86,7 +105,7 @@ impl Constraint {
         } else {
             match &self.check {
                 CheckType::Eq => ret.push(Cell::new("E")),
-                CheckType::Nothing => match self.r#type {
+                CheckType::Nothing | CheckType::Sold => match self.r#type {
                     ConstraintType::Night { .. } => ret.push(Cell::new("?")),
                     ConstraintType::Box { .. } => {
                         ret.push(Cell::new("?").fg(comfy_table::Color::Yellow))
@@ -148,7 +167,7 @@ impl Constraint {
                     .trim_end_matches('0')
                     .trim_end_matches('.'),
             )),
-            CheckType::Nothing => ret.push(Cell::new(String::from(""))),
+            CheckType::Nothing | CheckType::Sold => ret.push(Cell::new(String::from(""))),
         }
 
         // show how many new matches are present
@@ -203,7 +222,46 @@ impl Constraint {
         )
     }
 
-    // returned array contains mbInfo, mnInfo, info
+    pub fn is_blackout(&self) -> bool {
+        if let ConstraintType::Night{ num: _, comment: _ } = self.r#type {
+            if let CheckType::Lights(l, _) = self.check {
+                return self.known_lights == l
+            }
+        }
+        false
+    }
+
+    pub fn is_sold(&self) -> bool {
+        if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+            if let CheckType::Sold = self.check {
+                return true
+            }
+        }
+        false
+    }
+
+    pub fn is_match_found(&self) -> bool {
+        if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+            if let CheckType::Lights(1, _) = self.check {
+                return true
+            }
+        }
+        false
+    }
+
+    pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
+        if let Some(sols) = solutions {
+            if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+                return
+                sols.iter().all(|sol|
+                    self.map.iter().all(|(a,b)| sol.get(*a as usize).unwrap().contains(b))
+                );
+            }
+        }
+        false
+    }
+
+    // returned array contains mbInfo, mnInfo, info, sum
     pub fn get_stats(
         &self,
         required_lights: usize,
@@ -214,7 +272,7 @@ impl Constraint {
 
         let won = match self.check {
             CheckType::Eq => false,
-            CheckType::Nothing => false,
+            CheckType::Nothing | CheckType::Sold => false,
             CheckType::Lights(l, _) => l as usize == required_lights,
         };
 
@@ -228,14 +286,14 @@ impl Constraint {
                     won,
                     num: num.into(),
                     lights_total: self.check.as_lights(),
-                    lights_known_before: None,
+                    lights_known_before: self.known_lights,
                     bits_gained: self.information.unwrap_or(f64::INFINITY),
                     comment: meta_a,
                 }),
                 Some(CSVEntry {
                     num: (num * 2.0).into(),
                     lights_total: self.check.as_lights(),
-                    lights_known_before: None,
+                    lights_known_before: self.known_lights,
                     bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
                     comment: meta_b,
                 }),
@@ -244,7 +302,7 @@ impl Constraint {
                 Some(CSVEntryMB {
                     num: num.into(),
                     lights_total: self.check.as_lights(),
-                    lights_known_before: None,
+                    lights_known_before: self.known_lights,
                     bits_gained: self.information.unwrap_or(f64::INFINITY),
                     comment: meta_a,
                 }),
@@ -252,7 +310,7 @@ impl Constraint {
                 Some(CSVEntry {
                     num: (num * 2.0 - 1.0).into(),
                     lights_total: self.check.as_lights(),
-                    lights_known_before: None,
+                    lights_known_before: self.known_lights,
                     bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
                     comment: meta_b,
                 }),
@@ -317,7 +375,7 @@ impl Constraint {
         println!("---");
         match &self.check {
             CheckType::Eq => print!("Eq "),
-            CheckType::Nothing => print!("Nothing "),
+            CheckType::Nothing | CheckType::Sold => print!("Nothing "),
             CheckType::Lights(l, ls) => {
                 let total = ls.values().sum::<u128>() as f64;
                 // information theory

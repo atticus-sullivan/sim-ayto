@@ -1,6 +1,8 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+solved: false
+
 frontmatter:
   title: 'DE Staffel 1'
   weight: 1

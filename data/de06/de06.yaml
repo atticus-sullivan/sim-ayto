@@ -64,7 +64,7 @@ constraints:
       Dion: Tori
 
   - type: !Box {num: 2, comment: "E05 -- verkauft +30.000€"}
-    check: !Nothing
+    check: !Sold
     map:
       Levin: Camelia
       # Danish: Joanna
@@ -155,7 +155,7 @@ constraints:
       # Tano: Anna
 
   - type: !Box {num: 6, comment: "E13 -- verkauft d. Tano+Tori 2 x 20k"}
-    check: !Nothing
+    check: !Sold
     map:
       Tano: Tori
       # Josh: Ina

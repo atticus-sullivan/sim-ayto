@@ -94,7 +94,7 @@ constraints:
       Zoe: Max
 
   - type: !Box {num: 4, comment: "E09 -- verkauft"}
-    check: !Nothing
+    check: !Sold
     map:
       Isabelle: Amadu
 

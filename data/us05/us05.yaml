@@ -223,7 +223,7 @@ constraints:
       Michael: Kathryn
 
   - type: !Box {num: 9, comment: "E09 -- sold for +150,000$"}
-    check: !Nothing
+    check: !Sold
     buildTree: true
     map:
       # Mike: Casandra
@@ -247,7 +247,7 @@ constraints:
       Andre: Kathryn
 
   - type: !Box {num: 10, comment: "E10 -- sold +150,000$"}
-    check: !Nothing
+    check: !Sold
     buildTree: true
     map:
       Joey: Casandra

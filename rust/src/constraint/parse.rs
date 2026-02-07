@@ -51,11 +51,20 @@ impl Hash for ConstraintParse {
 }
 
 impl ConstraintParse {
+    pub fn known_lights(&self) -> u8 {
+        if let ConstraintType::Box{ num: _, comment: _ } = self.r#type {
+            if let CheckType::Lights(1, _) = self.check {
+                return 1
+            }
+        }
+        0
+    }
+
     pub fn has_impact(&self) -> bool {
         if self.result_unknown {
             return false;
         }
-        if let CheckType::Nothing = &self.check {
+        if let CheckType::Nothing | CheckType::Sold = &self.check {
             return false;
         }
         true
@@ -105,6 +114,7 @@ impl ConstraintParse {
         sort_constraint: bool,
         rename: (&Rename, &Rename),
         ruleset_data: Box<dyn RuleSetData>,
+        known_lights: u8,
     ) -> Result<Constraint> {
         let exclude_s = if add_exclude {
             match self.add_exclude(map_b) {
@@ -131,6 +141,7 @@ impl ConstraintParse {
             left_poss: Default::default(),
             ruleset_data,
             hide_ruleset_data: self.hide_ruleset_data,
+            known_lights,
         };
 
         c.map = c
@@ -167,7 +178,7 @@ impl ConstraintParse {
             }
             ConstraintType::Box { .. } => match &c.check {
                 CheckType::Eq => {}
-                CheckType::Nothing => {}
+                CheckType::Nothing | CheckType::Sold => {}
                 CheckType::Lights(_, _) => {
                     ensure!(
                         c.map_s.len() == 1,

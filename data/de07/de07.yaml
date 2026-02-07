@@ -1,6 +1,8 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+solved: false
+
 frontmatter:
   linkTitle: 'DE Staffel 7'
   weight: 1

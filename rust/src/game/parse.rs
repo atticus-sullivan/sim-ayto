@@ -25,9 +25,13 @@ struct QueryPair {
     map_b: Vec<String>,
 }
 
+fn mk_true() -> bool { true }
+
 // this struct is only used for parsing the yaml file
 #[derive(Deserialize, Debug)]
 pub struct GameParse {
+    #[serde(rename = "solved", default="mk_true")]
+    solved: bool,
     #[serde(rename = "constraints")]
     constraints_orig: Vec<ConstraintParse>,
     rule_set: RuleSetParse,
@@ -189,6 +193,7 @@ impl GameParse {
 
     pub fn finalize_parsing(self, stem: &Path) -> Result<Game> {
         let mut g = Game {
+            solved: self.solved,
             map_a: self.map_a,
             map_b: self.map_b,
             constraints_orig: Vec::default(),
@@ -224,7 +229,9 @@ impl GameParse {
         g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
         // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
+        let mut known_lights:u8 = 0;
         for c in self.constraints_orig {
+            let l = c.known_lights();
             g.constraints_orig.push(c.finalize_parsing(
                 &g.lut_a,
                 &g.lut_b,
@@ -234,7 +241,9 @@ impl GameParse {
                 g.rule_set.must_sort_constraint(),
                 (&self.rename_a, &self.rename_b),
                 g.rule_set.init_data()?,
+                known_lights,
             )?);
+            known_lights += l;
         }
 
         // translate the matchings that were querried for tracing

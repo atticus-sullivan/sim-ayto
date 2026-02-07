@@ -83,7 +83,7 @@ constraints:
       Tommy: Melina
 
   - type: !Box {num: 4, comment: "E08 -- verkauft?"}
-    check: !Nothing
+    check: !Sold
     map:
       Diogo: Aurelia
 
@@ -103,7 +103,7 @@ constraints:
       # Jacqueline
 
   - type: !Box {num: 5, comment: "E10 -- verkauft?"}
-    check: !Nothing
+    check: !Sold
     map:
       Tommy: Melina
 

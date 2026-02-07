@@ -32,7 +32,7 @@ impl Game {
                 .get_perms_amount(self.map_a.len(), self.map_b.len(), input_file)?;
 
         let mut is = IterState::new(
-            dump_mode.is_some(),
+            dump_mode.is_some() || self.solved,
             perm_amount,
             self.constraints_orig.clone(),
             &self.query_matchings,
@@ -250,7 +250,13 @@ impl Game {
             }
         }
 
-        self.do_statistics(is.total as f64, &constr)?;
+        let solution = if is.keep_rem {
+            Some(&is.left_poss)
+        } else {
+            None
+        };
+
+        self.do_statistics(is.total as f64, &constr, solution)?;
 
         println!(
             "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",

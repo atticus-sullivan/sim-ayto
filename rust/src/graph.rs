@@ -16,6 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+use std::fs::File;
+use std::io::BufReader;
 use std::path::Path;
 
 use anyhow::Result;
@@ -24,7 +26,7 @@ use plotly::common::{Mode, Title};
 use plotly::{Layout, Plot, Scatter};
 use walkdir::WalkDir;
 
-use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN};
+use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
 
 pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     let mut tab_lines = vec![];
@@ -62,7 +64,70 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
 
     Ok(format!(
         r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "players" >}}}} | {{{{< i18n "rulesetShort" >}}}} | {{{{< i18n "rulesetDesc" >}}}} |
-| --- | --- | --- | --- |
+| --- | --- |:---:| --- |
+{}
+    "#,
+        tab_lines.join("\n")
+    ))
+}
+
+pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
+    let mut total_counts = SumCounts{
+        blackouts: 0,
+        sold: 0,
+        sold_but_match: 0,
+        sold_but_match_active: true,
+        matches_found: 0,
+    };
+
+    let mut tab_lines = vec![];
+    for entry in WalkDir::new("./data")
+        .max_depth(1)
+        .min_depth(1)
+        .sort_by_file_name()
+        .into_iter()
+        .filter_entry(|e| {
+            e.file_name().to_str().is_some_and(filter_dirs)
+                && e.metadata().is_ok_and(|e| e.is_dir())
+        })
+        .filter_map(Result::ok)
+    {
+        let fn_param = "statSum.json";
+        if !entry.path().join(fn_param).exists() {
+            continue;
+        }
+        let file = File::open(entry.path().join(fn_param))?;
+        let reader = BufReader::new(file);
+        let summary:SumCounts = serde_json::from_reader(reader)?;
+
+        let name = entry.file_name().to_str().unwrap_or("unknown").to_owned();
+
+        tab_lines.push(format!(
+            "| {} | {} | {} | {} | {} |",
+            name,
+            summary.blackouts,
+            summary.sold,
+            summary.sold_but_match,
+            summary.matches_found,
+        ));
+        total_counts.add(&summary);
+
+    }
+    tab_lines.sort();
+
+    tab_lines.push("".to_string());
+    tab_lines.push(format!(
+        "| {} | {} | {} | {} | {} |",
+        "{{{{< i18n \"total\" >}}}}",
+        total_counts.blackouts,
+        total_counts.sold,
+        total_counts.sold_but_match,
+        total_counts.matches_found,
+    ));
+
+    Ok(format!(
+        r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "blackouts" >}}}} | {{{{< i18n "sold" >}}}} | {{{{< i18n "soldButGood" >}}}} | {{{{< i18n "matchesFound" >}}}} |
+| --- | --- | --- | --- | --- |
 {}
     "#,
         tab_lines.join("\n")
@@ -324,7 +389,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                 .iter()
                 .filter_map(|i| {
                     i.lights_total
-                        .map(|lt| lt - i.lights_known_before.unwrap_or(0))
+                        .map(|lt| lt - i.lights_known_before)
                 })
                 .collect(),
         )

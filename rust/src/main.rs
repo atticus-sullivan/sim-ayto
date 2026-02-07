@@ -134,6 +134,8 @@ fn main() {
                 graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
             let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("de")).unwrap();
 
+            let md_summary_tab = graph::summary_tab_md(|e| e.starts_with("de")).unwrap();
+
             // write the output localized for german language
             let mut html_path_local = html_path_de.clone();
             std::fs::write(&html_path_local, format!(r#"---
@@ -152,6 +154,9 @@ toc: false
 # Regeln je Staffel
 {}
 
+# Zusammenfassung
+{}
+
 # Plots
 <div class="plot-container plot-light">
 {}
@@ -168,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {{
     }});
 }});
 </script>
-"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // write the output localized for english language
             html_path_local.set_extension("en.md");
@@ -188,6 +193,9 @@ toc: false
 # Ruleset per Season
 {}
 
+# Summary
+{}
+
 # Plots
 <div class="plot-container plot-light">
 {}
@@ -204,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {{
     }});
 }});
 </script>
-"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // obtain the graphs for the us+uk seasons
             let html_content_light = graph::build_stats_graph(
@@ -219,6 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {{
             .unwrap();
             let md_ruleset_tab =
                 graph::ruleset_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
+
+            let md_summary_tab = graph::summary_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
 
             // write the output localized for german language
             html_path_local = html_path_us.clone();
@@ -239,6 +249,9 @@ toc: false
 # Regeln je Staffel
 {}
 
+# Zusammenfassung
+{}
+
 # Plots
 <div class="plot-container plot-light">
 {}
@@ -255,7 +268,7 @@ document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
 }});
 }});
 </script>
-"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // write the output localized for english language
             html_path_local.set_extension("en.md");
@@ -275,6 +288,9 @@ toc: false
 # Ruleset per Season
 {}
 
+# Summary
+{}
+
 # Plots
 <div class="plot-container plot-light">
 {}
@@ -291,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {{
     }});
 }});
 </script>
-"#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
+"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
         }
     }
 }

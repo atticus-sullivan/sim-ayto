@@ -55,7 +55,7 @@ constraints:
       Sascha: Vanessa
 
   - type: !Box {num: 2, comment: "E04 -- verkauft?"}
-    check: !Nothing
+    check: !Sold
     map:
       Germain: Victoria
 
@@ -131,7 +131,7 @@ constraints:
       Sascha: Jill
 
   - type: !Box {num: 6, comment: "E12 -- verkauft"}
-    check: !Nothing
+    check: !Sold
     map:
       Marc: Mirjam
 

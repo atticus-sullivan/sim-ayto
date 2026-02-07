@@ -5,6 +5,10 @@ tab-everything: All toegther
 tree-current: Current Tree
 tab-start: Start Distribution
 
+blackouts: "Blackouts"
+sold: "Sold"
+soldButGood: "PC sold"
+matchesFound: "PC in TB found"
 
 de-season1: "DE Season 1"
 de-season2: "DE Season 2"

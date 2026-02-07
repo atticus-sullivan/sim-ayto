@@ -91,7 +91,7 @@ constraints:
       # Antonino: Gabriela
 
   - type: !Box {num: 3, comment: "E07 -- verkauft d Jenny"}
-    check: !Nothing
+    check: !Sold
     map:
       Alex: Anastasia
       # Lars: Gabriela
@@ -133,7 +133,7 @@ constraints:
       # Kaan: Dana
 
   - type: !Box {num: 5, comment: "E11 -- verkauft d Gabriela"}
-    check: !Nothing
+    check: !Sold
     map:
       # Kaan: Tara
       Nikola: LauraM

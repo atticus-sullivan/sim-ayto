@@ -208,7 +208,7 @@ constraints:
       Ryan: Edda
 
   - type: !Box {num: 8, comment: "E17 -- verkauft"}
-    check: !Nothing
+    check: !Sold
     buildTree: true
     map:
       Eti: Maja

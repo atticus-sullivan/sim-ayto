@@ -34,7 +34,7 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 
-use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN};
+use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
 use crate::constraint::Constraint;
 use crate::ruleset::RuleSet;
 use crate::{Lut, Matching, Rem};
@@ -84,6 +84,7 @@ where
 
 #[derive(Debug)]
 pub struct Game {
+    solved: bool,
     constraints_orig: Vec<Constraint>,
     rule_set: RuleSet,
     frontmatter: serde_yaml::Value,
@@ -178,10 +179,11 @@ impl Game {
         Ok(())
     }
 
-    fn do_statistics(&self, total: f64, merged_constraints: &[Constraint]) -> Result<()> {
+    fn do_statistics(&self, total: f64, merged_constraints: &[Constraint], solutions: Option<&Vec<Matching>>) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
         let out_mn_path = self.dir.join("statMN").with_extension("csv");
         let out_info_path = self.dir.join("statInfo").with_extension("csv");
+        let out_sum_path = self.dir.join("statSum").with_extension("json");
 
         let (mut mbo, mut mno, mut info) = (
             csv::WriterBuilder::new()
@@ -200,11 +202,10 @@ impl Game {
         info.serialize(CSVEntry {
             num: 0.0,
             lights_total: None,
-            lights_known_before: None,
+            lights_known_before: 0,
             bits_left: total.log2(),
             comment: "initial".to_string(),
         })?;
-        let mut known_lights = 0;
         for i in merged_constraints.iter().map(|c| {
             c.get_stats(
                 self.rule_set
@@ -217,7 +218,7 @@ impl Game {
                     num: j.num,
                     won: j.won,
                     lights_total: j.lights_total,
-                    lights_known_before: Some(known_lights),
+                    lights_known_before: j.lights_known_before,
                     bits_gained: j.bits_gained,
                     comment: j.comment.clone(),
                 };
@@ -227,7 +228,7 @@ impl Game {
                 let j = CSVEntry {
                     num: j.num,
                     lights_total: j.lights_total,
-                    lights_known_before: Some(known_lights),
+                    lights_known_before: j.lights_known_before,
                     bits_left: j.bits_left,
                     comment: j.comment.clone(),
                 };
@@ -238,17 +239,43 @@ impl Game {
                 let j = CSVEntryMB {
                     num: j.num,
                     lights_total: j.lights_total,
-                    lights_known_before: Some(known_lights),
+                    lights_known_before: j.lights_known_before,
                     bits_gained: j.bits_gained,
                     comment: j.comment.clone(),
                 };
-                known_lights += j.lights_total.unwrap_or(0);
                 mbo.serialize(j)?
             }
         }
         mbo.flush()?;
         mno.flush()?;
         info.flush()?;
+
+        let mut cnt = SumCounts{
+            blackouts: 0,
+            sold: 0,
+            sold_but_match: 0,
+            sold_but_match_active: solutions.is_some(),
+            matches_found: 0,
+        };
+        for c in merged_constraints.iter() {
+            if c.is_blackout() {
+                cnt.blackouts += 1;
+            }
+            if c.is_sold() {
+                cnt.sold += 1;
+            }
+            if c.is_match_found() {
+                cnt.matches_found += 1;
+            }
+            if c.is_sold() && c.is_mb_hit(solutions) {
+                cnt.sold_but_match += 1;
+            }
+        }
+        let file = File::create(out_sum_path)?;
+        let mut writer = BufWriter::new(file);
+
+        serde_json::to_writer(&mut writer, &cnt)?;
+        writer.flush()?;
 
         self.summary_table(false, merged_constraints)?;
         self.summary_table(true, merged_constraints)?;

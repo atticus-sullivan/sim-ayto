@@ -93,7 +93,7 @@ constraints:
       Dustin: Zaira
 
   - type: !Box {num: 4, comment: "E08 -- verkauft"}
-    check: !Nothing
+    check: !Sold
     map:
       William: Dana
 

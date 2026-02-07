@@ -5,6 +5,10 @@ tab-everything: Alle zusammen
 tree-current: Aktuellster Baum
 tab-start: Anfangsverteilung
 
+blackouts: "Blackouts"
+sold: "Verkauft"
+soldButGood: "PMs verkauft"
+matchesFound: "PMs in MB"
 
 de-season1: "DE Staffel 1"
 de-season2: "DE Staffel 2"
