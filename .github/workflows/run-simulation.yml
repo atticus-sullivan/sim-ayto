@@ -7,7 +7,7 @@ on:
     paths:
       - 'rust/**'
       - 'data/**.yaml'
-      - 'gh-pages/**'
+      # - 'gh-pages/**'
 
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -352,6 +352,8 @@ jobs:
           HUGO_ENVIRONMENT: production
         run: |
           cd gh-pages
+          hugo config mounts
+          hugo version
           hugo \
             --gc \
             --minify \
