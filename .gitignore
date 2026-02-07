@@ -1,22 +1,16 @@
 .*
 
 *.pdf
-*.out
 *.txt
 *.png
-*.csv
-statSum.json
 *.html
 !gh-pages/layouts/*.html
 
 gh-pages/content/comparison/*md
 !gh-pages/content/comparison/index.*md
 
-*.dot
 *.xopp
 
 local_workflow.bash
 gh.bash
 *.conf
-
-data/**/*.md
