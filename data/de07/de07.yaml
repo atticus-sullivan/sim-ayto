@@ -37,9 +37,10 @@ setB:
 - Aurora
 
 constraints:
-  # - type: !Box {num: 1, comment: "E01"}
-  #   check: !Lights [0]
-  #   map:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    map:
+      Evi: Tiziana
 
   # - type: !Night {num: 1, comment: "E01"}
   #   check: !Lights [2]
