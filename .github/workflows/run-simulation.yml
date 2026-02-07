@@ -306,7 +306,7 @@ jobs:
       - commit-results
       - generate-pictures
     env:
-      HUGO_VERSION: 0.128.0
+      HUGO_VERSION: 0.155.2
     steps:
       - name: Install Hugo CLI
         run: |
