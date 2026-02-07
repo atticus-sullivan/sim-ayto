@@ -104,7 +104,15 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
 
         tab_lines.push(format!(
             "| {} | {} | {} | {} | {} |",
-            name, summary.blackouts, summary.sold, summary.sold_but_match, summary.matches_found,
+            name,
+            summary.blackouts,
+            summary.sold,
+            if summary.sold_but_match_active {
+                summary.sold_but_match.to_string()
+            } else {
+                "(0)".to_string()
+            },
+            summary.matches_found,
         ));
         total_counts.add(&summary);
     }
@@ -116,7 +124,11 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
         "{{< i18n \"total\" >}}",
         total_counts.blackouts,
         total_counts.sold,
-        total_counts.sold_but_match,
+        if total_counts.sold_but_match_active {
+            total_counts.sold_but_match.to_string()
+        } else {
+            "(0)".to_string()
+        },
         total_counts.matches_found,
     ));
 
