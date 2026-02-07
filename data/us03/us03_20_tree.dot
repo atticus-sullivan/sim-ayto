@@ -1,0 +1,22 @@
+digraph D { labelloc="b"; label="Stand: MN#10 / E10"; ranksep=0.8;
+"root/0"[label="Alec\nAmanda"]
+"root" -> "root/0";
+"root/0/1"[label="Austin\nBritni"]
+"root/0" -> "root/0/1";
+"root/0/1/7"[label="Chuck\nMelanie"]
+"root/0/1" -> "root/0/1/7";
+"root/0/1/7/2"[label="Connor\nChelsey"]
+"root/0/1/7" -> "root/0/1/7/2";
+"root/0/1/7/2/8"[label="Devin\nRashida"]
+"root/0/1/7/2" -> "root/0/1/7/2/8";
+"root/0/1/7/2/8/4"[label="Hunter\nHannah"]
+"root/0/1/7/2/8" -> "root/0/1/7/2/8/4";
+"root/0/1/7/2/8/4/6"[label="Mike\nKiki"]
+"root/0/1/7/2/8/4" -> "root/0/1/7/2/8/4/6";
+"root/0/1/7/2/8/4/6/9"[label="Nelson\nStacey"]
+"root/0/1/7/2/8/4/6" -> "root/0/1/7/2/8/4/6/9";
+"root/0/1/7/2/8/4/6/9/3"[label="Tyler\nCheyenne"]
+"root/0/1/7/2/8/4/6/9" -> "root/0/1/7/2/8/4/6/9/3";
+"root/0/1/7/2/8/4/6/9/3/5"[label="Zak\nKayla"]
+"root/0/1/7/2/8/4/6/9/3" -> "root/0/1/7/2/8/4/6/9/3/5";
+}

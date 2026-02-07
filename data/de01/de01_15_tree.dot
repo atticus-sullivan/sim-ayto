@@ -1,0 +1,90 @@
+digraph D { labelloc="b"; label="Stand: MB#8 / E16"; ranksep=0.8;
+"root/8"[label="Aline\nMo"]
+"root" -> "root/8";
+"root/8/2"[label="Ivana\nDominic"]
+"root/8" -> "root/8/2";
+"root/8/2/7"[label="Melissa\nLaurin"]
+"root/8/2" -> "root/8/2/7";
+"root/8/2/7/9"[label="Michelle\nRene"]
+"root/8/2/7" -> "root/8/2/7/9";
+"root/8/2/7/9/0"[label="Laura\nAleks"]
+"root/8/2/7/9" -> "root/8/2/7/9/0";
+"root/8/2/7/9/0/6,10"[label="Kathi\nKevin\nEdin"]
+"root/8/2/7/9/0" -> "root/8/2/7/9/0/6,10";
+"root/8/2/7/9/0/6,10/1"[label="Luisa\nAxel"]
+"root/8/2/7/9/0/6,10" -> "root/8/2/7/9/0/6,10/1";
+"root/8/2/7/9/0/6,10/1/5"[label="Madleine\nJuliano"]
+"root/8/2/7/9/0/6,10/1" -> "root/8/2/7/9/0/6,10/1/5";
+"root/8/2/7/9/0/6,10/1/5/4"[label="Nadine\nFerhat"]
+"root/8/2/7/9/0/6,10/1/5" -> "root/8/2/7/9/0/6,10/1/5/4";
+"root/8/2/7/9/0/6,10/1/5/4/3"[label="Sabrina\nElisha"]
+"root/8/2/7/9/0/6,10/1/5/4" -> "root/8/2/7/9/0/6,10/1/5/4/3";
+"root/8/2/7/9/0/6"[label="Kathi\nKevin"]
+"root/8/2/7/9/0" -> "root/8/2/7/9/0/6";
+"root/8/2/7/9/0/6/1,10"[label="Luisa\nAxel\nEdin"]
+"root/8/2/7/9/0/6" -> "root/8/2/7/9/0/6/1,10";
+"root/8/2/7/9/0/6/1,10/5"[label="Madleine\nJuliano"]
+"root/8/2/7/9/0/6/1,10" -> "root/8/2/7/9/0/6/1,10/5";
+"root/8/2/7/9/0/6/1,10/5/4"[label="Nadine\nFerhat"]
+"root/8/2/7/9/0/6/1,10/5" -> "root/8/2/7/9/0/6/1,10/5/4";
+"root/8/2/7/9/0/6/1,10/5/4/3"[label="Sabrina\nElisha"]
+"root/8/2/7/9/0/6/1,10/5/4" -> "root/8/2/7/9/0/6/1,10/5/4/3";
+"root/8/2/7/9/0/6/1"[label="Luisa\nAxel"]
+"root/8/2/7/9/0/6" -> "root/8/2/7/9/0/6/1";
+"root/8/2/7/9/0/6/1/5,10"[label="Madleine\nJuliano\nEdin"]
+"root/8/2/7/9/0/6/1" -> "root/8/2/7/9/0/6/1/5,10";
+"root/8/2/7/9/0/6/1/5,10/4"[label="Nadine\nFerhat"]
+"root/8/2/7/9/0/6/1/5,10" -> "root/8/2/7/9/0/6/1/5,10/4";
+"root/8/2/7/9/0/6/1/5,10/4/3"[label="Sabrina\nElisha"]
+"root/8/2/7/9/0/6/1/5,10/4" -> "root/8/2/7/9/0/6/1/5,10/4/3";
+"root/8/2/7/9/0/6/1/5"[label="Madleine\nJuliano"]
+"root/8/2/7/9/0/6/1" -> "root/8/2/7/9/0/6/1/5";
+"root/8/2/7/9/0/6/1/5/4,10"[label="Nadine\nFerhat\nEdin"]
+"root/8/2/7/9/0/6/1/5" -> "root/8/2/7/9/0/6/1/5/4,10";
+"root/8/2/7/9/0/6/1/5/4,10/3"[label="Sabrina\nElisha"]
+"root/8/2/7/9/0/6/1/5/4,10" -> "root/8/2/7/9/0/6/1/5/4,10/3";
+"root/8/2/7/9/0/6/1/5/4"[label="Nadine\nFerhat"]
+"root/8/2/7/9/0/6/1/5" -> "root/8/2/7/9/0/6/1/5/4";
+"root/8/2/7/9/0/6/1/5/4/3,10"[label="Sabrina\nElisha\nEdin"]
+"root/8/2/7/9/0/6/1/5/4" -> "root/8/2/7/9/0/6/1/5/4/3,10";
+"root/8/2/7/9/5"[label="Laura\nJuliano"]
+"root/8/2/7/9" -> "root/8/2/7/9/5";
+"root/8/2/7/9/5/1,10"[label="Kathi\nAxel\nEdin"]
+"root/8/2/7/9/5" -> "root/8/2/7/9/5/1,10";
+"root/8/2/7/9/5/1,10/6"[label="Luisa\nKevin"]
+"root/8/2/7/9/5/1,10" -> "root/8/2/7/9/5/1,10/6";
+"root/8/2/7/9/5/1,10/6/0"[label="Madleine\nAleks"]
+"root/8/2/7/9/5/1,10/6" -> "root/8/2/7/9/5/1,10/6/0";
+"root/8/2/7/9/5/1,10/6/0/3"[label="Nadine\nElisha"]
+"root/8/2/7/9/5/1,10/6/0" -> "root/8/2/7/9/5/1,10/6/0/3";
+"root/8/2/7/9/5/1,10/6/0/3/4"[label="Sabrina\nFerhat"]
+"root/8/2/7/9/5/1,10/6/0/3" -> "root/8/2/7/9/5/1,10/6/0/3/4";
+"root/8/2/7/9/5/1"[label="Kathi\nAxel"]
+"root/8/2/7/9/5" -> "root/8/2/7/9/5/1";
+"root/8/2/7/9/5/1/6,10"[label="Luisa\nKevin\nEdin"]
+"root/8/2/7/9/5/1" -> "root/8/2/7/9/5/1/6,10";
+"root/8/2/7/9/5/1/6,10/0"[label="Madleine\nAleks"]
+"root/8/2/7/9/5/1/6,10" -> "root/8/2/7/9/5/1/6,10/0";
+"root/8/2/7/9/5/1/6,10/0/3"[label="Nadine\nElisha"]
+"root/8/2/7/9/5/1/6,10/0" -> "root/8/2/7/9/5/1/6,10/0/3";
+"root/8/2/7/9/5/1/6,10/0/3/4"[label="Sabrina\nFerhat"]
+"root/8/2/7/9/5/1/6,10/0/3" -> "root/8/2/7/9/5/1/6,10/0/3/4";
+"root/8/2/7/9/5/1/6"[label="Luisa\nKevin"]
+"root/8/2/7/9/5/1" -> "root/8/2/7/9/5/1/6";
+"root/8/2/7/9/5/1/6/0,10"[label="Madleine\nAleks\nEdin"]
+"root/8/2/7/9/5/1/6" -> "root/8/2/7/9/5/1/6/0,10";
+"root/8/2/7/9/5/1/6/0,10/3"[label="Nadine\nElisha"]
+"root/8/2/7/9/5/1/6/0,10" -> "root/8/2/7/9/5/1/6/0,10/3";
+"root/8/2/7/9/5/1/6/0,10/3/4"[label="Sabrina\nFerhat"]
+"root/8/2/7/9/5/1/6/0,10/3" -> "root/8/2/7/9/5/1/6/0,10/3/4";
+"root/8/2/7/9/5/1/6/0"[label="Madleine\nAleks"]
+"root/8/2/7/9/5/1/6" -> "root/8/2/7/9/5/1/6/0";
+"root/8/2/7/9/5/1/6/0/3,10"[label="Nadine\nElisha\nEdin"]
+"root/8/2/7/9/5/1/6/0" -> "root/8/2/7/9/5/1/6/0/3,10";
+"root/8/2/7/9/5/1/6/0/3,10/4"[label="Sabrina\nFerhat"]
+"root/8/2/7/9/5/1/6/0/3,10" -> "root/8/2/7/9/5/1/6/0/3,10/4";
+"root/8/2/7/9/5/1/6/0/3"[label="Nadine\nElisha"]
+"root/8/2/7/9/5/1/6/0" -> "root/8/2/7/9/5/1/6/0/3";
+"root/8/2/7/9/5/1/6/0/3/4,10"[label="Sabrina\nFerhat\nEdin"]
+"root/8/2/7/9/5/1/6/0/3" -> "root/8/2/7/9/5/1/6/0/3/4,10";
+}

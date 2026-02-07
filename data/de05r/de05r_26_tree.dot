@@ -1,0 +1,22 @@
+digraph D { labelloc="b"; label="Stand: MN#11.2 / E22 (Wiedersehen-2)"; ranksep=0.8;
+"root/10"[label="Antonia\nLeandro"]
+"root" -> "root/10";
+"root/10/0"[label="Ariel\nCalvinBlond"]
+"root/10" -> "root/10/0";
+"root/10/0/5,11"[label="Beverly\nNico\nJimiBlue"]
+"root/10/0" -> "root/10/0/5,11";
+"root/10/0/5,11/9"[label="Elli\nXander"]
+"root/10/0/5,11" -> "root/10/0/5,11/9";
+"root/10/0/5,11/9/8"[label="Hati\nSidar"]
+"root/10/0/5,11/9" -> "root/10/0/5,11/9/8";
+"root/10/0/5,11/9/8/6"[label="Henna\nOlli"]
+"root/10/0/5,11/9/8" -> "root/10/0/5,11/9/8/6";
+"root/10/0/5,11/9/8/6/2,7"[label="Joanna\nJonny\nRob"]
+"root/10/0/5,11/9/8/6" -> "root/10/0/5,11/9/8/6/2,7";
+"root/10/0/5,11/9/8/6/2,7/1"[label="Nelly\nCalvinHot"]
+"root/10/0/5,11/9/8/6/2,7" -> "root/10/0/5,11/9/8/6/2,7/1";
+"root/10/0/5,11/9/8/6/2,7/1/4"[label="Sandra\nLennert"]
+"root/10/0/5,11/9/8/6/2,7/1" -> "root/10/0/5,11/9/8/6/2,7/1/4";
+"root/10/0/5,11/9/8/6/2,7/1/4/3"[label="Viki\nKevin"]
+"root/10/0/5,11/9/8/6/2,7/1/4" -> "root/10/0/5,11/9/8/6/2,7/1/4/3";
+}

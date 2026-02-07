@@ -1,0 +1,32 @@
+digraph D { labelloc="b"; label="Stand: MN#8 / E09"; ranksep=0.8;
+"root/0"[label="Anissa\nAquel"]
+"root" -> "root/0";
+"root/0/8"[label="Brooke\nOllie"]
+"root/0" -> "root/0/8";
+"root/0/8/3"[label="Courtney\nEduardo"]
+"root/0/8" -> "root/0/8/3";
+"root/0/8/3/4"[label="Danielle\nHamudi"]
+"root/0/8/3" -> "root/0/8/3/4";
+"root/0/8/3/4/1"[label="JuliaRuth\nBrendan"]
+"root/0/8/3/4" -> "root/0/8/3/4/1";
+"root/0/8/3/4/1/9"[label="Mijntje\nSamuel"]
+"root/0/8/3/4/1" -> "root/0/8/3/4/1/9";
+"root/0/8/3/4/1/9/2"[label="Taylor\nClay"]
+"root/0/8/3/4/1/9" -> "root/0/8/3/4/1/9/2";
+"root/0/8/3/4/1/9/2/7"[label="CC\nNathan"]
+"root/0/8/3/4/1/9/2" -> "root/0/8/3/4/1/9/2/7";
+"root/0/8/3/4/1/9/2/7/10"[label="Dew\nWill"]
+"root/0/8/3/4/1/9/2/7" -> "root/0/8/3/4/1/9/2/7/10";
+"root/0/8/3/4/1/9/2/7/10/6"[label="Jordanne\nMikey"]
+"root/0/8/3/4/1/9/2/7/10" -> "root/0/8/3/4/1/9/2/7/10/6";
+"root/0/8/3/4/1/9/2/7/10/6/5"[label="Roz\nLeo"]
+"root/0/8/3/4/1/9/2/7/10/6" -> "root/0/8/3/4/1/9/2/7/10/6/5";
+"root/0/8/3/4/1/9/2/5"[label="CC\nLeo"]
+"root/0/8/3/4/1/9/2" -> "root/0/8/3/4/1/9/2/5";
+"root/0/8/3/4/1/9/2/5/6"[label="Dew\nMikey"]
+"root/0/8/3/4/1/9/2/5" -> "root/0/8/3/4/1/9/2/5/6";
+"root/0/8/3/4/1/9/2/5/6/7"[label="Jordanne\nNathan"]
+"root/0/8/3/4/1/9/2/5/6" -> "root/0/8/3/4/1/9/2/5/6/7";
+"root/0/8/3/4/1/9/2/5/6/7/10"[label="Roz\nWill"]
+"root/0/8/3/4/1/9/2/5/6/7" -> "root/0/8/3/4/1/9/2/5/6/7/10";
+}

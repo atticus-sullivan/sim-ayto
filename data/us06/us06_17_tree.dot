@@ -1,0 +1,24 @@
+digraph D { labelloc="b"; label="Stand: MB#9 / E11"; ranksep=0.8;
+"root/0"[label="Anthony\nAlexis"]
+"root" -> "root/0";
+"root/0/4"[label="Clinton\nGeles"]
+"root/0" -> "root/0/4";
+"root/0/4/8"[label="Dimitri\nNurys"]
+"root/0/4" -> "root/0/4/8";
+"root/0/4/8/10"[label="Ethan\nZoe"]
+"root/0/4/8" -> "root/0/4/8/10";
+"root/0/4/8/10/9"[label="Joe\nUche"]
+"root/0/4/8/10" -> "root/0/4/8/10/9";
+"root/0/4/8/10/9/3"[label="Kareem\nDiandra"]
+"root/0/4/8/10/9" -> "root/0/4/8/10/9/3";
+"root/0/4/8/10/9/3/5"[label="Keith\nJada"]
+"root/0/4/8/10/9/3" -> "root/0/4/8/10/9/3/5";
+"root/0/4/8/10/9/3/5/1"[label="Malcolm\nAlivia"]
+"root/0/4/8/10/9/3/5" -> "root/0/4/8/10/9/3/5/1";
+"root/0/4/8/10/9/3/5/1/6"[label="Michael\nKeyana"]
+"root/0/4/8/10/9/3/5/1" -> "root/0/4/8/10/9/3/5/1/6";
+"root/0/4/8/10/9/3/5/1/6/2"[label="Shad\nAudrey"]
+"root/0/4/8/10/9/3/5/1/6" -> "root/0/4/8/10/9/3/5/1/6/2";
+"root/0/4/8/10/9/3/5/1/6/2/7"[label="Tyler\nNicole"]
+"root/0/4/8/10/9/3/5/1/6/2" -> "root/0/4/8/10/9/3/5/1/6/2/7";
+}

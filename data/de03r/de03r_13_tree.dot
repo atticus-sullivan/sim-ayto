@@ -1,0 +1,162 @@
+digraph D { labelloc="b"; label="Stand: MB#7 / E15"; ranksep=0.8;
+"root/0"[label="Darya\nDanilo"]
+"root" -> "root/0";
+"root/0/4"[label="Jenny\nMarvin"]
+"root/0" -> "root/0/4";
+"root/0/4/2"[label="Sabrina\nEmanuell"]
+"root/0/4" -> "root/0/4/2";
+"root/0/4/2/6"[label="Alicia\nPaco"]
+"root/0/4/2" -> "root/0/4/2/6";
+"root/0/4/2/6/9"[label="Steffi\nTeezy"]
+"root/0/4/2/6" -> "root/0/4/2/6/9";
+"root/0/4/2/6/9/5"[label="Sandra\nMike"]
+"root/0/4/2/6/9" -> "root/0/4/2/6/9/5";
+"root/0/4/2/6/9/5/7,10"[label="Kim\nPeter\nMax"]
+"root/0/4/2/6/9/5" -> "root/0/4/2/6/9/5/7,10";
+"root/0/4/2/6/9/5/7,10/1"[label="Marie\nElia"]
+"root/0/4/2/6/9/5/7,10" -> "root/0/4/2/6/9/5/7,10/1";
+"root/0/4/2/6/9/5/7,10/1/3"[label="Paulina\nFabio"]
+"root/0/4/2/6/9/5/7,10/1" -> "root/0/4/2/6/9/5/7,10/1/3";
+"root/0/4/2/6/9/5/7,10/1/3/8"[label="Shakira\nSteffen"]
+"root/0/4/2/6/9/5/7,10/1/3" -> "root/0/4/2/6/9/5/7,10/1/3/8";
+"root/0/4/2/6/9/5/3"[label="Kim\nFabio"]
+"root/0/4/2/6/9/5" -> "root/0/4/2/6/9/5/3";
+"root/0/4/2/6/9/5/3/1"[label="Marie\nElia"]
+"root/0/4/2/6/9/5/3" -> "root/0/4/2/6/9/5/3/1";
+"root/0/4/2/6/9/5/3/1/7,10"[label="Paulina\nPeter\nMax"]
+"root/0/4/2/6/9/5/3/1" -> "root/0/4/2/6/9/5/3/1/7,10";
+"root/0/4/2/6/9/5/3/1/7,10/8"[label="Shakira\nSteffen"]
+"root/0/4/2/6/9/5/3/1/7,10" -> "root/0/4/2/6/9/5/3/1/7,10/8";
+"root/0/4/2/6/9/3"[label="Sandra\nFabio"]
+"root/0/4/2/6/9" -> "root/0/4/2/6/9/3";
+"root/0/4/2/6/9/3/8"[label="Kim\nSteffen"]
+"root/0/4/2/6/9/3" -> "root/0/4/2/6/9/3/8";
+"root/0/4/2/6/9/3/8/1"[label="Marie\nElia"]
+"root/0/4/2/6/9/3/8" -> "root/0/4/2/6/9/3/8/1";
+"root/0/4/2/6/9/3/8/1/7,10"[label="Paulina\nPeter\nMax"]
+"root/0/4/2/6/9/3/8/1" -> "root/0/4/2/6/9/3/8/1/7,10";
+"root/0/4/2/6/9/3/8/1/7,10/5"[label="Shakira\nMike"]
+"root/0/4/2/6/9/3/8/1/7,10" -> "root/0/4/2/6/9/3/8/1/7,10/5";
+"root/0/4/2/6/9/5/1"[label="Kim\nElia"]
+"root/0/4/2/6/9/5" -> "root/0/4/2/6/9/5/1";
+"root/0/4/2/6/9/5/1/8"[label="Marie\nSteffen"]
+"root/0/4/2/6/9/5/1" -> "root/0/4/2/6/9/5/1/8";
+"root/0/4/2/6/9/5/1/8/7,10"[label="Paulina\nPeter\nMax"]
+"root/0/4/2/6/9/5/1/8" -> "root/0/4/2/6/9/5/1/8/7,10";
+"root/0/4/2/6/9/5/1/8/7,10/3"[label="Shakira\nFabio"]
+"root/0/4/2/6/9/5/1/8/7,10" -> "root/0/4/2/6/9/5/1/8/7,10/3";
+"root/0/4/2/6/9/5/7,10/8"[label="Marie\nSteffen"]
+"root/0/4/2/6/9/5/7,10" -> "root/0/4/2/6/9/5/7,10/8";
+"root/0/4/2/6/9/5/7,10/8/1"[label="Paulina\nElia"]
+"root/0/4/2/6/9/5/7,10/8" -> "root/0/4/2/6/9/5/7,10/8/1";
+"root/0/4/2/6/9/5/7,10/8/1/3"[label="Shakira\nFabio"]
+"root/0/4/2/6/9/5/7,10/8/1" -> "root/0/4/2/6/9/5/7,10/8/1/3";
+"root/0/4/2/5"[label="Alicia\nMike"]
+"root/0/4/2" -> "root/0/4/2/5";
+"root/0/4/2/5/9"[label="Steffi\nTeezy"]
+"root/0/4/2/5" -> "root/0/4/2/5/9";
+"root/0/4/2/5/9/8"[label="Sandra\nSteffen"]
+"root/0/4/2/5/9" -> "root/0/4/2/5/9/8";
+"root/0/4/2/5/9/8/1"[label="Kim\nElia"]
+"root/0/4/2/5/9/8" -> "root/0/4/2/5/9/8/1";
+"root/0/4/2/5/9/8/1/7,10"[label="Marie\nPeter\nMax"]
+"root/0/4/2/5/9/8/1" -> "root/0/4/2/5/9/8/1/7,10";
+"root/0/4/2/5/9/8/1/7,10/6"[label="Paulina\nPaco"]
+"root/0/4/2/5/9/8/1/7,10" -> "root/0/4/2/5/9/8/1/7,10/6";
+"root/0/4/2/5/9/8/1/7,10/6/3"[label="Shakira\nFabio"]
+"root/0/4/2/5/9/8/1/7,10/6" -> "root/0/4/2/5/9/8/1/7,10/6/3";
+"root/0/4/6"[label="Sabrina\nPaco"]
+"root/0/4" -> "root/0/4/6";
+"root/0/4/6/7,10"[label="Alicia\nPeter\nMax"]
+"root/0/4/6" -> "root/0/4/6/7,10";
+"root/0/4/6/7,10/9"[label="Steffi\nTeezy"]
+"root/0/4/6/7,10" -> "root/0/4/6/7,10/9";
+"root/0/4/6/7,10/9/8"[label="Sandra\nSteffen"]
+"root/0/4/6/7,10/9" -> "root/0/4/6/7,10/9/8";
+"root/0/4/6/7,10/9/8/3"[label="Kim\nFabio"]
+"root/0/4/6/7,10/9/8" -> "root/0/4/6/7,10/9/8/3";
+"root/0/4/6/7,10/9/8/3/2"[label="Marie\nEmanuell"]
+"root/0/4/6/7,10/9/8/3" -> "root/0/4/6/7,10/9/8/3/2";
+"root/0/4/6/7,10/9/8/3/2/5"[label="Paulina\nMike"]
+"root/0/4/6/7,10/9/8/3/2" -> "root/0/4/6/7,10/9/8/3/2/5";
+"root/0/4/6/7,10/9/8/3/2/5/1"[label="Shakira\nElia"]
+"root/0/4/6/7,10/9/8/3/2/5" -> "root/0/4/6/7,10/9/8/3/2/5/1";
+"root/0/6"[label="Jenny\nPaco"]
+"root/0" -> "root/0/6";
+"root/0/6/5"[label="Sabrina\nMike"]
+"root/0/6" -> "root/0/6/5";
+"root/0/6/5/1"[label="Alicia\nElia"]
+"root/0/6/5" -> "root/0/6/5/1";
+"root/0/6/5/1/2"[label="Steffi\nEmanuell"]
+"root/0/6/5/1" -> "root/0/6/5/1/2";
+"root/0/6/5/1/2/8"[label="Sandra\nSteffen"]
+"root/0/6/5/1/2" -> "root/0/6/5/1/2/8";
+"root/0/6/5/1/2/8/9"[label="Kim\nTeezy"]
+"root/0/6/5/1/2/8" -> "root/0/6/5/1/2/8/9";
+"root/0/6/5/1/2/8/9/3"[label="Marie\nFabio"]
+"root/0/6/5/1/2/8/9" -> "root/0/6/5/1/2/8/9/3";
+"root/0/6/5/1/2/8/9/3/7,10"[label="Paulina\nPeter\nMax"]
+"root/0/6/5/1/2/8/9/3" -> "root/0/6/5/1/2/8/9/3/7,10";
+"root/0/6/5/1/2/8/9/3/7,10/4"[label="Shakira\nMarvin"]
+"root/0/6/5/1/2/8/9/3/7,10" -> "root/0/6/5/1/2/8/9/3/7,10/4";
+"root/0/4/5"[label="Sabrina\nMike"]
+"root/0/4" -> "root/0/4/5";
+"root/0/4/5/7,10"[label="Alicia\nPeter\nMax"]
+"root/0/4/5" -> "root/0/4/5/7,10";
+"root/0/4/5/7,10/2"[label="Steffi\nEmanuell"]
+"root/0/4/5/7,10" -> "root/0/4/5/7,10/2";
+"root/0/4/5/7,10/2/9"[label="Sandra\nTeezy"]
+"root/0/4/5/7,10/2" -> "root/0/4/5/7,10/2/9";
+"root/0/4/5/7,10/2/9/3"[label="Kim\nFabio"]
+"root/0/4/5/7,10/2/9" -> "root/0/4/5/7,10/2/9/3";
+"root/0/4/5/7,10/2/9/3/1"[label="Marie\nElia"]
+"root/0/4/5/7,10/2/9/3" -> "root/0/4/5/7,10/2/9/3/1";
+"root/0/4/5/7,10/2/9/3/1/8"[label="Paulina\nSteffen"]
+"root/0/4/5/7,10/2/9/3/1" -> "root/0/4/5/7,10/2/9/3/1/8";
+"root/0/4/5/7,10/2/9/3/1/8/6"[label="Shakira\nPaco"]
+"root/0/4/5/7,10/2/9/3/1/8" -> "root/0/4/5/7,10/2/9/3/1/8/6";
+"root/0/4/2/7,10"[label="Alicia\nPeter\nMax"]
+"root/0/4/2" -> "root/0/4/2/7,10";
+"root/0/4/2/7,10/3"[label="Steffi\nFabio"]
+"root/0/4/2/7,10" -> "root/0/4/2/7,10/3";
+"root/0/4/2/7,10/3/8"[label="Sandra\nSteffen"]
+"root/0/4/2/7,10/3" -> "root/0/4/2/7,10/3/8";
+"root/0/4/2/7,10/3/8/6"[label="Kim\nPaco"]
+"root/0/4/2/7,10/3/8" -> "root/0/4/2/7,10/3/8/6";
+"root/0/4/2/7,10/3/8/6/1"[label="Marie\nElia"]
+"root/0/4/2/7,10/3/8/6" -> "root/0/4/2/7,10/3/8/6/1";
+"root/0/4/2/7,10/3/8/6/1/9"[label="Paulina\nTeezy"]
+"root/0/4/2/7,10/3/8/6/1" -> "root/0/4/2/7,10/3/8/6/1/9";
+"root/0/4/2/7,10/3/8/6/1/9/5"[label="Shakira\nMike"]
+"root/0/4/2/7,10/3/8/6/1/9" -> "root/0/4/2/7,10/3/8/6/1/9/5";
+"root/0/4/2/7,10/5"[label="Steffi\nMike"]
+"root/0/4/2/7,10" -> "root/0/4/2/7,10/5";
+"root/0/4/2/7,10/5/8"[label="Sandra\nSteffen"]
+"root/0/4/2/7,10/5" -> "root/0/4/2/7,10/5/8";
+"root/0/4/2/7,10/5/8/6"[label="Kim\nPaco"]
+"root/0/4/2/7,10/5/8" -> "root/0/4/2/7,10/5/8/6";
+"root/0/4/2/7,10/5/8/6/1"[label="Marie\nElia"]
+"root/0/4/2/7,10/5/8/6" -> "root/0/4/2/7,10/5/8/6/1";
+"root/0/4/2/7,10/5/8/6/1/3"[label="Paulina\nFabio"]
+"root/0/4/2/7,10/5/8/6/1" -> "root/0/4/2/7,10/5/8/6/1/3";
+"root/0/4/2/7,10/5/8/6/1/3/9"[label="Shakira\nTeezy"]
+"root/0/4/2/7,10/5/8/6/1/3" -> "root/0/4/2/7,10/5/8/6/1/3/9";
+"root/0/4/2/7,10/5/8/6/9"[label="Marie\nTeezy"]
+"root/0/4/2/7,10/5/8/6" -> "root/0/4/2/7,10/5/8/6/9";
+"root/0/4/2/7,10/5/8/6/9/1"[label="Paulina\nElia"]
+"root/0/4/2/7,10/5/8/6/9" -> "root/0/4/2/7,10/5/8/6/9/1";
+"root/0/4/2/7,10/5/8/6/9/1/3"[label="Shakira\nFabio"]
+"root/0/4/2/7,10/5/8/6/9/1" -> "root/0/4/2/7,10/5/8/6/9/1/3";
+"root/0/4/2/6/5"[label="Steffi\nMike"]
+"root/0/4/2/6" -> "root/0/4/2/6/5";
+"root/0/4/2/6/5/1"[label="Sandra\nElia"]
+"root/0/4/2/6/5" -> "root/0/4/2/6/5/1";
+"root/0/4/2/6/5/1/7,10"[label="Kim\nPeter\nMax"]
+"root/0/4/2/6/5/1" -> "root/0/4/2/6/5/1/7,10";
+"root/0/4/2/6/5/1/7,10/9"[label="Marie\nTeezy"]
+"root/0/4/2/6/5/1/7,10" -> "root/0/4/2/6/5/1/7,10/9";
+"root/0/4/2/6/5/1/7,10/9/8"[label="Paulina\nSteffen"]
+"root/0/4/2/6/5/1/7,10/9" -> "root/0/4/2/6/5/1/7,10/9/8";
+"root/0/4/2/6/5/1/7,10/9/8/3"[label="Shakira\nFabio"]
+"root/0/4/2/6/5/1/7,10/9/8" -> "root/0/4/2/6/5/1/7,10/9/8/3";
+}

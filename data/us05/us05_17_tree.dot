@@ -1,0 +1,54 @@
+digraph D { labelloc="b"; label="Stand: MB#9 / E09 -- sold for +150,000$"; ranksep=0.8;
+"root/5"[label="Edward\nKam"]
+"root" -> "root/5";
+"root/5/1"[label="Hayden\nCarolina"]
+"root/5" -> "root/5/1";
+"root/5/1/6"[label="Michael\nKari"]
+"root/5/1" -> "root/5/1/6";
+"root/5/1/6/0"[label="Mike\nAlicia"]
+"root/5/1/6" -> "root/5/1/6/0";
+"root/5/1/6/0/3"[label="Ozzy\nGianna"]
+"root/5/1/6/0" -> "root/5/1/6/0/3";
+"root/5/1/6/0/3/2"[label="Andre\nCasandra"]
+"root/5/1/6/0/3" -> "root/5/1/6/0/3/2";
+"root/5/1/6/0/3/2/8"[label="Derrick\nShannon"]
+"root/5/1/6/0/3/2" -> "root/5/1/6/0/3/2/8";
+"root/5/1/6/0/3/2/8/7"[label="Jaylan\nKathryn"]
+"root/5/1/6/0/3/2/8" -> "root/5/1/6/0/3/2/8/7";
+"root/5/1/6/0/3/2/8/7/9"[label="Osvaldo\nTaylor"]
+"root/5/1/6/0/3/2/8/7" -> "root/5/1/6/0/3/2/8/7/9";
+"root/5/1/6/0/3/2/8/7/9/4"[label="Tyler\nHannah"]
+"root/5/1/6/0/3/2/8/7/9" -> "root/5/1/6/0/3/2/8/7/9/4";
+"root/5/1/6/0/3/2/8/7/9/4/10"[label="Joey\nTyranny"]
+"root/5/1/6/0/3/2/8/7/9/4" -> "root/5/1/6/0/3/2/8/7/9/4/10";
+"root/5/1/6/0/3/7"[label="Andre\nKathryn"]
+"root/5/1/6/0/3" -> "root/5/1/6/0/3/7";
+"root/5/1/6/0/3/7/2"[label="Derrick\nCasandra"]
+"root/5/1/6/0/3/7" -> "root/5/1/6/0/3/7/2";
+"root/5/1/6/0/3/7/2/10"[label="Jaylan\nTyranny"]
+"root/5/1/6/0/3/7/2" -> "root/5/1/6/0/3/7/2/10";
+"root/5/1/6/0/3/7/2/10/9"[label="Osvaldo\nTaylor"]
+"root/5/1/6/0/3/7/2/10" -> "root/5/1/6/0/3/7/2/10/9";
+"root/5/1/6/0/3/7/2/10/9/4"[label="Tyler\nHannah"]
+"root/5/1/6/0/3/7/2/10/9" -> "root/5/1/6/0/3/7/2/10/9/4";
+"root/5/1/6/0/3/7/2/10/9/4/8"[label="Joey\nShannon"]
+"root/5/1/6/0/3/7/2/10/9/4" -> "root/5/1/6/0/3/7/2/10/9/4/8";
+"root/5/1/6/0/3/2/8/10"[label="Jaylan\nTyranny"]
+"root/5/1/6/0/3/2/8" -> "root/5/1/6/0/3/2/8/10";
+"root/5/1/6/0/3/2/8/10/7"[label="Osvaldo\nKathryn"]
+"root/5/1/6/0/3/2/8/10" -> "root/5/1/6/0/3/2/8/10/7";
+"root/5/1/6/0/3/2/8/10/7/4"[label="Tyler\nHannah"]
+"root/5/1/6/0/3/2/8/10/7" -> "root/5/1/6/0/3/2/8/10/7/4";
+"root/5/1/6/0/3/2/8/10/7/4/9"[label="Joey\nTaylor"]
+"root/5/1/6/0/3/2/8/10/7/4" -> "root/5/1/6/0/3/2/8/10/7/4/9";
+"root/5/1/6/0/3/7/8"[label="Derrick\nShannon"]
+"root/5/1/6/0/3/7" -> "root/5/1/6/0/3/7/8";
+"root/5/1/6/0/3/7/8/10"[label="Jaylan\nTyranny"]
+"root/5/1/6/0/3/7/8" -> "root/5/1/6/0/3/7/8/10";
+"root/5/1/6/0/3/7/8/10/9"[label="Osvaldo\nTaylor"]
+"root/5/1/6/0/3/7/8/10" -> "root/5/1/6/0/3/7/8/10/9";
+"root/5/1/6/0/3/7/8/10/9/2"[label="Tyler\nCasandra"]
+"root/5/1/6/0/3/7/8/10/9" -> "root/5/1/6/0/3/7/8/10/9/2";
+"root/5/1/6/0/3/7/8/10/9/2/4"[label="Joey\nHannah"]
+"root/5/1/6/0/3/7/8/10/9/2" -> "root/5/1/6/0/3/7/8/10/9/2/4";
+}

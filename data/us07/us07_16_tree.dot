@@ -1,0 +1,470 @@
+digraph D { labelloc="b"; label="Stand: MN#8 / E12"; ranksep=0.8;
+"root/8"[label="Kenya\nTevin"]
+"root" -> "root/8";
+"root/8/7"[label="Maria\nShamoy"]
+"root/8" -> "root/8/7";
+"root/8/7/1"[label="Nutsa\nBrett"]
+"root/8/7" -> "root/8/7/1";
+"root/8/7/1/2"[label="Asia\nCam"]
+"root/8/7/1" -> "root/8/7/1/2";
+"root/8/7/1/2/0"[label="Cali\nAndrew"]
+"root/8/7/1/2" -> "root/8/7/1/2/0";
+"root/8/7/1/2/0/4"[label="Kayla\nKwasi"]
+"root/8/7/1/2/0" -> "root/8/7/1/2/0/4";
+"root/8/7/1/2/0/4/5"[label="Lauren\nLewis"]
+"root/8/7/1/2/0/4" -> "root/8/7/1/2/0/4/5";
+"root/8/7/1/2/0/4/5/6"[label="Bria\nMoe"]
+"root/8/7/1/2/0/4/5" -> "root/8/7/1/2/0/4/5/6";
+"root/8/7/1/2/0/4/5/6/10"[label="Jasmine\nZak"]
+"root/8/7/1/2/0/4/5/6" -> "root/8/7/1/2/0/4/5/6/10";
+"root/8/7/1/2/0/4/5/6/10/9"[label="Morgan\nTomas"]
+"root/8/7/1/2/0/4/5/6/10" -> "root/8/7/1/2/0/4/5/6/10/9";
+"root/8/7/1/2/0/4/5/6/10/9/3"[label="Samantha\nDaniel"]
+"root/8/7/1/2/0/4/5/6/10/9" -> "root/8/7/1/2/0/4/5/6/10/9/3";
+"root/8/7/1/2/4"[label="Cali\nKwasi"]
+"root/8/7/1/2" -> "root/8/7/1/2/4";
+"root/8/7/1/2/4/10"[label="Kayla\nZak"]
+"root/8/7/1/2/4" -> "root/8/7/1/2/4/10";
+"root/8/7/1/2/4/10/5"[label="Lauren\nLewis"]
+"root/8/7/1/2/4/10" -> "root/8/7/1/2/4/10/5";
+"root/8/7/1/2/4/10/5/6"[label="Bria\nMoe"]
+"root/8/7/1/2/4/10/5" -> "root/8/7/1/2/4/10/5/6";
+"root/8/7/1/2/4/10/5/6/0"[label="Jasmine\nAndrew"]
+"root/8/7/1/2/4/10/5/6" -> "root/8/7/1/2/4/10/5/6/0";
+"root/8/7/1/2/4/10/5/6/0/9"[label="Morgan\nTomas"]
+"root/8/7/1/2/4/10/5/6/0" -> "root/8/7/1/2/4/10/5/6/0/9";
+"root/8/7/1/2/4/10/5/6/0/9/3"[label="Samantha\nDaniel"]
+"root/8/7/1/2/4/10/5/6/0/9" -> "root/8/7/1/2/4/10/5/6/0/9/3";
+"root/8/7/1/2/4/0"[label="Kayla\nAndrew"]
+"root/8/7/1/2/4" -> "root/8/7/1/2/4/0";
+"root/8/7/1/2/4/0/5"[label="Lauren\nLewis"]
+"root/8/7/1/2/4/0" -> "root/8/7/1/2/4/0/5";
+"root/8/7/1/2/4/0/5/6"[label="Bria\nMoe"]
+"root/8/7/1/2/4/0/5" -> "root/8/7/1/2/4/0/5/6";
+"root/8/7/1/2/4/0/5/6/10"[label="Jasmine\nZak"]
+"root/8/7/1/2/4/0/5/6" -> "root/8/7/1/2/4/0/5/6/10";
+"root/8/7/1/2/4/0/5/6/10/9"[label="Morgan\nTomas"]
+"root/8/7/1/2/4/0/5/6/10" -> "root/8/7/1/2/4/0/5/6/10/9";
+"root/8/7/1/2/4/0/5/6/10/9/3"[label="Samantha\nDaniel"]
+"root/8/7/1/2/4/0/5/6/10/9" -> "root/8/7/1/2/4/0/5/6/10/9/3";
+"root/8/7/1/2/10"[label="Cali\nZak"]
+"root/8/7/1/2" -> "root/8/7/1/2/10";
+"root/8/7/1/2/10/3"[label="Kayla\nDaniel"]
+"root/8/7/1/2/10" -> "root/8/7/1/2/10/3";
+"root/8/7/1/2/10/3/5"[label="Lauren\nLewis"]
+"root/8/7/1/2/10/3" -> "root/8/7/1/2/10/3/5";
+"root/8/7/1/2/10/3/5/9"[label="Bria\nTomas"]
+"root/8/7/1/2/10/3/5" -> "root/8/7/1/2/10/3/5/9";
+"root/8/7/1/2/10/3/5/9/6"[label="Jasmine\nMoe"]
+"root/8/7/1/2/10/3/5/9" -> "root/8/7/1/2/10/3/5/9/6";
+"root/8/7/1/2/10/3/5/9/6/0"[label="Morgan\nAndrew"]
+"root/8/7/1/2/10/3/5/9/6" -> "root/8/7/1/2/10/3/5/9/6/0";
+"root/8/7/1/2/10/3/5/9/6/0/4"[label="Samantha\nKwasi"]
+"root/8/7/1/2/10/3/5/9/6/0" -> "root/8/7/1/2/10/3/5/9/6/0/4";
+"root/8/7/1/4"[label="Asia\nKwasi"]
+"root/8/7/1" -> "root/8/7/1/4";
+"root/8/7/1/4/10"[label="Cali\nZak"]
+"root/8/7/1/4" -> "root/8/7/1/4/10";
+"root/8/7/1/4/10/3"[label="Kayla\nDaniel"]
+"root/8/7/1/4/10" -> "root/8/7/1/4/10/3";
+"root/8/7/1/4/10/3/5"[label="Lauren\nLewis"]
+"root/8/7/1/4/10/3" -> "root/8/7/1/4/10/3/5";
+"root/8/7/1/4/10/3/5/9"[label="Bria\nTomas"]
+"root/8/7/1/4/10/3/5" -> "root/8/7/1/4/10/3/5/9";
+"root/8/7/1/4/10/3/5/9/2"[label="Jasmine\nCam"]
+"root/8/7/1/4/10/3/5/9" -> "root/8/7/1/4/10/3/5/9/2";
+"root/8/7/1/4/10/3/5/9/2/0"[label="Morgan\nAndrew"]
+"root/8/7/1/4/10/3/5/9/2" -> "root/8/7/1/4/10/3/5/9/2/0";
+"root/8/7/1/4/10/3/5/9/2/0/6"[label="Samantha\nMoe"]
+"root/8/7/1/4/10/3/5/9/2/0" -> "root/8/7/1/4/10/3/5/9/2/0/6";
+"root/8/7/1/2/5"[label="Cali\nLewis"]
+"root/8/7/1/2" -> "root/8/7/1/2/5";
+"root/8/7/1/2/5/10"[label="Kayla\nZak"]
+"root/8/7/1/2/5" -> "root/8/7/1/2/5/10";
+"root/8/7/1/2/5/10/4"[label="Lauren\nKwasi"]
+"root/8/7/1/2/5/10" -> "root/8/7/1/2/5/10/4";
+"root/8/7/1/2/5/10/4/9"[label="Bria\nTomas"]
+"root/8/7/1/2/5/10/4" -> "root/8/7/1/2/5/10/4/9";
+"root/8/7/1/2/5/10/4/9/6"[label="Jasmine\nMoe"]
+"root/8/7/1/2/5/10/4/9" -> "root/8/7/1/2/5/10/4/9/6";
+"root/8/7/1/2/5/10/4/9/6/3"[label="Morgan\nDaniel"]
+"root/8/7/1/2/5/10/4/9/6" -> "root/8/7/1/2/5/10/4/9/6/3";
+"root/8/7/1/2/5/10/4/9/6/3/0"[label="Samantha\nAndrew"]
+"root/8/7/1/2/5/10/4/9/6/3" -> "root/8/7/1/2/5/10/4/9/6/3/0";
+"root/8/7/1/2/3"[label="Cali\nDaniel"]
+"root/8/7/1/2" -> "root/8/7/1/2/3";
+"root/8/7/1/2/3/10"[label="Kayla\nZak"]
+"root/8/7/1/2/3" -> "root/8/7/1/2/3/10";
+"root/8/7/1/2/3/10/4"[label="Lauren\nKwasi"]
+"root/8/7/1/2/3/10" -> "root/8/7/1/2/3/10/4";
+"root/8/7/1/2/3/10/4/9"[label="Bria\nTomas"]
+"root/8/7/1/2/3/10/4" -> "root/8/7/1/2/3/10/4/9";
+"root/8/7/1/2/3/10/4/9/6"[label="Jasmine\nMoe"]
+"root/8/7/1/2/3/10/4/9" -> "root/8/7/1/2/3/10/4/9/6";
+"root/8/7/1/2/3/10/4/9/6/5"[label="Morgan\nLewis"]
+"root/8/7/1/2/3/10/4/9/6" -> "root/8/7/1/2/3/10/4/9/6/5";
+"root/8/7/1/2/3/10/4/9/6/5/0"[label="Samantha\nAndrew"]
+"root/8/7/1/2/3/10/4/9/6/5" -> "root/8/7/1/2/3/10/4/9/6/5/0";
+"root/8/7/1/9"[label="Asia\nTomas"]
+"root/8/7/1" -> "root/8/7/1/9";
+"root/8/7/1/9/3"[label="Cali\nDaniel"]
+"root/8/7/1/9" -> "root/8/7/1/9/3";
+"root/8/7/1/9/3/6"[label="Kayla\nMoe"]
+"root/8/7/1/9/3" -> "root/8/7/1/9/3/6";
+"root/8/7/1/9/3/6/4"[label="Lauren\nKwasi"]
+"root/8/7/1/9/3/6" -> "root/8/7/1/9/3/6/4";
+"root/8/7/1/9/3/6/4/2"[label="Bria\nCam"]
+"root/8/7/1/9/3/6/4" -> "root/8/7/1/9/3/6/4/2";
+"root/8/7/1/9/3/6/4/2/0"[label="Jasmine\nAndrew"]
+"root/8/7/1/9/3/6/4/2" -> "root/8/7/1/9/3/6/4/2/0";
+"root/8/7/1/9/3/6/4/2/0/10"[label="Morgan\nZak"]
+"root/8/7/1/9/3/6/4/2/0" -> "root/8/7/1/9/3/6/4/2/0/10";
+"root/8/7/1/9/3/6/4/2/0/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/3/6/4/2/0/10" -> "root/8/7/1/9/3/6/4/2/0/10/5";
+"root/8/7/1/9/0"[label="Cali\nAndrew"]
+"root/8/7/1/9" -> "root/8/7/1/9/0";
+"root/8/7/1/9/0/6"[label="Kayla\nMoe"]
+"root/8/7/1/9/0" -> "root/8/7/1/9/0/6";
+"root/8/7/1/9/0/6/4"[label="Lauren\nKwasi"]
+"root/8/7/1/9/0/6" -> "root/8/7/1/9/0/6/4";
+"root/8/7/1/9/0/6/4/2"[label="Bria\nCam"]
+"root/8/7/1/9/0/6/4" -> "root/8/7/1/9/0/6/4/2";
+"root/8/7/1/9/0/6/4/2/3"[label="Jasmine\nDaniel"]
+"root/8/7/1/9/0/6/4/2" -> "root/8/7/1/9/0/6/4/2/3";
+"root/8/7/1/9/0/6/4/2/3/10"[label="Morgan\nZak"]
+"root/8/7/1/9/0/6/4/2/3" -> "root/8/7/1/9/0/6/4/2/3/10";
+"root/8/7/1/9/0/6/4/2/3/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/0/6/4/2/3/10" -> "root/8/7/1/9/0/6/4/2/3/10/5";
+"root/8/7/1/9/3/6/4/0"[label="Bria\nAndrew"]
+"root/8/7/1/9/3/6/4" -> "root/8/7/1/9/3/6/4/0";
+"root/8/7/1/9/3/6/4/0/2"[label="Jasmine\nCam"]
+"root/8/7/1/9/3/6/4/0" -> "root/8/7/1/9/3/6/4/0/2";
+"root/8/7/1/9/3/6/4/0/2/10"[label="Morgan\nZak"]
+"root/8/7/1/9/3/6/4/0/2" -> "root/8/7/1/9/3/6/4/0/2/10";
+"root/8/7/1/9/3/6/4/0/2/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/3/6/4/0/2/10" -> "root/8/7/1/9/3/6/4/0/2/10/5";
+"root/8/7/1/3"[label="Asia\nDaniel"]
+"root/8/7/1" -> "root/8/7/1/3";
+"root/8/7/1/3/6"[label="Cali\nMoe"]
+"root/8/7/1/3" -> "root/8/7/1/3/6";
+"root/8/7/1/3/6/0"[label="Kayla\nAndrew"]
+"root/8/7/1/3/6" -> "root/8/7/1/3/6/0";
+"root/8/7/1/3/6/0/4"[label="Lauren\nKwasi"]
+"root/8/7/1/3/6/0" -> "root/8/7/1/3/6/0/4";
+"root/8/7/1/3/6/0/4/2"[label="Bria\nCam"]
+"root/8/7/1/3/6/0/4" -> "root/8/7/1/3/6/0/4/2";
+"root/8/7/1/3/6/0/4/2/9"[label="Jasmine\nTomas"]
+"root/8/7/1/3/6/0/4/2" -> "root/8/7/1/3/6/0/4/2/9";
+"root/8/7/1/3/6/0/4/2/9/10"[label="Morgan\nZak"]
+"root/8/7/1/3/6/0/4/2/9" -> "root/8/7/1/3/6/0/4/2/9/10";
+"root/8/7/1/3/6/0/4/2/9/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/3/6/0/4/2/9/10" -> "root/8/7/1/3/6/0/4/2/9/10/5";
+"root/8/7/1/4/6"[label="Cali\nMoe"]
+"root/8/7/1/4" -> "root/8/7/1/4/6";
+"root/8/7/1/4/6/10"[label="Kayla\nZak"]
+"root/8/7/1/4/6" -> "root/8/7/1/4/6/10";
+"root/8/7/1/4/6/10/3"[label="Lauren\nDaniel"]
+"root/8/7/1/4/6/10" -> "root/8/7/1/4/6/10/3";
+"root/8/7/1/4/6/10/3/9"[label="Bria\nTomas"]
+"root/8/7/1/4/6/10/3" -> "root/8/7/1/4/6/10/3/9";
+"root/8/7/1/4/6/10/3/9/5"[label="Jasmine\nLewis"]
+"root/8/7/1/4/6/10/3/9" -> "root/8/7/1/4/6/10/3/9/5";
+"root/8/7/1/4/6/10/3/9/5/2"[label="Morgan\nCam"]
+"root/8/7/1/4/6/10/3/9/5" -> "root/8/7/1/4/6/10/3/9/5/2";
+"root/8/7/1/4/6/10/3/9/5/2/0"[label="Samantha\nAndrew"]
+"root/8/7/1/4/6/10/3/9/5/2" -> "root/8/7/1/4/6/10/3/9/5/2/0";
+"root/8/7/1/9/3/4"[label="Kayla\nKwasi"]
+"root/8/7/1/9/3" -> "root/8/7/1/9/3/4";
+"root/8/7/1/9/3/4/2"[label="Lauren\nCam"]
+"root/8/7/1/9/3/4" -> "root/8/7/1/9/3/4/2";
+"root/8/7/1/9/3/4/2/6"[label="Bria\nMoe"]
+"root/8/7/1/9/3/4/2" -> "root/8/7/1/9/3/4/2/6";
+"root/8/7/1/9/3/4/2/6/0"[label="Jasmine\nAndrew"]
+"root/8/7/1/9/3/4/2/6" -> "root/8/7/1/9/3/4/2/6/0";
+"root/8/7/1/9/3/4/2/6/0/10"[label="Morgan\nZak"]
+"root/8/7/1/9/3/4/2/6/0" -> "root/8/7/1/9/3/4/2/6/0/10";
+"root/8/7/1/9/3/4/2/6/0/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/3/4/2/6/0/10" -> "root/8/7/1/9/3/4/2/6/0/10/5";
+"root/8/7/1/9/0/4"[label="Kayla\nKwasi"]
+"root/8/7/1/9/0" -> "root/8/7/1/9/0/4";
+"root/8/7/1/9/0/4/2"[label="Lauren\nCam"]
+"root/8/7/1/9/0/4" -> "root/8/7/1/9/0/4/2";
+"root/8/7/1/9/0/4/2/6"[label="Bria\nMoe"]
+"root/8/7/1/9/0/4/2" -> "root/8/7/1/9/0/4/2/6";
+"root/8/7/1/9/0/4/2/6/3"[label="Jasmine\nDaniel"]
+"root/8/7/1/9/0/4/2/6" -> "root/8/7/1/9/0/4/2/6/3";
+"root/8/7/1/9/0/4/2/6/3/10"[label="Morgan\nZak"]
+"root/8/7/1/9/0/4/2/6/3" -> "root/8/7/1/9/0/4/2/6/3/10";
+"root/8/7/1/9/0/4/2/6/3/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/0/4/2/6/3/10" -> "root/8/7/1/9/0/4/2/6/3/10/5";
+"root/8/7/1/9/4"[label="Cali\nKwasi"]
+"root/8/7/1/9" -> "root/8/7/1/9/4";
+"root/8/7/1/9/4/3"[label="Kayla\nDaniel"]
+"root/8/7/1/9/4" -> "root/8/7/1/9/4/3";
+"root/8/7/1/9/4/3/2"[label="Lauren\nCam"]
+"root/8/7/1/9/4/3" -> "root/8/7/1/9/4/3/2";
+"root/8/7/1/9/4/3/2/6"[label="Bria\nMoe"]
+"root/8/7/1/9/4/3/2" -> "root/8/7/1/9/4/3/2/6";
+"root/8/7/1/9/4/3/2/6/0"[label="Jasmine\nAndrew"]
+"root/8/7/1/9/4/3/2/6" -> "root/8/7/1/9/4/3/2/6/0";
+"root/8/7/1/9/4/3/2/6/0/10"[label="Morgan\nZak"]
+"root/8/7/1/9/4/3/2/6/0" -> "root/8/7/1/9/4/3/2/6/0/10";
+"root/8/7/1/9/4/3/2/6/0/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/4/3/2/6/0/10" -> "root/8/7/1/9/4/3/2/6/0/10/5";
+"root/8/7/1/9/4/0"[label="Kayla\nAndrew"]
+"root/8/7/1/9/4" -> "root/8/7/1/9/4/0";
+"root/8/7/1/9/4/0/2"[label="Lauren\nCam"]
+"root/8/7/1/9/4/0" -> "root/8/7/1/9/4/0/2";
+"root/8/7/1/9/4/0/2/6"[label="Bria\nMoe"]
+"root/8/7/1/9/4/0/2" -> "root/8/7/1/9/4/0/2/6";
+"root/8/7/1/9/4/0/2/6/3"[label="Jasmine\nDaniel"]
+"root/8/7/1/9/4/0/2/6" -> "root/8/7/1/9/4/0/2/6/3";
+"root/8/7/1/9/4/0/2/6/3/10"[label="Morgan\nZak"]
+"root/8/7/1/9/4/0/2/6/3" -> "root/8/7/1/9/4/0/2/6/3/10";
+"root/8/7/1/9/4/0/2/6/3/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/9/4/0/2/6/3/10" -> "root/8/7/1/9/4/0/2/6/3/10/5";
+"root/8/7/9"[label="Nutsa\nTomas"]
+"root/8/7" -> "root/8/7/9";
+"root/8/7/9/4"[label="Asia\nKwasi"]
+"root/8/7/9" -> "root/8/7/9/4";
+"root/8/7/9/4/3"[label="Cali\nDaniel"]
+"root/8/7/9/4" -> "root/8/7/9/4/3";
+"root/8/7/9/4/3/5"[label="Kayla\nLewis"]
+"root/8/7/9/4/3" -> "root/8/7/9/4/3/5";
+"root/8/7/9/4/3/5/2"[label="Lauren\nCam"]
+"root/8/7/9/4/3/5" -> "root/8/7/9/4/3/5/2";
+"root/8/7/9/4/3/5/2/6"[label="Bria\nMoe"]
+"root/8/7/9/4/3/5/2" -> "root/8/7/9/4/3/5/2/6";
+"root/8/7/9/4/3/5/2/6/1"[label="Jasmine\nBrett"]
+"root/8/7/9/4/3/5/2/6" -> "root/8/7/9/4/3/5/2/6/1";
+"root/8/7/9/4/3/5/2/6/1/10"[label="Morgan\nZak"]
+"root/8/7/9/4/3/5/2/6/1" -> "root/8/7/9/4/3/5/2/6/1/10";
+"root/8/7/9/4/3/5/2/6/1/10/0"[label="Samantha\nAndrew"]
+"root/8/7/9/4/3/5/2/6/1/10" -> "root/8/7/9/4/3/5/2/6/1/10/0";
+"root/8/7/9/4/6"[label="Cali\nMoe"]
+"root/8/7/9/4" -> "root/8/7/9/4/6";
+"root/8/7/9/4/6/3"[label="Kayla\nDaniel"]
+"root/8/7/9/4/6" -> "root/8/7/9/4/6/3";
+"root/8/7/9/4/6/3/2"[label="Lauren\nCam"]
+"root/8/7/9/4/6/3" -> "root/8/7/9/4/6/3/2";
+"root/8/7/9/4/6/3/2/1"[label="Bria\nBrett"]
+"root/8/7/9/4/6/3/2" -> "root/8/7/9/4/6/3/2/1";
+"root/8/7/9/4/6/3/2/1/5"[label="Jasmine\nLewis"]
+"root/8/7/9/4/6/3/2/1" -> "root/8/7/9/4/6/3/2/1/5";
+"root/8/7/9/4/6/3/2/1/5/10"[label="Morgan\nZak"]
+"root/8/7/9/4/6/3/2/1/5" -> "root/8/7/9/4/6/3/2/1/5/10";
+"root/8/7/9/4/6/3/2/1/5/10/0"[label="Samantha\nAndrew"]
+"root/8/7/9/4/6/3/2/1/5/10" -> "root/8/7/9/4/6/3/2/1/5/10/0";
+"root/8/7/9/4/5"[label="Cali\nLewis"]
+"root/8/7/9/4" -> "root/8/7/9/4/5";
+"root/8/7/9/4/5/3"[label="Kayla\nDaniel"]
+"root/8/7/9/4/5" -> "root/8/7/9/4/5/3";
+"root/8/7/9/4/5/3/2"[label="Lauren\nCam"]
+"root/8/7/9/4/5/3" -> "root/8/7/9/4/5/3/2";
+"root/8/7/9/4/5/3/2/6"[label="Bria\nMoe"]
+"root/8/7/9/4/5/3/2" -> "root/8/7/9/4/5/3/2/6";
+"root/8/7/9/4/5/3/2/6/1"[label="Jasmine\nBrett"]
+"root/8/7/9/4/5/3/2/6" -> "root/8/7/9/4/5/3/2/6/1";
+"root/8/7/9/4/5/3/2/6/1/10"[label="Morgan\nZak"]
+"root/8/7/9/4/5/3/2/6/1" -> "root/8/7/9/4/5/3/2/6/1/10";
+"root/8/7/9/4/5/3/2/6/1/10/0"[label="Samantha\nAndrew"]
+"root/8/7/9/4/5/3/2/6/1/10" -> "root/8/7/9/4/5/3/2/6/1/10/0";
+"root/8/7/3"[label="Nutsa\nDaniel"]
+"root/8/7" -> "root/8/7/3";
+"root/8/7/3/6"[label="Asia\nMoe"]
+"root/8/7/3" -> "root/8/7/3/6";
+"root/8/7/3/6/0"[label="Cali\nAndrew"]
+"root/8/7/3/6" -> "root/8/7/3/6/0";
+"root/8/7/3/6/0/4"[label="Kayla\nKwasi"]
+"root/8/7/3/6/0" -> "root/8/7/3/6/0/4";
+"root/8/7/3/6/0/4/2"[label="Lauren\nCam"]
+"root/8/7/3/6/0/4" -> "root/8/7/3/6/0/4/2";
+"root/8/7/3/6/0/4/2/5"[label="Bria\nLewis"]
+"root/8/7/3/6/0/4/2" -> "root/8/7/3/6/0/4/2/5";
+"root/8/7/3/6/0/4/2/5/1"[label="Jasmine\nBrett"]
+"root/8/7/3/6/0/4/2/5" -> "root/8/7/3/6/0/4/2/5/1";
+"root/8/7/3/6/0/4/2/5/1/10"[label="Morgan\nZak"]
+"root/8/7/3/6/0/4/2/5/1" -> "root/8/7/3/6/0/4/2/5/1/10";
+"root/8/7/3/6/0/4/2/5/1/10/9"[label="Samantha\nTomas"]
+"root/8/7/3/6/0/4/2/5/1/10" -> "root/8/7/3/6/0/4/2/5/1/10/9";
+"root/8/7/3/6/4"[label="Cali\nKwasi"]
+"root/8/7/3/6" -> "root/8/7/3/6/4";
+"root/8/7/3/6/4/0"[label="Kayla\nAndrew"]
+"root/8/7/3/6/4" -> "root/8/7/3/6/4/0";
+"root/8/7/3/6/4/0/2"[label="Lauren\nCam"]
+"root/8/7/3/6/4/0" -> "root/8/7/3/6/4/0/2";
+"root/8/7/3/6/4/0/2/5"[label="Bria\nLewis"]
+"root/8/7/3/6/4/0/2" -> "root/8/7/3/6/4/0/2/5";
+"root/8/7/3/6/4/0/2/5/1"[label="Jasmine\nBrett"]
+"root/8/7/3/6/4/0/2/5" -> "root/8/7/3/6/4/0/2/5/1";
+"root/8/7/3/6/4/0/2/5/1/10"[label="Morgan\nZak"]
+"root/8/7/3/6/4/0/2/5/1" -> "root/8/7/3/6/4/0/2/5/1/10";
+"root/8/7/3/6/4/0/2/5/1/10/9"[label="Samantha\nTomas"]
+"root/8/7/3/6/4/0/2/5/1/10" -> "root/8/7/3/6/4/0/2/5/1/10/9";
+"root/8/7/9/4/0"[label="Cali\nAndrew"]
+"root/8/7/9/4" -> "root/8/7/9/4/0";
+"root/8/7/9/4/0/6"[label="Kayla\nMoe"]
+"root/8/7/9/4/0" -> "root/8/7/9/4/0/6";
+"root/8/7/9/4/0/6/2"[label="Lauren\nCam"]
+"root/8/7/9/4/0/6" -> "root/8/7/9/4/0/6/2";
+"root/8/7/9/4/0/6/2/3"[label="Bria\nDaniel"]
+"root/8/7/9/4/0/6/2" -> "root/8/7/9/4/0/6/2/3";
+"root/8/7/9/4/0/6/2/3/5"[label="Jasmine\nLewis"]
+"root/8/7/9/4/0/6/2/3" -> "root/8/7/9/4/0/6/2/3/5";
+"root/8/7/9/4/0/6/2/3/5/10"[label="Morgan\nZak"]
+"root/8/7/9/4/0/6/2/3/5" -> "root/8/7/9/4/0/6/2/3/5/10";
+"root/8/7/9/4/0/6/2/3/5/10/1"[label="Samantha\nBrett"]
+"root/8/7/9/4/0/6/2/3/5/10" -> "root/8/7/9/4/0/6/2/3/5/10/1";
+"root/8/7/3/6/0/4/2/5/9"[label="Jasmine\nTomas"]
+"root/8/7/3/6/0/4/2/5" -> "root/8/7/3/6/0/4/2/5/9";
+"root/8/7/3/6/0/4/2/5/9/10"[label="Morgan\nZak"]
+"root/8/7/3/6/0/4/2/5/9" -> "root/8/7/3/6/0/4/2/5/9/10";
+"root/8/7/3/6/0/4/2/5/9/10/1"[label="Samantha\nBrett"]
+"root/8/7/3/6/0/4/2/5/9/10" -> "root/8/7/3/6/0/4/2/5/9/10/1";
+"root/8/7/3/6/4/0/2/5/9"[label="Jasmine\nTomas"]
+"root/8/7/3/6/4/0/2/5" -> "root/8/7/3/6/4/0/2/5/9";
+"root/8/7/3/6/4/0/2/5/9/10"[label="Morgan\nZak"]
+"root/8/7/3/6/4/0/2/5/9" -> "root/8/7/3/6/4/0/2/5/9/10";
+"root/8/7/3/6/4/0/2/5/9/10/1"[label="Samantha\nBrett"]
+"root/8/7/3/6/4/0/2/5/9/10" -> "root/8/7/3/6/4/0/2/5/9/10/1";
+"root/8/7/3/9"[label="Asia\nTomas"]
+"root/8/7/3" -> "root/8/7/3/9";
+"root/8/7/3/9/6"[label="Cali\nMoe"]
+"root/8/7/3/9" -> "root/8/7/3/9/6";
+"root/8/7/3/9/6/4"[label="Kayla\nKwasi"]
+"root/8/7/3/9/6" -> "root/8/7/3/9/6/4";
+"root/8/7/3/9/6/4/1"[label="Lauren\nBrett"]
+"root/8/7/3/9/6/4" -> "root/8/7/3/9/6/4/1";
+"root/8/7/3/9/6/4/1/5"[label="Bria\nLewis"]
+"root/8/7/3/9/6/4/1" -> "root/8/7/3/9/6/4/1/5";
+"root/8/7/3/9/6/4/1/5/2"[label="Jasmine\nCam"]
+"root/8/7/3/9/6/4/1/5" -> "root/8/7/3/9/6/4/1/5/2";
+"root/8/7/3/9/6/4/1/5/2/10"[label="Morgan\nZak"]
+"root/8/7/3/9/6/4/1/5/2" -> "root/8/7/3/9/6/4/1/5/2/10";
+"root/8/7/3/9/6/4/1/5/2/10/0"[label="Samantha\nAndrew"]
+"root/8/7/3/9/6/4/1/5/2/10" -> "root/8/7/3/9/6/4/1/5/2/10/0";
+"root/8/7/9/4/3/6"[label="Kayla\nMoe"]
+"root/8/7/9/4/3" -> "root/8/7/9/4/3/6";
+"root/8/7/9/4/3/6/1"[label="Lauren\nBrett"]
+"root/8/7/9/4/3/6" -> "root/8/7/9/4/3/6/1";
+"root/8/7/9/4/3/6/1/2"[label="Bria\nCam"]
+"root/8/7/9/4/3/6/1" -> "root/8/7/9/4/3/6/1/2";
+"root/8/7/9/4/3/6/1/2/5"[label="Jasmine\nLewis"]
+"root/8/7/9/4/3/6/1/2" -> "root/8/7/9/4/3/6/1/2/5";
+"root/8/7/9/4/3/6/1/2/5/10"[label="Morgan\nZak"]
+"root/8/7/9/4/3/6/1/2/5" -> "root/8/7/9/4/3/6/1/2/5/10";
+"root/8/7/9/4/3/6/1/2/5/10/0"[label="Samantha\nAndrew"]
+"root/8/7/9/4/3/6/1/2/5/10" -> "root/8/7/9/4/3/6/1/2/5/10/0";
+"root/8/7/1/3/0"[label="Cali\nAndrew"]
+"root/8/7/1/3" -> "root/8/7/1/3/0";
+"root/8/7/1/3/0/4"[label="Kayla\nKwasi"]
+"root/8/7/1/3/0" -> "root/8/7/1/3/0/4";
+"root/8/7/1/3/0/4/9"[label="Lauren\nTomas"]
+"root/8/7/1/3/0/4" -> "root/8/7/1/3/0/4/9";
+"root/8/7/1/3/0/4/9/6"[label="Bria\nMoe"]
+"root/8/7/1/3/0/4/9" -> "root/8/7/1/3/0/4/9/6";
+"root/8/7/1/3/0/4/9/6/2"[label="Jasmine\nCam"]
+"root/8/7/1/3/0/4/9/6" -> "root/8/7/1/3/0/4/9/6/2";
+"root/8/7/1/3/0/4/9/6/2/10"[label="Morgan\nZak"]
+"root/8/7/1/3/0/4/9/6/2" -> "root/8/7/1/3/0/4/9/6/2/10";
+"root/8/7/1/3/0/4/9/6/2/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/3/0/4/9/6/2/10" -> "root/8/7/1/3/0/4/9/6/2/10/5";
+"root/8/7/1/3/4"[label="Cali\nKwasi"]
+"root/8/7/1/3" -> "root/8/7/1/3/4";
+"root/8/7/1/3/4/0"[label="Kayla\nAndrew"]
+"root/8/7/1/3/4" -> "root/8/7/1/3/4/0";
+"root/8/7/1/3/4/0/9"[label="Lauren\nTomas"]
+"root/8/7/1/3/4/0" -> "root/8/7/1/3/4/0/9";
+"root/8/7/1/3/4/0/9/6"[label="Bria\nMoe"]
+"root/8/7/1/3/4/0/9" -> "root/8/7/1/3/4/0/9/6";
+"root/8/7/1/3/4/0/9/6/2"[label="Jasmine\nCam"]
+"root/8/7/1/3/4/0/9/6" -> "root/8/7/1/3/4/0/9/6/2";
+"root/8/7/1/3/4/0/9/6/2/10"[label="Morgan\nZak"]
+"root/8/7/1/3/4/0/9/6/2" -> "root/8/7/1/3/4/0/9/6/2/10";
+"root/8/7/1/3/4/0/9/6/2/10/5"[label="Samantha\nLewis"]
+"root/8/7/1/3/4/0/9/6/2/10" -> "root/8/7/1/3/4/0/9/6/2/10/5";
+"root/8/7/2"[label="Nutsa\nCam"]
+"root/8/7" -> "root/8/7/2";
+"root/8/7/2/4"[label="Asia\nKwasi"]
+"root/8/7/2" -> "root/8/7/2/4";
+"root/8/7/2/4/3"[label="Cali\nDaniel"]
+"root/8/7/2/4" -> "root/8/7/2/4/3";
+"root/8/7/2/4/3/6"[label="Kayla\nMoe"]
+"root/8/7/2/4/3" -> "root/8/7/2/4/3/6";
+"root/8/7/2/4/3/6/9"[label="Lauren\nTomas"]
+"root/8/7/2/4/3/6" -> "root/8/7/2/4/3/6/9";
+"root/8/7/2/4/3/6/9/1"[label="Bria\nBrett"]
+"root/8/7/2/4/3/6/9" -> "root/8/7/2/4/3/6/9/1";
+"root/8/7/2/4/3/6/9/1/5"[label="Jasmine\nLewis"]
+"root/8/7/2/4/3/6/9/1" -> "root/8/7/2/4/3/6/9/1/5";
+"root/8/7/2/4/3/6/9/1/5/10"[label="Morgan\nZak"]
+"root/8/7/2/4/3/6/9/1/5" -> "root/8/7/2/4/3/6/9/1/5/10";
+"root/8/7/2/4/3/6/9/1/5/10/0"[label="Samantha\nAndrew"]
+"root/8/7/2/4/3/6/9/1/5/10" -> "root/8/7/2/4/3/6/9/1/5/10/0";
+"root/8/7/1/9/10"[label="Cali\nZak"]
+"root/8/7/1/9" -> "root/8/7/1/9/10";
+"root/8/7/1/9/10/4"[label="Kayla\nKwasi"]
+"root/8/7/1/9/10" -> "root/8/7/1/9/10/4";
+"root/8/7/1/9/10/4/0"[label="Lauren\nAndrew"]
+"root/8/7/1/9/10/4" -> "root/8/7/1/9/10/4/0";
+"root/8/7/1/9/10/4/0/3"[label="Bria\nDaniel"]
+"root/8/7/1/9/10/4/0" -> "root/8/7/1/9/10/4/0/3";
+"root/8/7/1/9/10/4/0/3/5"[label="Jasmine\nLewis"]
+"root/8/7/1/9/10/4/0/3" -> "root/8/7/1/9/10/4/0/3/5";
+"root/8/7/1/9/10/4/0/3/5/2"[label="Morgan\nCam"]
+"root/8/7/1/9/10/4/0/3/5" -> "root/8/7/1/9/10/4/0/3/5/2";
+"root/8/7/1/9/10/4/0/3/5/2/6"[label="Samantha\nMoe"]
+"root/8/7/1/9/10/4/0/3/5/2" -> "root/8/7/1/9/10/4/0/3/5/2/6";
+"root/8/7/1/2/5/6"[label="Kayla\nMoe"]
+"root/8/7/1/2/5" -> "root/8/7/1/2/5/6";
+"root/8/7/1/2/5/6/0"[label="Lauren\nAndrew"]
+"root/8/7/1/2/5/6" -> "root/8/7/1/2/5/6/0";
+"root/8/7/1/2/5/6/0/3"[label="Bria\nDaniel"]
+"root/8/7/1/2/5/6/0" -> "root/8/7/1/2/5/6/0/3";
+"root/8/7/1/2/5/6/0/3/9"[label="Jasmine\nTomas"]
+"root/8/7/1/2/5/6/0/3" -> "root/8/7/1/2/5/6/0/3/9";
+"root/8/7/1/2/5/6/0/3/9/4"[label="Morgan\nKwasi"]
+"root/8/7/1/2/5/6/0/3/9" -> "root/8/7/1/2/5/6/0/3/9/4";
+"root/8/7/1/2/5/6/0/3/9/4/10"[label="Samantha\nZak"]
+"root/8/7/1/2/5/6/0/3/9/4" -> "root/8/7/1/2/5/6/0/3/9/4/10";
+"root/8/7/1/2/4/6"[label="Kayla\nMoe"]
+"root/8/7/1/2/4" -> "root/8/7/1/2/4/6";
+"root/8/7/1/2/4/6/0"[label="Lauren\nAndrew"]
+"root/8/7/1/2/4/6" -> "root/8/7/1/2/4/6/0";
+"root/8/7/1/2/4/6/0/3"[label="Bria\nDaniel"]
+"root/8/7/1/2/4/6/0" -> "root/8/7/1/2/4/6/0/3";
+"root/8/7/1/2/4/6/0/3/9"[label="Jasmine\nTomas"]
+"root/8/7/1/2/4/6/0/3" -> "root/8/7/1/2/4/6/0/3/9";
+"root/8/7/1/2/4/6/0/3/9/5"[label="Morgan\nLewis"]
+"root/8/7/1/2/4/6/0/3/9" -> "root/8/7/1/2/4/6/0/3/9/5";
+"root/8/7/1/2/4/6/0/3/9/5/10"[label="Samantha\nZak"]
+"root/8/7/1/2/4/6/0/3/9/5" -> "root/8/7/1/2/4/6/0/3/9/5/10";
+"root/8/7/1/2/10/4"[label="Kayla\nKwasi"]
+"root/8/7/1/2/10" -> "root/8/7/1/2/10/4";
+"root/8/7/1/2/10/4/0"[label="Lauren\nAndrew"]
+"root/8/7/1/2/10/4" -> "root/8/7/1/2/10/4/0";
+"root/8/7/1/2/10/4/0/3"[label="Bria\nDaniel"]
+"root/8/7/1/2/10/4/0" -> "root/8/7/1/2/10/4/0/3";
+"root/8/7/1/2/10/4/0/3/5"[label="Jasmine\nLewis"]
+"root/8/7/1/2/10/4/0/3" -> "root/8/7/1/2/10/4/0/3/5";
+"root/8/7/1/2/10/4/0/3/5/6"[label="Morgan\nMoe"]
+"root/8/7/1/2/10/4/0/3/5" -> "root/8/7/1/2/10/4/0/3/5/6";
+"root/8/7/1/2/10/4/0/3/5/6/9"[label="Samantha\nTomas"]
+"root/8/7/1/2/10/4/0/3/5/6" -> "root/8/7/1/2/10/4/0/3/5/6/9";
+"root/8/7/1/6"[label="Asia\nMoe"]
+"root/8/7/1" -> "root/8/7/1/6";
+"root/8/7/1/6/10"[label="Cali\nZak"]
+"root/8/7/1/6" -> "root/8/7/1/6/10";
+"root/8/7/1/6/10/3"[label="Kayla\nDaniel"]
+"root/8/7/1/6/10" -> "root/8/7/1/6/10/3";
+"root/8/7/1/6/10/3/0"[label="Lauren\nAndrew"]
+"root/8/7/1/6/10/3" -> "root/8/7/1/6/10/3/0";
+"root/8/7/1/6/10/3/0/4"[label="Bria\nKwasi"]
+"root/8/7/1/6/10/3/0" -> "root/8/7/1/6/10/3/0/4";
+"root/8/7/1/6/10/3/0/4/5"[label="Jasmine\nLewis"]
+"root/8/7/1/6/10/3/0/4" -> "root/8/7/1/6/10/3/0/4/5";
+"root/8/7/1/6/10/3/0/4/5/2"[label="Morgan\nCam"]
+"root/8/7/1/6/10/3/0/4/5" -> "root/8/7/1/6/10/3/0/4/5/2";
+"root/8/7/1/6/10/3/0/4/5/2/9"[label="Samantha\nTomas"]
+"root/8/7/1/6/10/3/0/4/5/2" -> "root/8/7/1/6/10/3/0/4/5/2/9";
+}

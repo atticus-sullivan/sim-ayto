@@ -1,0 +1,32 @@
+digraph D { labelloc="b"; label="Stand: MB#10 / E10"; ranksep=0.8;
+"root/4"[label="Alex\nJasmine"]
+"root" -> "root/4";
+"root/4/2"[label="Brandon\nBriana"]
+"root/4" -> "root/4/2";
+"root/4/2/8"[label="Curtis\nShelby"]
+"root/4/2" -> "root/4/2/8";
+"root/4/2/8/1"[label="Dario\nAshley"]
+"root/4/2/8" -> "root/4/2/8/1";
+"root/4/2/8/1/5"[label="John\nJenni"]
+"root/4/2/8/1" -> "root/4/2/8/1/5";
+"root/4/2/8/1/5/3"[label="Nathan\nEllie"]
+"root/4/2/8/1/5" -> "root/4/2/8/1/5/3";
+"root/4/2/8/1/5/3/7"[label="TylerPratt\nParis"]
+"root/4/2/8/1/5/3" -> "root/4/2/8/1/5/3/7";
+"root/4/2/8/1/5/3/7/0,10"[label="Anthony\nAlex\nChristina"]
+"root/4/2/8/1/5/3/7" -> "root/4/2/8/1/5/3/7/0,10";
+"root/4/2/8/1/5/3/7/0,10/6"[label="Garland\nJess"]
+"root/4/2/8/1/5/3/7/0,10" -> "root/4/2/8/1/5/3/7/0,10/6";
+"root/4/2/8/1/5/3/7/0,10/6/9"[label="Layton\nTyler"]
+"root/4/2/8/1/5/3/7/0,10/6" -> "root/4/2/8/1/5/3/7/0,10/6/9";
+"root/4/2/8/1/5/3/7/0"[label="Anthony\nAlex"]
+"root/4/2/8/1/5/3/7" -> "root/4/2/8/1/5/3/7/0";
+"root/4/2/8/1/5/3/7/0/6,10"[label="Garland\nJess\nChristina"]
+"root/4/2/8/1/5/3/7/0" -> "root/4/2/8/1/5/3/7/0/6,10";
+"root/4/2/8/1/5/3/7/0/6,10/9"[label="Layton\nTyler"]
+"root/4/2/8/1/5/3/7/0/6,10" -> "root/4/2/8/1/5/3/7/0/6,10/9";
+"root/4/2/8/1/5/3/7/0/6"[label="Garland\nJess"]
+"root/4/2/8/1/5/3/7/0" -> "root/4/2/8/1/5/3/7/0/6";
+"root/4/2/8/1/5/3/7/0/6/9,10"[label="Layton\nTyler\nChristina"]
+"root/4/2/8/1/5/3/7/0/6" -> "root/4/2/8/1/5/3/7/0/6/9,10";
+}

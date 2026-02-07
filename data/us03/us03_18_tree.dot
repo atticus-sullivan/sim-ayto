@@ -1,0 +1,96 @@
+digraph D { labelloc="b"; label="Stand: MN#9 / E09"; ranksep=0.8;
+"root/2"[label="Connor\nChelsey"]
+"root" -> "root/2";
+"root/2/8"[label="Devin\nRashida"]
+"root/2" -> "root/2/8";
+"root/2/8/3"[label="Zak\nCheyenne"]
+"root/2/8" -> "root/2/8/3";
+"root/2/8/3/7"[label="Chuck\nMelanie"]
+"root/2/8/3" -> "root/2/8/3/7";
+"root/2/8/3/7/5"[label="Tyler\nKayla"]
+"root/2/8/3/7" -> "root/2/8/3/7/5";
+"root/2/8/3/7/5/6"[label="Alec\nKiki"]
+"root/2/8/3/7/5" -> "root/2/8/3/7/5/6";
+"root/2/8/3/7/5/6/1"[label="Hunter\nBritni"]
+"root/2/8/3/7/5/6" -> "root/2/8/3/7/5/6/1";
+"root/2/8/3/7/5/6/1/9"[label="Mike\nStacey"]
+"root/2/8/3/7/5/6/1" -> "root/2/8/3/7/5/6/1/9";
+"root/2/8/3/7/5/6/1/9/4"[label="Austin\nHannah"]
+"root/2/8/3/7/5/6/1/9" -> "root/2/8/3/7/5/6/1/9/4";
+"root/2/8/3/7/5/6/1/9/4/0"[label="Nelson\nAmanda"]
+"root/2/8/3/7/5/6/1/9/4" -> "root/2/8/3/7/5/6/1/9/4/0";
+"root/2/8/3/7/6"[label="Tyler\nKiki"]
+"root/2/8/3/7" -> "root/2/8/3/7/6";
+"root/2/8/3/7/6/5"[label="Alec\nKayla"]
+"root/2/8/3/7/6" -> "root/2/8/3/7/6/5";
+"root/2/8/3/7/6/5/1"[label="Hunter\nBritni"]
+"root/2/8/3/7/6/5" -> "root/2/8/3/7/6/5/1";
+"root/2/8/3/7/6/5/1/9"[label="Mike\nStacey"]
+"root/2/8/3/7/6/5/1" -> "root/2/8/3/7/6/5/1/9";
+"root/2/8/3/7/6/5/1/9/4"[label="Austin\nHannah"]
+"root/2/8/3/7/6/5/1/9" -> "root/2/8/3/7/6/5/1/9/4";
+"root/2/8/3/7/6/5/1/9/4/0"[label="Nelson\nAmanda"]
+"root/2/8/3/7/6/5/1/9/4" -> "root/2/8/3/7/6/5/1/9/4/0";
+"root/2/8/5"[label="Zak\nKayla"]
+"root/2/8" -> "root/2/8/5";
+"root/2/8/5/7"[label="Chuck\nMelanie"]
+"root/2/8/5" -> "root/2/8/5/7";
+"root/2/8/5/7/3"[label="Tyler\nCheyenne"]
+"root/2/8/5/7" -> "root/2/8/5/7/3";
+"root/2/8/5/7/3/0"[label="Alec\nAmanda"]
+"root/2/8/5/7/3" -> "root/2/8/5/7/3/0";
+"root/2/8/5/7/3/0/4"[label="Hunter\nHannah"]
+"root/2/8/5/7/3/0" -> "root/2/8/5/7/3/0/4";
+"root/2/8/5/7/3/0/4/6"[label="Mike\nKiki"]
+"root/2/8/5/7/3/0/4" -> "root/2/8/5/7/3/0/4/6";
+"root/2/8/5/7/3/0/4/6/1"[label="Austin\nBritni"]
+"root/2/8/5/7/3/0/4/6" -> "root/2/8/5/7/3/0/4/6/1";
+"root/2/8/5/7/3/0/4/6/1/9"[label="Nelson\nStacey"]
+"root/2/8/5/7/3/0/4/6/1" -> "root/2/8/5/7/3/0/4/6/1/9";
+"root/2/1"[label="Devin\nBritni"]
+"root/2" -> "root/2/1";
+"root/2/1/5"[label="Zak\nKayla"]
+"root/2/1" -> "root/2/1/5";
+"root/2/1/5/0"[label="Chuck\nAmanda"]
+"root/2/1/5" -> "root/2/1/5/0";
+"root/2/1/5/0/3"[label="Tyler\nCheyenne"]
+"root/2/1/5/0" -> "root/2/1/5/0/3";
+"root/2/1/5/0/3/6"[label="Alec\nKiki"]
+"root/2/1/5/0/3" -> "root/2/1/5/0/3/6";
+"root/2/1/5/0/3/6/4"[label="Hunter\nHannah"]
+"root/2/1/5/0/3/6" -> "root/2/1/5/0/3/6/4";
+"root/2/1/5/0/3/6/4/8"[label="Mike\nRashida"]
+"root/2/1/5/0/3/6/4" -> "root/2/1/5/0/3/6/4/8";
+"root/2/1/5/0/3/6/4/8/9"[label="Austin\nStacey"]
+"root/2/1/5/0/3/6/4/8" -> "root/2/1/5/0/3/6/4/8/9";
+"root/2/1/5/0/3/6/4/8/9/7"[label="Nelson\nMelanie"]
+"root/2/1/5/0/3/6/4/8/9" -> "root/2/1/5/0/3/6/4/8/9/7";
+"root/2/8/5/9"[label="Chuck\nStacey"]
+"root/2/8/5" -> "root/2/8/5/9";
+"root/2/8/5/9/3"[label="Tyler\nCheyenne"]
+"root/2/8/5/9" -> "root/2/8/5/9/3";
+"root/2/8/5/9/3/4"[label="Alec\nHannah"]
+"root/2/8/5/9/3" -> "root/2/8/5/9/3/4";
+"root/2/8/5/9/3/4/0"[label="Hunter\nAmanda"]
+"root/2/8/5/9/3/4" -> "root/2/8/5/9/3/4/0";
+"root/2/8/5/9/3/4/0/6"[label="Mike\nKiki"]
+"root/2/8/5/9/3/4/0" -> "root/2/8/5/9/3/4/0/6";
+"root/2/8/5/9/3/4/0/6/7"[label="Austin\nMelanie"]
+"root/2/8/5/9/3/4/0/6" -> "root/2/8/5/9/3/4/0/6/7";
+"root/2/8/5/9/3/4/0/6/7/1"[label="Nelson\nBritni"]
+"root/2/8/5/9/3/4/0/6/7" -> "root/2/8/5/9/3/4/0/6/7/1";
+"root/2/1/5/9"[label="Chuck\nStacey"]
+"root/2/1/5" -> "root/2/1/5/9";
+"root/2/1/5/9/3"[label="Tyler\nCheyenne"]
+"root/2/1/5/9" -> "root/2/1/5/9/3";
+"root/2/1/5/9/3/6"[label="Alec\nKiki"]
+"root/2/1/5/9/3" -> "root/2/1/5/9/3/6";
+"root/2/1/5/9/3/6/8"[label="Hunter\nRashida"]
+"root/2/1/5/9/3/6" -> "root/2/1/5/9/3/6/8";
+"root/2/1/5/9/3/6/8/7"[label="Mike\nMelanie"]
+"root/2/1/5/9/3/6/8" -> "root/2/1/5/9/3/6/8/7";
+"root/2/1/5/9/3/6/8/7/0"[label="Austin\nAmanda"]
+"root/2/1/5/9/3/6/8/7" -> "root/2/1/5/9/3/6/8/7/0";
+"root/2/1/5/9/3/6/8/7/0/4"[label="Nelson\nHannah"]
+"root/2/1/5/9/3/6/8/7/0" -> "root/2/1/5/9/3/6/8/7/0/4";
+}
