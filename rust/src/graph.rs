@@ -72,7 +72,7 @@ pub fn ruleset_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
 }
 
 pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
-    let mut total_counts = SumCounts{
+    let mut total_counts = SumCounts {
         blackouts: 0,
         sold: 0,
         sold_but_match: 0,
@@ -98,20 +98,15 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
         }
         let file = File::open(entry.path().join(fn_param))?;
         let reader = BufReader::new(file);
-        let summary:SumCounts = serde_json::from_reader(reader)?;
+        let summary: SumCounts = serde_json::from_reader(reader)?;
 
         let name = entry.file_name().to_str().unwrap_or("unknown").to_owned();
 
         tab_lines.push(format!(
             "| {} | {} | {} | {} | {} |",
-            name,
-            summary.blackouts,
-            summary.sold,
-            summary.sold_but_match,
-            summary.matches_found,
+            name, summary.blackouts, summary.sold, summary.sold_but_match, summary.matches_found,
         ));
         total_counts.add(&summary);
-
     }
     tab_lines.sort();
 
@@ -387,10 +382,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
                 .collect(),
             field
                 .iter()
-                .filter_map(|i| {
-                    i.lights_total
-                        .map(|lt| lt - i.lights_known_before)
-                })
+                .filter_map(|i| i.lights_total.map(|lt| lt - i.lights_known_before))
                 .collect(),
         )
         .name(entry.file_name().to_str().unwrap_or("unknown").to_owned() + name_suffix)
@@ -459,9 +451,7 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
     let dat = plots
         .iter()
         .map(|(_, i)| {
-            format!("{{{{% tab %}}}}").to_string()
-                + &i.to_inline_html(None)
-                + "{{% /tab %}}"
+            format!("{{{{% tab %}}}}").to_string() + &i.to_inline_html(None) + "{{% /tab %}}"
         })
         .fold(String::new(), |a, b| a + &b);
     let tab_items = plots.iter().map(|i| i.0).collect::<Vec<_>>().join(",");

@@ -64,13 +64,22 @@ enum Commands {
         #[arg(short = 'o', long = "output")]
         stem: PathBuf,
 
-        #[arg(long = "dump", help = "dump all combinations ({winning,all}{nums,names} in the end of the simulation")]
+        #[arg(
+            long = "dump",
+            help = "dump all combinations ({winning,all}{nums,names} in the end of the simulation"
+        )]
         dump: Option<DumpMode>,
 
-        #[arg(long = "full", help = "print all probabilities instead of just the topX below the tables")]
+        #[arg(
+            long = "full",
+            help = "print all probabilities instead of just the topX below the tables"
+        )]
         full: bool,
 
-        #[arg(long = "use-cache", help = "Normally the optimal cache is used. This influences the output. Thus, this flag can be used to base the simulation on an not optimal cache")]
+        #[arg(
+            long = "use-cache",
+            help = "Normally the optimal cache is used. This influences the output. Thus, this flag can be used to base the simulation on an not optimal cache"
+        )]
         use_cache: Option<String>,
     },
     Check {
@@ -228,7 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {{
             let md_ruleset_tab =
                 graph::ruleset_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
 
-            let md_summary_tab = graph::summary_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
+            let md_summary_tab =
+                graph::summary_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
 
             // write the output localized for german language
             html_path_local = html_path_us.clone();
@@ -311,4 +321,3 @@ document.addEventListener("DOMContentLoaded", () => {{
         }
     }
 }
-

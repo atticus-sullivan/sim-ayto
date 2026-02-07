@@ -223,9 +223,9 @@ impl Constraint {
     }
 
     pub fn is_blackout(&self) -> bool {
-        if let ConstraintType::Night{ num: _, comment: _ } = self.r#type {
+        if let ConstraintType::Night { num: _, comment: _ } = self.r#type {
             if let CheckType::Lights(l, _) = self.check {
-                return self.known_lights == l
+                return self.known_lights == l;
             }
         }
         false
@@ -234,7 +234,7 @@ impl Constraint {
     pub fn is_sold(&self) -> bool {
         if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
             if let CheckType::Sold = self.check {
-                return true
+                return true;
             }
         }
         false
@@ -243,7 +243,7 @@ impl Constraint {
     pub fn is_match_found(&self) -> bool {
         if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
-                return true
+                return true;
             }
         }
         false
@@ -252,10 +252,11 @@ impl Constraint {
     pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
         if let Some(sols) = solutions {
             if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
-                return
-                sols.iter().all(|sol|
-                    self.map.iter().all(|(a,b)| sol.get(*a as usize).unwrap().contains(b))
-                );
+                return sols.iter().all(|sol| {
+                    self.map
+                        .iter()
+                        .all(|(a, b)| sol.get(*a as usize).unwrap().contains(b))
+                });
             }
         }
         false

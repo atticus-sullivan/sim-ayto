@@ -52,9 +52,9 @@ impl Hash for ConstraintParse {
 
 impl ConstraintParse {
     pub fn known_lights(&self) -> u8 {
-        if let ConstraintType::Box{ num: _, comment: _ } = self.r#type {
+        if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
-                return 1
+                return 1;
             }
         }
         0

@@ -132,33 +132,24 @@ impl Game {
 
         writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
-        writeln!(
-            out,
-            "{{{{% img src=\"/{stem}/{stem}_tab.png\" %}}}}"
-        )?;
-        writeln!(
-            out,
-            "{{{{% img src=\"/{stem}/{stem}_sum.png\" %}}}}"
-        )?;
+        writeln!(out, "{{{{% img src=\"/{stem}/{stem}_tab.png\" %}}}}")?;
+        writeln!(out, "{{{{% img src=\"/{stem}/{stem}_sum.png\" %}}}}")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "\n{{{{% translateHdr \"tab-individual\" %}}}}")?;
         for (name, idx, tree, detail) in md_tables.iter() {
             if *detail {
-                writeln!(out, "\n{{{{% details title=\"{name}\" closed=\"true\" %}}}}")?;
+                writeln!(
+                    out,
+                    "\n{{{{% details title=\"{name}\" closed=\"true\" %}}}}"
+                )?;
             } else {
                 writeln!(out, "\n{{{{% translatedDetails \"{name}\" %}}}}")?;
             }
 
-            writeln!(
-                out,
-                "{{{{% img src=\"/{stem}/{stem}_{idx}.png\" %}}}}"
-            )?;
+            writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{idx}.png\" %}}}}")?;
             if *tree {
-                writeln!(
-                    out,
-                    "{{{{% img src=\"/{stem}/{stem}_{idx}_tree.png\" %}}}}"
-                )?;
+                writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{idx}_tree.png\" %}}}}")?;
             }
 
             if *detail {
@@ -170,16 +161,18 @@ impl Game {
 
         writeln!(out, "\n{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
         writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
-        writeln!(
-            out,
-            "{{{{% img src=\"/{stem}/{stem}.col.png\" %}}}}"
-        )?;
+        writeln!(out, "{{{{% img src=\"/{stem}/{stem}.col.png\" %}}}}")?;
         writeln!(out, "{{{{% /details %}}}}")?;
 
         Ok(())
     }
 
-    fn do_statistics(&self, total: f64, merged_constraints: &[Constraint], solutions: Option<&Vec<Matching>>) -> Result<()> {
+    fn do_statistics(
+        &self,
+        total: f64,
+        merged_constraints: &[Constraint],
+        solutions: Option<&Vec<Matching>>,
+    ) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
         let out_mn_path = self.dir.join("statMN").with_extension("csv");
         let out_info_path = self.dir.join("statInfo").with_extension("csv");
@@ -250,7 +243,7 @@ impl Game {
         mno.flush()?;
         info.flush()?;
 
-        let mut cnt = SumCounts{
+        let mut cnt = SumCounts {
             blackouts: 0,
             sold: 0,
             sold_but_match: 0,
