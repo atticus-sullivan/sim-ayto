@@ -1,19 +1,29 @@
 baseURL: https://atticus-sullivan.github.io/sim-ayto/
 languagecode: en-us
-theme: ["hugo-book"]
 
 # enableGitInfo: true
 enableEmoji: true
 
+menu:
+  main:
+   - name: Theme Toggle
+     params:
+       type: theme-toggle
+       label: true # optional, default is false
+   - name: Language Switcher
+     params:
+       type: language-switch
+       label: true # optional, default is false
+       icon: "globe-alt" # optional, default is "translate"
+   - name: GitHub
+     weight: 5
+     url: "https://github.com/atticus-sullivan/sim-ayto"
+     params:
+        icon: github
 
 params:
-  BookTheme: 'auto'
-  BookRepo: 'https://github.com/atticus-sullivan/sim-ayto'
-  BookSection: '*'
-  BookToC: true
-  BookDateFormat: 'Jan 2, 2006'
-  BookSearch: true
-  BookComments: false
+  page:
+    width: full
 
 markup:
   goldmark:
@@ -51,119 +61,121 @@ languages:
     weight: 2
 
 module:
+  imports:
+    - path: github.com/imfing/hextra
   mounts:
     - source: content
       target: content
 
     - source: ../data/de01/de01.md
-      target: content/ayto/de/01.md
+      target: content/de/01.md
     - source: ../data/de01/de01.md
-      target: content/ayto/de/01.en.md
+      target: content/de/01.en.md
 
     - source: ../data/de02/de02.md
-      target: content/ayto/de/02.md
+      target: content/de/02.md
     - source: ../data/de02/de02.md
-      target: content/ayto/de/02.en.md
+      target: content/de/02.en.md
 
     - source: ../data/de03/de03.md
-      target: content/ayto/de/03.md
+      target: content/de/03.md
     - source: ../data/de03/de03.md
-      target: content/ayto/de/03.en.md
+      target: content/de/03.en.md
 
     - source: ../data/de04/de04.md
-      target: content/ayto/de/04.md
+      target: content/de/04.md
     - source: ../data/de04/de04.md
-      target: content/ayto/de/04.en.md
+      target: content/de/04.en.md
 
     - source: ../data/de05/de05.md
-      target: content/ayto/de/05.md
+      target: content/de/05.md
     - source: ../data/de05/de05.md
-      target: content/ayto/de/05.en.md
+      target: content/de/05.en.md
 
     - source: ../data/de06/de06.md
-      target: content/ayto/de/06.md
+      target: content/de/06.md
     - source: ../data/de06/de06.md
-      target: content/ayto/de/06.en.md
+      target: content/de/06.en.md
 
     - source: ../data/de07/de07.md
-      target: content/ayto/de/07.md
+      target: content/de/07.md
     - source: ../data/de07/de07.md
-      target: content/ayto/de/07.en.md
+      target: content/de/07.en.md
 
 
     - source: ../data/uk01/uk01.md
-      target: content/ayto/uk/01.md
+      target: content/uk/01.md
     - source: ../data/uk01/uk01.md
-      target: content/ayto/uk/01.en.md
+      target: content/uk/01.en.md
 
 
     - source: ../data/us01/us01.md
-      target: content/ayto/us/01.md
+      target: content/us/01.md
     - source: ../data/us01/us01.md
-      target: content/ayto/us/01.en.md
+      target: content/us/01.en.md
 
     - source: ../data/us02/us02.md
-      target: content/ayto/us/02.md
+      target: content/us/02.md
     - source: ../data/us02/us02.md
-      target: content/ayto/us/02.en.md
+      target: content/us/02.en.md
 
     - source: ../data/us03/us03.md
-      target: content/ayto/us/03.md
+      target: content/us/03.md
     - source: ../data/us03/us03.md
-      target: content/ayto/us/03.en.md
+      target: content/us/03.en.md
 
     - source: ../data/us04/us04.md
-      target: content/ayto/us/04.md
+      target: content/us/04.md
     - source: ../data/us04/us04.md
-      target: content/ayto/us/04.en.md
+      target: content/us/04.en.md
 
     - source: ../data/us05/us05.md
-      target: content/ayto/us/05.md
+      target: content/us/05.md
     - source: ../data/us05/us05.md
-      target: content/ayto/us/05.en.md
+      target: content/us/05.en.md
 
     - source: ../data/us06/us06.md
-      target: content/ayto/us/06.md
+      target: content/us/06.md
     - source: ../data/us06/us06.md
-      target: content/ayto/us/06.en.md
+      target: content/us/06.en.md
 
     - source: ../data/us07/us07.md
-      target: content/ayto/us/07.md
+      target: content/us/07.md
     - source: ../data/us07/us07.md
-      target: content/ayto/us/07.en.md
+      target: content/us/07.en.md
 
     - source: ../data/us08/us08.md
-      target: content/ayto/us/08.md
+      target: content/us/08.md
     - source: ../data/us08/us08.md
-      target: content/ayto/us/08.en.md
+      target: content/us/08.en.md
 
     - source: ../data/us09/us09.md
-      target: content/ayto/us/09.md
+      target: content/us/09.md
     - source: ../data/us09/us09.md
-      target: content/ayto/us/09.en.md
+      target: content/us/09.en.md
 
 
     - source: ../data/de01r/de01r.md
-      target: content/ayto/de-rsil/01.md
+      target: content/de-rsil/01.md
     - source: ../data/de01r/de01r.md
-      target: content/ayto/de-rsil/01.en.md
+      target: content/de-rsil/01.en.md
 
     - source: ../data/de02r/de02r.md
-      target: content/ayto/de-rsil/02.md
+      target: content/de-rsil/02.md
     - source: ../data/de02r/de02r.md
-      target: content/ayto/de-rsil/02.en.md
+      target: content/de-rsil/02.en.md
 
     - source: ../data/de03r/de03r.md
-      target: content/ayto/de-rsil/03.md
+      target: content/de-rsil/03.md
     - source: ../data/de03r/de03r.md
-      target: content/ayto/de-rsil/03.en.md
+      target: content/de-rsil/03.en.md
 
     - source: ../data/de04r/de04r.md
-      target: content/ayto/de-rsil/04.md
+      target: content/de-rsil/04.md
     - source: ../data/de04r/de04r.md
-      target: content/ayto/de-rsil/04.en.md
+      target: content/de-rsil/04.en.md
 
     - source: ../data/de05r/de05r.md
-      target: content/ayto/de-rsil/05.md
+      target: content/de-rsil/05.md
     - source: ../data/de05r/de05r.md
-      target: content/ayto/de-rsil/05.en.md
+      target: content/de-rsil/05.en.md

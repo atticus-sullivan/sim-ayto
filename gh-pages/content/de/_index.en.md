@@ -1,5 +1,5 @@
 ---
-title: 'DE RSIL'
+linkTitle: 'DE'
 weight: 1
 # bookFlatSection: false
 # bookToc: true

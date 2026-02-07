@@ -129,17 +129,17 @@ fn main() {
         } => {
             // obtain the graphs for the german seasons
             let html_content_light =
-                graph::build_stats_graph(|e| e.starts_with("de"), theme_light, "de-light").unwrap();
+                graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
             let html_content_dark =
-                graph::build_stats_graph(|e| e.starts_with("de"), theme_dark, "de-dark").unwrap();
+                graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
             let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("de")).unwrap();
 
             // write the output localized for german language
             let mut html_path_local = html_path_de.clone();
             std::fs::write(&html_path_local, format!(r#"---
-title: 'DE'
+linkTitle: 'DE'
 weight: 1
-bookToc: false
+toc: false
 
 ---
 # Anmerkungen
@@ -153,22 +153,29 @@ bookToc: false
 {}
 
 # Plots
-<div class="theme-specific-content">
-<div class="light-theme-content" style="display: none;" data-theme="light">
+<div class="plot-container plot-light">
 {}
 </div>
-<div class="dark-theme-content" style="display: none;" data-theme="dark">
+<div class="plot-container plot-dark">
 {}
 </div>
-</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {{
+    document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
+        tabButton.addEventListener("click", () => {{
+            window.dispatchEvent(new Event('resize'));
+        }});
+    }});
+}});
+</script>
 "#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // write the output localized for english language
             html_path_local.set_extension("en.md");
             std::fs::write(&html_path_local, format!(r#"---
-title: 'DE'
+linkTitle: 'DE'
 weight: 1
-bookToc: false
+toc: false
 
 ---
 # Remarks
@@ -182,27 +189,32 @@ bookToc: false
 {}
 
 # Plots
-<div class="theme-specific-content">
-<div class="light-theme-content" style="display: none;" data-theme="light">
+<div class="plot-container plot-light">
 {}
 </div>
-<div class="dark-theme-content" style="display: none;" data-theme="dark">
+<div class="plot-container plot-dark">
 {}
 </div>
-</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {{
+    document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
+        tabButton.addEventListener("click", () => {{
+            window.dispatchEvent(new Event('resize'));
+        }});
+    }});
+}});
+</script>
 "#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // obtain the graphs for the us+uk seasons
             let html_content_light = graph::build_stats_graph(
                 |e| e.starts_with("uk") || e.starts_with("us"),
                 theme_light,
-                "uk-light",
             )
             .unwrap();
             let html_content_dark = graph::build_stats_graph(
                 |e| e.starts_with("uk") || e.starts_with("us"),
                 theme_dark,
-                "uk-dark",
             )
             .unwrap();
             let md_ruleset_tab =
@@ -211,9 +223,9 @@ bookToc: false
             // write the output localized for german language
             html_path_local = html_path_us.clone();
             std::fs::write(&html_path_local, format!(r#"---
-title: 'US + UK'
+linkTitle: 'US + UK'
 weight: 1
-bookToc: false
+toc: false
 ---
 
 # Anmerkungen
@@ -228,22 +240,29 @@ bookToc: false
 {}
 
 # Plots
-<div class="theme-specific-content">
-<div class="light-theme-content" style="display: none;" data-theme="light">
+<div class="plot-container plot-light">
 {}
 </div>
-<div class="dark-theme-content" style="display: none;" data-theme="dark">
+<div class="plot-container plot-dark">
 {}
 </div>
-</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {{
+document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
+    tabButton.addEventListener("click", () => {{
+        window.dispatchEvent(new Event('resize'));
+    }});
+}});
+}});
+</script>
 "#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
 
             // write the output localized for english language
             html_path_local.set_extension("en.md");
             std::fs::write(&html_path_local, format!(r#"---
-title: 'US + UK'
+linkTitle: 'US + UK'
 weight: 1
-bookToc: false
+toc: false
 
 ---
 # Remarks
@@ -257,14 +276,21 @@ bookToc: false
 {}
 
 # Plots
-<div class="theme-specific-content">
-<div class="light-theme-content" style="display: none;" data-theme="light">
+<div class="plot-container plot-light">
 {}
 </div>
-<div class="dark-theme-content" style="display: none;" data-theme="dark">
+<div class="plot-container plot-dark">
 {}
 </div>
-</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {{
+    document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
+        tabButton.addEventListener("click", () => {{
+            window.dispatchEvent(new Event('resize'));
+        }});
+    }});
+}});
+</script>
 "#,  &md_ruleset_tab, &html_content_light, &html_content_dark)).unwrap();
         }
     }

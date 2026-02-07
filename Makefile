@@ -146,14 +146,14 @@ $(CEALIAS): $(RUST_DEP)
 	$(eval f := $(let i,$@,data/$(patsubst cache_%,%,$i)/$(patsubst cache_%,%,$i).yaml))
 	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto cache $(f)
 
-graph: gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
+graph: gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
 hugo: graph
 	cd ./gh-pages && hugo build
 	echo "$(pwd)/gh-pages/public/ayto"
 
-gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.csv)
-	./rust/target/$(MODE)/ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
+gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.csv)
+	./rust/target/$(MODE)/ayto graph gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
 rust/target/$(MODE)/ayto: ./rust/src/*
 	make -C rust target/$(MODE)/ayto

@@ -1,5 +1,5 @@
 ---
-title: 'US'
+linkTitle: 'US'
 weight: 1
 # bookFlatSection: false
 # bookToc: true

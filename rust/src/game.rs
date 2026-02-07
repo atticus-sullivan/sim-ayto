@@ -130,7 +130,7 @@ impl Game {
         let stem = &self.stem;
 
         writeln!(out, "\n{{{{% translateHdr \"tab-current\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
-        writeln!(out, "{{{{% details \"\" %}}}}")?;
+        writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
         writeln!(
             out,
             "{{{{% img src=\"/sim-ayto/{stem}/{stem}_tab.png\" %}}}}"
@@ -144,7 +144,7 @@ impl Game {
         writeln!(out, "\n{{{{% translateHdr \"tab-individual\" %}}}}")?;
         for (name, idx, tree, detail) in md_tables.iter() {
             if *detail {
-                writeln!(out, "\n{{{{% details \"{name}\" %}}}}")?;
+                writeln!(out, "\n{{{{% details title=\"{name}\" closed=\"true\" %}}}}")?;
             } else {
                 writeln!(out, "\n{{{{% translatedDetails \"{name}\" %}}}}")?;
             }
@@ -168,7 +168,7 @@ impl Game {
         }
 
         writeln!(out, "\n{{{{% translateHdr \"tab-everything\" %}}}}\n:warning: {{{{< i18n \"spoiler-warning\" >}}}} :warning:")?;
-        writeln!(out, "{{{{% details \"\" %}}}}")?;
+        writeln!(out, "{{{{% details closed=\"true\" %}}}}")?;
         writeln!(
             out,
             "{{{{% img src=\"/sim-ayto/{stem}/{stem}.col.png\" %}}}}"

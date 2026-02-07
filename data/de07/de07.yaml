@@ -2,12 +2,12 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: 'DE Staffel 7'
+  linkTitle: 'DE Staffel 7'
   weight: 1
 
 gen_cache: false
 
-rule_set: !SomeoneIsDup
+rule_set: !XTimesDup [null]
 # rule_set: !FixedDup Aurora
 # rule_set: !Eq
 
@@ -17,8 +17,8 @@ setA:
 - Evi
 - Jeronymo
 - Jerry
-- Julian
-- Julian
+- JulianA
+- JulianB
 - Luke
 - Meji
 - Noel
@@ -37,9 +37,9 @@ setB:
 - Aurora
 
 constraints:
-  - type: !Box {num: 1, comment: "E01"}
-    check: !Lights [0]
-    map:
+  # - type: !Box {num: 1, comment: "E01"}
+  #   check: !Lights [0]
+  #   map:
 
   # - type: !Night {num: 1, comment: "E01"}
   #   check: !Lights [2]
