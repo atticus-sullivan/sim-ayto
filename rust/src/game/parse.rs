@@ -233,7 +233,11 @@ impl GameParse {
         // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
         let mut known_lights: u8 = 0;
         for c in self.constraints_orig {
-            let l = c.known_lights();
+            let l = if !c.is_hidden() {
+                c.known_lights()
+            } else {
+                0
+            };
             g.constraints_orig.push(c.finalize_parsing(
                 &g.lut_a,
                 &g.lut_b,

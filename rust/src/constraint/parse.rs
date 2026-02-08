@@ -87,6 +87,11 @@ impl ConstraintParse {
             ConstraintType::Box { num, .. } => format!("MB#{}", num),
         }
     }
+
+    pub fn is_hidden(&self) -> bool {
+        self.hidden
+    }
+
 }
 
 impl ConstraintParse {
