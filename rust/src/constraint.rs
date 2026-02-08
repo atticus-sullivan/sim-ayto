@@ -48,9 +48,21 @@ impl CheckType {
 }
 
 #[derive(Deserialize, Debug, Clone)]
+enum Offer {
+    Single{
+        amount: f32,
+        by: String,
+        #[serde(rename="reducedPot")]
+        reduced_pot: bool,
+        save: bool,
+    },
+    All{amount: f32, by: String},
+}
+
+#[derive(Deserialize, Debug, Clone)]
 enum ConstraintType {
     Night { num: f32, comment: String },
-    Box { num: f32, comment: String },
+    Box { num: f32, comment: String, offer: Option<Offer> },
 }
 
 impl Hash for ConstraintType {
@@ -58,14 +70,33 @@ impl Hash for ConstraintType {
         match self {
             ConstraintType::Night { num, comment } => {
                 0.hash(state); // A constant to distinguish this variant
-                num.to_bits().hash(state); // Hash the f32 value
-                comment.hash(state); // Hash the String
-            }
-            ConstraintType::Box { num, comment } => {
-                1.hash(state); // A constant to distinguish this variant
                 num.to_bits().hash(state);
                 comment.hash(state);
             }
+            ConstraintType::Box { num, comment , offer} => {
+                1.hash(state); // A constant to distinguish this variant
+                num.to_bits().hash(state);
+                comment.hash(state);
+                offer.hash(state)
+            }
+        }
+    }
+}
+impl Hash for Offer {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        match self {
+            Offer::Single { amount, by, reduced_pot, save } => {
+                0.hash(state); // A constant to distinguish this variant
+                amount.to_bits().hash(state);
+                by.hash(state);
+                reduced_pot.hash(state);
+                save.hash(state);
+            },
+            Offer::All { amount, by } => {
+                1.hash(state); // A constant to distinguish this variant
+                amount.to_bits().hash(state);
+                by.hash(state);
+            },
         }
     }
 }
@@ -208,15 +239,15 @@ impl Constraint {
 impl Constraint {
     pub fn comment(&self) -> &str {
         match &self.r#type {
-            ConstraintType::Night { num: _, comment } => comment,
-            ConstraintType::Box { num: _, comment } => comment,
+            ConstraintType::Night { comment, ..} => comment,
+            ConstraintType::Box { comment, .. } => comment,
         }
     }
 
     pub fn type_str(&self) -> String {
         match &self.r#type {
-            ConstraintType::Night { num, comment: _ } => format!("MN#{}", num),
-            ConstraintType::Box { num, comment: _ } => format!("MB#{}", num),
+            ConstraintType::Night { num, .. } => format!("MN#{}", num),
+            ConstraintType::Box { num, .. } => format!("MB#{}", num),
         }
     }
 }
@@ -234,6 +265,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Eq,
@@ -289,6 +321,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Eq,
@@ -345,6 +378,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Eq,
@@ -467,6 +501,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: String::from(""),
+                offer: None,
             },
             build_tree: false,
             left_poss: vec![],
@@ -507,6 +542,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: String::from(""),
+                offer: None,
             },
             build_tree: false,
             left_poss: vec![],
@@ -741,6 +777,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: String::from(""),
+                offer: None,
             },
             result_unknown: false,
             build_tree: false,
@@ -891,6 +928,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: String::from("comment"),
+                offer: None,
             },
             result_unknown: false,
             build_tree: false,
@@ -965,6 +1003,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: String::from("comment"),
+                offer: None,
             },
             result_unknown: false,
             build_tree: false,
