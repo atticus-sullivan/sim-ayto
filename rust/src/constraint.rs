@@ -56,7 +56,7 @@ enum Offer {
         reduced_pot: bool,
         save: bool,
     },
-    All{amount: f32, by: String},
+    Group{amount: f32, by: String},
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -92,7 +92,7 @@ impl Hash for Offer {
                 reduced_pot.hash(state);
                 save.hash(state);
             },
-            Offer::All { amount, by } => {
+            Offer::Group { amount, by } => {
                 1.hash(state); // A constant to distinguish this variant
                 amount.to_bits().hash(state);
                 by.hash(state);
