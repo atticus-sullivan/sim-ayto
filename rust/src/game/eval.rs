@@ -1,55 +1,29 @@
-use crate::game::foreach_unwrapped_matching;
-use crate::game::IterState;
-use crate::DumpMode;
-use crate::Game;
-
 use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
-use comfy_table::{Row, Table};
-
-use std::fs::File;
+use comfy_table::{Row, Table, Cell};
+use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 
 use anyhow::{Context, Result};
 
+use std::fs::File;
+use std::io::{BufWriter, Write};
+
 use crate::constraint::Constraint;
-use crate::Rem;
+use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
+use crate::{Rem, Matching};
+use crate::game::foreach_unwrapped_matching;
+use crate::iterstate::IterState;
+use crate::DumpMode;
+use crate::Game;
 
 impl Game {
-    pub fn sim(
+    // TODO:
+    pub fn eval(
         &mut self,
         print_transposed: bool,
         dump_mode: Option<DumpMode>,
         full: bool,
-        use_cache: Option<String>,
+        is: &IterState,
     ) -> Result<()> {
-        let input_file = if use_cache.is_some() {
-            &self.cache_file
-        } else {
-            &None
-        };
-
-        let perm_amount =
-            self.rule_set
-                .get_perms_amount(self.map_a.len(), self.map_b.len(), input_file)?;
-
-        let mut is = IterState::new(
-            dump_mode.is_some() || self.solved,
-            perm_amount,
-            self.constraints_orig.clone(),
-            &self.query_matchings,
-            &self.query_pair,
-            if use_cache.is_some() {
-                &self.final_cache_hash
-            } else {
-                &None
-            },
-            (self.map_a.len(), self.map_b.len()),
-        )?;
-        self.rule_set
-            .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
-
-        // fix is so that it can't be mutated anymore
-        let is = &is;
-
         // track table indices
         let mut tab_idx = 0;
         let mut md_tables: Vec<(String, u16, bool, bool)> = vec![];
@@ -204,7 +178,7 @@ impl Game {
         }
 
         let md_path = self.dir.join(self.stem.clone()).with_extension("md");
-        self.md_output(&mut File::create(md_path.clone())?, &md_tables)?;
+        self.write_page_md(&mut File::create(md_path.clone())?, &md_tables)?;
 
         if let Some(d) = dump_mode {
             match d {
@@ -265,5 +239,169 @@ impl Game {
             is.each[0][0]
         );
         Ok(())
+    }
+
+    // TODO:
+    fn do_statistics(
+        &self,
+        total: f64,
+        merged_constraints: &[Constraint],
+        solutions: Option<&Vec<Matching>>,
+    ) -> Result<()> {
+        let out_mb_path = self.dir.join("statMB").with_extension("csv");
+        let out_mn_path = self.dir.join("statMN").with_extension("csv");
+        let out_info_path = self.dir.join("statInfo").with_extension("csv");
+        let out_sum_path = self.dir.join("statSum").with_extension("json");
+
+        let (mut mbo, mut mno, mut info) = (
+            csv::WriterBuilder::new()
+                .delimiter(b',')
+                .has_headers(false)
+                .from_path(out_mb_path)?,
+            csv::WriterBuilder::new()
+                .delimiter(b',')
+                .has_headers(false)
+                .from_path(out_mn_path)?,
+            csv::WriterBuilder::new()
+                .delimiter(b',')
+                .has_headers(false)
+                .from_path(out_info_path)?,
+        );
+        info.serialize(CSVEntry {
+            num: 0.0,
+            lights_total: None,
+            lights_known_before: 0,
+            bits_left: total.log2(),
+            comment: "initial".to_string(),
+        })?;
+        for i in merged_constraints.iter().map(|c| {
+            c.get_stats(
+                self.rule_set
+                    .constr_map_len(self.lut_a.len(), self.lut_b.len()),
+            )
+        }) {
+            let i = i?;
+            if let Some(j) = &i.1 {
+                let j = CSVEntryMN {
+                    num: j.num,
+                    won: j.won,
+                    lights_total: j.lights_total,
+                    lights_known_before: j.lights_known_before,
+                    bits_gained: j.bits_gained,
+                    comment: j.comment.clone(),
+                };
+                mno.serialize(j)?
+            }
+            if let Some(j) = &i.2 {
+                let j = CSVEntry {
+                    num: j.num,
+                    lights_total: j.lights_total,
+                    lights_known_before: j.lights_known_before,
+                    bits_left: j.bits_left,
+                    comment: j.comment.clone(),
+                };
+                info.serialize(j)?
+            }
+            // potentially updates known_lights -> do this in the end of the loop
+            if let Some(j) = &i.0 {
+                let j = CSVEntryMB {
+                    num: j.num,
+                    lights_total: j.lights_total,
+                    lights_known_before: j.lights_known_before,
+                    bits_gained: j.bits_gained,
+                    comment: j.comment.clone(),
+                };
+                mbo.serialize(j)?
+            }
+        }
+        mbo.flush()?;
+        mno.flush()?;
+        info.flush()?;
+
+        let mut cnt = SumCounts {
+            blackouts: 0,
+            sold: 0,
+            sold_but_match: 0,
+            sold_but_match_active: solutions.is_some(),
+            matches_found: 0,
+            won: false
+        };
+        for c in merged_constraints.iter() {
+            if c.is_blackout() {
+                cnt.blackouts += 1;
+            }
+            if c.is_sold() {
+                cnt.sold += 1;
+            }
+            if c.is_match_found() {
+                cnt.matches_found += 1;
+            }
+            if c.is_sold() && c.is_mb_hit(solutions) {
+                cnt.sold_but_match += 1;
+            }
+        }
+
+        cnt.won = {
+            let required_lights = self.rule_set.constr_map_len(self.lut_a.len(), self.lut_b.len());
+            merged_constraints.iter().find(|x| x.num() == 10.0).or_else(|| merged_constraints.last()).map(|x| x.won(required_lights)).unwrap_or(false)
+        };
+
+        let file = File::create(out_sum_path)?;
+        let mut writer = BufWriter::new(file);
+
+        serde_json::to_writer(&mut writer, &cnt)?;
+        writer.flush()?;
+
+        println!("{}", self.summary_table(false, merged_constraints)?); // TODO: return table?
+        println!("{}", self.summary_table(true, merged_constraints)?); // TODO: return table?
+        Ok(())
+    }
+
+    fn summary_table(&self, transpose: bool, merged_constraints: &[Constraint]) -> Result<Table> {
+        // let map_vert;
+        let map_hor = if !transpose {
+            &self.map_a
+            // map_vert = &self.map_b;
+        } else {
+            &self.map_b
+            // map_vert = &self.map_a;
+        };
+
+        let mut hdr = vec![
+            Cell::new(""),
+            Cell::new("L").set_alignment(comfy_table::CellAlignment::Center),
+        ];
+        hdr.extend(
+            map_hor
+                .iter()
+                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
+        );
+        hdr.push(Cell::new("").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("I").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("#new").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("min dist").set_alignment(comfy_table::CellAlignment::Center));
+
+        let mut table = Table::new();
+        table
+            .force_no_tty()
+            .enforce_styling()
+            .load_preset(UTF8_FULL_CONDENSED)
+            .apply_modifier(UTF8_ROUND_CORNERS)
+            .set_header(hdr);
+
+        let mut past_constraints: Vec<&Constraint> = Vec::default();
+        for (i, c) in merged_constraints.iter().enumerate() {
+            if i % 2 == 0 {
+                table.add_row(
+                    c.stat_row(transpose, map_hor, &past_constraints)
+                        .into_iter()
+                        .map(|i| i.bg(crate::COLOR_ALT_BG)),
+                );
+            } else {
+                table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
+            }
+            past_constraints.push(c);
+        }
+        Ok(table)
     }
 }

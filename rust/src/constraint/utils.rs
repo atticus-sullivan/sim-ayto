@@ -89,6 +89,22 @@ impl Constraint {
         }
         self.eliminated += 1;
     }
+
+    pub fn md_title(&self) -> String {
+        match &self.r#type {
+            ConstraintType::Night { num, comment, .. } => format!(
+                "MN#{:02.1} {}",
+                num,
+                comment.split("--").collect::<Vec<_>>()[0]
+            ),
+            ConstraintType::Box { num, comment, .. } => format!(
+                "MB#{:02.1} {}",
+                num,
+                comment.split("--").collect::<Vec<_>>()[0]
+            ),
+        }
+    }
+
 }
 
 // helpers for evaluation

@@ -76,6 +76,7 @@ impl Constraint {
         Ok(true)
     }
 
+    // TODO: split up
     pub fn stat_row(
         &self,
         transpose: bool,
@@ -223,53 +224,6 @@ impl Constraint {
         )
     }
 
-    pub fn is_blackout(&self) -> bool {
-        if let ConstraintType::Night { num: _, comment: _ } = self.r#type {
-            if let CheckType::Lights(l, _) = self.check {
-                return self.known_lights == l;
-            }
-        }
-        false
-    }
-
-    pub fn is_sold(&self) -> bool {
-        if let ConstraintType::Box {..} = self.r#type {
-            if let CheckType::Sold = self.check {
-                return true;
-            }
-        }
-        false
-    }
-
-    pub fn is_match_found(&self) -> bool {
-        if let ConstraintType::Box {..} = self.r#type {
-            if let CheckType::Lights(1, _) = self.check {
-                return true;
-            }
-        }
-        false
-    }
-
-    pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
-        if let Some(sols) = solutions {
-            if let ConstraintType::Box {..} = self.r#type {
-                return sols.iter().all(|sol| {
-                    self.map
-                        .iter()
-                        .all(|(a, b)| sol.get(*a as usize).unwrap().contains(b))
-                });
-            }
-        }
-        false
-    }
-
-    pub fn won(&self, required_lights: usize) -> bool {
-        match self.check {
-            CheckType::Eq => false,
-            CheckType::Nothing | CheckType::Sold => false,
-            CheckType::Lights(l, _) => l as usize == required_lights,
-        }
-    }
 
     // returned array contains mbInfo, mnInfo, info, sum
     pub fn get_stats(
@@ -324,21 +278,7 @@ impl Constraint {
         }
     }
 
-    pub fn md_title(&self) -> String {
-        match &self.r#type {
-            ConstraintType::Night { num, comment, .. } => format!(
-                "MN#{:02.1} {}",
-                num,
-                comment.split("--").collect::<Vec<_>>()[0]
-            ),
-            ConstraintType::Box { num, comment, .. } => format!(
-                "MB#{:02.1} {}",
-                num,
-                comment.split("--").collect::<Vec<_>>()[0]
-            ),
-        }
-    }
-
+    // TODO: split up / output
     pub fn print_hdr(&self, past_constraints: &Vec<&Constraint>) -> Result<()> {
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => print!("MN#{:02.1} {}", num, comment),
@@ -429,5 +369,56 @@ impl Constraint {
 
     pub fn show_rem_table(&self) -> bool {
         !self.result_unknown
+    }
+}
+
+// predicates
+impl Constraint {
+    pub fn is_blackout(&self) -> bool {
+        if let ConstraintType::Night { num: _, comment: _ } = self.r#type {
+            if let CheckType::Lights(l, _) = self.check {
+                return self.known_lights == l;
+            }
+        }
+        false
+    }
+
+    pub fn is_sold(&self) -> bool {
+        if let ConstraintType::Box {..} = self.r#type {
+            if let CheckType::Sold = self.check {
+                return true;
+            }
+        }
+        false
+    }
+
+    pub fn is_match_found(&self) -> bool {
+        if let ConstraintType::Box {..} = self.r#type {
+            if let CheckType::Lights(1, _) = self.check {
+                return true;
+            }
+        }
+        false
+    }
+
+    pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
+        if let Some(sols) = solutions {
+            if let ConstraintType::Box {..} = self.r#type {
+                return sols.iter().all(|sol| {
+                    self.map
+                        .iter()
+                        .all(|(a, b)| sol.get(*a as usize).unwrap().contains(b))
+                });
+            }
+        }
+        false
+    }
+
+    pub fn won(&self, required_lights: usize) -> bool {
+        match self.check {
+            CheckType::Eq => false,
+            CheckType::Nothing | CheckType::Sold => false,
+            CheckType::Lights(l, _) => l as usize == required_lights,
+        }
     }
 }

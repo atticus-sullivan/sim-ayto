@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// TODO: rename and split up (make directory)
+// 1. collect data
+// 2. build graphs one by one
+// 3. build tales one by one
+
 use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;

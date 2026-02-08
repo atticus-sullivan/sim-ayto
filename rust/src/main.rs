@@ -22,6 +22,7 @@ mod graph;
 mod ruleset;
 mod ruleset_data;
 mod tree;
+mod iterstate;
 
 use crate::game::Game;
 
@@ -30,6 +31,7 @@ use game::DumpMode;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
+use comfy_table::Color;
 
 // TODO code review (try with chatGPT)
 
@@ -41,6 +43,30 @@ type Lut = HashMap<String, usize>;
 type Rename = HashMap<String, String>;
 
 type Rem = (Vec<Vec<u128>>, u128);
+
+// colors for tables
+const COLOR_ROW_MAX: Color = Color::Rgb {
+    r: 69,
+    g: 76,
+    b: 102,
+};
+const COLOR_BOTH_MAX: Color = Color::Rgb {
+    r: 65,
+    g: 77,
+    b: 71,
+};
+const COLOR_COL_MAX: Color = Color::Rgb {
+    r: 74,
+    g: 68,
+    b: 89,
+};
+
+pub const COLOR_ALT_BG: Color = Color::Rgb {
+    r: 41,
+    g: 44,
+    b: 60,
+};
+
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -99,6 +125,7 @@ enum Commands {
     },
 }
 
+// TODO: extract templates?
 fn main() {
     let args = Cli::parse();
 
@@ -116,13 +143,14 @@ fn main() {
                 .expect("Parsing failed");
             let mut g = gp.finalize_parsing(&stem).expect("processing game failed");
             let start = Instant::now();
-            g.sim(transpose_tabs, dump, full, use_cache).unwrap();
+            let result = g.sim(dump.clone(), use_cache).unwrap();
+            g.eval(transpose_tabs, dump, full, &result).unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Cache { yaml_path } => {
             let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, Some("".to_string()))
                 .expect("Parsing failed");
-            gp.show_caches().expect("Failed evaluating caches");
+            println!("{}", gp.show_caches().expect("Failed evaluating caches"));
         }
         Commands::Check { yaml_path } => {
             let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, None)

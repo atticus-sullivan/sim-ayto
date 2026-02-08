@@ -211,7 +211,7 @@ impl Constraint {
     }
 }
 
-// functions for processing/executing the simulation
+// functions for executing the simulation
 impl Constraint {
     // returns if the matching fits the constraint (is not eliminated)
     pub fn process(&mut self, m: &Matching) -> Result<bool> {

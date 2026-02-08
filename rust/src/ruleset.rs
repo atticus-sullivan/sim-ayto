@@ -30,7 +30,8 @@ use std::{
     io::{BufRead, BufReader},
 };
 
-use crate::{game::IterState, Lut};
+use crate::Lut;
+use crate::iterstate::IterState;
 
 fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
     vals: I,

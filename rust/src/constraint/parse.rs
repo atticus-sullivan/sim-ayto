@@ -51,7 +51,7 @@ impl Hash for ConstraintParse {
 }
 
 impl ConstraintParse {
-    pub fn known_lights(&self) -> u8 {
+    pub fn added_known_lights(&self) -> u8 {
         if let ConstraintType::Box { .. } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
                 return 1;
@@ -109,6 +109,7 @@ impl ConstraintParse {
     /// - `sort_constraint`: whether to sort the maps used for this constraint
     /// - `rename`: Maps one name to another name for renaming the names of set_a and set_b
     #[allow(clippy::too_many_arguments)]
+    // TODO: split up
     pub fn finalize_parsing(
         self,
         lut_a: &Lut,
