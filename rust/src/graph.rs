@@ -78,6 +78,7 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
         sold_but_match: 0,
         sold_but_match_active: true,
         matches_found: 0,
+        won: false,
     };
 
     let mut tab_lines = vec![];
@@ -103,7 +104,7 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
         let name = entry.file_name().to_str().unwrap_or("unknown").to_owned();
 
         tab_lines.push(format!(
-            "| {} | {} | {} | {} | {} |",
+            "| {} | {} | {} | {} | {} | {} |",
             name,
             summary.blackouts,
             summary.sold,
@@ -113,14 +114,15 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
                 "(0)".to_string()
             },
             summary.matches_found,
+            summary.won,
         ));
         total_counts.add(&summary);
     }
     tab_lines.sort();
 
-    tab_lines.push("| | | | | |".to_string());
+    tab_lines.push("| | | | | | |".to_string());
     tab_lines.push(format!(
-        "| {} | {} | {} | {} | {} |",
+        "| {} | {} | {} | {} | {} | |",
         "{{< i18n \"total\" >}}",
         total_counts.blackouts,
         total_counts.sold,
@@ -133,7 +135,7 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
     ));
 
     Ok(format!(
-        r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "blackouts" >}}}} | {{{{< i18n "sold" >}}}} | {{{{< i18n "soldButGood" >}}}} | {{{{< i18n "matchesFound" >}}}} |
+        r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "blackouts" >}}}} | {{{{< i18n "sold" >}}}} | {{{{< i18n "soldButGood" >}}}} | {{{{< i18n "matchesFound" >}}}} | {{{{< i18n "won" >}}}} |
 | --- | --- | --- | --- | --- |
 {}
     "#,
@@ -347,25 +349,14 @@ pub fn build_stats_graph(filter_dirs: fn(&str) -> bool, theme: u8) -> Result<Str
             let record: CSVEntryMN = result?;
             field.push(record);
         }
-        let name_suffix = match field.iter().find(|x| x.num == 10.0) {
-            Some(x) => {
-                if x.won {
-                    "- W"
-                } else {
-                    "-L"
-                }
+        let name_suffix = field.iter().find(|x| x.num == 10.0).or_else(|| field.last()).map(|x| {
+            if x.won {
+                "- W"
+            } else {
+                "- L"
             }
-            None => match field.last() {
-                Some(x) => {
-                    if x.won {
-                        "- W"
-                    } else {
-                        "-L"
-                    }
-                }
-                None => "",
-            },
-        };
+        }).unwrap_or("");
+
         let trace = Scatter::new(
             field.iter().map(|i| i.num).collect(),
             field.iter().map(|i| i.bits_gained).collect(),

@@ -250,6 +250,13 @@ impl Constraint {
             ConstraintType::Box { num, .. } => format!("MB#{}", num),
         }
     }
+
+    pub fn num(&self) -> f32 {
+        match &self.r#type {
+            ConstraintType::Night { num, .. } => *num,
+            ConstraintType::Box { num, .. } => *num,
+        }
+    }
 }
 
 #[cfg(test)]

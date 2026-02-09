@@ -249,6 +249,7 @@ impl Game {
             sold_but_match: 0,
             sold_but_match_active: solutions.is_some(),
             matches_found: 0,
+            won: false,
         };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
@@ -264,6 +265,13 @@ impl Game {
                 cnt.sold_but_match += 1;
             }
         }
+
+        cnt.won = {
+            let required_lights = self.rule_set.constr_map_len(self.lut_a.len(), self.lut_b.len());
+            merged_constraints.iter().find(|x| x.num() == 10.0).or_else(|| merged_constraints.last()).map(|x| x.won(required_lights)).unwrap_or(false)
+        };
+
+
         let file = File::create(out_sum_path)?;
         let mut writer = BufWriter::new(file);
 

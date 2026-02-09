@@ -45,6 +45,7 @@ pub struct SumCounts {
     pub sold_but_match: u8,
     pub sold_but_match_active: bool,
     pub matches_found: u8,
+    pub won: bool,
 }
 
 impl SumCounts {
@@ -262,6 +263,14 @@ impl Constraint {
         false
     }
 
+    pub fn won(&self, required_lights: usize) -> bool {
+        match self.check {
+            CheckType::Eq => false,
+            CheckType::Nothing | CheckType::Sold => false,
+            CheckType::Lights(l, _) => l as usize == required_lights,
+        }
+    }
+
     // returned array contains mbInfo, mnInfo, info, sum
     pub fn get_stats(
         &self,
@@ -271,11 +280,7 @@ impl Constraint {
             return Ok((None, None, None));
         }
 
-        let won = match self.check {
-            CheckType::Eq => false,
-            CheckType::Nothing | CheckType::Sold => false,
-            CheckType::Lights(l, _) => l as usize == required_lights,
-        };
+        let won = self.won(required_lights);
 
         #[allow(clippy::useless_format)]
         let meta_a = format!("{}", self.comment());
