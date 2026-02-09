@@ -1,6 +1,6 @@
-use crate::{comparison::CmpData, constraint::eval::SumCounts};
+use crate::{comparison::{CmpData, Language}, constraint::eval::SumCounts};
 
-pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>) -> String {
+pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
     let mut total_counts = SumCounts {
         blackouts: 0,
         sold: 0,
@@ -12,12 +12,12 @@ pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>) -> String {
 
     let mut tab_lines = vec![
         r#"| {{< i18n "season" >}} | {{< i18n "blackouts" >}} | {{< i18n "sold" >}} | {{< i18n "soldButGood" >}} | {{< i18n "matchesFound" >}} | {{< i18n "won" >}} |"#.to_owned(),
-        "| --- | --- | --- | --- | --- | --- |".to_owned(),
+        "| --- | --- | --- | --- | --- |:---:|".to_owned(),
     ];
 
     for (name, cd) in cmp_data {
         tab_lines.push(format!(
-            "| {} | {} | {} | {} | {} | {} |",
+            "| {} | {} | {} | {} | {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} |",
             name,
             cd.cnts.blackouts,
             cd.cnts.sold,
@@ -27,7 +27,8 @@ pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>) -> String {
                 "(0)".to_string()
             },
             cd.cnts.matches_found,
-            cd.cnts.won,
+            lang.format_bool_yes_no(cd.cnts.won),
+            if cd.cnts.won {"green"} else {"red"}
         ));
         total_counts.add(&cd.cnts);
     }

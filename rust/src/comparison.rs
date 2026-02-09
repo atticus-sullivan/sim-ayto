@@ -112,9 +112,31 @@ struct PageConfig<'a> {
     ruleset_filter: fn(&str) -> bool,
 }
 
+#[derive(Copy, Clone)]
 enum Language {
     De,
     En,
+}
+
+impl Language {
+    pub fn format_bool_yes_no(&self, val: bool) -> &str {
+        match self{
+            Language::De => {
+                if val {
+                    "Ja"
+                } else {
+                    "Nein"
+                }
+            },
+            Language::En => {
+                if val {
+                    "Yes"
+                } else {
+                    "No"
+                }
+            },
+        }
+    }
 }
 
 fn write_page(
@@ -178,7 +200,7 @@ pub fn write_pages(
             let html_dark = build_graph_hextra_tabs(&plots_dark);
 
             let md_ruleset_tab = ruleset_tab_md(&data);
-            let md_summary_tab = summary_tab_md(&data);
+            let md_summary_tab = summary_tab_md(&data, lang);
 
             write_page(
                 &page,
