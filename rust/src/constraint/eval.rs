@@ -30,7 +30,6 @@ pub struct CSVEntryMB {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMN {
-    pub won: bool,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
     pub num: f64,
@@ -227,13 +226,10 @@ impl Constraint {
     // returned array contains mbInfo, mnInfo, info, sum
     pub fn get_stats(
         &self,
-        required_lights: usize,
     ) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
         if self.hidden {
             return Ok((None, None, None));
         }
-
-        let won = self.won(required_lights);
 
         #[allow(clippy::useless_format)]
         let meta_a = format!("{}", self.comment());
@@ -242,7 +238,6 @@ impl Constraint {
             ConstraintType::Night { num, .. } => Ok((
                 None,
                 Some(CSVEntryMN {
-                    won,
                     num: num.into(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
@@ -413,11 +408,23 @@ impl Constraint {
         false
     }
 
+    pub fn might_won(&self) -> bool {
+        if let ConstraintType::Night { .. } = self.r#type {
+            true
+        } else {
+            false
+        }
+    }
+
     pub fn won(&self, required_lights: usize) -> bool {
-        match self.check {
-            CheckType::Eq => false,
-            CheckType::Nothing | CheckType::Sold => false,
-            CheckType::Lights(l, _) => l as usize == required_lights,
+        if let ConstraintType::Night { .. } = self.r#type {
+            match self.check {
+                CheckType::Eq => false,
+                CheckType::Nothing | CheckType::Sold => false,
+                CheckType::Lights(l, _) => l as usize == required_lights,
+            }
+        } else {
+            false
         }
     }
 }

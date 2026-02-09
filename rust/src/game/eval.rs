@@ -275,16 +275,12 @@ impl Game {
             comment: "initial".to_string(),
         })?;
         for i in merged_constraints.iter().map(|c| {
-            c.get_stats(
-                self.rule_set
-                    .constr_map_len(self.lut_a.len(), self.lut_b.len()),
-            )
+            c.get_stats()
         }) {
             let i = i?;
             if let Some(j) = &i.1 {
                 let j = CSVEntryMN {
                     num: j.num,
-                    won: j.won,
                     lights_total: j.lights_total,
                     lights_known_before: j.lights_known_before,
                     bits_gained: j.bits_gained,
@@ -347,7 +343,7 @@ impl Game {
                 .constr_map_len(self.lut_a.len(), self.lut_b.len());
             merged_constraints
                 .iter()
-                .find(|x| x.num() == 10.0)
+                .find(|x| x.num() == 10.0 && x.might_won())
                 .or_else(|| merged_constraints.last())
                 .map(|x| x.won(required_lights))
                 .unwrap_or(false)
