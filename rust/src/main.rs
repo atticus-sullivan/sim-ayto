@@ -67,7 +67,6 @@ pub const COLOR_ALT_BG: Color = Color::Rgb {
     b: 60,
 };
 
-
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {

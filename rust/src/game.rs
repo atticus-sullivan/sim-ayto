@@ -16,9 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-pub mod parse;
 mod eval;
 mod output;
+pub mod parse;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -26,9 +26,9 @@ use std::path::PathBuf;
 use anyhow::Result;
 
 use crate::constraint::Constraint;
+use crate::iterstate::IterState;
 use crate::ruleset::RuleSet;
 use crate::{Lut, Matching};
-use crate::iterstate::IterState;
 
 #[derive(clap::ValueEnum, Clone, Debug)]
 pub enum DumpMode {
@@ -91,7 +91,6 @@ impl Game {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
-
     pub fn sim(
         &mut self,
         dump_mode: Option<DumpMode>,
@@ -106,8 +105,8 @@ impl Game {
         let mut is = {
             // mathematically calculate amount of permutations (for the progressbar)
             let perm_amount =
-            self.rule_set
-                .get_perms_amount(self.map_a.len(), self.map_b.len(), input_file)?;
+                self.rule_set
+                    .get_perms_amount(self.map_a.len(), self.map_b.len(), input_file)?;
 
             IterState::new(
                 // whether to store the permutations which are valid solutions
@@ -134,7 +133,6 @@ impl Game {
         Ok(is)
     }
 }
-
 
 #[cfg(test)]
 mod tests {

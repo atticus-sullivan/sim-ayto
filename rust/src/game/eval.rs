@@ -1,19 +1,19 @@
-use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
-use comfy_table::{Row, Table, Cell};
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;
+use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
+use comfy_table::{Cell, Row, Table};
 
 use anyhow::{Context, Result};
 
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-use crate::constraint::Constraint;
 use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
-use crate::{Rem, Matching};
+use crate::constraint::Constraint;
 use crate::game::foreach_unwrapped_matching;
 use crate::iterstate::IterState;
 use crate::DumpMode;
 use crate::Game;
+use crate::{Matching, Rem};
 
 impl Game {
     // TODO:
@@ -324,7 +324,7 @@ impl Game {
             sold_but_match: 0,
             sold_but_match_active: solutions.is_some(),
             matches_found: 0,
-            won: false
+            won: false,
         };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
@@ -342,8 +342,15 @@ impl Game {
         }
 
         cnt.won = {
-            let required_lights = self.rule_set.constr_map_len(self.lut_a.len(), self.lut_b.len());
-            merged_constraints.iter().find(|x| x.num() == 10.0).or_else(|| merged_constraints.last()).map(|x| x.won(required_lights)).unwrap_or(false)
+            let required_lights = self
+                .rule_set
+                .constr_map_len(self.lut_a.len(), self.lut_b.len());
+            merged_constraints
+                .iter()
+                .find(|x| x.num() == 10.0)
+                .or_else(|| merged_constraints.last())
+                .map(|x| x.won(required_lights))
+                .unwrap_or(false)
         };
 
         let file = File::create(out_sum_path)?;

@@ -146,7 +146,7 @@ impl IterState {
                         *id = Some(c.type_str().to_string() + " " + c.comment());
                     }
                 }
-                return Ok(false)
+                return Ok(false);
             }
         }
         Ok(true)

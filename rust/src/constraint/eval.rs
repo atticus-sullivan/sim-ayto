@@ -224,7 +224,6 @@ impl Constraint {
         )
     }
 
-
     // returned array contains mbInfo, mnInfo, info, sum
     pub fn get_stats(
         &self,
@@ -384,7 +383,7 @@ impl Constraint {
     }
 
     pub fn is_sold(&self) -> bool {
-        if let ConstraintType::Box {..} = self.r#type {
+        if let ConstraintType::Box { .. } = self.r#type {
             if let CheckType::Sold = self.check {
                 return true;
             }
@@ -393,7 +392,7 @@ impl Constraint {
     }
 
     pub fn is_match_found(&self) -> bool {
-        if let ConstraintType::Box {..} = self.r#type {
+        if let ConstraintType::Box { .. } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
                 return true;
             }
@@ -403,7 +402,7 @@ impl Constraint {
 
     pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
         if let Some(sols) = solutions {
-            if let ConstraintType::Box {..} = self.r#type {
+            if let ConstraintType::Box { .. } = self.r#type {
                 return sols.iter().all(|sol| {
                     self.map
                         .iter()

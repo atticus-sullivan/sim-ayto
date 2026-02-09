@@ -91,7 +91,6 @@ impl ConstraintParse {
     pub fn is_hidden(&self) -> bool {
         self.hidden
     }
-
 }
 
 impl ConstraintParse {

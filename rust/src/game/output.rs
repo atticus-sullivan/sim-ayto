@@ -11,10 +11,14 @@ use std::io::Write;
 use crate::Rem;
 
 use crate::game::Game;
-use crate::{COLOR_ALT_BG, COLOR_COL_MAX, COLOR_ROW_MAX, COLOR_BOTH_MAX};
+use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};
 
 impl Game {
-    pub fn write_page_md(&self, out: &mut File, md_tables: &[(String, u16, bool, bool)]) -> Result<()> {
+    pub fn write_page_md(
+        &self,
+        out: &mut File,
+        md_tables: &[(String, u16, bool, bool)],
+    ) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
         writeln!(out, "---")?;

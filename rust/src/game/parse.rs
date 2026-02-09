@@ -165,7 +165,6 @@ impl GameParse {
         let cache_dir = Path::new("./.cache/");
         let input_hashes = gp.get_caches();
 
-
         // externally specified hash/cache-id
         gp.found_cache_file = if let Some(c) = use_cache {
             // convert cache-id to path
@@ -177,7 +176,7 @@ impl GameParse {
                 .find(|(_, hash)| *hash == c)
                 .map(|(c, hash)| (c.to_string(), hash.clone()))
         } else {
-                None
+            None
         };
 
         // try to fall back to most recent hash/cache-id which exists

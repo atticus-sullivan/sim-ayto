@@ -104,7 +104,6 @@ impl Constraint {
             ),
         }
     }
-
 }
 
 // helpers for evaluation
