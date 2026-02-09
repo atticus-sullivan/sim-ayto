@@ -39,6 +39,7 @@ constraints:
     check: !Lights [0]
     map:
       Zoe: Martin
+      # Amadu: Karina
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [3]
@@ -58,6 +59,7 @@ constraints:
     check: !Lights [0]
     map:
       Karina: Pharrell
+      # Zoe: Luca
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [2]
@@ -93,10 +95,11 @@ constraints:
       Ricarda: Maurice
       Zoe: Max
 
-  - type: !Box {num: 4, comment: "E09 -- verkauft"}
+  - type: !Box {num: 4, comment: "E09 -- verkauft", offer: !Group {by: "Gina", amount: 15000}}
     check: !Sold
     map:
       Isabelle: Amadu
+      # Calvin: Celina
 
   - type: !Box {num: 4.1, comment: "E09 -- Lukas will gehen"}
     check: !Lights [1]
@@ -105,10 +108,14 @@ constraints:
 
   # MN wurde gestrichen -> MB in E10
 
+# newcomer: Felix
+
   - type: !Box {num: 5, comment: "E11"}
     check: !Lights [0]
     map:
       Ricarda: Felix
+      # Gina: Felix
+      # Karina: Felix
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [3]
@@ -190,9 +197,9 @@ constraints:
       Luisa: Lukas
       Ricarda: Pharrell
       Zoe: Maurice
-      # Max
+      # Isabelle: Max
 
-  - type: !Box {num: 9, comment: "E19"}
+  - type: !Box {num: 9, comment: "E19", offer: !Group {by: "Maurice", amount: 5000}}
     check: !Lights [0]
     buildTree: true
     map:

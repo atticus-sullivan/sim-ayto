@@ -52,7 +52,7 @@ impl Hash for ConstraintParse {
 
 impl ConstraintParse {
     pub fn known_lights(&self) -> u8 {
-        if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+        if let ConstraintType::Box { .. } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
                 return 1;
             }
@@ -76,17 +76,22 @@ impl ConstraintParse {
     #[allow(dead_code)]
     pub fn comment(&self) -> &str {
         match &self.r#type {
-            ConstraintType::Night { num: _, comment } => comment,
-            ConstraintType::Box { num: _, comment } => comment,
+            ConstraintType::Night { comment, .. } => comment,
+            ConstraintType::Box { comment, .. } => comment,
         }
     }
 
     pub fn type_str(&self) -> String {
         match &self.r#type {
-            ConstraintType::Night { num, comment: _ } => format!("MN#{}", num),
-            ConstraintType::Box { num, comment: _ } => format!("MB#{}", num),
+            ConstraintType::Night { num, .. } => format!("MN#{}", num),
+            ConstraintType::Box { num, .. } => format!("MB#{}", num),
         }
     }
+
+    pub fn is_hidden(&self) -> bool {
+        self.hidden
+    }
+
 }
 
 impl ConstraintParse {
@@ -320,6 +325,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Lights(1, BTreeMap::new()),
@@ -374,6 +380,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Eq,
@@ -426,6 +433,7 @@ mod tests {
             r#type: ConstraintType::Box {
                 num: 1.0,
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Lights(1, BTreeMap::new()),

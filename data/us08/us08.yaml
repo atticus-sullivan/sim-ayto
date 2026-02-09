@@ -1,6 +1,8 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+no_offerings_noted: true
+
 frontmatter:
   linkTitle: US Staffel 8
   identifier: us-season8

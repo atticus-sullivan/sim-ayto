@@ -45,6 +45,7 @@ pub struct SumCounts {
     pub sold_but_match: u8,
     pub sold_but_match_active: bool,
     pub matches_found: u8,
+    pub won: bool,
 }
 
 impl SumCounts {
@@ -232,7 +233,7 @@ impl Constraint {
     }
 
     pub fn is_sold(&self) -> bool {
-        if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+        if let ConstraintType::Box {..} = self.r#type {
             if let CheckType::Sold = self.check {
                 return true;
             }
@@ -241,7 +242,7 @@ impl Constraint {
     }
 
     pub fn is_match_found(&self) -> bool {
-        if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+        if let ConstraintType::Box {..} = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
                 return true;
             }
@@ -251,7 +252,7 @@ impl Constraint {
 
     pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
         if let Some(sols) = solutions {
-            if let ConstraintType::Box { num: _, comment: _ } = self.r#type {
+            if let ConstraintType::Box {..} = self.r#type {
                 return sols.iter().all(|sol| {
                     self.map
                         .iter()
@@ -260,6 +261,14 @@ impl Constraint {
             }
         }
         false
+    }
+
+    pub fn won(&self, required_lights: usize) -> bool {
+        match self.check {
+            CheckType::Eq => false,
+            CheckType::Nothing | CheckType::Sold => false,
+            CheckType::Lights(l, _) => l as usize == required_lights,
+        }
     }
 
     // returned array contains mbInfo, mnInfo, info, sum
@@ -271,11 +280,7 @@ impl Constraint {
             return Ok((None, None, None));
         }
 
-        let won = match self.check {
-            CheckType::Eq => false,
-            CheckType::Nothing | CheckType::Sold => false,
-            CheckType::Lights(l, _) => l as usize == required_lights,
-        };
+        let won = self.won(required_lights);
 
         #[allow(clippy::useless_format)]
         let meta_a = format!("{}", self.comment());

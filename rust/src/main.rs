@@ -78,7 +78,7 @@ enum Commands {
 
         #[arg(
             long = "use-cache",
-            help = "Normally the optimal cache is used. This influences the output. Thus, this flag can be used to base the simulation on an not optimal cache"
+            help = "Enable caching. Pass a cache-id to start the simulation from there. Needs to be passed in order to build a cache. To use the optimal cache provide an arbitrary string"
         )]
         use_cache: Option<String>,
     },

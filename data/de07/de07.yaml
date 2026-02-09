@@ -2,12 +2,12 @@
 # 0wvedwvep0wPj
 
 solved: false
+gen_cache: true
 
 frontmatter:
   linkTitle: 'DE Staffel 7'
   weight: 1
 
-gen_cache: false
 
 rule_set: !XTimesDup [null]
 # rule_set: !FixedDup Aurora
@@ -19,8 +19,8 @@ setA:
 - Evi
 - Jeronymo
 - Jerry
-- JulianA
-- JulianB
+- JulianM
+- Julian
 - Luke
 - Meji
 - Noel
@@ -39,13 +39,93 @@ setB:
 - Aurora
 
 constraints:
-  - type: !Box {num: 1, comment: "E01"}
+  - type: !Box {num: 1, comment: "E03"}
     check: !Lights [0]
     map:
       Evi: Tiziana
+      # Jerry: Ella
 
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
+  - type: !Night {num: 1, comment: "E04"}
+    check: !Lights [3]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      Julian: Aurora
+      JulianM: Adrianna
+      Jerry: Elena
+      Jeronymo: Tiziana
+      Luke: Marla
+      Noel: Tonia
+      Ema: Michelle
+      Evi: Laura
+      Meji: Ella
+      Chris: Linda
+      # Alicia
+
+  - type: !Box {num: 2, comment: "E05", offer: !Single {by: "Aurora", amount: 5000, reducedPot: true, save: true}}
+    check: !Sold
+    map:
+      Evi: Laura
+      # Noel: Linda
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights [2]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      Chris: Tonia
+      Jeronymo: Tiziana
+      Julian: Adrianna
+      Ema: Ella
+      JulianM: Alicia
+      Noel: Linda
+      # Meji: Aurora
+      Luke: Marla
+      Jerry: Michelle
+      Evi: Laura
+      Meji: Elena
+
+  # - type: !Box {num: 3, comment: "E08"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 3, comment: "E09"}
+  #   check: !Lights [3]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 3, comment: "E07"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 3, comment: "E08"}
+  #   check: !Lights [3]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 3, comment: "E07"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 3, comment: "E08"}
+  #   check: !Lights [3]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 3, comment: "E07"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 3, comment: "E08"}
+  #   check: !Lights [3]
   #   resultUnknown: true
   #   # noExclude: true
   #   # buildTree: true
