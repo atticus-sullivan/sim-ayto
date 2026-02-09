@@ -1,4 +1,8 @@
 use anyhow::{Context, Result};
+
+use rust_decimal::prelude::*;
+use rust_decimal::Decimal;
+
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::path::PathBuf;
@@ -12,7 +16,8 @@ use crate::constraint::{CheckType, Constraint, ConstraintType};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntry {
-    pub num: f64,
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
     pub bits_left: f64,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
@@ -21,7 +26,8 @@ pub struct CSVEntry {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMB {
-    pub num: f64,
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
     pub bits_gained: f64,
@@ -30,9 +36,10 @@ pub struct CSVEntryMB {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMN {
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
-    pub num: f64,
     pub bits_gained: f64,
     pub comment: String,
 }
@@ -224,9 +231,7 @@ impl Constraint {
     }
 
     // returned array contains mbInfo, mnInfo, info, sum
-    pub fn get_stats(
-        &self,
-    ) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
+    pub fn get_stats(&self) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
         if self.hidden {
             return Ok((None, None, None));
         }
@@ -238,14 +243,14 @@ impl Constraint {
             ConstraintType::Night { num, .. } => Ok((
                 None,
                 Some(CSVEntryMN {
-                    num: num.into(),
+                    num: Decimal::from_f32(num).unwrap(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_gained: self.information.unwrap_or(f64::INFINITY),
                     comment: meta_a,
                 }),
                 Some(CSVEntry {
-                    num: (num * 2.0).into(),
+                    num: Decimal::from_f32(num).unwrap() * dec!(2),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
@@ -254,7 +259,7 @@ impl Constraint {
             )),
             ConstraintType::Box { num, .. } => Ok((
                 Some(CSVEntryMB {
-                    num: num.into(),
+                    num: Decimal::from_f32(num).unwrap(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_gained: self.information.unwrap_or(f64::INFINITY),
@@ -262,7 +267,7 @@ impl Constraint {
                 }),
                 None,
                 Some(CSVEntry {
-                    num: (num * 2.0 - 1.0).into(),
+                    num: Decimal::from_f32(num).unwrap() * dec!(2) - dec!(1),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_left: (self.left_after.context("total_left unset")? as f64).log2(),

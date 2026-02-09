@@ -2,6 +2,8 @@ use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
 use comfy_table::{Cell, Row, Table};
 
+use rust_decimal::prelude::*;
+
 use anyhow::{Context, Result};
 
 use std::fs::File;
@@ -268,15 +270,13 @@ impl Game {
                 .from_path(out_info_path)?,
         );
         info.serialize(CSVEntry {
-            num: 0.0,
+            num: dec!(0),
             lights_total: None,
             lights_known_before: 0,
             bits_left: total.log2(),
             comment: "initial".to_string(),
         })?;
-        for i in merged_constraints.iter().map(|c| {
-            c.get_stats()
-        }) {
+        for i in merged_constraints.iter().map(|c| c.get_stats()) {
             let i = i?;
             if let Some(j) = &i.1 {
                 let j = CSVEntryMN {

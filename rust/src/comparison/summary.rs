@@ -1,4 +1,7 @@
-use crate::{comparison::{CmpData, Language}, constraint::eval::SumCounts};
+use crate::{
+    comparison::{CmpData, Language},
+    constraint::eval::SumCounts,
+};
 
 pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
     let mut total_counts = SumCounts {
@@ -28,7 +31,7 @@ pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Stri
             },
             cd.cnts.matches_found,
             lang.format_bool_yes_no(cd.cnts.won),
-            if cd.cnts.won {"green"} else {"red"}
+            if cd.cnts.won { "green" } else { "red" }
         ));
         total_counts.add(&cd.cnts);
     }
