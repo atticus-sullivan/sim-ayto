@@ -24,6 +24,7 @@ impl DupXData {
     }
 
     #[allow(clippy::too_many_arguments)]
+    // TODO: split up + output
     fn print_one(
         &self,
         full: bool,
@@ -200,6 +201,7 @@ impl RuleSetData for DupXData {
         Ok(())
     }
 
+    // TODO: output?
     fn print(
         &self,
         full: bool,

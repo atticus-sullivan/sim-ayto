@@ -345,7 +345,7 @@ jobs:
       - name: Build comparisons
         run: |
           chmod +x ./ayto
-          ./ayto graph gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
+          ./ayto comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
       - name: Build with Hugo
         env:

@@ -62,8 +62,9 @@ pub struct GameParse {
     final_cache_hash: Option<PathBuf>,
 }
 
+// caching
 impl GameParse {
-    pub fn show_caches(&self) -> Result<()> {
+    pub fn show_caches(&self) -> Result<Table> {
         let hdr = vec![
             Cell::new("What"),
             Cell::new("Cache-file"),
@@ -114,7 +115,7 @@ impl GameParse {
                 table.add_row(
                     vec![Cell::new(c.0), Cell::new(c_1), exists, left, size, eta]
                         .into_iter()
-                        .map(|i| i.bg(crate::game::COLOR_ALT_BG)),
+                        .map(|i| i.bg(crate::COLOR_ALT_BG)),
                 );
             } else {
                 table.add_row(vec![
@@ -127,13 +128,13 @@ impl GameParse {
                 ]);
             }
         }
-        println!("{table}");
-        Ok(())
+        Ok(table)
     }
 
     pub fn get_caches(&self) -> Vec<(String, PathBuf)> {
         let cache_dir = Path::new("./.cache/");
 
+        // collect hashes for each "layer" of constraints
         let mut input_hashes = vec![];
         let mut prev_hash = {
             let mut hasher = std::collections::hash_map::DefaultHasher::new();
@@ -142,6 +143,7 @@ impl GameParse {
             hasher.finish()
         };
         for c in self.constraints_orig.iter() {
+            // hash c as a new layer to the previous hash
             let mut hasher = std::collections::hash_map::DefaultHasher::new();
             prev_hash.hash(&mut hasher);
             if c.has_impact() {
@@ -158,14 +160,17 @@ impl GameParse {
         input_hashes
     }
 
-    pub fn new_from_yaml(yaml_path: &Path, use_cache: Option<String>) -> Result<GameParse> {
-        let mut gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
-
+    fn select_cache(gp: &mut GameParse, use_cache: Option<String>) {
+        // retrieve the possible caches
         let cache_dir = Path::new("./.cache/");
         let input_hashes = gp.get_caches();
-        let uc = use_cache.map(|x| cache_dir.join(x).with_extension("cache"));
 
-        gp.found_cache_file = if let Some(c) = uc {
+        // externally specified hash/cache-id
+        gp.found_cache_file = if let Some(c) = use_cache {
+            // convert cache-id to path
+            let c = cache_dir.join(c).with_extension("cache");
+            // retrieve element from input_hashes
+            // this implicitly ensures the externally specified hash/id is actually legit
             input_hashes
                 .iter()
                 .find(|(_, hash)| *hash == c)
@@ -174,25 +179,37 @@ impl GameParse {
             None
         };
 
-        gp.found_cache_file = gp.found_cache_file.or_else(|| {
-            input_hashes.iter().rev().skip(1).find_map(|(c, hash)| {
+        // try to fall back to most recent hash/cache-id which exists
+        if gp.found_cache_file.is_none() {
+            gp.found_cache_file = input_hashes.iter().rev().skip(1).find_map(|(c, hash)| {
                 if Path::new(hash).exists() {
                     Some((c.to_string(), hash.clone()))
                 } else {
                     None
                 }
-            })
-        });
+            });
+        }
+
+        // retrieve the hash/cache-id to which a new cache shall be written to (if requested)
         gp.final_cache_hash = if gp.gen_cache {
             input_hashes.iter().last().map(|(_, hash)| hash.clone())
         } else {
             None
         };
+    }
+}
+
+impl GameParse {
+    pub fn new_from_yaml(yaml_path: &Path, use_cache: Option<String>) -> Result<GameParse> {
+        let mut gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
+        GameParse::select_cache(&mut gp, use_cache);
+
         println!("Could use cache file: {:?}", gp.found_cache_file);
         println!("Writing to cache file: {:?}", gp.final_cache_hash);
         Ok(gp)
     }
 
+    // TODO: split up?
     pub fn finalize_parsing(self, stem: &Path) -> Result<Game> {
         let mut g = Game {
             solved: self.solved,
@@ -234,7 +251,7 @@ impl GameParse {
         let mut known_lights: u8 = 0;
         for c in self.constraints_orig {
             let l = if !c.is_hidden() {
-                c.known_lights()
+                c.added_known_lights()
             } else {
                 0
             };
