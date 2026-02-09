@@ -74,7 +74,7 @@ weight: 1
 {{% img src="/de05r/de05r_14.png" %}}
 {{% /details %}}
 
-{{% details title="MB#7.2 E15" closed="true" %}}
+{{% details title="MB#7.2 E15 " closed="true" %}}
 {{% img src="/de05r/de05r_15.png" %}}
 {{% /details %}}
 

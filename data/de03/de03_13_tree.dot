@@ -1,4 +1,4 @@
-digraph D { labelloc="b"; label="Stand: MB#7 / E14"; ranksep=0.8;
+digraph D { labelloc="b"; label="Stand: MB#7 / E14 -- -50k Regelverstoß d. Antonino+Monami"; ranksep=0.8;
 "root/9"[label="Marius\nZaira"]
 "root" -> "root/9";
 "root/9/2"[label="Andre\nIsabelle"]

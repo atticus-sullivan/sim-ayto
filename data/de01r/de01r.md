@@ -76,7 +76,7 @@ weight: 1
 {{% img src="/de01r/de01r_14_tree.png" %}}
 {{% /details %}}
 
-{{% details title="MN#8.0 E16" closed="true" %}}
+{{% details title="MN#8.0 E16 " closed="true" %}}
 {{% img src="/de01r/de01r_15.png" %}}
 {{% img src="/de01r/de01r_15_tree.png" %}}
 {{% /details %}}

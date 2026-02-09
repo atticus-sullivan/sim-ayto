@@ -1,4 +1,4 @@
-digraph D { labelloc="b"; label="Stand: MB#9.1 / E18/15 -- geschenkte Matchbox"; ranksep=0.8;
+digraph D { labelloc="b"; label="Stand: MB#9.1 / E18/15 -- 'geschenkte' Matchbox"; ranksep=0.8;
 "root/9"[label="Francesco\nJules"]
 "root" -> "root/9";
 "root/9/6"[label="Alexander\nSarah"]
