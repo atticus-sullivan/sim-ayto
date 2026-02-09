@@ -63,7 +63,7 @@ constraints:
       Chris: Linda
       # Alicia
 
-  - type: !Box {num: 2, comment: "E05", offer: !Single {by: "Aurora", amount: 5000, reducedPot: true, save: true}}
+  - type: !Box {num: 2, comment: "E05", offer: !Single {by: "Aurora", amount: 5_000, reducedPot: true, save: true}}
     check: !Sold
     map:
       Evi: Laura

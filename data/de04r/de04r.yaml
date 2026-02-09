@@ -36,17 +36,17 @@ setB:
 renameB:
   LauraL: "LauraL/blond"
 
-queryMatchings:
-  - Kaan: [Tara]
-    MarcRobin: [LauraM]
-    Nikola: [LauraL]
-    Lukas: [Nadja]
-    Alex: [Gabriela]
-    Tim: [Linda]
-    Antonino: [Jenny,Dana]
-    Lars: [Asena]
-    Chris: [Emmy]
-    Ozan: [Anastasia]
+# queryMatchings:
+#   - Kaan: [Tara]
+#     MarcRobin: [LauraM]
+#     Nikola: [LauraL]
+#     Lukas: [Nadja]
+#     Alex: [Gabriela]
+#     Tim: [Linda]
+#     Antonino: [Jenny,Dana]
+#     Lars: [Asena]
+#     Chris: [Emmy]
+#     Ozan: [Anastasia]
 
 constraints:
   - type: !Box {num: 1, comment: "E03"}
@@ -69,11 +69,16 @@ constraints:
       Antonino: LauraM
       MarcRobin: Anastasia
 
+# newcomer: Dana
+
   - type: !Box {num: 2, comment: "E05"}
     check: !Lights [1]
     map:
       Chris: Emmy
       # Lukas: Dana
+      #
+      # Lukas: Jenny
+      # Chris: Dana
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [3]
@@ -90,7 +95,7 @@ constraints:
       Antonino: Dana
       # Antonino: Gabriela
 
-  - type: !Box {num: 3, comment: "E07 -- verkauft d Jenny"}
+  - type: !Box {num: 3, comment: "E07 -- verkauft", offer: !Single {by: "Jenny", amount: 20000,reducedPot: true, save: true}}
     check: !Sold
     map:
       Alex: Anastasia
@@ -132,7 +137,7 @@ constraints:
       Kaan: Asena
       # Kaan: Dana
 
-  - type: !Box {num: 5, comment: "E11 -- verkauft d Gabriela"}
+  - type: !Box {num: 5, comment: "E11 -- verkauft", offer: !Single {by: "Gabriela", amount: 20000,reducedPot: true, save: true}}
     check: !Sold
     map:
       # Kaan: Tara
@@ -178,7 +183,7 @@ constraints:
       Kaan: Tara
       # Lars: LauraL
 
-  - type: !Box {num: 7, comment: "E15"}
+  - type: !Box {num: 7, comment: "E15", offer: !GroupPair {amount: 50000, byA: "Lukas", byB: "Jenny"}}
     check: !Lights [0]
     buildTree: true
     map:
@@ -202,14 +207,14 @@ constraints:
       MarcRobin: LauraM
       # Jenny
 
-  - type: !Box {num: 8, comment: "E18"}
+  - type: !Box {num: 8, comment: "E17"}
     check: !Lights [1]
     buildTree: true
     noExclude: true
     hidden: true
     map:
       Tim: Dana
-  - type: !Box {num: 8, comment: "E18"}
+  - type: !Box {num: 8, comment: "E17"}
     check: !Lights [1]
     buildTree: true
     noExclude: true
@@ -217,7 +222,7 @@ constraints:
       Tim: Linda
       # Lukas: Tara
 
-  - type: !Night {num: 7, comment: "E19"}
+  - type: !Night {num: 8, comment: "E18"}
     check: !Lights [7]
     buildTree: true
     # resultUnknown: true
@@ -240,7 +245,7 @@ constraints:
       Lars: LauraL
       # Nikola: LauraM
 
-  - type: !Night {num: 8, comment: "E20"}
+  - type: !Night {num: 9, comment: "E20"}
     check: !Lights [10]
     buildTree: true
     # resultUnknown: true

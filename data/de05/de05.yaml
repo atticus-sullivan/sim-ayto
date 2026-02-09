@@ -86,7 +86,9 @@ constraints:
       # Paulo: Edda
       Kevin: Maja
 
-  - type: !Box {num: 3.1, comment: "E07"}
+# newcomer: Melanie
+
+  - type: !Box {num: 3.1, comment: "E07 -- wegen Triple-Match"}
     check: !Lights [0]
     map:
       Eti: Melanie
@@ -129,19 +131,19 @@ constraints:
       # Melanie
       # Maja
 
-  - type: !Box {num: 5, comment: "E11"}
+  - type: !Box {num: 5, comment: "E10 -- Trippelmatch"}
     check: !Lights [1]
     noExclude: true
     hidden: true
     map:
       Gerrit: Melanie
-  - type: !Box {num: 5, comment: "E11"}
+  - type: !Box {num: 5, comment: "E10 -- Trippelmatch"} # E11
     check: !Lights [1]
     noExclude: true
     hidden: true
     map:
       Gerrit: Pia
-  - type: !Box {num: 5, comment: "E11"}
+  - type: !Box {num: 5, comment: "E10 -- Trippelmatch"}
     check: !Lights [1]
     noExclude: true
     map:
@@ -162,8 +164,10 @@ constraints:
       Sidar: Afra
       Paddy: Lina
       Paulo: Edda
+      # Pia
+      # Melanie
 
-  - type: !Box {num: 6, comment: "E13"}
+  - type: !Box {num: 6, comment: "E13", offer: !Group {by: "Martin", amount: 30_000}}
     check: !Lights [0]
     buildTree: true
     map:
@@ -184,6 +188,8 @@ constraints:
       Sidar: Julia
       Ryan: Jana
       Paddy: Edda
+      # Pia
+      # Melanie
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [0]
@@ -206,15 +212,17 @@ constraints:
       Sidar: Lisa-Marie
       Paulo: Sina
       Ryan: Edda
+      # Pia
+      # Melanie
 
-  - type: !Box {num: 8, comment: "E17 -- verkauft"}
+  - type: !Box {num: 8, comment: "E16 -- verkauft", offer: !Single {by: "Lina", amount: 20_000, save: true, reducedPot: false}}
     check: !Sold
     buildTree: true
     map:
       Eti: Maja
       # Paddy: Edda
 
-  - type: !Night {num: 8, comment: "E18"}
+  - type: !Night {num: 8, comment: "E17"}
     check: !Lights [4]
     buildTree: true
     map:
@@ -228,8 +236,10 @@ constraints:
       Martin: Lisa-Marie
       Sandro: Julia
       Sidar: Maja
+      # Pia
+      # Melanie
 
-  - type: !Box {num: 9, comment: "E18"}
+  - type: !Box {num: 9, comment: "E18"} # Sophia frag Lina nach nem Freundschaftspreis -> macht keinen
     check: !Lights [0]
     buildTree: true
     map:
@@ -250,14 +260,15 @@ constraints:
       Eti: Maja
       Kevin: Lina
       Martin: Lisa-Marie
+      # Pia
+      # Melanie
 
-  - type: !Box {num: 10, comment: "E19"}
+  - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
     buildTree: true
     map:
       Kevin: Lina
       # Sidar: Sina
-      # Paddy: Edda
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [7]
@@ -273,6 +284,8 @@ constraints:
       Martin: Afra
       Sidar: Sina
       Ryan: Jana
+      # Pia
+      # Melanie
 
   - type: !Night {num: 11, comment: "E21 -- Reunion"}
     check: !Lights [10]
@@ -288,3 +301,5 @@ constraints:
       Martin: Sina
       Sidar: Edda
       Ryan: Jana
+      # Pia
+      # Melanie

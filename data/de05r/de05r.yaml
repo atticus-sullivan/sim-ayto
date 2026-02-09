@@ -38,7 +38,7 @@ setB:
   - JimiBlue
 
 constraints:
-  - type: !Box {num: 1, comment: "E03 -- verkauft > 20€ > Joanna"}
+  - type: !Box {num: 1, comment: "E03 -- verkauft > 20€ > Joanna", offer: !Single {by: "Joanna", amount: 20, reducedPot: true, save: true}}
     check: !Sold
     map:
       Sandra: Kevin
@@ -134,6 +134,8 @@ constraints:
       Sandra: Leandro
       # Viki: Jonny
 
+# newcomer: JimiBlue
+
   - type: !Box {num: 5.2, comment: "E11 -- Geschenk wegen JimiBlue +10k €"}
     check: !Lights [0]
     map:
@@ -187,7 +189,7 @@ constraints:
       Antonia: Olli
       # Hati: JimiBlue
 
-  - type: !Box {num: 7.2, comment: "E15"}
+  - type: !Box {num: 7.2, comment: "E15 -- JimiBlue Exit-MatchBox"} # +20k für die Gruppe wenn JimiBlue es schafft
     check: !Lights [0]
     map:
       Hati: JimiBlue
@@ -232,7 +234,7 @@ constraints:
       Joanna: CalvinHot
       # Sidar
 
-  - type: !Box {num: 9, comment: "E19 -- verkauft 5k Sidar"}
+  - type: !Box {num: 9, comment: "E19 -- verkauft 5k Sidar", offer: !Single {by: "Sidar", amount: 5000, reducedPot: true, save: true}}
     check: !Sold
     map:
       # Beverly: Sidar
@@ -255,7 +257,7 @@ constraints:
       Joanna: CalvinBlond
       # Joanna: Nico
 
-  - type: !Box {num: 9.6, comment: "E20 -- Geschenk: MN Überprüfung -40k = 115k"}
+  - type: !Box {num: 9.6, comment: "E20 -- Geschenk: MN Überprüfung -40k => 115k"}
     check: !Lights [1]
     buildTree: true
     map:

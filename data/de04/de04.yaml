@@ -43,6 +43,7 @@ constraints:
     check: !Lights [0]
     map:
       Dorna: Kenneth
+      # Henna: Burim
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [3]
@@ -57,11 +58,13 @@ constraints:
       Valeria:  Max
       Steffi:   Chris
       Caro:     Barkin
+      # Caro: Pascal
 
   - type: !Box {num: 2, comment: "E05"}
     check: !Lights [0]
     map:
       Carina: Burim
+      # Vanessa: Sasa
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [3]
@@ -76,11 +79,13 @@ constraints:
       Caro:     Max
       Aurelia:  Burim
       Juliette: Barkin
+      # Juliette: Deniz
 
   - type: !Box {num: 3, comment: "E07"}
     check: !Lights [1]
     map:
       Steffi: Chris
+      # Henna: Ken
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [2]
@@ -95,9 +100,9 @@ constraints:
       Larissa: Joel
       Juliette: Barkin
       Henna: Ken
-      # Burim
+      # Henna: Burim
 
-  - type: !Box {num: 4, comment: "E09"}
+  - type: !Box {num: 4, comment: "E09", offer: !Group {by: "Vanessa", amount: 20000}}
     check: !Lights [0]
     map:
       Valeria: Max
@@ -128,8 +133,8 @@ constraints:
     check: !Lights [1]
     map:
       Caro: Ken
-    noExclude: true
       # Carina: Max
+    noExclude: true
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
@@ -170,7 +175,7 @@ constraints:
       Valeria: Pascal
       # Max
 
-  - type: !Box {num: 7, comment: "E15"}
+  - type: !Box {num: 7, comment: "E15", offer: !Group {by: "Barkin", amount: 100000}}
     check: !Lights [0]
     buildTree: true
     map:
@@ -191,12 +196,14 @@ constraints:
      Aurelia: Joel
      Valeria: Pascal
      Larissa: Sasa
+      # Max
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [0]
     buildTree: true
     map:
       Dorna: Marwin
+      # Valeria: Burim
 
   - type: !Night {num: 8, comment: "E18 -- Blackout"}
     check: !Lights [2]
@@ -212,6 +219,7 @@ constraints:
       Dorna: Joel
       Vanessa: Sasa
       Aurelia: Marwin
+      # Max
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [0]
@@ -220,7 +228,7 @@ constraints:
       Carina: Pascal
       # Burim: Aurelia
 
-  - type: !Night {num: 9, comment: "E21 -- finale"}
+  - type: !Night {num: 9, comment: "E20 -- finale"}
     check: !Lights [10]
     buildTree: true
     map:
@@ -234,3 +242,4 @@ constraints:
       Larissa: Barkin
       Valeria: Joel
       Carina: Deniz
+      # Max

@@ -39,6 +39,7 @@ constraints:
     check: !Lights [0]
     map:
       Danilo: Finnja
+      # Manuel: Jules
 
   - type: !Night {num: 1, comment: "E02"}
     check: !Lights [3]
@@ -58,15 +59,18 @@ constraints:
     check: !Lights [1]
     map:
       Francesco: Jules
+      # Manuel: Kathleen
+      # Josua: Sarah
 
     # echte MB wurde gestrichen
     # nix in E04
 
   # in E05 war das Spiel
-  - type: !Box {num: 3, comment: "E06"}
+  - type: !Box {num: 3, comment: "E06", offer: !Group {by: "Salvatore", amount: 20000}}
     check: !Lights [0]
     map:
       Tommy: Walentina
+      # Diogo: Stefanie
 
   - type: !Night {num: 3, comment: "E06"}
     check: !Lights [3]
@@ -82,10 +86,13 @@ constraints:
       Salvatore: Jacqueline
       Tommy: Melina
 
-  - type: !Box {num: 4, comment: "E08 -- verkauft?"}
+  - type: !Box {num: 4, comment: "E08 -- verkauft", offer: !Group {by: "Walentina", amount: 70000}}
     check: !Sold
     map:
       Diogo: Aurelia
+      # Salvatore: Kathleen
+
+# newcomer: Vanessa
 
   - type: !Night {num: 4, comment: "E08"}
     check: !Lights [4]
@@ -102,10 +109,11 @@ constraints:
       Tommy: Jill
       # Jacqueline
 
-  - type: !Box {num: 5, comment: "E10 -- verkauft?"}
+  - type: !Box {num: 5, comment: "E10 -- verkauft", offer: !Group {by: "Salvatore", amount: 150 000}}
     check: !Sold
     map:
       Tommy: Melina
+      # Eugen: Finnja
 
   - type: !Night {num: 5, comment: "E10"}
     check: !Lights [3]
@@ -126,6 +134,7 @@ constraints:
     check: !Lights [0]
     map:
       Salvatore: Finnja
+      # Jamy: Sarah
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [3]
@@ -140,11 +149,13 @@ constraints:
       Manuel: Kathleen
       Salvatore: Jacqueline
       Tommy: Melina
+      # Diogo: Vanessa
 
-  - type: !Box {num: 7, comment: "E14"}
+  - type: !Box {num: 7, comment: "E14", offer: !Group {by: "Kathleen", amount: 25000}}
     check: !Lights [0]
     map:
       Eugen: Finnja
+      # Jamy: Jill
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [2]
@@ -160,14 +171,16 @@ constraints:
       Manuel: Kathleen
       Salvatore: Walentina
       Tommy: Melina
+      # Stefanie
 
-  - type: !Box {num: 8, comment: "E16"}
+  - type: !Box {num: 8, comment: "E16", offer: !Group {by: "Finja", amount: 25000}}
     check: !Lights [0]
     buildTree: true
     map:
       Eugen: Stefanie
+      # Alexander: Kathleen
 
-  - type: !Night {num: 8, comment: "E16"}
+  - type: !Night {num: 8, comment: "E16 -- blackout"} # -50k
     check: !Lights [1]
     buildTree: true
     map:
@@ -181,14 +194,16 @@ constraints:
       Manuel: Finnja
       Salvatore: Jill
       Tommy: Stefanie
+      # Eugen: Kathleen
 
-  - type: !Box {num: 9, comment: "E18"}
+  - type: !Box {num: 9, comment: "E18", offer: !Group {by: "Melina", amount: 25000}}
     check: !Lights [0]
     buildTree: true
     map:
       Josua: Sarah
+      # Eugen: Vanessa
 
-  - type: !Box {num: 9.1, comment: "E18/15 -- geschenkte Matchbox"}
+  - type: !Box {num: 9.1, comment: "E18/15 -- 'geschenkte' Matchbox"} # kostet aber 200_000 -> entscheidet Diogo
     check: !Lights [0]
     buildTree: true
     map:
@@ -215,6 +230,8 @@ constraints:
     buildTree: true
     map:
       Josua: Aurelia
+      # Jamy: Melina
+      # Danilo: Sarah
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [7]
@@ -230,3 +247,4 @@ constraints:
       Manuel: Kathleen
       Salvatore: Jacqueline
       Tommy: Finnja
+      # Danilo: Melina
