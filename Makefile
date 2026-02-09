@@ -33,7 +33,7 @@ EDALIAS := $(patsubst %.yaml,edit_%,$(notdir $(DAT_RUST)))
 INITDIR := $(patsubst %.yaml,data/%,$(notdir $(DAT_RUST)))
 MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 
-.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(CEALIAS) $(MOALIAS) graph hugo cache
+.PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(CEALIAS) $(MOALIAS) comparison hugo cache
 
 GENARGS ?= --transpose -c
 
@@ -68,7 +68,7 @@ RUST_DEP ?= $(wildcard rust/src/*.rs)
 EDITOR_OPTS ?= ""
 
 
-all: $(OUT) graph hugo
+all: $(OUT) comparison hugo
 	
 
 
@@ -146,14 +146,14 @@ $(CEALIAS): $(RUST_DEP)
 	$(eval f := $(let i,$@,data/$(patsubst cache_%,%,$i)/$(patsubst cache_%,%,$i).yaml))
 	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto cache $(f)
 
-graph: gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
+comparison: gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
-hugo: graph
+hugo: comparison
 	cd ./gh-pages && hugo build
 	echo "$(pwd)/gh-pages/public/ayto"
 
 gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.csv)
-	./rust/target/$(MODE)/ayto graph gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
+	./rust/target/$(MODE)/ayto comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
 rust/target/$(MODE)/ayto: ./rust/src/*
 	make -C rust target/$(MODE)/ayto

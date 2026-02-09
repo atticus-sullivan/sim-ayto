@@ -16,22 +16,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+mod comparison;
 mod constraint;
 mod game;
-mod graph;
+mod iterstate;
 mod ruleset;
 mod ruleset_data;
 mod tree;
-mod iterstate;
 
 use crate::game::Game;
 
 use clap::{Parser, Subcommand};
+use comfy_table::Color;
 use game::DumpMode;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::time::Instant;
-use comfy_table::Color;
 
 // TODO code review (try with chatGPT)
 
@@ -111,7 +111,7 @@ enum Commands {
         /// The path to the file to read
         yaml_path: PathBuf,
     },
-    Graph {
+    Comparison {
         #[arg(short = 'l', long = "theme-light", default_value = "1")]
         theme_light: u8,
         #[arg(short = 'd', long = "theme-dark", default_value = "3")]
@@ -157,194 +157,13 @@ fn main() {
             gp.finalize_parsing(std::path::Path::new(".trash"))
                 .expect("processing game failed");
         }
-        Commands::Graph {
+        Commands::Comparison {
             theme_light,
             theme_dark,
             html_path_de,
             html_path_us,
         } => {
-            // obtain the graphs for the german seasons
-            let html_content_light =
-                graph::build_stats_graph(|e| e.starts_with("de"), theme_light).unwrap();
-            let html_content_dark =
-                graph::build_stats_graph(|e| e.starts_with("de"), theme_dark).unwrap();
-            let md_ruleset_tab = graph::ruleset_tab_md(|e| e.starts_with("de")).unwrap();
-
-            let md_summary_tab = graph::summary_tab_md(|e| e.starts_with("de")).unwrap();
-
-            // write the output localized for german language
-            let mut html_path_local = html_path_de.clone();
-            std::fs::write(&html_path_local, format!(r#"---
-linkTitle: 'DE'
-weight: 1
-toc: false
-
----
-# Anmerkungen
-- [generelle Hinweise](/#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
-  Letztlich ist `I` aber einfach nur eine Größe wieviel neue Informationen das gebracht hat und `H` nur eine andere Schreibweise für die Anzahl an übrigen Möglichkeiten.
-- durch einen einfachen Klick in der Legende kann man einzelne Linien ausblenden
-- durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
-- ansonsten sind die Plots (bzgl Zoom/Verschieben) eigentlich ziemlich straight forward
-
-# Regeln je Staffel
-{}
-
-# Zusammenfassung
-{}
-
-# Plots
-<div class="plot-container plot-light">
-{}
-</div>
-<div class="plot-container plot-dark">
-{}
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {{
-    document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
-        tabButton.addEventListener("click", () => {{
-            window.dispatchEvent(new Event('resize'));
-        }});
-    }});
-}});
-</script>
-"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
-
-            // write the output localized for english language
-            html_path_local.set_extension("en.md");
-            std::fs::write(&html_path_local, format!(r#"---
-linkTitle: 'DE'
-weight: 1
-toc: false
-
----
-# Remarks
-- [general information](/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
-  In the end `I` is just a measure for how much new information was gained and `H` just a different notation for the amount of left possibilities.
-- with a single-click on items in the legend you can hide that line in the plot
-- with a double-click on an item in the legend you can hide all other lines in the plot
-- other things like zooming or panning of the plots should be pretty straight forward
-
-# Ruleset per Season
-{}
-
-# Summary
-{}
-
-# Plots
-<div class="plot-container plot-light">
-{}
-</div>
-<div class="plot-container plot-dark">
-{}
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {{
-    document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
-        tabButton.addEventListener("click", () => {{
-            window.dispatchEvent(new Event('resize'));
-        }});
-    }});
-}});
-</script>
-"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
-
-            // obtain the graphs for the us+uk seasons
-            let html_content_light = graph::build_stats_graph(
-                |e| e.starts_with("uk") || e.starts_with("us"),
-                theme_light,
-            )
-            .unwrap();
-            let html_content_dark = graph::build_stats_graph(
-                |e| e.starts_with("uk") || e.starts_with("us"),
-                theme_dark,
-            )
-            .unwrap();
-            let md_ruleset_tab =
-                graph::ruleset_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
-
-            let md_summary_tab =
-                graph::summary_tab_md(|e| e.starts_with("uk") || e.starts_with("us")).unwrap();
-
-            // write the output localized for german language
-            html_path_local = html_path_us.clone();
-            std::fs::write(&html_path_local, format!(r#"---
-linkTitle: 'US + UK'
-weight: 1
-toc: false
----
-
-# Anmerkungen
-- [generelle Hinweise](/#noch-mehr-details) zu den Metriken (`H [bit]` und `I [bit]`).
-  Letztlich ist `I` aber einfach nur eine Größe wieviel neue Informationen das gebracht hat und `H` nur eine andere Schreibweise für die Anzahl an übrigen Möglichkeiten.
-- durch einen einfachen Klick in der Legende kann man einzelne Linien ausblenden
-- durch einen Doppelklick in der Legende kann man alle Linien, außer der ausgewählten ausblenden
-- ansonsten sind die Plots (bzgl Zoom/Verschieben) eigentlich ziemlich straight forward
-
-
-# Regeln je Staffel
-{}
-
-# Zusammenfassung
-{}
-
-# Plots
-<div class="plot-container plot-light">
-{}
-</div>
-<div class="plot-container plot-dark">
-{}
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {{
-document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
-    tabButton.addEventListener("click", () => {{
-        window.dispatchEvent(new Event('resize'));
-    }});
-}});
-}});
-</script>
-"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
-
-            // write the output localized for english language
-            html_path_local.set_extension("en.md");
-            std::fs::write(&html_path_local, format!(r#"---
-linkTitle: 'US + UK'
-weight: 1
-toc: false
-
----
-# Remarks
-- [general information](/en/#more-details) regarding the metrics (`H [bit]` and `I [bit]`).
-  In the end `I` is just a measure for how much new information was gained and `H` just a different notation for the amount of left possibilities.
-- with a single-click on items in the legend you can hide that line in the plot
-- with a double-click on an item in the legend you can hide all other lines in the plot
-- other things like zooming or panning of the plots should be pretty straight forward
-
-# Ruleset per Season
-{}
-
-# Summary
-{}
-
-# Plots
-<div class="plot-container plot-light">
-{}
-</div>
-<div class="plot-container plot-dark">
-{}
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {{
-    document.querySelectorAll('.hextra-tabs-toggle').forEach(tabButton => {{
-        tabButton.addEventListener("click", () => {{
-            window.dispatchEvent(new Event('resize'));
-        }});
-    }});
-}});
-</script>
-"#,  &md_ruleset_tab, &md_summary_tab, &html_content_light, &html_content_dark)).unwrap();
+            comparison::write_pages(&html_path_de, &html_path_us, theme_light, theme_dark).unwrap();
         }
     }
 }
