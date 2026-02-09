@@ -17,7 +17,7 @@ impl RuleSetData for DupData {
             .enumerate()
             .find(|(_, j)| j.len() > 1)
             .map(|(i, j)| (i, j.clone()))
-            .with_context(|| format!("something went wrong"))?;
+            .with_context(|| "something went wrong")?;
         let e = self.cnt.entry(k).or_default();
         *e += 1;
         Ok(())

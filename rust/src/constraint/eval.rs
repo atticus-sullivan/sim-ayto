@@ -414,11 +414,7 @@ impl Constraint {
     }
 
     pub fn might_won(&self) -> bool {
-        if let ConstraintType::Night { .. } = self.r#type {
-            true
-        } else {
-            false
-        }
+        matches!(self.r#type, ConstraintType::Night { .. })
     }
 
     pub fn won(&self, required_lights: usize) -> bool {

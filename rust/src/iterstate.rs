@@ -20,6 +20,7 @@ pub struct IterState {
     pub eliminated: u128,
     pub left_poss: Vec<Matching>,
     pub query_matchings: Vec<(Matching, Option<String>)>,
+    #[allow(clippy::type_complexity)]
     pub query_pair: (
         HashMap<u8, HashMap<Vec<u8>, u64>>,
         HashMap<u8, HashMap<Vec<u8>, u64>>,
@@ -136,7 +137,7 @@ impl IterState {
     // returns: is this permutation still possible with this set of constraints
     fn step_process(&mut self, p: &Matching) -> Result<bool> {
         for c in &mut self.constraints {
-            if !c.process(&p)? {
+            if !c.process(p)? {
                 // permutation was eliminated by this constraint
                 self.eliminated += 1;
                 // check if this permutation was queried.

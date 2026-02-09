@@ -60,6 +60,7 @@ pub fn plotly_gen_layout(palette: Flavor) -> Layout {
     // .height(800)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn build_scatter_plot<X, Y, FX, FY>(
     cmp_data: &Vec<(String, CmpData)>,
     layout: &Layout,
