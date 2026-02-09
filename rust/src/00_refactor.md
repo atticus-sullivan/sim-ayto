@@ -11,3 +11,4 @@
       directly)
 - [ ] licensing headers. Better: switch to "reuse" project
 - [ ] Ergibt es noch Sinn die Statistiken als json auszugeben? Das kommt ja ursprünglich nur daher, dass die CSVs notwendig waren um die Plots (via LaTeX) zu generieren. Jetzt mit Plotly ist das eigentlich nicht mehr der Fall
+- [ ] Sortiere Outputs wenn Matching ausgegeben wird -> stabilerer Output => kleinerere Diffs in git
