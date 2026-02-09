@@ -1,8 +1,6 @@
-use std::collections::HashMap;
-
 use crate::{comparison::CmpData, constraint::eval::SumCounts};
 
-pub fn summary_tab_md(cmp_data: &HashMap<String, CmpData>) -> String {
+pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>) -> String {
     let mut total_counts = SumCounts {
         blackouts: 0,
         sold: 0,
@@ -13,7 +11,7 @@ pub fn summary_tab_md(cmp_data: &HashMap<String, CmpData>) -> String {
     };
 
     let mut tab_lines = vec![
-        r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "blackouts" >}}}} | {{{{< i18n "sold" >}}}} | {{{{< i18n "soldButGood" >}}}} | {{{{< i18n "matchesFound" >}}}} | {{{{< i18n "won" >}}}} |"#.to_owned(),
+        r#"| {{< i18n "season" >}} | {{< i18n "blackouts" >}} | {{< i18n "sold" >}} | {{< i18n "soldButGood" >}} | {{< i18n "matchesFound" >}} | {{< i18n "won" >}} |"#.to_owned(),
         "| --- | --- | --- | --- | --- | --- |".to_owned(),
     ];
 

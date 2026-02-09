@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use catppuccin::{Flavor, PALETTE};
 use plotly::{
     common::{Mode, Title},
@@ -60,7 +58,7 @@ pub fn plotly_gen_layout(palette: Flavor) -> Layout {
 }
 
 pub fn build_scatter_plot<X, Y, FX, FY>(
-    cmp_data: &HashMap<String, CmpData>,
+    cmp_data: &Vec<(String, CmpData)>,
     layout: &Layout,
     palette: &Flavor,
     title: &str,

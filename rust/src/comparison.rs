@@ -7,7 +7,6 @@ mod utils;
 use std::fs::File;
 use std::io::BufReader;
 use std::{
-    collections::HashMap,
     path::{Path, PathBuf},
 };
 
@@ -65,8 +64,8 @@ fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
     gp.finalize_parsing(Path::new("/tmp/"))
 }
 
-pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<HashMap<String, CmpData>> {
-    let mut ret = HashMap::new();
+pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, CmpData)>> {
+    let mut ret = vec![];
 
     // loop over the data directories selected/filterd by filter_dirs
     for entry in WalkDir::new("./data")
@@ -92,7 +91,7 @@ pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<HashMap<String, 
             _ => continue,
         };
 
-        ret.insert(
+        ret.push((
             entry.file_name().to_str().unwrap_or("unknown").to_owned(),
             CmpData {
                 mn,
@@ -101,8 +100,9 @@ pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<HashMap<String, 
                 cnts,
                 game,
             },
-        );
+        ));
     }
+    ret.sort_by_key(|i| i.0.clone());
     Ok(ret)
 }
 

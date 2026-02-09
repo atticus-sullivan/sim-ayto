@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use plotly::{
     common::{Mode,},
 };
@@ -9,7 +7,7 @@ use crate::comparison::{
     CmpData,
 };
 
-pub fn build_light_plots(cmp_data: &HashMap<String, CmpData>, theme: u8) -> Vec<(String, String)> {
+pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
