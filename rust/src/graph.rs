@@ -136,7 +136,7 @@ pub fn summary_tab_md(filter_dirs: fn(&str) -> bool) -> Result<String> {
 
     Ok(format!(
         r#"| {{{{< i18n "season" >}}}} | {{{{< i18n "blackouts" >}}}} | {{{{< i18n "sold" >}}}} | {{{{< i18n "soldButGood" >}}}} | {{{{< i18n "matchesFound" >}}}} | {{{{< i18n "won" >}}}} |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- |
 {}
     "#,
         tab_lines.join("\n")
