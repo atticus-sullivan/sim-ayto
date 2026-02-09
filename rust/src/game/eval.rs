@@ -301,6 +301,7 @@ impl Game {
             // potentially updates known_lights -> do this in the end of the loop
             if let Some(j) = &i.0 {
                 let j = CSVEntryMB {
+                    offer: j.offer,
                     num: j.num,
                     lights_total: j.lights_total,
                     lights_known_before: j.lights_known_before,
@@ -321,6 +322,10 @@ impl Game {
             sold_but_match_active: solutions.is_some(),
             matches_found: 0,
             won: false,
+            offers_noted: !self.no_offerings_noted,
+            offer_and_match: 0,
+            offers: 0,
+            offered_money: 0,
         };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
@@ -334,6 +339,16 @@ impl Game {
             }
             if c.is_sold() && c.is_mb_hit(solutions) {
                 cnt.sold_but_match += 1;
+            }
+            let offer = c.try_get_offer();
+            if let Some(o) = offer {
+                cnt.offers += 1;
+                if let Some(m) = o.try_get_amount() {
+                    cnt.offered_money += m;
+                }
+                if c.is_mb_hit(solutions) {
+                    cnt.offer_and_match += 1;
+                }
             }
         }
 

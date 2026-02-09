@@ -48,16 +48,16 @@ impl CheckType {
 }
 
 #[derive(Deserialize, Debug, Clone)]
-enum Offer {
+pub enum Offer {
     Single {
-        amount: Option<f32>,
+        amount: Option<u128>,
         by: String,
         #[serde(rename = "reducedPot")]
         reduced_pot: bool,
         save: bool,
     },
     SinglePair {
-        amount: Option<f32>,
+        amount: Option<u128>,
         #[serde(rename = "byA")]
         by_a: String,
         #[serde(rename = "byB")]
@@ -67,16 +67,27 @@ enum Offer {
         save: bool,
     },
     Group {
-        amount: Option<f32>,
+        amount: Option<u128>,
         by: String,
     },
     GroupPair {
-        amount: Option<f32>,
+        amount: Option<u128>,
         #[serde(rename = "byA")]
         by_a: String,
         #[serde(rename = "byB")]
         by_b: String,
     },
+}
+
+impl Offer {
+    pub fn try_get_amount(&self) -> Option<u128> {
+        match &self {
+            Offer::Single { amount, .. } => *amount,
+            Offer::SinglePair { amount, .. } => *amount,
+            Offer::Group { amount, .. } => *amount,
+            Offer::GroupPair { amount, .. } => *amount,
+        }
+    }
 }
 
 #[derive(Deserialize, Debug, Clone)]
@@ -124,7 +135,7 @@ impl Hash for Offer {
             } => {
                 0.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
-                    amount.to_bits().hash(state);
+                    amount.hash(state);
                 }
                 by.hash(state);
                 reduced_pot.hash(state);
@@ -139,7 +150,7 @@ impl Hash for Offer {
             } => {
                 1.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
-                    amount.to_bits().hash(state);
+                    amount.hash(state);
                 }
                 by_a.hash(state);
                 by_b.hash(state);
@@ -149,14 +160,14 @@ impl Hash for Offer {
             Offer::Group { amount, by } => {
                 2.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
-                    amount.to_bits().hash(state);
+                    amount.hash(state);
                 }
                 by.hash(state);
             }
             Offer::GroupPair { amount, by_a, by_b } => {
                 3.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
-                    amount.to_bits().hash(state);
+                    amount.hash(state);
                 }
                 by_a.hash(state);
                 by_b.hash(state);

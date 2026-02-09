@@ -12,6 +12,10 @@ matchesFound: "PMs in MB"
 total: "Total"
 won: "Gewonnen?"
 
+offers: "Angebote"
+offerAndMatch: "Angebote für PMs"
+offeredMoney: "Σ Angebotenes Geld"
+
 de-season1: "DE Staffel 1"
 de-season2: "DE Staffel 2"
 de-season3: "DE Staffel 3"

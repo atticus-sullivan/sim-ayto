@@ -12,7 +12,6 @@ pub fn build_information_plots(
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
-    // TODO: use hugo translation strings? (might not work with hextra tabs)
     vec![
         (
             "MN/MC".to_owned(),

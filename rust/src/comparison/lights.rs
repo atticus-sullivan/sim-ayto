@@ -8,7 +8,6 @@ pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(S
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
-    // TODO: use hugo translation strings? (might not work with hextra tabs)
     vec![
         (
             "#Lights MB/TB".to_owned(),

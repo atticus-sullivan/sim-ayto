@@ -135,6 +135,12 @@ impl Language {
             }
         }
     }
+    pub fn number_formatting(&self) -> num_format::Locale {
+        match self {
+            Language::De => num_format::Locale::de,
+            Language::En => num_format::Locale::en,
+        }
+    }
 }
 
 fn write_page(

@@ -10,6 +10,7 @@ use std::path::PathBuf;
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
+use crate::constraint::Offer;
 use crate::{MapS, Matching};
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
@@ -32,6 +33,7 @@ pub struct CSVEntryMB {
     pub lights_known_before: u8,
     pub bits_gained: f64,
     pub comment: String,
+    pub offer: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -47,20 +49,32 @@ pub struct CSVEntryMN {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SumCounts {
     pub blackouts: u8,
+    pub won: bool,
+    pub matches_found: u8,
+
     pub sold: u8,
     pub sold_but_match: u8,
     pub sold_but_match_active: bool,
-    pub matches_found: u8,
-    pub won: bool,
+
+    pub offers_noted: bool,
+    pub offers: u64,
+    pub offer_and_match: u64,
+    pub offered_money: u128,
 }
 
 impl SumCounts {
     pub fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
+
         self.sold += other.sold;
         self.sold_but_match += other.sold_but_match;
         // self.sold_but_match_active &= other.sold_but_match_active;
+
         self.matches_found += other.matches_found;
+
+        self.offers += other.offers;
+        self.offer_and_match += other.offers;
+        self.offered_money += other.offered_money;
     }
 }
 
@@ -259,6 +273,13 @@ impl Constraint {
             )),
             ConstraintType::Box { num, .. } => Ok((
                 Some(CSVEntryMB {
+                    offer: {
+                        if let ConstraintType::Box { offer, .. } = &self.r#type {
+                            offer.is_some()
+                        } else {
+                            false
+                        }
+                    },
                     num: Decimal::from_f32(num).unwrap(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
@@ -398,6 +419,14 @@ impl Constraint {
             }
         }
         false
+    }
+
+    pub fn try_get_offer(&self) -> Option<Offer> {
+        if let ConstraintType::Box { offer, .. } = &self.r#type {
+            offer.clone()
+        } else {
+            None
+        }
     }
 
     pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
