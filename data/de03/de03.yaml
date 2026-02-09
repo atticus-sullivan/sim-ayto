@@ -73,7 +73,7 @@ constraints:
       William: Raphaela
       Jordi: Zaira
 
-  - type: !Box {num: 3, comment: "E06", offer: !Group {by: "Antonino", amount: 20_000}}
+  - type: !Box {num: 3, comment: "E06", offer: !Group {by: "Antonino", amount: 20000}}
     check: !Lights [0]
     map:
       Andre: Raphaela
@@ -92,7 +92,7 @@ constraints:
       Andre: Raphaela
       Dustin: Zaira
 
-  - type: !Box {num: 4, comment: "E08 -- verkauft", offer: !Group {by: "Antonino", amount: 50_000}}
+  - type: !Box {num: 4, comment: "E08 -- verkauft", offer: !Group {by: "Antonino", amount: 50000}}
     check: !Sold
     map:
       William: Dana

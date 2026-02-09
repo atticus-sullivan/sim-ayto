@@ -65,7 +65,7 @@ constraints:
       Tano: Chiara
       Dion: Tori
 
-  - type: !Box {num: 2, comment: "E05 -- verkauft", offer: !Group {by: "Dino", amount: 30_000}}
+  - type: !Box {num: 2, comment: "E05 -- verkauft", offer: !Group {by: "Dino", amount: 30000}}
     check: !Sold
     map:
       Levin: Camelia
@@ -156,7 +156,7 @@ constraints:
       Tano: Tori
       # Tano: Anna
 
-  - type: !Box {num: 6, comment: "E13 -- verkauft", offer: !Pair {byA: "Tano", byB: "Tori", amount: 40_000, save: true, reducedPot: true}} # 190k übrig
+  - type: !Box {num: 6, comment: "E13 -- verkauft", offer: !SinglePair {byA: "Tano", byB: "Tori", amount: 40000, save: true, reducedPot: true}} # 190k übrig
     check: !Sold
     map:
       Tano: Tori

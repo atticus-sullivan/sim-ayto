@@ -167,7 +167,7 @@ constraints:
       # Pia
       # Melanie
 
-  - type: !Box {num: 6, comment: "E13", offer: !Group {by: "Martin", amount: 30_000}}
+  - type: !Box {num: 6, comment: "E13", offer: !Group {by: "Martin", amount: 30000}}
     check: !Lights [0]
     buildTree: true
     map:
@@ -215,7 +215,7 @@ constraints:
       # Pia
       # Melanie
 
-  - type: !Box {num: 8, comment: "E16 -- verkauft", offer: !Single {by: "Lina", amount: 20_000, save: true, reducedPot: false}}
+  - type: !Box {num: 8, comment: "E16 -- verkauft", offer: !Single {by: "Lina", amount: 20000, save: true, reducedPot: false}}
     check: !Sold
     buildTree: true
     map:

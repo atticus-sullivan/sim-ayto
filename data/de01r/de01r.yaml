@@ -109,7 +109,7 @@ constraints:
       Tommy: Jill
       # Jacqueline
 
-  - type: !Box {num: 5, comment: "E10 -- verkauft", offer: !Group {by: "Salvatore", amount: 150 000}}
+  - type: !Box {num: 5, comment: "E10 -- verkauft", offer: !Group {by: "Salvatore", amount: 150000}}
     check: !Sold
     map:
       Tommy: Melina
