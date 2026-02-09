@@ -316,23 +316,26 @@ impl Constraint {
             // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
             // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
         ;
-        let mut rows = vec![Row::new(); self.map_s.len()];
+        let mut rows = vec![("", Row::new()); self.map_s.len()];
         for (i, (k, v)) in self.map_s.iter().enumerate() {
             if self.show_past_cnt() {
                 let cnt = past_constraints
                     .iter()
                     .filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v))
                     .count();
-                rows[i].add_cell(format!("{}x {}", cnt, k).into());
-                rows[i].add_cell(v.into());
+                rows[i].0 = k;
+                rows[i].1.add_cell(format!("{}x {}", cnt, k).into());
+                rows[i].1.add_cell(v.into());
                 // println!("{}x {} -> {}", cnt, k, v);
             } else {
-                rows[i].add_cell(k.into());
-                rows[i].add_cell(v.into());
+                rows[i].0 = k;
+                rows[i].1.add_cell(k.into());
+                rows[i].1.add_cell(v.into());
                 // println!("{} -> {}", k, v);
             }
         }
-        tab.add_rows(rows);
+        rows.sort_by_key(|i| i.0);
+        tab.add_rows(rows.into_iter().map(|i| i.1).collect::<Vec<_>>());
         tab.column_mut(0)
             .context("no 0th column in table found")?
             .set_padding((0, 1));

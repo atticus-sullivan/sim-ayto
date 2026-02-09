@@ -59,7 +59,7 @@ impl DupXData {
         let cnt_filtered = d.clone();
 
         // print all (or the most common) full duplicate matchings
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
@@ -94,7 +94,7 @@ impl DupXData {
             })
             .into_iter()
             .collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
@@ -130,7 +130,7 @@ impl DupXData {
             })
             .into_iter()
             .collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
@@ -162,7 +162,7 @@ impl DupXData {
             })
             .into_iter()
             .collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
