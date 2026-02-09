@@ -38,22 +38,22 @@ Evi → Tiziana
 ╰──────────┴──────────┴────────┴────────┴────────┴────────┴────────┴────────┴──────────┴─────────┴────────┴────────╯
 179625600 left -> 27.4204 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.2%/362880: Jeronymo -> ["Alicia", "Tiziana"] | 0.2%/362880: Jeronymo -> ["Michelle", "Tiziana"] | 0.2%/362880: JulianM -> ["Marla", "Tiziana"] | 0.2%/362880: Julian -> ["Tiziana", "Aurora"]
-top5 Pr[Dup]: 1.8%/3265920: ["Elena", "Ella"] | 1.8%/3265920: ["Alicia", "Marla"] | 1.8%/3265920: ["Linda", "Marla"] | 1.8%/3265920: ["Marla", "Michelle"] | 1.8%/3265920: ["Michelle", "Tiziana"]
-top5 Pr[Dup]: 18.2%/32659200: Tonia | 18.2%/32659200: Marla | 18.2%/32659200: Michelle | 18.2%/32659200: Laura | 18.2%/32659200: Aurora   / 200 %
-top5 Pr[Dup]: 10.1%/18144000: Ema | 10.1%/18144000: Julian | 10.1%/18144000: JulianM | 10.1%/18144000: Noel | 10.1%/18144000: Luke
+top4 Pr[Dup]: 0.2%/362880: Luke -> ["Adrianna", "Tiziana"] | 0.2%/362880: Evi -> ["Laura", "Tonia"] | 0.2%/362880: Evi -> ["Linda", "Tonia"] | 0.2%/362880: Luke -> ["Linda", "Tiziana"]
+top5 Pr[Dup]: 1.8%/3265920: ["Elena", "Tonia"] | 1.8%/3265920: ["Laura", "Michelle"] | 1.8%/3265920: ["Alicia", "Laura"] | 1.8%/3265920: ["Laura", "Marla"] | 1.8%/3265920: ["Marla", "Tonia"]
+top5 Pr[Dup]: 18.2%/32659200: Tiziana | 18.2%/32659200: Tonia | 18.2%/32659200: Ella | 18.2%/32659200: Adrianna | 18.2%/32659200: Laura   / 200 %
+top5 Pr[Dup]: 10.1%/18144000: Jerry | 10.1%/18144000: JulianM | 10.1%/18144000: Luke | 10.1%/18144000: Noel | 10.1%/18144000: Julian
 
 MN#1.0 E04
-0x Julian   → Aurora   
-0x Ema      → Michelle 
 0x Meji     → Ella     
-0x Jeronymo → Tiziana  
-0x Luke     → Marla    
-0x JulianM  → Adrianna 
-0x Jerry    → Elena    
-0x Evi      → Laura    
 0x Chris    → Linda    
+0x Ema      → Michelle 
+0x Jerry    → Elena    
 0x Noel     → Tonia    
+0x Luke     → Marla    
+0x Julian   → Aurora   
+0x Evi      → Laura    
+0x Jeronymo → Tiziana  
+0x JulianM  → Adrianna 
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89
@@ -74,10 +74,10 @@ MN#1.0 E04
 ╰──────────┴──────────┴────────┴────────┴────────┴────────┴────────┴────────┴──────────┴─────────┴────────┴────────╯
 11182756 left -> 23.4148 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.6%/66744: Jeronymo -> ["Alicia", "Tiziana"] | 0.6%/66744: Evi -> ["Alicia", "Laura"] | 0.5%/60255: JulianM -> ["Adrianna", "Alicia"] | 0.5%/60255: Ema -> ["Alicia", "Michelle"]
-top5 Pr[Dup]: 1.9%/207354: ["Linda", "Tiziana"] | 1.9%/207354: ["Tiziana", "Aurora"] | 1.9%/207354: ["Adrianna", "Tiziana"] | 1.9%/207354: ["Marla", "Tiziana"] | 1.9%/207354: ["Michelle", "Tiziana"]
-top5 Pr[Dup]: 18.3%/2051760: Alicia | 18.2%/2037678: Adrianna | 18.2%/2037678: Michelle | 18.2%/2037678: Elena | 18.2%/2037678: Ella   / 200 %
-top5 Pr[Dup]: 10.2%/1144604: Jeronymo | 10.1%/1125445: Noel | 10.1%/1125445: Julian | 10.1%/1125445: Jerry | 10.1%/1125445: Luke
+top4 Pr[Dup]: 0.6%/66744: Evi -> ["Alicia", "Laura"] | 0.6%/66744: Jeronymo -> ["Alicia", "Tiziana"] | 0.5%/60255: JulianM -> ["Adrianna", "Alicia"] | 0.5%/60255: Noel -> ["Alicia", "Tonia"]
+top5 Pr[Dup]: 1.9%/207354: ["Adrianna", "Tiziana"] | 1.9%/207354: ["Tiziana", "Aurora"] | 1.9%/207354: ["Marla", "Tiziana"] | 1.9%/207354: ["Linda", "Tiziana"] | 1.9%/207354: ["Michelle", "Tiziana"]
+top5 Pr[Dup]: 18.3%/2051760: Alicia | 18.2%/2037678: Linda | 18.2%/2037678: Adrianna | 18.2%/2037678: Aurora | 18.2%/2037678: Tonia   / 200 %
+top5 Pr[Dup]: 10.2%/1144604: Jeronymo | 10.1%/1125445: Meji | 10.1%/1125445: Julian | 10.1%/1125445: Jerry | 10.1%/1125445: JulianM
 
 MB#2.0 E05
 Evi → Laura 
@@ -99,22 +99,22 @@ Nothing => I = 0 bits
 ╰──────────┴──────────┴────────┴────────┴────────┴────────┴────────┴────────┴──────────┴─────────┴────────┴────────╯
 11182756 left -> 23.4148 bits left
 Pr[]s for unknown dup
-top4 Pr[Dup]: 0.6%/66744: Jeronymo -> ["Alicia", "Tiziana"] | 0.6%/66744: Evi -> ["Alicia", "Laura"] | 0.5%/60255: Noel -> ["Alicia", "Tonia"] | 0.5%/60255: Luke -> ["Alicia", "Marla"]
-top5 Pr[Dup]: 1.9%/207354: ["Adrianna", "Tiziana"] | 1.9%/207354: ["Marla", "Tiziana"] | 1.9%/207354: ["Tiziana", "Tonia"] | 1.9%/207354: ["Michelle", "Tiziana"] | 1.9%/207354: ["Tiziana", "Aurora"]
-top5 Pr[Dup]: 18.3%/2051760: Alicia | 18.2%/2037678: Elena | 18.2%/2037678: Aurora | 18.2%/2037678: Adrianna | 18.2%/2037678: Ella   / 200 %
-top5 Pr[Dup]: 10.2%/1144604: Jeronymo | 10.1%/1125445: Luke | 10.1%/1125445: Meji | 10.1%/1125445: Julian | 10.1%/1125445: Noel
+top4 Pr[Dup]: 0.6%/66744: Jeronymo -> ["Alicia", "Tiziana"] | 0.6%/66744: Evi -> ["Alicia", "Laura"] | 0.5%/60255: JulianM -> ["Adrianna", "Alicia"] | 0.5%/60255: Ema -> ["Alicia", "Michelle"]
+top5 Pr[Dup]: 1.9%/207354: ["Tiziana", "Tonia"] | 1.9%/207354: ["Tiziana", "Aurora"] | 1.9%/207354: ["Ella", "Tiziana"] | 1.9%/207354: ["Adrianna", "Tiziana"] | 1.9%/207354: ["Michelle", "Tiziana"]
+top5 Pr[Dup]: 18.3%/2051760: Alicia | 18.2%/2037678: Michelle | 18.2%/2037678: Linda | 18.2%/2037678: Elena | 18.2%/2037678: Marla   / 200 %
+top5 Pr[Dup]: 10.2%/1144604: Jeronymo | 10.1%/1125445: Ema | 10.1%/1125445: Julian | 10.1%/1125445: Noel | 10.1%/1125445: JulianM
 
 MN#2.0 E06
-1x Evi      → Laura    
-0x Meji     → Elena    
-0x Julian   → Adrianna 
+0x Chris    → Tonia    
+0x Jerry    → Michelle 
+0x Ema      → Ella     
 0x Noel     → Linda    
 1x Luke     → Marla    
-0x Ema      → Ella     
-0x Jerry    → Michelle 
+0x Meji     → Elena    
 1x Jeronymo → Tiziana  
+1x Evi      → Laura    
 0x JulianM  → Alicia   
-0x Chris    → Tonia    
+0x Julian   → Adrianna 
 ---
 -> I[l]/bits: {0: 2.47, 1: 1.44, 2: 1.85, 3: 3.02, 4: 4.70, 5: 6.76, 6: 9.17, 7: 11.87, 8: 14.66, 9: 17.80, 10: 20.24}
 -> E[I]/bits: 2.12
@@ -136,8 +136,8 @@ MN#2.0 E06
 3104931 left -> 21.5661 bits left
 Pr[]s for unknown dup
 top4 Pr[Dup]: 0.8%/24785: Jeronymo -> ["Alicia", "Tiziana"] | 0.8%/24785: Evi -> ["Alicia", "Laura"] | 0.8%/23523: JulianM -> ["Adrianna", "Alicia"] | 0.7%/22540: Luke -> ["Alicia", "Marla"]
-top5 Pr[Dup]: 2.3%/70760: ["Linda", "Tonia"] | 2.1%/64377: ["Adrianna", "Alicia"] | 2.0%/63491: ["Elena", "Ella"] | 2.0%/63491: ["Elena", "Michelle"] | 2.0%/63491: ["Ella", "Michelle"]
-top5 Pr[Dup]: 18.5%/572973: Ella | 18.5%/572973: Michelle | 18.5%/572973: Elena | 18.4%/571725: Tonia | 18.4%/571725: Linda   / 200 %
+top5 Pr[Dup]: 2.3%/70760: ["Linda", "Tonia"] | 2.1%/64377: ["Adrianna", "Alicia"] | 2.0%/63491: ["Elena", "Michelle"] | 2.0%/63491: ["Elena", "Ella"] | 2.0%/63491: ["Ella", "Michelle"]
+top5 Pr[Dup]: 18.5%/572973: Elena | 18.5%/572973: Michelle | 18.5%/572973: Ella | 18.4%/571725: Linda | 18.4%/571725: Tonia   / 200 %
 top5 Pr[Dup]: 11.1%/343308: Jeronymo | 10.8%/334839: Luke | 10.1%/313913: Evi | 9.8%/305396: JulianM | 9.8%/303523: Julian
 
 ╭────────┬───┬────────┬───────────┬─────────┬──────────┬───────────┬───────────┬───────────┬────────┬────────┬────────┬───┬────────┬──────┬──────────╮
@@ -158,4 +158,4 @@ top5 Pr[Dup]: 11.1%/343308: Jeronymo | 10.8%/334839: Luke | 10.1%/313913: Evi | 
 ╰────────┴───┴──────────┴──────────┴────────┴───────┴───────┴────────┴───────┴──────────┴───────────┴────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 3104931  Initial combinations for each pair: 19958400
 
-Ran in 130.75s
+Ran in 130.85s

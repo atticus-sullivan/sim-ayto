@@ -39,16 +39,16 @@ Tasha → Joshy
 3265920 left -> 21.6391 bits left
 
 MN#1.0 E01
-0x Tasha    → Theo    
-0x Olivia   → Ismail  
-0x Taofiqah → Josh    
-0x Sapphia  → Cach    
-0x Shae     → Jack    
-0x Thea     → Charlie 
 0x Vic      → Jacob   
 0x Therese  → Juan    
+0x Sapphia  → Cach    
+0x Shae     → Jack    
+0x Tasha    → Theo    
+0x Olivia   → Ismail  
 0x Robyn    → Jordan  
 0x Libby    → Joshy   
+0x Taofiqah → Josh    
+0x Thea     → Charlie 
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89
@@ -92,16 +92,16 @@ Taofiqah → Josh
 489489 left -> 18.9009 bits left
 
 MN#2.0 E02
-0x Therese  → Jack    
-1x Vic      → Jacob   
-0x Libby    → Josh    
-0x Robyn    → Joshy   
-0x Sapphia  → Jordan  
 0x Thea     → Juan    
-1x Olivia   → Ismail  
-1x Tasha    → Theo    
 0x Shae     → Charlie 
+1x Olivia   → Ismail  
+0x Sapphia  → Jordan  
+0x Robyn    → Joshy   
+0x Therese  → Jack    
+0x Libby    → Josh    
+1x Vic      → Jacob   
 0x Taofiqah → Cach    
+1x Tasha    → Theo    
 ---
 -> I[l]/bits: {0: 2.01, 1: 1.43, 2: 2.04, 3: 3.33, 4: 5.07, 5: 7.16, 6: 9.51, 7: 12.26, 8: 14.58}
 -> E[I]/bits: 2.07
@@ -145,16 +145,16 @@ Robyn → Theo
 45713 left -> 15.4803 bits left
 
 MN#3.0 E03
-0x Therese  → Josh    
-0x Taofiqah → Theo    
 2x Olivia   → Ismail  
-2x Vic      → Jacob   
-0x Libby    → Jack    
-1x Shae     → Charlie 
 0x Tasha    → Jordan  
-1x Sapphia  → Cach    
-1x Thea     → Juan    
+1x Shae     → Charlie 
+0x Libby    → Jack    
+2x Vic      → Jacob   
 1x Robyn    → Joshy   
+0x Therese  → Josh    
+1x Sapphia  → Cach    
+0x Taofiqah → Theo    
+1x Thea     → Juan    
 ---
 -> I[l]/bits: {0: 3.76, 1: 1.68, 2: 1.61, 3: 2.40, 4: 3.81, 5: 5.62, 6: 7.51, 7: 10.12, 8: 12.90}
 -> E[I]/bits: 2.22
@@ -198,16 +198,16 @@ Thea → Juan
 11173 left -> 13.4477 bits left
 
 MN#4.0 E04
+0x Tasha    → Juan    
 0x Robyn    → Jacob   
 0x Sapphia  → Theo    
-0x Tasha    → Juan    
-0x Taofiqah → Jack    
 0x Libby    → Jordan  
-3x Olivia   → Ismail  
-1x Therese  → Josh    
-0x Shae     → Cach    
-0x Vic      → Joshy   
 1x Thea     → Charlie 
+0x Vic      → Joshy   
+0x Taofiqah → Jack    
+3x Olivia   → Ismail  
+0x Shae     → Cach    
+1x Therese  → Josh    
 ---
 -> I[l]/bits: {0: 2.07, 1: 1.37, 2: 2.00, 3: 3.37, 4: 5.38, 5: 7.75, 6: 11.86}
 -> E[I]/bits: 2.02
@@ -251,16 +251,16 @@ Olivia → Ismail
 940 left -> 9.8765 bits left
 
 MN#5.0 E05
-1x Therese  → Jack    
-2x Robyn    → Joshy   
-0x Sapphia  → Charlie 
-0x Libby    → Theo    
 1x Tasha    → Juan    
-0x Thea     → Josh    
-4x Olivia   → Ismail  
-0x Shae     → Jordan  
+0x Sapphia  → Charlie 
+2x Robyn    → Joshy   
 3x Vic      → Jacob   
 1x Taofiqah → Cach    
+4x Olivia   → Ismail  
+0x Thea     → Josh    
+0x Libby    → Theo    
+1x Therese  → Jack    
+0x Shae     → Jordan  
 ---
 -> I[l]/bits: {1: 2.56, 2: 1.62, 3: 1.72, 4: 2.81, 5: 4.48, 6: 6.18}
 -> E[I]/bits: 2.17
@@ -304,16 +304,16 @@ Thea → Cach
 263 left -> 8.0389 bits left
 
 MN#6.0 E06
-0x Libby    → Charlie 
-0x Sapphia  → Jack    
-0x Therese  → Jacob   
-0x Vic      → Theo    
 5x Olivia   → Ismail  
+0x Libby    → Charlie 
 1x Robyn    → Jordan  
+0x Therese  → Jacob   
 0x Tasha    → Josh    
+0x Sapphia  → Jack    
 1x Shae     → Cach    
-0x Thea     → Joshy   
 0x Taofiqah → Juan    
+0x Vic      → Theo    
+0x Thea     → Joshy   
 ---
 -> I[l]/bits: {1: 1.32, 2: 1.56, 3: 2.40, 4: 4.13, 5: 6.04}
 -> E[I]/bits: 1.84
@@ -357,16 +357,16 @@ Thea → Charlie
 58 left -> 5.858 bits left
 
 MN#7.0 E07 -- Blackout
-6x Olivia   → Ismail  
-2x Sapphia  → Cach    
-1x Vic      → Joshy   
 0x Taofiqah → Jordan  
+2x Sapphia  → Cach    
+0x Thea     → Jacob   
+1x Tasha    → Josh    
+1x Vic      → Joshy   
+6x Olivia   → Ismail  
+0x Robyn    → Jack    
 1x Therese  → Juan    
 2x Shae     → Charlie 
 1x Libby    → Theo    
-0x Thea     → Jacob   
-0x Robyn    → Jack    
-1x Tasha    → Josh    
 ---
 -> I[l]/bits: {1: 1.33, 2: 1.47, 3: 2.27, 4: 4.86}
 -> E[I]/bits: 1.70
@@ -410,16 +410,16 @@ Vic → Jacob
 10 left -> 3.3219 bits left
 
 MN#8.0 E08
-1x Vic      → Theo    
+7x Olivia   → Ismail  
 1x Sapphia  → Jordan  
 1x Robyn    → Jacob   
-7x Olivia   → Ismail  
-1x Shae     → Jack    
-1x Thea     → Josh    
+0x Tasha    → Charlie 
 1x Taofiqah → Juan    
+1x Vic      → Theo    
 1x Libby    → Joshy   
 0x Therese  → Cach    
-0x Tasha    → Charlie 
+1x Thea     → Josh    
+1x Shae     → Jack    
 ---
 -> I[l]/bits: {1: 3.32, 2: 0.51, 4: 3.32, 6: 3.32}
 -> E[I]/bits: 1.36
@@ -463,16 +463,16 @@ Libby → Joshy
 1 left -> 0 bits left
 
 MN#9.0 E10
-2x Libby    → Joshy   
-8x Olivia   → Ismail  
-2x Thea     → Josh    
-0x Shae     → Juan    
-1x Tasha    → Charlie 
-2x Sapphia  → Jordan  
-2x Vic      → Theo    
 2x Robyn    → Jacob   
-1x Taofiqah → Jack    
+2x Vic      → Theo    
 1x Therese  → Cach    
+2x Sapphia  → Jordan  
+8x Olivia   → Ismail  
+1x Tasha    → Charlie 
+2x Thea     → Josh    
+2x Libby    → Joshy   
+0x Shae     → Juan    
+1x Taofiqah → Jack    
 ---
 -> I[l]/bits: {6: 0.00}
 -> E[I]/bits: 0.00
@@ -516,16 +516,16 @@ Tasha → Charlie
 1 left -> 0 bits left
 
 MN#10.0 E10
-3x Sapphia  → Jordan  
-9x Olivia   → Ismail  
-2x Shae     → Cach    
-3x Robyn    → Jacob   
-0x Vic      → Juan    
-2x Therese  → Jack    
 2x Tasha    → Charlie 
 3x Thea     → Josh    
-3x Libby    → Joshy   
+2x Therese  → Jack    
 1x Taofiqah → Theo    
+3x Sapphia  → Jordan  
+0x Vic      → Juan    
+9x Olivia   → Ismail  
+3x Libby    → Joshy   
+2x Shae     → Cach    
+3x Robyn    → Jacob   
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00
@@ -596,4 +596,4 @@ MN#10.0 E10
 ╰─────────┴────┴───────────┴──────────┴─────────┴───────────┴──────────┴───────────┴───────────┴────────┴───────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 3628800  Permutations left: 1  Initial combinations for each pair: 362880
 
-Ran in 0.91s
+Ran in 1.10s

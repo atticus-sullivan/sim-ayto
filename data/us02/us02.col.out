@@ -38,23 +38,23 @@ Brandon → Jess
 ╰────────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴───────────╯
 32659200 left -> 24.961 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 1.1%/362880: TylerPratt -> ["Jess", "Christina"] | 1.1%/362880: Layton -> ["Jess", "Christina"] | 1.1%/362880: Brandon -> ["Shelby", "Christina"] | 1.1%/362880: Brandon -> ["Jenni", "Christina"]
-top5 Pr[Dup]: 10.0%/3265920: ["Briana", "Christina"] | 10.0%/3265920: ["Jasmine", "Christina"] | 10.0%/3265920: ["Shelby", "Christina"] | 10.0%/3265920: ["Jenni", "Christina"] | 10.0%/3265920: ["Paris", "Christina"]
-top5 Pr[Dup]: 100.0%/32659200: Christina | 10.0%/3265920: Jasmine | 10.0%/3265920: Paris | 10.0%/3265920: Shelby | 10.0%/3265920: Briana   / 200 %
-top5 Pr[Dup]: 10.0%/3265920: Garland | 10.0%/3265920: Nathan | 10.0%/3265920: Dario | 10.0%/3265920: Layton | 10.0%/3265920: Anthony
+top4 Pr[Dup]: 1.1%/362880: TylerPratt -> ["Jess", "Christina"] | 1.1%/362880: Alex -> ["Jess", "Christina"] | 1.1%/362880: Brandon -> ["Ashley", "Christina"] | 1.1%/362880: John -> ["Jess", "Christina"]
+top5 Pr[Dup]: 10.0%/3265920: ["Alex", "Christina"] | 10.0%/3265920: ["Ellie", "Christina"] | 10.0%/3265920: ["Tyler", "Christina"] | 10.0%/3265920: ["Jess", "Christina"] | 10.0%/3265920: ["Briana", "Christina"]
+top5 Pr[Dup]: 100.0%/32659200: Christina | 10.0%/3265920: Jenni | 10.0%/3265920: Shelby | 10.0%/3265920: Paris | 10.0%/3265920: Tyler   / 200 %
+top5 Pr[Dup]: 10.0%/3265920: Alex | 10.0%/3265920: Curtis | 10.0%/3265920: Layton | 10.0%/3265920: Nathan | 10.0%/3265920: Anthony
 .
 
 MN#1.0 E01
-0x Anthony    → Jess      
-0x Dario      → Ashley    
-0x Nathan     → Shelby    
-0x Layton     → Jenni     
-0x Garland    → Alex      
-0x Brandon    → Christina 
 0x John       → Jasmine   
-0x Curtis     → Briana    
+0x Brandon    → Christina 
+0x Layton     → Jenni     
 0x TylerPratt → Paris     
 0x Alex       → Ellie     
+0x Curtis     → Briana    
+0x Anthony    → Jess      
+0x Dario      → Ashley    
+0x Garland    → Alex      
+0x Nathan     → Shelby    
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.10, 5: 8.51, 6: 11.23, 7: 14.20, 8: 17.53, 9: 20.87, 10: 24.96}
 -> E[I]/bits: 1.88
@@ -75,10 +75,10 @@ MN#1.0 E01
 ╰────────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴───────────╯
 6074065 left -> 22.5342 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 2.2%/133497: Brandon -> ["Tyler", "Christina"] | 2.2%/133496: Brandon -> ["Jenni", "Christina"] | 2.2%/133496: Brandon -> ["Alex", "Christina"] | 2.2%/133496: Brandon -> ["Jasmine", "Christina"]
-top5 Pr[Dup]: 10.1%/615564: ["Jenni", "Christina"] | 10.1%/615564: ["Jasmine", "Christina"] | 10.1%/615564: ["Ashley", "Christina"] | 10.1%/615564: ["Briana", "Christina"] | 10.1%/615564: ["Ellie", "Christina"]
-top5 Pr[Dup]: 100.0%/6074065: Christina | 10.1%/615564: Shelby | 10.1%/615564: Alex | 10.1%/615564: Jasmine | 10.1%/615564: Jenni   / 200 %
-top5 Pr[Dup]: 19.8%/1201465: Brandon | 8.9%/541400: Garland | 8.9%/541400: TylerPratt | 8.9%/541400: John | 8.9%/541400: Anthony
+top4 Pr[Dup]: 2.2%/133497: Brandon -> ["Tyler", "Christina"] | 2.2%/133496: Brandon -> ["Ashley", "Christina"] | 2.2%/133496: Brandon -> ["Paris", "Christina"] | 2.2%/133496: Brandon -> ["Jenni", "Christina"]
+top5 Pr[Dup]: 10.1%/615564: ["Jenni", "Christina"] | 10.1%/615564: ["Shelby", "Christina"] | 10.1%/615564: ["Jasmine", "Christina"] | 10.1%/615564: ["Ashley", "Christina"] | 10.1%/615564: ["Paris", "Christina"]
+top5 Pr[Dup]: 100.0%/6074065: Christina | 10.1%/615564: Jasmine | 10.1%/615564: Ashley | 10.1%/615564: Jenni | 10.1%/615564: Shelby   / 200 %
+top5 Pr[Dup]: 19.8%/1201465: Brandon | 8.9%/541400: Anthony | 8.9%/541400: Nathan | 8.9%/541400: Layton | 8.9%/541400: Garland
 .
 
 MB#2.0 E02
@@ -103,23 +103,23 @@ Brandon → Christina
 ╰────────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴───────────╯
 4872600 left -> 22.2163 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 2.7%/133496: Anthony -> ["Jess", "Christina"] | 2.4%/118663: John -> ["Jasmine", "Christina"] | 2.4%/118663: TylerPratt -> ["Paris", "Christina"] | 2.4%/118663: Nathan -> ["Shelby", "Christina"]
-top5 Pr[Dup]: 11.1%/541400: ["Jess", "Christina"] | 9.9%/482068: ["Paris", "Christina"] | 9.9%/482068: ["Briana", "Christina"] | 9.9%/482068: ["Alex", "Christina"] | 9.9%/482068: ["Shelby", "Christina"]
-top5 Pr[Dup]: 100.0%/4872600: Christina | 11.1%/541400: Jess | 9.9%/482068: Ellie | 9.9%/482068: Paris | 9.9%/482068: Briana   / 200 %
-top5 Pr[Dup]: 11.1%/541400: Alex | 11.1%/541400: Garland | 11.1%/541400: Dario | 11.1%/541400: TylerPratt | 11.1%/541400: Layton
+top4 Pr[Dup]: 2.7%/133496: Anthony -> ["Jess", "Christina"] | 2.4%/118663: Nathan -> ["Shelby", "Christina"] | 2.4%/118663: Dario -> ["Ashley", "Christina"] | 2.4%/118663: TylerPratt -> ["Paris", "Christina"]
+top5 Pr[Dup]: 11.1%/541400: ["Jess", "Christina"] | 9.9%/482068: ["Shelby", "Christina"] | 9.9%/482068: ["Alex", "Christina"] | 9.9%/482068: ["Jasmine", "Christina"] | 9.9%/482068: ["Ellie", "Christina"]
+top5 Pr[Dup]: 100.0%/4872600: Christina | 11.1%/541400: Jess | 9.9%/482068: Paris | 9.9%/482068: Briana | 9.9%/482068: Ashley   / 200 %
+top5 Pr[Dup]: 11.1%/541400: Anthony | 11.1%/541400: Layton | 11.1%/541400: TylerPratt | 11.1%/541400: John | 11.1%/541400: Curtis
 .
 
 MN#2.0 E02
-0x Layton     → Jess      
-0x Dario      → Shelby    
-0x Alex       → Christina 
-0x Nathan     → Jenni     
-0x Garland    → Jasmine   
 0x Anthony    → Alex      
 1x Curtis     → Briana    
-1x TylerPratt → Paris     
 0x Brandon    → Tyler     
+1x TylerPratt → Paris     
+0x Layton     → Jess      
+0x Nathan     → Jenni     
 0x John       → Ashley    
+0x Alex       → Christina 
+0x Dario      → Shelby    
+0x Garland    → Jasmine   
 ---
 -> I[l]/bits: {0: 1.74, 1: 1.44, 2: 2.19, 3: 3.57, 4: 5.41, 5: 7.60, 6: 10.08, 7: 12.73, 8: 15.50, 9: 19.41}
 -> E[I]/bits: 2.01
@@ -141,9 +141,9 @@ MN#2.0 E02
 1068329 left -> 20.0269 bits left
 Pr[]s for dup with Christina
 top4 Pr[Dup]: 4.1%/43291: TylerPratt -> ["Paris", "Christina"] | 4.1%/43291: Curtis -> ["Briana", "Christina"] | 4.0%/43140: Alex -> ["Ellie", "Christina"] | 1.8%/19577: Alex -> ["Tyler", "Christina"]
-top5 Pr[Dup]: 11.0%/117634: ["Ellie", "Christina"] | 10.9%/116797: ["Jess", "Christina"] | 10.2%/108610: ["Briana", "Christina"] | 10.2%/108610: ["Paris", "Christina"] | 9.8%/104794: ["Ashley", "Christina"]
+top5 Pr[Dup]: 11.0%/117634: ["Ellie", "Christina"] | 10.9%/116797: ["Jess", "Christina"] | 10.2%/108610: ["Paris", "Christina"] | 10.2%/108610: ["Briana", "Christina"] | 9.8%/104794: ["Ashley", "Christina"]
 top5 Pr[Dup]: 100.0%/1068329: Christina | 11.0%/117634: Ellie | 10.9%/116797: Jess | 10.2%/108610: Paris | 10.2%/108610: Briana   / 200 %
-top5 Pr[Dup]: 18.8%/201361: Alex | 10.1%/108371: John | 10.1%/108371: Layton | 10.1%/108371: TylerPratt | 10.1%/108371: Dario
+top5 Pr[Dup]: 18.8%/201361: Alex | 10.1%/108371: Anthony | 10.1%/108371: TylerPratt | 10.1%/108371: Garland | 10.1%/108371: John
 .
 
 MB#3.0 E03
@@ -168,22 +168,22 @@ Brandon → Alex
 ╰────────────┴────────┴────────┴────────┴────────┴─────────┴────────┴────────┴────────┴────────┴────────┴───────────╯
 957806 left -> 19.8694 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 4.0%/38034: TylerPratt -> ["Paris", "Christina"] | 4.0%/38034: Curtis -> ["Briana", "Christina"] | 3.9%/37772: Alex -> ["Ellie", "Christina"] | 1.9%/17761: Garland -> ["Alex", "Christina"]
-top5 Pr[Dup]: 10.9%/104760: ["Jess", "Christina"] | 10.9%/104760: ["Alex", "Christina"] | 10.8%/103726: ["Ellie", "Christina"] | 10.1%/96483: ["Briana", "Christina"] | 10.1%/96483: ["Paris", "Christina"]
-top5 Pr[Dup]: 100.0%/957806: Christina | 10.9%/104760: Alex | 10.9%/104760: Jess | 10.8%/103726: Ellie | 10.1%/96483: Paris   / 200 %
-top5 Pr[Dup]: 18.7%/178702: Alex | 10.2%/97388: Curtis | 10.2%/97388: John | 10.2%/97388: Layton | 10.2%/97388: TylerPratt
+top4 Pr[Dup]: 4.0%/38034: Curtis -> ["Briana", "Christina"] | 4.0%/38034: TylerPratt -> ["Paris", "Christina"] | 3.9%/37772: Alex -> ["Ellie", "Christina"] | 1.9%/17761: Garland -> ["Alex", "Christina"]
+top5 Pr[Dup]: 10.9%/104760: ["Jess", "Christina"] | 10.9%/104760: ["Alex", "Christina"] | 10.8%/103726: ["Ellie", "Christina"] | 10.1%/96483: ["Paris", "Christina"] | 10.1%/96483: ["Briana", "Christina"]
+top5 Pr[Dup]: 100.0%/957806: Christina | 10.9%/104760: Jess | 10.9%/104760: Alex | 10.8%/103726: Ellie | 10.1%/96483: Briana   / 200 %
+top5 Pr[Dup]: 18.7%/178702: Alex | 10.2%/97388: Curtis | 10.2%/97388: John | 10.2%/97388: Dario | 10.2%/97388: TylerPratt
 .
 
 MN#3.0 E03
-1x Garland    → Alex      
+0x Layton     → Ellie     
+1x Dario      → Ashley    
+0x Nathan     → Jess      
 0x Brandon    → Shelby    
+0x Anthony    → Jenni     
+2x TylerPratt → Paris     
+1x Garland    → Alex      
 0x Alex       → Jasmine   
 0x John       → Christina 
-0x Nathan     → Jess      
-2x TylerPratt → Paris     
-1x Dario      → Ashley    
-0x Layton     → Ellie     
-0x Anthony    → Jenni     
 2x Curtis     → Briana    
 ---
 -> I[l]/bits: {0: 3.14, 1: 1.42, 2: 1.67, 3: 2.81, 4: 4.51, 5: 6.67, 6: 9.40, 7: 12.96, 8: 17.87}
@@ -208,7 +208,7 @@ Pr[]s for dup with Christina
 top4 Pr[Dup]: 5.0%/6793: Curtis -> ["Briana", "Christina"] | 5.0%/6793: TylerPratt -> ["Paris", "Christina"] | 3.2%/4317: Alex -> ["Jasmine", "Christina"] | 3.1%/4300: Garland -> ["Alex", "Christina"]
 top5 Pr[Dup]: 11.5%/15734: ["Jasmine", "Christina"] | 11.0%/15041: ["Jess", "Christina"] | 10.7%/14703: ["Alex", "Christina"] | 10.2%/14001: ["Ashley", "Christina"] | 9.9%/13529: ["Briana", "Christina"]
 top5 Pr[Dup]: 100.0%/137038: Christina | 11.5%/15734: Jasmine | 11.0%/15041: Jess | 10.7%/14703: Alex | 10.2%/14001: Ashley   / 200 %
-top5 Pr[Dup]: 22.3%/30551: John | 13.8%/18854: Alex | 9.1%/12519: TylerPratt | 9.1%/12519: Nathan | 9.1%/12519: Anthony
+top5 Pr[Dup]: 22.3%/30551: John | 13.8%/18854: Alex | 9.1%/12519: TylerPratt | 9.1%/12519: Layton | 9.1%/12519: Dario
 .
 
 MB#4.0 E04
@@ -236,19 +236,19 @@ Pr[]s for dup with Christina
 top4 Pr[Dup]: 3.1%/1919: Garland -> ["Alex", "Christina"] | 3.0%/1861: John -> ["Jess", "Christina"] | 2.9%/1797: Nathan -> ["Jess", "Christina"] | 2.7%/1699: Dario -> ["Ashley", "Christina"]
 top5 Pr[Dup]: 12.5%/7793: ["Jess", "Christina"] | 12.2%/7590: ["Alex", "Christina"] | 11.7%/7265: ["Jasmine", "Christina"] | 11.2%/7001: ["Briana", "Christina"] | 11.0%/6832: ["Ashley", "Christina"]
 top5 Pr[Dup]: 100.0%/62326: Christina | 12.5%/7793: Jess | 12.2%/7590: Alex | 11.7%/7265: Jasmine | 11.2%/7001: Briana   / 200 %
-top5 Pr[Dup]: 22.8%/14234: John | 11.8%/7334: Alex | 10.9%/6793: Layton | 10.9%/6793: Garland | 10.9%/6793: Nathan
+top5 Pr[Dup]: 22.8%/14234: John | 11.8%/7334: Alex | 10.9%/6793: Curtis | 10.9%/6793: Layton | 10.9%/6793: Nathan
 .
 
 MN#4.0 E04 -- blackout
-3x TylerPratt → Paris     
+1x John       → Christina 
+1x Garland    → Jasmine   
+0x Nathan     → Alex      
 3x Curtis     → Briana    
 1x Dario      → Shelby    
-1x Garland    → Jasmine   
-1x John       → Christina 
 1x Layton     → Jess      
-0x Alex       → Tyler     
-0x Nathan     → Alex      
 0x Brandon    → Ellie     
+0x Alex       → Tyler     
+3x TylerPratt → Paris     
 1x Anthony    → Jenni     
 ---
 -> I[l]/bits: {1: 1.93, 2: 1.40, 3: 2.02, 4: 3.45, 5: 5.66, 6: 8.89, 7: 13.61}
@@ -273,7 +273,7 @@ Pr[]s for dup with Christina
 top4 Pr[Dup]: 5.9%/961: Alex -> ["Jasmine", "Christina"] | 4.7%/764: Garland -> ["Alex", "Christina"] | 4.5%/732: Layton -> ["Ellie", "Christina"] | 4.2%/678: Alex -> ["Jenni", "Christina"]
 top5 Pr[Dup]: 13.7%/2229: ["Alex", "Christina"] | 12.8%/2085: ["Jenni", "Christina"] | 12.7%/2070: ["Jasmine", "Christina"] | 12.0%/1959: ["Jess", "Christina"] | 11.7%/1902: ["Ellie", "Christina"]
 top5 Pr[Dup]: 100.0%/16321: Christina | 13.7%/2229: Alex | 12.8%/2085: Jenni | 12.7%/2070: Jasmine | 12.0%/1959: Jess   / 200 %
-top5 Pr[Dup]: 24.1%/3937: Alex | 12.6%/2064: Anthony | 12.6%/2064: Curtis | 12.6%/2064: Nathan | 12.6%/2064: Dario
+top5 Pr[Dup]: 24.1%/3937: Alex | 12.6%/2064: Nathan | 12.6%/2064: Garland | 12.6%/2064: Curtis | 12.6%/2064: Dario
 .
 
 MB#5.0 E05
@@ -300,21 +300,21 @@ Curtis → Shelby
 Pr[]s for dup with Christina
 top4 Pr[Dup]: 7.8%/123: Layton -> ["Ellie", "Christina"] | 7.1%/113: Garland -> ["Alex", "Christina"] | 6.7%/106: Alex -> ["Jasmine", "Christina"] | 5.7%/91: Nathan -> ["Jess", "Christina"]
 top5 Pr[Dup]: 15.8%/251: ["Alex", "Christina"] | 13.4%/213: ["Jasmine", "Christina"] | 13.4%/213: ["Ellie", "Christina"] | 12.8%/202: ["Ashley", "Christina"] | 12.7%/201: ["Jenni", "Christina"]
-top5 Pr[Dup]: 100.0%/1584: Christina | 15.8%/251: Alex | 13.4%/213: Jasmine | 13.4%/213: Ellie | 12.8%/202: Ashley   / 200 %
-top5 Pr[Dup]: 23.6%/374: Alex | 15.3%/242: Garland | 15.3%/242: Anthony | 15.3%/242: Dario | 15.3%/242: Nathan
+top5 Pr[Dup]: 100.0%/1584: Christina | 15.8%/251: Alex | 13.4%/213: Ellie | 13.4%/213: Jasmine | 12.8%/202: Ashley   / 200 %
+top5 Pr[Dup]: 23.6%/374: Alex | 15.3%/242: Garland | 15.3%/242: Nathan | 15.3%/242: Dario | 15.3%/242: Anthony
 .
 
 MN#5.0 E05
-0x Garland    → Tyler     
-0x Dario      → Alex      
-4x TylerPratt → Paris     
-1x Alex       → Christina 
-0x Curtis     → Shelby    
-0x Layton     → Briana    
-0x John       → Jenni     
-0x Anthony    → Ashley    
 0x Brandon    → Jasmine   
+0x Garland    → Tyler     
+0x Layton     → Briana    
+1x Alex       → Christina 
+4x TylerPratt → Paris     
+0x John       → Jenni     
+0x Dario      → Alex      
+0x Curtis     → Shelby    
 1x Nathan     → Jess      
+0x Anthony    → Ashley    
 ---
 -> I[l]/bits: {2: 2.22, 3: 1.39, 4: 1.93, 5: 3.17, 6: 5.42, 7: 7.17, 8: 10.63}
 -> E[I]/bits: 2.05
@@ -336,9 +336,9 @@ MN#5.0 E05
 603 left -> 9.236 bits left
 Pr[]s for dup with Christina
 top4 Pr[Dup]: 8.3%/50: Layton -> ["Ellie", "Christina"] | 7.5%/45: Garland -> ["Alex", "Christina"] | 7.1%/43: Alex -> ["Jasmine", "Christina"] | 6.6%/40: Nathan -> ["Jess", "Christina"]
-top5 Pr[Dup]: 15.1%/91: ["Alex", "Christina"] | 14.8%/89: ["Ellie", "Christina"] | 14.3%/86: ["Jasmine", "Christina"] | 14.3%/86: ["Jess", "Christina"] | 12.4%/75: ["Ashley", "Christina"]
-top5 Pr[Dup]: 100.0%/603: Christina | 15.1%/91: Alex | 14.8%/89: Ellie | 14.3%/86: Jess | 14.3%/86: Jasmine   / 200 %
-top5 Pr[Dup]: 16.7%/101: Anthony | 16.7%/101: Layton | 16.7%/101: Dario | 16.7%/101: Garland | 16.7%/101: Nathan
+top5 Pr[Dup]: 15.1%/91: ["Alex", "Christina"] | 14.8%/89: ["Ellie", "Christina"] | 14.3%/86: ["Jess", "Christina"] | 14.3%/86: ["Jasmine", "Christina"] | 12.4%/75: ["Ashley", "Christina"]
+top5 Pr[Dup]: 100.0%/603: Christina | 15.1%/91: Alex | 14.8%/89: Ellie | 14.3%/86: Jasmine | 14.3%/86: Jess   / 200 %
+top5 Pr[Dup]: 16.7%/101: Garland | 16.7%/101: Nathan | 16.7%/101: Layton | 16.7%/101: Anthony | 16.7%/101: Dario
 .
 
 MB#6.0 E06
@@ -370,16 +370,16 @@ top5 Pr[Dup]: 17.3%/98: Alex | 16.5%/94: Layton | 16.5%/94: Garland | 16.5%/94: 
 .
 
 MN#6.0 E06 -- blackout
-0x John       → Alex    
-1x Garland    → Tyler   
-0x Nathan     → Jasmine 
-1x Layton     → Jenni   
-0x Dario      → Briana  
-5x TylerPratt → Paris   
-0x Alex       → Jess    
-0x Anthony    → Ellie   
-1x Curtis     → Shelby  
 0x Brandon    → Ashley  
+0x John       → Alex    
+0x Anthony    → Ellie   
+0x Nathan     → Jasmine 
+0x Dario      → Briana  
+0x Alex       → Jess    
+1x Garland    → Tyler   
+5x TylerPratt → Paris   
+1x Layton     → Jenni   
+1x Curtis     → Shelby  
 ---
 -> I[l]/bits: {2: 1.19, 3: 1.56, 4: 2.58, 5: 4.76, 6: 5.83}
 -> E[I]/bits: 1.76
@@ -401,9 +401,9 @@ MN#6.0 E06 -- blackout
 249 left -> 7.96 bits left
 Pr[]s for dup with Christina
 top4 Pr[Dup]: 8.0%/20: Garland -> ["Alex", "Christina"] | 8.0%/20: Layton -> ["Ellie", "Christina"] | 7.6%/19: Dario -> ["Ashley", "Christina"] | 7.2%/18: Alex -> ["Jasmine", "Christina"]
-top5 Pr[Dup]: 16.9%/42: ["Alex", "Christina"] | 14.5%/36: ["Jasmine", "Christina"] | 14.5%/36: ["Jess", "Christina"] | 14.1%/35: ["Ashley", "Christina"] | 14.1%/35: ["Ellie", "Christina"]
-top5 Pr[Dup]: 100.0%/249: Christina | 16.9%/42: Alex | 14.5%/36: Jess | 14.5%/36: Jasmine | 14.1%/35: Ashley   / 200 %
-top5 Pr[Dup]: 17.3%/43: Garland | 17.3%/43: Nathan | 17.3%/43: Layton | 17.3%/43: Dario | 17.3%/43: Anthony
+top5 Pr[Dup]: 16.9%/42: ["Alex", "Christina"] | 14.5%/36: ["Jess", "Christina"] | 14.5%/36: ["Jasmine", "Christina"] | 14.1%/35: ["Ellie", "Christina"] | 14.1%/35: ["Ashley", "Christina"]
+top5 Pr[Dup]: 100.0%/249: Christina | 16.9%/42: Alex | 14.5%/36: Jasmine | 14.5%/36: Jess | 14.1%/35: Ellie   / 200 %
+top5 Pr[Dup]: 17.3%/43: Dario | 17.3%/43: Garland | 17.3%/43: Nathan | 17.3%/43: Layton | 17.3%/43: Anthony
 .
 
 MB#7.0 E07
@@ -428,23 +428,23 @@ John → Jenni
 ╰────────────┴────────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴────────┴───────────╯
 30 left -> 4.9069 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 10.0%/3: Anthony -> ["Jasmine", "Christina"] | 10.0%/3: Garland -> ["Alex", "Christina"] | 10.0%/3: Garland -> ["Jess", "Christina"] | 10.0%/3: Layton -> ["Ellie", "Christina"]
-top5 Pr[Dup]: 20.0%/6: ["Ellie", "Christina"] | 20.0%/6: ["Jess", "Christina"] | 16.7%/5: ["Alex", "Christina"] | 16.7%/5: ["Ashley", "Christina"] | 13.3%/4: ["Briana", "Christina"]
-top5 Pr[Dup]: 100.0%/30: Christina | 20.0%/6: Jess | 20.0%/6: Ellie | 16.7%/5: Ashley | 16.7%/5: Alex   / 200 %
-top5 Pr[Dup]: 20.0%/6: Anthony | 20.0%/6: Dario | 20.0%/6: Layton | 20.0%/6: Nathan | 20.0%/6: Garland
+top4 Pr[Dup]: 10.0%/3: Nathan -> ["Ellie", "Christina"] | 10.0%/3: Dario -> ["Jess", "Christina"] | 10.0%/3: Layton -> ["Ellie", "Christina"] | 10.0%/3: Dario -> ["Ashley", "Christina"]
+top5 Pr[Dup]: 20.0%/6: ["Ellie", "Christina"] | 20.0%/6: ["Jess", "Christina"] | 16.7%/5: ["Ashley", "Christina"] | 16.7%/5: ["Alex", "Christina"] | 13.3%/4: ["Briana", "Christina"]
+top5 Pr[Dup]: 100.0%/30: Christina | 20.0%/6: Ellie | 20.0%/6: Jess | 16.7%/5: Ashley | 16.7%/5: Alex   / 200 %
+top5 Pr[Dup]: 20.0%/6: Dario | 20.0%/6: Layton | 20.0%/6: Anthony | 20.0%/6: Garland | 20.0%/6: Nathan
 .
 
 MN#7.0 E07
-1x John       → Jenni     
-1x Layton     → Ellie     
-0x Garland    → Jess      
 6x TylerPratt → Paris     
-0x Nathan     → Christina 
-0x Anthony    → Briana    
-1x Alex       → Jasmine   
-2x Dario      → Ashley    
 1x Brandon    → Tyler     
+0x Garland    → Jess      
+1x Alex       → Jasmine   
 2x Curtis     → Shelby    
+0x Nathan     → Christina 
+1x John       → Jenni     
+0x Anthony    → Briana    
+2x Dario      → Ashley    
+1x Layton     → Ellie     
 ---
 -> I[l]/bits: {5: 1.91, 6: 1.58, 7: 2.32, 8: 2.58, 9: 4.91}
 -> E[I]/bits: 2.10
@@ -465,10 +465,10 @@ MN#7.0 E07
 ╰────────────┴──────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴───────┴───────────╯
 10 left -> 3.3219 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 10.0%/1: Anthony -> ["Alex", "Christina"] | 10.0%/1: Dario -> ["Ashley", "Christina"] | 10.0%/1: Nathan -> ["Briana", "Christina"] | 10.0%/1: Nathan -> ["Ashley", "Christina"]
-top5 Pr[Dup]: 30.0%/3: ["Ashley", "Christina"] | 20.0%/2: ["Briana", "Christina"] | 20.0%/2: ["Jess", "Christina"] | 20.0%/2: ["Alex", "Christina"] | 10.0%/1: ["Tyler", "Christina"]
-top5 Pr[Dup]: 100.0%/10: Christina | 30.0%/3: Ashley | 20.0%/2: Jess | 20.0%/2: Alex | 20.0%/2: Briana   / 200 %
-top5 Pr[Dup]: 20.0%/2: Garland | 20.0%/2: Nathan | 20.0%/2: Anthony | 20.0%/2: Dario | 20.0%/2: Layton
+top4 Pr[Dup]: 10.0%/1: Layton -> ["Tyler", "Christina"] | 10.0%/1: Garland -> ["Alex", "Christina"] | 10.0%/1: Nathan -> ["Briana", "Christina"] | 10.0%/1: Layton -> ["Ashley", "Christina"]
+top5 Pr[Dup]: 30.0%/3: ["Ashley", "Christina"] | 20.0%/2: ["Alex", "Christina"] | 20.0%/2: ["Jess", "Christina"] | 20.0%/2: ["Briana", "Christina"] | 10.0%/1: ["Tyler", "Christina"]
+top5 Pr[Dup]: 100.0%/10: Christina | 30.0%/3: Ashley | 20.0%/2: Alex | 20.0%/2: Briana | 20.0%/2: Jess   / 200 %
+top5 Pr[Dup]: 20.0%/2: Anthony | 20.0%/2: Garland | 20.0%/2: Nathan | 20.0%/2: Dario | 20.0%/2: Layton
 .
 
 MB#8.0 E08
@@ -493,22 +493,22 @@ Nathan → Christina
 ╰────────────┴──────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴───────┴───────────╯
 8 left -> 3 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 12.5%/1: Layton -> ["Tyler", "Christina"] | 12.5%/1: Garland -> ["Alex", "Christina"] | 12.5%/1: Dario -> ["Jess", "Christina"] | 12.5%/1: Layton -> ["Ashley", "Christina"]
+top4 Pr[Dup]: 12.5%/1: Layton -> ["Ashley", "Christina"] | 12.5%/1: Garland -> ["Alex", "Christina"] | 12.5%/1: Garland -> ["Jess", "Christina"] | 12.5%/1: Dario -> ["Jess", "Christina"]
 top5 Pr[Dup]: 25.0%/2: ["Alex", "Christina"] | 25.0%/2: ["Ashley", "Christina"] | 25.0%/2: ["Jess", "Christina"] | 12.5%/1: ["Tyler", "Christina"] | 12.5%/1: ["Briana", "Christina"]
-top5 Pr[Dup]: 100.0%/8: Christina | 25.0%/2: Jess | 25.0%/2: Alex | 25.0%/2: Ashley | 12.5%/1: Briana   / 200 %
-top5 Pr[Dup]: 25.0%/2: Layton | 25.0%/2: Anthony | 25.0%/2: Garland | 25.0%/2: Dario
+top5 Pr[Dup]: 100.0%/8: Christina | 25.0%/2: Alex | 25.0%/2: Ashley | 25.0%/2: Jess | 12.5%/1: Tyler   / 200 %
+top5 Pr[Dup]: 25.0%/2: Dario | 25.0%/2: Garland | 25.0%/2: Anthony | 25.0%/2: Layton
 .
 
 MN#8.0 E08
-2x Garland    → Alex    
-7x TylerPratt → Paris   
-3x Dario      → Ashley  
 3x Curtis     → Shelby  
 2x Brandon    → Tyler   
-2x Layton     → Ellie   
+2x Alex       → Jasmine 
+7x TylerPratt → Paris   
+2x Garland    → Alex    
+3x Dario      → Ashley  
 1x Anthony    → Jess    
 0x Nathan     → Briana  
-2x Alex       → Jasmine 
+2x Layton     → Ellie   
 2x John       → Jenni   
 ---
 -> I[l]/bits: {5: 1.00, 6: 1.00}
@@ -530,10 +530,10 @@ MN#8.0 E08
 ╰────────────┴──────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴───────┴───────────╯
 4 left -> 2 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 25.0%/1: Layton -> ["Tyler", "Christina"] | 25.0%/1: Anthony -> ["Alex", "Christina"] | 25.0%/1: Dario -> ["Ashley", "Christina"] | 25.0%/1: Garland -> ["Jess", "Christina"]
-top5 Pr[Dup]: 25.0%/1: ["Alex", "Christina"] | 25.0%/1: ["Ashley", "Christina"] | 25.0%/1: ["Tyler", "Christina"] | 25.0%/1: ["Jess", "Christina"]
-top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Alex | 25.0%/1: Ashley | 25.0%/1: Tyler | 25.0%/1: Jess   / 200 %
-top5 Pr[Dup]: 25.0%/1: Garland | 25.0%/1: Anthony | 25.0%/1: Dario | 25.0%/1: Layton
+top4 Pr[Dup]: 25.0%/1: Garland -> ["Jess", "Christina"] | 25.0%/1: Anthony -> ["Alex", "Christina"] | 25.0%/1: Layton -> ["Tyler", "Christina"] | 25.0%/1: Dario -> ["Ashley", "Christina"]
+top5 Pr[Dup]: 25.0%/1: ["Jess", "Christina"] | 25.0%/1: ["Alex", "Christina"] | 25.0%/1: ["Tyler", "Christina"] | 25.0%/1: ["Ashley", "Christina"]
+top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Ashley | 25.0%/1: Alex | 25.0%/1: Jess | 25.0%/1: Tyler   / 200 %
+top5 Pr[Dup]: 25.0%/1: Layton | 25.0%/1: Garland | 25.0%/1: Dario | 25.0%/1: Anthony
 .
 
 MB#9.0 E09
@@ -558,23 +558,23 @@ Alex → Jasmine
 ╰────────────┴──────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴───────┴───────────╯
 4 left -> 2 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 25.0%/1: Layton -> ["Tyler", "Christina"] | 25.0%/1: Anthony -> ["Alex", "Christina"] | 25.0%/1: Garland -> ["Jess", "Christina"] | 25.0%/1: Dario -> ["Ashley", "Christina"]
-top5 Pr[Dup]: 25.0%/1: ["Tyler", "Christina"] | 25.0%/1: ["Alex", "Christina"] | 25.0%/1: ["Ashley", "Christina"] | 25.0%/1: ["Jess", "Christina"]
-top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Tyler | 25.0%/1: Ashley | 25.0%/1: Jess | 25.0%/1: Alex   / 200 %
-top5 Pr[Dup]: 25.0%/1: Dario | 25.0%/1: Garland | 25.0%/1: Layton | 25.0%/1: Anthony
+top4 Pr[Dup]: 25.0%/1: Anthony -> ["Alex", "Christina"] | 25.0%/1: Dario -> ["Ashley", "Christina"] | 25.0%/1: Layton -> ["Tyler", "Christina"] | 25.0%/1: Garland -> ["Jess", "Christina"]
+top5 Pr[Dup]: 25.0%/1: ["Tyler", "Christina"] | 25.0%/1: ["Ashley", "Christina"] | 25.0%/1: ["Alex", "Christina"] | 25.0%/1: ["Jess", "Christina"]
+top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Tyler | 25.0%/1: Jess | 25.0%/1: Ashley | 25.0%/1: Alex   / 200 %
+top5 Pr[Dup]: 25.0%/1: Anthony | 25.0%/1: Dario | 25.0%/1: Garland | 25.0%/1: Layton
 .
 
 MN#9.0 E09
+0x Layton     → Ashley  
 3x Alex       → Jasmine 
 0x Nathan     → Ellie   
-1x Anthony    → Alex    
 0x Brandon    → Briana  
-4x Curtis     → Shelby  
-8x TylerPratt → Paris   
 3x John       → Jenni   
+8x TylerPratt → Paris   
+4x Curtis     → Shelby  
+1x Anthony    → Alex    
 1x Garland    → Jess    
 0x Dario      → Tyler   
-0x Layton     → Ashley  
 ---
 -> I[l]/bits: {8: 0.00}
 -> E[I]/bits: 0.00
@@ -595,10 +595,10 @@ MN#9.0 E09
 ╰────────────┴──────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴───────┴───────────╯
 4 left -> 2 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 25.0%/1: Layton -> ["Tyler", "Christina"] | 25.0%/1: Anthony -> ["Alex", "Christina"] | 25.0%/1: Dario -> ["Ashley", "Christina"] | 25.0%/1: Garland -> ["Jess", "Christina"]
-top5 Pr[Dup]: 25.0%/1: ["Ashley", "Christina"] | 25.0%/1: ["Alex", "Christina"] | 25.0%/1: ["Jess", "Christina"] | 25.0%/1: ["Tyler", "Christina"]
-top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Alex | 25.0%/1: Ashley | 25.0%/1: Jess | 25.0%/1: Tyler   / 200 %
-top5 Pr[Dup]: 25.0%/1: Dario | 25.0%/1: Layton | 25.0%/1: Anthony | 25.0%/1: Garland
+top4 Pr[Dup]: 25.0%/1: Anthony -> ["Alex", "Christina"] | 25.0%/1: Layton -> ["Tyler", "Christina"] | 25.0%/1: Garland -> ["Jess", "Christina"] | 25.0%/1: Dario -> ["Ashley", "Christina"]
+top5 Pr[Dup]: 25.0%/1: ["Alex", "Christina"] | 25.0%/1: ["Ashley", "Christina"] | 25.0%/1: ["Jess", "Christina"] | 25.0%/1: ["Tyler", "Christina"]
+top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Ashley | 25.0%/1: Alex | 25.0%/1: Tyler | 25.0%/1: Jess   / 200 %
+top5 Pr[Dup]: 25.0%/1: Layton | 25.0%/1: Anthony | 25.0%/1: Dario | 25.0%/1: Garland
 .
 
 MB#10.0 E10
@@ -623,23 +623,23 @@ Dario → Ashley
 ╰────────────┴──────┴────────┴────────┴───────┴─────────┴───────┴──────┴───────┴────────┴───────┴───────────╯
 3 left -> 1.585 bits left
 Pr[]s for dup with Christina
-top4 Pr[Dup]: 33.3%/1: Garland -> ["Jess", "Christina"] | 33.3%/1: Layton -> ["Tyler", "Christina"] | 33.3%/1: Anthony -> ["Alex", "Christina"]
-top5 Pr[Dup]: 33.3%/1: ["Tyler", "Christina"] | 33.3%/1: ["Jess", "Christina"] | 33.3%/1: ["Alex", "Christina"]
-top5 Pr[Dup]: 100.0%/3: Christina | 33.3%/1: Alex | 33.3%/1: Tyler | 33.3%/1: Jess   / 200 %
-top5 Pr[Dup]: 33.3%/1: Anthony | 33.3%/1: Layton | 33.3%/1: Garland
+top4 Pr[Dup]: 33.3%/1: Layton -> ["Tyler", "Christina"] | 33.3%/1: Anthony -> ["Alex", "Christina"] | 33.3%/1: Garland -> ["Jess", "Christina"]
+top5 Pr[Dup]: 33.3%/1: ["Jess", "Christina"] | 33.3%/1: ["Alex", "Christina"] | 33.3%/1: ["Tyler", "Christina"]
+top5 Pr[Dup]: 100.0%/3: Christina | 33.3%/1: Jess | 33.3%/1: Alex | 33.3%/1: Tyler   / 200 %
+top5 Pr[Dup]: 33.3%/1: Layton | 33.3%/1: Anthony | 33.3%/1: Garland
 .
 
 MN#10.0 E10
-2x Garland    → Jess      
-4x John       → Jenni     
-4x Dario      → Ashley    
+4x Alex       → Jasmine   
+2x Anthony    → Alex      
 5x Curtis     → Shelby    
-1x Nathan     → Ellie     
 0x Layton     → Christina 
 1x Brandon    → Briana    
 9x TylerPratt → Paris     
-4x Alex       → Jasmine   
-2x Anthony    → Alex      
+2x Garland    → Jess      
+4x John       → Jenni     
+1x Nathan     → Ellie     
+4x Dario      → Ashley    
 ---
 -> I[l]/bits: {9: 0.58, 10: 1.58}
 -> E[I]/bits: 0.92
@@ -662,7 +662,7 @@ MN#10.0 E10
 Pr[]s for dup with Christina
 top4 Pr[Dup]: 100.0%/1: Layton -> ["Tyler", "Christina"]
 top5 Pr[Dup]: 100.0%/1: ["Tyler", "Christina"]
-top5 Pr[Dup]: 100.0%/1: Christina | 100.0%/1: Tyler   / 200 %
+top5 Pr[Dup]: 100.0%/1: Tyler | 100.0%/1: Christina   / 200 %
 top5 Pr[Dup]: 100.0%/1: Layton
 .
 
@@ -716,4 +716,4 @@ top5 Pr[Dup]: 100.0%/1: Layton
 ╰─────────┴────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 16.78s
+Ran in 16.83s
