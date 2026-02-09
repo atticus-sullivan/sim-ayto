@@ -49,40 +49,47 @@ impl CheckType {
 
 #[derive(Deserialize, Debug, Clone)]
 enum Offer {
-    Single{
+    Single {
         amount: Option<f32>,
         by: String,
-        #[serde(rename="reducedPot")]
+        #[serde(rename = "reducedPot")]
         reduced_pot: bool,
         save: bool,
     },
-    SinglePair{
+    SinglePair {
         amount: Option<f32>,
-        #[serde(rename="byA")]
+        #[serde(rename = "byA")]
         by_a: String,
-        #[serde(rename="byB")]
+        #[serde(rename = "byB")]
         by_b: String,
-        #[serde(rename="reducedPot")]
+        #[serde(rename = "reducedPot")]
         reduced_pot: bool,
         save: bool,
     },
-    Group{
+    Group {
         amount: Option<f32>,
         by: String,
     },
-    GroupPair{
+    GroupPair {
         amount: Option<f32>,
-        #[serde(rename="byA")]
+        #[serde(rename = "byA")]
         by_a: String,
-        #[serde(rename="byB")]
+        #[serde(rename = "byB")]
         by_b: String,
     },
 }
 
 #[derive(Deserialize, Debug, Clone)]
 enum ConstraintType {
-    Night { num: f32, comment: String },
-    Box { num: f32, comment: String, offer: Option<Offer> },
+    Night {
+        num: f32,
+        comment: String,
+    },
+    Box {
+        num: f32,
+        comment: String,
+        offer: Option<Offer>,
+    },
 }
 
 impl Hash for ConstraintType {
@@ -93,7 +100,11 @@ impl Hash for ConstraintType {
                 num.to_bits().hash(state);
                 comment.hash(state);
             }
-            ConstraintType::Box { num, comment , offer} => {
+            ConstraintType::Box {
+                num,
+                comment,
+                offer,
+            } => {
                 1.hash(state); // A constant to distinguish this variant
                 num.to_bits().hash(state);
                 comment.hash(state);
@@ -105,7 +116,12 @@ impl Hash for ConstraintType {
 impl Hash for Offer {
     fn hash<H: Hasher>(&self, state: &mut H) {
         match self {
-            Offer::Single { amount, by, reduced_pot, save } => {
+            Offer::Single {
+                amount,
+                by,
+                reduced_pot,
+                save,
+            } => {
                 0.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
                     amount.to_bits().hash(state);
@@ -113,8 +129,14 @@ impl Hash for Offer {
                 by.hash(state);
                 reduced_pot.hash(state);
                 save.hash(state);
-            },
-            Offer::SinglePair { amount, reduced_pot, save , by_a, by_b} => {
+            }
+            Offer::SinglePair {
+                amount,
+                reduced_pot,
+                save,
+                by_a,
+                by_b,
+            } => {
                 1.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
                     amount.to_bits().hash(state);
@@ -123,14 +145,14 @@ impl Hash for Offer {
                 by_b.hash(state);
                 reduced_pot.hash(state);
                 save.hash(state);
-            },
+            }
             Offer::Group { amount, by } => {
                 2.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
                     amount.to_bits().hash(state);
                 }
                 by.hash(state);
-            },
+            }
             Offer::GroupPair { amount, by_a, by_b } => {
                 3.hash(state); // A constant to distinguish this variant
                 if let Some(amount) = amount {
@@ -138,7 +160,7 @@ impl Hash for Offer {
                 }
                 by_a.hash(state);
                 by_b.hash(state);
-            },
+            }
         }
     }
 }
@@ -211,7 +233,7 @@ impl Constraint {
     }
 }
 
-// functions for processing/executing the simulation
+// functions for executing the simulation
 impl Constraint {
     // returns if the matching fits the constraint (is not eliminated)
     pub fn process(&mut self, m: &Matching) -> Result<bool> {
@@ -281,7 +303,7 @@ impl Constraint {
 impl Constraint {
     pub fn comment(&self) -> &str {
         match &self.r#type {
-            ConstraintType::Night { comment, ..} => comment,
+            ConstraintType::Night { comment, .. } => comment,
             ConstraintType::Box { comment, .. } => comment,
         }
     }
