@@ -25,6 +25,7 @@ impl Game {
         dump_mode: Option<DumpMode>,
         full: bool,
         is: &IterState,
+        no_tree_output: bool,
     ) -> Result<()> {
         // track table indices
         let mut tab_idx = 0;
@@ -137,13 +138,17 @@ impl Game {
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
                 c.print_hdr(&past_constraints)?;
                 if c.show_rem_table() {
-                    let tree = c.build_tree(
-                        self.dir
-                            .join(format!("{}_{}_tree", self.stem, tab_idx))
-                            .with_extension("dot"),
-                        &self.map_a,
-                        &self.map_b,
-                    )?;
+                    let tree = if !no_tree_output {
+                        c.build_tree(
+                            self.dir
+                                .join(format!("{}_{}_tree", self.stem, tab_idx))
+                                .with_extension("dot"),
+                            &self.map_a,
+                            &self.map_b,
+                        )?
+                    } else {
+                        false
+                    };
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;

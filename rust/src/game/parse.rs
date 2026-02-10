@@ -212,7 +212,7 @@ impl GameParse {
     }
 
     // TODO: split up?
-    pub fn finalize_parsing(self, stem: &Path) -> Result<Game> {
+    pub fn finalize_parsing(self, stem: &Path, ignore_boxes: bool) -> Result<Game> {
         let mut g = Game {
             no_offerings_noted: self.no_offerings_noted,
             solved: self.solved,
@@ -253,6 +253,9 @@ impl GameParse {
         // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
         let mut known_lights: u8 = 0;
         for c in self.constraints_orig {
+            if ignore_boxes && c.is_box() {
+                continue;
+            }
             let l = if !c.is_hidden() {
                 c.added_known_lights()
             } else {
