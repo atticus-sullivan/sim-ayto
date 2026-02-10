@@ -1,4 +1,4 @@
-use plotly::{ common::{Mode}, };
+use plotly::common::Mode;
 
 use crate::comparison::{
     utils::{build_scatter_plot, lut_theme, plotly_gen_layout},
@@ -12,12 +12,11 @@ pub fn build_information_plots(
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
-    // TODO: use hugo translation strings? (might not work with hextra tabs)
     vec![
         (
             "MN/MC".to_owned(),
             build_scatter_plot(
-                &cmp_data,
+                cmp_data,
                 &layout,
                 &palette,
                 "Matchingnight / matching ceremony",
@@ -26,12 +25,12 @@ pub fn build_information_plots(
                 Mode::Lines,
                 |cd| cd.mn.iter().map(|i| i.num).collect(),
                 |cd| cd.mn.iter().map(|i| i.bits_gained).collect(),
-            )
+            ),
         ),
         (
             "MB/TB".to_owned(),
             build_scatter_plot(
-                &cmp_data,
+                cmp_data,
                 &layout,
                 &palette,
                 "Matchbox / truth booth",
@@ -40,12 +39,12 @@ pub fn build_information_plots(
                 Mode::Lines,
                 |cd| cd.mb.iter().map(|i| i.num).collect(),
                 |cd| cd.mb.iter().map(|i| i.bits_gained).collect(),
-            )
+            ),
         ),
         (
             "Combined".to_owned(),
             build_scatter_plot(
-                &cmp_data,
+                cmp_data,
                 &layout,
                 &palette,
                 "Left possibilities",
@@ -54,7 +53,7 @@ pub fn build_information_plots(
                 Mode::Lines,
                 |cd| cd.info.iter().map(|i| i.num).collect(),
                 |cd| cd.info.iter().map(|i| i.bits_left).collect(),
-            )
+            ),
         ),
     ]
 }

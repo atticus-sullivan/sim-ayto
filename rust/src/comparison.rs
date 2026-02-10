@@ -6,9 +6,7 @@ mod utils;
 
 use std::fs::File;
 use std::io::BufReader;
-use std::{
-    path::{Path, PathBuf},
-};
+use std::path::{Path, PathBuf};
 
 use anyhow::Result;
 use serde::de::DeserializeOwned;
@@ -44,7 +42,7 @@ fn read_csv_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Opt
         let record: T = result?;
         field.push(record);
     }
-    return Ok(Some(field));
+    Ok(Some(field))
 }
 
 fn read_json_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Option<T>> {
@@ -54,7 +52,7 @@ fn read_json_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Op
     let file = File::open(path.join(fn_param))?;
     let reader = BufReader::new(file);
     let dat: T = serde_json::from_reader(reader)?;
-    return Ok(Some(dat));
+    Ok(Some(dat))
 }
 
 fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
@@ -112,9 +110,37 @@ struct PageConfig<'a> {
     ruleset_filter: fn(&str) -> bool,
 }
 
+#[derive(Copy, Clone)]
 enum Language {
     De,
     En,
+}
+
+impl Language {
+    pub fn format_bool_yes_no(&self, val: bool) -> &str {
+        match self {
+            Language::De => {
+                if val {
+                    "Ja"
+                } else {
+                    "Nein"
+                }
+            }
+            Language::En => {
+                if val {
+                    "Yes"
+                } else {
+                    "No"
+                }
+            }
+        }
+    }
+    pub fn number_formatting(&self) -> num_format::Locale {
+        match self {
+            Language::De => num_format::Locale::de,
+            Language::En => num_format::Locale::en,
+        }
+    }
 }
 
 fn write_page(
@@ -147,20 +173,20 @@ fn write_page(
 }
 
 pub fn write_pages(
-    html_path_de: &PathBuf,
-    html_path_us: &PathBuf,
+    html_path_de: &Path,
+    html_path_us: &Path,
     theme_light: u8,
     theme_dark: u8,
 ) -> Result<()> {
     let pages = [
         PageConfig {
             link_title: "DE",
-            base_path: html_path_de.clone(),
+            base_path: html_path_de.to_path_buf(),
             ruleset_filter: |e| e.starts_with("de"),
         },
         PageConfig {
             link_title: "US + UK",
-            base_path: html_path_us.clone(),
+            base_path: html_path_us.to_path_buf(),
             ruleset_filter: |e| e.starts_with("us") || e.starts_with("uk"),
         },
     ];
@@ -178,7 +204,7 @@ pub fn write_pages(
             let html_dark = build_graph_hextra_tabs(&plots_dark);
 
             let md_ruleset_tab = ruleset_tab_md(&data);
-            let md_summary_tab = summary_tab_md(&data);
+            let md_summary_tab = summary_tab_md(&data, lang);
 
             write_page(
                 &page,
@@ -193,10 +219,10 @@ pub fn write_pages(
     Ok(())
 }
 
-fn build_graph_hextra_tabs(plots: &Vec<(String, String)>) -> String {
+fn build_graph_hextra_tabs(plots: &[(String, String)]) -> String {
     let dat = plots
         .iter()
-        .map(|(_, i)| format!("{{{{% tab %}}}}").to_string() + &i + "{{% /tab %}}")
+        .map(|(_, i)| "{{% tab %}}".to_string() + i + "{{% /tab %}}")
         .fold(String::new(), |a, b| a + &b);
     let tab_items = plots
         .iter()

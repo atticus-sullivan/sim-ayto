@@ -1,4 +1,8 @@
 use anyhow::{Context, Result};
+
+use rust_decimal::prelude::*;
+use rust_decimal::Decimal;
+
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::path::PathBuf;
@@ -6,13 +10,15 @@ use std::path::PathBuf;
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
+use crate::constraint::Offer;
 use crate::{MapS, Matching};
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntry {
-    pub num: f64,
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
     pub bits_left: f64,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
@@ -21,18 +27,21 @@ pub struct CSVEntry {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMB {
-    pub num: f64,
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
     pub bits_gained: f64,
     pub comment: String,
+    pub offer: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMN {
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
-    pub num: f64,
     pub bits_gained: f64,
     pub comment: String,
 }
@@ -40,20 +49,32 @@ pub struct CSVEntryMN {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SumCounts {
     pub blackouts: u8,
+    pub won: bool,
+    pub matches_found: u8,
+
     pub sold: u8,
     pub sold_but_match: u8,
     pub sold_but_match_active: bool,
-    pub matches_found: u8,
-    pub won: bool,
+
+    pub offers_noted: bool,
+    pub offers: u64,
+    pub offer_and_match: u64,
+    pub offered_money: u128,
 }
 
 impl SumCounts {
     pub fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
+
         self.sold += other.sold;
         self.sold_but_match += other.sold_but_match;
         // self.sold_but_match_active &= other.sold_but_match_active;
+
         self.matches_found += other.matches_found;
+
+        self.offers += other.offers;
+        self.offer_and_match += other.offer_and_match;
+        self.offered_money += other.offered_money;
     }
 }
 
@@ -224,9 +245,7 @@ impl Constraint {
     }
 
     // returned array contains mbInfo, mnInfo, info, sum
-    pub fn get_stats(
-        &self,
-    ) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
+    pub fn get_stats(&self) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
         if self.hidden {
             return Ok((None, None, None));
         }
@@ -238,14 +257,14 @@ impl Constraint {
             ConstraintType::Night { num, .. } => Ok((
                 None,
                 Some(CSVEntryMN {
-                    num: num.into(),
+                    num: Decimal::from_f32(num).unwrap(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_gained: self.information.unwrap_or(f64::INFINITY),
                     comment: meta_a,
                 }),
                 Some(CSVEntry {
-                    num: (num * 2.0).into(),
+                    num: Decimal::from_f32(num).unwrap() * dec!(2),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
@@ -254,7 +273,14 @@ impl Constraint {
             )),
             ConstraintType::Box { num, .. } => Ok((
                 Some(CSVEntryMB {
-                    num: num.into(),
+                    offer: {
+                        if let ConstraintType::Box { offer, .. } = &self.r#type {
+                            offer.is_some()
+                        } else {
+                            false
+                        }
+                    },
+                    num: Decimal::from_f32(num).unwrap(),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_gained: self.information.unwrap_or(f64::INFINITY),
@@ -262,7 +288,7 @@ impl Constraint {
                 }),
                 None,
                 Some(CSVEntry {
-                    num: (num * 2.0 - 1.0).into(),
+                    num: Decimal::from_f32(num).unwrap() * dec!(2) - dec!(1),
                     lights_total: self.check.as_lights(),
                     lights_known_before: self.known_lights,
                     bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
@@ -290,23 +316,26 @@ impl Constraint {
             // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
             // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
         ;
-        let mut rows = vec![Row::new(); self.map_s.len()];
+        let mut rows = vec![("", Row::new()); self.map_s.len()];
         for (i, (k, v)) in self.map_s.iter().enumerate() {
             if self.show_past_cnt() {
                 let cnt = past_constraints
                     .iter()
                     .filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v))
                     .count();
-                rows[i].add_cell(format!("{}x {}", cnt, k).into());
-                rows[i].add_cell(v.into());
+                rows[i].0 = k;
+                rows[i].1.add_cell(format!("{}x {}", cnt, k).into());
+                rows[i].1.add_cell(v.into());
                 // println!("{}x {} -> {}", cnt, k, v);
             } else {
-                rows[i].add_cell(k.into());
-                rows[i].add_cell(v.into());
+                rows[i].0 = k;
+                rows[i].1.add_cell(k.into());
+                rows[i].1.add_cell(v.into());
                 // println!("{} -> {}", k, v);
             }
         }
-        tab.add_rows(rows);
+        rows.sort_by_key(|i| i.0);
+        tab.add_rows(rows.into_iter().map(|i| i.1).collect::<Vec<_>>());
         tab.column_mut(0)
             .context("no 0th column in table found")?
             .set_padding((0, 1));
@@ -395,6 +424,14 @@ impl Constraint {
         false
     }
 
+    pub fn try_get_offer(&self) -> Option<Offer> {
+        if let ConstraintType::Box { offer, .. } = &self.r#type {
+            offer.clone()
+        } else {
+            None
+        }
+    }
+
     pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
         if let Some(sols) = solutions {
             if let ConstraintType::Box { .. } = self.r#type {
@@ -409,11 +446,7 @@ impl Constraint {
     }
 
     pub fn might_won(&self) -> bool {
-        if let ConstraintType::Night { .. } = self.r#type {
-            true
-        } else {
-            false
-        }
+        matches!(self.r#type, ConstraintType::Night { .. })
     }
 
     pub fn won(&self, required_lights: usize) -> bool {

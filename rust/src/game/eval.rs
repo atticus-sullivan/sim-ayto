@@ -2,6 +2,8 @@ use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
 use comfy_table::{Cell, Row, Table};
 
+use rust_decimal::prelude::*;
+
 use anyhow::{Context, Result};
 
 use std::fs::File;
@@ -268,15 +270,13 @@ impl Game {
                 .from_path(out_info_path)?,
         );
         info.serialize(CSVEntry {
-            num: 0.0,
+            num: dec!(0),
             lights_total: None,
             lights_known_before: 0,
             bits_left: total.log2(),
             comment: "initial".to_string(),
         })?;
-        for i in merged_constraints.iter().map(|c| {
-            c.get_stats()
-        }) {
+        for i in merged_constraints.iter().map(|c| c.get_stats()) {
             let i = i?;
             if let Some(j) = &i.1 {
                 let j = CSVEntryMN {
@@ -301,6 +301,7 @@ impl Game {
             // potentially updates known_lights -> do this in the end of the loop
             if let Some(j) = &i.0 {
                 let j = CSVEntryMB {
+                    offer: j.offer,
                     num: j.num,
                     lights_total: j.lights_total,
                     lights_known_before: j.lights_known_before,
@@ -321,6 +322,10 @@ impl Game {
             sold_but_match_active: solutions.is_some(),
             matches_found: 0,
             won: false,
+            offers_noted: !self.no_offerings_noted,
+            offer_and_match: 0,
+            offers: 0,
+            offered_money: 0,
         };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
@@ -334,6 +339,16 @@ impl Game {
             }
             if c.is_sold() && c.is_mb_hit(solutions) {
                 cnt.sold_but_match += 1;
+            }
+            let offer = c.try_get_offer();
+            if let Some(o) = offer {
+                cnt.offers += 1;
+                if let Some(m) = o.try_get_amount() {
+                    cnt.offered_money += m;
+                }
+                if c.is_mb_hit(solutions) {
+                    cnt.offer_and_match += 1;
+                }
             }
         }
 

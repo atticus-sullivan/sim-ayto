@@ -32,6 +32,8 @@ fn mk_true() -> bool {
 // this struct is only used for parsing the yaml file
 #[derive(Deserialize, Debug)]
 pub struct GameParse {
+    #[serde(default)]
+    no_offerings_noted: bool,
     #[serde(rename = "solved", default = "mk_true")]
     solved: bool,
     #[serde(rename = "constraints")]
@@ -212,6 +214,7 @@ impl GameParse {
     // TODO: split up?
     pub fn finalize_parsing(self, stem: &Path) -> Result<Game> {
         let mut g = Game {
+            no_offerings_noted: self.no_offerings_noted,
             solved: self.solved,
             map_a: self.map_a,
             map_b: self.map_b,

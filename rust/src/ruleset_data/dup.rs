@@ -17,7 +17,7 @@ impl RuleSetData for DupData {
             .enumerate()
             .find(|(_, j)| j.len() > 1)
             .map(|(i, j)| (i, j.clone()))
-            .with_context(|| format!("something went wrong"))?;
+            .with_context(|| "something went wrong")?;
         let e = self.cnt.entry(k).or_default();
         *e += 1;
         Ok(())
@@ -42,7 +42,7 @@ impl RuleSetData for DupData {
         };
 
         let mut d = self.cnt.clone().into_iter().collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
@@ -77,7 +77,7 @@ impl RuleSetData for DupData {
             })
             .into_iter()
             .collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
@@ -113,7 +113,7 @@ impl RuleSetData for DupData {
             })
             .into_iter()
             .collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");
@@ -145,7 +145,7 @@ impl RuleSetData for DupData {
             })
             .into_iter()
             .collect::<Vec<_>>();
-        d.sort_by(|(_, a), (_, b)| b.cmp(a));
+        d.sort_by(|(ass, a), (bss, b)| b.cmp(a).then_with(|| ass.cmp(bss)));
         let mut first = true;
         let iter: Box<dyn Iterator<Item = _>> = if full {
             print!("Pr[{word}]: ");

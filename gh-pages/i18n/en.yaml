@@ -12,6 +12,10 @@ matchesFound: "PC in TB found"
 total: "Total"
 won: "Won?"
 
+offers: "Offers"
+offerAndMatch: "Offered PCs"
+offeredMoney: "Σ Offered Money"
+
 de-season1: "DE Season 1"
 de-season2: "DE Season 2"
 de-season3: "DE Season 3"

@@ -52,6 +52,7 @@ where
 
 #[derive(Debug)]
 pub struct Game {
+    no_offerings_noted: bool,
     solved: bool,
     constraints_orig: Vec<Constraint>,
     rule_set: RuleSet,
