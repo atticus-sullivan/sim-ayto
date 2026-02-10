@@ -93,40 +93,97 @@ constraints:
       # Ella: Ema
       Julian: Linda
 
-  # - type: !Night {num: 3, comment: "E08"}
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights [2]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      Luke: Marla
+      Julian: Alicia
+      JulianM: Adrianna
+      Noel: Tonia
+      Jerry: Aurora
+      Meji: Elena
+      Chris: Linda
+      Evi: Laura
+      Jeronymo: Tiziana
+      Ema: Michelle
+      # Ema: Ella
+
+  # - type: !Box {num: 4, comment: "E09"}
+  #   check: !Lights [0]
+  #   map:
+  #     JulianM: Marla
+  #     Chris: Adrianna
+
+  # - type: !Night {num: 4, comment: "E10"}
   #   check: !Lights [3]
   #   resultUnknown: true
   #   # noExclude: true
   #   # buildTree: true
   #   map:
 
-  # - type: !Box {num: 3, comment: "E07"}
+  # - type: !Box {num: 5, comment: "E11"}
   #   check: !Lights [0]
   #   map:
 
-  # - type: !Night {num: 3, comment: "E08"}
+  # - type: !Night {num: 5, comment: "E12"}
   #   check: !Lights [3]
   #   resultUnknown: true
   #   # noExclude: true
   #   # buildTree: true
   #   map:
 
-  # - type: !Box {num: 3, comment: "E07"}
+  # - type: !Box {num: 6, comment: "E13"}
   #   check: !Lights [0]
   #   map:
 
-  # - type: !Night {num: 3, comment: "E08"}
+  # - type: !Night {num: 6, comment: "E14"}
   #   check: !Lights [3]
   #   resultUnknown: true
   #   # noExclude: true
   #   # buildTree: true
   #   map:
 
-  # - type: !Box {num: 3, comment: "E07"}
+  # - type: !Box {num: 7, comment: "E15"}
   #   check: !Lights [0]
   #   map:
 
-  # - type: !Night {num: 3, comment: "E08"}
+  # - type: !Night {num: 7, comment: "E16"}
+  #   check: !Lights [3]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 8, comment: "E17"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 8, comment: "E18"}
+  #   check: !Lights [3]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 9, comment: "E19"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 9, comment: "E20"}
+  #   check: !Lights [3]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 10, comment: "E21"}
+  #   check: !Lights [0]
+  #   map:
+
+  # - type: !Night {num: 10, comment: "E21"}
   #   check: !Lights [3]
   #   resultUnknown: true
   #   # noExclude: true
