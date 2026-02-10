@@ -130,7 +130,9 @@ $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
+ifndef SKIP_PNG_TABS
 	$(ANSITOIMG_PREFIX) python3 generate_png.py "$(basename $<).col.out" "./gh-pages/static/$$(basename "$<" .yaml)/$$(basename "$<" .yaml)" $(ANSITOIMG_SUFFIX)
+endif
 	# tree if available
 	for dot_file in "$(basename $<)"*.dot ; do \
 		test -e "$${dot_file}" && \

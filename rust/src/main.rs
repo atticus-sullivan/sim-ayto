@@ -77,6 +77,12 @@ struct Cli {
 #[derive(Subcommand, Debug)]
 enum Commands {
     Sim {
+        #[arg(long = "no-tree-output", action)]
+        no_tree_output: bool,
+
+        #[arg(long = "ignore-boxes", action)]
+        ignore_boxes: bool,
+
         /// The path to the file to read
         yaml_path: PathBuf,
 
@@ -130,6 +136,8 @@ fn main() {
 
     match args.cmd {
         Commands::Sim {
+            no_tree_output,
+            ignore_boxes,
             yaml_path,
             colored: _,
             transpose_tabs,
@@ -140,10 +148,13 @@ fn main() {
         } => {
             let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, use_cache.clone())
                 .expect("Parsing failed");
-            let mut g = gp.finalize_parsing(&stem).expect("processing game failed");
+            let mut g = gp
+                .finalize_parsing(&stem, ignore_boxes)
+                .expect("processing game failed");
             let start = Instant::now();
             let result = g.sim(dump.clone(), use_cache).unwrap();
-            g.eval(transpose_tabs, dump, full, &result).unwrap();
+            g.eval(transpose_tabs, dump, full, &result, no_tree_output)
+                .unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Cache { yaml_path } => {
@@ -154,7 +165,7 @@ fn main() {
         Commands::Check { yaml_path } => {
             let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, None)
                 .expect("Parsing failed");
-            gp.finalize_parsing(std::path::Path::new(".trash"))
+            gp.finalize_parsing(std::path::Path::new(".trash"), false)
                 .expect("processing game failed");
         }
         Commands::Comparison {

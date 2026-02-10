@@ -51,6 +51,7 @@ pub struct SumCounts {
     pub blackouts: u8,
     pub won: bool,
     pub matches_found: u8,
+    pub solvable: Option<bool>,
 
     pub sold: u8,
     pub sold_but_match: u8,

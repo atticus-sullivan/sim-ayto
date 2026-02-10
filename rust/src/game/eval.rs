@@ -25,6 +25,7 @@ impl Game {
         dump_mode: Option<DumpMode>,
         full: bool,
         is: &IterState,
+        no_tree_output: bool,
     ) -> Result<()> {
         // track table indices
         let mut tab_idx = 0;
@@ -137,13 +138,17 @@ impl Game {
                 rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
                 c.print_hdr(&past_constraints)?;
                 if c.show_rem_table() {
-                    let tree = c.build_tree(
-                        self.dir
-                            .join(format!("{}_{}_tree", self.stem, tab_idx))
-                            .with_extension("dot"),
-                        &self.map_a,
-                        &self.map_b,
-                    )?;
+                    let tree = if !no_tree_output {
+                        c.build_tree(
+                            self.dir
+                                .join(format!("{}_{}_tree", self.stem, tab_idx))
+                                .with_extension("dot"),
+                            &self.map_a,
+                            &self.map_b,
+                        )?
+                    } else {
+                        false
+                    };
                     if print_transposed {
                         self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
                             .context("Error printing")?;
@@ -326,6 +331,7 @@ impl Game {
             offer_and_match: 0,
             offers: 0,
             offered_money: 0,
+            solvable: None,
         };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
@@ -363,6 +369,14 @@ impl Game {
                 .map(|x| x.won(required_lights))
                 .unwrap_or(false)
         };
+
+        cnt.solvable = merged_constraints
+            .windows(2)
+            .find(|x| x[1].num() == 10.0 && x[1].might_won())
+            .map(|x| &x[0])
+            .or_else(|| merged_constraints.last())
+            .and_then(|x| x.was_solvable_before().ok().flatten())
+        ;
 
         let file = File::create(out_sum_path)?;
         let mut writer = BufWriter::new(file);

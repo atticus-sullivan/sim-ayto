@@ -59,7 +59,7 @@ fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
     fn_path.set_extension("yaml");
     let gp = crate::game::parse::GameParse::new_from_yaml(fn_path.as_path(), None)
         .expect("Parsing failed");
-    gp.finalize_parsing(Path::new("/tmp/"))
+    gp.finalize_parsing(Path::new("/tmp/"), false)
 }
 
 pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, CmpData)>> {

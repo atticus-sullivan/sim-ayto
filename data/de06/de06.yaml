@@ -249,6 +249,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Tano: Joanna
       Josh: Camelia
