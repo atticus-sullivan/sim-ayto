@@ -73,7 +73,7 @@ impl SumCounts {
         self.matches_found += other.matches_found;
 
         self.offers += other.offers;
-        self.offer_and_match += other.offers;
+        self.offer_and_match += other.offer_and_match;
         self.offered_money += other.offered_money;
     }
 }
