@@ -2,7 +2,7 @@ use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::Matching;
 use crate::Rem;
 
-use anyhow::{ensure, Result};
+use anyhow::{ensure, Result, bail};
 
 // internal helper functions
 impl Constraint {
@@ -108,6 +108,37 @@ impl Constraint {
 
 // helpers for evaluation
 impl Constraint {
+    pub fn was_solvable_before(&self) -> Result<Option<bool>> {
+        // not all constraints capture the remaining possibilities
+        if self.left_poss.is_empty() {
+            return Ok(None);
+        }
+
+        // choose one solution to be the prototype for the partial solution
+        let mut sol = self.left_poss[0].clone();
+        // println!("sol: {:?}", sol);
+        // println!("other left: {:?}", &self.left_poss[1..]);
+
+        // overlay all other possible solutions to check if there is a common partial solution
+        for i in &self.left_poss[1..] {
+            if i.len() != sol.len() {
+                // println!("length check failed");
+                bail!("inequal length between the solutions");
+            }
+            for (a,bs) in i.iter().enumerate() {
+                // with the length check above this unchecked indexing is sane
+                let b_partial = &mut sol[a];
+                b_partial.retain(|b| bs.contains(b));
+                if b_partial.is_empty() {
+                    // println!("partial empty");
+                    return Ok(Some(false))
+                }
+            }
+        }
+        // println!("sol left: {:?}", &sol);
+        Ok(Some(true))
+    }
+
     pub fn should_merge(&self) -> bool {
         self.hidden
     }

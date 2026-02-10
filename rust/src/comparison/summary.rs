@@ -6,6 +6,7 @@ use num_format::ToFormattedString;
 
 pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
     let mut total_counts = SumCounts {
+        solvable: None,
         blackouts: 0,
         sold: 0,
         sold_but_match: 0,
@@ -19,17 +20,23 @@ pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Stri
     };
 
     let mut tab_lines = vec![
-        r#"| {{< i18n "season" >}} | {{< i18n "won" >}} | {{< i18n "matchesFound" >}} | {{< i18n "blackouts" >}} | | {{< i18n "sold" >}} | {{< i18n "soldButGood" >}} | | {{< i18n "offers" >}} | {{< i18n "offerAndMatch" >}} | {{< i18n "offeredMoney" >}} |"#.to_owned(),
-        "| --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:| ---:|".to_owned(),
+        r#"| {{< i18n "season" >}} | {{< i18n "won" >}} | {{< i18n "solvable" >}} | {{< i18n "matchesFound" >}} | {{< i18n "blackouts" >}} | | {{< i18n "sold" >}} | {{< i18n "soldButGood" >}} | | {{< i18n "offers" >}} | {{< i18n "offerAndMatch" >}} | {{< i18n "offeredMoney" >}} |"#.to_owned(),
+        "| --- |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:| ---:|".to_owned(),
     ];
 
     for (name, cd) in cmp_data {
         tab_lines.push(format!(
-            "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} | {} | | {} | {} | {} |",
+            "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} | {} | | {} | {} | {} |",
             name,
 
             lang.format_bool_yes_no(cd.cnts.won),
             if cd.cnts.won { "green" } else { "red" },
+            if let Some(solv) = cd.cnts.solvable {
+                lang.format_bool_yes_no(solv)
+            } else { "" },
+            if let Some(solv) = cd.cnts.solvable {
+                if solv { "green" } else { "red" }
+            } else { "gray" },
 
             cd.cnts.matches_found,
             cd.cnts.blackouts,
@@ -61,9 +68,9 @@ pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Stri
     }
     tab_lines[2..].sort();
 
-    tab_lines.push("| | | | | | | | | | | |".to_string());
+    tab_lines.push("| | | | | | | | | | | | |".to_string());
     tab_lines.push(format!(
-        "| {} | | {} | {} | | {} | {} | | {} | {} | {} |",
+        "| {} | | | {} | {} | | {} | {} | | {} | {} | {} |",
         "{{< i18n \"total\" >}}",
         total_counts.matches_found,
         total_counts.blackouts,

@@ -331,6 +331,7 @@ impl Game {
             offer_and_match: 0,
             offers: 0,
             offered_money: 0,
+            solvable: None,
         };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
@@ -368,6 +369,14 @@ impl Game {
                 .map(|x| x.won(required_lights))
                 .unwrap_or(false)
         };
+
+        cnt.solvable = merged_constraints
+            .windows(2)
+            .find(|x| x[1].num() == 10.0 && x[1].might_won())
+            .map(|x| &x[0])
+            .or_else(|| merged_constraints.last())
+            .and_then(|x| x.was_solvable_before().ok().flatten())
+        ;
 
         let file = File::create(out_sum_path)?;
         let mut writer = BufWriter::new(file);

@@ -69,6 +69,10 @@ impl ConstraintParse {
         }
         true
     }
+
+    pub fn is_box(&self) -> bool {
+        matches!(self.r#type, ConstraintType::Box { .. })
+    }
 }
 
 // getter functions
