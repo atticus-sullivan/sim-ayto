@@ -16,56 +16,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-mod comparison;
-mod constraint;
-mod game;
-mod iterstate;
-mod ruleset;
-mod ruleset_data;
-mod tree;
-
-use crate::game::Game;
+use ayto::game::parse::GameParse;
+use ayto::comparison;
 
 use clap::{Parser, Subcommand};
-use comfy_table::Color;
-use game::DumpMode;
-use std::collections::HashMap;
+use ayto::game::DumpMode;
 use std::path::PathBuf;
 use std::time::Instant;
 
 // TODO code review (try with chatGPT)
-
-type MatchingS = HashMap<String, Vec<String>>;
-type Matching = Vec<Vec<u8>>;
-type MapS = HashMap<String, String>;
-type Map = HashMap<u8, u8>;
-type Lut = HashMap<String, usize>;
-type Rename = HashMap<String, String>;
-
-type Rem = (Vec<Vec<u128>>, u128);
-
-// colors for tables
-const COLOR_ROW_MAX: Color = Color::Rgb {
-    r: 69,
-    g: 76,
-    b: 102,
-};
-const COLOR_BOTH_MAX: Color = Color::Rgb {
-    r: 65,
-    g: 77,
-    b: 71,
-};
-const COLOR_COL_MAX: Color = Color::Rgb {
-    r: 74,
-    g: 68,
-    b: 89,
-};
-
-pub const COLOR_ALT_BG: Color = Color::Rgb {
-    r: 41,
-    g: 44,
-    b: 60,
-};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -146,7 +105,7 @@ fn main() {
             full,
             use_cache,
         } => {
-            let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, use_cache.clone())
+            let gp = GameParse::new_from_yaml(&yaml_path, use_cache.clone())
                 .expect("Parsing failed");
             let mut g = gp
                 .finalize_parsing(&stem, ignore_boxes)
@@ -158,12 +117,12 @@ fn main() {
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Cache { yaml_path } => {
-            let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, Some("".to_string()))
+            let gp = GameParse::new_from_yaml(&yaml_path, Some("".to_string()))
                 .expect("Parsing failed");
             println!("{}", gp.show_caches().expect("Failed evaluating caches"));
         }
         Commands::Check { yaml_path } => {
-            let gp = crate::game::parse::GameParse::new_from_yaml(&yaml_path, None)
+            let gp = GameParse::new_from_yaml(&yaml_path, None)
                 .expect("Parsing failed");
             gp.finalize_parsing(std::path::Path::new(".trash"), false)
                 .expect("processing game failed");

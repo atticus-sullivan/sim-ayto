@@ -13,8 +13,8 @@ use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
 use crate::constraint::Constraint;
 use crate::game::foreach_unwrapped_matching;
 use crate::iterstate::IterState;
-use crate::DumpMode;
-use crate::Game;
+use crate::game::DumpMode;
+use crate::game::Game;
 use crate::{Matching, Rem};
 
 impl Game {
