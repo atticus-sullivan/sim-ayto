@@ -21,7 +21,7 @@ pub mod dup;
 pub mod dup_x;
 
 use crate::ruleset::RuleSet;
-use crate::{Lut, Matching};
+use crate::Lut;
 use anyhow::Result;
 
 pub trait RuleSetDataClone {
@@ -37,7 +37,7 @@ where
 }
 
 pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
-    fn push(&mut self, m: &Matching) -> Result<()>;
+    fn push(&mut self, m: &[Vec<u8>]) -> Result<()>;
     fn print(
         &self,
         full: bool,

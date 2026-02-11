@@ -30,7 +30,7 @@ use crate::ruleset_data::RuleSetData;
 use crate::{Lut, Map, MapS, Matching};
 
 #[derive(Deserialize, Debug, Clone, Hash)]
-enum CheckType {
+pub enum CheckType {
     Eq,
     Nothing,
     Sold,
@@ -91,7 +91,7 @@ impl Offer {
 }
 
 #[derive(Deserialize, Debug, Clone)]
-enum ConstraintType {
+pub enum ConstraintType {
     Night {
         num: f32,
         comment: String,
@@ -201,6 +201,27 @@ pub struct Constraint {
 
 // functions for initialization / startup
 impl Constraint {
+    pub fn new_unchecked(t: ConstraintType, check: CheckType, map: Map, rs_dat: Box<dyn RuleSetData>, a_len: usize, b_len: usize) -> Self {
+        Constraint{
+            r#type: t,
+            check,
+            hidden: false,
+            result_unknown: false,
+            build_tree: false,
+            map,
+            map_s: MapS::default(),
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; b_len]; a_len],
+            information: None,
+            left_after: None,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: rs_dat,
+            known_lights: 0,
+        }
+    }
+
     /// Sorts and key/value pairs such that lut_a[k] < lut_b[v] always holds.
     /// Only makes sense if lut_a == lut_b (defined on the same set)
     ///
@@ -208,13 +229,6 @@ impl Constraint {
     ///
     /// - `lut_a`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
     /// - `lut_b`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// let mut c: Constraint;
-    /// c.sort_maps(&lut_a, &lut_b);
-    /// ```
     ///
     /// # Panics
     ///
@@ -247,7 +261,7 @@ impl Constraint {
 // functions for executing the simulation
 impl Constraint {
     // returns if the matching fits the constraint (is not eliminated)
-    pub fn process(&mut self, m: &Matching) -> Result<bool> {
+    pub fn process(&mut self, m: &[Vec<u8>]) -> Result<bool> {
         // first step is to check if the constraint filters out this matching
         let mut fits = None;
         match &mut self.check {
@@ -265,12 +279,8 @@ impl Constraint {
             }
             CheckType::Nothing | CheckType::Sold => fits = Some(true),
             CheckType::Lights(ref lights, ref mut light_count) => {
-                let mut l = 0;
-                for (i1, i2) in self.map.iter() {
-                    if m[*i1 as usize].contains(i2) {
-                        l += 1;
-                    }
-                }
+                let l = Constraint::calculate_lights(&self.map, m);
+
                 if let Some(ex) = &self.exclude {
                     for i in &m[ex.0 as usize] {
                         if ex.1.contains(i) {
@@ -299,7 +309,7 @@ impl Constraint {
             self.eliminate(m);
         } else {
             if self.build_tree && !self.hidden {
-                self.left_poss.push(m.clone());
+                self.left_poss.push(m.to_vec());
             }
             if !self.hide_ruleset_data && !self.hidden {
                 self.ruleset_data.push(m)?;
@@ -307,6 +317,47 @@ impl Constraint {
         }
 
         Ok(fits)
+    }
+
+    #[inline(always)]
+    pub fn calculate_lights(map: &Map, m: &[Vec<u8>]) -> u8 {
+        let mut l = 0;
+        for (i1, i2) in map.iter() {
+            if m[*i1 as usize].contains(i2) {
+                l += 1;
+            }
+        }
+        l
+    }
+    #[inline(always)]
+    pub fn calculate_lights_simple(map: &Vec<u8>, m: &Matching) -> u8 {
+        let mut l = 0;
+        for (i1, i2) in map.iter().enumerate() {
+            if m[i1].contains(i2) {
+                l += 1;
+            }
+        }
+        l
+    }
+    #[inline(always)]
+    pub fn calculate_lights_simple2(map: &Vec<u8>, m: &Vec<u8>) -> u8 {
+        let mut l = 0;
+        for (i1, i2) in map.iter().enumerate() {
+            if m[i1] == *i2 {
+                l += 1;
+            }
+        }
+        l
+    }
+    #[inline(always)]
+    pub fn calculate_lights_simple3(map: &Map, m: &Vec<u8>) -> u8 {
+        let mut l = 0;
+        for (i1, i2) in map.iter() {
+            if m[*i1 as usize] == *i2 {
+                l += 1;
+            }
+        }
+        l
     }
 }
 
@@ -337,6 +388,7 @@ impl Constraint {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use super::Constraint;
     use crate::ruleset_data::dummy::DummyData;
     use crate::Rem;
     use std::collections::HashMap;

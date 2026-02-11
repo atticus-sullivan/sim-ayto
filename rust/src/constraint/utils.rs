@@ -1,5 +1,4 @@
 use crate::constraint::{CheckType, Constraint, ConstraintType};
-use crate::Matching;
 use crate::Rem;
 
 use anyhow::{ensure, Result, bail};
@@ -78,7 +77,7 @@ impl Constraint {
         }
     }
 
-    pub(super) fn eliminate(&mut self, m: &Matching) {
+    pub(super) fn eliminate(&mut self, m: &[Vec<u8>]) {
         for (i1, v) in m.iter().enumerate() {
             for &i2 in v {
                 if i2 == u8::MAX {

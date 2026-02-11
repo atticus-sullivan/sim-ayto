@@ -2,7 +2,6 @@ use crate::ruleset::RuleSet;
 use crate::ruleset::RuleSetDupX;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use crate::Matching;
 use anyhow::{Context, Result};
 use std::collections::HashMap;
 use std::collections::HashSet;
@@ -188,7 +187,7 @@ impl DupXData {
 }
 
 impl RuleSetData for DupXData {
-    fn push(&mut self, m: &Matching) -> Result<()> {
+    fn push(&mut self, m: &[Vec<u8>]) -> Result<()> {
         let ks = m
             .iter()
             .enumerate()

@@ -89,7 +89,6 @@ enum Commands {
     },
 }
 
-// TODO: extract templates?
 fn main() {
     let args = Cli::parse();
 
