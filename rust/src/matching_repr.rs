@@ -45,6 +45,24 @@ pub struct MaskedMatching {
 }
 
 impl MaskedMatching {
+    pub fn calculate_lights(&self, sol: &MaskedMatching) -> u8 {
+        match (&self.repr, &sol.repr) {
+            (MaskRepr::Single(items), MaskRepr::Single(sol)) => {
+                let mut l = 0;
+                for (i,j) in items.iter().enumerate() {
+                    if *j == 0 {
+                        continue
+                    }
+                    if sol[i] == *j {
+                        l += 1;
+                    }
+                }
+                l
+            },
+            _ => todo!(),
+        }
+    }
+
     /// Construct from legacy Matching reference (computes minimal universe).
     pub fn from_matching_ref(m: &Matching) -> Self {
         // find maximum value in input to determine universe
@@ -263,6 +281,27 @@ impl From<&Matching> for MaskedMatching {
 impl From<Matching> for MaskedMatching {
     fn from(m: Matching) -> Self {
         MaskedMatching::from_matching_ref(&m)
+    }
+}
+
+impl From<&[u8]> for MaskedMatching {
+    // TODO: check and use Multi representation if necessary
+    fn from(ms: &[u8]) -> Self {
+        let mut slots = vec![];
+        for m in ms {
+            slots.push(
+                (1 as Word) << m
+            )
+        }
+        MaskedMatching { repr: MaskRepr::Single(slots), universe: 255 }
+    }
+}
+
+impl From<(u8,u8)> for MaskedMatching {
+    fn from(m: (u8,u8)) -> Self {
+        let mut slots = vec![0 as Word; m.0 as usize + 1];
+        slots[m.0 as usize] = (1 as Word) << m.1;
+        MaskedMatching { repr: MaskRepr::Single(slots), universe: 255 }
     }
 }
 
