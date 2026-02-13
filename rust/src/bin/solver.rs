@@ -193,7 +193,7 @@ struct SimulationResult {
     sim_id: usize,
     seed: u64,
     stats: Vec<EvalEvent>,
-    iterations_count: usize,
+    iterations_count: usize, // TODO: check for off-by-one in the evaluation
     duration_ms: u128,
 }
 
@@ -201,10 +201,10 @@ struct SimulationResult {
 ///
 /// The function takes ownership of strategies via `Arc<Box<...>>` or referenced boxed trait objects,
 /// but to keep example simple we accept references to the trait objects and create a per-sim RNG.
-fn run_single_simulation(
+fn run_single_simulation<S: StrategyBundle>(
     sim_id: usize,
     seed: u64,
-    strategy: &dyn StrategyBundle,
+    strategy: &S,
 ) -> Result<SimulationResult> {
     let start = Instant::now();
 
@@ -283,7 +283,7 @@ fn run_single_simulation(
 
     let solution = poss[rng.random_range(0..poss.len())].clone();
 
-    for i in 1usize.. {
+    for i in 3usize.. {
         let (m, l, ct, lkn) = if i.is_multiple_of(2) {
             let m = vec![strategy.choose_mb(&rem.0, rem.1, &mut rng)]
                 .into_iter()
@@ -333,6 +333,7 @@ fn run_single_simulation(
         }
 
         if poss.len() <= 1 {
+            let cnt_iter = cs.len();
             return Ok(SimulationResult {
                 sim_id,
                 seed,
@@ -341,7 +342,7 @@ fn run_single_simulation(
                     .flat_map(|c| c.get_stats_new().transpose())
                     .collect::<Result<Vec<_>>>()
                     .unwrap(),
-                iterations_count: i + 1,
+                iterations_count: cnt_iter,
                 duration_ms: start.elapsed().as_millis(),
             });
         }
@@ -377,11 +378,11 @@ fn set_pb_msg(pb: &ProgressBar, active: &HashMap<usize, u128>) {
 
 /// Run many simulations in parallel, collect results, and append JSON lines to `out_path`.
 /// `num_sims` - how many independent simulations to run
-pub fn run_many_and_write(
+pub fn run_many_and_write<S: StrategyBundle>(
     num_sims: usize,
     out_path: &PathBuf,
     seed: Option<u64>,
-    strategy: Box<dyn StrategyBundle + Send + Sync>,
+    strategy: S,
 ) -> Result<()> {
     // create mpsc channel for results; single writer thread will serialize
     let (tx, rx) = mpsc::channel::<WriterMsg>();
@@ -438,7 +439,7 @@ pub fn run_many_and_write(
     });
 
     // wrap strategies in Arc for shared reference in parallel threads
-    let strategy_arc: Arc<dyn StrategyBundle + Send + Sync> = Arc::from(strategy);
+    let strategy_arc: Arc<S> = Arc::new(strategy);
 
     // create a range of seeds so runs are reproducible
     // use seeds to obtain an individual rng for each job -> avoid locking involved whith using a
@@ -471,7 +472,7 @@ pub fn run_many_and_write(
                 .as_millis();
             let _ = tx_clone.send(WriterMsg::Started { sim_id, start_ms });
 
-            let strategy_ref: &dyn StrategyBundle = &*strategy_arc;
+            let strategy_ref: &S = &*strategy_arc;
 
             match run_single_simulation(sim_id, seed, strategy_ref) {
                 Ok(sim_res) => {
@@ -515,7 +516,7 @@ struct Args {
 fn main() -> Result<()> {
     let args = Args::parse();
     // build strategies...
-    let strategy: Box<dyn StrategyBundle + Send + Sync> = Box::new(DefaultStrategy::new(5_000));
+    let strategy = DefaultStrategy::new(5_000);
 
     run_many_and_write(args.num_sims, &args.out_path, args.seed, strategy)?;
     Ok(())
