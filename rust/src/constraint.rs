@@ -26,6 +26,7 @@ use std::collections::BTreeMap;
 use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
+use crate::matching_repr::MaskedMatching;
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, Map, MapS, Matching};
 
@@ -204,7 +205,7 @@ impl Constraint {
     pub fn new_unchecked(
         t: ConstraintType,
         check: CheckType,
-        map: Map,
+        map: MaskedMatching,
         rs_dat: Box<dyn RuleSetData>,
         a_len: usize,
         b_len: usize,
@@ -216,7 +217,7 @@ impl Constraint {
             hidden: false,
             result_unknown: false,
             build_tree: false,
-            map,
+            map: map.into(),
             map_s: MapS::default(),
             exclude: None,
             eliminated: 0,
@@ -342,26 +343,6 @@ impl Constraint {
         let mut l = 0;
         for (i1, i2) in map.iter().enumerate() {
             if m[i1].contains(i2) {
-                l += 1;
-            }
-        }
-        l
-    }
-    #[inline(always)]
-    pub fn calculate_lights_simple2(map: &Vec<u8>, m: &Vec<u8>) -> u8 {
-        let mut l = 0;
-        for (i1, i2) in map.iter().enumerate() {
-            if m[i1] == *i2 {
-                l += 1;
-            }
-        }
-        l
-    }
-    #[inline(always)]
-    pub fn calculate_lights_simple3(map: &Map, m: &Vec<u8>) -> u8 {
-        let mut l = 0;
-        for (i1, i2) in map.iter() {
-            if m[*i1 as usize] == *i2 {
                 l += 1;
             }
         }

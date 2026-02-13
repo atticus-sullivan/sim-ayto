@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // are usually limited, so we can hardcode the (optimal) responses for the second step as well
 
 use ayto::constraint::eval::EvalEvent;
+use ayto::matching_repr::MaskedMatching;
 use clap::Parser;
 
 use chrono::{DateTime, TimeZone, Utc};
@@ -45,7 +46,6 @@ use ayto::Rem;
 use rand::rand_core::Rng;
 use rand::seq::IndexedRandom;
 use rand::seq::SliceRandom;
-use rand::RngExt;
 use rand::SeedableRng;
 use std::sync::mpsc;
 use std::sync::Arc;
@@ -55,18 +55,18 @@ use rayon::prelude::*;
 /// Chooses an MB.
 /// `data` has the structure you provided earlier (Vec<Vec<u128>>).
 pub trait MbOptimizer: Send + Sync {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> (u8, u8);
+    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> MaskedMatching;
 }
 
 /// Chooses an MN
 pub trait MnOptimizer: Send + Sync {
-    fn choose_mn(&self, left_poss: &[Vec<u8>], rng: &mut dyn Rng) -> Vec<u8>;
+    fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 }
 
 pub struct DefaultMbOptimizer;
 
 impl MbOptimizer for DefaultMbOptimizer {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, _rng: &mut dyn Rng) -> (u8, u8) {
+    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, _rng: &mut dyn Rng) -> MaskedMatching {
         let target = total / 2; // that is the optimum we want to be close
         let mut closest_diff = u128::MAX;
         let mut closest_index = (0u8, 0u8);
@@ -85,7 +85,7 @@ impl MbOptimizer for DefaultMbOptimizer {
             }
         }
 
-        closest_index
+        closest_index.into()
     }
 }
 
@@ -102,7 +102,7 @@ impl DefaultMnOptimizer {
 }
 
 impl MnOptimizer for DefaultMnOptimizer {
-    fn choose_mn(&self, left_poss: &[Vec<u8>], rng: &mut dyn Rng) -> Vec<u8> {
+    fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching {
         // using all of the perms results in too long computations
         // => only use left_poss they have a better chance for a good result anyhow
 
@@ -139,11 +139,11 @@ impl MnOptimizer for DefaultMnOptimizer {
 ///
 /// The `usize` value is a practical default; change the return type if you want another payload.
 pub trait StrategyBundle: Send + Sync {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> (u8, u8);
-    fn choose_mn(&self, left_poss: &[Vec<u8>], rng: &mut dyn Rng) -> Vec<u8>;
+    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> MaskedMatching;
+    fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 
     /// Produce an initial value for the first constraint. Up to this point no information is known
-    fn initial_value(&self) -> HashMap<u8, u8>;
+    fn initial_value(&self) -> MaskedMatching;
 }
 
 /// Simple concrete implementation that composes your existing optimizers.
@@ -162,18 +162,19 @@ impl DefaultStrategy {
 }
 
 impl StrategyBundle for DefaultStrategy {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> (u8, u8) {
+    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> MaskedMatching {
         // delegate to your previous implementation
         self.mb.choose_mb(data, total, rng)
     }
 
-    fn choose_mn(&self, left_poss: &[Vec<u8>], rng: &mut dyn Rng) -> Vec<u8> {
+    fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching {
         // delegate to your previous implementation
         self.mn.choose_mn(left_poss, rng)
     }
 
-    fn initial_value(&self) -> HashMap<u8, u8> {
-        vec![(0u8, 0u8)].into_iter().collect()
+    fn initial_value(&self) -> MaskedMatching {
+        // match (0,0)
+        MaskedMatching::from_masks_single(vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 255)
     }
     // let mns:Vec<Vec<(u8, u8)>> = vec![
     //     // vec![
@@ -216,6 +217,7 @@ fn run_single_simulation<S: StrategyBundle>(
 
     let mut solution: Vec<u8> = (0..10).map(|x| x as u8).collect();
     solution.shuffle(&mut rng);
+    let solution:MaskedMatching = (*solution).into();
     let mut lights_known_before = 0;
 
     let rs = RuleSet::Eq;
@@ -236,7 +238,7 @@ fn run_single_simulation<S: StrategyBundle>(
 
     // perform the first step
     let m = strategy.initial_value();
-    let l = constraint::Constraint::calculate_lights_simple3(&m, &solution);
+    let l = m.calculate_lights(&solution);
 
     let c = Constraint::new_unchecked(
         if m.len() == 1 {
@@ -270,11 +272,7 @@ fn run_single_simulation<S: StrategyBundle>(
         (10, 10),
     )?;
     rs.iter_perms(&lut_a, &HashMap::new(), &mut is, false, &None)?;
-    let mut poss = is
-        .left_poss
-        .iter()
-        .map(|is| is.iter().map(|i| i[0]).collect::<Vec<_>>())
-        .collect::<Vec<_>>();
+    let mut poss:Vec<MaskedMatching> = is.left_poss.iter().map(|i| i.into()).collect();
 
     let mut cs = is.constraints;
     let mut rem: Rem = (is.each, is.total);
@@ -284,14 +282,12 @@ fn run_single_simulation<S: StrategyBundle>(
         .apply_to_rem(rem)
         .context("Apply to rem failed")?;
 
-    let solution = poss[rng.random_range(0..poss.len())].clone();
-
     for i in 3usize.. {
         let (m, l, ct, lkn) = if i.is_multiple_of(2) {
             let m = vec![strategy.choose_mb(&rem.0, rem.1, &mut rng)]
                 .into_iter()
                 .collect();
-            let l = constraint::Constraint::calculate_lights_simple3(&m, &solution);
+            let l = m.calculate_lights(&solution);
             let ct = constraint::ConstraintType::Box {
                 num: (i / 2) as f32,
                 comment: "".to_owned(),
@@ -303,13 +299,8 @@ fn run_single_simulation<S: StrategyBundle>(
             }
             (m, l, ct, lkn_old)
         } else {
-            let m = strategy
-                .choose_mn(&poss, &mut rng)
-                .into_iter()
-                .enumerate()
-                .map(|(k, v)| (k as u8, v))
-                .collect();
-            let l = constraint::Constraint::calculate_lights_simple3(&m, &solution);
+            let m = strategy.choose_mn(&poss, &mut rng);
+            let l = m.calculate_lights(&solution);
             let ct = constraint::ConstraintType::Night {
                 num: (i / 2) as f32,
                 comment: "".to_owned(),
@@ -329,8 +320,7 @@ fn run_single_simulation<S: StrategyBundle>(
 
         if let Some(c) = cs.last_mut() {
             poss.retain(|p| {
-                c.process(&p.iter().map(|&i| vec![i]).collect::<Vec<_>>())
-                    .unwrap()
+                c.process(&p).unwrap()
             });
             rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
         }
@@ -525,7 +515,7 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-fn calc_entropy(m: &Vec<u8>, left_poss: &[Vec<u8>]) -> f64 {
+fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
     let total = left_poss.len() as f64;
 
     let mut lights = [0u32; 11];
@@ -533,7 +523,7 @@ fn calc_entropy(m: &Vec<u8>, left_poss: &[Vec<u8>]) -> f64 {
         // assume:
         // - p is the solution
         // - m is how they sit in the night
-        let l = constraint::Constraint::calculate_lights_simple2(&m, p);
+        let l = m.calculate_lights(p);
         lights[l as usize] += 1;
     }
 
