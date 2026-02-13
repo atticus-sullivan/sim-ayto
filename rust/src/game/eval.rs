@@ -12,9 +12,9 @@ use std::io::{BufWriter, Write};
 use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
 use crate::constraint::Constraint;
 use crate::game::foreach_unwrapped_matching;
-use crate::iterstate::IterState;
 use crate::game::DumpMode;
 use crate::game::Game;
+use crate::iterstate::IterState;
 use crate::{Matching, Rem};
 
 impl Game {
@@ -375,8 +375,7 @@ impl Game {
             .find(|x| x[1].num() == 10.0 && x[1].might_won())
             .map(|x| &x[0])
             .or_else(|| merged_constraints.last())
-            .and_then(|x| x.was_solvable_before().ok().flatten())
-        ;
+            .and_then(|x| x.was_solvable_before().ok().flatten());
 
         let file = File::create(out_sum_path)?;
         let mut writer = BufWriter::new(file);

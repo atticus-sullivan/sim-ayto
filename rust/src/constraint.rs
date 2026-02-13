@@ -201,8 +201,16 @@ pub struct Constraint {
 
 // functions for initialization / startup
 impl Constraint {
-    pub fn new_unchecked(t: ConstraintType, check: CheckType, map: Map, rs_dat: Box<dyn RuleSetData>, a_len: usize, b_len: usize) -> Self {
-        Constraint{
+    pub fn new_unchecked(
+        t: ConstraintType,
+        check: CheckType,
+        map: Map,
+        rs_dat: Box<dyn RuleSetData>,
+        a_len: usize,
+        b_len: usize,
+        known_lights: u8,
+    ) -> Self {
+        Constraint {
             r#type: t,
             check,
             hidden: false,
@@ -218,7 +226,7 @@ impl Constraint {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: rs_dat,
-            known_lights: 0,
+            known_lights: known_lights,
         }
     }
 
@@ -387,8 +395,8 @@ impl Constraint {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use super::Constraint;
+    use super::*;
     use crate::ruleset_data::dummy::DummyData;
     use crate::Rem;
     use std::collections::HashMap;

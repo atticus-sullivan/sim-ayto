@@ -1,3 +1,4 @@
+// TODO: make num a decimal eventually
 use anyhow::{Context, Result};
 
 use rust_decimal::prelude::*;
@@ -15,6 +16,37 @@ use crate::{MapS, Matching};
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 
+#[derive(Serialize, Deserialize, Clone, Debug)]
+#[serde(tag = "type")]
+pub enum EvalEvent {
+    EvalMB(EvalMB),
+    EvalMN(EvalMN),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EvalMB {
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
+    pub bits_left_after: f64,
+    pub lights_total: Option<u8>,
+    pub lights_known_before: u8,
+    pub bits_gained: f64,
+    pub comment: String,
+    pub offer: bool,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EvalMN {
+    #[serde(with = "rust_decimal::serde::float")]
+    pub num: Decimal,
+    pub bits_left_after: f64,
+    pub lights_total: Option<u8>,
+    pub lights_known_before: u8,
+    pub bits_gained: f64,
+    pub comment: String,
+}
+
+// TODO: delete
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntry {
     #[serde(with = "rust_decimal::serde::float")]
@@ -25,6 +57,7 @@ pub struct CSVEntry {
     pub comment: String,
 }
 
+// TODO: delete
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMB {
     #[serde(with = "rust_decimal::serde::float")]
@@ -36,6 +69,7 @@ pub struct CSVEntryMB {
     pub offer: bool,
 }
 
+// TODO: delete
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CSVEntryMN {
     #[serde(with = "rust_decimal::serde::float")]
@@ -245,6 +279,41 @@ impl Constraint {
         )
     }
 
+    // TODO: rename after this replaced get_stats
+    pub fn get_stats_new(&self) -> Result<Option<EvalEvent>> {
+        if self.hidden {
+            return Ok(None);
+        }
+
+        #[allow(clippy::useless_format)]
+        let meta_b = format!("{}-{}", self.type_str(), self.comment());
+        match self.r#type {
+            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::EvalMN(EvalMN {
+                num: Decimal::from_f32(num).unwrap(),
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::EvalMB(EvalMB {
+                offer: {
+                    if let ConstraintType::Box { offer, .. } = &self.r#type {
+                        offer.is_some()
+                    } else {
+                        false
+                    }
+                },
+                num: Decimal::from_f32(num).unwrap(),
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+        }
+    }
+
     // returned array contains mbInfo, mnInfo, info, sum
     pub fn get_stats(&self) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
         if self.hidden {
@@ -313,9 +382,9 @@ impl Constraint {
             .enforce_styling()
             .load_preset(NOTHING)
             .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
+        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
+        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
+        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
         ;
         let mut rows = vec![("", Row::new()); self.map_s.len()];
         for (i, (k, v)) in self.map_s.iter().enumerate() {

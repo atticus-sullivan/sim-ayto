@@ -14,8 +14,12 @@ impl fmt::Display for ConversionError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             ConversionError::UniverseTooLarge(universe, max) => {
-                write!(f, "universe ({}) too large to convert back to Matching (max {})", universe, max)
-            },
+                write!(
+                    f,
+                    "universe ({}) too large to convert back to Matching (max {})",
+                    universe, max
+                )
+            }
         }
     }
 }
@@ -28,9 +32,9 @@ const WORD_BITS_LOG: usize = 6; // log2(64)
 #[derive(Clone, Debug)]
 enum MaskRepr {
     /// Fast single-word per-slot
-    Single(Vec<Word>),         // masks[slot]
+    Single(Vec<Word>), // masks[slot]
     /// Multi-word per-slot (words per slot may be > 1)
-    Multi(Vec<Vec<Word>>),     // masks[slot][word_idx]
+    Multi(Vec<Vec<Word>>), // masks[slot][word_idx]
 }
 
 /// Public type used by hot code.
@@ -57,10 +61,10 @@ impl MaskedMatching {
     pub fn from_matching_with_universe(m: &Matching, universe: usize) -> Self {
         if universe <= WORD_BITS {
             // single word case
-            let mut masks:Vec<Word> = vec![0; m.len()]; // 0 means empty here (bitmask)
+            let mut masks: Vec<Word> = vec![0; m.len()]; // 0 means empty here (bitmask)
             for (i, slot) in m.iter().enumerate() {
                 // construct the value representing the vector 'slot'
-                let mut w:Word = 0;
+                let mut w: Word = 0;
                 for &v in slot.iter() {
                     let idx = v as usize;
                     // safe because universe <= 64
@@ -68,35 +72,47 @@ impl MaskedMatching {
                 }
                 masks[i] = w;
             }
-            MaskedMatching { repr: MaskRepr::Single(masks), universe }
+            MaskedMatching {
+                repr: MaskRepr::Single(masks),
+                universe,
+            }
         } else {
             // multi-word case
             let words = words_for_universe(universe);
             let mut masks: Vec<Vec<Word>> = Vec::with_capacity(m.len());
             for slot in m.iter() {
                 // construct the value representing the vector 'slot'
-                let mut w:Vec<Word> = vec![0; words]; // 0 means empty here (bitmask)
+                let mut w: Vec<Word> = vec![0; words]; // 0 means empty here (bitmask)
                 for &v in slot.iter() {
                     let idx = v as usize;
                     let word = idx >> WORD_BITS_LOG;
-                    let bit = idx & (WORD_BITS-1);
+                    let bit = idx & (WORD_BITS - 1);
                     w[word] |= (1 as Word) << bit;
                 }
                 masks.push(w);
             }
-            MaskedMatching { repr: MaskRepr::Multi(masks), universe }
+            MaskedMatching {
+                repr: MaskRepr::Multi(masks),
+                universe,
+            }
         }
     }
 
     /// Construct directly from masks (caller ensures consistency).
     pub fn from_masks_single(masks: Vec<Word>, universe: usize) -> Self {
         debug_assert!(universe <= WORD_BITS);
-        MaskedMatching { repr: MaskRepr::Single(masks), universe }
+        MaskedMatching {
+            repr: MaskRepr::Single(masks),
+            universe,
+        }
     }
 
     /// Construct directly from masks (caller ensures consistency).
     pub fn from_masks_multi(masks: Vec<Vec<Word>>, universe: usize) -> Self {
-        MaskedMatching { repr: MaskRepr::Multi(masks), universe }
+        MaskedMatching {
+            repr: MaskRepr::Multi(masks),
+            universe,
+        }
     }
 
     /// Number of slots
@@ -120,12 +136,12 @@ impl MaskedMatching {
             MaskRepr::Single(masks) => {
                 // single-word path: one lookup only
                 let w = masks[i];
-                (w & ((1 as Word) << (val & (WORD_BITS-1)))) != 0
+                (w & ((1 as Word) << (val & (WORD_BITS - 1)))) != 0
             }
             MaskRepr::Multi(masks) => {
                 let slot = &masks[i];
                 let word = val >> WORD_BITS_LOG;
-                (slot[word] & ((1 as Word) << (val & (WORD_BITS-1)))) != 0
+                (slot[word] & ((1 as Word) << (val & (WORD_BITS - 1)))) != 0
             }
         }
     }
@@ -142,7 +158,7 @@ impl MaskedMatching {
                 let n = masks.len().min(p_singles.len());
                 for i in 0..n {
                     let v = p_singles[i] as usize;
-                    if (masks[i] & ((1 as Word) << (v & (WORD_BITS-1)))) != 0 {
+                    if (masks[i] & ((1 as Word) << (v & (WORD_BITS - 1)))) != 0 {
                         l += 1;
                     }
                 }
@@ -155,7 +171,7 @@ impl MaskedMatching {
                 for i in 0..n {
                     let v = p_singles[i] as usize;
                     let word = v >> WORD_BITS_LOG;
-                    if (masks[i][word] & ((1 as Word) << (v & (WORD_BITS-1)))) != 0 {
+                    if (masks[i][word] & ((1 as Word) << (v & (WORD_BITS - 1)))) != 0 {
                         l += 1;
                     }
                 }
@@ -231,7 +247,11 @@ impl MaskedMatching {
 
 #[inline]
 fn words_for_universe(universe: usize) -> usize {
-    if universe == 0 { 0 } else { (universe + WORD_BITS - 1) / WORD_BITS }
+    if universe == 0 {
+        0
+    } else {
+        (universe + WORD_BITS - 1) / WORD_BITS
+    }
 }
 
 /// From<&Matching> and From<Matching>
@@ -263,7 +283,9 @@ impl TryFrom<MaskedMatching> for Matching {
                     while bits != 0 {
                         let tz = bits.trailing_zeros() as usize;
                         let val = base + tz;
-                        if val >= masked.universe { break; }
+                        if val >= masked.universe {
+                            break;
+                        }
                         slot.push(val as u8);
                         // turns the rightmost 1 to a 0
                         bits &= bits - 1;
@@ -275,13 +297,17 @@ impl TryFrom<MaskedMatching> for Matching {
                 for slot_mask in masks.into_iter() {
                     let mut slot = Vec::new();
                     for (word_idx, word) in slot_mask.into_iter().enumerate() {
-                        if word == 0 { continue; }
+                        if word == 0 {
+                            continue;
+                        }
                         let base = word_idx * WORD_BITS;
                         let mut bits = word;
                         while bits != 0 {
                             let tz = bits.trailing_zeros() as usize;
                             let val = base + tz;
-                            if val >= masked.universe { break; }
+                            if val >= masked.universe {
+                                break;
+                            }
                             slot.push(val as u8);
                             // turns the rightmost 1 to a 0
                             bits &= bits - 1;
@@ -313,7 +339,10 @@ pub struct SlotProxy<'a> {
 
 /// Iterator over values inside a slot (yields u8)
 pub enum SlotValueIter<'a> {
-    Single { bits: Word, base: usize },
+    Single {
+        bits: Word,
+        base: usize,
+    },
     Multi {
         words: &'a [Word],
         word_idx: usize,
@@ -349,7 +378,11 @@ impl<'a> SlotProxy<'a> {
             }
             MaskRepr::Multi(masks) => {
                 let words_slice = &masks[self.idx];
-                let initial_bits = if words_slice.is_empty() { 0 } else { words_slice[0] };
+                let initial_bits = if words_slice.is_empty() {
+                    0
+                } else {
+                    words_slice[0]
+                };
                 SlotValueIter::Multi {
                     words: words_slice,
                     word_idx: 0,

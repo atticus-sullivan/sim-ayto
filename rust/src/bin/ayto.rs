@@ -16,11 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-use ayto::game::parse::GameParse;
 use ayto::comparison;
+use ayto::game::parse::GameParse;
 
-use clap::{Parser, Subcommand};
 use ayto::game::DumpMode;
+use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use std::time::Instant;
 
@@ -104,8 +104,8 @@ fn main() {
             full,
             use_cache,
         } => {
-            let gp = GameParse::new_from_yaml(&yaml_path, use_cache.clone())
-                .expect("Parsing failed");
+            let gp =
+                GameParse::new_from_yaml(&yaml_path, use_cache.clone()).expect("Parsing failed");
             let mut g = gp
                 .finalize_parsing(&stem, ignore_boxes)
                 .expect("processing game failed");
@@ -116,13 +116,12 @@ fn main() {
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Cache { yaml_path } => {
-            let gp = GameParse::new_from_yaml(&yaml_path, Some("".to_string()))
-                .expect("Parsing failed");
+            let gp =
+                GameParse::new_from_yaml(&yaml_path, Some("".to_string())).expect("Parsing failed");
             println!("{}", gp.show_caches().expect("Failed evaluating caches"));
         }
         Commands::Check { yaml_path } => {
-            let gp = GameParse::new_from_yaml(&yaml_path, None)
-                .expect("Parsing failed");
+            let gp = GameParse::new_from_yaml(&yaml_path, None).expect("Parsing failed");
             gp.finalize_parsing(std::path::Path::new(".trash"), false)
                 .expect("processing game failed");
         }

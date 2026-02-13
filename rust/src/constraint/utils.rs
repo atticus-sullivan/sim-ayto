@@ -1,7 +1,7 @@
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::Rem;
 
-use anyhow::{ensure, Result, bail};
+use anyhow::{bail, ensure, Result};
 
 // internal helper functions
 impl Constraint {
@@ -124,13 +124,13 @@ impl Constraint {
                 // println!("length check failed");
                 bail!("inequal length between the solutions");
             }
-            for (a,bs) in i.iter().enumerate() {
+            for (a, bs) in i.iter().enumerate() {
                 // with the length check above this unchecked indexing is sane
                 let b_partial = &mut sol[a];
                 b_partial.retain(|b| bs.contains(b));
                 if b_partial.is_empty() {
                     // println!("partial empty");
-                    return Ok(Some(false))
+                    return Ok(Some(false));
                 }
             }
         }
