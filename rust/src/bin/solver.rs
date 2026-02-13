@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // TODO: grep for "expect"/"unwrap" and fixup (or ignore) -- issue might be that that's now
 // different threads
+//
+// TODO: more initial_value(s) -> conditionally -- the possible outcomes of the first constraint
+// are usually limited, so we can hardcode the (optimal) responses for the second step as well
 
 use ayto::constraint::eval::EvalEvent;
 use clap::Parser;
