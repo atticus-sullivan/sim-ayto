@@ -42,9 +42,7 @@ pub fn dot_tree(
         for (i, _) in ordering {
             let mut node = parent.clone();
             node.push('/');
-            node.push_str(
-                &format!("{:b}", p.slot_mask(*i).unwrap())
-            );
+            node.push_str(&format!("{:b}", p.slot_mask(*i).unwrap()));
 
             if nodes.insert(node.clone()) {
                 // if node is new -- what???
@@ -58,7 +56,9 @@ pub fn dot_tree(
                         "\"{node}\"[label=\"{}\"]",
                         map_a[*i].clone()
                             + "\\n"
-                            + &p.slot_mask(*i).unwrap().iter()
+                            + &p.slot_mask(*i)
+                                .unwrap()
+                                .iter()
                                 .map(|b| map_b[b as usize].clone())
                                 .collect::<Vec<_>>()
                                 .join("\\n")

@@ -174,7 +174,12 @@ impl StrategyBundle for DefaultStrategy {
 
     fn initial_value(&self) -> MaskedMatching {
         // match (0,0)
-        MaskedMatching::from_masks(vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0].into_iter().map(|i| Bitset::from_word(i)).collect())
+        MaskedMatching::from_masks(
+            vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                .into_iter()
+                .map(|i| Bitset::from_word(i))
+                .collect(),
+        )
     }
     // let mns:Vec<Vec<(u8, u8)>> = vec![
     //     // vec![
@@ -217,7 +222,7 @@ fn run_single_simulation<S: StrategyBundle>(
 
     let mut solution: Vec<u8> = (0..10).map(|x| x as u8).collect();
     solution.shuffle(&mut rng);
-    let solution:MaskedMatching = (*solution).into();
+    let solution: MaskedMatching = (*solution).into();
     let mut lights_known_before = 0;
 
     let rs = RuleSet::Eq;
@@ -272,7 +277,7 @@ fn run_single_simulation<S: StrategyBundle>(
         (10, 10),
     )?;
     rs.iter_perms(&lut_a, &HashMap::new(), &mut is, false, &None)?;
-    let mut poss:Vec<MaskedMatching> = is.left_poss.clone();
+    let mut poss: Vec<MaskedMatching> = is.left_poss.clone();
 
     let mut cs = is.constraints;
     let mut rem: Rem = (is.each, is.total);
@@ -317,9 +322,7 @@ fn run_single_simulation<S: StrategyBundle>(
         ));
 
         if let Some(c) = cs.last_mut() {
-            poss.retain(|p| {
-                c.process(&p).unwrap()
-            });
+            poss.retain(|p| c.process(&p).unwrap());
             rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
         }
 

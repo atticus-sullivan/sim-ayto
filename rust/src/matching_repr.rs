@@ -1,6 +1,6 @@
 pub mod bitset;
-mod iter;
 mod conversions;
+mod iter;
 
 use serde::{Deserialize, Serialize};
 
@@ -47,7 +47,7 @@ impl MaskedMatching {
     /// Return the bitset for `slot`.
     pub fn slot_mask(&self, slot: usize) -> Option<&Bitset> {
         match &self.repr {
-            MaskRepr::Single(items) => items.get(slot)
+            MaskRepr::Single(items) => items.get(slot),
         }
     }
 
@@ -84,11 +84,10 @@ impl MaskedMatching {
         }
     }
 
-    // TODO: rename for better name
-    /// Returns `true` if any slot contains at least one bit from `mask`.
+    /// Returns `true` if any slot contains the exact `mask`.
     pub fn contains_mask(&self, mask: Bitset) -> bool {
         match &self.repr {
-            MaskRepr::Single(items) => items.iter().any(|b| !(*b & mask).is_empty()),
+            MaskRepr::Single(items) => items.iter().any(|b| b.0 == mask.0),
         }
     }
 
@@ -109,7 +108,7 @@ impl MaskedMatching {
                     }
                 }
                 l
-            },
+            }
         }
     }
 
@@ -209,7 +208,7 @@ mod tests {
 
     #[test]
     fn test_contains_mask_and_slot_contains_any() {
-        let legacy = vec![vec![1u8, 4u8], vec![2u8]];
+        let legacy = vec![vec![4u8], vec![2u8]];
         let mm = MaskedMatching::from(&legacy);
         let m = Bitset::from_idxs(&[4u8]);
         assert!(mm.contains_mask(m));
@@ -380,8 +379,6 @@ mod tests {
         assert_eq!(collected2, masks);
     }
 
-
-
     // ---- Bitset tests ----
 
     #[test]
@@ -461,7 +458,7 @@ mod tests {
 
     #[test]
     fn maskedmatching_from_masks_and_with_slots_and_len_and_iter() {
-        let masks = vec![Bitset::from_idxs(&[0]), Bitset::from_idxs(&[1,3])];
+        let masks = vec![Bitset::from_idxs(&[0]), Bitset::from_idxs(&[1, 3])];
         let mm = MaskedMatching::from_masks(masks.clone());
         assert_eq!(mm.len(), 2);
         let collected: Vec<Bitset> = mm.iter().collect();
@@ -490,24 +487,31 @@ mod tests {
         let map_a = vec!["a".to_string(), "b".to_string()];
         let map_b = vec!["x".to_string(), "y".to_string()];
         let res = mm.prepare_debug_print_names(&map_a, &map_b);
-        assert_eq!(res, vec![("a".to_string(), "x".to_string()), ("b".to_string(), "y".to_string())]);
+        assert_eq!(
+            res,
+            vec![
+                ("a".to_string(), "x".to_string()),
+                ("b".to_string(), "y".to_string())
+            ]
+        );
 
         // If map_b too small the function is expected to panic; we explicitly assert that.
         let map_b_small = vec!["only".to_string()];
-        let result = std::panic::catch_unwind(|| mm.prepare_debug_print_names(&map_a, &map_b_small));
+        let result =
+            std::panic::catch_unwind(|| mm.prepare_debug_print_names(&map_a, &map_b_small));
         assert!(result.is_err());
     }
 
     #[test]
     fn contains_mask_and_slot_contains_any() {
-        let legacy = vec![vec![1u8, 4u8], vec![2u8]];
+        let legacy = vec![vec![4u8], vec![2u8]];
         let mm = MaskedMatching::from(&legacy);
         let m = Bitset::from_idxs(&[4u8]);
         assert!(mm.contains_mask(m));
         let mut set = HashSet::new();
         set.insert(3u8);
         set.insert(4u8);
-        assert!(mm.slot_mask(0).contains_any_idx(&set));
+        assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
     }
 
     #[test]
@@ -519,7 +523,7 @@ mod tests {
 
     #[test]
     fn try_from_maskedmatching_to_vec_roundtrip() {
-        let legacy = vec![vec![1u8], vec![2u8,3u8]];
+        let legacy = vec![vec![1u8], vec![2u8, 3u8]];
         let mm = MaskedMatching::from(&legacy);
         let back: Vec<Vec<IdBase>> = Vec::try_from(&mm).expect("conversion back failed");
         assert_eq!(back, legacy);
@@ -553,7 +557,7 @@ mod tests {
     fn pairs_iter_yields_expected_pairs() {
         let mm = MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]]);
         let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        assert_eq!(pairs, vec![(0,1), (0,2), (1,0)]);
+        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
     }
 
     #[test]
@@ -561,7 +565,10 @@ mod tests {
         let legacy = vec![vec![1u8], vec![0u8, 3u8]];
         let mm = MaskedMatching::from(&legacy);
         let masks: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(masks, vec![Bitset::from_idxs(&[1u8]), Bitset::from_idxs(&[0u8,3u8])]);
+        assert_eq!(
+            masks,
+            vec![Bitset::from_idxs(&[1u8]), Bitset::from_idxs(&[0u8, 3u8])]
+        );
     }
 
     #[test]
@@ -579,7 +586,10 @@ mod tests {
     fn iter_unwrapped_cartesian_product_sequence_and_unique() {
         let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
         let mm = MaskedMatching::from(&legacy);
-        let combos: Vec<Vec<Vec<IdBase>>> = mm.iter_unwrapped().map(|m| Vec::try_from(&m).unwrap()).collect();
+        let combos: Vec<Vec<Vec<IdBase>>> = mm
+            .iter_unwrapped()
+            .map(|m| Vec::try_from(&m).unwrap())
+            .collect();
 
         let expected = vec![
             vec![vec![0u8], vec![2u8]],

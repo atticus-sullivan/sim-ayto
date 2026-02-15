@@ -1,6 +1,6 @@
-use crate::{matching_repr::MaskedMatching, ruleset::RuleSet, matching_repr::bitset::Bitset};
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
+use crate::{matching_repr::bitset::Bitset, matching_repr::MaskedMatching, ruleset::RuleSet};
 use anyhow::{Context, Result};
 use std::collections::HashMap;
 

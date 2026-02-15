@@ -12,7 +12,7 @@ use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
 use crate::constraint::Offer;
-use crate::matching_repr::{MaskedMatching, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::MapS;
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
@@ -235,9 +235,13 @@ impl Constraint {
                     .map
                     .iter_pairs()
                     .filter(|&(k, v)| {
-                        past_constraints
-                            .iter()
-                            .any(|&c| c.adds_new() && c.map.slot_mask(k as usize).unwrap_or(&Bitset::empty()).contains(v))
+                        past_constraints.iter().any(|&c| {
+                            c.adds_new()
+                                && c.map
+                                    .slot_mask(k as usize)
+                                    .unwrap_or(&Bitset::empty())
+                                    .contains(v)
+                        })
                     })
                     .count();
             ret.push(Cell::new(cnt.to_string()));
@@ -275,7 +279,13 @@ impl Constraint {
                 - self
                     .map
                     .iter_pairs()
-                    .filter(|&(k, v)| other.map.slot_mask(k as usize).unwrap_or(&Bitset::empty()).contains(v))
+                    .filter(|&(k, v)| {
+                        other
+                            .map
+                            .slot_mask(k as usize)
+                            .unwrap_or(&Bitset::empty())
+                            .contains(v)
+                    })
                     .count(),
         )
     }
@@ -507,9 +517,11 @@ impl Constraint {
         if let Some(sols) = solutions {
             if let ConstraintType::Box { .. } = self.r#type {
                 return sols.iter().all(|sol| {
-                    self.map
-                        .iter_pairs()
-                        .all(|(a, b)| sol.slot_mask(a as usize).unwrap_or(&Bitset::empty()).contains(b))
+                    self.map.iter_pairs().all(|(a, b)| {
+                        sol.slot_mask(a as usize)
+                            .unwrap_or(&Bitset::empty())
+                            .contains(b)
+                    })
                 });
             }
         }

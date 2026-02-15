@@ -1,4 +1,4 @@
-use crate::matching_repr:: {MaskedMatching, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset::RuleSet;
 use crate::ruleset::RuleSetDupX;
 use crate::ruleset_data::RuleSetData;
@@ -47,12 +47,12 @@ impl DupXData {
             Some(q) => self
                 .cnt
                 .iter()
-                .filter(|i| i.0.1.contains(q) && i.0.1.iter().all(|j| !query_not.contains(&j)))
+                .filter(|i| i.0 .1.contains(q) && i.0 .1.iter().all(|j| !query_not.contains(&j)))
                 .collect::<Vec<_>>(),
             None => self
                 .cnt
                 .iter()
-                .filter(|i| i.0.1.iter().all(|j| !query_not.contains(&j)))
+                .filter(|i| i.0 .1.iter().all(|j| !query_not.contains(&j)))
                 .collect::<Vec<_>>(),
         };
 
@@ -189,10 +189,7 @@ impl DupXData {
 
 impl RuleSetData for DupXData {
     fn push(&mut self, m: &MaskedMatching) -> Result<()> {
-        let ks = m
-            .iter()
-            .enumerate()
-            .filter(|(_, j)| j.count() > 1);
+        let ks = m.iter().enumerate().filter(|(_, j)| j.count() > 1);
         for k in ks {
             let e = self.cnt.entry(k).or_default();
             *e += 1;

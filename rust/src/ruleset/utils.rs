@@ -1,7 +1,7 @@
 use anyhow::{ensure, Result};
 
 use crate::ruleset::RuleSet;
-use crate::ruleset_data::{RuleSetData, dummy::DummyData, dup::DupData, dup_x::DupXData};
+use crate::ruleset_data::{dummy::DummyData, dup::DupData, dup_x::DupXData, RuleSetData};
 use crate::Lut;
 
 impl RuleSet {
@@ -119,109 +119,109 @@ impl RuleSet {
     }
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     use std::collections::HashMap;
-//     use std::collections::HashSet;
-//
-//     #[test]
-//     fn test_validate_lut_nn() {
-//         let nn_rule = RuleSet::NToN;
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         nn_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("A", 0)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
-//     }
-//
-//     #[test]
-//     fn test_validate_lut_eq() {
-//         let eq_rule = RuleSet::Eq;
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-//         eq_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(eq_rule.validate_lut(&lut_a, &lut_b).is_err());
-//     }
-//
-//     #[test]
-//     fn test_validate_lut_fixed_dup() {
-//         let dup_rule = RuleSet::XTimesDup((0, vec!["x".to_string()]));
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
-//         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
-//     }
-//
-//     #[test]
-//     fn test_validate_lut_fixed_trip() {
-//         let trip_rule = RuleSet::FixedTrip("x".to_string());
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
-//     }
-//
-//     #[test]
-//     fn test_validate_lut_someone_is_dup() {
-//         let dup_rule = RuleSet::XTimesDup((1, vec![]));
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
-//         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-//         dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//     }
-//
-//     #[test]
-//     fn test_validate_lut_soneone_is_trip() {
-//         let trip_rule = RuleSet::SomeoneIsTrip;
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-//         assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
-//
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
-//     }
-// }
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::collections::HashMap;
+    use std::collections::HashSet;
+
+    #[test]
+    fn test_validate_lut_nn() {
+        let nn_rule = RuleSet::NToN;
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        nn_rule.validate_lut(&lut_a, &lut_b).unwrap();
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0)].map(|(k, v)| (k.to_string(), v)));
+        assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
+        assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
+    }
+
+    #[test]
+    fn test_validate_lut_eq() {
+        let eq_rule = RuleSet::Eq;
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
+        eq_rule.validate_lut(&lut_a, &lut_b).unwrap();
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0)].map(|(k, v)| (k.to_string(), v)));
+        assert!(eq_rule.validate_lut(&lut_a, &lut_b).is_err());
+    }
+
+    #[test]
+    fn test_validate_lut_fixed_dup() {
+        let dup_rule = RuleSet::XTimesDup((0, vec!["x".to_string()]));
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
+        dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
+        assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
+        assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
+    }
+
+    #[test]
+    fn test_validate_lut_fixed_trip() {
+        let trip_rule = RuleSet::FixedTrip("x".to_string());
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
+        assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
+    }
+
+    #[test]
+    fn test_validate_lut_someone_is_dup() {
+        let dup_rule = RuleSet::XTimesDup((1, vec![]));
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
+        dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
+        assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
+        dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
+    }
+
+    #[test]
+    fn test_validate_lut_soneone_is_trip() {
+        let trip_rule = RuleSet::SomeoneIsTrip;
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
+        assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
+
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
+    }
+}

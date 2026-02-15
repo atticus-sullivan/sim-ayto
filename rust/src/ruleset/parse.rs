@@ -1,7 +1,5 @@
-use serde::Deserialize;
 use crate::ruleset::RuleSet;
-
-
+use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub enum RuleSetParse {

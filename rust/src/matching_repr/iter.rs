@@ -1,4 +1,7 @@
-use crate::matching_repr::{bitset::{BitIter, Bitset}, IdBase, MaskRepr, MaskedMatching, Word, WORD_BITS};
+use crate::matching_repr::{
+    bitset::{BitIter, Bitset},
+    IdBase, MaskRepr, MaskedMatching, Word, WORD_BITS,
+};
 
 impl MaskedMatching {
     /// Iterate over slots: returns an iterator of `Bitset` (one bitset per slot).
@@ -8,7 +11,10 @@ impl MaskedMatching {
 
     /// Iterate over (slot,value) pairs: yields `(slot_index, value_index)`.
     pub fn iter_pairs(&self) -> PairsIter<'_> {
-        PairsIter { mm: self, idx: (0, 0) }
+        PairsIter {
+            mm: self,
+            idx: (0, 0),
+        }
     }
 
     /// Iterate over combinations that pick exactly one value from each slot,
@@ -28,7 +34,12 @@ impl MaskedMatching {
         }
 
         let done = current.iter().any(|x| x.is_none());
-        UnwrappedIter { mm: &self, iters, current, done }
+        UnwrappedIter {
+            mm: &self,
+            iters,
+            current,
+            done,
+        }
     }
 }
 
@@ -136,13 +147,17 @@ impl<'a> Iterator for UnwrappedIter<'a> {
         }
 
         // Build single-bit mask slots from current selection
-        let slots = self.current.iter().map(|&opt_idx| {
-            if let Some(idx) = opt_idx {
-                Bitset::from_idxs(&[idx])
-            } else {
-                Bitset::empty()
-            }
-        }).collect::<Vec<Bitset>>();
+        let slots = self
+            .current
+            .iter()
+            .map(|&opt_idx| {
+                if let Some(idx) = opt_idx {
+                    Bitset::from_idxs(&[idx])
+                } else {
+                    Bitset::empty()
+                }
+            })
+            .collect::<Vec<Bitset>>();
 
         // Advance to next combination: try to advance from the rightmost slot.
         // When we reset iterators to the right, we must advance the *real*
@@ -151,8 +166,10 @@ impl<'a> Iterator for UnwrappedIter<'a> {
             if let Some(next_idx) = self.iters[i].next() {
                 self.current[i] = Some(next_idx);
                 // reset all iterators to the right and consume their first element
-                for j in i+1..self.iters.len() {
-                    self.iters[j] = BitIter { w: *self.mm.slot_mask(j).unwrap() };
+                for j in i + 1..self.iters.len() {
+                    self.iters[j] = BitIter {
+                        w: *self.mm.slot_mask(j).unwrap(),
+                    };
                     // IMPORTANT: advance the real iterator and store its value
                     self.current[j] = self.iters[j].next();
                 }
@@ -315,7 +332,7 @@ mod tests {
     fn pairs_iter_yields_expected_pairs() {
         let mm = MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]]);
         let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        assert_eq!(pairs, vec![(0,1), (0,2), (1,0)]);
+        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
     }
 
     #[test]
@@ -323,7 +340,10 @@ mod tests {
         let legacy = vec![vec![1u8], vec![0u8, 3u8]];
         let mm = MaskedMatching::from(&legacy);
         let masks: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(masks, vec![Bitset::from_idxs(&[1u8]), Bitset::from_idxs(&[0u8,3u8])]);
+        assert_eq!(
+            masks,
+            vec![Bitset::from_idxs(&[1u8]), Bitset::from_idxs(&[0u8, 3u8])]
+        );
     }
 
     #[test]
@@ -341,7 +361,10 @@ mod tests {
     fn iter_unwrapped_cartesian_product_sequence_and_unique() {
         let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
         let mm = MaskedMatching::from(&legacy);
-        let combos: Vec<Vec<Vec<IdBase>>> = mm.iter_unwrapped().map(|m| Vec::try_from(&m).unwrap()).collect();
+        let combos: Vec<Vec<Vec<IdBase>>> = mm
+            .iter_unwrapped()
+            .map(|m| Vec::try_from(&m).unwrap())
+            .collect();
 
         let expected = vec![
             vec![vec![0u8], vec![2u8]],

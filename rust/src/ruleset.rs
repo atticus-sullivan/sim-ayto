@@ -165,7 +165,6 @@ pub enum RuleSet {
     Eq,
 }
 
-
 impl RuleSet {
     // TODO: would be nicer to not have to convert Vec<Vec<u8>> to MaskedMatching
     // instead directly construct MaskedMatching (avoids allocations)
@@ -331,482 +330,510 @@ impl RuleSet {
     }
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     use std::collections::HashMap;
-//     use std::collections::HashSet;
-//
-//     #[derive(Default)]
-//     struct TestingIterState {
-//         seen: Vec<MaskedMatching>,
-//     }
-//     impl IterStateTrait for TestingIterState {
-//         fn start(&mut self) {}
-//         fn finish(&mut self) {}
-//
-//         fn step(&mut self, _i: usize, p: MaskedMatching, _output: bool) -> Result<()> {
-//             self.seen.push(p);
-//             Ok(())
-//         }
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_eq() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![0], vec![1]],
-//             vec![vec![1], vec![0]],
-//         ]);
-//         let eq_rule = RuleSet::Eq;
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let mut is = TestingIterState::default();
-//
-//         eq_rule
-//             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_someone_is_dup() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![1, 2], vec![0]],
-//             vec![vec![0], vec![1, 2]],
-//             vec![vec![0, 1], vec![2]],
-//             vec![vec![1], vec![0, 2]],
-//             vec![vec![0, 2], vec![1]],
-//             vec![vec![2], vec![0, 1]],
-//         ]);
-//         let dup_rule = RuleSet::XTimesDup((1, vec![]));
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
-//         let mut is = TestingIterState::default();
-//
-//         dup_rule
-//             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_someone_is_dup2() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![0, 1], vec![2, 3]],
-//             vec![vec![0, 2], vec![1, 3]],
-//             vec![vec![0, 3], vec![1, 2]],
-//             vec![vec![1, 2], vec![0, 3]],
-//             vec![vec![1, 3], vec![0, 2]],
-//             vec![vec![2, 3], vec![0, 1]],
-//         ]);
-//         let dup_rule = RuleSet::XTimesDup((2, vec![]));
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         let mut is = TestingIterState::default();
-//
-//         dup_rule
-//             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_someone_is_trip() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![1, 2, 3], vec![0]],
-//             vec![vec![1], vec![0, 2, 3]],
-//             vec![vec![0, 2, 3], vec![1]],
-//             vec![vec![0], vec![1, 2, 3]],
-//             vec![vec![0, 1, 3], vec![2]],
-//             vec![vec![2], vec![0, 1, 3]],
-//             vec![vec![3], vec![0, 1, 2]],
-//             vec![vec![0, 1, 2], vec![3]],
-//         ]);
-//         let trip_rule = RuleSet::SomeoneIsTrip;
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         let mut is = TestingIterState::default();
-//
-//         trip_rule
-//             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_fixed_dup() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![0, 2], vec![1]],
-//             vec![vec![0], vec![1, 2]],
-//             vec![vec![1, 2], vec![0]],
-//             vec![vec![1], vec![0, 2]],
-//         ]);
-//         let dup_rule = RuleSet::XTimesDup((0, vec!["C".to_string()]));
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
-//         let mut is = TestingIterState::default();
-//
-//         dup_rule
-//             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_fixed_trip() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![1, 2, 3], vec![0]],
-//             vec![vec![0], vec![1, 2, 3]],
-//             vec![vec![0, 1, 3], vec![2]],
-//             vec![vec![1], vec![0, 2, 3]],
-//             vec![vec![0, 2, 3], vec![1]],
-//             vec![vec![2], vec![0, 1, 3]],
-//         ]);
-//         let trip_rule = RuleSet::FixedTrip("D".to_string());
-//         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         let mut is = TestingIterState::default();
-//
-//         trip_rule
-//             .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_iter_perms_xdup() {
-//         let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
-//             vec![vec![0, 4], vec![1, 3], vec![2]],
-//             vec![vec![0, 4], vec![1], vec![2, 3]],
-//             vec![vec![0, 3], vec![1, 4], vec![2]],
-//             vec![vec![0], vec![1, 4], vec![2, 3]],
-//             vec![vec![0, 3], vec![1], vec![2, 4]],
-//             vec![vec![0], vec![1, 3], vec![2, 4]],
-//             vec![vec![1, 4], vec![0, 3], vec![2]],
-//             vec![vec![1, 4], vec![0], vec![2, 3]],
-//             vec![vec![1, 3], vec![0, 4], vec![2]],
-//             vec![vec![1], vec![0, 4], vec![2, 3]],
-//             vec![vec![1, 3], vec![0], vec![2, 4]],
-//             vec![vec![1], vec![0, 3], vec![2, 4]],
-//             vec![vec![2, 4], vec![0, 3], vec![1]],
-//             vec![vec![2, 4], vec![0], vec![1, 3]],
-//             vec![vec![2, 3], vec![0, 4], vec![1]],
-//             vec![vec![2], vec![0, 4], vec![1, 3]],
-//             vec![vec![2, 3], vec![0], vec![1, 4]],
-//             vec![vec![2], vec![0, 3], vec![1, 4]],
-//             vec![vec![0, 4], vec![2, 3], vec![1]],
-//             vec![vec![0, 4], vec![2], vec![1, 3]],
-//             vec![vec![0, 3], vec![2, 4], vec![1]],
-//             vec![vec![0], vec![2, 4], vec![1, 3]],
-//             vec![vec![0, 3], vec![2], vec![1, 4]],
-//             vec![vec![0], vec![2, 3], vec![1, 4]],
-//             vec![vec![1, 4], vec![2, 3], vec![0]],
-//             vec![vec![1, 4], vec![2], vec![0, 3]],
-//             vec![vec![1, 3], vec![2, 4], vec![0]],
-//             vec![vec![1], vec![2, 4], vec![0, 3]],
-//             vec![vec![1, 3], vec![2], vec![0, 4]],
-//             vec![vec![1], vec![2, 3], vec![0, 4]],
-//             vec![vec![2, 4], vec![1, 3], vec![0]],
-//             vec![vec![2, 4], vec![1], vec![0, 3]],
-//             vec![vec![2, 3], vec![1, 4], vec![0]],
-//             vec![vec![2], vec![1, 4], vec![0, 3]],
-//             vec![vec![2, 3], vec![1], vec![0, 4]],
-//             vec![vec![2], vec![1, 3], vec![0, 4]],
-//             vec![vec![3, 4], vec![1, 2], vec![0]],
-//             vec![vec![4], vec![1, 2], vec![0, 3]],
-//             vec![vec![3, 4], vec![1], vec![0, 2]],
-//             vec![vec![4], vec![1, 3], vec![0, 2]],
-//             vec![vec![1, 2], vec![3, 4], vec![0]],
-//             vec![vec![1, 2], vec![4], vec![0, 3]],
-//             vec![vec![1, 3], vec![4], vec![0, 2]],
-//             vec![vec![1], vec![3, 4], vec![0, 2]],
-//             vec![vec![0, 2], vec![3, 4], vec![1]],
-//             vec![vec![0, 2], vec![4], vec![1, 3]],
-//             vec![vec![0, 3], vec![4], vec![1, 2]],
-//             vec![vec![0], vec![3, 4], vec![1, 2]],
-//             vec![vec![3, 4], vec![0, 2], vec![1]],
-//             vec![vec![4], vec![0, 2], vec![1, 3]],
-//             vec![vec![3, 4], vec![0], vec![1, 2]],
-//             vec![vec![4], vec![0, 3], vec![1, 2]],
-//             vec![vec![1, 2], vec![0, 3], vec![4]],
-//             vec![vec![1, 2], vec![0], vec![3, 4]],
-//             vec![vec![1, 3], vec![0, 2], vec![4]],
-//             vec![vec![1], vec![0, 2], vec![3, 4]],
-//             vec![vec![0, 2], vec![1, 3], vec![4]],
-//             vec![vec![0, 2], vec![1], vec![3, 4]],
-//             vec![vec![0, 3], vec![1, 2], vec![4]],
-//             vec![vec![0], vec![1, 2], vec![3, 4]],
-//             vec![vec![0, 1], vec![2, 3], vec![4]],
-//             vec![vec![0, 1], vec![2], vec![3, 4]],
-//             vec![vec![2, 3], vec![0, 1], vec![4]],
-//             vec![vec![2], vec![0, 1], vec![3, 4]],
-//             vec![vec![3, 4], vec![0, 1], vec![2]],
-//             vec![vec![4], vec![0, 1], vec![2, 3]],
-//             vec![vec![0, 1], vec![3, 4], vec![2]],
-//             vec![vec![0, 1], vec![4], vec![2, 3]],
-//             vec![vec![2, 3], vec![4], vec![0, 1]],
-//             vec![vec![2], vec![3, 4], vec![0, 1]],
-//             vec![vec![3, 4], vec![2], vec![0, 1]],
-//             vec![vec![4], vec![2, 3], vec![0, 1]],
-//         ]);
-//         let rule = RuleSet::XTimesDup((1, vec!["D".to_string()]));
-//         let lut_a = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
-//         let lut_b = HashMap::from(
-//             [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4)].map(|(k, v)| (k.to_string(), v)),
-//         );
-//         let mut is = TestingIterState::default();
-//
-//         rule.iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x = x
-//                 .iter()
-//                 .map(|y| {
-//                     let mut y = y.clone();
-//                     y.sort();
-//                     y
-//                 })
-//                 .collect::<Vec<_>>();
-//             assert!(
-//                 ground_truth.contains(&x),
-//                 "generated {:?} which is not in ground truth",
-//                 x
-//             );
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     // 255 was the sign for nobody/empty list -> now with masks, this becomes 0
-//     fn test_iter_perms_nn() {
-//         let ground_truth: HashSet<Vec<u8>> = HashSet::from([
-//             vec![(255), (0), (255), (255), (2), (3)],
-//             vec![(255), (0), (255), (255), (3), (2)],
-//             vec![(255), (0), (255), (2), (255), (4)],
-//             vec![(255), (255), (0), (1), (255), (4)],
-//             vec![(255), (255), (0), (255), (1), (3)],
-//             vec![(255), (255), (0), (255), (3), (1)],
-//             vec![(255), (255), (1), (0), (255), (4)],
-//             vec![(255), (255), (1), (255), (0), (3)],
-//             vec![(255), (255), (1), (255), (3), (0)],
-//             vec![(255), (255), (255), (0), (1), (2)],
-//             vec![(255), (255), (255), (0), (2), (1)],
-//             vec![(255), (255), (255), (1), (0), (2)],
-//             vec![(255), (255), (255), (1), (2), (0)],
-//             vec![(255), (255), (255), (2), (0), (1)],
-//             vec![(255), (255), (255), (2), (1), (0)],
-//         ]);
-//         let nn_rule = RuleSet::NToN;
-//         let lut = HashMap::from(
-//             [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4), ("F", 5)]
-//                 .map(|(k, v)| (k.to_string(), v)),
-//         );
-//         let mut is = TestingIterState::default();
-//
-//         nn_rule
-//             .iter_perms(&lut, &lut, &mut is, false, &None)
-//             .unwrap();
-//
-//         // check if another permutation than from ground_truth was generated
-//         for x in &mut is.seen.iter().map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap()) {
-//             let x: Vec<_> = x.iter().map(|i| i[0]).collect();
-//             assert!(ground_truth.contains(&x));
-//         }
-//         // check if the lengths fit
-//         assert_eq!(is.seen.len(), ground_truth.len());
-//         // check if duplicates were generated
-//         assert_eq!(
-//             is.seen.len(),
-//             is.seen.drain(..).collect::<HashSet<_>>().len()
-//         );
-//     }
-//
-//     #[test]
-//     fn test_get_perms_amout() {
-//         let rs = RuleSet::Eq;
-//         assert_eq!(rs.get_perms_amount(1, 1, &None).unwrap(), 1);
-//         assert_eq!(rs.get_perms_amount(2, 2, &None).unwrap(), 2);
-//         assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 6);
-//
-//         let rs = RuleSet::XTimesDup((1, vec![]));
-//         assert_eq!(rs.get_perms_amount(1, 2, &None).unwrap(), 1);
-//         assert_eq!(rs.get_perms_amount(2, 3, &None).unwrap(), 6);
-//         assert_eq!(rs.get_perms_amount(3, 4, &None).unwrap(), 36);
-//
-//         let rs = RuleSet::XTimesDup((0, vec!["A".to_string()]));
-//         assert_eq!(rs.get_perms_amount(1, 2, &None).unwrap(), 1);
-//         assert_eq!(rs.get_perms_amount(2, 3, &None).unwrap(), 4);
-//         assert_eq!(rs.get_perms_amount(3, 4, &None).unwrap(), 18);
-//
-//         let rs = RuleSet::XTimesDup((1, vec!["A".to_string()]));
-//         assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 6);
-//         assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 72);
-//
-//         let rs = RuleSet::SomeoneIsTrip;
-//         assert_eq!(rs.get_perms_amount(1, 3, &None).unwrap(), 1);
-//         assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 8);
-//         assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 60);
-//
-//         let rs = RuleSet::FixedTrip("A".to_string());
-//         assert_eq!(rs.get_perms_amount(1, 3, &None).unwrap(), 1);
-//         assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 6);
-//         assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 36);
-//
-//         let rs = RuleSet::NToN;
-//         assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 3);
-//         assert_eq!(rs.get_perms_amount(4, 4, &None).unwrap(), 3);
-//         assert_eq!(rs.get_perms_amount(5, 5, &None).unwrap(), 15);
-//     }
-// }
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::collections::HashMap;
+    use std::collections::HashSet;
+
+    #[derive(Default)]
+    struct TestingIterState {
+        seen: Vec<MaskedMatching>,
+    }
+    impl IterStateTrait for TestingIterState {
+        fn start(&mut self) {}
+        fn finish(&mut self) {}
+
+        fn step(&mut self, _i: usize, p: MaskedMatching, _output: bool) -> Result<()> {
+            self.seen.push(p);
+            Ok(())
+        }
+    }
+
+    #[test]
+    fn test_iter_perms_eq() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> =
+            HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
+        let eq_rule = RuleSet::Eq;
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let mut is = TestingIterState::default();
+
+        eq_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_someone_is_dup() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![1, 2], vec![0]],
+            vec![vec![0], vec![1, 2]],
+            vec![vec![0, 1], vec![2]],
+            vec![vec![1], vec![0, 2]],
+            vec![vec![0, 2], vec![1]],
+            vec![vec![2], vec![0, 1]],
+        ]);
+        let dup_rule = RuleSet::XTimesDup((1, vec![]));
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
+        let mut is = TestingIterState::default();
+
+        dup_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_someone_is_dup2() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![0, 1], vec![2, 3]],
+            vec![vec![0, 2], vec![1, 3]],
+            vec![vec![0, 3], vec![1, 2]],
+            vec![vec![1, 2], vec![0, 3]],
+            vec![vec![1, 3], vec![0, 2]],
+            vec![vec![2, 3], vec![0, 1]],
+        ]);
+        let dup_rule = RuleSet::XTimesDup((2, vec![]));
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        let mut is = TestingIterState::default();
+
+        dup_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_someone_is_trip() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![1, 2, 3], vec![0]],
+            vec![vec![1], vec![0, 2, 3]],
+            vec![vec![0, 2, 3], vec![1]],
+            vec![vec![0], vec![1, 2, 3]],
+            vec![vec![0, 1, 3], vec![2]],
+            vec![vec![2], vec![0, 1, 3]],
+            vec![vec![3], vec![0, 1, 2]],
+            vec![vec![0, 1, 2], vec![3]],
+        ]);
+        let trip_rule = RuleSet::SomeoneIsTrip;
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        let mut is = TestingIterState::default();
+
+        trip_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_fixed_dup() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![0, 2], vec![1]],
+            vec![vec![0], vec![1, 2]],
+            vec![vec![1, 2], vec![0]],
+            vec![vec![1], vec![0, 2]],
+        ]);
+        let dup_rule = RuleSet::XTimesDup((0, vec!["C".to_string()]));
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
+        let mut is = TestingIterState::default();
+
+        dup_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_fixed_trip() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![1, 2, 3], vec![0]],
+            vec![vec![0], vec![1, 2, 3]],
+            vec![vec![0, 1, 3], vec![2]],
+            vec![vec![1], vec![0, 2, 3]],
+            vec![vec![0, 2, 3], vec![1]],
+            vec![vec![2], vec![0, 1, 3]],
+        ]);
+        let trip_rule = RuleSet::FixedTrip("D".to_string());
+        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3)].map(|(k, v)| (k.to_string(), v)),
+        );
+        let mut is = TestingIterState::default();
+
+        trip_rule
+            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_xdup() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![0, 4], vec![1, 3], vec![2]],
+            vec![vec![0, 4], vec![1], vec![2, 3]],
+            vec![vec![0, 3], vec![1, 4], vec![2]],
+            vec![vec![0], vec![1, 4], vec![2, 3]],
+            vec![vec![0, 3], vec![1], vec![2, 4]],
+            vec![vec![0], vec![1, 3], vec![2, 4]],
+            vec![vec![1, 4], vec![0, 3], vec![2]],
+            vec![vec![1, 4], vec![0], vec![2, 3]],
+            vec![vec![1, 3], vec![0, 4], vec![2]],
+            vec![vec![1], vec![0, 4], vec![2, 3]],
+            vec![vec![1, 3], vec![0], vec![2, 4]],
+            vec![vec![1], vec![0, 3], vec![2, 4]],
+            vec![vec![2, 4], vec![0, 3], vec![1]],
+            vec![vec![2, 4], vec![0], vec![1, 3]],
+            vec![vec![2, 3], vec![0, 4], vec![1]],
+            vec![vec![2], vec![0, 4], vec![1, 3]],
+            vec![vec![2, 3], vec![0], vec![1, 4]],
+            vec![vec![2], vec![0, 3], vec![1, 4]],
+            vec![vec![0, 4], vec![2, 3], vec![1]],
+            vec![vec![0, 4], vec![2], vec![1, 3]],
+            vec![vec![0, 3], vec![2, 4], vec![1]],
+            vec![vec![0], vec![2, 4], vec![1, 3]],
+            vec![vec![0, 3], vec![2], vec![1, 4]],
+            vec![vec![0], vec![2, 3], vec![1, 4]],
+            vec![vec![1, 4], vec![2, 3], vec![0]],
+            vec![vec![1, 4], vec![2], vec![0, 3]],
+            vec![vec![1, 3], vec![2, 4], vec![0]],
+            vec![vec![1], vec![2, 4], vec![0, 3]],
+            vec![vec![1, 3], vec![2], vec![0, 4]],
+            vec![vec![1], vec![2, 3], vec![0, 4]],
+            vec![vec![2, 4], vec![1, 3], vec![0]],
+            vec![vec![2, 4], vec![1], vec![0, 3]],
+            vec![vec![2, 3], vec![1, 4], vec![0]],
+            vec![vec![2], vec![1, 4], vec![0, 3]],
+            vec![vec![2, 3], vec![1], vec![0, 4]],
+            vec![vec![2], vec![1, 3], vec![0, 4]],
+            vec![vec![3, 4], vec![1, 2], vec![0]],
+            vec![vec![4], vec![1, 2], vec![0, 3]],
+            vec![vec![3, 4], vec![1], vec![0, 2]],
+            vec![vec![4], vec![1, 3], vec![0, 2]],
+            vec![vec![1, 2], vec![3, 4], vec![0]],
+            vec![vec![1, 2], vec![4], vec![0, 3]],
+            vec![vec![1, 3], vec![4], vec![0, 2]],
+            vec![vec![1], vec![3, 4], vec![0, 2]],
+            vec![vec![0, 2], vec![3, 4], vec![1]],
+            vec![vec![0, 2], vec![4], vec![1, 3]],
+            vec![vec![0, 3], vec![4], vec![1, 2]],
+            vec![vec![0], vec![3, 4], vec![1, 2]],
+            vec![vec![3, 4], vec![0, 2], vec![1]],
+            vec![vec![4], vec![0, 2], vec![1, 3]],
+            vec![vec![3, 4], vec![0], vec![1, 2]],
+            vec![vec![4], vec![0, 3], vec![1, 2]],
+            vec![vec![1, 2], vec![0, 3], vec![4]],
+            vec![vec![1, 2], vec![0], vec![3, 4]],
+            vec![vec![1, 3], vec![0, 2], vec![4]],
+            vec![vec![1], vec![0, 2], vec![3, 4]],
+            vec![vec![0, 2], vec![1, 3], vec![4]],
+            vec![vec![0, 2], vec![1], vec![3, 4]],
+            vec![vec![0, 3], vec![1, 2], vec![4]],
+            vec![vec![0], vec![1, 2], vec![3, 4]],
+            vec![vec![0, 1], vec![2, 3], vec![4]],
+            vec![vec![0, 1], vec![2], vec![3, 4]],
+            vec![vec![2, 3], vec![0, 1], vec![4]],
+            vec![vec![2], vec![0, 1], vec![3, 4]],
+            vec![vec![3, 4], vec![0, 1], vec![2]],
+            vec![vec![4], vec![0, 1], vec![2, 3]],
+            vec![vec![0, 1], vec![3, 4], vec![2]],
+            vec![vec![0, 1], vec![4], vec![2, 3]],
+            vec![vec![2, 3], vec![4], vec![0, 1]],
+            vec![vec![2], vec![3, 4], vec![0, 1]],
+            vec![vec![3, 4], vec![2], vec![0, 1]],
+            vec![vec![4], vec![2, 3], vec![0, 1]],
+        ]);
+        let rule = RuleSet::XTimesDup((1, vec!["D".to_string()]));
+        let lut_a = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
+        let lut_b = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4)].map(|(k, v)| (k.to_string(), v)),
+        );
+        let mut is = TestingIterState::default();
+
+        rule.iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            let x = x
+                .iter()
+                .map(|y| {
+                    let mut y = y.clone();
+                    y.sort();
+                    y
+                })
+                .collect::<Vec<_>>();
+            assert!(
+                ground_truth.contains(&x),
+                "generated {:?} which is not in ground truth",
+                x
+            );
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_iter_perms_nn() {
+        let ground_truth: HashSet<Vec<Vec<u8>>> = HashSet::from([
+            vec![vec![], vec![0], vec![], vec![], vec![2], vec![3]],
+            vec![vec![], vec![0], vec![], vec![], vec![3], vec![2]],
+            vec![vec![], vec![0], vec![], vec![2], vec![], vec![4]],
+            vec![vec![], vec![], vec![0], vec![1], vec![], vec![4]],
+            vec![vec![], vec![], vec![0], vec![], vec![1], vec![3]],
+            vec![vec![], vec![], vec![0], vec![], vec![3], vec![1]],
+            vec![vec![], vec![], vec![1], vec![0], vec![], vec![4]],
+            vec![vec![], vec![], vec![1], vec![], vec![0], vec![3]],
+            vec![vec![], vec![], vec![1], vec![], vec![3], vec![0]],
+            vec![vec![], vec![], vec![], vec![0], vec![1], vec![2]],
+            vec![vec![], vec![], vec![], vec![0], vec![2], vec![1]],
+            vec![vec![], vec![], vec![], vec![1], vec![0], vec![2]],
+            vec![vec![], vec![], vec![], vec![1], vec![2], vec![0]],
+            vec![vec![], vec![], vec![], vec![2], vec![0], vec![1]],
+            vec![vec![], vec![], vec![], vec![2], vec![1], vec![0]],
+        ]);
+        let nn_rule = RuleSet::NToN;
+        let lut = HashMap::from(
+            [("A", 0), ("B", 1), ("C", 2), ("D", 3), ("E", 4), ("F", 5)]
+                .map(|(k, v)| (k.to_string(), v)),
+        );
+        let mut is = TestingIterState::default();
+
+        nn_rule
+            .iter_perms(&lut, &lut, &mut is, false, &None)
+            .unwrap();
+
+        // check if another permutation than from ground_truth was generated
+        for x in &mut is
+            .seen
+            .iter()
+            .map(|i| TryInto::<Vec<Vec<u8>>>::try_into(i).unwrap())
+        {
+            assert!(ground_truth.contains(&x));
+        }
+        // check if the lengths fit
+        assert_eq!(is.seen.len(), ground_truth.len());
+        // check if duplicates were generated
+        assert_eq!(
+            is.seen.len(),
+            is.seen.drain(..).collect::<HashSet<_>>().len()
+        );
+    }
+
+    #[test]
+    fn test_get_perms_amout() {
+        let rs = RuleSet::Eq;
+        assert_eq!(rs.get_perms_amount(1, 1, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 2, &None).unwrap(), 2);
+        assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 6);
+
+        let rs = RuleSet::XTimesDup((1, vec![]));
+        assert_eq!(rs.get_perms_amount(1, 2, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 3, &None).unwrap(), 6);
+        assert_eq!(rs.get_perms_amount(3, 4, &None).unwrap(), 36);
+
+        let rs = RuleSet::XTimesDup((0, vec!["A".to_string()]));
+        assert_eq!(rs.get_perms_amount(1, 2, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 3, &None).unwrap(), 4);
+        assert_eq!(rs.get_perms_amount(3, 4, &None).unwrap(), 18);
+
+        let rs = RuleSet::XTimesDup((1, vec!["A".to_string()]));
+        assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 6);
+        assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 72);
+
+        let rs = RuleSet::SomeoneIsTrip;
+        assert_eq!(rs.get_perms_amount(1, 3, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 8);
+        assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 60);
+
+        let rs = RuleSet::FixedTrip("A".to_string());
+        assert_eq!(rs.get_perms_amount(1, 3, &None).unwrap(), 1);
+        assert_eq!(rs.get_perms_amount(2, 4, &None).unwrap(), 6);
+        assert_eq!(rs.get_perms_amount(3, 5, &None).unwrap(), 36);
+
+        let rs = RuleSet::NToN;
+        assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 3);
+        assert_eq!(rs.get_perms_amount(4, 4, &None).unwrap(), 3);
+        assert_eq!(rs.get_perms_amount(5, 5, &None).unwrap(), 15);
+    }
+}

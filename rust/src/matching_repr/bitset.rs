@@ -1,4 +1,8 @@
-use std::{collections::HashSet, fmt::Binary, ops::{BitAndAssign, BitOrAssign}};
+use std::{
+    collections::HashSet,
+    fmt::Binary,
+    ops::{BitAndAssign, BitOrAssign},
+};
 
 use serde::{Deserialize, Serialize};
 
@@ -34,8 +38,11 @@ impl Bitset {
     pub fn from_idxs(ws: &[IdBase]) -> Self {
         let mut b = Bitset::empty();
         for &w in ws {
-             // defensive: shifting by >= WORD_BITS is undefined / surprising in some builds.
-            debug_assert!((w as usize) < WORD_BITS, "index >= WORD_BITS in Bitset::from_idxs");
+            // defensive: shifting by >= WORD_BITS is undefined / surprising in some builds.
+            debug_assert!(
+                (w as usize) < WORD_BITS,
+                "index >= WORD_BITS in Bitset::from_idxs"
+            );
             b.0 |= (1 as Word) << (w as usize);
         }
         b
@@ -43,13 +50,17 @@ impl Bitset {
 
     /// Insert `x` into the bitset (mutates in-place).
     pub fn insert(&mut self, x: IdBase) {
-        debug_assert!((x as usize) < WORD_BITS, "index >= WORD_BITS in Bitset::insert");
+        debug_assert!(
+            (x as usize) < WORD_BITS,
+            "index >= WORD_BITS in Bitset::insert"
+        );
         self.0 |= (1 as Word) << (x as usize);
     }
 
     /// Returns `true` if the bitset contains any element from `eles`.
     pub fn contains_any_idx(&self, eles: &HashSet<IdBase>) -> bool {
-        eles.iter().any(|i| (self.0 & ((1 as Word) << (*i as usize))) != 0)
+        eles.iter()
+            .any(|i| (self.0 & ((1 as Word) << (*i as usize))) != 0)
     }
 
     /// Return the raw word.

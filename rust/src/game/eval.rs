@@ -99,10 +99,7 @@ impl Game {
                 for a in i.iter() {
                     tab.add_row(vec![
                         format!("{}", a.1),
-                        format!(
-                            "{:?}",
-                            self.map_a.get(*a.0 as usize).unwrap()
-                        ),
+                        format!("{:?}", self.map_a.get(*a.0 as usize).unwrap()),
                     ]);
                 }
                 println!("{tab}")
@@ -194,7 +191,10 @@ impl Game {
                 }
                 DumpMode::FullNames => {
                     for p in is.left_poss.iter() {
-                        println!("{:?}", p.prepare_debug_print_names(&self.map_a, &self.map_b));
+                        println!(
+                            "{:?}",
+                            p.prepare_debug_print_names(&self.map_a, &self.map_b)
+                        );
                     }
                 }
                 DumpMode::Winning => {
@@ -207,7 +207,10 @@ impl Game {
                 DumpMode::WinningNames => {
                     for p in is.left_poss.iter() {
                         for pw in p.iter_unwrapped() {
-                            println!("{:?}", pw.prepare_debug_print_names(&self.map_a, &self.map_b));
+                            println!(
+                                "{:?}",
+                                pw.prepare_debug_print_names(&self.map_a, &self.map_b)
+                            );
                         }
                     }
                 }

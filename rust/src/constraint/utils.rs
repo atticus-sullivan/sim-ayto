@@ -79,7 +79,7 @@ impl Constraint {
     }
 
     pub(super) fn eliminate(&mut self, m: &MaskedMatching) {
-        for (k,v) in m.iter_pairs() {
+        for (k, v) in m.iter_pairs() {
             // if v == u8::MAX {
             //     continue
             // }
@@ -122,7 +122,7 @@ impl Constraint {
                 bail!("inequal length between the solutions");
             }
             if (i.calculate_lights(&sol) as usize) < sol.len() {
-                return Ok(Some(false))
+                return Ok(Some(false));
             }
             sol = sol & i;
         }

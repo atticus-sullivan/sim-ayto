@@ -10,7 +10,7 @@ use std::path::PathBuf;
 use anyhow::Result;
 
 use crate::constraint::Constraint;
-use crate::matching_repr::{MaskedMatching, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
 pub struct IterState {
     pub constraints: Vec<Constraint>,
@@ -71,7 +71,6 @@ impl IterStateTrait for IterState {
         }
         Ok(())
     }
-
 }
 
 impl IterState {
@@ -168,16 +167,12 @@ impl IterState {
             for (a, bs) in p.iter().enumerate() {
                 if self.query_pair.0.contains_key(&(a as u8)) {
                     if let Some(val) = self.query_pair.0.get_mut(&(a as u8)) {
-                        val.entry(bs)
-                            .and_modify(|cnt| *cnt += 1)
-                            .or_insert(0);
+                        val.entry(bs).and_modify(|cnt| *cnt += 1).or_insert(0);
                     };
                 }
                 for b in bs.iter() {
                     if let Some(val) = self.query_pair.1.get_mut(&b) {
-                        val.entry(a as u8)
-                            .and_modify(|cnt| *cnt += 1)
-                            .or_insert(0);
+                        val.entry(a as u8).and_modify(|cnt| *cnt += 1).or_insert(0);
                     };
                 }
             }
