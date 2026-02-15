@@ -1,4 +1,5 @@
 use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::matching_repr::MaskedMatching;
 use crate::Rem;
 
 use anyhow::{bail, ensure, Result};
@@ -77,14 +78,12 @@ impl Constraint {
         }
     }
 
-    pub(super) fn eliminate(&mut self, m: &[Vec<u8>]) {
-        for (i1, v) in m.iter().enumerate() {
-            for &i2 in v {
-                if i2 == u8::MAX {
-                    continue;
-                }
-                self.eliminated_tab[i1][i2 as usize] += 1
-            }
+    pub(super) fn eliminate(&mut self, m: &MaskedMatching) {
+        for (k,v) in m.iter_pairs() {
+            // if v == u8::MAX {
+            //     continue
+            // }
+            self.eliminated_tab[k as usize][v as usize] += 1;
         }
         self.eliminated += 1;
     }
@@ -115,8 +114,6 @@ impl Constraint {
 
         // choose one solution to be the prototype for the partial solution
         let mut sol = self.left_poss[0].clone();
-        // println!("sol: {:?}", sol);
-        // println!("other left: {:?}", &self.left_poss[1..]);
 
         // overlay all other possible solutions to check if there is a common partial solution
         for i in &self.left_poss[1..] {
@@ -124,17 +121,11 @@ impl Constraint {
                 // println!("length check failed");
                 bail!("inequal length between the solutions");
             }
-            for (a, bs) in i.iter().enumerate() {
-                // with the length check above this unchecked indexing is sane
-                let b_partial = &mut sol[a];
-                b_partial.retain(|b| bs.contains(b));
-                if b_partial.is_empty() {
-                    // println!("partial empty");
-                    return Ok(Some(false));
-                }
+            if (i.calculate_lights(&sol) as usize) < sol.len() {
+                return Ok(Some(false))
             }
+            sol = sol & i;
         }
-        // println!("sol left: {:?}", &sol);
         Ok(Some(true))
     }
 

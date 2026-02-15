@@ -10,7 +10,7 @@ use std::path::PathBuf;
 use anyhow::Result;
 
 use crate::constraint::Constraint;
-use crate::Matching;
+use crate::matching_repr::{MaskedMatching, bitset::Bitset};
 
 pub struct IterState {
     pub constraints: Vec<Constraint>,
@@ -18,16 +18,60 @@ pub struct IterState {
     pub each: Vec<Vec<u128>>,
     pub total: u128,
     pub eliminated: u128,
-    pub left_poss: Vec<Matching>,
-    pub query_matchings: Vec<(Matching, Option<String>)>,
+    pub left_poss: Vec<MaskedMatching>,
+    // allows to query when a Matching was eliminated (by which "comment")
+    pub query_matchings: Vec<(MaskedMatching, Option<String>)>,
     #[allow(clippy::type_complexity)]
     pub query_pair: (
-        HashMap<u8, HashMap<Vec<u8>, u64>>,
-        HashMap<u8, HashMap<Vec<u8>, u64>>,
+        HashMap<u8, HashMap<Bitset, u64>>,
+        HashMap<u8, HashMap<u8, u64>>,
     ),
     cnt_update: usize,
     progress: ProgressBar,
     cache_file: Option<BufWriter<File>>,
+}
+
+pub trait IterStateTrait {
+    fn start(&mut self);
+    fn finish(&mut self);
+
+    fn step(&mut self, i: usize, p: MaskedMatching, output: bool) -> Result<()>;
+}
+
+impl IterStateTrait for IterState {
+    fn start(&mut self) {
+        self.progress.inc(0)
+    }
+
+    fn finish(&mut self) {
+        self.progress.finish()
+    }
+
+    fn step(&mut self, i: usize, p: MaskedMatching, output: bool) -> Result<()> {
+        if i.is_multiple_of(self.cnt_update) && output {
+            self.progress.inc(2);
+        }
+        self.step_counting_stats(&p);
+        let left = self.step_process(&p)?;
+
+        // permutation still works?
+        if left {
+            self.step_collect_query_pair(&p);
+
+            // write permutation to cache file
+            if let Some(fs) = &mut self.cache_file {
+                to_writer(&mut *fs, &p)?;
+                writeln!(fs)?;
+            }
+
+            // store the permutation as still possible solution
+            if self.keep_rem {
+                self.left_poss.push(p);
+            }
+        }
+        Ok(())
+    }
+
 }
 
 impl IterState {
@@ -35,7 +79,7 @@ impl IterState {
         keep_rem: bool,
         perm_amount: usize,
         constraints: Vec<Constraint>,
-        query_matchings: &[Matching],
+        query_matchings: &[MaskedMatching],
         query_pair: &(HashSet<u8>, HashSet<u8>),
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
@@ -79,51 +123,16 @@ impl IterState {
         Ok(is)
     }
 
-    pub fn start(&mut self) {
-        self.progress.inc(0)
-    }
-
-    pub fn finish(&mut self) {
-        self.progress.finish()
-    }
-
-    pub fn step(&mut self, i: usize, p: Matching, output: bool) -> Result<()> {
-        if i.is_multiple_of(self.cnt_update) && output {
-            self.progress.inc(2);
-        }
-        self.step_counting_stats(&p);
-        let left = self.step_process(&p)?;
-
-        // permutation still works?
-        if left {
-            self.step_collect_query_pair(&p);
-
-            // write permutation to cache file
-            if let Some(fs) = &mut self.cache_file {
-                to_writer(&mut *fs, &p)?;
-                writeln!(fs)?;
-            }
-
-            // store the permutation as still possible solution
-            if self.keep_rem {
-                self.left_poss.push(p);
-            }
-        }
-        Ok(())
-    }
-
     // count "raw" permutations for statistics and some checks
-    fn step_counting_stats(&mut self, p: &Matching) {
+    fn step_counting_stats(&mut self, p: &MaskedMatching) {
         // count how often each pairing occurs without filtering
         // - necessary to be able to work with caching
         // - important to generate the "base-table" from which to calculate how much a constraint
         //   has filtered out / is left after (in percentage)
-        for (a, i) in p.iter().enumerate() {
-            for b in i.iter() {
-                if let Some(x) = self.each.get_mut(a) {
-                    if let Some(x_val) = x.get_mut(*b as usize) {
-                        *x_val += 1;
-                    }
+        for (k, v) in p.iter_pairs() {
+            if let Some(x) = self.each.get_mut(k as usize) {
+                if let Some(x_val) = x.get_mut(v as usize) {
+                    *x_val += 1;
                 }
             }
         }
@@ -135,7 +144,7 @@ impl IterState {
     // works with that constraint
     //
     // returns: is this permutation still possible with this set of constraints
-    fn step_process(&mut self, p: &Matching) -> Result<bool> {
+    fn step_process(&mut self, p: &MaskedMatching) -> Result<bool> {
         for c in &mut self.constraints {
             if !c.process(p)? {
                 // permutation was eliminated by this constraint
@@ -154,19 +163,19 @@ impl IterState {
     }
 
     // allow to query with person A / person B can still be a match (and how often)
-    fn step_collect_query_pair(&mut self, p: &Matching) {
+    fn step_collect_query_pair(&mut self, p: &MaskedMatching) {
         if !self.query_pair.0.is_empty() || !self.query_pair.1.is_empty() {
             for (a, bs) in p.iter().enumerate() {
                 if self.query_pair.0.contains_key(&(a as u8)) {
                     if let Some(val) = self.query_pair.0.get_mut(&(a as u8)) {
-                        val.entry(bs.clone())
+                        val.entry(bs)
                             .and_modify(|cnt| *cnt += 1)
                             .or_insert(0);
                     };
                 }
                 for b in bs.iter() {
-                    if let Some(val) = self.query_pair.1.get_mut(b) {
-                        val.entry(vec![a as u8])
+                    if let Some(val) = self.query_pair.1.get_mut(&b) {
+                        val.entry(a as u8)
                             .and_modify(|cnt| *cnt += 1)
                             .or_insert(0);
                     };

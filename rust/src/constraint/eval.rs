@@ -12,7 +12,8 @@ use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
 use crate::constraint::Offer;
-use crate::{MapS, Matching};
+use crate::matching_repr::{MaskedMatching, bitset::Bitset};
+use crate::MapS;
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 
@@ -232,11 +233,11 @@ impl Constraint {
             let cnt = self.map.len()
                 - self
                     .map
-                    .iter()
+                    .iter_pairs()
                     .filter(|&(k, v)| {
                         past_constraints
                             .iter()
-                            .any(|&c| c.adds_new() && c.map.get(k).is_some_and(|v2| v2 == v))
+                            .any(|&c| c.adds_new() && c.map.slot_mask(k as usize).unwrap_or(&Bitset::empty()).contains(v))
                     })
                     .count();
             ret.push(Cell::new(cnt.to_string()));
@@ -273,8 +274,8 @@ impl Constraint {
             self.map.len()
                 - self
                     .map
-                    .iter()
-                    .filter(|&(k, v)| other.map.get(k).is_some_and(|v2| v2 == v))
+                    .iter_pairs()
+                    .filter(|&(k, v)| other.map.slot_mask(k as usize).unwrap_or(&Bitset::empty()).contains(v))
                     .count(),
         )
     }
@@ -502,13 +503,13 @@ impl Constraint {
         }
     }
 
-    pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
+    pub fn is_mb_hit(&self, solutions: Option<&Vec<MaskedMatching>>) -> bool {
         if let Some(sols) = solutions {
             if let ConstraintType::Box { .. } = self.r#type {
                 return sols.iter().all(|sol| {
                     self.map
-                        .iter()
-                        .all(|(a, b)| sol.get(*a as usize).unwrap().contains(b))
+                        .iter_pairs()
+                        .all(|(a, b)| sol.slot_mask(a as usize).unwrap_or(&Bitset::empty()).contains(b))
                 });
             }
         }

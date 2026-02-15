@@ -20,6 +20,7 @@ pub mod dummy;
 pub mod dup;
 pub mod dup_x;
 
+use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::Lut;
 use anyhow::Result;
@@ -37,7 +38,7 @@ where
 }
 
 pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
-    fn push(&mut self, m: &[Vec<u8>]) -> Result<()>;
+    fn push(&mut self, m: &MaskedMatching) -> Result<()>;
     fn print(
         &self,
         full: bool,

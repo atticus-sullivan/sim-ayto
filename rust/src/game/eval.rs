@@ -11,11 +11,11 @@ use std::io::{BufWriter, Write};
 
 use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
 use crate::constraint::Constraint;
-use crate::game::foreach_unwrapped_matching;
 use crate::game::DumpMode;
 use crate::game::Game;
 use crate::iterstate::IterState;
-use crate::{Matching, Rem};
+use crate::matching_repr::MaskedMatching;
+use crate::Rem;
 
 impl Game {
     // TODO:
@@ -51,7 +51,7 @@ impl Game {
                         let ass = self.map_a.get(a).unwrap();
                         let bs = b
                             .iter()
-                            .map(|b| self.map_b.get(*b as usize).unwrap())
+                            .map(|b| self.map_b.get(b as usize).unwrap())
                             .collect::<Vec<_>>();
                         rows[a].add_cell(ass.into());
                         rows[a].add_cell(format!("{:?}", bs).into());
@@ -80,7 +80,7 @@ impl Game {
                         format!(
                             "{:?}",
                             b.0.iter()
-                                .map(|b| self.map_b.get(*b as usize).unwrap())
+                                .map(|b| self.map_b.get(b as usize).unwrap())
                                 .collect::<Vec<_>>()
                         ),
                     ]);
@@ -101,9 +101,7 @@ impl Game {
                         format!("{}", a.1),
                         format!(
                             "{:?}",
-                            a.0.iter()
-                                .map(|a| self.map_a.get(*a as usize).unwrap())
-                                .collect::<Vec<_>>()
+                            self.map_a.get(*a.0 as usize).unwrap()
                         ),
                     ]);
                 }
@@ -191,41 +189,26 @@ impl Game {
             match d {
                 DumpMode::Full => {
                     for p in is.left_poss.iter() {
-                        println!("{:?}", p.iter().enumerate().collect::<Vec<_>>())
+                        println!("{:?}", p.prepare_debug_print())
                     }
                 }
                 DumpMode::FullNames => {
                     for p in is.left_poss.iter() {
-                        println!(
-                            "{:?}",
-                            p.iter()
-                                .enumerate()
-                                .map(|(a, bs)| (
-                                    &self.map_a[a],
-                                    bs.iter()
-                                        .map(|b| &self.map_b[*b as usize])
-                                        .collect::<Vec<_>>()
-                                ))
-                                .collect::<Vec<_>>()
-                        )
+                        println!("{:?}", p.prepare_debug_print_names(&self.map_a, &self.map_b));
                     }
                 }
                 DumpMode::Winning => {
                     for p in is.left_poss.iter() {
-                        foreach_unwrapped_matching(p, |m| println!("{:?}", m));
+                        for pw in p.iter_unwrapped() {
+                            println!("{:?}", pw.prepare_debug_print());
+                        }
                     }
                 }
                 DumpMode::WinningNames => {
                     for p in is.left_poss.iter() {
-                        foreach_unwrapped_matching(p, |m| {
-                            println!(
-                                "{:?}",
-                                m.into_iter()
-                                    .enumerate()
-                                    .map(|(a, b)| (&self.map_a[a], &self.map_b[*b as usize]))
-                                    .collect::<Vec<_>>()
-                            )
-                        });
+                        for pw in p.iter_unwrapped() {
+                            println!("{:?}", pw.prepare_debug_print_names(&self.map_a, &self.map_b));
+                        }
                     }
                 }
             }
@@ -253,7 +236,7 @@ impl Game {
         &self,
         total: f64,
         merged_constraints: &[Constraint],
-        solutions: Option<&Vec<Matching>>,
+        solutions: Option<&Vec<MaskedMatching>>,
     ) -> Result<()> {
         let out_mb_path = self.dir.join("statMB").with_extension("csv");
         let out_mn_path = self.dir.join("statMN").with_extension("csv");

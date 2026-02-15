@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // are usually limited, so we can hardcode the (optimal) responses for the second step as well
 
 use ayto::constraint::eval::EvalEvent;
-use ayto::matching_repr::MaskedMatching;
+use ayto::matching_repr::{bitset::Bitset, MaskedMatching};
 use clap::Parser;
 
 use chrono::{DateTime, TimeZone, Utc};
@@ -174,7 +174,7 @@ impl StrategyBundle for DefaultStrategy {
 
     fn initial_value(&self) -> MaskedMatching {
         // match (0,0)
-        MaskedMatching::from_masks_single(vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 255)
+        MaskedMatching::from_masks(vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0].into_iter().map(|i| Bitset::from_word(i)).collect())
     }
     // let mns:Vec<Vec<(u8, u8)>> = vec![
     //     // vec![
@@ -272,7 +272,7 @@ fn run_single_simulation<S: StrategyBundle>(
         (10, 10),
     )?;
     rs.iter_perms(&lut_a, &HashMap::new(), &mut is, false, &None)?;
-    let mut poss:Vec<MaskedMatching> = is.left_poss.iter().map(|i| i.into()).collect();
+    let mut poss:Vec<MaskedMatching> = is.left_poss.clone();
 
     let mut cs = is.constraints;
     let mut rem: Rem = (is.each, is.total);
@@ -284,9 +284,7 @@ fn run_single_simulation<S: StrategyBundle>(
 
     for i in 3usize.. {
         let (m, l, ct, lkn) = if i.is_multiple_of(2) {
-            let m = vec![strategy.choose_mb(&rem.0, rem.1, &mut rng)]
-                .into_iter()
-                .collect();
+            let m = strategy.choose_mb(&rem.0, rem.1, &mut rng);
             let l = m.calculate_lights(&solution);
             let ct = constraint::ConstraintType::Box {
                 num: (i / 2) as f32,

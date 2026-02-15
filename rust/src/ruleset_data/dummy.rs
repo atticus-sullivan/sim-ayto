@@ -1,3 +1,4 @@
+use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
@@ -7,7 +8,7 @@ use anyhow::Result;
 pub struct DummyData {}
 
 impl RuleSetData for DummyData {
-    fn push(&mut self, _m: &[Vec<u8>]) -> Result<()> {
+    fn push(&mut self, _m: &MaskedMatching) -> Result<()> {
         Ok(())
     }
 

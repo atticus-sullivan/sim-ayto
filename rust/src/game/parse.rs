@@ -12,7 +12,7 @@ use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Color, Table};
 
 use crate::constraint::parse::ConstraintParse;
-use crate::ruleset::RuleSetParse;
+use crate::ruleset::parse::RuleSetParse;
 use crate::{Lut, Matching, MatchingS, Rename};
 
 use crate::game::Game;
@@ -276,6 +276,7 @@ impl GameParse {
         }
 
         // translate the matchings that were querried for tracing
+        // TODO: directly translate to masked_matching
         for q in &self.query_matchings_s {
             let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
             for (k, v) in q {
@@ -294,7 +295,7 @@ impl GameParse {
                     .get(k)
                     .with_context(|| format!("{} not found in lut_a", k))?] = x;
             }
-            g.query_matchings.push(matching);
+            g.query_matchings.push(matching.into());
         }
 
         // translate the pairs that were querried for tracing
