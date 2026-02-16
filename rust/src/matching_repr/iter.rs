@@ -1,18 +1,18 @@
 use crate::matching_repr::{
     bitset::{BitIter, Bitset},
-    IdBase, MaskRepr, MaskedMatching, Word, WORD_BITS,
+    IdBase, MaskedMatching, Word, WORD_BITS,
 };
 
 impl MaskedMatching {
     /// Iterate over slots: returns an iterator of `Bitset` (one bitset per slot).
     pub fn iter(&self) -> SlotsIter<'_> {
-        SlotsIter { mm: self, idx: 0 }
+        SlotsIter { masks: &self.masks, idx: 0 }
     }
 
     /// Iterate over (slot,value) pairs: yields `(slot_index, value_index)`.
     pub fn iter_pairs(&self) -> PairsIter<'_> {
         PairsIter {
-            mm: self,
+            masks: &self.masks,
             idx: (0, 0),
         }
     }
@@ -22,9 +22,7 @@ impl MaskedMatching {
     pub fn iter_unwrapped(&self) -> UnwrappedIter<'_> {
         // Build the actual iterators and *consume* their first element to
         // populate `current`. This keeps `iters` and `current` in sync.
-        let mut iters = match &self.repr {
-            MaskRepr::Single(items) => items.iter().map(|b| b.iter()).collect::<Vec<_>>(),
-        };
+        let mut iters = self.masks.iter().map(|b| b.iter()).collect::<Vec<_>>();
 
         let mut current: Vec<Option<IdBase>> = Vec::with_capacity(iters.len());
         for it in iters.iter_mut() {
@@ -48,80 +46,72 @@ impl MaskedMatching {
 /// PairsIter yields `(slot_index, value_index)` for every set bit in each slot.
 /// The iteration order is: increasing slot index; within a slot increasing value index.
 pub struct PairsIter<'a> {
-    mm: &'a MaskedMatching,
+    masks: &'a [Bitset],
     idx: (usize, usize), // (slot_index, bit-search-start)
 }
 
 impl<'a> Iterator for PairsIter<'a> {
     type Item = (IdBase, IdBase);
     fn next(&mut self) -> Option<Self::Item> {
-        match &self.mm.repr {
-            MaskRepr::Single(items) => {
-                let len = self.mm.len();
-                loop {
-                    // If we've exhausted slots, terminate.
-                    if self.idx.0 >= len {
-                        return None;
-                    }
-
-                    // Read the current slot's word.
-                    let slot_word: Word = items[self.idx.0].as_word();
-
-                    // If our inner search index is past the word width, move to next slot.
-                    if self.idx.1 >= WORD_BITS {
-                        self.idx = (self.idx.0 + 1, 0);
-                        continue;
-                    }
-
-                    // Mask off bits below the current inner index.
-                    let mask = slot_word & ((!0u64) << (self.idx.1));
-
-                    // If no bits remain at/after idx.1, advance to next slot.
-                    if mask == 0 {
-                        self.idx = (self.idx.0 + 1, 0);
-                        continue;
-                    }
-
-                    // lowest set bit index in mask
-                    let cur_val = mask.trailing_zeros() as IdBase;
-
-                    // remove the found lowest bit from mask to compute the next inner index
-                    let after_mask = mask & (mask - 1);
-                    let next_inner = if after_mask == 0 {
-                        // No more bits in this slot after the found one -> mark as past-word
-                        WORD_BITS
-                    } else {
-                        after_mask.trailing_zeros() as usize
-                    };
-
-                    let slot_idx = self.idx.0;
-                    self.idx = (slot_idx, next_inner);
-
-                    return Some((slot_idx as IdBase, cur_val));
-                }
+        let len = self.masks.len();
+        loop {
+            // If we've exhausted slots, terminate.
+            if self.idx.0 >= len {
+                return None;
             }
+
+            // Read the current slot's word.
+            let slot_word: Word = self.masks[self.idx.0].as_word();
+
+            // If our inner search index is past the word width, move to next slot.
+            if self.idx.1 >= WORD_BITS {
+                self.idx = (self.idx.0 + 1, 0);
+                continue;
+            }
+
+            // Mask off bits below the current inner index.
+            let mask = slot_word & ((!0u64) << (self.idx.1));
+
+            // If no bits remain at/after idx.1, advance to next slot.
+            if mask == 0 {
+                self.idx = (self.idx.0 + 1, 0);
+                continue;
+            }
+
+            // lowest set bit index in mask
+            let cur_val = mask.trailing_zeros() as IdBase;
+
+            // remove the found lowest bit from mask to compute the next inner index
+            let after_mask = mask & (mask - 1);
+            let next_inner = if after_mask == 0 {
+                // No more bits in this slot after the found one -> mark as past-word
+                WORD_BITS
+            } else {
+                after_mask.trailing_zeros() as usize
+            };
+
+            let slot_idx = self.idx.0;
+            self.idx = (slot_idx, next_inner);
+
+            return Some((slot_idx as IdBase, cur_val));
         }
     }
 }
 
 /// Slots iterator: returns `Bitset` per slot (so iterating a MaskedMatching yields Bitset).
 pub struct SlotsIter<'a> {
-    mm: &'a MaskedMatching,
+    masks: &'a [Bitset],
     idx: usize,
 }
 impl<'a> Iterator for SlotsIter<'a> {
     type Item = Bitset;
     fn next(&mut self) -> Option<Self::Item> {
-        match &self.mm.repr {
-            MaskRepr::Single(items) => {
-                if self.idx >= items.len() {
-                    None
-                } else {
-                    let cur = self.idx;
-                    self.idx += 1;
-                    Some(items[cur])
-                }
-            }
+        if self.idx >= self.masks.len() {
+            None
+        } else {
+            let cur = self.idx;
+            self.idx += 1;
+            Some(self.masks[cur])
         }
     }
 }

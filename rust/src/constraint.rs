@@ -23,7 +23,6 @@ mod utils;
 use anyhow::Result;
 use serde::Deserialize;
 use std::collections::BTreeMap;
-use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
@@ -187,7 +186,7 @@ pub struct Constraint {
 
     map: MaskedMatching,
     map_s: MapS,
-    exclude: Option<(u8, HashSet<u8>)>,
+    exclude: Option<(u8, Bitset)>,
     eliminated: u128,
     eliminated_tab: Vec<Vec<u128>>,
 
@@ -288,7 +287,7 @@ impl Constraint {
 
                 let f = self.exclude.as_ref().and_then(|ex| {
                     m.slot_mask(ex.0 as usize)
-                        .map(|m| !m.contains_any_idx(&ex.1))
+                        .map(|m| !m.contains_any(&ex.1))
                 });
 
                 // use calculated lights to collect stats on based on the matching possible until
@@ -457,7 +456,7 @@ mod tests {
         super::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
     }
 
-    fn constraint_def(exclude: Option<(u8, HashSet<u8>)>, lights: u8) -> Constraint {
+    fn constraint_def(exclude: Option<(u8, Bitset)>, lights: u8) -> Constraint {
         Constraint {
             result_unknown: false,
             exclude,
@@ -503,7 +502,7 @@ mod tests {
 
     #[test]
     fn test_process_light_exclude() {
-        let mut c = constraint_def(Some((0, HashSet::from([2, 3]))), 1);
+        let mut c = constraint_def(Some((0, Bitset::from_idxs(&[2, 3]))), 1);
 
         let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
         assert!(c.process(&m).unwrap());

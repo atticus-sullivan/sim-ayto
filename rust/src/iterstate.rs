@@ -35,7 +35,7 @@ pub trait IterStateTrait {
     fn start(&mut self);
     fn finish(&mut self);
 
-    fn step(&mut self, i: usize, p: MaskedMatching, output: bool) -> Result<()>;
+    fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()>;
 }
 
 impl IterStateTrait for IterState {
@@ -47,26 +47,26 @@ impl IterStateTrait for IterState {
         self.progress.finish()
     }
 
-    fn step(&mut self, i: usize, p: MaskedMatching, output: bool) -> Result<()> {
+    fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()> {
         if i.is_multiple_of(self.cnt_update) && output {
             self.progress.inc(2);
         }
-        self.step_counting_stats(&p);
-        let left = self.step_process(&p)?;
+        self.step_counting_stats(p);
+        let left = self.step_process(p)?;
 
         // permutation still works?
         if left {
-            self.step_collect_query_pair(&p);
+            self.step_collect_query_pair(p);
 
             // write permutation to cache file
             if let Some(fs) = &mut self.cache_file {
-                to_writer(&mut *fs, &p)?;
+                to_writer(&mut *fs, p)?;
                 writeln!(fs)?;
             }
 
             // store the permutation as still possible solution
             if self.keep_rem {
-                self.left_poss.push(p);
+                self.left_poss.push(p.clone());
             }
         }
         Ok(())
@@ -218,7 +218,7 @@ mod tests {
         // perform a step with our test permutation
         let p = mk_mm();
         // step returns Result<()>
-        is.step(0usize, p.clone(), false).expect("step failed");
+        is.step(0usize, &p, false).expect("step failed");
 
         // total should have incremented
         assert_eq!(is.total, 1u128);

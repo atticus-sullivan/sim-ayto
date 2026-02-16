@@ -123,6 +123,7 @@ pub(super) fn someone_is_trip<I: Iterator<Item = Vec<Vec<u8>>>>(
 #[cfg(test)]
 mod generator_tests {
     use super::*;
+    use crate::matching_repr::bitset::Bitset;
 
     #[test]
     fn add_dup_basic() {
@@ -156,4 +157,29 @@ mod generator_tests {
         // There should be outputs where 2 is placed into one of the recipients (but not triple)
         assert!(out.iter().any(|perm| perm.iter().any(|bucket| bucket.len() == 2)));
     }
+
+    // #[test]
+    // fn add_dup_bitset_basic() {
+    //     // two buckets: [0], [1] represented as Bitsets
+    //     let v = vec![Bitset::from_idxs(&[0u8]), Bitset::from_idxs(&[1u8])];
+    //     let iter = add_dup(std::iter::once(v), 2u8);
+    //     let out: Vec<_> = iter.collect();
+    //     // results should be two permutations where one bucket now has an extra bit
+    //     assert_eq!(out.len(), 2);
+    //     assert!(out.iter().any(|perm| perm[0].contains(2u8)));
+    //     assert!(out.iter().any(|perm| perm[1].contains(2u8)));
+    // }
+    //
+    // #[test]
+    // fn someone_is_dup_bitset_simple() {
+    //     // recipients = [[0], [1]]; dups = [2]
+    //     let base = vec![
+    //         Bitset::from_idxs(&[0u8]),
+    //         Bitset::from_idxs(&[1u8]),
+    //         Bitset::from_idxs(&[2u8])
+    //     ];
+    //     let iter = someone_is_dup(std::iter::once(base), 1usize);
+    //     let out: Vec<_> = iter.collect();
+    //     assert!(out.iter().any(|perm| perm.iter().any(|b| b.count() == 2)));
+    // }
 }

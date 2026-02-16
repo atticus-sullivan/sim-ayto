@@ -25,16 +25,19 @@ impl Binary for Bitset {
 
 impl Bitset {
     /// Construct an empty bitset.
+    #[inline(always)]
     pub fn empty() -> Self {
         Bitset(0)
     }
 
     /// Construct from raw word.
+    #[inline(always)]
     pub fn from_word(w: Word) -> Self {
         Bitset(w)
     }
 
     /// Construct with bits set from a slice of indices.
+    #[inline(always)]
     pub fn from_idxs(ws: &[IdBase]) -> Self {
         let mut b = Bitset::empty();
         for &w in ws {
@@ -49,6 +52,7 @@ impl Bitset {
     }
 
     /// Insert `x` into the bitset (mutates in-place).
+    #[inline(always)]
     pub fn insert(&mut self, x: IdBase) {
         debug_assert!(
             (x as usize) < WORD_BITS,
@@ -58,52 +62,68 @@ impl Bitset {
     }
 
     /// Returns `true` if the bitset contains any element from `eles`.
+    #[inline(always)]
     pub fn contains_any_idx(&self, eles: &HashSet<IdBase>) -> bool {
         eles.iter()
             .any(|i| (self.0 & ((1 as Word) << (*i as usize))) != 0)
     }
 
+    /// Returns `true` if the intersection of the two sets is non-empty.
+    #[inline(always)]
+    pub fn contains_any(&self, eles: &Bitset) -> bool {
+        self.0 & eles.0 != 0
+    }
+
     /// Return the raw word.
+    #[inline(always)]
     pub(super) fn as_word(self) -> Word {
         self.0
     }
 
-    /// Test whether the bitset contains `x`.
+    /// Test whether the bitset contains index `x`.
+    #[inline(always)]
     pub fn contains(self, x: IdBase) -> bool {
         (self.0 & ((1 as Word) << (x as usize))) != 0
     }
 
     /// Count bits set.
+    #[inline(always)]
     pub fn count(self) -> usize {
         self.0.count_ones() as usize
     }
 
     /// Return true if empty.
+    #[inline(always)]
     pub fn is_empty(self) -> bool {
         self.0 == 0
     }
 
     /// Return number of trailing zeros (for lowest set bit).
+    #[inline(always)]
     pub fn trailing_zeros(self) -> u32 {
         self.0.trailing_zeros()
     }
 
     /// Clear the lowest set bit (mutates).
+    #[inline(always)]
     pub fn clear_lowest_bit(&mut self) {
         self.0 &= self.0 - 1;
     }
 
     /// Bitwise AND.
+    #[inline(always)]
     pub fn and(self, other: Bitset) -> Bitset {
         Bitset(self.0 & other.0)
     }
 
     /// Bitwise OR.
+    #[inline(always)]
     pub fn or(self, other: Bitset) -> Bitset {
         Bitset(self.0 | other.0)
     }
 
     /// Iterator over set indices (in increasing order).
+    #[inline(always)]
     pub fn iter(self) -> BitIter {
         BitIter { w: self }
     }
@@ -112,22 +132,26 @@ impl Bitset {
 /// Bitwise operators for `Bitset`.
 impl std::ops::BitAnd for Bitset {
     type Output = Bitset;
+    #[inline(always)]
     fn bitand(self, rhs: Bitset) -> Bitset {
         Bitset(self.0 & rhs.0)
     }
 }
 impl std::ops::BitOr for Bitset {
     type Output = Bitset;
+    #[inline(always)]
     fn bitor(self, rhs: Bitset) -> Bitset {
         Bitset(self.0 | rhs.0)
     }
 }
 impl BitAndAssign for Bitset {
+    #[inline(always)]
     fn bitand_assign(&mut self, rhs: Bitset) {
         self.0 &= rhs.0;
     }
 }
 impl BitOrAssign for Bitset {
+    #[inline(always)]
     fn bitor_assign(&mut self, rhs: Bitset) {
         self.0 |= rhs.0;
     }

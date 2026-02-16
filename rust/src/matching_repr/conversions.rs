@@ -1,7 +1,7 @@
 use core::fmt;
 use std::collections::HashMap;
 
-use crate::matching_repr::{bitset::Bitset, IdBase, MaskRepr, MaskedMatching, Word};
+use crate::matching_repr::{bitset::Bitset, IdBase, MaskedMatching, Word};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ConversionError {
@@ -32,14 +32,14 @@ impl MaskedMatching {
     /// Construct from raw bitset masks.
     pub fn from_masks(masks: Vec<Bitset>) -> Self {
         MaskedMatching {
-            repr: MaskRepr::Single(masks),
+            masks: masks,
         }
     }
 
     /// Create empty with `slots`.
     pub fn with_slots(slots: usize) -> Self {
         MaskedMatching {
-            repr: MaskRepr::Single(vec![Bitset::empty(); slots]),
+            masks: vec![Bitset::empty(); slots],
         }
     }
 
@@ -69,7 +69,7 @@ impl MaskedMatching {
             masks.push(Bitset::from_word(w));
         }
         MaskedMatching {
-            repr: MaskRepr::Single(masks),
+            masks,
         }
     }
 }
@@ -118,16 +118,12 @@ impl TryFrom<&MaskedMatching> for Vec<Vec<IdBase>> {
             ));
         }
         let mut out: Vec<Vec<IdBase>> = Vec::with_capacity(masked.len());
-        match &masked.repr {
-            MaskRepr::Single(masks) => {
-                for b in masks.iter() {
-                    let mut slot = Vec::new();
-                    for i in b.iter() {
-                        slot.push(i);
-                    }
-                    out.push(slot);
-                }
+        for b in masked.masks.iter() {
+            let mut slot = Vec::new();
+            for i in b.iter() {
+                slot.push(i);
             }
+            out.push(slot);
         }
         Ok(out)
     }
@@ -145,6 +141,12 @@ impl TryFrom<HashMap<IdBase, IdBase>> for MaskedMatching {
             slots[k as usize].insert(v);
         }
         Ok(MaskedMatching::from_masks(slots))
+    }
+}
+
+impl From<Vec<Bitset>> for MaskedMatching {
+    fn from(m: Vec<Bitset>) -> Self {
+        MaskedMatching { masks: m }
     }
 }
 

@@ -3,6 +3,7 @@ use serde::Deserialize;
 use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 
+use crate::matching_repr::bitset::Bitset;
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, MapS, Rename};
 
@@ -217,7 +218,7 @@ impl ConstraintParse {
         // translate names to ids
         if let Some(ex) = &exclude_s {
             let (ex_a, ex_b) = ex;
-            let mut bs = HashSet::with_capacity(ex_b.len());
+            let mut bs = Bitset::empty();
             let a = *lut_a
                 .get(ex_a)
                 .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
@@ -376,7 +377,7 @@ mod tests {
         assert_eq!(map_s, constraint.map_s);
         let map = MaskedMatching::from_matching_ref(&vec![vec![1]]);
         assert_eq!(map, constraint.map);
-        let excl = Some((0, HashSet::from([2, 3])));
+        let excl = Some((0, Bitset::from_idxs(&[2, 3])));
         assert_eq!(excl, constraint.exclude);
     }
 

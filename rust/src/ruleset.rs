@@ -64,7 +64,7 @@ impl RuleSet {
             let reader = BufReader::new(file);
             for (i, line) in reader.lines().enumerate() {
                 let p = serde_json::from_str::<MaskedMatching>(&line?)?;
-                is.step(i, p, output)?;
+                is.step(i, &p, output)?;
             }
         } else {
             match self {
@@ -75,7 +75,7 @@ impl RuleSet {
                         .permutation()
                         .enumerate()
                     {
-                        is.step(i, p.into(), output)?;
+                        is.step(i, &p.into(), output)?;
                     }
                 }
                 RuleSet::XTimesDup((unkown_cnt, fixed)) => {
@@ -95,14 +95,14 @@ impl RuleSet {
                         .fold(first_iter, |iter, add| Box::new(add_dup(iter, add)));
 
                     for (i, p) in final_iter.into_iter().enumerate() {
-                        is.step(i, p.into(), output)?;
+                        is.step(i, &p.into(), output)?;
                     }
                 }
                 RuleSet::SomeoneIsTrip => {
                     let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
                     let x = x.permutation();
                     for (i, p) in someone_is_trip(x).enumerate() {
-                        is.step(i, p.into(), output)?;
+                        is.step(i, &p.into(), output)?;
                     }
                 }
                 RuleSet::FixedTrip(s) => {
@@ -120,7 +120,7 @@ impl RuleSet {
                     )
                     .enumerate()
                     {
-                        is.step(i, p.into(), output)?;
+                        is.step(i, &p.into(), output)?;
                     }
                 }
                 RuleSet::NToN => {
@@ -140,7 +140,7 @@ impl RuleSet {
                             }
                             Some(c)
                         }) {
-                            is.step(i, p.into(), output)?;
+                            is.step(i, &p.into(), output)?;
                             i += 1;
                         }
                     }
@@ -224,8 +224,8 @@ mod tests {
         fn start(&mut self) {}
         fn finish(&mut self) {}
 
-        fn step(&mut self, _i: usize, p: MaskedMatching, _output: bool) -> Result<()> {
-            self.seen.push(p);
+        fn step(&mut self, _i: usize, p: &MaskedMatching, _output: bool) -> Result<()> {
+            self.seen.push(p.clone());
             Ok(())
         }
     }
