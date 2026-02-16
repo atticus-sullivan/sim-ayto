@@ -4,8 +4,7 @@
 *.out
 *.txt
 *.png
-*.csv
-statSum.json
+stats.json
 *.html
 !gh-pages/layouts/*.html
 

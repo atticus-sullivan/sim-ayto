@@ -310,17 +310,17 @@ impl Constraint {
 
         // show how many new matches are present
         if let ConstraintType::Night { .. } = self.r#type {
-            let cnt = self.map.len()
-                - self
+            let cnt = self
                     .map
-                    .iter_pairs()
+                    .iter()
+                    .enumerate()
                     .filter(|&(k, v)| {
-                        past_constraints.iter().any(|&c| {
+                        !v.is_empty() && !past_constraints.iter().any(|&c| {
                             c.adds_new()
                                 && c.map
-                                    .slot_mask(k as usize)
+                                    .slot_mask(k)
                                     .unwrap_or(&Bitset::empty())
-                                    .contains(v)
+                                    .contains_any(&v)
                         })
                     })
                     .count();
@@ -354,19 +354,18 @@ impl Constraint {
             return None;
         }
 
-        Some(
-            self.map.len()
-                - self
+        Some(self
+            .map
+            .iter()
+            .enumerate()
+            .filter(|&(k, v)| {
+                !v.is_empty() && !other
                     .map
-                    .iter_pairs()
-                    .filter(|&(k, v)| {
-                        other
-                            .map
-                            .slot_mask(k as usize)
-                            .unwrap_or(&Bitset::empty())
-                            .contains(v)
-                    })
-                    .count(),
+                    .slot_mask(k)
+                    .unwrap_or(&Bitset::empty())
+                    .contains_any(&v)
+            })
+            .count(),
         )
     }
 
