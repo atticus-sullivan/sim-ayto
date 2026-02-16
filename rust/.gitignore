@@ -4,7 +4,7 @@
 Cargo.lock
 Makefile
 *yaml
-perf.data
-flamegraph.svg
+perf.data*
+flamegraph*.svg
 bench.bash
 coverage.html
