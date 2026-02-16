@@ -17,9 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 pub mod parse;
+mod generators;
 mod utils;
 
 use crate::matching_repr::MaskedMatching;
+use crate::ruleset::generators::{add_dup, add_trip, someone_is_dup, someone_is_trip};
 use anyhow::{Context, Result};
 use core::iter::zip;
 use permutator::{Combination, Permutation};
@@ -31,128 +33,6 @@ use std::{
 
 use crate::iterstate::IterStateTrait;
 use crate::Lut;
-
-fn add_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
-    vals: I,
-    add: u8,
-) -> impl Iterator<Item = Vec<Vec<u8>>> {
-    vals.flat_map(move |perm| {
-        (0..perm.len()).filter_map({
-            let perm = perm.clone();
-            move |idx| {
-                // only add the duplicate if it becomes a duplicate (not a triple)
-                if perm[idx].len() > 1 {
-                    return None;
-                }
-                let mut c = perm.clone();
-                c[idx].push(add);
-                Some(c)
-            }
-        })
-    })
-}
-
-fn add_trip<I: Iterator<Item = Vec<Vec<u8>>>>(
-    vals: I,
-    add: u8,
-) -> impl Iterator<Item = Vec<Vec<u8>>> {
-    vals.flat_map(move |perm| {
-        // select who has the dup
-        (0..perm.len() - 1).filter_map(move |idx| {
-            // only add the duplicate if it becomes a duplicate (not a triple)
-            if perm[idx].len() > 1 {
-                return None;
-            }
-            // only count once regardless the ordering
-            if perm[idx][0] < perm[perm.len() - 1][0] {
-                return None;
-            }
-            // the element at perm[len-1] is the dup => add it
-            let mut c = perm.clone();
-            let x = c.pop()?;
-            c[idx].push(x[0]);
-            c[idx].push(add);
-            Some(c)
-        })
-    })
-}
-
-fn someone_is_dup<I: Iterator<Item = Vec<Vec<u8>>>>(
-    vals: I,
-    cnt: usize,
-) -> impl Iterator<Item = Vec<Vec<u8>>> {
-    vals.flat_map(move |perm| {
-        let split = perm.len() - cnt;
-
-        let recipients = perm[..split].to_vec();
-        let dups = perm[split..].iter().map(|v| v[0]).collect::<Vec<_>>();
-
-        let mut outputs: Vec<Vec<Vec<u8>>> = Vec::new();
-
-        // internal values used for backtracking
-        let mut cur = Vec::<usize>::with_capacity(cnt);
-
-        // recursive DFS defined as local function (doesn't capture environment)
-        fn dfs(
-            recipients: &Vec<Vec<u8>>,
-            dups: &Vec<u8>,
-            // indices already containing a duplicate
-            // used: &mut Vec<bool>,
-            start: usize,
-            // maps dups-idx to at which index to insert the duplicate
-            cur: &mut Vec<usize>,
-            outputs: &mut Vec<Vec<Vec<u8>>>,
-        ) {
-            if cur.len() == dups.len() {
-                // build resulting c from base and cur mapping
-                let mut c = recipients.clone();
-                for (j, &rec_idx) in cur.iter().enumerate() {
-                    if c[rec_idx][0] > dups[j] {
-                        return;
-                    }
-                    c[rec_idx].push(dups[j]);
-                }
-                outputs.push(c);
-                return;
-            }
-            // select/search index where to insert duplicate
-            for i in start..recipients.len() {
-                cur.push(i);
-                dfs(recipients, dups, i + 1, cur, outputs);
-                cur.pop();
-            }
-        }
-
-        dfs(&recipients, &dups, 0, &mut cur, &mut outputs);
-        outputs.into_iter()
-    })
-}
-
-fn someone_is_trip<I: Iterator<Item = Vec<Vec<u8>>>>(
-    vals: I,
-) -> impl Iterator<Item = Vec<Vec<u8>>> {
-    vals.flat_map(move |perm| {
-        // if perm[perm.len() - 1][0] < perm[perm.len() - 2][0] {
-        //     return;
-        // }
-        // select who has the trip
-        (0..perm.len() - 2).filter_map(move |idx| {
-            // only count once regardless the ordering
-            if !(perm[idx][0] < perm[perm.len() - 1][0]
-                && perm[perm.len() - 1][0] < perm[perm.len() - 2][0])
-            {
-                return None;
-            }
-            // the element at perm[len-2],perm[len-1] are the trip => add them
-            let mut c = perm.clone();
-            let x = c.pop()?;
-            c[idx].push(x[0]);
-            let x = c.pop()?;
-            c[idx].push(x[0]);
-            Some(c)
-        })
-    })
-}
 
 pub type RuleSetDupX = (usize, Vec<String>);
 #[derive(Debug, Clone, Default)]

@@ -275,4 +275,25 @@ mod tests {
         let large = Bitset::from_idxs(&[3u8]); // 8
         assert!(small < large);
     }
+
+    #[test]
+    fn test_bitset_and_or_methods() {
+        let a = Bitset::from_idxs(&[0u8, 2u8]); // 101
+        let b = Bitset::from_idxs(&[2u8, 3u8]); // 1100
+        // method forms:
+        let m_and = a.and(b);
+        assert_eq!(m_and, Bitset::from_idxs(&[2u8]));
+        let m_or = a.or(b);
+        assert!(m_or.contains(0));
+        assert!(m_or.contains(2));
+        assert!(m_or.contains(3));
+    }
+
+    #[test]
+    fn test_bititer_on_empty_returns_none() {
+        let b = Bitset::empty();
+        let mut it = b.iter();
+        assert_eq!(it.next(), None);
+    }
+
 }

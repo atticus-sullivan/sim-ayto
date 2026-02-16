@@ -83,11 +83,11 @@ impl IterState {
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
     ) -> Result<IterState> {
-        let file = cache_file
-            .clone()
-            .map(File::create)
-            .map_or(Ok(None), |r| r.map(Some))?
-            .map(BufWriter::new);
+        let file = if let Some(path) = cache_file {
+            Some(BufWriter::new(File::create(path)?))
+        } else {
+            None
+        };
         let is = IterState {
             constraints,
             keep_rem,
@@ -167,15 +167,84 @@ impl IterState {
             for (a, bs) in p.iter().enumerate() {
                 if self.query_pair.0.contains_key(&(a as u8)) {
                     if let Some(val) = self.query_pair.0.get_mut(&(a as u8)) {
-                        val.entry(bs).and_modify(|cnt| *cnt += 1).or_insert(0);
+                        val.entry(bs).and_modify(|cnt| *cnt += 1).or_insert(1);
                     };
                 }
                 for b in bs.iter() {
                     if let Some(val) = self.query_pair.1.get_mut(&b) {
-                        val.entry(a as u8).and_modify(|cnt| *cnt += 1).or_insert(0);
+                        val.entry(a as u8).and_modify(|cnt| *cnt += 1).or_insert(1);
                     };
                 }
             }
+        }
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::matching_repr::MaskedMatching;
+    use crate::matching_repr::bitset::Bitset;
+    use std::collections::HashSet;
+
+    // A tiny helper to create a MaskedMatching easily.
+    fn mk_mm() -> MaskedMatching {
+        // slot0: {1,2}, slot1: {0}
+        MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]])
+    }
+
+    #[test]
+    fn iterstate_step_counts_each_and_total_and_query_pair() {
+        // Create an IterState with:
+        // - no constraints
+        // - query_pair tracking slot 0 and value index 0 (for right-hand map)
+        let mut query_slots = HashSet::new();
+        query_slots.insert(0u8); // track slot 0 keyed by slot index
+        let mut query_values = HashSet::new();
+        query_values.insert(0u8); // track value 0 keyed by value index
+
+        let mut is = IterState::new(
+            false,               // keep_rem
+            10,                  // perm_amount (only used to size progress, cnt_update)
+            Vec::new(),          // constraints
+            &[],                 // query_matchings
+            &(query_slots, query_values),
+            &None,               // cache_file
+            (2usize, 4usize),    // map_lens: 2 slots, universe size 4
+        )
+        .expect("failed to create IterState");
+
+        // perform a step with our test permutation
+        let p = mk_mm();
+        // step returns Result<()>
+        is.step(0usize, p.clone(), false).expect("step failed");
+
+        // total should have incremented
+        assert_eq!(is.total, 1u128);
+
+        // each[slot][value] should reflect our permutation:
+        // slot 0 had values 1 and 2 -> each[0][1] == 1 and each[0][2] == 1
+        assert_eq!(is.each[0][1], 1u128);
+        assert_eq!(is.each[0][2], 1u128);
+
+        // check query_pair maps: because we tracked slot 0 (query_pair.0 contains 0),
+        // there should be an entry with key = Bitset corresponding to slot mask {1,2}
+        if let Some(slot_map) = is.query_pair.0.get(&0u8) {
+            let mask = Bitset::from_idxs(&[1u8, 2u8]);
+            // the value for that Bitset should be 1 (first observation)
+            assert_eq!(slot_map.get(&mask).copied().unwrap_or(0), 1u64);
+        } else {
+            panic!("expected query_pair.0 to contain key 0");
+        }
+
+        // and because we tracked value 0 on right-side, the second map should record
+        // how often value index 0 occurred and at which slot(s) (we had value 0 at slot 1)
+        if let Some(val_map) = is.query_pair.1.get(&0u8) {
+            // the slot index 1 should be recorded (value 0 was present at slot1)
+            assert_eq!(val_map.get(&1u8).copied().unwrap_or(0), 1u64);
+        } else {
+            panic!("expected query_pair.1 to contain key 0");
         }
     }
 }

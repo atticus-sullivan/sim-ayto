@@ -185,8 +185,6 @@ impl<'a> Iterator for UnwrappedIter<'a> {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashMap;
-
     use super::*;
 
     #[test]
@@ -230,23 +228,6 @@ mod tests {
         // order produced by our iterator should be as above
         assert_eq!(combos.len(), expected.len());
         assert_eq!(combos, expected);
-    }
-
-    #[test]
-    fn test_tryfrom_hashmap_and_roundtrip_conversion() {
-        let mut map = HashMap::new();
-        map.insert(0u8, 7u8);
-        map.insert(2u8, 3u8);
-        let mm = MaskedMatching::try_from(map).unwrap();
-        let as_vec = Vec::try_from(&mm).unwrap();
-        assert_eq!(as_vec[0], vec![7u8]);
-        assert_eq!(as_vec[2], vec![3u8]);
-
-        // roundtrip via from_masks
-        let masks = mm.iter().collect::<Vec<_>>();
-        let mm2 = MaskedMatching::from_masks(masks);
-        let round: Vec<Vec<IdBase>> = Vec::try_from(&mm2).unwrap();
-        assert_eq!(round, as_vec);
     }
 
     #[test]
@@ -312,20 +293,6 @@ mod tests {
         // calculate_lights: compare mm with solution mm2
         let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
         assert_eq!(mm.calculate_lights(&mm2), 2u8);
-    }
-
-    #[test]
-    fn test_from_word_and_from_masks_roundtrip() {
-        let masks = vec![Bitset::from_word(0b101), Bitset::from_word(0b10)];
-        let mm = MaskedMatching::from_masks(masks.clone());
-        let collected: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(collected, masks);
-
-        // Roundtrip to Vec<Vec<IdBase>> and back
-        let as_vec: Vec<Vec<IdBase>> = Vec::try_from(&mm).unwrap();
-        let mm2 = MaskedMatching::from(&as_vec);
-        let collected2: Vec<Bitset> = mm2.iter().collect();
-        assert_eq!(collected2, masks);
     }
 
     #[test]

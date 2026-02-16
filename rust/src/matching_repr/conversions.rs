@@ -155,15 +155,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_iter_over_maskedmatching_yields_bitsets() {
-        let legacy = vec![vec![1u8, 2u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let masks: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(masks[0], Bitset::from_idxs(&[1u8, 2u8]));
-        assert_eq!(masks[1], Bitset::from_idxs(&[0u8]));
-    }
-
-    #[test]
     fn test_contains_mask_and_slot_contains_any() {
         let legacy = vec![vec![4u8], vec![2u8]];
         let mm = MaskedMatching::from(&legacy);
@@ -173,40 +164,6 @@ mod tests {
         set.insert(3u8);
         set.insert(4u8);
         assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
-    }
-
-    #[test]
-    fn test_iter_pairs_ordering() {
-        // slot 0: {1,2}, slot1:{0}
-        let legacy = vec![vec![1u8, 2u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        // order: slots increasing; values in slot increasing
-        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
-    }
-
-    #[test]
-    fn test_iter_unwrapped_cartesian_product_exact() {
-        // two slots: slot0 {0,1}, slot1 {2,3}
-        let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-
-        // collect unwrapped combinations
-        let combos: Vec<Vec<Vec<IdBase>>> = mm
-            .iter_unwrapped()
-            .map(|m| Vec::try_from(&m).unwrap())
-            .collect();
-
-        let expected = vec![
-            vec![vec![0u8], vec![2u8]],
-            vec![vec![0u8], vec![3u8]],
-            vec![vec![1u8], vec![2u8]],
-            vec![vec![1u8], vec![3u8]],
-        ];
-
-        // order produced by our iterator should be as above
-        assert_eq!(combos.len(), expected.len());
-        assert_eq!(combos, expected);
     }
 
     #[test]
@@ -224,47 +181,6 @@ mod tests {
         let mm2 = MaskedMatching::from_masks(masks);
         let round: Vec<Vec<IdBase>> = Vec::try_from(&mm2).unwrap();
         assert_eq!(round, as_vec);
-    }
-
-    #[test]
-    fn test_iter_pairs() {
-        // slot 0: {1,2}, slot1:{0}
-        let legacy = vec![vec![1u8, 2u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        // order: slots increasing; values in slot increasing
-        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
-    }
-
-    #[test]
-    fn test_iter_unwrapped_product() {
-        // two slots: slot0 {0,1}, slot1 {2,3}
-        let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-        // collect unwrapped combinations
-        let combos: Vec<Vec<Vec<IdBase>>> = mm
-            .iter_unwrapped()
-            .map(|m| {
-                // represent each MaskedMatching as Vec<Vec<IdBase>>
-                Vec::try_from(&m).unwrap()
-            })
-            .collect();
-        // there are 4 combinations (2 x 2)
-        assert_eq!(combos.len(), 4);
-        // each combination should contain one element per slot
-        for c in combos {
-            assert_eq!(c.len(), 2);
-            assert!(c[0].len() == 1 && c[1].len() == 1);
-        }
-    }
-
-    #[test]
-    fn test_iter_unwrapped_empty_slot_yields_none() {
-        // slot 0 has values, slot 1 is empty -> product empty
-        let legacy = vec![vec![0u8], vec![]];
-        let mm = MaskedMatching::from(&legacy);
-        let mut it = mm.iter_unwrapped();
-        assert_eq!(it.next(), None);
     }
 
     #[test]

@@ -123,7 +123,6 @@ impl RuleSet {
 mod tests {
     use super::*;
     use std::collections::HashMap;
-    use std::collections::HashSet;
 
     #[test]
     fn test_validate_lut_nn() {
