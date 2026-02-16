@@ -29,6 +29,12 @@ impl fmt::Display for ConversionError {
 impl std::error::Error for ConversionError {}
 
 impl MaskedMatching {
+    /// Consume self and return the owned `Vec<Bitset>` masks.
+    /// Use for zero-copy handoff: move the internal vector out, then re-use it.
+    pub fn into_masks(self) -> Vec<Bitset> {
+        self.masks
+    }
+
     /// Construct from raw bitset masks.
     pub fn from_masks(masks: Vec<Bitset>) -> Self {
         MaskedMatching {
@@ -36,11 +42,38 @@ impl MaskedMatching {
         }
     }
 
+    /// Swap the internal Vec<Bitset> with `other`.
+    /// This provides zero-copy handoff of mask storage to/from the MaskedMatching.
+    /// After calling `self.swap_masks(&mut buf)`, `self` will own the contents of
+    /// `buf` and `buf` will own what `self` used to own.
+    #[inline]
+    pub fn swap_masks(&mut self, other: &mut Vec<Bitset>) {
+        std::mem::swap(&mut self.masks, other)
+    }
+
     /// Create empty with `slots`.
     pub fn with_slots(slots: usize) -> Self {
         MaskedMatching {
             masks: vec![Bitset::empty(); slots],
         }
+    }
+
+    /// Replace the internal masks with the provided slice *without* allocating on every call,
+    /// provided the internal Vec already has enough capacity.
+    ///
+    /// This method performs a *copy* of `slice` elements (cheap, u64-sized), but it avoids
+    /// heap allocations if the internal Vec capacity >= slice.len().
+    #[inline]
+    pub fn set_masks_from_slice(&mut self, slice: &[Bitset]) {
+        // If capacity is insufficient, reserve once (might allocate once).
+        if self.masks.capacity() < slice.len() {
+            self.masks.reserve(slice.len() - self.masks.capacity());
+        }
+        // Fast path: if we can, overwrite existing elements and adjust length.
+        // We'll use safe APIs: clear + extend_from_slice. Because we've reserved,
+        // extend_from_slice will not allocate in the hot path.
+        self.masks.clear();
+        self.masks.extend_from_slice(slice);
     }
 
     /// Construct from legacy `Matching` reference.

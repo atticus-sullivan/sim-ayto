@@ -7,8 +7,8 @@ use serde::{Deserialize, Serialize};
 use crate::matching_repr::bitset::Bitset;
 
 pub type Word = u64;
+pub type IdBase = u8;
 const WORD_BITS: usize = 64;
-type IdBase = u8;
 // const WORD_BITS_LOG: usize = 6; // log2(64)
 
 /// Public type used by hot code.

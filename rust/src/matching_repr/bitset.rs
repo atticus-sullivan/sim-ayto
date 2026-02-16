@@ -76,7 +76,7 @@ impl Bitset {
 
     /// Return the raw word.
     #[inline(always)]
-    pub(super) fn as_word(self) -> Word {
+    pub fn as_word(self) -> Word {
         self.0
     }
 
@@ -126,6 +126,24 @@ impl Bitset {
     #[inline(always)]
     pub fn iter(self) -> BitIter {
         BitIter { w: self }
+    }
+
+    /// True if word has exactly one bit set.
+    #[inline(always)]
+    pub fn is_singleton(self) -> bool {
+        let w = self.0;
+        w != 0 && (w & (w - 1)) == 0
+    }
+
+    /// If this Bitset contains exactly one value, return that index.
+    /// Otherwise return None.
+    #[inline(always)]
+    pub fn single_idx(self) -> Option<IdBase> {
+        if self.is_singleton() {
+            Some(self.trailing_zeros() as IdBase)
+        } else {
+            None
+        }
     }
 }
 

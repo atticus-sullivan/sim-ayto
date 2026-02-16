@@ -20,11 +20,10 @@ pub mod parse;
 mod generators;
 mod utils;
 
+use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::MaskedMatching;
-use crate::ruleset::generators::{add_dup, add_trip, someone_is_dup, someone_is_trip};
+use crate::ruleset::generators::{add_trip_inplace, add_x_dups_inplace, heaps_permute, n_to_n_inplace, someone_is_dup_inplace, someone_is_trip_inplace};
 use anyhow::{Context, Result};
-use core::iter::zip;
-use permutator::{Combination, Permutation};
 use std::path::PathBuf;
 use std::{
     fs::File,
@@ -46,8 +45,6 @@ pub enum RuleSet {
 }
 
 impl RuleSet {
-    // TODO: would be nicer to not have to convert Vec<Vec<u8>> to MaskedMatching
-    // instead directly construct MaskedMatching (avoids allocations)
     pub fn iter_perms<T: IterStateTrait>(
         &self,
         lut_a: &Lut,
@@ -59,6 +56,9 @@ impl RuleSet {
         if output {
             is.start();
         }
+
+        // If a cache of serialized MaskedMatching objects exists, prefer streaming that
+        // (we deserialize MaskedMatching directly and pass a reference to is.step).
         if let Some(c) = cache {
             let file = File::open(c)?;
             let reader = BufReader::new(file);
@@ -66,87 +66,117 @@ impl RuleSet {
                 let p = serde_json::from_str::<MaskedMatching>(&line?)?;
                 is.step(i, &p, output)?;
             }
-        } else {
-            match self {
-                RuleSet::Eq => {
-                    for (i, p) in (0..lut_a.len() as u8)
-                        .map(|i| vec![i])
-                        .collect::<Vec<_>>()
-                        .permutation()
-                        .enumerate()
-                    {
-                        is.step(i, &p.into(), output)?;
-                    }
-                }
-                RuleSet::XTimesDup((unkown_cnt, fixed)) => {
-                    let fixed_num = fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>();
-                    let mut x = (0..lut_b.len() as u8)
-                        .filter(|i| !fixed_num.contains(i))
-                        .map(|i| vec![i])
-                        .collect::<Vec<_>>();
+            if output {
+                is.finish();
+            }
+            return Ok(());
+        }
 
-                    let iter = x.permutation();
+        // Create one reusable MaskedMatching with the maximal number of slots we will ever emit.
+        // Reserve once to avoid reallocation during set_masks_from_slice calls.
+        let max_slots = lut_a.len();
+        let mut mm = MaskedMatching::with_slots(max_slots);
 
-                    let iter = someone_is_dup(iter, *unkown_cnt);
+        // single global index incremented for each emitted permutation
+        let mut global_idx: usize = 0;
 
-                    let first_iter: Box<dyn Iterator<Item = Vec<Vec<u8>>>> = Box::new(iter);
-                    let final_iter = fixed_num
-                        .into_iter()
-                        .fold(first_iter, |iter, add| Box::new(add_dup(iter, add)));
+        match self {
+            RuleSet::Eq => {
+                // buffer: one singleton Bitset per lut_a index
+                let mut buf = (0..lut_a.len() as u8)
+                    .map(|i| Bitset::from_idxs(&[i]))
+                    .collect::<Vec<_>>();
 
-                    for (i, p) in final_iter.into_iter().enumerate() {
-                        is.step(i, &p.into(), output)?;
-                    }
-                }
-                RuleSet::SomeoneIsTrip => {
-                    let mut x = (0..lut_b.len() as u8).map(|i| vec![i]).collect::<Vec<_>>();
-                    let x = x.permutation();
-                    for (i, p) in someone_is_trip(x).enumerate() {
-                        is.step(i, &p.into(), output)?;
-                    }
-                }
-                RuleSet::FixedTrip(s) => {
-                    let mut x = (0..lut_b.len() as u8)
-                        .filter(|i| *i != (*lut_b.get(s).unwrap() as u8))
-                        .map(|i| vec![i])
-                        .collect::<Vec<_>>();
-                    let x = x.permutation();
-                    for (i, p) in add_trip(
-                        x,
-                        *lut_b
-                            .get(s)
-                            .with_context(|| format!("Invalid index {}", s))?
-                            as u8,
-                    )
-                    .enumerate()
-                    {
-                        is.step(i, &p.into(), output)?;
-                    }
-                }
-                RuleSet::NToN => {
-                    let len = lut_a.len() / 2;
-                    let mut i = 0_usize;
-                    for ks in (0..lut_a.len() as u8).collect::<Vec<_>>().combination(len) {
-                        let mut vs = (0..lut_a.len() as u8)
-                            .filter(|x| !ks.contains(&x))
-                            .collect::<Vec<_>>();
-                        for p in vs.permutation().filter_map(|x| {
-                            let mut c = vec![vec![]; lut_a.len()];
-                            for (k, v) in zip(ks.clone(), x) {
-                                if k <= &v {
-                                    return None;
-                                }
-                                c[*k as usize] = vec![v];
-                            }
-                            Some(c)
-                        }) {
-                            is.step(i, &p.into(), output)?;
-                            i += 1;
-                        }
-                    }
-                }
+                // Heaps' permutation over `buf` (in-place), emit each permutation by copying
+                // the current `&mut [Bitset]` into the reusable MaskedMatching and calling is.step.
+                heaps_permute(&mut buf, |slice| {
+                    // emit current permutation
+                    let idx = global_idx;
+                    global_idx += 1;
+                    emit_slice_to_state(idx, slice, &mut mm, is, output)
+                })?
+            }
+
+            RuleSet::XTimesDup((unknown_cnt, fixed)) => {
+                // build fixed numbers as u8 indices
+                let fixed_nums = Bitset::from_idxs(&fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>());
+
+                // build base vector `x` = all lut_b indices excluding the fixed numbers
+                // Len(x) == a + unknown_cnt
+                let mut x = (0..lut_b.len() as u8)
+                    .filter(|i| !fixed_nums.contains(*i))
+                    .map(|i| Bitset::from_idxs(&[i]))
+                    .collect::<Vec<_>>();
+
+                let fixed_nums = fixed_nums.iter().collect::<Vec<_>>();
+
+                // outer permutation over x in-place
+                heaps_permute(&mut x, |slice| {
+                    // slice: &mut [Bitset] of length a + unknown_cnt
+
+                    // distribute the last `unknown_cnt` elements into the first `a` slots
+                    someone_is_dup_inplace(slice, *unknown_cnt, |slice| {
+                        // slice: &mut [Bitset] of length a
+
+                        // Apply fixed duplicates chain (all `fixed_nums`) in-place.
+                        add_x_dups_inplace(slice, &fixed_nums, |slice| {
+                            // slice: &mut [Bitset] of length a
+
+                            // emit current permutation
+                            let idx = global_idx;
+                            global_idx += 1;
+                            emit_slice_to_state(idx, slice, &mut mm, is, output)
+                        })
+                    })
+                })?;
+            }
+
+            RuleSet::SomeoneIsTrip => {
+                let mut base = (0..lut_b.len() as u8)
+                    .map(|i| Bitset::from_idxs(&[i]))
+                    .collect::<Vec<_>>();
+
+                heaps_permute(&mut base, |slice| {
+                    someone_is_trip_inplace(slice, |slice| {
+                        // emit current permutation
+                        let idx = global_idx;
+                        global_idx += 1;
+                        emit_slice_to_state(idx, slice, &mut mm, is, output)
+                    })
+                })?;
+            }
+
+            RuleSet::FixedTrip(s) => {
+                let fixed_val = *lut_b
+                    .get(s)
+                    .with_context(|| format!("Invalid index {}", s))? as u8;
+
+                // base buffer: all values except the fixed one
+                let mut base = (0..lut_b.len() as u8)
+                    .filter(|i| *i != fixed_val)
+                    .map(|i| Bitset::from_idxs(&[i]))
+                    .collect::<Vec<_>>();
+
+                // For every permutation: call add_trip_inplace to insert fixed_val and emit
+                heaps_permute(&mut base, |slice| {
+                    add_trip_inplace(slice, fixed_val, |slice| {
+                        // emit current permutation
+                        let idx = global_idx;
+                        global_idx += 1;
+                        emit_slice_to_state(idx, slice, &mut mm, is, output)
+                    })
+                })?;
+            }
+
+            RuleSet::NToN => {
+                n_to_n_inplace(lut_a.len(), |slice| -> anyhow::Result<()> {
+                    let idx = global_idx;
+                    global_idx += 1;
+                    emit_slice_to_state(idx, slice, &mut mm, is, output)
+                })?;
             }
         }
+
         if output {
             is.finish();
         }
@@ -208,6 +238,26 @@ impl RuleSet {
             }
         })
     }
+}
+
+/// Copy masks from `slice` into the reusable `mm` and call `is.step`.
+///
+/// Important:
+/// - `mm` must have been preallocated with capacity >= `slice.len()` (use `MaskedMatching::with_slots`).
+/// - `set_masks_from_slice` must perform a single `copy_from_slice` operation and update internal len;
+///   otherwise this function may allocate and defeat the purpose of re-using `mm`.
+///
+/// This function is meant to be extremely hot — keep it minimal and allocation-free.
+#[inline]
+pub fn emit_slice_to_state<T: IterStateTrait>(
+    idx: usize,
+    slice: &[Bitset],
+    mm: &mut MaskedMatching,
+    is: &mut T,
+    output: bool,
+) -> Result<()> {
+    mm.set_masks_from_slice(slice); // small cheap memcpy
+    is.step(idx, mm, output)
 }
 
 #[cfg(test)]
