@@ -20,10 +20,14 @@ pub mod eval;
 pub mod parse;
 mod utils;
 
-use anyhow::Result;
-use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
+
+use anyhow::Result;
+
+use rust_decimal::Decimal;
+
+use serde::Deserialize;
 
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset_data::RuleSetData;
@@ -93,11 +97,11 @@ impl Offer {
 #[derive(Deserialize, Debug, Clone)]
 pub enum ConstraintType {
     Night {
-        num: f32,
+        num: Decimal,
         comment: String,
     },
     Box {
-        num: f32,
+        num: Decimal,
         comment: String,
         offer: Option<Offer>,
     },
@@ -108,7 +112,7 @@ impl Hash for ConstraintType {
         match self {
             ConstraintType::Night { num, comment } => {
                 0.hash(state); // A constant to distinguish this variant
-                num.to_bits().hash(state);
+                num.hash(state);
                 comment.hash(state);
             }
             ConstraintType::Box {
@@ -117,7 +121,7 @@ impl Hash for ConstraintType {
                 offer,
             } => {
                 1.hash(state); // A constant to distinguish this variant
-                num.to_bits().hash(state);
+                num.hash(state);
                 comment.hash(state);
                 offer.hash(state)
             }
@@ -350,7 +354,7 @@ impl Constraint {
         }
     }
 
-    pub fn num(&self) -> f32 {
+    pub fn num(&self) -> Decimal {
         match &self.r#type {
             ConstraintType::Night { num, .. } => *num,
             ConstraintType::Box { num, .. } => *num,
@@ -360,6 +364,8 @@ impl Constraint {
 
 #[cfg(test)]
 mod tests {
+    use rust_decimal::dec;
+
     use super::Constraint;
     use super::*;
     use crate::ruleset_data::dummy::DummyData;
@@ -474,7 +480,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -531,7 +537,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
                 offer: None,
             },
@@ -620,7 +626,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -646,7 +652,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -698,7 +704,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -739,7 +745,7 @@ mod tests {
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(
             row,
-            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5", "0", "0/MN#1"]
+            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5", "0", "0/MN#1.0"]
         );
     }
 
@@ -766,7 +772,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
                 offer: None,
             },
@@ -880,7 +886,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
             },
             result_unknown: false,
@@ -917,7 +923,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
                 offer: None,
             },
@@ -955,7 +961,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
             },
             result_unknown: false,
@@ -966,7 +972,7 @@ mod tests {
             known_lights: 0,
         };
 
-        assert_eq!(c.type_str(), "MN#1");
+        assert_eq!(c.type_str(), "MN#1.0");
     }
 
     #[test]
@@ -992,7 +998,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
                 offer: None,
             },
@@ -1004,6 +1010,6 @@ mod tests {
             known_lights: 0,
         };
 
-        assert_eq!(c.type_str(), "MB#1");
+        assert_eq!(c.type_str(), "MB#1.0");
     }
 }

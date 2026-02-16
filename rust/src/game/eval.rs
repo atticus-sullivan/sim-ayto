@@ -9,7 +9,7 @@ use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
+use crate::constraint::eval::{EvalData, EvalEvent, EvalInitial, SumCounts};
 use crate::constraint::Constraint;
 use crate::game::DumpMode;
 use crate::game::Game;
@@ -241,132 +241,84 @@ impl Game {
         merged_constraints: &[Constraint],
         solutions: Option<&Vec<MaskedMatching>>,
     ) -> Result<()> {
-        let out_mb_path = self.dir.join("statMB").with_extension("csv");
-        let out_mn_path = self.dir.join("statMN").with_extension("csv");
-        let out_info_path = self.dir.join("statInfo").with_extension("csv");
-        let out_sum_path = self.dir.join("statSum").with_extension("json");
+        let out_path = self.dir.join("stats").with_extension("json");
+        let mut out_data = EvalData{
+            events: vec![],
+            cnts: SumCounts {
+                blackouts: 0,
+                sold: 0,
+                sold_but_match: 0,
+                sold_but_match_active: solutions.is_some(),
+                matches_found: 0,
+                won: false,
+                offers_noted: !self.no_offerings_noted,
+                offer_and_match: 0,
+                offers: 0,
+                offered_money: 0,
+                solvable: None,
+            },
+        };
 
-        let (mut mbo, mut mno, mut info) = (
-            csv::WriterBuilder::new()
-                .delimiter(b',')
-                .has_headers(false)
-                .from_path(out_mb_path)?,
-            csv::WriterBuilder::new()
-                .delimiter(b',')
-                .has_headers(false)
-                .from_path(out_mn_path)?,
-            csv::WriterBuilder::new()
-                .delimiter(b',')
-                .has_headers(false)
-                .from_path(out_info_path)?,
-        );
-        info.serialize(CSVEntry {
-            num: dec!(0),
-            lights_total: None,
-            lights_known_before: 0,
-            bits_left: total.log2(),
+        out_data.events.push(EvalEvent::Initial(EvalInitial{
+            bits_left_after: total.log2(),
             comment: "initial".to_string(),
-        })?;
+        }));
         for i in merged_constraints.iter().map(|c| c.get_stats()) {
             let i = i?;
-            if let Some(j) = &i.1 {
-                let j = CSVEntryMN {
-                    num: j.num,
-                    lights_total: j.lights_total,
-                    lights_known_before: j.lights_known_before,
-                    bits_gained: j.bits_gained,
-                    comment: j.comment.clone(),
-                };
-                mno.serialize(j)?
-            }
-            if let Some(j) = &i.2 {
-                let j = CSVEntry {
-                    num: j.num,
-                    lights_total: j.lights_total,
-                    lights_known_before: j.lights_known_before,
-                    bits_left: j.bits_left,
-                    comment: j.comment.clone(),
-                };
-                info.serialize(j)?
-            }
-            // potentially updates known_lights -> do this in the end of the loop
-            if let Some(j) = &i.0 {
-                let j = CSVEntryMB {
-                    offer: j.offer,
-                    num: j.num,
-                    lights_total: j.lights_total,
-                    lights_known_before: j.lights_known_before,
-                    bits_gained: j.bits_gained,
-                    comment: j.comment.clone(),
-                };
-                mbo.serialize(j)?
+            if let Some(i) = i {
+                out_data.events.push(i);
             }
         }
-        mbo.flush()?;
-        mno.flush()?;
-        info.flush()?;
 
-        let mut cnt = SumCounts {
-            blackouts: 0,
-            sold: 0,
-            sold_but_match: 0,
-            sold_but_match_active: solutions.is_some(),
-            matches_found: 0,
-            won: false,
-            offers_noted: !self.no_offerings_noted,
-            offer_and_match: 0,
-            offers: 0,
-            offered_money: 0,
-            solvable: None,
-        };
         for c in merged_constraints.iter() {
             if c.is_blackout() {
-                cnt.blackouts += 1;
+                out_data.cnts.blackouts += 1;
             }
             if c.is_sold() {
-                cnt.sold += 1;
+                out_data.cnts.sold += 1;
             }
             if c.is_match_found() {
-                cnt.matches_found += 1;
+                out_data.cnts.matches_found += 1;
             }
             if c.is_sold() && c.is_mb_hit(solutions) {
-                cnt.sold_but_match += 1;
+                out_data.cnts.sold_but_match += 1;
             }
             let offer = c.try_get_offer();
             if let Some(o) = offer {
-                cnt.offers += 1;
+                out_data.cnts.offers += 1;
                 if let Some(m) = o.try_get_amount() {
-                    cnt.offered_money += m;
+                    out_data.cnts.offered_money += m;
                 }
                 if c.is_mb_hit(solutions) {
-                    cnt.offer_and_match += 1;
+                    out_data.cnts.offer_and_match += 1;
                 }
             }
         }
 
-        cnt.won = {
+        out_data.cnts.won = {
             let required_lights = self
                 .rule_set
                 .constr_map_len(self.lut_a.len(), self.lut_b.len());
             merged_constraints
                 .iter()
-                .find(|x| x.num() == 10.0 && x.might_won())
+                .find(|x| x.num() == dec![10.0] && x.might_won())
                 .or_else(|| merged_constraints.last())
                 .map(|x| x.won(required_lights))
                 .unwrap_or(false)
         };
 
-        cnt.solvable = merged_constraints
+        out_data.cnts.solvable = merged_constraints
             .windows(2)
-            .find(|x| x[1].num() == 10.0 && x[1].might_won())
+            .find(|x| x[1].num() == dec![10.0] && x[1].might_won())
             .map(|x| &x[0])
             .or_else(|| merged_constraints.last())
             .and_then(|x| x.was_solvable_before().ok().flatten());
 
-        let file = File::create(out_sum_path)?;
+        let file = File::create(out_path)?;
         let mut writer = BufWriter::new(file);
 
-        serde_json::to_writer(&mut writer, &cnt)?;
+
+        serde_json::to_writer(&mut writer, &out_data)?;
         writer.flush()?;
 
         println!("{}", self.summary_table(false, merged_constraints)?); // TODO: return table?

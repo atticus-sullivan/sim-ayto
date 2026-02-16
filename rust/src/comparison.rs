@@ -16,34 +16,32 @@ use crate::comparison::information::build_information_plots;
 use crate::comparison::lights::build_light_plots;
 use crate::comparison::ruleset::ruleset_tab_md;
 use crate::comparison::summary::summary_tab_md;
-use crate::constraint::eval::{CSVEntry, CSVEntryMB, CSVEntryMN, SumCounts};
+use crate::constraint::eval::{EvalData, EvalEvent, SumCounts};
 use crate::game::Game;
 
 // #[derive(Debug, Clone)]
 #[derive(Debug)]
 pub struct CmpData {
-    pub mn: Vec<CSVEntryMN>,
-    pub mb: Vec<CSVEntryMB>,
-    pub info: Vec<CSVEntry>,
+    pub eval_data: Vec<EvalEvent>,
     pub cnts: SumCounts,
     pub game: Game,
 }
 
-fn read_csv_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Option<Vec<T>>> {
-    if !path.join(fn_param).exists() {
-        return Ok(None);
-    }
-    let mut field: Vec<T> = Vec::new();
-    let mut rdr = csv::ReaderBuilder::new()
-        .delimiter(b',')
-        .has_headers(false)
-        .from_path(path.join(fn_param))?;
-    for result in rdr.deserialize() {
-        let record: T = result?;
-        field.push(record);
-    }
-    Ok(Some(field))
-}
+// fn read_csv_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Option<Vec<T>>> {
+//     if !path.join(fn_param).exists() {
+//         return Ok(None);
+//     }
+//     let mut field: Vec<T> = Vec::new();
+//     let mut rdr = csv::ReaderBuilder::new()
+//         .delimiter(b',')
+//         .has_headers(false)
+//         .from_path(path.join(fn_param))?;
+//     for result in rdr.deserialize() {
+//         let record: T = result?;
+//         field.push(record);
+//     }
+//     Ok(Some(field))
+// }
 
 fn read_json_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Option<T>> {
     if !path.join(fn_param).exists() {
@@ -79,23 +77,16 @@ pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, Cmp
     {
         let game = read_yaml_spec(entry.path().join(entry.file_name()))?;
 
-        let (cnts, mn, mb, info) = match (
-            read_json_data("statSum.json", entry.path())?,
-            read_csv_data("statMN.csv", entry.path())?,
-            read_csv_data("statMB.csv", entry.path())?,
-            read_csv_data("statInfo.csv", entry.path())?,
-        ) {
-            (Some(cnts), Some(mn), Some(mb), Some(info)) => (cnts, mn, mb, info),
-            _ => continue,
+        let eval_data: EvalData = match read_json_data("stats.json", entry.path())? {
+            Some(x) => x,
+            None => continue,
         };
 
         ret.push((
             entry.file_name().to_str().unwrap_or("unknown").to_owned(),
             CmpData {
-                mn,
-                mb,
-                info,
-                cnts,
+                eval_data: eval_data.events,
+                cnts: eval_data.cnts,
                 game,
             },
         ));

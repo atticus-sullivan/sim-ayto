@@ -30,6 +30,7 @@ use chrono::{DateTime, TimeZone, Utc};
 use indicatif::{ProgressBar, ProgressStyle};
 
 use rand::rngs::StdRng;
+use rust_decimal::{dec, Decimal};
 use serde::Serialize;
 use std::collections::{HashMap, HashSet};
 use std::fs::OpenOptions;
@@ -248,13 +249,13 @@ fn run_single_simulation<S: StrategyBundle>(
     let c = Constraint::new_unchecked(
         if m.len() == 1 {
             constraint::ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_owned(),
                 offer: None,
             }
         } else {
             constraint::ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_owned(),
             }
         },
@@ -292,7 +293,7 @@ fn run_single_simulation<S: StrategyBundle>(
             let m = strategy.choose_mb(&rem.0, rem.1, &mut rng);
             let l = m.calculate_lights(&solution);
             let ct = constraint::ConstraintType::Box {
-                num: (i / 2) as f32,
+                num: (Decimal::from(i) / dec![2]).floor(),
                 comment: "".to_owned(),
                 offer: None,
             };
@@ -305,7 +306,7 @@ fn run_single_simulation<S: StrategyBundle>(
             let m = strategy.choose_mn(&poss, &mut rng);
             let l = m.calculate_lights(&solution);
             let ct = constraint::ConstraintType::Night {
-                num: (i / 2) as f32,
+                num: (Decimal::from(i) / dec![2]).floor(),
                 comment: "".to_owned(),
             };
             (m, l, ct, lights_known_before)
@@ -333,7 +334,7 @@ fn run_single_simulation<S: StrategyBundle>(
                 seed,
                 stats: cs
                     .into_iter()
-                    .flat_map(|c| c.get_stats_new().transpose())
+                    .flat_map(|c| c.get_stats().transpose())
                     .collect::<Result<Vec<_>>>()
                     .unwrap(),
                 iterations_count: cnt_iter,

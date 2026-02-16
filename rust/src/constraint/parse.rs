@@ -1,12 +1,13 @@
-use anyhow::{ensure, Context, Result};
-use serde::Deserialize;
 use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
+
+use anyhow::{ensure, Context, Result};
+
+use serde::Deserialize;
 
 use crate::matching_repr::bitset::Bitset;
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, MapS, Rename};
-
 use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
 
 // this struct is only used when parsing the yaml file.
@@ -268,6 +269,8 @@ impl ConstraintParse {
 
 #[cfg(test)]
 mod tests {
+    use rust_decimal::dec;
+
     use super::*;
     use crate::matching_repr::MaskedMatching;
     use crate::ruleset_data::dummy::DummyData;
@@ -278,7 +281,7 @@ mod tests {
     fn test_finalize_parsing_night_lights() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
             },
             map_s: HashMap::new(),
@@ -330,7 +333,7 @@ mod tests {
     fn test_finalize_parsing_box_lights() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
                 offer: None,
             },
@@ -385,7 +388,7 @@ mod tests {
     fn test_finalize_parsing_box_eq() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
                 offer: None,
             },
@@ -438,7 +441,7 @@ mod tests {
     fn test_add_exclude() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
                 offer: None,
             },

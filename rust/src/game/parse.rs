@@ -1,9 +1,9 @@
-use serde::Deserialize;
 use std::hash::{Hash, Hasher};
-
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
+
+use serde::Deserialize;
 
 use anyhow::{ensure, Context, Result};
 
@@ -14,7 +14,6 @@ use comfy_table::{Cell, Color, Table};
 use crate::constraint::parse::ConstraintParse;
 use crate::ruleset::parse::RuleSetParse;
 use crate::{Lut, Matching, MatchingS, Rename};
-
 use crate::game::Game;
 
 #[derive(Deserialize, Debug, Default)]

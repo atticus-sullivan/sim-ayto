@@ -1,10 +1,7 @@
 use crate::comparison::CmpData;
 use catppuccin::{Flavor, PALETTE};
-use plotly::HeatMap;
-use plotly::{
-    common::{Mode, Title},
-    Layout, Plot, Scatter,
-};
+use plotly::common::{Mode, Title};
+use plotly::{HeatMap, Layout, Plot, Scatter};
 use rust_decimal::prelude::*;
 use rust_decimal::Decimal;
 use serde::Serialize;
@@ -61,7 +58,7 @@ pub fn plotly_gen_layout(palette: Flavor) -> Layout {
 }
 
 #[allow(clippy::too_many_arguments)]
-pub fn build_scatter_plot<X, Y, FX, FY>(
+pub fn build_scatter_plot<X, Y, FX, FY, FString>(
     cmp_data: &Vec<(String, CmpData)>,
     layout: &Layout,
     palette: &Flavor,
@@ -71,10 +68,12 @@ pub fn build_scatter_plot<X, Y, FX, FY>(
     mode: Mode,
     x_fn: FX,
     y_fn: FY,
+    text_fn: FString,
 ) -> String
 where
     FX: Fn(&CmpData) -> Vec<X>,
     FY: Fn(&CmpData) -> Vec<Y>,
+    FString: Fn(&CmpData) -> Vec<String>,
     X: Clone + Serialize + 'static,
     Y: Clone + Serialize + 'static,
 {
@@ -91,7 +90,7 @@ where
     for (name, cd) in cmp_data {
         let trace = Scatter::new(x_fn(cd), y_fn(cd))
             .name(name)
-            .text_array(cd.info.iter().map(|i| i.comment.clone()).collect())
+            .text_array(text_fn(cd))
             .mode(mode.clone());
 
         plot.add_trace(trace);

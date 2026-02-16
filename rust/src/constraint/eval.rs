@@ -1,27 +1,141 @@
-// TODO: make num a decimal eventually
-use anyhow::{Context, Result};
-
-use rust_decimal::prelude::*;
-use rust_decimal::Decimal;
-
-use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::path::PathBuf;
+
+use anyhow::{Context, Result};
+
+use rust_decimal::{dec, Decimal};
+
+use serde::{Deserialize, Serialize};
 
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
-use crate::constraint::Offer;
+use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::MapS;
 
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct EvalData {
+    pub events: Vec<EvalEvent>,
+    pub cnts: SumCounts,
+}
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(tag = "type")]
 pub enum EvalEvent {
-    EvalMB(EvalMB),
-    EvalMN(EvalMN),
+    MB(EvalMB),
+    MN(EvalMN),
+    Initial(EvalInitial),
+}
+
+macro_rules! eval_event_query_data {
+    (
+        $data_name:ident,
+        $ret:ty,
+        MN($mn_var:ident) => $mn_body:expr,
+        MB($mb_var:ident) => $mb_body:expr,
+        Initial($ini_var:ident) => $init_body:expr
+    ) => {
+        pub fn $data_name<MnPred, MbPred, InitPred>(
+            &self,
+            mn: MnPred,
+            mb: MbPred,
+            init: InitPred
+        ) -> Option<$ret>
+        where 
+            MnPred: Fn(&EvalMN) -> bool,
+            MbPred: Fn(&EvalMB) -> bool,
+            InitPred: Fn(&EvalInitial) -> bool,
+        {
+            match self {
+                EvalEvent::MN($mn_var) => {
+                    if mn($mn_var) {
+                        $mn_body
+                    } else {
+                        None
+                    }
+                },
+                EvalEvent::MB($mb_var) => {
+                    if mb($mb_var) {
+                        $mb_body
+                    } else {
+                        None
+                    }
+                },
+                EvalEvent::Initial($ini_var) => {
+                    if init($ini_var) {
+                        $init_body
+                    } else {
+                        None
+                    }
+                },
+            }
+        }
+    };
+}
+
+impl EvalEvent {
+    eval_event_query_data!(
+        num,
+        Decimal,
+        MN(eval_mn) => Some(eval_mn.num),
+        MB(eval_mb) => Some(eval_mb.num),
+        Initial(ini) => Some(dec![0])
+    );
+
+    eval_event_query_data!(
+        comment,
+        String,
+        MN(eval_mn) => Some(eval_mn.comment.clone()),
+        MB(eval_mb) => Some(eval_mb.comment.clone()),
+        Initial(ini) => Some("initial".to_string())
+    );
+
+    eval_event_query_data!(
+        bits_gained,
+        f64,
+        MN(eval_mn) => Some(eval_mn.bits_gained),
+        MB(eval_mb) => Some(eval_mb.bits_gained),
+        Initial(ini) => None
+    );
+
+    eval_event_query_data!(
+        bits_left_after,
+        f64,
+        MN(eval_mn) => Some(eval_mn.bits_left_after),
+        MB(eval_mb) => Some(eval_mb.bits_left_after),
+        Initial(ini) => Some(ini.bits_left_after)
+    );
+
+    eval_event_query_data!(
+        lights_total,
+        u8,
+        MN(eval_mn) => Some(eval_mn.lights_total?),
+        MB(eval_mb) => Some(eval_mb.lights_total?),
+        Initial(ini) => None
+    );
+
+    eval_event_query_data!(
+        lights_known_before,
+        u8,
+        MN(eval_mn) => Some(eval_mn.lights_known_before),
+        MB(eval_mb) => Some(eval_mb.lights_known_before),
+        Initial(ini) => None
+    );
+
+    eval_event_query_data!(
+        new_lights,
+        u8,
+        MN(eval_mn) => Some(eval_mn.lights_total? - eval_mn.lights_known_before),
+        MB(eval_mb) => Some(eval_mb.lights_total? - eval_mb.lights_known_before),
+        Initial(ini) => None
+    );
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EvalInitial {
+    pub bits_left_after: f64,
+    pub comment: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -47,41 +161,7 @@ pub struct EvalMN {
     pub comment: String,
 }
 
-// TODO: delete
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CSVEntry {
-    #[serde(with = "rust_decimal::serde::float")]
-    pub num: Decimal,
-    pub bits_left: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
-    pub comment: String,
-}
-
-// TODO: delete
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CSVEntryMB {
-    #[serde(with = "rust_decimal::serde::float")]
-    pub num: Decimal,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
-    pub bits_gained: f64,
-    pub comment: String,
-    pub offer: bool,
-}
-
-// TODO: delete
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CSVEntryMN {
-    #[serde(with = "rust_decimal::serde::float")]
-    pub num: Decimal,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
-    pub bits_gained: f64,
-    pub comment: String,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SumCounts {
     pub blackouts: u8,
     pub won: bool,
@@ -290,8 +370,7 @@ impl Constraint {
         )
     }
 
-    // TODO: rename after this replaced get_stats
-    pub fn get_stats_new(&self) -> Result<Option<EvalEvent>> {
+    pub fn get_stats(&self) -> Result<Option<EvalEvent>> {
         if self.hidden {
             return Ok(None);
         }
@@ -299,15 +378,15 @@ impl Constraint {
         #[allow(clippy::useless_format)]
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
-            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::EvalMN(EvalMN {
-                num: Decimal::from_f32(num).unwrap(),
+            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::MN(EvalMN {
+                num,
                 lights_total: self.check.as_lights(),
                 lights_known_before: self.known_lights,
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
                 bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
                 comment: meta_b,
             }))),
-            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::EvalMB(EvalMB {
+            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::MB(EvalMB {
                 offer: {
                     if let ConstraintType::Box { offer, .. } = &self.r#type {
                         offer.is_some()
@@ -315,67 +394,13 @@ impl Constraint {
                         false
                     }
                 },
-                num: Decimal::from_f32(num).unwrap(),
+                num,
                 lights_total: self.check.as_lights(),
                 lights_known_before: self.known_lights,
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
                 bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
                 comment: meta_b,
             }))),
-        }
-    }
-
-    // returned array contains mbInfo, mnInfo, info, sum
-    pub fn get_stats(&self) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
-        if self.hidden {
-            return Ok((None, None, None));
-        }
-
-        #[allow(clippy::useless_format)]
-        let meta_a = format!("{}", self.comment());
-        let meta_b = format!("{}-{}", self.type_str(), self.comment());
-        match self.r#type {
-            ConstraintType::Night { num, .. } => Ok((
-                None,
-                Some(CSVEntryMN {
-                    num: Decimal::from_f32(num).unwrap(),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_gained: self.information.unwrap_or(f64::INFINITY),
-                    comment: meta_a,
-                }),
-                Some(CSVEntry {
-                    num: Decimal::from_f32(num).unwrap() * dec!(2),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
-                    comment: meta_b,
-                }),
-            )),
-            ConstraintType::Box { num, .. } => Ok((
-                Some(CSVEntryMB {
-                    offer: {
-                        if let ConstraintType::Box { offer, .. } = &self.r#type {
-                            offer.is_some()
-                        } else {
-                            false
-                        }
-                    },
-                    num: Decimal::from_f32(num).unwrap(),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_gained: self.information.unwrap_or(f64::INFINITY),
-                    comment: meta_a,
-                }),
-                None,
-                Some(CSVEntry {
-                    num: Decimal::from_f32(num).unwrap() * dec!(2) - dec!(1),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
-                    comment: meta_b,
-                }),
-            )),
         }
     }
 

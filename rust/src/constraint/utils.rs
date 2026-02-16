@@ -1,8 +1,8 @@
+use anyhow::{bail, ensure, Result};
+
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::MaskedMatching;
 use crate::Rem;
-
-use anyhow::{bail, ensure, Result};
 
 // internal helper functions
 impl Constraint {
