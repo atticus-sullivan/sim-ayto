@@ -1,4 +1,5 @@
 use std::fs::File;
+use std::io::Write;
 
 use anyhow::Result;
 
@@ -6,10 +7,7 @@ use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Color, Table};
 
-use std::io::Write;
-
 use crate::Rem;
-
 use crate::game::Game;
 use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};
 

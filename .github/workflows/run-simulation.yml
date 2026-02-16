@@ -168,10 +168,7 @@ jobs:
             ${{ env.STEM }}.col.out
             ${{ env.STEM }}.md
             ${{ env.STEM }}*.dot
-            ${{ env.STEMD }}/statInfo.csv
-            ${{ env.STEMD }}/statMB.csv
-            ${{ env.STEMD }}/statMN.csv
-            ${{ env.STEMD }}/statSum.json
+            ${{ env.STEMD }}/stats.json
             ./data/.gitkeep
 
   commit-results:

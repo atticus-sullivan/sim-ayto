@@ -1,34 +1,148 @@
-use anyhow::{Context, Result};
-
-use rust_decimal::prelude::*;
-use rust_decimal::Decimal;
-
-use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::path::PathBuf;
+
+use anyhow::{Context, Result};
+
+use rust_decimal::{dec, Decimal};
+
+use serde::{Deserialize, Serialize};
 
 use comfy_table::presets::NOTHING;
 use comfy_table::{Cell, Row, Table};
 
-use crate::constraint::Offer;
-use crate::{MapS, Matching};
+use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
+use crate::MapS;
 
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct EvalData {
+    pub events: Vec<EvalEvent>,
+    pub cnts: SumCounts,
+}
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CSVEntry {
-    #[serde(with = "rust_decimal::serde::float")]
-    pub num: Decimal,
-    pub bits_left: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
+#[derive(Serialize, Deserialize, Clone, Debug)]
+#[serde(tag = "type")]
+pub enum EvalEvent {
+    MB(EvalMB),
+    MN(EvalMN),
+    Initial(EvalInitial),
+}
+
+macro_rules! eval_event_query_data {
+    (
+        $data_name:ident,
+        $ret:ty,
+        MN($mn_var:ident) => $mn_body:expr,
+        MB($mb_var:ident) => $mb_body:expr,
+        Initial($ini_var:ident) => $init_body:expr
+    ) => {
+        pub fn $data_name<MnPred, MbPred, InitPred>(
+            &self,
+            mn: MnPred,
+            mb: MbPred,
+            init: InitPred
+        ) -> Option<$ret>
+        where 
+            MnPred: Fn(&EvalMN) -> bool,
+            MbPred: Fn(&EvalMB) -> bool,
+            InitPred: Fn(&EvalInitial) -> bool,
+        {
+            match self {
+                EvalEvent::MN($mn_var) => {
+                    if mn($mn_var) {
+                        $mn_body
+                    } else {
+                        None
+                    }
+                },
+                EvalEvent::MB($mb_var) => {
+                    if mb($mb_var) {
+                        $mb_body
+                    } else {
+                        None
+                    }
+                },
+                EvalEvent::Initial($ini_var) => {
+                    if init($ini_var) {
+                        $init_body
+                    } else {
+                        None
+                    }
+                },
+            }
+        }
+    };
+}
+
+impl EvalEvent {
+    eval_event_query_data!(
+        num,
+        Decimal,
+        MN(eval_mn) => Some(eval_mn.num),
+        MB(eval_mb) => Some(eval_mb.num),
+        Initial(ini) => Some(dec![0])
+    );
+
+    eval_event_query_data!(
+        comment,
+        String,
+        MN(eval_mn) => Some(eval_mn.comment.clone()),
+        MB(eval_mb) => Some(eval_mb.comment.clone()),
+        Initial(ini) => Some("initial".to_string())
+    );
+
+    eval_event_query_data!(
+        bits_gained,
+        f64,
+        MN(eval_mn) => Some(eval_mn.bits_gained),
+        MB(eval_mb) => Some(eval_mb.bits_gained),
+        Initial(ini) => None
+    );
+
+    eval_event_query_data!(
+        bits_left_after,
+        f64,
+        MN(eval_mn) => Some(eval_mn.bits_left_after),
+        MB(eval_mb) => Some(eval_mb.bits_left_after),
+        Initial(ini) => Some(ini.bits_left_after)
+    );
+
+    eval_event_query_data!(
+        lights_total,
+        u8,
+        MN(eval_mn) => Some(eval_mn.lights_total?),
+        MB(eval_mb) => Some(eval_mb.lights_total?),
+        Initial(ini) => None
+    );
+
+    eval_event_query_data!(
+        lights_known_before,
+        u8,
+        MN(eval_mn) => Some(eval_mn.lights_known_before),
+        MB(eval_mb) => Some(eval_mb.lights_known_before),
+        Initial(ini) => None
+    );
+
+    eval_event_query_data!(
+        new_lights,
+        u8,
+        MN(eval_mn) => Some(eval_mn.lights_total? - eval_mn.lights_known_before),
+        MB(eval_mb) => Some(eval_mb.lights_total? - eval_mb.lights_known_before),
+        Initial(ini) => None
+    );
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EvalInitial {
+    pub bits_left_after: f64,
     pub comment: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CSVEntryMB {
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EvalMB {
     #[serde(with = "rust_decimal::serde::float")]
     pub num: Decimal,
+    pub bits_left_after: f64,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
     pub bits_gained: f64,
@@ -36,17 +150,18 @@ pub struct CSVEntryMB {
     pub offer: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct CSVEntryMN {
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct EvalMN {
     #[serde(with = "rust_decimal::serde::float")]
     pub num: Decimal,
+    pub bits_left_after: f64,
     pub lights_total: Option<u8>,
     pub lights_known_before: u8,
     pub bits_gained: f64,
     pub comment: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SumCounts {
     pub blackouts: u8,
     pub won: bool,
@@ -195,14 +310,18 @@ impl Constraint {
 
         // show how many new matches are present
         if let ConstraintType::Night { .. } = self.r#type {
-            let cnt = self.map.len()
-                - self
+            let cnt = self
                     .map
                     .iter()
+                    .enumerate()
                     .filter(|&(k, v)| {
-                        past_constraints
-                            .iter()
-                            .any(|&c| c.adds_new() && c.map.get(k).is_some_and(|v2| v2 == v))
+                        !v.is_empty() && !past_constraints.iter().any(|&c| {
+                            c.adds_new()
+                                && c.map
+                                    .slot_mask(k)
+                                    .unwrap_or(&Bitset::empty())
+                                    .contains_any(&v)
+                        })
                     })
                     .count();
             ret.push(Cell::new(cnt.to_string()));
@@ -235,67 +354,52 @@ impl Constraint {
             return None;
         }
 
-        Some(
-            self.map.len()
-                - self
+        Some(self
+            .map
+            .iter()
+            .enumerate()
+            .filter(|&(k, v)| {
+                !v.is_empty() && !other
                     .map
-                    .iter()
-                    .filter(|&(k, v)| other.map.get(k).is_some_and(|v2| v2 == v))
-                    .count(),
+                    .slot_mask(k)
+                    .unwrap_or(&Bitset::empty())
+                    .contains_any(&v)
+            })
+            .count(),
         )
     }
 
-    // returned array contains mbInfo, mnInfo, info, sum
-    pub fn get_stats(&self) -> Result<(Option<CSVEntryMB>, Option<CSVEntryMN>, Option<CSVEntry>)> {
+    pub fn get_stats(&self) -> Result<Option<EvalEvent>> {
         if self.hidden {
-            return Ok((None, None, None));
+            return Ok(None);
         }
 
         #[allow(clippy::useless_format)]
-        let meta_a = format!("{}", self.comment());
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
         match self.r#type {
-            ConstraintType::Night { num, .. } => Ok((
-                None,
-                Some(CSVEntryMN {
-                    num: Decimal::from_f32(num).unwrap(),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_gained: self.information.unwrap_or(f64::INFINITY),
-                    comment: meta_a,
-                }),
-                Some(CSVEntry {
-                    num: Decimal::from_f32(num).unwrap() * dec!(2),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
-                    comment: meta_b,
-                }),
-            )),
-            ConstraintType::Box { num, .. } => Ok((
-                Some(CSVEntryMB {
-                    offer: {
-                        if let ConstraintType::Box { offer, .. } = &self.r#type {
-                            offer.is_some()
-                        } else {
-                            false
-                        }
-                    },
-                    num: Decimal::from_f32(num).unwrap(),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_gained: self.information.unwrap_or(f64::INFINITY),
-                    comment: meta_a,
-                }),
-                None,
-                Some(CSVEntry {
-                    num: Decimal::from_f32(num).unwrap() * dec!(2) - dec!(1),
-                    lights_total: self.check.as_lights(),
-                    lights_known_before: self.known_lights,
-                    bits_left: (self.left_after.context("total_left unset")? as f64).log2(),
-                    comment: meta_b,
-                }),
-            )),
+            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::MN(EvalMN {
+                num,
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::MB(EvalMB {
+                offer: {
+                    if let ConstraintType::Box { offer, .. } = &self.r#type {
+                        offer.is_some()
+                    } else {
+                        false
+                    }
+                },
+                num,
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
         }
     }
 
@@ -313,9 +417,9 @@ impl Constraint {
             .enforce_styling()
             .load_preset(NOTHING)
             .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-            // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
+        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
+        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
+        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
         ;
         let mut rows = vec![("", Row::new()); self.map_s.len()];
         for (i, (k, v)) in self.map_s.iter().enumerate() {
@@ -375,7 +479,7 @@ impl Constraint {
                     if expected == 0.0 {
                         expected = -0.0;
                     }
-                    println!("-> E[I]/bits: {:.2}", -expected);
+                    println!("-> E[I]/bits: {:.2} (aka H)", -expected);
                 }
 
                 print!("{} lights ", l);
@@ -433,13 +537,15 @@ impl Constraint {
         }
     }
 
-    pub fn is_mb_hit(&self, solutions: Option<&Vec<Matching>>) -> bool {
+    pub fn is_mb_hit(&self, solutions: Option<&Vec<MaskedMatching>>) -> bool {
         if let Some(sols) = solutions {
             if let ConstraintType::Box { .. } = self.r#type {
                 return sols.iter().all(|sol| {
-                    self.map
-                        .iter()
-                        .all(|(a, b)| sol.get(*a as usize).unwrap().contains(b))
+                    self.map.iter_pairs().all(|(a, b)| {
+                        sol.slot_mask(a as usize)
+                            .unwrap_or(&Bitset::empty())
+                            .contains(b)
+                    })
                 });
             }
         }

@@ -20,8 +20,9 @@ pub mod dummy;
 pub mod dup;
 pub mod dup_x;
 
+use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
-use crate::{Lut, Matching};
+use crate::Lut;
 use anyhow::Result;
 
 pub trait RuleSetDataClone {
@@ -37,7 +38,7 @@ where
 }
 
 pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
-    fn push(&mut self, m: &Matching) -> Result<()>;
+    fn push(&mut self, m: &MaskedMatching) -> Result<()>;
     fn print(
         &self,
         full: bool,

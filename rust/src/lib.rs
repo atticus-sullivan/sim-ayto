@@ -1,24 +1,26 @@
 pub mod comparison;
 pub mod game;
 
-mod constraint;
-mod iterstate;
-mod ruleset;
-mod ruleset_data;
-mod tree;
+pub mod constraint;
+pub mod iterstate;
+pub mod ruleset;
+pub mod ruleset_data;
+pub mod tree;
+
+pub mod matching_repr;
 
 use std::collections::HashMap;
 
 use comfy_table::Color;
 
 type MatchingS = HashMap<String, Vec<String>>;
-type Matching = Vec<Vec<u8>>;
+pub type Matching = Vec<Vec<u8>>;
 type MapS = HashMap<String, String>;
-type Map = HashMap<u8, u8>;
+pub type Map = HashMap<u8, u8>;
 type Lut = HashMap<String, usize>;
 type Rename = HashMap<String, String>;
 
-type Rem = (Vec<Vec<u128>>, u128);
+pub type Rem = (Vec<Vec<u128>>, u128);
 
 // colors for tables
 const COLOR_ROW_MAX: Color = Color::Rgb {

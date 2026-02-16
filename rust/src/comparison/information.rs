@@ -1,9 +1,7 @@
 use plotly::common::Mode;
 
-use crate::comparison::{
-    utils::{build_scatter_plot, lut_theme, plotly_gen_layout},
-    CmpData,
-};
+use crate::comparison::utils::{build_scatter_plot, lut_theme, plotly_gen_layout};
+use crate::comparison::{CmpData};
 
 pub fn build_information_plots(
     cmp_data: &Vec<(String, CmpData)>,
@@ -11,6 +9,7 @@ pub fn build_information_plots(
 ) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
+
 
     vec![
         (
@@ -23,8 +22,9 @@ pub fn build_information_plots(
                 "#MB",
                 "I [bit]",
                 Mode::Lines,
-                |cd| cd.mn.iter().map(|i| i.num).collect(),
-                |cd| cd.mn.iter().map(|i| i.bits_gained).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.num(|_| true, |_| false, |_| false)).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.bits_gained(|_| true, |_| false, |_| false)).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.comment(|_| true, |_| false, |_| false)).collect(),
             ),
         ),
         (
@@ -37,8 +37,9 @@ pub fn build_information_plots(
                 "#MN",
                 "I [bit]",
                 Mode::Lines,
-                |cd| cd.mb.iter().map(|i| i.num).collect(),
-                |cd| cd.mb.iter().map(|i| i.bits_gained).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.num(|_| false, |_| true, |_| false)).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.bits_gained(|_| false, |_| true, |_| false)).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.comment(|_| false, |_| true, |_| false)).collect(),
             ),
         ),
         (
@@ -51,8 +52,9 @@ pub fn build_information_plots(
                 "#MB/#MN",
                 "H [bit]",
                 Mode::Lines,
-                |cd| cd.info.iter().map(|i| i.num).collect(),
-                |cd| cd.info.iter().map(|i| i.bits_left).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.num(|_| true, |_| true, |_| true)).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.bits_left_after(|_| true, |_| true, |_| true)).collect(),
+                |cd| cd.eval_data.iter().filter_map(|i| i.comment(|_| true, |_| true, |_| true)).collect(),
             ),
         ),
     ]

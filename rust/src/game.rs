@@ -27,8 +27,9 @@ use anyhow::Result;
 
 use crate::constraint::Constraint;
 use crate::iterstate::IterState;
+use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
-use crate::{Lut, Matching};
+use crate::Lut;
 
 #[derive(clap::ValueEnum, Clone, Debug)]
 pub enum DumpMode {
@@ -36,18 +37,6 @@ pub enum DumpMode {
     FullNames,
     Winning,
     WinningNames,
-}
-
-use permutator::CartesianProduct;
-
-fn foreach_unwrapped_matching<F>(matching: &[Vec<u8>], mut f: F)
-where
-    F: FnMut(Vec<&u8>),
-{
-    let matching_slices: Vec<&[u8]> = matching.iter().map(|v| v.as_slice()).collect();
-    for p in matching_slices.cart_prod() {
-        f(p);
-    }
 }
 
 #[derive(Debug)]
@@ -68,7 +57,7 @@ pub struct Game {
 
     dir: PathBuf,
     stem: String,
-    query_matchings: Vec<Matching>,
+    query_matchings: Vec<MaskedMatching>,
     query_pair: (HashSet<u8>, HashSet<u8>),
     cache_file: Option<PathBuf>,
     final_cache_hash: Option<PathBuf>,
@@ -132,41 +121,5 @@ impl Game {
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
 
         Ok(is)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_unwraped_matching() {
-        let m = vec![
-            vec![6],
-            vec![3],
-            vec![2, 10],
-            vec![4],
-            vec![1],
-            vec![5],
-            vec![0],
-            vec![7],
-            vec![8],
-            vec![9],
-        ];
-        foreach_unwrapped_matching(&m, |m| println!("{:?}", m));
-        println!();
-        let m = vec![
-            vec![6],
-            vec![3],
-            vec![2, 10],
-            vec![4],
-            vec![1],
-            vec![5, 20],
-            vec![0],
-            vec![7],
-            vec![8],
-            vec![9],
-        ];
-        foreach_unwrapped_matching(&m, |m| println!("{:?}", m));
     }
 }

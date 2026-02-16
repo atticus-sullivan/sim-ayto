@@ -1,8 +1,8 @@
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset::RuleSet;
 use crate::ruleset::RuleSetDupX;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use crate::Matching;
 use anyhow::{Context, Result};
 use std::collections::HashMap;
 use std::collections::HashSet;
@@ -11,7 +11,7 @@ use std::collections::HashSet;
 pub struct DupXData {
     // HashMap.key: (index in set_a maps to [...])
     // HashMap.value: count
-    cnt: HashMap<(usize, Vec<u8>), usize>,
+    cnt: HashMap<(usize, Bitset), usize>,
     rs: RuleSetDupX,
 }
 
@@ -47,12 +47,12 @@ impl DupXData {
             Some(q) => self
                 .cnt
                 .iter()
-                .filter(|i| i.0 .1.contains(&q) && i.0 .1.iter().all(|j| !query_not.contains(j)))
+                .filter(|i| i.0 .1.contains(q) && i.0 .1.iter().all(|j| !query_not.contains(&j)))
                 .collect::<Vec<_>>(),
             None => self
                 .cnt
                 .iter()
-                .filter(|i| i.0 .1.iter().all(|j| !query_not.contains(j)))
+                .filter(|i| i.0 .1.iter().all(|j| !query_not.contains(&j)))
                 .collect::<Vec<_>>(),
         };
 
@@ -77,7 +77,7 @@ impl DupXData {
                 cnt,
                 map_a[*a],
                 bs.iter()
-                    .map(|b| map_b[*b as usize].clone())
+                    .map(|b| map_b[b as usize].clone())
                     .collect::<Vec<_>>()
             );
             first = false;
@@ -87,8 +87,8 @@ impl DupXData {
         // print all (or the most common) people (set_b) together being part of the duplicate matching
         let mut d = cnt_filtered
             .iter()
-            .fold::<HashMap<Vec<u8>, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
-                let x = acc.entry(js.clone()).or_default();
+            .fold::<HashMap<Bitset, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
+                let x = acc.entry(*js).or_default();
                 *x += *c;
                 acc
             })
@@ -111,7 +111,7 @@ impl DupXData {
                 (cnt as f64 / total as f64) * 100.0,
                 cnt,
                 bs.iter()
-                    .map(|b| map_b[*b as usize].clone())
+                    .map(|b| map_b[b as usize].clone())
                     .collect::<Vec<_>>()
             );
             first = false;
@@ -121,7 +121,7 @@ impl DupXData {
         // print all (or the most common) people (set_a) being part of the duplicate matching
         let mut d = cnt_filtered
             .iter()
-            .fold::<HashMap<&u8, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
+            .fold::<HashMap<u8, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
                 for j in js.iter() {
                     let x = acc.entry(j).or_default();
                     *x += *c;
@@ -146,7 +146,7 @@ impl DupXData {
                 if !first { " | " } else { "" },
                 (cnt as f64 / total as f64) * 100.0,
                 cnt,
-                map_b[*b as usize]
+                map_b[b as usize]
             );
             first = false;
         }
@@ -188,12 +188,8 @@ impl DupXData {
 }
 
 impl RuleSetData for DupXData {
-    fn push(&mut self, m: &Matching) -> Result<()> {
-        let ks = m
-            .iter()
-            .enumerate()
-            .filter(|(_, j)| j.len() > 1)
-            .map(|(i, j)| (i, j.clone()));
+    fn push(&mut self, m: &MaskedMatching) -> Result<()> {
+        let ks = m.iter().enumerate().filter(|(_, j)| j.count() > 1);
         for k in ks {
             let e = self.cnt.entry(k).or_default();
             *e += 1;

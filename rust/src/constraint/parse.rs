@@ -1,12 +1,14 @@
-use anyhow::{ensure, Context, Result};
-use serde::Deserialize;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 
-use crate::ruleset_data::RuleSetData;
-use crate::{Lut, Map, MapS, Rename};
+use anyhow::{ensure, Context, Result};
 
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+use serde::Deserialize;
+
+use crate::matching_repr::bitset::Bitset;
+use crate::ruleset_data::RuleSetData;
+use crate::{Lut, MapS, Rename};
+use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
 
 // this struct is only used when parsing the yaml file.
 // The function `finalize_parsing` is intended to convert this to a regular constraint.
@@ -134,14 +136,31 @@ impl ConstraintParse {
             self.exclude_s.clone()
         };
 
+        let mut c_map = self
+            .map_s
+            .iter()
+            .map(&|(k, v)| {
+                let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
+                let v = *lut_b
+                    .get(v)
+                    .with_context(|| format!("Invalid Value {}", v))? as u8;
+                Ok((k, v))
+            })
+            .collect::<Result<HashMap<u8, u8>>>()?;
+        let mut c_map_s = self.map_s;
+
+        if sort_constraint {
+            sort_maps(&mut c_map, &mut c_map_s, lut_a, lut_b);
+        }
+
         let mut c = Constraint {
             r#type: self.r#type,
             check: self.check,
             hidden: self.hidden,
             result_unknown: self.result_unknown,
             build_tree: self.build_tree,
-            map_s: self.map_s,
-            map: Map::default(),
+            map_s: c_map_s,
+            map: c_map.try_into()?,
             exclude: None,
             eliminated: 0,
             eliminated_tab: vec![vec![0; lut_b.len()]; lut_a.len()],
@@ -152,18 +171,6 @@ impl ConstraintParse {
             hide_ruleset_data: self.hide_ruleset_data,
             known_lights,
         };
-
-        c.map = c
-            .map_s
-            .iter()
-            .map(&|(k, v)| {
-                let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
-                let v = *lut_b
-                    .get(v)
-                    .with_context(|| format!("Invalid Value {}", v))? as u8;
-                Ok((k, v))
-            })
-            .collect::<Result<_>>()?;
 
         // check if map size is valid
         match c.r#type {
@@ -209,14 +216,10 @@ impl ConstraintParse {
         }
         c.map_s = map_s;
 
-        if sort_constraint {
-            c.sort_maps(lut_a, lut_b);
-        }
-
         // translate names to ids
         if let Some(ex) = &exclude_s {
             let (ex_a, ex_b) = ex;
-            let mut bs = HashSet::with_capacity(ex_b.len());
+            let mut bs = Bitset::empty();
             let a = *lut_a
                 .get(ex_a)
                 .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
@@ -266,7 +269,10 @@ impl ConstraintParse {
 
 #[cfg(test)]
 mod tests {
+    use rust_decimal::dec;
+
     use super::*;
+    use crate::matching_repr::MaskedMatching;
     use crate::ruleset_data::dummy::DummyData;
     use std::collections::BTreeMap;
     use std::collections::HashMap;
@@ -275,7 +281,7 @@ mod tests {
     fn test_finalize_parsing_night_lights() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
             },
             map_s: HashMap::new(),
@@ -319,7 +325,7 @@ mod tests {
             )
             .unwrap();
 
-        let map = HashMap::from_iter(vec![(0, 1), (2, 3), (3, 2)].into_iter());
+        let map = MaskedMatching::from_matching_ref(&vec![vec![1], vec![], vec![3], vec![2]]);
         assert_eq!(map, constraint.map);
     }
 
@@ -327,7 +333,7 @@ mod tests {
     fn test_finalize_parsing_box_lights() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
                 offer: None,
             },
@@ -372,9 +378,9 @@ mod tests {
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
         assert_eq!(map_s, constraint.map_s);
-        let map = HashMap::from_iter(vec![(0, 1)].into_iter());
+        let map = MaskedMatching::from_matching_ref(&vec![vec![1]]);
         assert_eq!(map, constraint.map);
-        let excl = Some((0, HashSet::from([2, 3])));
+        let excl = Some((0, Bitset::from_idxs(&[2, 3])));
         assert_eq!(excl, constraint.exclude);
     }
 
@@ -382,7 +388,7 @@ mod tests {
     fn test_finalize_parsing_box_eq() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
                 offer: None,
             },
@@ -427,7 +433,7 @@ mod tests {
 
         let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
         assert_eq!(map_s, constraint.map_s);
-        let map = HashMap::from_iter(vec![(0, 1)].into_iter());
+        let map = MaskedMatching::from_matching_ref(&vec![vec![1]]);
         assert_eq!(map, constraint.map);
     }
 
@@ -435,7 +441,7 @@ mod tests {
     fn test_add_exclude() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: "".to_string(),
                 offer: None,
             },

@@ -154,7 +154,7 @@ hugo: comparison
 	cd ./gh-pages && hugo build
 	echo "$(pwd)/gh-pages/public/ayto"
 
-gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.csv)
+gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.json)
 	./rust/target/$(MODE)/ayto comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
 rust/target/$(MODE)/ayto: ./rust/src/*

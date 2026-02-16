@@ -1,14 +1,14 @@
+use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use crate::Matching;
 use anyhow::Result;
 
 #[derive(Debug, Clone, Default)]
 pub struct DummyData {}
 
 impl RuleSetData for DummyData {
-    fn push(&mut self, _m: &Matching) -> Result<()> {
+    fn push(&mut self, _m: &MaskedMatching) -> Result<()> {
         Ok(())
     }
 

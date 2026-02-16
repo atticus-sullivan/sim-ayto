@@ -1,25 +1,27 @@
-use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use crate::Matching;
+use crate::{matching_repr::bitset::Bitset, matching_repr::MaskedMatching, ruleset::RuleSet};
 use anyhow::{Context, Result};
 use std::collections::HashMap;
 
 #[derive(Debug, Clone, Default)]
 pub struct DupData {
-    cnt: HashMap<(usize, Vec<u8>), usize>,
+    cnt: HashMap<(usize, Bitset), usize>,
 }
 
 impl RuleSetData for DupData {
-    fn push(&mut self, m: &Matching) -> Result<()> {
+    fn push(&mut self, m: &MaskedMatching) -> Result<()> {
         let k = m
             .iter()
             .enumerate()
-            .find(|(_, j)| j.len() > 1)
-            .map(|(i, j)| (i, j.clone()))
+            // for "dup" rule, ther is always just one dup => find is the right function
+            // returns an Option
+            .find(|(_, j)| j.count() > 1)
             .with_context(|| "something went wrong")?;
+
         let e = self.cnt.entry(k).or_default();
         *e += 1;
+
         Ok(())
     }
 
@@ -60,7 +62,7 @@ impl RuleSetData for DupData {
                 cnt,
                 map_a[a],
                 bs.iter()
-                    .map(|b| map_b[*b as usize].clone())
+                    .map(|b| map_b[b as usize].clone())
                     .collect::<Vec<_>>()
             );
             first = false;
@@ -70,8 +72,8 @@ impl RuleSetData for DupData {
         let mut d = self
             .cnt
             .iter()
-            .fold::<HashMap<Vec<u8>, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
-                let x = acc.entry(js.clone()).or_default();
+            .fold::<HashMap<Bitset, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
+                let x = acc.entry(*js).or_default();
                 *x += *c;
                 acc
             })
@@ -94,7 +96,7 @@ impl RuleSetData for DupData {
                 (cnt as f64 / total as f64) * 100.0,
                 cnt,
                 bs.iter()
-                    .map(|b| map_b[*b as usize].clone())
+                    .map(|b| map_b[b as usize].clone())
                     .collect::<Vec<_>>()
             );
             first = false;
@@ -104,7 +106,7 @@ impl RuleSetData for DupData {
         let mut d = self
             .cnt
             .iter()
-            .fold::<HashMap<&u8, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
+            .fold::<HashMap<u8, usize>, _>(HashMap::new(), |mut acc, ((_, js), c)| {
                 for j in js.iter() {
                     let x = acc.entry(j).or_default();
                     *x += *c;
@@ -129,7 +131,7 @@ impl RuleSetData for DupData {
                 if !first { " | " } else { "" },
                 (cnt as f64 / total as f64) * 100.0,
                 cnt,
-                map_b[*b as usize]
+                map_b[b as usize]
             );
             first = false;
         }

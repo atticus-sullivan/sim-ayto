@@ -21,10 +21,10 @@ use std::{collections::HashSet, fs::File};
 
 use anyhow::Result;
 
-use crate::Matching;
+use crate::matching_repr::MaskedMatching;
 
 pub fn dot_tree(
-    data: &Vec<Matching>,
+    data: &Vec<MaskedMatching>,
     ordering: &Vec<(usize, usize)>,
     title: &str,
     writer: &mut File,
@@ -42,17 +42,11 @@ pub fn dot_tree(
         for (i, _) in ordering {
             let mut node = parent.clone();
             node.push('/');
-            node.push_str(
-                &p[*i]
-                    .iter()
-                    .map(|b| b.to_string())
-                    .collect::<Vec<_>>()
-                    .join(","),
-            );
+            node.push_str(&format!("{:b}", p.slot_mask(*i).unwrap()));
 
             if nodes.insert(node.clone()) {
-                // if node is new
-                if p[*i].iter().filter(|&b| *b != u8::MAX).count() == 0 {
+                // if node is new -- what???
+                if p.slot_mask(*i).unwrap().count() == 0 {
                     writeln!(writer, "\"{node}\"[label=\"\"]")?;
                 } else {
                     // only put content in that node if there is something meaning-full
@@ -62,10 +56,10 @@ pub fn dot_tree(
                         "\"{node}\"[label=\"{}\"]",
                         map_a[*i].clone()
                             + "\\n"
-                            + &p[*i]
+                            + &p.slot_mask(*i)
+                                .unwrap()
                                 .iter()
-                                .filter(|&b| *b != u8::MAX)
-                                .map(|b| map_b[*b as usize].clone())
+                                .map(|b| map_b[b as usize].clone())
                                 .collect::<Vec<_>>()
                                 .join("\\n")
                     )?;
@@ -80,13 +74,15 @@ pub fn dot_tree(
     Ok(())
 }
 
-pub fn tree_ordering(data: &[Matching], map_a: &[String]) -> Vec<(usize, usize)> {
+/// Tells to how many different masks (i.1) someone from set_a (i.0) is mapped to
+/// The vector is already sorted by the amount (i.1)
+pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, usize)> {
     // tab maps people from set_a -> possible matches (set -> no duplicates)
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {
         for (i, js) in p.iter().enumerate() {
             // if js[0] != u8::MAX {
-            tab[i].insert(js);
+            tab[i].insert(js.0);
             // }
         }
     }
@@ -96,7 +92,7 @@ pub fn tree_ordering(data: &[Matching], map_a: &[String]) -> Vec<(usize, usize)>
         .iter()
         .enumerate()
         .filter_map(|(i, x)| {
-            if x.is_empty() || x.iter().all(|y| y.len() == 1 && y[0] == u8::MAX) {
+            if x.is_empty() || x.iter().all(|y| y.count_ones() == 1) {
                 None
             } else {
                 Some((i, x.len()))

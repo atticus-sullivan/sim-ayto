@@ -20,17 +20,21 @@ pub mod eval;
 pub mod parse;
 mod utils;
 
-use anyhow::{Context, Result};
-use serde::Deserialize;
 use std::collections::BTreeMap;
-use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
+use anyhow::Result;
+
+use rust_decimal::Decimal;
+
+use serde::Deserialize;
+
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset_data::RuleSetData;
-use crate::{Lut, Map, MapS, Matching};
+use crate::{Lut, Map, MapS};
 
 #[derive(Deserialize, Debug, Clone, Hash)]
-enum CheckType {
+pub enum CheckType {
     Eq,
     Nothing,
     Sold,
@@ -91,13 +95,13 @@ impl Offer {
 }
 
 #[derive(Deserialize, Debug, Clone)]
-enum ConstraintType {
+pub enum ConstraintType {
     Night {
-        num: f32,
+        num: Decimal,
         comment: String,
     },
     Box {
-        num: f32,
+        num: Decimal,
         comment: String,
         offer: Option<Offer>,
     },
@@ -108,7 +112,7 @@ impl Hash for ConstraintType {
         match self {
             ConstraintType::Night { num, comment } => {
                 0.hash(state); // A constant to distinguish this variant
-                num.to_bits().hash(state);
+                num.hash(state);
                 comment.hash(state);
             }
             ConstraintType::Box {
@@ -117,7 +121,7 @@ impl Hash for ConstraintType {
                 offer,
             } => {
                 1.hash(state); // A constant to distinguish this variant
-                num.to_bits().hash(state);
+                num.hash(state);
                 comment.hash(state);
                 offer.hash(state)
             }
@@ -184,15 +188,15 @@ pub struct Constraint {
     result_unknown: bool,
     build_tree: bool,
 
-    map: Map,
+    map: MaskedMatching,
     map_s: MapS,
-    exclude: Option<(u8, HashSet<u8>)>,
+    exclude: Option<(u8, Bitset)>,
     eliminated: u128,
     eliminated_tab: Vec<Vec<u128>>,
 
     information: Option<f64>,
     left_after: Option<u128>,
-    left_poss: Vec<Matching>,
+    left_poss: Vec<MaskedMatching>,
 
     hide_ruleset_data: bool,
     pub ruleset_data: Box<dyn RuleSetData>,
@@ -201,99 +205,112 @@ pub struct Constraint {
 
 // functions for initialization / startup
 impl Constraint {
-    /// Sorts and key/value pairs such that lut_a[k] < lut_b[v] always holds.
-    /// Only makes sense if lut_a == lut_b (defined on the same set)
-    ///
-    /// # Arguments
-    ///
-    /// - `lut_a`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
-    /// - `lut_b`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
-    ///
-    /// # Example
-    ///
-    /// ```rust
-    /// let mut c: Constraint;
-    /// c.sort_maps(&lut_a, &lut_b);
-    /// ```
-    ///
-    /// # Panics
-    ///
-    /// This function may panic if `lut_a` or `lut_b` do not contain keys present in `self.map_s`.
-    ///
-    /// # Notes
-    ///
-    /// - The sorting and flipping operations are done in place.
-    fn sort_maps(&mut self, lut_a: &Lut, lut_b: &Lut) {
-        self.map = self
-            .map
-            .drain()
-            .map(|(k, v)| if k < v { (v, k) } else { (k, v) })
-            .collect();
-
-        self.map_s = self
-            .map_s
-            .drain()
-            .map(|(k, v)| {
-                if lut_a[&k] < lut_b[&v] {
-                    (v, k)
-                } else {
-                    (k, v)
-                }
-            })
-            .collect();
+    pub fn new_unchecked(
+        t: ConstraintType,
+        check: CheckType,
+        map: MaskedMatching,
+        rs_dat: Box<dyn RuleSetData>,
+        a_len: usize,
+        b_len: usize,
+        known_lights: u8,
+    ) -> Self {
+        Constraint {
+            r#type: t,
+            check,
+            hidden: false,
+            result_unknown: false,
+            build_tree: false,
+            map,
+            map_s: MapS::default(),
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; b_len]; a_len],
+            information: None,
+            left_after: None,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: rs_dat,
+            known_lights: known_lights,
+        }
     }
+}
+
+/// Sorts and key/value pairs such that lut_a[k] < lut_b[v] always holds.
+/// Only makes sense if lut_a == lut_b (defined on the same set)
+///
+/// # Arguments
+///
+/// - `lut_a`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
+/// - `lut_b`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
+///
+/// # Panics
+///
+/// This function may panic if `lut_a` or `lut_b` do not contain keys present in `self.map_s`.
+///
+/// # Notes
+///
+/// - The sorting and flipping operations are done in place.
+fn sort_maps(c_map: &mut Map, c_map_s: &mut MapS, lut_a: &Lut, lut_b: &Lut) {
+    let c_map2 = c_map
+        .drain()
+        .map(|(k, v)| if k < v { (v, k) } else { (k, v) })
+        .collect();
+
+    let c_map_s2 = c_map_s
+        .drain()
+        .map(|(k, v)| {
+            if lut_a[&k] < lut_b[&v] {
+                (v, k)
+            } else {
+                (k, v)
+            }
+        })
+        .collect();
+
+    *c_map = c_map2;
+    *c_map_s = c_map_s2;
 }
 
 // functions for executing the simulation
 impl Constraint {
-    // returns if the matching fits the constraint (is not eliminated)
-    pub fn process(&mut self, m: &Matching) -> Result<bool> {
+    // TODO: write tests!! this is the core function for correctness
+    fn fits(&mut self, m: &MaskedMatching) -> bool {
         // first step is to check if the constraint filters out this matching
-        let mut fits = None;
         match &mut self.check {
             CheckType::Eq => {
-                fits = Some(m.iter().all(|js| {
-                    self.map
-                        .values()
-                        .map(|i2| js.contains(i2))
-                        .fold(None, |acc, b| match acc {
-                            Some(a) => Some(a == b),
-                            None => Some(b),
-                        })
-                        .unwrap()
-                }));
+                let mask = self
+                    .map
+                    .iter()
+                    .filter(|i| !i.is_empty())
+                    .fold(Bitset::empty(), |acc, i| i | acc);
+                m.contains_mask(mask)
             }
-            CheckType::Nothing | CheckType::Sold => fits = Some(true),
+            CheckType::Nothing | CheckType::Sold => true,
             CheckType::Lights(ref lights, ref mut light_count) => {
-                let mut l = 0;
-                for (i1, i2) in self.map.iter() {
-                    if m[*i1 as usize].contains(i2) {
-                        l += 1;
-                    }
-                }
-                if let Some(ex) = &self.exclude {
-                    for i in &m[ex.0 as usize] {
-                        if ex.1.contains(i) {
-                            fits = Some(false);
-                            break;
-                        }
-                    }
-                }
-                // might be already set due to exclude
-                fits.get_or_insert(l == *lights);
+                let l = self.map.calculate_lights(m);
+
+                let f = self.exclude.as_ref().and_then(|ex| {
+                    m.slot_mask(ex.0 as usize)
+                        .map(|m| !m.contains_any(&ex.1))
+                });
+
                 // use calculated lights to collect stats on based on the matching possible until
                 // here, how many lights are calculated how often for this map
                 *light_count.entry(l).or_insert(0) += 1;
-            }
-        };
 
+                if let Some(f) = f {
+                    f
+                } else {
+                    l == *lights
+                }
+            }
+        }
+    }
+
+    // returns if the matching fits the constraint (is not eliminated)
+    pub fn process(&mut self, m: &MaskedMatching) -> Result<bool> {
         // check fits actually has a value and make it immutable
-        let fits = fits.with_context(|| {
-            format!(
-                "failure in calculating wether matching {:?} fits constraint {:?}",
-                m, self
-            )
-        })? || self.result_unknown;
+        let fits = self.fits(m) || self.result_unknown;
 
         if !fits {
             self.eliminate(m);
@@ -308,6 +325,17 @@ impl Constraint {
 
         Ok(fits)
     }
+
+    // #[inline(always)]
+    // pub fn calculate_lights(map: &Map, m: &[Vec<u8>]) -> u8 {
+    //     let mut l = 0;
+    //     for (i1, i2) in map.iter() {
+    //         if m[*i1 as usize].contains(i2) {
+    //             l += 1;
+    //         }
+    //     }
+    //     l
+    // }
 }
 
 // getter functions
@@ -326,7 +354,7 @@ impl Constraint {
         }
     }
 
-    pub fn num(&self) -> f32 {
+    pub fn num(&self) -> Decimal {
         match &self.r#type {
             ConstraintType::Night { num, .. } => *num,
             ConstraintType::Box { num, .. } => *num,
@@ -336,6 +364,9 @@ impl Constraint {
 
 #[cfg(test)]
 mod tests {
+    use rust_decimal::dec;
+
+    use super::Constraint;
     use super::*;
     use crate::ruleset_data::dummy::DummyData;
     use crate::Rem;
@@ -343,35 +374,15 @@ mod tests {
 
     #[test]
     fn test_sort_maps_basic() {
-        let mut constraint = Constraint {
-            r#type: ConstraintType::Box {
-                num: 1.0,
-                comment: "".to_string(),
-                offer: None,
-            },
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            hidden: false,
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
-            result_unknown: false,
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
+        let mut map_s = HashMap::new();
+        let mut map = HashMap::new();
 
         // Initialize the maps with unordered key/value pairs
-        constraint.map.insert(1, 0);
-        constraint.map.insert(2, 3);
+        map.insert(1, 0);
+        map.insert(2, 3);
 
-        constraint.map_s.insert("B".to_string(), "A".to_string());
-        constraint.map_s.insert("C".to_string(), "D".to_string());
+        map_s.insert("B".to_string(), "A".to_string());
+        map_s.insert("C".to_string(), "D".to_string());
 
         // Initialize lookup tables
         let lut_a = HashMap::from_iter(
@@ -386,48 +397,28 @@ mod tests {
         let lut_b = lut_a.clone();
 
         // Perform sorting
-        constraint.sort_maps(&lut_a, &lut_b);
+        super::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
 
         // Validate the map is sorted and flipped correctly
-        assert_eq!(*constraint.map.get(&1).unwrap(), 0);
-        assert_eq!(*constraint.map.get(&3).unwrap(), 2);
+        assert_eq!(*map.get(&1).unwrap(), 0);
+        assert_eq!(*map.get(&3).unwrap(), 2);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        assert_eq!(constraint.map_s.get("B").unwrap(), "A");
-        assert_eq!(constraint.map_s.get("D").unwrap(), "C");
+        assert_eq!(map_s.get("B").unwrap(), "A");
+        assert_eq!(map_s.get("D").unwrap(), "C");
     }
 
     #[test]
     fn test_sort_maps_no_flipping_needed() {
-        let mut constraint = Constraint {
-            r#type: ConstraintType::Box {
-                num: 1.0,
-                comment: "".to_string(),
-                offer: None,
-            },
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            hidden: false,
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
-            result_unknown: false,
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
+        let mut map_s = HashMap::new();
+        let mut map = HashMap::new();
 
         // Initialize the maps with unordered key/value pairs
-        constraint.map.insert(1, 0);
-        constraint.map.insert(3, 2);
+        map.insert(1, 0);
+        map.insert(3, 2);
 
-        constraint.map_s.insert("B".to_string(), "A".to_string());
-        constraint.map_s.insert("D".to_string(), "C".to_string());
+        map_s.insert("B".to_string(), "A".to_string());
+        map_s.insert("D".to_string(), "C".to_string());
 
         // Initialize lookup tables
         let lut_a = HashMap::from_iter(
@@ -442,64 +433,42 @@ mod tests {
         let lut_b = lut_a.clone();
 
         // Perform sorting
-        constraint.sort_maps(&lut_a, &lut_b);
+        super::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
 
         // Validate the map is sorted and flipped correctly
-        assert_eq!(*constraint.map.get(&1).unwrap(), 0);
-        assert_eq!(*constraint.map.get(&3).unwrap(), 2);
+        assert_eq!(*map.get(&1).unwrap(), 0);
+        assert_eq!(*map.get(&3).unwrap(), 2);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        assert_eq!(constraint.map_s.get("B").unwrap(), "A");
-        assert_eq!(constraint.map_s.get("D").unwrap(), "C");
+        assert_eq!(map_s.get("B").unwrap(), "A");
+        assert_eq!(map_s.get("D").unwrap(), "C");
     }
 
     #[test]
     #[should_panic]
     fn test_sort_maps_panic_on_missing_lut_keys() {
-        let mut constraint = Constraint {
-            r#type: ConstraintType::Box {
-                num: 1.0,
-                comment: "".to_string(),
-                offer: None,
-            },
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            hidden: false,
-            map: HashMap::new(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![],
-            information: None,
-            left_after: None,
-            result_unknown: false,
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
+        let mut map_s = HashMap::new();
+        let mut map = HashMap::new();
 
-        constraint.map.insert(1, 0);
+        map.insert(1, 0);
         // Initialize the map_s with keys not present in lut_a or lut_b
-        constraint
-            .map_s
-            .insert("unknown".to_string(), "value".to_string());
+        map_s.insert("unknown".to_string(), "value".to_string());
 
         // Initialize lookup tables with different keys
         let lut_a = HashMap::new();
         let lut_b = HashMap::new();
 
         // Perform sorting (should panic due to missing keys)
-        constraint.sort_maps(&lut_a, &lut_b);
+        super::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
     }
 
-    fn constraint_def() -> Constraint {
+    fn constraint_def(exclude: Option<(u8, Bitset)>, lights: u8) -> Constraint {
         Constraint {
             result_unknown: false,
-            exclude: None,
+            exclude,
             map_s: HashMap::new(),
-            check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            check: CheckType::Lights(lights, BTreeMap::new()),
+            map: MaskedMatching::from_matching_ref(&vec![vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 0,
             eliminated_tab: vec![
                 vec![0, 0, 0, 0, 0],
@@ -511,7 +480,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -524,34 +493,9 @@ mod tests {
 
     #[test]
     fn test_process_light() {
-        let mut c = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
-            eliminated: 0,
-            eliminated_tab: vec![
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-            ],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: 1.0,
-                comment: String::from(""),
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
+        let mut c = constraint_def(None, 2);
 
-        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
         assert!(!c.process(&m).unwrap());
         // change amount of lights
         match &mut c.check {
@@ -564,41 +508,12 @@ mod tests {
 
     #[test]
     fn test_process_light_exclude() {
-        let mut c = Constraint {
-            result_unknown: false,
-            exclude: Some((0, HashSet::from([2, 3]))),
-            map_s: HashMap::new(),
-            check: CheckType::Lights(1, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
-            eliminated: 0,
-            eliminated_tab: vec![
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-            ],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: 1.0,
-                comment: String::from(""),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
+        let mut c = constraint_def(Some((0, Bitset::from_idxs(&[2, 3]))), 1);
 
-        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
         assert!(c.process(&m).unwrap());
 
-        let m: Matching = vec![vec![0], vec![1], vec![2, 3], vec![4]];
-        assert!(!c.process(&m).unwrap());
-
-        let m: Matching = vec![vec![0, 2], vec![1], vec![4], vec![3]];
+        let m = MaskedMatching::from_matching_ref(&[vec![0, 2], vec![1], vec![4], vec![3]]);
         assert!(!c.process(&m).unwrap());
     }
 
@@ -610,7 +525,7 @@ mod tests {
             map_s: HashMap::new(),
             check: CheckType::Eq,
             // 1 and 2 have the same match
-            map: HashMap::from([(0, 1), (1, 2)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2]]),
             eliminated: 0,
             eliminated_tab: vec![
                 vec![0, 0, 0, 0, 0],
@@ -622,7 +537,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
                 offer: None,
             },
@@ -633,16 +548,16 @@ mod tests {
             known_lights: 0,
         };
 
-        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
         assert!(!c.process(&m).unwrap());
-        let m: Matching = vec![vec![0], vec![1, 2], vec![3], vec![4]];
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1, 2], vec![3], vec![4]]);
         assert!(c.process(&m).unwrap());
     }
 
     #[test]
     fn test_eliminate() {
-        let mut c = constraint_def();
-        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        let mut c = constraint_def(None, 2);
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
 
         c.eliminate(&m);
         assert_eq!(c.eliminated, 1);
@@ -671,8 +586,8 @@ mod tests {
 
     #[test]
     fn test_apply() {
-        let mut c = constraint_def();
-        let m: Matching = vec![vec![0], vec![1], vec![2], vec![3, 4]];
+        let mut c = constraint_def(None, 2);
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
 
         c.eliminate(&m);
         assert_eq!(c.eliminated, 1);
@@ -699,7 +614,7 @@ mod tests {
             exclude: None,
             map_s: HashMap::new(),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 200,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -711,7 +626,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -725,7 +640,7 @@ mod tests {
             exclude: None,
             map_s: HashMap::new(),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -737,7 +652,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -777,7 +692,7 @@ mod tests {
                 ("D".to_string(), "d".to_string()),
             ]),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -789,7 +704,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
             },
             build_tree: false,
@@ -830,7 +745,7 @@ mod tests {
         let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
         assert_eq!(
             row,
-            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5", "0", "0/MN#1"]
+            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5", "0", "0/MN#1.0"]
         );
     }
 
@@ -845,7 +760,7 @@ mod tests {
                 ("D".to_string(), "d".to_string()),
             ]),
             check: CheckType::Eq,
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -857,7 +772,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from(""),
                 offer: None,
             },
@@ -959,7 +874,7 @@ mod tests {
                 ("D".to_string(), "d".to_string()),
             ]),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -971,7 +886,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
             },
             result_unknown: false,
@@ -996,7 +911,7 @@ mod tests {
                 ("D".to_string(), "d".to_string()),
             ]),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -1008,7 +923,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
                 offer: None,
             },
@@ -1034,7 +949,7 @@ mod tests {
                 ("D".to_string(), "d".to_string()),
             ]),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -1046,7 +961,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Night {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
             },
             result_unknown: false,
@@ -1057,7 +972,7 @@ mod tests {
             known_lights: 0,
         };
 
-        assert_eq!(c.type_str(), "MN#1");
+        assert_eq!(c.type_str(), "MN#1.0");
     }
 
     #[test]
@@ -1071,7 +986,7 @@ mod tests {
                 ("D".to_string(), "d".to_string()),
             ]),
             check: CheckType::Lights(2, BTreeMap::new()),
-            map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 100,
             eliminated_tab: vec![
                 vec![1, 0, 0, 0, 0],
@@ -1083,7 +998,7 @@ mod tests {
             left_after: None,
             hidden: false,
             r#type: ConstraintType::Box {
-                num: 1.0,
+                num: dec![1.0],
                 comment: String::from("comment"),
                 offer: None,
             },
@@ -1095,6 +1010,6 @@ mod tests {
             known_lights: 0,
         };
 
-        assert_eq!(c.type_str(), "MB#1");
+        assert_eq!(c.type_str(), "MB#1.0");
     }
 }
