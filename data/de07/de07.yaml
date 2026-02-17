@@ -138,7 +138,8 @@ constraints:
   # - type: !Box {num: 5, comment: "E11"}
   #   check: !Lights [0]
   #   map:
-  #     x
+  #     Chris: Aurora
+  #     # Noel: Elena
 
   # - type: !Night {num: 5, comment: "E12"}
   #   check: !Lights [3]
