@@ -259,14 +259,12 @@ mod tests {
         constraint.map_s.insert("D".to_string(), "C".to_string());
 
         // Initialize lookup tables
-        let lut_a = HashMap::from_iter(
-            vec![
-                ("A".to_string(), 0),
-                ("B".to_string(), 1),
-                ("C".to_string(), 2),
-                ("D".to_string(), 3),
-            ],
-        );
+        let lut_a = HashMap::from_iter(vec![
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+            ("D".to_string(), 3),
+        ]);
         let lut_b = lut_a.clone();
 
         let constraint = constraint
@@ -309,14 +307,12 @@ mod tests {
         constraint.map_s.insert("A".to_string(), "B".to_string());
 
         // Initialize lookup tables
-        let lut_a = HashMap::from_iter(
-            vec![
-                ("A".to_string(), 0),
-                ("B".to_string(), 1),
-                ("C".to_string(), 2),
-                ("D".to_string(), 3),
-            ],
-        );
+        let lut_a = HashMap::from_iter(vec![
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+            ("D".to_string(), 3),
+        ]);
         let lut_b = lut_a.clone();
 
         let constraint = constraint
@@ -363,14 +359,12 @@ mod tests {
         constraint.map_s.insert("A".to_string(), "B".to_string());
 
         // Initialize lookup tables
-        let lut_a = HashMap::from_iter(
-            vec![
-                ("A".to_string(), 0),
-                ("B".to_string(), 1),
-                ("C".to_string(), 2),
-                ("D".to_string(), 3),
-            ],
-        );
+        let lut_a = HashMap::from_iter(vec![
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+            ("D".to_string(), 3),
+        ]);
         let lut_b = lut_a.clone();
 
         let constraint = constraint
