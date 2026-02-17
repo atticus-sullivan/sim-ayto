@@ -299,7 +299,7 @@ impl Constraint {
                     if expected == 0.0 {
                         expected = -0.0;
                     }
-                    println!("-> E[I]/bits: {:.2} (aka H)", -expected);
+                    println!("-> E[I]/bits: {:.2} = H", -expected);
                 }
 
                 print!("{} lights ", l);
