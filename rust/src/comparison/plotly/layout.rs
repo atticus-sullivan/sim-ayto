@@ -1,7 +1,6 @@
 use catppuccin::Flavor;
 use plotly::{common::Title, Layout, Plot};
 
-
 /// Create a new Plotly `Plot` with default configuration used across the site
 /// (responsive, no plotly logo, scroll zoom enabled).
 pub fn plotly_new_plot() -> Plot {
@@ -56,7 +55,6 @@ pub(crate) fn styled_axis(palette: &Flavor, title: &str, mirror: bool) -> plotly
         .mirror(mirror)
         .show_line(true)
 }
-
 
 #[cfg(test)]
 mod tests {

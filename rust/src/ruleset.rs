@@ -1,10 +1,13 @@
-pub mod parse;
 mod generators;
+pub mod parse;
 mod utils;
 
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::MaskedMatching;
-use crate::ruleset::generators::{add_trip_inplace, add_x_dups_inplace, heaps_permute, n_to_n_inplace, someone_is_dup_inplace, someone_is_trip_inplace};
+use crate::ruleset::generators::{
+    add_trip_inplace, add_x_dups_inplace, heaps_permute, n_to_n_inplace, someone_is_dup_inplace,
+    someone_is_trip_inplace,
+};
 use anyhow::{Context, Result};
 use std::path::PathBuf;
 use std::{
@@ -81,7 +84,8 @@ impl RuleSet {
 
             RuleSet::XTimesDup((unknown_cnt, fixed)) => {
                 // build fixed numbers as u8 indices
-                let fixed_nums = Bitset::from_idxs(&fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>());
+                let fixed_nums =
+                    Bitset::from_idxs(&fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>());
 
                 // build base vector `x` = all lut_b indices excluding the fixed numbers
                 // Len(x) == a + unknown_cnt
@@ -131,7 +135,8 @@ impl RuleSet {
             RuleSet::FixedTrip(s) => {
                 let fixed_val = *lut_b
                     .get(s)
-                    .with_context(|| format!("Invalid index {}", s))? as u8;
+                    .with_context(|| format!("Invalid index {}", s))?
+                    as u8;
 
                 // base buffer: all values except the fixed one
                 let mut base = (0..lut_b.len() as u8)
@@ -275,7 +280,7 @@ mod tests {
     #[test]
     fn test_iter_perms_eq() {
         let ground_truth: HashSet<Vec<Vec<u8>>> =
-        HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
+            HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
         let eq_rule = RuleSet::Eq;
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));

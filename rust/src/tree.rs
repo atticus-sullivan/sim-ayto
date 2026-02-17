@@ -1,5 +1,5 @@
-use std::io::Write;
 use std::collections::HashSet;
+use std::io::Write;
 
 use anyhow::Result;
 
@@ -96,9 +96,9 @@ pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, u
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::io::Cursor;
     use crate::matching_repr::bitset::Bitset;
     use crate::matching_repr::MaskedMatching;
+    use std::io::Cursor;
 
     #[test]
     fn tree_ordering_detects_variable_slots() {

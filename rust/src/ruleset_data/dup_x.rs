@@ -25,7 +25,6 @@ impl DupXData {
         })
     }
 
-
     #[allow(clippy::too_many_arguments)]
     fn print_one(
         &self,

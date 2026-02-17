@@ -94,7 +94,7 @@ impl MaskedMatching {
 
     /// Number of slots.
     pub fn len(&self) -> usize {
- self.masks.len()
+        self.masks.len()
     }
 
     /// Compute the universe (highest set bit + 1) or 0 if empty.
@@ -117,8 +117,8 @@ impl MaskedMatching {
     }
 }
 
-    impl<'a> std::ops::BitAnd<&'a MaskedMatching> for MaskedMatching {
-        type Output = Self;
+impl<'a> std::ops::BitAnd<&'a MaskedMatching> for MaskedMatching {
+    type Output = Self;
 
     fn bitand(mut self, rhs: &'a MaskedMatching) -> Self::Output {
         for (i, j) in self.masks.iter_mut().zip(&rhs.masks) {
@@ -128,62 +128,62 @@ impl MaskedMatching {
     }
 }
 
-    #[cfg(test)]
-    mod tests {
-        use std::collections::HashSet;
+#[cfg(test)]
+mod tests {
+    use std::collections::HashSet;
 
-        use super::*;
+    use super::*;
 
-        #[test]
-        fn test_contains_mask_and_slot_contains_any() {
-            let legacy = vec![vec![4u8], vec![2u8]];
-            let mm = MaskedMatching::from(&legacy);
-            let m = Bitset::from_idxs(&[4u8]);
-            assert!(mm.contains_mask(m));
-            let mut set = HashSet::new();
-            set.insert(3u8);
-            set.insert(4u8);
-            assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
-        }
-
-        #[test]
-        fn test_prepare_debug_print() {
-            let legacy = vec![vec![3u8, 5u8], vec![0u8]];
-            let mm = MaskedMatching::from(&legacy);
-            let dbg = mm.prepare_debug_print();
-            assert_eq!(dbg, legacy);
-        }
-
-        #[test]
-        fn test_count_matches_singles_and_calculate_lights() {
-            let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
-            let singles: Vec<IdBase> = vec![0u8, 3u8, 2u8];
-            // count_matches_singles equivalent:
-            let match_count = mm
-                .iter()
-                .enumerate()
-                .map(|(i, slot)| {
-                    let first = singles.get(i).copied().unwrap_or(0);
-                    if slot.contains(first) {
-                        1
-                    } else {
-                        0
-                    }
-                })
-                .sum::<usize>() as IdBase;
-            assert_eq!(match_count, 2);
-
-            // calculate_lights: compare mm with solution mm2
-            let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
-            assert_eq!(mm.calculate_lights(&mm2), 2u8);
-        }
-
-        // Keep this broad: ensure nothing panics for typical scenarios
-        #[test]
-        fn smoke_test_various_calls() {
-            let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8, 2u8]]);
-            let _ = mm.len();
-            let _ = mm.computed_universe();
-            let _ = mm.prepare_debug_print();
-        }
+    #[test]
+    fn test_contains_mask_and_slot_contains_any() {
+        let legacy = vec![vec![4u8], vec![2u8]];
+        let mm = MaskedMatching::from(&legacy);
+        let m = Bitset::from_idxs(&[4u8]);
+        assert!(mm.contains_mask(m));
+        let mut set = HashSet::new();
+        set.insert(3u8);
+        set.insert(4u8);
+        assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
     }
+
+    #[test]
+    fn test_prepare_debug_print() {
+        let legacy = vec![vec![3u8, 5u8], vec![0u8]];
+        let mm = MaskedMatching::from(&legacy);
+        let dbg = mm.prepare_debug_print();
+        assert_eq!(dbg, legacy);
+    }
+
+    #[test]
+    fn test_count_matches_singles_and_calculate_lights() {
+        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
+        let singles: Vec<IdBase> = vec![0u8, 3u8, 2u8];
+        // count_matches_singles equivalent:
+        let match_count = mm
+            .iter()
+            .enumerate()
+            .map(|(i, slot)| {
+                let first = singles.get(i).copied().unwrap_or(0);
+                if slot.contains(first) {
+                    1
+                } else {
+                    0
+                }
+            })
+            .sum::<usize>() as IdBase;
+        assert_eq!(match_count, 2);
+
+        // calculate_lights: compare mm with solution mm2
+        let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
+        assert_eq!(mm.calculate_lights(&mm2), 2u8);
+    }
+
+    // Keep this broad: ensure nothing panics for typical scenarios
+    #[test]
+    fn smoke_test_various_calls() {
+        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8, 2u8]]);
+        let _ = mm.len();
+        let _ = mm.computed_universe();
+        let _ = mm.prepare_debug_print();
+    }
+}

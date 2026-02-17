@@ -4,9 +4,9 @@ use anyhow::Result;
 
 use serde::Deserialize;
 
+use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, MapS, Rename};
-use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
 
 // this struct is only used when parsing the yaml file.
 // The function `finalize_parsing` is intended to convert this to a regular constraint.
@@ -193,8 +193,6 @@ impl ConstraintParse {
 
         Ok(c)
     }
-
-
 
     /// Generates the exclude list for the constraint, by inserting the elements from `map_b`
     ///
@@ -432,7 +430,11 @@ mod tests {
     #[test]
     fn convert_map_s_to_ids_works() {
         let mut cp = ConstraintParse {
-            r#type: ConstraintType::Box { num: dec![1.0], comment: "".to_string(), offer: None },
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
             map_s: HashMap::new(),
             check: CheckType::Eq,
             hidden: false,

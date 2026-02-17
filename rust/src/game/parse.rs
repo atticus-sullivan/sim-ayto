@@ -1,5 +1,5 @@
-use std::hash::{Hash, Hasher};
 use std::fs::File;
+use std::hash::{Hash, Hasher};
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
 
@@ -12,9 +12,9 @@ use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Color, Table};
 
 use crate::constraint::parse::ConstraintParse;
+use crate::game::Game;
 use crate::ruleset::parse::RuleSetParse;
 use crate::{Lut, Matching, MatchingS, Rename};
-use crate::game::Game;
 
 #[derive(Deserialize, Debug, Default)]
 struct QueryPair {

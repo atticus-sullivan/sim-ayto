@@ -1,6 +1,5 @@
 use catppuccin::{Flavor, PALETTE};
 
-
 pub fn lut_theme(theme: u8) -> Flavor {
     match theme {
         1 => PALETTE.latte,

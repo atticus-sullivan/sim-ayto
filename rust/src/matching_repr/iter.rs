@@ -6,7 +6,10 @@ use crate::matching_repr::{
 impl MaskedMatching {
     /// Iterate over slots: returns an iterator of `Bitset` (one bitset per slot).
     pub fn iter(&self) -> SlotsIter<'_> {
-        SlotsIter { masks: &self.masks, idx: 0 }
+        SlotsIter {
+            masks: &self.masks,
+            idx: 0,
+        }
     }
 
     /// Iterate over (slot,value) pairs: yields `(slot_index, value_index)`.

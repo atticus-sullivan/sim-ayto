@@ -1,7 +1,7 @@
-pub mod eval_types;
-pub mod eval_report;
-pub mod eval_predicates;
 pub mod eval_compute;
+pub mod eval_predicates;
+pub mod eval_report;
+pub mod eval_types;
 pub mod parse;
 pub mod parse_helpers;
 mod utils;
@@ -290,10 +290,10 @@ impl Constraint {
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let l = self.map.calculate_lights(m);
 
-                let f = self.exclude.as_ref().and_then(|ex| {
-                    m.slot_mask(ex.0 as usize)
-                        .map(|m| !m.contains_any(&ex.1))
-                });
+                let f = self
+                    .exclude
+                    .as_ref()
+                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| !m.contains_any(&ex.1)));
 
                 // use calculated lights to collect stats on based on the matching possible until
                 // here, how many lights are calculated how often for this map
@@ -810,7 +810,10 @@ mod tests {
             save: false,
         };
         assert_eq!(o.try_get_amount(), Some(42u128));
-        let o2 = Offer::Group { amount: None, by: "x".into() };
+        let o2 = Offer::Group {
+            amount: None,
+            by: "x".into(),
+        };
         assert_eq!(o2.try_get_amount(), None);
     }
 
@@ -819,7 +822,10 @@ mod tests {
         let data: Box<dyn RuleSetData> = Box::new(DummyData::default());
         let mm = MaskedMatching::from_matching_ref(&vec![vec![0u8]]);
         let c = Constraint::new_unchecked(
-            ConstraintType::Night { num: dec![1.0], comment: String::new() },
+            ConstraintType::Night {
+                num: dec![1.0],
+                comment: String::new(),
+            },
             CheckType::Nothing,
             mm,
             data,
@@ -1031,7 +1037,11 @@ mod tests {
             information: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Box { num: dec![1.0], comment: String::new(), offer: None },
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: String::new(),
+                offer: None,
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,

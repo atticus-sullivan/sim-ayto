@@ -6,10 +6,9 @@ use rust_decimal::prelude::FromPrimitive;
 use rust_decimal::Decimal;
 use serde::Serialize;
 
+use crate::comparison::plotly::layout::plotly_new_plot;
 use crate::comparison::plotly::layout::styled_axis;
 use crate::comparison::CmpData;
-use crate::comparison::plotly::{layout::plotly_new_plot};
-
 
 /// Render a heatmap (inline Plotly HTML) from a pre-built matrix representation.
 ///
@@ -220,7 +219,6 @@ mod tests {
 
     use super::*;
 
-
     #[test]
     fn heatmap_from_matrix_generates_html_with_f64_edges() {
         // simple 2x2 heatmap:
@@ -230,8 +228,8 @@ mod tests {
 
         // z must have same number of rows as y_labels, and each row must have columns == x_edges.len()
         let z = vec![
-            vec![Some(1.0f64), None],          // row 0
-            vec![Some(2.0f64), Some(3.0f64)],  // row 1
+            vec![Some(1.0f64), None],         // row 0
+            vec![Some(2.0f64), Some(3.0f64)], // row 1
         ];
 
         let texts = vec![
@@ -242,10 +240,19 @@ mod tests {
         let palette = lut_theme(1);
         let layout = plotly_gen_layout(palette);
 
-        let html = heatmap_from_matrix(x_edges, y_labels, z, texts, &layout, &palette, "MyHeatmap", "X axis");
-        assert!(html.contains("<div"));            // basic sanity: we got HTML back
-        assert!(html.contains("MyHeatmap"));       // title present
-        // plotly inline output contains "Plotly" or "data" keys as JS — just check there's some content
+        let html = heatmap_from_matrix(
+            x_edges,
+            y_labels,
+            z,
+            texts,
+            &layout,
+            &palette,
+            "MyHeatmap",
+            "X axis",
+        );
+        assert!(html.contains("<div")); // basic sanity: we got HTML back
+        assert!(html.contains("MyHeatmap")); // title present
+                                             // plotly inline output contains "Plotly" or "data" keys as JS — just check there's some content
         assert!(html.len() > 200);
     }
 
@@ -274,13 +281,11 @@ mod tests {
             ],
         };
         let d2 = Dummy {
-            entries: vec![
-                EntryDatum {
-                    num: Decimal::from_f64(0.3).unwrap(),
-                    val: Some(3.0),
-                    hover: Some("c".to_string()),
-                }
-            ],
+            entries: vec![EntryDatum {
+                num: Decimal::from_f64(0.3).unwrap(),
+                val: Some(3.0),
+                hover: Some("c".to_string()),
+            }],
         };
 
         let cmp_data = vec![
@@ -290,7 +295,7 @@ mod tests {
 
         // entries_fn just clones the entries
         let (edges, layouts) =
-        generate_buckets_from_entries(&cmp_data, &|d: &Dummy| d.entries.clone());
+            generate_buckets_from_entries(&cmp_data, &|d: &Dummy| d.entries.clone());
 
         // we expect at least one edge
         assert!(!edges.is_empty());

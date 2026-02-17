@@ -66,9 +66,7 @@ enum Commands {
         html_path_us: PathBuf,
     },
     /// Report cache availability for a YAML file
-    Cache {
-        yaml_path: PathBuf,
-    },
+    Cache { yaml_path: PathBuf },
 }
 
 /// Run the command selected by the CLI arguments. Factored out for easier testing or reuse.

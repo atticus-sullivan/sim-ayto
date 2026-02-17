@@ -1,9 +1,16 @@
-use std::{fs::File, path::PathBuf};
 use anyhow::{Context, Result};
+use std::{fs::File, path::PathBuf};
 
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 
-use crate::{constraint::{eval_types::{EvalEvent, EvalMB, EvalMN}, CheckType, Constraint, ConstraintType}, matching_repr::bitset::Bitset, MapS};
+use crate::{
+    constraint::{
+        eval_types::{EvalEvent, EvalMB, EvalMN},
+        CheckType, Constraint, ConstraintType,
+    },
+    matching_repr::bitset::Bitset,
+    MapS,
+};
 
 impl Constraint {
     pub fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
@@ -122,19 +129,20 @@ impl Constraint {
         // show how many new matches are present
         if let ConstraintType::Night { .. } = self.r#type {
             let cnt = self
-                    .map
-                    .iter()
-                    .enumerate()
-                    .filter(|&(k, v)| {
-                        !v.is_empty() && !past_constraints.iter().any(|&c| {
+                .map
+                .iter()
+                .enumerate()
+                .filter(|&(k, v)| {
+                    !v.is_empty()
+                        && !past_constraints.iter().any(|&c| {
                             c.adds_new()
                                 && c.map
                                     .slot_mask(k)
                                     .unwrap_or(&Bitset::empty())
                                     .contains_any(&v)
                         })
-                    })
-                    .count();
+                })
+                .count();
             ret.push(Cell::new(cnt.to_string()));
         } else {
             ret.push(Cell::new(String::from("")));
@@ -165,18 +173,19 @@ impl Constraint {
             return None;
         }
 
-        Some(self
-            .map
-            .iter()
-            .enumerate()
-            .filter(|&(k, v)| {
-                !v.is_empty() && !other
-                    .map
-                    .slot_mask(k)
-                    .unwrap_or(&Bitset::empty())
-                    .contains_any(&v)
-            })
-            .count(),
+        Some(
+            self.map
+                .iter()
+                .enumerate()
+                .filter(|&(k, v)| {
+                    !v.is_empty()
+                        && !other
+                            .map
+                            .slot_mask(k)
+                            .unwrap_or(&Bitset::empty())
+                            .contains_any(&v)
+                })
+                .count(),
         )
     }
 

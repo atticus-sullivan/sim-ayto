@@ -2,7 +2,10 @@ use catppuccin::Flavor;
 use plotly::{common::Mode, Layout, Scatter};
 use serde::Serialize;
 
-use crate::comparison::{plotly::layout::{plotly_new_plot, styled_axis}, CmpData};
+use crate::comparison::{
+    plotly::layout::{plotly_new_plot, styled_axis},
+    CmpData,
+};
 
 /// Build a scatter plot HTML from a list of named series. Each series is
 /// `(name, x_values, y_values, text_values)`.
@@ -51,19 +54,17 @@ where
     X: Clone + Serialize + 'static,
     Y: Clone + Serialize + 'static,
 {
-
     let render_layout = layout
-            .clone()
-            .title(title)
-            .x_axis(styled_axis(palette, x_title, true))
-            .y_axis(styled_axis(palette, y_title, false));
+        .clone()
+        .title(title)
+        .x_axis(styled_axis(palette, x_title, true))
+        .y_axis(styled_axis(palette, y_title, false));
 
-    let data = cmp_data.into_iter().map(|(name, cd)| (name.clone(), x_fn(cd), y_fn(cd), text_fn(cd))).collect::<Vec<_>>();
-    scatter_from_series(
-        &render_layout,
-        &data,
-        mode,
-    )
+    let data = cmp_data
+        .into_iter()
+        .map(|(name, cd)| (name.clone(), x_fn(cd), y_fn(cd), text_fn(cd)))
+        .collect::<Vec<_>>();
+    scatter_from_series(&render_layout, &data, mode)
 }
 
 #[cfg(test)]
@@ -77,14 +78,20 @@ mod tests {
         let palette = lut_theme(1);
         let layout = plotly_gen_layout(palette);
         let series = vec![
-            ("A".to_string(), vec![1.0f64], vec![2.0f64], vec!["pt1".to_string()]),
-            ("B".to_string(), vec![3.0f64], vec![4.0f64], vec!["pt2".to_string()]),
+            (
+                "A".to_string(),
+                vec![1.0f64],
+                vec![2.0f64],
+                vec!["pt1".to_string()],
+            ),
+            (
+                "B".to_string(),
+                vec![3.0f64],
+                vec![4.0f64],
+                vec!["pt2".to_string()],
+            ),
         ];
-        let html = scatter_from_series(
-            &layout,
-            &series,
-            Mode::Lines,
-        );
+        let html = scatter_from_series(&layout, &series, Mode::Lines);
         assert!(html.contains("<div"));
         assert!(html.contains("Plotly"));
     }

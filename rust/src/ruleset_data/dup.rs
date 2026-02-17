@@ -199,6 +199,9 @@ mod tests {
         // aggregate by b -> both b indices counted once each
         let mut ab = d.aggregate_by_b();
         ab.sort_by_key(|(b, _)| *b);
-        assert_eq!(ab.iter().map(|(b, _)| *b).collect::<Vec<_>>(), vec![1u8, 2u8]);
+        assert_eq!(
+            ab.iter().map(|(b, _)| *b).collect::<Vec<_>>(),
+            vec![1u8, 2u8]
+        );
     }
 }

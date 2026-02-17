@@ -1,9 +1,9 @@
 mod information;
 mod lights;
+mod plotly;
 mod ruleset;
 mod summary;
 mod theme;
-mod plotly;
 
 use std::fs::File;
 use std::io::BufReader;

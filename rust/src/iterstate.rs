@@ -212,12 +212,11 @@ impl IterState {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::matching_repr::MaskedMatching;
     use crate::matching_repr::bitset::Bitset;
+    use crate::matching_repr::MaskedMatching;
     use std::collections::HashSet;
 
     /// Create a `MaskedMatching` template with capacity for `cnt` slots.
@@ -240,13 +239,13 @@ mod tests {
         query_values.insert(0u8); // track value 0 keyed by value index
 
         let mut is = IterState::new(
-            false,               // keep_rem
-            10,                  // perm_amount (only used to size progress, cnt_update)
-            Vec::new(),          // constraints
-            &[],                 // query_matchings
+            false,      // keep_rem
+            10,         // perm_amount (only used to size progress, cnt_update)
+            Vec::new(), // constraints
+            &[],        // query_matchings
             &(query_slots, query_values),
-            &None,               // cache_file
-            (2usize, 4usize),    // map_lens: 2 slots, universe size 4
+            &None,            // cache_file
+            (2usize, 4usize), // map_lens: 2 slots, universe size 4
         )
         .expect("failed to create IterState");
 

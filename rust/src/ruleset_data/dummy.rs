@@ -37,6 +37,14 @@ mod tests {
         let mut d = DummyData::default();
         let m = MaskedMatching::from_matching_ref(&[vec![0u8]]);
         d.push(&m).expect("push failed");
-        d.print(false, &crate::ruleset::RuleSet::Eq, &vec![], &vec![], &crate::Lut::default(), 1).expect("print failed");
+        d.print(
+            false,
+            &crate::ruleset::RuleSet::Eq,
+            &vec![],
+            &vec![],
+            &crate::Lut::default(),
+            1,
+        )
+        .expect("print failed");
     }
 }

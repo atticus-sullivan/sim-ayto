@@ -528,8 +528,8 @@ fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ayto::matching_repr::MaskedMatching;
     use ayto::matching_repr::bitset::Bitset;
+    use ayto::matching_repr::MaskedMatching;
 
     #[test]
     fn format_time_zero() {

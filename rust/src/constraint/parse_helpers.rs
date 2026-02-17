@@ -2,8 +2,11 @@ use std::collections::{HashMap, HashSet};
 
 use anyhow::{ensure, Context, Result};
 
-use crate::{constraint::{parse::ConstraintParse, CheckType, Constraint, ConstraintType}, matching_repr::bitset::Bitset, Lut, MapS};
-
+use crate::{
+    constraint::{parse::ConstraintParse, CheckType, Constraint, ConstraintType},
+    matching_repr::bitset::Bitset,
+    Lut, MapS,
+};
 
 impl ConstraintParse {
     // convert the string map_s into numeric ids using LUTs.
@@ -20,7 +23,10 @@ impl ConstraintParse {
             .iter()
             .map(&|(k, v)| {
                 let k_id = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
-                let v_id = *lut_b.get(v).with_context(|| format!("Invalid Value {}", v))? as u8;
+                let v_id = *lut_b
+                    .get(v)
+                    .with_context(|| format!("Invalid Value {}", v))?
+                    as u8;
                 Ok((k_id, v_id))
             })
             .collect::<Result<HashMap<u8, u8>>>()?;

@@ -1,7 +1,6 @@
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
 
-
 /// Container of evaluation output used for plotting and summaries.
 ///
 /// - `events` are the chronological evaluation events (MB/MN/Initial).
@@ -11,7 +10,6 @@ pub struct EvalData {
     pub events: Vec<EvalEvent>,
     pub cnts: SumCounts,
 }
-
 
 /// One recorded evaluation event (MB/MN/Initial).
 ///
@@ -41,9 +39,9 @@ macro_rules! eval_event_query_data {
             &self,
             mn: MnPred,
             mb: MbPred,
-            init: InitPred
+            init: InitPred,
         ) -> Option<$ret>
-        where 
+        where
             MnPred: Fn(&EvalMN) -> bool,
             MbPred: Fn(&EvalMB) -> bool,
             InitPred: Fn(&EvalInitial) -> bool,
@@ -55,21 +53,21 @@ macro_rules! eval_event_query_data {
                     } else {
                         None
                     }
-                },
+                }
                 EvalEvent::MB($mb_var) => {
                     if mb($mb_var) {
                         $mb_body
                     } else {
                         None
                     }
-                },
+                }
                 EvalEvent::Initial($ini_var) => {
                     if init($ini_var) {
                         $init_body
                     } else {
                         None
                     }
-                },
+                }
             }
         }
     };
@@ -216,8 +214,32 @@ mod tests {
 
     #[test]
     fn sumcounts_add_combines_counts() {
-        let mut a = SumCounts { blackouts: 1, sold: 2, sold_but_match: 0, sold_but_match_active: true, matches_found: 1, won: false, offers_noted: false, offer_and_match: 0, offered_money: 0, offers: 0, solvable: Some(true) };
-        let b = SumCounts { blackouts: 2, sold: 1, sold_but_match: 3, sold_but_match_active: false, matches_found: 0, won: true, offers_noted: true, offer_and_match: 1, offered_money: 100, offers: 2, solvable: Some(false) };
+        let mut a = SumCounts {
+            blackouts: 1,
+            sold: 2,
+            sold_but_match: 0,
+            sold_but_match_active: true,
+            matches_found: 1,
+            won: false,
+            offers_noted: false,
+            offer_and_match: 0,
+            offered_money: 0,
+            offers: 0,
+            solvable: Some(true),
+        };
+        let b = SumCounts {
+            blackouts: 2,
+            sold: 1,
+            sold_but_match: 3,
+            sold_but_match_active: false,
+            matches_found: 0,
+            won: true,
+            offers_noted: true,
+            offer_and_match: 1,
+            offered_money: 100,
+            offers: 2,
+            solvable: Some(false),
+        };
         a.add(&b);
         assert_eq!(a.blackouts, 3);
         assert_eq!(a.sold, 3);

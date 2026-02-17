@@ -322,7 +322,7 @@ mod tests {
     fn test_bitset_and_or_methods() {
         let a = Bitset::from_idxs(&[0u8, 2u8]); // 101
         let b = Bitset::from_idxs(&[2u8, 3u8]); // 1100
-        // method forms:
+                                                // method forms:
         let m_and = a.and(b);
         assert_eq!(m_and, Bitset::from_idxs(&[2u8]));
         let m_or = a.or(b);
@@ -337,5 +337,4 @@ mod tests {
         let mut it = b.iter();
         assert_eq!(it.next(), None);
     }
-
 }

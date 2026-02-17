@@ -37,9 +37,7 @@ impl MaskedMatching {
 
     /// Construct from raw bitset masks.
     pub fn from_masks(masks: Vec<Bitset>) -> Self {
-        MaskedMatching {
-            masks: masks,
-        }
+        MaskedMatching { masks: masks }
     }
 
     /// Swap the internal Vec<Bitset> with `other`.
@@ -101,9 +99,7 @@ impl MaskedMatching {
             }
             masks.push(Bitset::from_word(w));
         }
-        MaskedMatching {
-            masks,
-        }
+        MaskedMatching { masks }
     }
 }
 

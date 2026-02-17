@@ -315,12 +315,12 @@ impl Game {
         solutions: Option<&Vec<MaskedMatching>>,
     ) -> Result<()> {
         let out_path = self.dir.join("stats").with_extension("json");
-        let mut out_data = EvalData{
+        let mut out_data = EvalData {
             events: vec![],
             cnts: self.compute_cnts(merged_constraints, solutions, !self.no_offerings_noted),
         };
 
-        out_data.events.push(EvalEvent::Initial(EvalInitial{
+        out_data.events.push(EvalEvent::Initial(EvalInitial {
             bits_left_after: total.log2(),
             comment: "initial".to_string(),
         }));

@@ -1,4 +1,7 @@
-use crate::{constraint::{CheckType, Constraint, ConstraintType, Offer}, matching_repr::{bitset::Bitset, MaskedMatching}};
+use crate::{
+    constraint::{CheckType, Constraint, ConstraintType, Offer},
+    matching_repr::{bitset::Bitset, MaskedMatching},
+};
 
 impl Constraint {
     pub fn is_blackout(&self) -> bool {
@@ -72,8 +75,8 @@ impl Constraint {
 mod tests {
     use super::*;
     use crate::constraint::eval_types::{EvalEvent, EvalInitial, EvalMN};
-    use crate::{constraint::eval_types::EvalMB, ruleset_data::dummy::DummyData};
     use crate::matching_repr::MaskedMatching;
+    use crate::{constraint::eval_types::EvalMB, ruleset_data::dummy::DummyData};
     use rust_decimal::dec;
     use std::collections::{BTreeMap, HashMap};
 
@@ -143,7 +146,10 @@ mod tests {
             information: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Night { num: dec![1.0], comment: "".to_string() },
+            r#type: ConstraintType::Night {
+                num: dec![1.0],
+                comment: "".to_string(),
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
@@ -167,7 +173,11 @@ mod tests {
             information: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Box { num: dec![1.0], comment: "".to_string(), offer: None },
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
@@ -189,7 +199,16 @@ mod tests {
             information: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Box { num: dec![2.0], comment: "".to_string(), offer: Some(Offer::Single { amount: Some(10), by: "X".into(), reduced_pot: false, save: false }) },
+            r#type: ConstraintType::Box {
+                num: dec![2.0],
+                comment: "".to_string(),
+                offer: Some(Offer::Single {
+                    amount: Some(10),
+                    by: "X".into(),
+                    reduced_pot: false,
+                    save: false,
+                }),
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
@@ -204,9 +223,7 @@ mod tests {
         let c = Constraint {
             result_unknown: false,
             exclude: None,
-            map_s: HashMap::from([
-                ("A".to_string(), "a".to_string()),
-            ]),
+            map_s: HashMap::from([("A".to_string(), "a".to_string())]),
             check: CheckType::Lights(1, BTreeMap::new()),
             map: MaskedMatching::from_matching_ref(&[vec![0]]),
             eliminated: 0,
@@ -214,7 +231,11 @@ mod tests {
             information: Some(2.0),
             left_after: Some(1024),
             hidden: false,
-            r#type: ConstraintType::Box { num: dec![3.0], comment: "".to_string(), offer: None },
+            r#type: ConstraintType::Box {
+                num: dec![3.0],
+                comment: "".to_string(),
+                offer: None,
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
@@ -245,7 +266,10 @@ mod tests {
             information: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Night { num: dec![1.0], comment: "".to_string() },
+            r#type: ConstraintType::Night {
+                num: dec![1.0],
+                comment: "".to_string(),
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,
@@ -286,7 +310,10 @@ mod tests {
             information: None,
             left_after: None,
             hidden: false,
-            r#type: ConstraintType::Night { num: dec![7.0], comment: "hello -- extra".to_string() },
+            r#type: ConstraintType::Night {
+                num: dec![7.0],
+                comment: "hello -- extra".to_string(),
+            },
             build_tree: false,
             left_poss: vec![],
             hide_ruleset_data: false,

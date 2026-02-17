@@ -72,7 +72,11 @@ where
 ///   order at each depth). Do not rely on a particular global ordering unless documented.
 /// - Caller must ensure `add` values are valid bit indices for `Bitset`.
 #[inline]
-pub(super) fn add_x_dups_inplace<F>(buf: &mut [Bitset], add: &[u8], mut emit: F) -> anyhow::Result<()>
+pub(super) fn add_x_dups_inplace<F>(
+    buf: &mut [Bitset],
+    add: &[u8],
+    mut emit: F,
+) -> anyhow::Result<()>
 where
     F: FnMut(&mut [Bitset]) -> anyhow::Result<()>,
 {
@@ -92,7 +96,7 @@ where
     {
         if depth == add.len() {
             // all adds applied -> emit final permutation
-            return emit(buf)
+            return emit(buf);
         }
         let val = add[depth];
 
@@ -194,7 +198,11 @@ where
 /// - `old_vals` vector is allocated once per candidate combination (capacity == cnt); consider
 ///   `SmallVec` if `cnt` is extremely small and you want to avoid heap usage entirely.
 #[inline]
-pub(super) fn someone_is_dup_inplace<F>(buf: &mut [Bitset], cnt: usize, mut emit: F) -> anyhow::Result<()>
+pub(super) fn someone_is_dup_inplace<F>(
+    buf: &mut [Bitset],
+    cnt: usize,
+    mut emit: F,
+) -> anyhow::Result<()>
 where
     F: FnMut(&mut [Bitset]) -> anyhow::Result<()>,
 {
@@ -224,7 +232,8 @@ where
         start: usize,
         cur: &mut Vec<usize>,
         emit: &mut F,
-    ) -> anyhow::Result<()> where
+    ) -> anyhow::Result<()>
+    where
         F: FnMut(&mut [Bitset]) -> anyhow::Result<()>,
     {
         if cur.len() == dups_words.len() {
@@ -360,7 +369,9 @@ where
     // Iterate combinations of indices (ks)
     for ks in full_indices.combination(len) {
         // produce the list of remaining values (vs)
-        let mut vs = (0..slots as u8).filter(|x| !ks.contains(&x)).collect::<Vec<_>>();
+        let mut vs = (0..slots as u8)
+            .filter(|x| !ks.contains(&x))
+            .collect::<Vec<_>>();
 
         // For every permutation of remaining values
         for perm_vs in vs.permutation() {
@@ -395,7 +406,7 @@ mod generator_tests {
     use std::collections::HashSet;
 
     use super::*;
-    use crate::matching_repr::{bitset::Bitset, MaskedMatching, IdBase};
+    use crate::matching_repr::{bitset::Bitset, IdBase, MaskedMatching};
 
     #[test]
     fn someone_is_dup_inplace_bitset_simple() {
@@ -403,19 +414,17 @@ mod generator_tests {
         let mut base = vec![
             Bitset::from_idxs(&[0u8]),
             Bitset::from_idxs(&[1u8]),
-            Bitset::from_idxs(&[2u8])
+            Bitset::from_idxs(&[2u8]),
         ];
         let mut out = vec![];
         someone_is_dup_inplace(&mut base, 1usize, |p| {
             out.push(p.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
         assert!(out.iter().any(|perm| perm.iter().any(|b| b.count() == 2)));
 
-        let out_ref = vec![
-            vec![Bitset(5), Bitset(2)],
-            vec![Bitset(1), Bitset(6)]
-        ];
+        let out_ref = vec![vec![Bitset(5), Bitset(2)], vec![Bitset(1), Bitset(6)]];
         assert_eq!(out, out_ref);
     }
 
@@ -433,14 +442,13 @@ mod generator_tests {
         someone_is_trip_inplace(&mut base, |p| {
             out.push(p.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
         assert!(!out.is_empty());
         // check that one output has a bucket with at least 3 bits set (trip)
         assert!(out.iter().any(|perm| perm.iter().any(|b| b.count() >= 3)));
 
-        let out_ref = vec![
-            vec![Bitset(11), Bitset(4)]
-        ];
+        let out_ref = vec![vec![Bitset(11), Bitset(4)]];
         assert_eq!(out, out_ref);
     }
 
@@ -451,15 +459,18 @@ mod generator_tests {
         heaps_permute(&mut v, |s| {
             seen.insert(s.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
         let expected: std::collections::HashSet<Vec<u8>> = vec![
-            vec![1,2,3],
-            vec![1,3,2],
-            vec![2,1,3],
-            vec![2,3,1],
-            vec![3,1,2],
-            vec![3,2,1],
-        ].into_iter().collect();
+            vec![1, 2, 3],
+            vec![1, 3, 2],
+            vec![2, 1, 3],
+            vec![2, 3, 1],
+            vec![3, 1, 2],
+            vec![3, 2, 1],
+        ]
+        .into_iter()
+        .collect();
         assert_eq!(seen, expected);
     }
 
@@ -472,33 +483,145 @@ mod generator_tests {
         n_to_n_inplace(slots, |slice| {
             out_inplace.push(slice.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
 
         let expected: Vec<MaskedMatching> = vec![
-            vec![vec![], vec![0 as IdBase], vec![], vec![], vec![2 as IdBase], vec![3 as IdBase]],
-            vec![vec![], vec![0 as IdBase], vec![], vec![], vec![3 as IdBase], vec![2 as IdBase]],
-            vec![vec![], vec![0 as IdBase], vec![], vec![2 as IdBase], vec![], vec![4 as IdBase]],
-            vec![vec![], vec![], vec![0 as IdBase], vec![1 as IdBase], vec![], vec![4 as IdBase]],
-            vec![vec![], vec![], vec![0 as IdBase], vec![], vec![1 as IdBase], vec![3 as IdBase]],
-            vec![vec![], vec![], vec![0 as IdBase], vec![], vec![3 as IdBase], vec![1 as IdBase]],
-            vec![vec![], vec![], vec![1 as IdBase], vec![0 as IdBase], vec![], vec![4 as IdBase]],
-            vec![vec![], vec![], vec![1 as IdBase], vec![], vec![0 as IdBase], vec![3 as IdBase]],
-            vec![vec![], vec![], vec![1 as IdBase], vec![], vec![3 as IdBase], vec![0 as IdBase]],
-            vec![vec![], vec![], vec![], vec![0 as IdBase], vec![1 as IdBase], vec![2 as IdBase]],
-            vec![vec![], vec![], vec![], vec![0 as IdBase], vec![2 as IdBase], vec![1 as IdBase]],
-            vec![vec![], vec![], vec![], vec![1 as IdBase], vec![0 as IdBase], vec![2 as IdBase]],
-            vec![vec![], vec![], vec![], vec![1 as IdBase], vec![2 as IdBase], vec![0 as IdBase]],
-            vec![vec![], vec![], vec![], vec![2 as IdBase], vec![0 as IdBase], vec![1 as IdBase]],
-            vec![vec![], vec![], vec![], vec![2 as IdBase], vec![1 as IdBase], vec![0 as IdBase]],
-        ].into_iter().map(|x| x.into()).collect();
-        let expected = expected.into_iter().map(|x| x.into_masks()).collect::<HashSet<_>>();
+            vec![
+                vec![],
+                vec![0 as IdBase],
+                vec![],
+                vec![],
+                vec![2 as IdBase],
+                vec![3 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![0 as IdBase],
+                vec![],
+                vec![],
+                vec![3 as IdBase],
+                vec![2 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![0 as IdBase],
+                vec![],
+                vec![2 as IdBase],
+                vec![],
+                vec![4 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![0 as IdBase],
+                vec![1 as IdBase],
+                vec![],
+                vec![4 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![0 as IdBase],
+                vec![],
+                vec![1 as IdBase],
+                vec![3 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![0 as IdBase],
+                vec![],
+                vec![3 as IdBase],
+                vec![1 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![1 as IdBase],
+                vec![0 as IdBase],
+                vec![],
+                vec![4 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![1 as IdBase],
+                vec![],
+                vec![0 as IdBase],
+                vec![3 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![1 as IdBase],
+                vec![],
+                vec![3 as IdBase],
+                vec![0 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![0 as IdBase],
+                vec![1 as IdBase],
+                vec![2 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![0 as IdBase],
+                vec![2 as IdBase],
+                vec![1 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![1 as IdBase],
+                vec![0 as IdBase],
+                vec![2 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![1 as IdBase],
+                vec![2 as IdBase],
+                vec![0 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![2 as IdBase],
+                vec![0 as IdBase],
+                vec![1 as IdBase],
+            ],
+            vec![
+                vec![],
+                vec![],
+                vec![],
+                vec![2 as IdBase],
+                vec![1 as IdBase],
+                vec![0 as IdBase],
+            ],
+        ]
+        .into_iter()
+        .map(|x| x.into())
+        .collect();
+        let expected = expected
+            .into_iter()
+            .map(|x| x.into_masks())
+            .collect::<HashSet<_>>();
 
         // compare as unordered sets to avoid relying on generation order
         let out: HashSet<Vec<Bitset>> = out_inplace.into_iter().collect();
         assert_eq!(out, expected);
     }
 
-        #[test]
+    #[test]
     fn add_x_dups_inplace_two_adds_expected_order_and_restore() {
         // base permutation: [[0], [1], [2]]
         let base = vec![
@@ -516,7 +639,8 @@ mod generator_tests {
         add_x_dups_inplace(&mut buf, &adds, |s| {
             actual.push(s.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
 
         // Ensure buffer was restored exactly
         assert_eq!(buf, base, "buffer was not restored to original state");
@@ -566,7 +690,10 @@ mod generator_tests {
             expected.len(),
             "number of emitted permutations differs"
         );
-        assert_eq!(actual, expected, "emitted permutations differ from expected");
+        assert_eq!(
+            actual, expected,
+            "emitted permutations differ from expected"
+        );
     }
 
     #[test]
@@ -582,7 +709,8 @@ mod generator_tests {
         add_x_dups_inplace(&mut buf, &adds, |s| {
             actual.push(s.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
 
         // buffer must be restored
         assert_eq!(buf, base);
@@ -612,7 +740,8 @@ mod generator_tests {
         add_x_dups_inplace(&mut buf, &adds, |s| {
             actual.push(s.to_vec());
             Ok(())
-        }).unwrap();
+        })
+        .unwrap();
 
         // buffer must be restored
         assert_eq!(buf, base);
@@ -651,6 +780,9 @@ mod generator_tests {
             ],
         ];
 
-        assert_eq!(actual, expected, "inplace emission order differs from expected DFS order");
+        assert_eq!(
+            actual, expected,
+            "inplace emission order differs from expected DFS order"
+        );
     }
 }
