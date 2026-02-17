@@ -242,6 +242,7 @@ mod tests {
             r#type: ConstraintType::Night {
                 num: dec![1.0],
                 comment: "".to_string(),
+                offer: None,
             },
             map_s: HashMap::new(),
             check: CheckType::Lights(3, BTreeMap::new()),

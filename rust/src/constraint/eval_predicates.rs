@@ -5,7 +5,7 @@ use crate::{
 
 impl Constraint {
     pub fn is_blackout(&self) -> bool {
-        if let ConstraintType::Night { num: _, comment: _ } = self.r#type {
+        if let ConstraintType::Night { .. } = self.r#type {
             if let CheckType::Lights(l, _) = self.check {
                 return self.known_lights == l;
             }
@@ -14,12 +14,7 @@ impl Constraint {
     }
 
     pub fn is_sold(&self) -> bool {
-        if let ConstraintType::Box { .. } = self.r#type {
-            if let CheckType::Sold = self.check {
-                return true;
-            }
-        }
-        false
+        matches!(self.check, CheckType::Sold)
     }
 
     pub fn is_match_found(&self) -> bool {
@@ -32,10 +27,9 @@ impl Constraint {
     }
 
     pub fn try_get_offer(&self) -> Option<Offer> {
-        if let ConstraintType::Box { offer, .. } = &self.r#type {
-            offer.clone()
-        } else {
-            None
+        match &self.r#type {
+            ConstraintType::Night { offer, .. } => offer.clone(),
+            ConstraintType::Box { offer, .. } => offer.clone(),
         }
     }
 
@@ -52,6 +46,14 @@ impl Constraint {
             }
         }
         false
+    }
+
+    pub fn is_mb(&self) -> bool {
+        matches!(self.r#type, ConstraintType::Box { .. })
+    }
+
+    pub fn is_mn(&self) -> bool {
+        matches!(self.r#type, ConstraintType::Night { .. })
     }
 
     pub fn might_won(&self) -> bool {
@@ -102,6 +104,7 @@ mod tests {
             lights_known_before: 0,
             bits_gained: 3.5,
             comment: "mn".to_string(),
+            offer: true,
         };
         let ev_mn = EvalEvent::MN(mn.clone());
 
@@ -149,6 +152,7 @@ mod tests {
             r#type: ConstraintType::Night {
                 num: dec![1.0],
                 comment: "".to_string(),
+                offer: None,
             },
             build_tree: false,
             left_poss: vec![],
@@ -269,6 +273,7 @@ mod tests {
             r#type: ConstraintType::Night {
                 num: dec![1.0],
                 comment: "".to_string(),
+                offer: None,
             },
             build_tree: false,
             left_poss: vec![],
@@ -313,6 +318,7 @@ mod tests {
             r#type: ConstraintType::Night {
                 num: dec![7.0],
                 comment: "hello -- extra".to_string(),
+                offer: None,
             },
             build_tree: false,
             left_poss: vec![],

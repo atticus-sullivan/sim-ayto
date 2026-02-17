@@ -6,7 +6,7 @@ tree-current: Aktuellster Baum
 tab-start: Anfangsverteilung
 
 blackouts: "Blackouts"
-sold: "Verkauft"
+sold: "Verkauft (MB/MN)"
 soldButGood: "PMs verkauft"
 matchesFound: "PMs in MB"
 total: "Total"
@@ -14,7 +14,7 @@ won: "Gewonnen?"
 solvable: "Lösbar?"
 offers: "Angebote"
 offerAndMatch: "Angebote für PMs"
-offeredMoney: "Σ Angebotenes Geld"
+offeredMoney: "Σ Angebotenes Geld (MB/MN)"
 
 de-season1: "DE Staffel 1"
 de-season2: "DE Staffel 2"

@@ -196,24 +196,19 @@ impl Constraint {
 
         #[allow(clippy::useless_format)]
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
-        match self.r#type {
-            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::MN(EvalMN {
-                num,
+        match &self.r#type {
+            ConstraintType::Night { num, offer, .. } => Ok(Some(EvalEvent::MN(EvalMN {
+                offer: offer.is_some(),
+                num: *num,
                 lights_total: self.check.as_lights(),
                 lights_known_before: self.known_lights,
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
                 bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
                 comment: meta_b,
             }))),
-            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::MB(EvalMB {
-                offer: {
-                    if let ConstraintType::Box { offer, .. } = &self.r#type {
-                        offer.is_some()
-                    } else {
-                        false
-                    }
-                },
-                num,
+            ConstraintType::Box { num, offer, .. } => Ok(Some(EvalEvent::MB(EvalMB {
+                offer: offer.is_some(),
+                num: *num,
                 lights_total: self.check.as_lights(),
                 lights_known_before: self.known_lights,
                 bits_gained: self.information.unwrap_or(f64::INFINITY),

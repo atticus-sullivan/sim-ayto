@@ -235,6 +235,7 @@ fn run_single_simulation<S: StrategyBundle>(
             constraint::ConstraintType::Night {
                 num: dec![1.0],
                 comment: "".to_owned(),
+                offer: None,
             }
         },
         ayto::constraint::CheckType::Lights(l, Default::default()),
@@ -286,6 +287,7 @@ fn run_single_simulation<S: StrategyBundle>(
             let ct = constraint::ConstraintType::Night {
                 num: (Decimal::from(i) / dec![2]).floor(),
                 comment: "".to_owned(),
+                offer: None,
             };
             (m, l, ct, lights_known_before)
         };
