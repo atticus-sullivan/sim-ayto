@@ -89,7 +89,7 @@ pub fn build_information_plots(
                 |cd| {
                     cd.eval_data
                         .iter()
-                        .filter_map(|i| i.num(|_| true, |_| true, |_| true))
+                        .filter_map(|i| i.num_unified(|_| true, |_| true, |_| true))
                         .collect()
                 },
                 |cd| {

@@ -1,13 +1,15 @@
 use std::collections::{BTreeMap, HashMap};
 
 use catppuccin::Flavor;
-use plotly::{common::Title, HeatMap, Layout};
+use plotly::{HeatMap, Layout};
+use plotly::common::{ColorScale, Title};
 use rust_decimal::prelude::FromPrimitive;
-use rust_decimal::Decimal;
+use rust_decimal::{dec, Decimal};
 use serde::Serialize;
 
 use crate::comparison::plotly::layout::plotly_new_plot;
 use crate::comparison::plotly::layout::styled_axis;
+use crate::comparison::theme::plotly_colorscale;
 use crate::comparison::CmpData;
 
 /// Render a heatmap (inline Plotly HTML) from a pre-built matrix representation.
@@ -22,11 +24,12 @@ pub fn heatmap_from_matrix<T>(
     x_edges: Vec<T>,
     y_labels: Vec<String>,
     z: Vec<Vec<Option<f64>>>,
-    _texts: Vec<Vec<String>>,
+    texts: Vec<Vec<String>>,
     layout: &Layout,
     palette: &Flavor,
     title: &str,
     x_title: &str,
+    color_scale: ColorScale,
 ) -> String
 where
     T: Serialize + Clone + 'static,
@@ -35,9 +38,11 @@ where
 
     // Create the heatmap trace. Plotly can serialize the generically-typed x_edges.
     let heatmap = HeatMap::new(x_edges, y_labels.clone(), z)
-        // TODO:
-        // .hover_text(texts);
-        ;
+        .color_scale(color_scale)
+        .x_gap(4)
+        .y_gap(4)
+        .hover_template("lights: %{z}<br>%{y}<br>%{text}<extra></extra>") // TODO: parametrize lights
+        .text_matrix(texts);
 
     // Add the trace and apply layout (title + axis styling).
     plot.add_trace(heatmap);
@@ -89,7 +94,7 @@ where
     // build z as rows per season
     let (texts, z) = build_z_from_entries(cmp_data, &layouts, &entries_fn);
 
-    heatmap_from_matrix(x_edges, y_labels, z, texts, layout, palette, title, x_title)
+    heatmap_from_matrix(x_edges, y_labels, z, texts, layout, palette, title, x_title, plotly_colorscale(palette))
 }
 
 /// Build the bucket edges and layout (bucket -> slot count) from entries produced by `entries_fn`.
@@ -135,6 +140,9 @@ where
 
         layouts.push((*bucket, max_slots));
     }
+
+    // add one element more to the x axis so boxes are not centered
+    edges.push(edges.last().unwrap() + dec![1]);
 
     (edges, layouts)
 }
@@ -249,6 +257,7 @@ mod tests {
             &palette,
             "MyHeatmap",
             "X axis",
+            plotly_colorscale(&palette)
         );
         assert!(html.contains("<div")); // basic sanity: we got HTML back
         assert!(html.contains("MyHeatmap")); // title present

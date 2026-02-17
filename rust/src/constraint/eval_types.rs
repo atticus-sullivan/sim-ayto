@@ -85,6 +85,15 @@ impl EvalEvent {
     );
 
     eval_event_query_data!(
+        num_unified,
+        " (compute num to be normally evenly spaced, monotonically increasing)",
+        Decimal,
+        MN(eval_mn) => Some(eval_mn.num * dec![2]),
+        MB(eval_mb) => Some(eval_mb.num * dec![2] - dec![1]),
+        Initial(ini) => Some(dec![0])
+    );
+
+    eval_event_query_data!(
         comment,
         "",
         String,
