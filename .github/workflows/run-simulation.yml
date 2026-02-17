@@ -37,7 +37,7 @@ jobs:
       sims: ${{ steps.detect_changes.outputs.sims }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
@@ -83,7 +83,7 @@ jobs:
     outputs:
       ayto: ${{ steps.upload-artifact.outputs.ayto }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
 
@@ -127,7 +127,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: ${{ matrix.sim != '' }}
         with:
           ref: build
@@ -192,7 +192,7 @@ jobs:
     needs:
       - run-sim
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: build
           fetch-depth: 0
@@ -227,7 +227,7 @@ jobs:
       sims: ${{ steps.detect_changes.outputs.sims }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           ref: build
 
@@ -251,7 +251,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: build
 
@@ -331,7 +331,7 @@ jobs:
         run: sudo snap install dart-sass
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: build
           submodules: recursive
