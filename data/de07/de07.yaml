@@ -2,7 +2,7 @@
 # 0wvedwvep0wPj
 
 solved: false
-gen_cache: true
+# gen_cache: true
 
 frontmatter:
   linkTitle: 'DE Staffel 7'
@@ -111,18 +111,29 @@ constraints:
       Ema: Michelle
       # Ema: Ella
 
-  # - type: !Box {num: 4, comment: "E09"}
-  #   check: !Lights [0]
-  #   map:
-  #     JulianM: Marla
-  #     # Chris: Adrianna
+  - type: !Box {num: 4, comment: "E09"}
+    check: !Lights [1]
+    map:
+      JulianM: Marla
+      # Chris: Adrianna
 
-  # - type: !Night {num: 4, comment: "E10"}
-  #   check: !Lights [3]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights [1]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      JulianM: Marla
+      Chris: Aurora
+      Luke: Tonia
+      Meji: Laura
+      Jerry: Elena
+      Evi: Ella
+      Julian: Alicia
+      Ema: Michelle
+      Jeronymo: Linda
+      Noel: Adrianna
+      # Julian: Tiziana
 
   # - type: !Box {num: 5, comment: "E11"}
   #   check: !Lights [0]
