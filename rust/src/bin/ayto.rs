@@ -6,8 +6,6 @@ use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use std::time::Instant;
 
-// TODO code review (try with chatGPT)
-
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
@@ -58,6 +56,7 @@ enum Commands {
         /// The path to the file to read
         yaml_path: PathBuf,
     },
+    /// Build comparison HTML pages for the dataset directories
     Comparison {
         #[arg(short = 'l', long = "theme-light", default_value = "1")]
         theme_light: u8,
@@ -66,11 +65,13 @@ enum Commands {
         html_path_de: PathBuf,
         html_path_us: PathBuf,
     },
+    /// Report cache availability for a YAML file
     Cache {
         yaml_path: PathBuf,
     },
 }
 
+/// Run the command selected by the CLI arguments. Factored out for easier testing or reuse.
 fn main() {
     let args = Cli::parse();
 

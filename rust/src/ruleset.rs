@@ -222,14 +222,24 @@ impl RuleSet {
     }
 }
 
-/// Copy masks from `slice` into the reusable `mm` and call `is.step`.
+/// Copy `slice` into the provided `MaskedMatching` and forward it to the iterator-state.
 ///
-/// Important:
-/// - `mm` must have been preallocated with capacity >= `slice.len()` (use `MaskedMatching::with_slots`).
-/// - `set_masks_from_slice` must perform a single `copy_from_slice` operation and update internal len;
-///   otherwise this function may allocate and defeat the purpose of re-using `mm`.
+/// # Parameters
+/// - `idx`: index (position) of this emitted matching within the global enumeration.
+/// - `slice`: slice of `Bitset` masks for each slot to be placed into `mm`.
+/// - `mm`: a preallocated `MaskedMatching` that will be *overwritten* with `slice`.
+/// - `is`: mutable reference to an `IterStateTrait` which will receive the `MaskedMatching`.
+/// - `output`: whether this emission should be treated as an output (debug / verbose semantics).
 ///
-/// This function is meant to be extremely hot — keep it minimal and allocation-free.
+/// # Preconditions / Performance
+/// - `mm` MUST be preallocated with capacity >= `slice.len()`. Use `MaskedMatching::with_slots`.
+/// - `set_masks_from_slice` is expected to perform a single `copy_from_slice` style operation
+///   (cheap, u64-sized copies) and must not re-allocate in the common case.
+/// - This function is on the hot path; keep it `#[inline]`, allocation-free and minimal.
+/// - Do **not** add logging, allocation, or extra cloning here — those would slow hot loops.
+///
+/// # Returns
+/// - Returns the `Result` from `is.step(...)`.
 #[inline]
 pub fn emit_slice_to_state<T: IterStateTrait>(
     idx: usize,
@@ -265,7 +275,7 @@ mod tests {
     #[test]
     fn test_iter_perms_eq() {
         let ground_truth: HashSet<Vec<Vec<u8>>> =
-            HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
+        HashSet::from([vec![vec![0], vec![1]], vec![vec![1], vec![0]]]);
         let eq_rule = RuleSet::Eq;
         let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
@@ -747,5 +757,28 @@ mod tests {
         assert_eq!(rs.get_perms_amount(3, 3, &None).unwrap(), 3);
         assert_eq!(rs.get_perms_amount(4, 4, &None).unwrap(), 3);
         assert_eq!(rs.get_perms_amount(5, 5, &None).unwrap(), 15);
+    }
+
+    #[test]
+    fn test_emit_slice_to_state_calls_step_and_sets_masks() {
+        // prepare a small slice of bitsets and an mm preallocated with slots
+        let slice = vec![
+            Bitset::from_u64(0b001),
+            Bitset::from_u64(0b010),
+            Bitset::from_u64(0b100),
+        ];
+        let mut mm = MaskedMatching::with_slots(slice.len());
+        let mut is = TestingIterState::new();
+
+        // call the function under test
+        emit_slice_to_state(7, &slice, &mut mm, &mut is, true).expect("emit failed");
+
+        // ensure the test IterState got one entry and the masks match
+        assert_eq!(is.seen.len(), 1);
+        let captured = &is.seen[0];
+        assert_eq!(captured.len(), slice.len());
+        for (i, b) in slice.iter().enumerate() {
+            assert_eq!(captured.mask(i), *b, "slot {} mismatch", i);
+        }
     }
 }

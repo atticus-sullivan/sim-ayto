@@ -1,198 +1,9 @@
-use std::fs::File;
-use std::path::PathBuf;
-
+use std::{fs::File, path::PathBuf};
 use anyhow::{Context, Result};
 
-use rust_decimal::{dec, Decimal};
+use comfy_table::{presets::NOTHING, Cell, Row, Table};
 
-use serde::{Deserialize, Serialize};
-
-use comfy_table::presets::NOTHING;
-use comfy_table::{Cell, Row, Table};
-
-use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
-use crate::matching_repr::{bitset::Bitset, MaskedMatching};
-use crate::MapS;
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct EvalData {
-    pub events: Vec<EvalEvent>,
-    pub cnts: SumCounts,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-#[serde(tag = "type")]
-pub enum EvalEvent {
-    MB(EvalMB),
-    MN(EvalMN),
-    Initial(EvalInitial),
-}
-
-macro_rules! eval_event_query_data {
-    (
-        $data_name:ident,
-        $ret:ty,
-        MN($mn_var:ident) => $mn_body:expr,
-        MB($mb_var:ident) => $mb_body:expr,
-        Initial($ini_var:ident) => $init_body:expr
-    ) => {
-        pub fn $data_name<MnPred, MbPred, InitPred>(
-            &self,
-            mn: MnPred,
-            mb: MbPred,
-            init: InitPred
-        ) -> Option<$ret>
-        where 
-            MnPred: Fn(&EvalMN) -> bool,
-            MbPred: Fn(&EvalMB) -> bool,
-            InitPred: Fn(&EvalInitial) -> bool,
-        {
-            match self {
-                EvalEvent::MN($mn_var) => {
-                    if mn($mn_var) {
-                        $mn_body
-                    } else {
-                        None
-                    }
-                },
-                EvalEvent::MB($mb_var) => {
-                    if mb($mb_var) {
-                        $mb_body
-                    } else {
-                        None
-                    }
-                },
-                EvalEvent::Initial($ini_var) => {
-                    if init($ini_var) {
-                        $init_body
-                    } else {
-                        None
-                    }
-                },
-            }
-        }
-    };
-}
-
-impl EvalEvent {
-    eval_event_query_data!(
-        num,
-        Decimal,
-        MN(eval_mn) => Some(eval_mn.num),
-        MB(eval_mb) => Some(eval_mb.num),
-        Initial(ini) => Some(dec![0])
-    );
-
-    eval_event_query_data!(
-        comment,
-        String,
-        MN(eval_mn) => Some(eval_mn.comment.clone()),
-        MB(eval_mb) => Some(eval_mb.comment.clone()),
-        Initial(ini) => Some("initial".to_string())
-    );
-
-    eval_event_query_data!(
-        bits_gained,
-        f64,
-        MN(eval_mn) => Some(eval_mn.bits_gained),
-        MB(eval_mb) => Some(eval_mb.bits_gained),
-        Initial(ini) => None
-    );
-
-    eval_event_query_data!(
-        bits_left_after,
-        f64,
-        MN(eval_mn) => Some(eval_mn.bits_left_after),
-        MB(eval_mb) => Some(eval_mb.bits_left_after),
-        Initial(ini) => Some(ini.bits_left_after)
-    );
-
-    eval_event_query_data!(
-        lights_total,
-        u8,
-        MN(eval_mn) => Some(eval_mn.lights_total?),
-        MB(eval_mb) => Some(eval_mb.lights_total?),
-        Initial(ini) => None
-    );
-
-    eval_event_query_data!(
-        lights_known_before,
-        u8,
-        MN(eval_mn) => Some(eval_mn.lights_known_before),
-        MB(eval_mb) => Some(eval_mb.lights_known_before),
-        Initial(ini) => None
-    );
-
-    eval_event_query_data!(
-        new_lights,
-        u8,
-        MN(eval_mn) => Some(eval_mn.lights_total? - eval_mn.lights_known_before),
-        MB(eval_mb) => Some(eval_mb.lights_total? - eval_mb.lights_known_before),
-        Initial(ini) => None
-    );
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct EvalInitial {
-    pub bits_left_after: f64,
-    pub comment: String,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct EvalMB {
-    #[serde(with = "rust_decimal::serde::float")]
-    pub num: Decimal,
-    pub bits_left_after: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
-    pub bits_gained: f64,
-    pub comment: String,
-    pub offer: bool,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct EvalMN {
-    #[serde(with = "rust_decimal::serde::float")]
-    pub num: Decimal,
-    pub bits_left_after: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
-    pub bits_gained: f64,
-    pub comment: String,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct SumCounts {
-    pub blackouts: u8,
-    pub won: bool,
-    pub matches_found: u8,
-    pub solvable: Option<bool>,
-
-    pub sold: u8,
-    pub sold_but_match: u8,
-    pub sold_but_match_active: bool,
-
-    pub offers_noted: bool,
-    pub offers: u64,
-    pub offer_and_match: u64,
-    pub offered_money: u128,
-}
-
-impl SumCounts {
-    pub fn add(&mut self, other: &Self) {
-        self.blackouts += other.blackouts;
-
-        self.sold += other.sold;
-        self.sold_but_match += other.sold_but_match;
-        // self.sold_but_match_active &= other.sold_but_match_active;
-
-        self.matches_found += other.matches_found;
-
-        self.offers += other.offers;
-        self.offer_and_match += other.offer_and_match;
-        self.offered_money += other.offered_money;
-    }
-}
+use crate::{constraint::{eval_types::{EvalEvent, EvalMB, EvalMN}, CheckType, Constraint, ConstraintType}, matching_repr::bitset::Bitset, MapS};
 
 impl Constraint {
     pub fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
@@ -498,73 +309,19 @@ impl Constraint {
     pub fn show_rem_table(&self) -> bool {
         !self.result_unknown
     }
-}
 
-// predicates
-impl Constraint {
-    pub fn is_blackout(&self) -> bool {
-        if let ConstraintType::Night { num: _, comment: _ } = self.r#type {
-            if let CheckType::Lights(l, _) = self.check {
-                return self.known_lights == l;
-            }
-        }
-        false
-    }
-
-    pub fn is_sold(&self) -> bool {
-        if let ConstraintType::Box { .. } = self.r#type {
-            if let CheckType::Sold = self.check {
-                return true;
-            }
-        }
-        false
-    }
-
-    pub fn is_match_found(&self) -> bool {
-        if let ConstraintType::Box { .. } = self.r#type {
-            if let CheckType::Lights(1, _) = self.check {
-                return true;
-            }
-        }
-        false
-    }
-
-    pub fn try_get_offer(&self) -> Option<Offer> {
-        if let ConstraintType::Box { offer, .. } = &self.r#type {
-            offer.clone()
-        } else {
-            None
-        }
-    }
-
-    pub fn is_mb_hit(&self, solutions: Option<&Vec<MaskedMatching>>) -> bool {
-        if let Some(sols) = solutions {
-            if let ConstraintType::Box { .. } = self.r#type {
-                return sols.iter().all(|sol| {
-                    self.map.iter_pairs().all(|(a, b)| {
-                        sol.slot_mask(a as usize)
-                            .unwrap_or(&Bitset::empty())
-                            .contains(b)
-                    })
-                });
-            }
-        }
-        false
-    }
-
-    pub fn might_won(&self) -> bool {
-        matches!(self.r#type, ConstraintType::Night { .. })
-    }
-
-    pub fn won(&self, required_lights: usize) -> bool {
-        if let ConstraintType::Night { .. } = self.r#type {
-            match self.check {
-                CheckType::Eq => false,
-                CheckType::Nothing | CheckType::Sold => false,
-                CheckType::Lights(l, _) => l as usize == required_lights,
-            }
-        } else {
-            false
+    pub fn md_title(&self) -> String {
+        match &self.r#type {
+            ConstraintType::Night { num, comment, .. } => format!(
+                "MN#{:02.1} {}",
+                num,
+                comment.split("--").collect::<Vec<_>>()[0]
+            ),
+            ConstraintType::Box { num, comment, .. } => format!(
+                "MB#{:02.1} {}",
+                num,
+                comment.split("--").collect::<Vec<_>>()[0]
+            ),
         }
     }
 }

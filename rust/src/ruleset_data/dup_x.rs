@@ -7,15 +7,17 @@ use anyhow::{Context, Result};
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+/// DupXData collects counts for duplicate/trip patterns for the "dup_x" ruleset.
 #[derive(Debug, Clone)]
 pub struct DupXData {
-    // HashMap.key: (index in set_a maps to [...])
-    // HashMap.value: count
+    // key: (index_in_set_a, bitset_of_b_indices)
+    // value: count
     cnt: HashMap<(usize, Bitset), usize>,
     rs: RuleSetDupX,
 }
 
 impl DupXData {
+    /// Construct new DupXData from the ruleset parameters.
     pub fn new(rs: RuleSetDupX) -> Result<Self> {
         Ok(Self {
             cnt: HashMap::default(),
@@ -23,8 +25,8 @@ impl DupXData {
         })
     }
 
+
     #[allow(clippy::too_many_arguments)]
-    // TODO: split up + output
     fn print_one(
         &self,
         full: bool,
@@ -197,7 +199,6 @@ impl RuleSetData for DupXData {
         Ok(())
     }
 
-    // TODO: output?
     fn print(
         &self,
         full: bool,

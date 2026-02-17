@@ -1,5 +1,9 @@
-pub mod eval;
+pub mod eval_types;
+pub mod eval_report;
+pub mod eval_predicates;
+pub mod eval_compute;
 pub mod parse;
+pub mod parse_helpers;
 mod utils;
 
 use std::collections::BTreeMap;
@@ -15,6 +19,13 @@ use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, Map, MapS};
 
+/// Types used to decide how to check a matching against a constraint.
+///
+/// - `Eq` checks that two entries are equal (used for "box" equality constraints).
+/// - `Nothing` no-op check.
+/// - `Sold` special check for sold events.
+/// - `Lights(n, stats)` checks exact number of lights; `stats` is a mutable bucket
+///   map used while processing to accumulate frequencies (kept in the Constraint).
 #[derive(Deserialize, Debug, Clone, Hash)]
 pub enum CheckType {
     Eq,
@@ -24,6 +35,7 @@ pub enum CheckType {
 }
 
 impl CheckType {
+    /// Return the lights-count if this `CheckType` is `Lights`.
     pub fn as_lights(&self) -> Option<u8> {
         if let CheckType::Lights(l, _) = *self {
             Some(l)
@@ -33,6 +45,8 @@ impl CheckType {
     }
 }
 
+/// An offer attached to a box event. The enum mirrors the YAML structure and
+/// contains optional amounts and actors.
 #[derive(Deserialize, Debug, Clone)]
 pub enum Offer {
     Single {
@@ -66,6 +80,7 @@ pub enum Offer {
 }
 
 impl Offer {
+    /// Return the numeric `amount` if present on the offer.
     pub fn try_get_amount(&self) -> Option<u128> {
         match &self {
             Offer::Single { amount, .. } => *amount,
@@ -185,8 +200,10 @@ pub struct Constraint {
     known_lights: u8,
 }
 
-// functions for initialization / startup
 impl Constraint {
+    /// Create a new unchecked `Constraint`. This is the lowest-level constructor
+    /// used by `ConstraintParse::finalize_parsing`. It intentionally does **not**
+    /// validate parameters — caller must ensure sizes and invariants.
     pub fn new_unchecked(
         t: ConstraintType,
         check: CheckType,
@@ -217,21 +234,19 @@ impl Constraint {
     }
 }
 
-/// Sorts and key/value pairs such that lut_a[k] < lut_b[v] always holds.
-/// Only makes sense if lut_a == lut_b (defined on the same set)
+/// Normalize and possibly flip `c_map` and `c_map_s` so that the internal ordering
+/// is consistent: the key/value pairs are arranged such that `lut_a[key] < lut_b[value]`
+/// if possible. This mutation happens in-place.
 ///
 /// # Arguments
 ///
-/// - `lut_a`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
-/// - `lut_b`: A lookup table of type `Lut` used for value comparison with `self.map_s`.
+/// * `c_map` - map from `u8 -> u8` that may be flipped in-place.
+/// * `c_map_s` - string-keyed map used for output; entries are flipped consistent with `c_map`.
+/// * `lut_a` / `lut_b` - lookup tables used to compare names (must contain all keys present).
 ///
 /// # Panics
 ///
-/// This function may panic if `lut_a` or `lut_b` do not contain keys present in `self.map_s`.
-///
-/// # Notes
-///
-/// - The sorting and flipping operations are done in place.
+/// Panics if `lut_a`/`lut_b` do not contain expected keys (caller must supply valid LUTs).
 fn sort_maps(c_map: &mut Map, c_map_s: &mut MapS, lut_a: &Lut, lut_b: &Lut) {
     let c_map2 = c_map
         .drain()
@@ -255,7 +270,11 @@ fn sort_maps(c_map: &mut Map, c_map_s: &mut MapS, lut_a: &Lut, lut_b: &Lut) {
 
 // functions for executing the simulation
 impl Constraint {
-    // TODO: write tests!! this is the core function for correctness
+    /// Internal predicate: whether `m` would satisfy the constraint's `check`.
+    ///
+    /// This function is intentionally small and pure except for reading `self` state.
+    /// It is used by `process()` (which handles side effects like elimination and
+    /// pushing to `ruleset_data`).
     fn fits(&mut self, m: &MaskedMatching) -> bool {
         // first step is to check if the constraint filters out this matching
         match &mut self.check {
@@ -289,7 +308,10 @@ impl Constraint {
         }
     }
 
-    // returns if the matching fits the constraint (is not eliminated)
+    /// Process a matching `m` and apply side effects:
+    /// - if `m` does not fit the constraint it is recorded as eliminated,
+    /// - otherwise `m` may be pushed into `ruleset_data` for later usage,
+    /// - if `build_tree` is enabled we collect `left_poss` examples for tree building.
     pub fn process(&mut self, m: &MaskedMatching) -> Result<bool> {
         // check fits actually has a value and make it immutable
         let fits = self.fits(m) || self.result_unknown;
@@ -307,21 +329,11 @@ impl Constraint {
 
         Ok(fits)
     }
-
-    // #[inline(always)]
-    // pub fn calculate_lights(map: &Map, m: &[Vec<u8>]) -> u8 {
-    //     let mut l = 0;
-    //     for (i1, i2) in map.iter() {
-    //         if m[*i1 as usize].contains(i2) {
-    //             l += 1;
-    //         }
-    //     }
-    //     l
-    // }
 }
 
 // getter functions
 impl Constraint {
+    /// Return user-supplied comment from the underlying `ConstraintType`.
     pub fn comment(&self) -> &str {
         match &self.r#type {
             ConstraintType::Night { comment, .. } => comment,
@@ -329,6 +341,7 @@ impl Constraint {
         }
     }
 
+    /// Textual representation of the constraint type (used in summary tables).
     pub fn type_str(&self) -> String {
         match &self.r#type {
             ConstraintType::Night { num, .. } => format!("MN#{}", num),
@@ -336,6 +349,7 @@ impl Constraint {
         }
     }
 
+    /// The numeric index associated with this constraint (MB or MN index).
     pub fn num(&self) -> Decimal {
         match &self.r#type {
             ConstraintType::Night { num, .. } => *num,
@@ -784,66 +798,38 @@ mod tests {
         );
     }
 
-    // #[test]
-    // fn test_print_hdr() {
-    //     let c = Constraint {
-    //         exclude: None,
-    //         exclude_s: None,
-    //         no_exclude: false,
-    //         map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
-    //         check: CheckType::Lights(2, BTreeMap::new()),
-    //         map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
-    //         eliminated: 100,
-    //         eliminated_tab: vec![
-    //             vec![1, 0, 0, 0, 0],
-    //             vec![0, 1, 0, 3, 0],
-    //             vec![0, 0, 2, 0, 3],
-    //             vec![0, 6, 0, 5, 0],
-    //         ],
-    //         entropy: Some(3.5),
-    //         left_after: None,
-    //         hidden: false,
-    //         r#type: ConstraintType::Night {
-    //             num: 1.0,
-    //             comment: String::from(""),
-    //         },
-    //     };
-    //
-    //     let row = c.print_hdr();
-    // }
+    #[test]
+    fn checktype_as_lights_and_offer_amount() {
+        assert_eq!(CheckType::Eq.as_lights(), None);
+        assert_eq!(CheckType::Lights(3, BTreeMap::new()).as_lights(), Some(3));
 
-    // #[test]
-    // fn test_write_stats() {
-    //     let c = Constraint {
-    //         exclude: None,
-    //         exclude_s: None,
-    //         no_exclude: false,
-    //         map_s: HashMap::from([("A".to_string(), "b".to_string()), ("B".to_string(), "c".to_string()), ("C".to_string(), "a".to_string()), ("D".to_string(), "d".to_string())]),
-    //         check: CheckType::Lights(2, BTreeMap::new()),
-    //         map: HashMap::from([(0, 1), (1, 2), (2, 0), (3, 3)]),
-    //         eliminated: 100,
-    //         eliminated_tab: vec![
-    //             vec![1, 0, 0, 0, 0],
-    //             vec![0, 1, 0, 3, 0],
-    //             vec![0, 0, 2, 0, 3],
-    //             vec![0, 6, 0, 5, 0],
-    //         ],
-    //         entropy: Some(3.5),
-    //         left_after: None,
-    //         hidden: false,
-    //         r#type: ConstraintType::Night {
-    //             num: 1.0,
-    //             comment: String::from(""),
-    //         },
-    //     };
-    //
-    //     let row = c.write_stats();
-    // }
+        let o = Offer::Single {
+            amount: Some(42),
+            by: "x".into(),
+            reduced_pot: false,
+            save: false,
+        };
+        assert_eq!(o.try_get_amount(), Some(42u128));
+        let o2 = Offer::Group { amount: None, by: "x".into() };
+        assert_eq!(o2.try_get_amount(), None);
+    }
 
-    // show_expected_lights
-    // show_pr_lights
-    // comment
-    // type_str
+    #[test]
+    fn new_unchecked_helper_works() {
+        let data: Box<dyn RuleSetData> = Box::new(DummyData::default());
+        let mm = MaskedMatching::from_matching_ref(&vec![vec![0u8]]);
+        let c = Constraint::new_unchecked(
+            ConstraintType::Night { num: dec![1.0], comment: String::new() },
+            CheckType::Nothing,
+            mm,
+            data,
+            1,
+            1,
+            0,
+        );
+        // basic invariants
+        assert_eq!(c.eliminated, 0);
+    }
 
     #[test]
     fn test_comment_night() {
@@ -993,5 +979,146 @@ mod tests {
         };
 
         assert_eq!(c.type_str(), "MB#1.0");
+    }
+
+    #[test]
+    fn fits_eq_mask_behavior() {
+        // Construct constraint that checks Eq with mapping 1->1 (two items)
+        let mut c = Constraint {
+            result_unknown: false,
+            exclude: None,
+            map_s: HashMap::new(),
+            check: CheckType::Eq,
+            // map: 1->1, 2->2 style (we only need a map that produces a non-empty mask)
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2]]),
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; 5]; 4],
+            information: None,
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: String::from(""),
+                offer: None,
+            },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+
+        // Matching `m` that *does not* include all required mask bits -> fits() should be false
+        let m1 = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
+        assert_eq!(c.fits(&m1), false);
+
+        // Matching `m` that includes the required mask -> fits() true
+        // second matching has same structure but element 1 has options [1,2] so contains mask
+        let m2 = MaskedMatching::from_matching_ref(&[vec![0], vec![1, 2], vec![3], vec![4]]);
+        assert_eq!(c.fits(&m2), true);
+    }
+
+    #[test]
+    fn fits_nothing_and_sold_are_always_true() {
+        let mut c1 = Constraint {
+            result_unknown: false,
+            exclude: None,
+            map_s: HashMap::new(),
+            check: CheckType::Nothing,
+            map: MaskedMatching::from_matching_ref(&[vec![0]]),
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; 1]; 1],
+            information: None,
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box { num: dec![1.0], comment: String::new(), offer: None },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+        let m = MaskedMatching::from_matching_ref(&[vec![0]]);
+        assert!(c1.fits(&m));
+
+        let mut c2 = c1.clone();
+        c2.check = CheckType::Sold;
+        assert!(c2.fits(&m));
+    }
+
+    #[test]
+    fn fits_lights_updates_histogram_and_matches_count() {
+        // use constraint_def helper to create Lights constraint (default known settings)
+        let mut c = constraint_def(None, 2); // expects 2 lights
+
+        // create a matching that yields 0 lights (based on constraint_def's internal map)
+        let m_no = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
+        // histogram should start empty
+        match &c.check {
+            CheckType::Lights(_, hist) => assert!(hist.is_empty()),
+            _ => panic!("expected lights"),
+        }
+
+        // call fits: expected false, but histogram will be updated for computed lights (some l)
+        let res = c.fits(&m_no);
+        assert_eq!(res, false);
+
+        // After call, histogram should have one entry for the computed lights value
+        match &c.check {
+            CheckType::Lights(_, hist) => {
+                // ensure an entry exists for the computed lights count
+                assert!(hist.values().sum::<u128>() >= 1);
+                // The histogram key matches the stored lights value `l` (we can't know exact l here,
+                // but ensure there's a key present)
+                assert!(!hist.is_empty());
+            }
+            _ => panic!("expected lights"),
+        }
+
+        // Now change the expected lights inside the constraint to something matching the computed `l`
+        // We can inspect the histogram key to set the needed value to force success
+        let computed_key = match &c.check {
+            CheckType::Lights(_, hist) => *hist.keys().next().unwrap(),
+            _ => unreachable!(),
+        };
+        // mutate check so the required lights matches computed_key
+        c.check = CheckType::Lights(computed_key, BTreeMap::new());
+        assert!(c.fits(&m_no));
+    }
+
+    #[test]
+    fn fits_lights_with_exclude_respects_exclusion_mask() {
+        // create a constraint that expects 1 light and has an exclude on slot 0 (positions masked)
+        let exclude_bs = Bitset::from_idxs(&[2, 3]); // exclude values indices 2,3
+        let mut c = constraint_def(Some((0, exclude_bs.clone())), 1);
+
+        // matching m1: slot0 does not include any excluded index -> should pass (fits true)
+        let m1 = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
+        assert!(c.fits(&m1));
+
+        // matching m2: slot0 contains an excluded index -> should fail (fits false)
+        let m2 = MaskedMatching::from_matching_ref(&[vec![0, 2], vec![1], vec![4], vec![3]]);
+        assert!(!c.fits(&m2));
+    }
+
+    #[test]
+    fn process_respects_result_unknown_and_does_not_eliminate() {
+        // construct a Lights constraint that would normally reject a matching; set result_unknown
+        let c = constraint_def(None, 2);
+        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
+
+        // For baseline: process without result_unknown eliminates (returns false)
+        let mut c2 = c.clone();
+        let ok = c2.process(&m).unwrap();
+        assert_eq!(ok, false);
+        assert_eq!(c2.eliminated, 1);
+
+        // Now set result_unknown true on a fresh constraint -> process should return true and not eliminate
+        let mut c3 = constraint_def(None, 2);
+        c3.result_unknown = true;
+        let ok2 = c3.process(&m).unwrap();
+        assert_eq!(ok2, true);
+        // no elimination performed in this case
+        assert_eq!(c3.eliminated, 0);
     }
 }

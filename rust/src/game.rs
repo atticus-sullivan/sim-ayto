@@ -47,6 +47,7 @@ pub struct Game {
 
 impl Game {
     // returns (translationKeyForExplanation, shortcode)
+    /// Return a (translation-key, short-code) describing the ruleset.
     pub fn ruleset_str(&self) -> (String, String) {
         match &self.rule_set {
             RuleSet::XTimesDup((cnt, fixed)) => (
@@ -59,10 +60,21 @@ impl Game {
             RuleSet::Eq => ("rs-Eq".to_string(), "=".to_string()),
         }
     }
-    pub fn players_str(&self) -> String {
-        format!("{}/{}", self.map_a.len(), self.map_b.len())
+
+    /// Pure, testable helper that formats player counts as "A/B".
+    pub(crate) fn format_players(a_len: usize, b_len: usize) -> String {
+        format!("{}/{}", a_len, b_len)
     }
 
+    /// Return a formatted players string "A/B".
+    pub fn players_str(&self) -> String {
+        Self::format_players(self.map_a.len(), self.map_b.len())
+    }
+
+    /// Run the simulation (populate an `IterState` by iterating ruleset permutations).
+    ///
+    /// `dump_mode` controls if permutations are collected; `use_cache` optionally
+    /// instructs using a cache file identity. Returns the final `IterState`.
     pub fn sim(
         &mut self,
         dump_mode: Option<DumpMode>,
@@ -103,5 +115,16 @@ impl Game {
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
 
         Ok(is)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn format_players_formats() {
+        assert_eq!(Game::format_players(3, 4), "3/4".to_string());
+        assert_eq!(Game::format_players(0, 1), "0/1".to_string());
     }
 }

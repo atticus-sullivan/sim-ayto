@@ -12,6 +12,25 @@ use anyhow::Result;
 use crate::constraint::Constraint;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
+/// Trait describing a consumer of emitted matchings during iteration.
+///
+/// Implementers receive lifecycle calls (`start`, `finish`) and `step` calls for
+/// each emitted partial/complete matching. Implement `step` to process or collect
+/// results - keep implementations allocation-aware if used in hot paths.
+pub trait IterStateTrait {
+    /// Called at the start of iteration.
+    fn start(&mut self);
+    /// Called at the end of iteration.
+    fn finish(&mut self);
+
+    /// Called for each emitted matching.
+    ///
+    /// - `i`: the global sequential index of the emitted matching.
+    /// - `p`: the `MaskedMatching` describing the matching.
+    /// - `output`: whether this should be treated as an output (verbose/reporting).
+    fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()>;
+}
+
 pub struct IterState {
     pub constraints: Vec<Constraint>,
     pub keep_rem: bool,
@@ -31,22 +50,25 @@ pub struct IterState {
     cache_file: Option<BufWriter<File>>,
 }
 
-pub trait IterStateTrait {
-    fn start(&mut self);
-    fn finish(&mut self);
-
-    fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()>;
-}
-
 impl IterStateTrait for IterState {
+    /// Start the iteration progress indicator.
+    ///
+    /// Called at the beginning of an iteration run to initialize progress state.
     fn start(&mut self) {
         self.progress.inc(0)
     }
 
+    /// Finish the iteration progress indicator.
+    ///
+    /// Called after iteration completes to finalize progress reporting.
     fn finish(&mut self) {
         self.progress.finish()
     }
 
+    /// Process a single permutation step.
+    ///
+    /// Updates internal statistics and progress for permutation `p` at index `i`.
+    /// If `output` is true the progress bar may be advanced.
     fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()> {
         if i.is_multiple_of(self.cnt_update) && output {
             self.progress.inc(2);
@@ -74,6 +96,13 @@ impl IterStateTrait for IterState {
 }
 
 impl IterState {
+    /// Create a new `IterState`.
+    ///
+    /// - `keep_rem`: whether to keep remaining permutations in memory for reporting.
+    /// - `perm_amount`: total number of permutations expected (for showing progress).
+    /// - `constraints`: list of constraints to apply during iteration.
+    /// - `query_matchings`: optional matchings to query/track during iteration.
+    /// - `query_pair`: optional pair queries mapping left/right indices to counts.
     pub fn new(
         keep_rem: bool,
         perm_amount: usize,
@@ -122,7 +151,7 @@ impl IterState {
         Ok(is)
     }
 
-    // count "raw" permutations for statistics and some checks
+    /// Update per-pair counts for statistics from a raw `MaskedMatching`.
     fn step_counting_stats(&mut self, p: &MaskedMatching) {
         // count how often each pairing occurs without filtering
         // - necessary to be able to work with caching
@@ -139,10 +168,10 @@ impl IterState {
         self.total += 1;
     }
 
-    // loop over constraints feeding them the permutation and check if the permutation still
-    // works with that constraint
-    //
-    // returns: is this permutation still possible with this set of constraints
+    /// Run all constraints for a given permutation.
+    ///
+    /// Returns `Ok(true)` if the permutation survives all constraints, or `Ok(false)`
+    /// if eliminated by any constraint.
     fn step_process(&mut self, p: &MaskedMatching) -> Result<bool> {
         for c in &mut self.constraints {
             if !c.process(p)? {
@@ -161,7 +190,10 @@ impl IterState {
         Ok(true)
     }
 
-    // allow to query with person A / person B can still be a match (and how often)
+    /// Update query-pair statistics for permutation `p`.
+    ///
+    /// If a `query_pair` is set, this method increments counters that track how often particular
+    /// left/right indices co-occur with specific values.
     fn step_collect_query_pair(&mut self, p: &MaskedMatching) {
         if !self.query_pair.0.is_empty() || !self.query_pair.1.is_empty() {
             for (a, bs) in p.iter().enumerate() {
@@ -188,7 +220,10 @@ mod tests {
     use crate::matching_repr::bitset::Bitset;
     use std::collections::HashSet;
 
-    // A tiny helper to create a MaskedMatching easily.
+    /// Create a `MaskedMatching` template with capacity for `cnt` slots.
+    ///
+    /// Used to (re-)build a matching container for counting/publishing. This function
+    /// tries to be allocation-friendly by reserving capacity once.
     fn mk_mm() -> MaskedMatching {
         // slot0: {1,2}, slot1: {0}
         MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]])

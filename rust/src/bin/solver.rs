@@ -4,7 +4,7 @@
 // TODO: more initial_value(s) -> conditionally -- the possible outcomes of the first constraint
 // are usually limited, so we can hardcode the (optimal) responses for the second step as well
 
-use ayto::constraint::eval::EvalEvent;
+use ayto::constraint::eval_types::EvalEvent;
 use ayto::matching_repr::{bitset::Bitset, MaskedMatching};
 use clap::Parser;
 
@@ -333,6 +333,7 @@ enum WriterMsg {
     Failed(usize, String),
 }
 
+/// Format a millisecond timestamp into HH:MM:SS for the progress display.
 fn format_time(ms: u128) -> String {
     let secs = (ms / 1000) as i64;
     let nsecs = ((ms % 1000) * 1_000_000) as u32;
@@ -499,6 +500,9 @@ fn main() -> Result<()> {
     Ok(())
 }
 
+/// Entropy calculation for a candidate `m` across `left_poss`.
+///
+/// This is a small pure function and unit tested below.
 fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
     let total = left_poss.len() as f64;
 
@@ -519,4 +523,37 @@ fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
             -p * p.log2()
         })
         .sum()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ayto::matching_repr::MaskedMatching;
+    use ayto::matching_repr::bitset::Bitset;
+
+    #[test]
+    fn format_time_zero() {
+        assert_eq!(format_time(0), "00:00:00");
+    }
+
+    #[test]
+    fn calc_entropy_small_case() {
+        // m: masks {A0->{0}, A1->{0}, A2->{1}}
+        let m = MaskedMatching::from_masks(vec![
+            Bitset::from_word(1),
+            Bitset::from_word(1),
+            Bitset::from_word(2),
+        ]);
+        // left_poss: p1=[0,0,1], p2=[0,1,1], p3=[1,0,1], p4=[1,1,1]
+        let p1 = MaskedMatching::from_matching_ref(&[vec![0], vec![0], vec![1]]);
+        let p2 = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![1]]);
+        let p3 = MaskedMatching::from_matching_ref(&[vec![1], vec![0], vec![1]]);
+        let p4 = MaskedMatching::from_matching_ref(&[vec![1], vec![1], vec![1]]);
+        let left = vec![p1, p2, p3, p4];
+        let h = calc_entropy(&m, &left);
+        // expected distribution: l=3 (1), l=2 (2), l=1 (1) -> probs 0.25,0.5,0.25 -> entropy 1.5
+        let expected = 1.5;
+        let diff = (h - expected).abs();
+        assert!(diff < 1e-9, "entropy mismatch: {} vs {}", h, expected);
+    }
 }

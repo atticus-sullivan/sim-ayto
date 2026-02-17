@@ -9,7 +9,7 @@ use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-use crate::constraint::eval::{EvalData, EvalEvent, EvalInitial, SumCounts};
+use crate::constraint::eval_types::{EvalData, EvalEvent, EvalInitial, SumCounts};
 use crate::constraint::Constraint;
 use crate::game::DumpMode;
 use crate::game::Game;
@@ -18,7 +18,10 @@ use crate::matching_repr::MaskedMatching;
 use crate::Rem;
 
 impl Game {
-    // TODO:
+    /// Render evaluation outputs (tables and debugging artifacts) from an `IterState`.
+    ///
+    /// This function is primarily presentation + file output and delegates the
+    /// pure counting work to `compute_cnts` (testable separately).
     pub fn eval(
         &mut self,
         print_transposed: bool,
@@ -234,7 +237,77 @@ impl Game {
         Ok(())
     }
 
-    // TODO:
+    /// Pure helper: compute `SumCounts` from the provided constraints and optional solutions.
+    ///
+    /// This takes the loop part of `do_statistics` and returns an aggregated `SumCounts`.
+    /// It intentionally does **not** attempt to determine `won` or `solvable` (those need more context).
+    pub(crate) fn compute_cnts(
+        &self,
+        merged_constraints: &[Constraint],
+        solutions: Option<&Vec<MaskedMatching>>,
+        offers_noted: bool,
+    ) -> SumCounts {
+        let mut cnts = SumCounts {
+            blackouts: 0,
+            sold: 0,
+            sold_but_match: 0,
+            sold_but_match_active: solutions.is_some(),
+            matches_found: 0,
+            won: false,
+            offers_noted,
+            offer_and_match: 0,
+            offers: 0,
+            offered_money: 0,
+            solvable: None,
+        };
+
+        for c in merged_constraints.iter() {
+            if c.is_blackout() {
+                cnts.blackouts += 1;
+            }
+            if c.is_sold() {
+                cnts.sold += 1;
+            }
+            if c.is_match_found() {
+                cnts.matches_found += 1;
+            }
+            if c.is_sold() && c.is_mb_hit(solutions) {
+                cnts.sold_but_match += 1;
+            }
+            if let Some(o) = c.try_get_offer() {
+                cnts.offers += 1;
+                if let Some(m) = o.try_get_amount() {
+                    cnts.offered_money += m;
+                }
+                if c.is_mb_hit(solutions) {
+                    cnts.offer_and_match += 1;
+                }
+            }
+        }
+
+        cnts.won = {
+            let required_lights = self
+                .rule_set
+                .constr_map_len(self.lut_a.len(), self.lut_b.len());
+            merged_constraints
+                .iter()
+                .find(|x| x.num() == dec![10.0] && x.might_won())
+                .or_else(|| merged_constraints.last())
+                .map(|x| x.won(required_lights))
+                .unwrap_or(false)
+        };
+
+        cnts.solvable = merged_constraints
+            .windows(2)
+            .find(|x| x[1].num() == dec![10.0] && x[1].might_won())
+            .map(|x| &x[0])
+            .or_else(|| merged_constraints.last())
+            .and_then(|x| x.was_solvable_before().ok().flatten());
+
+        cnts
+    }
+
+    // existing do_statistics and summary_table follow unchanged, but can call compute_cnts.
     fn do_statistics(
         &self,
         total: f64,
@@ -244,19 +317,7 @@ impl Game {
         let out_path = self.dir.join("stats").with_extension("json");
         let mut out_data = EvalData{
             events: vec![],
-            cnts: SumCounts {
-                blackouts: 0,
-                sold: 0,
-                sold_but_match: 0,
-                sold_but_match_active: solutions.is_some(),
-                matches_found: 0,
-                won: false,
-                offers_noted: !self.no_offerings_noted,
-                offer_and_match: 0,
-                offers: 0,
-                offered_money: 0,
-                solvable: None,
-            },
+            cnts: self.compute_cnts(merged_constraints, solutions, !self.no_offerings_noted),
         };
 
         out_data.events.push(EvalEvent::Initial(EvalInitial{
@@ -270,53 +331,8 @@ impl Game {
             }
         }
 
-        for c in merged_constraints.iter() {
-            if c.is_blackout() {
-                out_data.cnts.blackouts += 1;
-            }
-            if c.is_sold() {
-                out_data.cnts.sold += 1;
-            }
-            if c.is_match_found() {
-                out_data.cnts.matches_found += 1;
-            }
-            if c.is_sold() && c.is_mb_hit(solutions) {
-                out_data.cnts.sold_but_match += 1;
-            }
-            let offer = c.try_get_offer();
-            if let Some(o) = offer {
-                out_data.cnts.offers += 1;
-                if let Some(m) = o.try_get_amount() {
-                    out_data.cnts.offered_money += m;
-                }
-                if c.is_mb_hit(solutions) {
-                    out_data.cnts.offer_and_match += 1;
-                }
-            }
-        }
-
-        out_data.cnts.won = {
-            let required_lights = self
-                .rule_set
-                .constr_map_len(self.lut_a.len(), self.lut_b.len());
-            merged_constraints
-                .iter()
-                .find(|x| x.num() == dec![10.0] && x.might_won())
-                .or_else(|| merged_constraints.last())
-                .map(|x| x.won(required_lights))
-                .unwrap_or(false)
-        };
-
-        out_data.cnts.solvable = merged_constraints
-            .windows(2)
-            .find(|x| x[1].num() == dec![10.0] && x[1].might_won())
-            .map(|x| &x[0])
-            .or_else(|| merged_constraints.last())
-            .and_then(|x| x.was_solvable_before().ok().flatten());
-
         let file = File::create(out_path)?;
         let mut writer = BufWriter::new(file);
-
 
         serde_json::to_writer(&mut writer, &out_data)?;
         writer.flush()?;

@@ -52,6 +52,7 @@ pub struct PairsIter<'a> {
 
 impl<'a> Iterator for PairsIter<'a> {
     type Item = (IdBase, IdBase);
+    /// Iterator `next` implementation returning the next item or `None`.
     fn next(&mut self) -> Option<Self::Item> {
         let len = self.masks.len();
         loop {
@@ -105,6 +106,7 @@ pub struct SlotsIter<'a> {
 }
 impl<'a> Iterator for SlotsIter<'a> {
     type Item = Bitset;
+    /// Iterator `next` implementation returning the next item or `None`.
     fn next(&mut self) -> Option<Self::Item> {
         if self.idx >= self.masks.len() {
             None

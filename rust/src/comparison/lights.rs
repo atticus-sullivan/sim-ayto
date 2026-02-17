@@ -1,9 +1,14 @@
 use plotly::common::Mode;
 
-use crate::comparison::utils::{build_heatmap_plot, build_scatter_plot, lut_theme, plotly_gen_layout, EntryDatum};
-use crate::comparison::{CmpData};
-use crate::constraint::eval::EvalEvent;
+use crate::comparison::plotly::{heatmap::build_heatmap_plot, scatter::build_scatter_plot, layout::plotly_gen_layout, heatmap::EntryDatum};
+use crate::comparison::theme::lut_theme;
+use crate::comparison::CmpData;
+use crate::constraint::eval_types::EvalEvent;
 
+/// Build plots about "lights" (lighting related evaluation metrics).
+///
+/// Accepts the comparison dataset and a `theme` index. Returns
+/// pairs `(tab label, plot HTML)` to be embedded in the generated pages.
 pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);

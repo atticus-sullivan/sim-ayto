@@ -1,11 +1,9 @@
-use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 
-use anyhow::{ensure, Context, Result};
+use anyhow::Result;
 
 use serde::Deserialize;
 
-use crate::matching_repr::bitset::Bitset;
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, MapS, Rename};
 use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
@@ -16,7 +14,7 @@ use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
 pub struct ConstraintParse {
     r#type: ConstraintType,
     #[serde(rename = "map")]
-    map_s: MapS,
+    pub(super) map_s: MapS,
     check: CheckType,
     #[serde(default)]
     hidden: bool,
@@ -52,7 +50,10 @@ impl Hash for ConstraintParse {
     }
 }
 
+// helpers
 impl ConstraintParse {
+    /// How many lights this constraint *adds* when converting a box constraint
+    /// with lights==1 to a new effective constraint.
     pub fn added_known_lights(&self) -> u8 {
         if let ConstraintType::Box { .. } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
@@ -62,6 +63,7 @@ impl ConstraintParse {
         0
     }
 
+    /// Whether this constraint actually restricts the solution set (not a no-op).
     pub fn has_impact(&self) -> bool {
         if self.result_unknown {
             return false;
@@ -100,21 +102,27 @@ impl ConstraintParse {
 }
 
 impl ConstraintParse {
-    /// Finalize the initialization phase by translating the names (strings) to ids, validating the
-    /// stored data, initialize the internal state of the constraint, optionally add an exclude map
-    /// and optionally sort the constraints.
+    /// Convert a `ConstraintParse` (raw YAML-deserialized structure) into a runtime `Constraint`.
+    ///
+    /// This performs:
+    /// - finalization of optional parameters,
+    /// - mapping of names via `rename`,
+    /// - adding computed `exclude_s` if requested,
+    /// - validation against `ruleset_data`.
     ///
     /// # Arguments
+    /// - `lut_a`, `lut_b`: lookup tables for names -> ids for set a / b
+    /// - `map_len`: expected cardinality
+    /// - `map_b`: names present in set_b for auto exclusion heuristics
+    /// - `add_exclude`: whether to compute `exclude_s` automatically
+    /// - `sort_constraint`: whether to sort the maps (for canonicalization)
+    /// - `rename`: tuple of rename maps used for normalization
+    /// - `ruleset_data`: runtime data provider used for validations
+    /// - `known_lights`: number of known lights (domain-specific)
     ///
-    /// - `lut_a`: Reference to the lookup table for set_a (the keys)
-    /// - `lut_b`: Reference to the lookup table for set_b (the values)
-    /// - `map_len`: How many elements are expected to occur in the matching night
-    /// - `map_b`: Reference to the set of elements in set_b used to generate the exclude map
-    /// - `add_exclude`: whether to automatically add the exclude map
-    /// - `sort_constraint`: whether to sort the maps used for this constraint
-    /// - `rename`: Maps one name to another name for renaming the names of set_a and set_b
+    /// # Returns
+    /// `Result<Constraint>` on success.
     #[allow(clippy::too_many_arguments)]
-    // TODO: split up
     pub fn finalize_parsing(
         self,
         lut_a: &Lut,
@@ -127,7 +135,8 @@ impl ConstraintParse {
         ruleset_data: Box<dyn RuleSetData>,
         known_lights: u8,
     ) -> Result<Constraint> {
-        let exclude_s = if add_exclude {
+        // If add_exclude requested prefer computed add_exclude result, fallback to explicit exclude in YAML
+        let exclude_s_final = if add_exclude {
             match self.add_exclude(map_b) {
                 Some(e) => Some(e),
                 None => self.exclude_s.clone(),
@@ -136,23 +145,15 @@ impl ConstraintParse {
             self.exclude_s.clone()
         };
 
-        let mut c_map = self
-            .map_s
-            .iter()
-            .map(&|(k, v)| {
-                let k = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
-                let v = *lut_b
-                    .get(v)
-                    .with_context(|| format!("Invalid Value {}", v))? as u8;
-                Ok((k, v))
-            })
-            .collect::<Result<HashMap<u8, u8>>>()?;
-        let mut c_map_s = self.map_s;
+        // convert map_s names -> numeric ids
+        let (mut c_map, mut c_map_s) = self.convert_map_s_to_ids(lut_a, lut_b)?;
 
+        // optional sorting based on LUT comparators
         if sort_constraint {
             sort_maps(&mut c_map, &mut c_map_s, lut_a, lut_b);
         }
 
+        // create the base Constraint (eliminated_tab sized using LUT lengths)
         let mut c = Constraint {
             r#type: self.r#type,
             check: self.check,
@@ -172,41 +173,10 @@ impl ConstraintParse {
             known_lights,
         };
 
-        // check if map size is valid
-        match c.r#type {
-            ConstraintType::Night { .. } => {
-                ensure!(
-                    c.map_s.len() == map_len,
-                    "Map in a night must contain exactly as many entries as set_a {} (was: {})",
-                    map_len,
-                    c.map_s.len()
-                );
-                let value_len = c.map_s.values().collect::<HashSet<_>>().len();
-                ensure!(
-                    value_len == c.map_s.len(),
-                    "Keys in the map of a night must be unique {:?}",
-                    c.map_s
-                );
-                ensure!(
-                    self.exclude_s.is_none(),
-                    "Exclude is not yet supported for nights"
-                );
-            }
-            ConstraintType::Box { .. } => match &c.check {
-                CheckType::Eq => {}
-                CheckType::Nothing | CheckType::Sold => {}
-                CheckType::Lights(_, _) => {
-                    ensure!(
-                        c.map_s.len() == 1,
-                        "Map in a box must contain exactly {} entry (was: {})",
-                        1,
-                        c.map_s.len()
-                    );
-                }
-            },
-        }
+        // validate shape invariants
+        Self::validate_map_cardinalities(&self.exclude_s, &c, map_len)?;
 
-        // rename names in map_s for output use
+        // rename keys in map_s for user-facing output
         let mut map_s = MapS::default();
         for (k, v) in &c.map_s {
             map_s.insert(
@@ -216,25 +186,15 @@ impl ConstraintParse {
         }
         c.map_s = map_s;
 
-        // translate names to ids
-        if let Some(ex) = &exclude_s {
-            let (ex_a, ex_b) = ex;
-            let mut bs = Bitset::empty();
-            let a = *lut_a
-                .get(ex_a)
-                .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
-            for x in ex_b {
-                bs.insert(
-                    *lut_b
-                        .get(x)
-                        .with_context(|| format!("Invalid Value {}", x))? as u8,
-                );
-            }
-            c.exclude = Some((a, bs));
+        // build exclude bitset if requested / given
+        if let Some(excl) = Self::build_exclude_if_any(&exclude_s_final, lut_a, lut_b)? {
+            c.exclude = Some(excl);
         }
 
         Ok(c)
     }
+
+
 
     /// Generates the exclude list for the constraint, by inserting the elements from `map_b`
     ///
@@ -272,6 +232,7 @@ mod tests {
     use rust_decimal::dec;
 
     use super::*;
+    use crate::matching_repr::bitset::Bitset;
     use crate::matching_repr::MaskedMatching;
     use crate::ruleset_data::dummy::DummyData;
     use std::collections::BTreeMap;
@@ -466,5 +427,27 @@ mod tests {
             exclude_s.unwrap(),
             ("A".to_string(), vec!["c".to_string(), "d".to_string()])
         );
+    }
+
+    #[test]
+    fn convert_map_s_to_ids_works() {
+        let mut cp = ConstraintParse {
+            r#type: ConstraintType::Box { num: dec![1.0], comment: "".to_string(), offer: None },
+            map_s: HashMap::new(),
+            check: CheckType::Eq,
+            hidden: false,
+            no_exclude: false,
+            exclude_s: None,
+            result_unknown: false,
+            build_tree: false,
+            hide_ruleset_data: false,
+        };
+        cp.map_s.insert("A".to_string(), "B".to_string());
+        let lut_a = HashMap::from_iter(vec![("A".to_string(), 0)].into_iter());
+        let lut_b = HashMap::from_iter(vec![("B".to_string(), 1)].into_iter());
+
+        let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
+        assert_eq!(c_map.get(&0).cloned(), Some(1u8));
+        assert_eq!(c_map_s.get("A").unwrap(), "B");
     }
 }

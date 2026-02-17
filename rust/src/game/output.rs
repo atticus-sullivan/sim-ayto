@@ -12,6 +12,9 @@ use crate::game::Game;
 use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};
 
 impl Game {
+    /// Write the main markdown output file (frontmatter + images/tabs).
+    ///
+    /// `md_tables` describes which generated plots / images will be embedded in the page.
     pub fn write_page_md(
         &self,
         out: &mut File,
@@ -60,6 +63,11 @@ impl Game {
         Ok(())
     }
 
+
+    /// Render a generic remaining-percentage table (or transposed).
+    ///
+    /// `norm_idx` maps the table coordinates used in `rem` to the visible (vert, hor)
+    /// ordering. The function highlights maxima with background colors and prints the table.
     pub fn print_rem_generic(
         &self,
         rem: &Rem,

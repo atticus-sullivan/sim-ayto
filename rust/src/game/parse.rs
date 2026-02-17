@@ -24,6 +24,8 @@ struct QueryPair {
     map_b: Vec<String>,
 }
 
+/// Small helper used as a default for the `solved` field during deserialization.
+/// We keep this as a free function so it's easily testable.
 fn mk_true() -> bool {
     true
 }
@@ -65,6 +67,10 @@ pub struct GameParse {
 
 // caching
 impl GameParse {
+    /// Build a human-readable table with information about available caches.
+    ///
+    /// This function *inspects the filesystem* and returns a `comfy_table::Table`
+    /// describing cache existence, line counts and estimated ETA strings.
     pub fn show_caches(&self) -> Result<Table> {
         let hdr = vec![
             Cell::new("What"),
@@ -89,6 +95,7 @@ impl GameParse {
                 let file = File::open(c.1.clone())?;
                 let reader = BufReader::new(file);
                 let lines = reader.lines().count();
+                // TODO: update this tool got much faster
                 let eta = match lines {
                     333_406_530.. => "5:30",
                     48_592_584.. => "1:00",
@@ -132,6 +139,10 @@ impl GameParse {
         Ok(table)
     }
 
+    /// Compute cache file candidates (path + label) for the current `GameParse`.
+    ///
+    /// This function **does not** access the filesystem: it deterministically
+    /// computes a set of hashed cache file paths (useful for `select_cache` and tests).
     pub fn get_caches(&self) -> Vec<(String, PathBuf)> {
         let cache_dir = Path::new("./.cache/");
 
@@ -161,6 +172,11 @@ impl GameParse {
         input_hashes
     }
 
+    /// Pick the cache file to use (set `found_cache_file` and `final_cache_hash`).
+    ///
+    /// - If `use_cache` contains a hash id, prefer that (if it is present in `get_caches()`).
+    /// - Otherwise, prefer the most recent existing cache file.
+    /// - If `gen_cache` is requested, set `final_cache_hash` to the last candidate.
     fn select_cache(gp: &mut GameParse, use_cache: Option<String>) {
         // retrieve the possible caches
         let cache_dir = Path::new("./.cache/");

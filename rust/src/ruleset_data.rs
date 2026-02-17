@@ -7,6 +7,10 @@ use crate::ruleset::RuleSet;
 use crate::Lut;
 use anyhow::Result;
 
+/// Small helper trait to allow cloning boxed trait objects.
+///
+/// Implementors of `RuleSetData` should derive/impl `Clone` and `RuleSetDataClone`
+/// will provide a boxed clone via `clone_box`.
 pub trait RuleSetDataClone {
     fn clone_box(&self) -> Box<dyn RuleSetData>;
 }
@@ -19,8 +23,17 @@ where
     }
 }
 
+/// Per-ruleset data collector used while evaluating permutations.
+///
+/// Implementations may collect statistics (e.g. duplicate/trip counts) while
+/// the simulation runs, then render human-readable output via `print`.
 pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
+    /// Called for each solution matching encountered (append/accumulate).
     fn push(&mut self, m: &MaskedMatching) -> Result<()>;
+
+    /// Print or otherwise render collected statistics.
+    ///
+    /// `full` indicates whether to emit the full report or a short "top-k" summary.
     fn print(
         &self,
         full: bool,
@@ -35,5 +48,17 @@ pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
 impl Clone for Box<dyn RuleSetData> {
     fn clone(&self) -> Box<dyn RuleSetData> {
         self.clone_box()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::ruleset_data::dummy::DummyData;
+
+    #[test]
+    fn boxed_rulesetdata_clone_works() {
+        let d: Box<dyn RuleSetData> = Box::new(DummyData::default());
+        let _d2 = d.clone(); // should not panic
     }
 }
