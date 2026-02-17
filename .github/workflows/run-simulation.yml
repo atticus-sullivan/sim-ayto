@@ -46,30 +46,15 @@ jobs:
         id: detect_changes
         run: |
           set +o pipefail
-
-          BEFORE="${{ github.event.before }}"
-          AFTER="${{ github.event.after }}"
-
-          # Get changed files (empty on workflow_dispatch)
-          CHANGED_FILES="$(git diff --name-only "$BEFORE" "$AFTER" || true)"
-
-          # Detect rust changes excluding bin/solver.rs
-          RUST_CHANGED=false
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            RUST_CHANGED=true
-          elif echo "$CHANGED_FILES" | grep -qE '^rust/' ; then
-              if echo "$CHANGED_FILES" | grep -qE '^rust/' \
-               && ! echo "$CHANGED_FILES" | grep -qE '^rust/src/bin/solver\.rs$' ; then
-              RUST_CHANGED=true
-            fi
-          fi
-
-          if [[ "$RUST_CHANGED" == true ]]; then
+          # Check if there's a push affecting the `rust/**` path or if it's a manual trigger
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" | grep -v "^rust/src/bin/solver.rs$" || echo "")" != "" ]]; then
             echo "re-generate all"
+            # If `rust/**` is changed or it's a manual trigger, run all simulations
             sims="[\"$(find ./data -not -path '*/[@.]*' -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           else
             echo "re-generate only required"
-            sims="[\"$(echo "$CHANGED_FILES" | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
+            # Detect which simulation inputs have changed
+            sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           fi
 
           echo "$sims"
