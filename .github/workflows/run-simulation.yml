@@ -214,7 +214,7 @@ jobs:
           path: ./data
           merge-multiple: true
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Computation results
           branch: build
