@@ -387,8 +387,7 @@ mod tests {
                 ("B".to_string(), 1),
                 ("C".to_string(), 2),
                 ("D".to_string(), 3),
-            ]
-            .into_iter(),
+            ],
         );
         let lut_b = lut_a.clone();
 
@@ -423,8 +422,7 @@ mod tests {
                 ("B".to_string(), 1),
                 ("C".to_string(), 2),
                 ("D".to_string(), 3),
-            ]
-            .into_iter(),
+            ],
         );
         let lut_b = lut_a.clone();
 
@@ -464,7 +462,7 @@ mod tests {
             exclude,
             map_s: HashMap::new(),
             check: CheckType::Lights(lights, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&vec![vec![1], vec![2], vec![0], vec![3]]),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
             eliminated: 0,
             eliminated_tab: vec![
                 vec![0, 0, 0, 0, 0],
@@ -581,6 +579,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::identity_op)]
     fn test_apply() {
         let mut c = constraint_def(None, 2);
         let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
@@ -712,7 +711,7 @@ mod tests {
 
         let row = c.stat_row(
             false,
-            &vec![
+            &[
                 "A".to_string(),
                 "B".to_string(),
                 "C".to_string(),
@@ -729,7 +728,7 @@ mod tests {
 
         let row = c.stat_row(
             false,
-            &vec![
+            &[
                 "A".to_string(),
                 "B".to_string(),
                 "C".to_string(),
@@ -782,7 +781,7 @@ mod tests {
 
         let row = c.stat_row(
             false,
-            &vec![
+            &[
                 "A".to_string(),
                 "B".to_string(),
                 "C".to_string(),
@@ -820,7 +819,7 @@ mod tests {
     #[test]
     fn new_unchecked_helper_works() {
         let data: Box<dyn RuleSetData> = Box::new(DummyData::default());
-        let mm = MaskedMatching::from_matching_ref(&vec![vec![0u8]]);
+        let mm = MaskedMatching::from_matching_ref(&[vec![0u8]]);
         let c = Constraint::new_unchecked(
             ConstraintType::Night {
                 num: dec![1.0],
@@ -988,6 +987,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::bool_assert_comparison)]
     fn fits_eq_mask_behavior() {
         // Construct constraint that checks Eq with mapping 1->1 (two items)
         let mut c = Constraint {
@@ -1057,6 +1057,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::bool_assert_comparison)]
     fn fits_lights_updates_histogram_and_matches_count() {
         // use constraint_def helper to create Lights constraint (default known settings)
         let mut c = constraint_def(None, 2); // expects 2 lights
@@ -1100,7 +1101,7 @@ mod tests {
     fn fits_lights_with_exclude_respects_exclusion_mask() {
         // create a constraint that expects 1 light and has an exclude on slot 0 (positions masked)
         let exclude_bs = Bitset::from_idxs(&[2, 3]); // exclude values indices 2,3
-        let mut c = constraint_def(Some((0, exclude_bs.clone())), 1);
+        let mut c = constraint_def(Some((0, exclude_bs)), 1);
 
         // matching m1: slot0 does not include any excluded index -> should pass (fits true)
         let m1 = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
@@ -1112,6 +1113,7 @@ mod tests {
     }
 
     #[test]
+    #[allow(clippy::bool_assert_comparison)]
     fn process_respects_result_unknown_and_does_not_eliminate() {
         // construct a Lights constraint that would normally reject a matching; set result_unknown
         let c = constraint_def(None, 2);

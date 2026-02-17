@@ -265,8 +265,7 @@ mod tests {
                 ("B".to_string(), 1),
                 ("C".to_string(), 2),
                 ("D".to_string(), 3),
-            ]
-            .into_iter(),
+            ],
         );
         let lut_b = lut_a.clone();
 
@@ -275,7 +274,7 @@ mod tests {
                 &lut_a,
                 &lut_b,
                 3,
-                &vec![],
+                &[],
                 false,
                 false,
                 (&Default::default(), &Default::default()),
@@ -284,7 +283,7 @@ mod tests {
             )
             .unwrap();
 
-        let map = MaskedMatching::from_matching_ref(&vec![vec![1], vec![], vec![3], vec![2]]);
+        let map = MaskedMatching::from_matching_ref(&[vec![1], vec![], vec![3], vec![2]]);
         assert_eq!(map, constraint.map);
     }
 
@@ -316,8 +315,7 @@ mod tests {
                 ("B".to_string(), 1),
                 ("C".to_string(), 2),
                 ("D".to_string(), 3),
-            ]
-            .into_iter(),
+            ],
         );
         let lut_b = lut_a.clone();
 
@@ -326,7 +324,7 @@ mod tests {
                 &lut_a,
                 &lut_b,
                 20,
-                &vec![],
+                &[],
                 true,
                 false,
                 (&Default::default(), &Default::default()),
@@ -335,9 +333,9 @@ mod tests {
             )
             .unwrap();
 
-        let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
+        let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())]);
         assert_eq!(map_s, constraint.map_s);
-        let map = MaskedMatching::from_matching_ref(&vec![vec![1]]);
+        let map = MaskedMatching::from_matching_ref(&[vec![1]]);
         assert_eq!(map, constraint.map);
         let excl = Some((0, Bitset::from_idxs(&[2, 3])));
         assert_eq!(excl, constraint.exclude);
@@ -371,8 +369,7 @@ mod tests {
                 ("B".to_string(), 1),
                 ("C".to_string(), 2),
                 ("D".to_string(), 3),
-            ]
-            .into_iter(),
+            ],
         );
         let lut_b = lut_a.clone();
 
@@ -381,7 +378,7 @@ mod tests {
                 &lut_a,
                 &lut_b,
                 20,
-                &vec![],
+                &[],
                 false,
                 false,
                 (&Default::default(), &Default::default()),
@@ -390,9 +387,9 @@ mod tests {
             )
             .unwrap();
 
-        let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())].into_iter());
+        let map_s = HashMap::from_iter(vec![("A".to_string(), "B".to_string())]);
         assert_eq!(map_s, constraint.map_s);
-        let map = MaskedMatching::from_matching_ref(&vec![vec![1]]);
+        let map = MaskedMatching::from_matching_ref(&[vec![1]]);
         assert_eq!(map, constraint.map);
     }
 
@@ -445,8 +442,8 @@ mod tests {
             hide_ruleset_data: false,
         };
         cp.map_s.insert("A".to_string(), "B".to_string());
-        let lut_a = HashMap::from_iter(vec![("A".to_string(), 0)].into_iter());
-        let lut_b = HashMap::from_iter(vec![("B".to_string(), 1)].into_iter());
+        let lut_a = HashMap::from_iter(vec![("A".to_string(), 0)]);
+        let lut_b = HashMap::from_iter(vec![("B".to_string(), 1)]);
 
         let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
         assert_eq!(c_map.get(&0).cloned(), Some(1u8));

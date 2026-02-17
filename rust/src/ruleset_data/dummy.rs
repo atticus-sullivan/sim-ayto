@@ -40,8 +40,8 @@ mod tests {
         d.print(
             false,
             &crate::ruleset::RuleSet::Eq,
-            &vec![],
-            &vec![],
+            &[],
+            &[],
             &crate::Lut::default(),
             1,
         )
