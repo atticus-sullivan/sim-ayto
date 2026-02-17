@@ -110,7 +110,7 @@ jobs:
 
       - name: Upload the executable
         id: upload-artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ayto
           path: rust/target/release/ayto
@@ -177,7 +177,7 @@ jobs:
 
       - name: Upload simulation results
         if: ${{ matrix.sim != '' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: sim-results-${{ env.SAFENAME }}
           path: |
@@ -306,7 +306,7 @@ jobs:
           fi
 
       - name: Upload generated pictures as artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: pictures-${{ matrix.sim }}
           path: |
