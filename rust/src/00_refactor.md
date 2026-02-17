@@ -4,6 +4,7 @@
   - [ ] check *.col.out
   - [ ] check generated comparison plots/pages as well
 
+- [ ] re-create `build` branch (`.gitignore` changed)
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
