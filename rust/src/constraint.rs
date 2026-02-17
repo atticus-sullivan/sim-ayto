@@ -229,7 +229,7 @@ impl Constraint {
             left_poss: vec![],
             hide_ruleset_data: false,
             ruleset_data: rs_dat,
-            known_lights: known_lights,
+            known_lights,
         }
     }
 }

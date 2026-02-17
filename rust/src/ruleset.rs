@@ -768,12 +768,12 @@ mod tests {
     fn test_emit_slice_to_state_calls_step_and_sets_masks() {
         // prepare a small slice of bitsets and an mm preallocated with slots
         let slice = vec![
-            Bitset::from_u64(0b001),
-            Bitset::from_u64(0b010),
-            Bitset::from_u64(0b100),
+            Bitset::from_word(0b001),
+            Bitset::from_word(0b010),
+            Bitset::from_word(0b100),
         ];
         let mut mm = MaskedMatching::with_slots(slice.len());
-        let mut is = TestingIterState::new();
+        let mut is = TestingIterState::default();
 
         // call the function under test
         emit_slice_to_state(7, &slice, &mut mm, &mut is, true).expect("emit failed");
@@ -783,7 +783,7 @@ mod tests {
         let captured = &is.seen[0];
         assert_eq!(captured.len(), slice.len());
         for (i, b) in slice.iter().enumerate() {
-            assert_eq!(captured.mask(i), *b, "slot {} mismatch", i);
+            assert_eq!(*captured.slot_mask(i).unwrap(), *b, "slot {} mismatch", i);
         }
     }
 }

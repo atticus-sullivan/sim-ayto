@@ -63,7 +63,7 @@ impl MaskedMatching {
             .iter()
             .enumerate()
             .map(|(a, b)| {
-                let i = map_a[a as usize].clone();
+                let i = map_a[a].clone();
                 let j = map_b[b.iter().next().unwrap() as usize].clone();
                 (i, j)
             })
@@ -95,6 +95,11 @@ impl MaskedMatching {
     /// Number of slots.
     pub fn len(&self) -> usize {
         self.masks.len()
+    }
+
+    /// No slots?
+    pub fn is_empty(&self) -> bool {
+        self.masks.is_empty()
     }
 
     /// Compute the universe (highest set bit + 1) or 0 if empty.

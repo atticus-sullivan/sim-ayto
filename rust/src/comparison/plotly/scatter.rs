@@ -9,9 +9,10 @@ use crate::comparison::{
 
 /// Build a scatter plot HTML from a list of named series. Each series is
 /// `(name, x_values, y_values, text_values)`.
+#[allow(clippy::type_complexity)]
 pub fn scatter_from_series<Tx, Ty>(
     layout: &Layout,
-    series: &Vec<(String, Vec<Tx>, Vec<Ty>, Vec<String>)>,
+    series: &[(String, Vec<Tx>, Vec<Ty>, Vec<String>)],
     mode: Mode,
 ) -> String
 where
@@ -36,7 +37,7 @@ where
 
 #[allow(clippy::too_many_arguments)]
 pub fn build_scatter_plot<X, Y, FX, FY, FString>(
-    cmp_data: &Vec<(String, CmpData)>,
+    cmp_data: &[(String, CmpData)],
     layout: &Layout,
     palette: &Flavor,
     title: &str,
@@ -61,7 +62,7 @@ where
         .y_axis(styled_axis(palette, y_title, false));
 
     let data = cmp_data
-        .into_iter()
+        .iter()
         .map(|(name, cd)| (name.clone(), x_fn(cd), y_fn(cd), text_fn(cd)))
         .collect::<Vec<_>>();
     scatter_from_series(&render_layout, &data, mode)

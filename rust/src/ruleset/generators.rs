@@ -37,7 +37,7 @@ where
     let mut i = 1usize;
     while i < n {
         if c[i] < i {
-            if i % 2 == 0 {
+            if i.is_multiple_of(2) {
                 a.swap(0, i);
             } else {
                 a.swap(c[i], i);
@@ -133,8 +133,9 @@ where
 /// - For each index `idx` in 0..len-1 this function checks:
 ///     * both `buf[idx]` and `buf[last]` are singletons (prevents triples),
 ///     * ordering constraint `single_idx(idx) >= single_idx(last)` to avoid double counting.
-///   If checks pass, it temporarily ORs `buf[last]` and `add` into `buf[idx]`, and emits
-///   `&mut buf[..last]` (the effective permutation has last item removed).
+///
+/// If checks pass, it temporarily ORs `buf[last]` and `add` into `buf[idx]`, and emits
+/// `&mut buf[..last]` (the effective permutation has last item removed).
 ///
 /// Guarantees:
 /// - `buf` is restored to its original state after return.
@@ -352,7 +353,7 @@ where
     if slots == 0 {
         return Ok(());
     }
-    if slots % 2 != 0 {
+    if !slots.is_multiple_of(2) {
         // semantics in existing code assume even slots (n-to-n); silently do nothing or return error.
         // Choose to return Ok(()) to match "no permutations".
         return Ok(());

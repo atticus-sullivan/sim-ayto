@@ -36,7 +36,7 @@ impl MaskedMatching {
 
         let done = current.iter().any(|x| x.is_none());
         UnwrappedIter {
-            mm: &self,
+            mm: self,
             iters,
             current,
             done,

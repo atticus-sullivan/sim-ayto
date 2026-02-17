@@ -1,8 +1,8 @@
 use std::collections::{BTreeMap, HashMap};
 
 use catppuccin::Flavor;
-use plotly::{HeatMap, Layout};
 use plotly::common::{ColorScale, Title};
+use plotly::{HeatMap, Layout};
 use rust_decimal::prelude::FromPrimitive;
 use rust_decimal::{dec, Decimal};
 use serde::Serialize;
@@ -20,6 +20,7 @@ use crate::comparison::CmpData;
 ///
 /// This function is generic over the element type `T` used for `x_edges` so tests can
 /// pass `f64` while production code can continue to pass `Decimal`.
+#[allow(clippy::too_many_arguments)]
 pub fn heatmap_from_matrix<T>(
     x_edges: Vec<T>,
     y_labels: Vec<String>,
@@ -94,7 +95,17 @@ where
     // build z as rows per season
     let (texts, z) = build_z_from_entries(cmp_data, &layouts, &entries_fn);
 
-    heatmap_from_matrix(x_edges, y_labels, z, texts, layout, palette, title, x_title, plotly_colorscale(palette))
+    heatmap_from_matrix(
+        x_edges,
+        y_labels,
+        z,
+        texts,
+        layout,
+        palette,
+        title,
+        x_title,
+        plotly_colorscale(palette),
+    )
 }
 
 /// Build the bucket edges and layout (bucket -> slot count) from entries produced by `entries_fn`.
@@ -257,7 +268,7 @@ mod tests {
             &palette,
             "MyHeatmap",
             "X axis",
-            plotly_colorscale(&palette)
+            plotly_colorscale(&palette),
         );
         assert!(html.contains("<div")); // basic sanity: we got HTML back
         assert!(html.contains("MyHeatmap")); // title present

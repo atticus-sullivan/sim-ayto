@@ -38,7 +38,7 @@ use rayon::prelude::*;
 /// Chooses an MB.
 /// `data` has the structure you provided earlier (Vec<Vec<u128>>).
 pub trait MbOptimizer: Send + Sync {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> MaskedMatching;
+    fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching;
 }
 
 /// Chooses an MN
@@ -49,18 +49,14 @@ pub trait MnOptimizer: Send + Sync {
 pub struct DefaultMbOptimizer;
 
 impl MbOptimizer for DefaultMbOptimizer {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, _rng: &mut dyn Rng) -> MaskedMatching {
+    fn choose_mb(&self, data: &[Vec<u128>], total: u128, _rng: &mut dyn Rng) -> MaskedMatching {
         let target = total / 2; // that is the optimum we want to be close
         let mut closest_diff = u128::MAX;
         let mut closest_index = (0u8, 0u8);
 
         for (i, row) in data.iter().enumerate() {
             for (j, &val) in row.iter().enumerate() {
-                let diff = if val >= target {
-                    val - target
-                } else {
-                    target - val
-                };
+                let diff = val.abs_diff(target);
                 if diff < closest_diff {
                     closest_diff = diff;
                     closest_index = (i as u8, j as u8);
@@ -96,7 +92,7 @@ impl MnOptimizer for DefaultMnOptimizer {
         if left_poss.len() > threshold {
             left_poss
                 .sample(rng, threshold)
-                .map(|m| (calc_entropy(&m, left_poss), m))
+                .map(|m| (calc_entropy(m, left_poss), m))
                 .max_by(|(e1, _), (e2, _)| e1.partial_cmp(e2).unwrap())
                 .map(|(_, m)| m)
                 .unwrap()
@@ -104,7 +100,7 @@ impl MnOptimizer for DefaultMnOptimizer {
         } else {
             left_poss
                 .iter()
-                .map(|m| (calc_entropy(&m, left_poss), m))
+                .map(|m| (calc_entropy(m, left_poss), m))
                 .max_by(|(e1, _), (e2, _)| e1.partial_cmp(e2).unwrap())
                 .map(|(_, m)| m)
                 .unwrap()
@@ -122,7 +118,7 @@ impl MnOptimizer for DefaultMnOptimizer {
 ///
 /// The `usize` value is a practical default; change the return type if you want another payload.
 pub trait StrategyBundle: Send + Sync {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> MaskedMatching;
+    fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching;
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 
     /// Produce an initial value for the first constraint. Up to this point no information is known
@@ -145,7 +141,7 @@ impl DefaultStrategy {
 }
 
 impl StrategyBundle for DefaultStrategy {
-    fn choose_mb(&self, data: &Vec<Vec<u128>>, total: u128, rng: &mut dyn Rng) -> MaskedMatching {
+    fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching {
         // delegate to your previous implementation
         self.mb.choose_mb(data, total, rng)
     }
@@ -160,7 +156,7 @@ impl StrategyBundle for DefaultStrategy {
         MaskedMatching::from_masks(
             vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 .into_iter()
-                .map(|i| Bitset::from_word(i))
+                .map(Bitset::from_word)
                 .collect(),
         )
     }
@@ -254,7 +250,7 @@ fn run_single_simulation<S: StrategyBundle>(
         true,
         10,
         vec![c.clone()],
-        &vec![],
+        &[],
         &(HashSet::new(), HashSet::new()),
         &None,
         (10, 10),
@@ -305,7 +301,7 @@ fn run_single_simulation<S: StrategyBundle>(
         ));
 
         if let Some(c) = cs.last_mut() {
-            poss.retain(|p| c.process(&p).unwrap());
+            poss.retain(|p| c.process(p).unwrap());
             rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
         }
 
@@ -450,7 +446,7 @@ pub fn run_many_and_write<S: StrategyBundle>(
                 .as_millis();
             let _ = tx_clone.send(WriterMsg::Started { sim_id, start_ms });
 
-            let strategy_ref: &S = &*strategy_arc;
+            let strategy_ref: &S = &strategy_arc;
 
             match run_single_simulation(sim_id, seed, strategy_ref) {
                 Ok(sim_res) => {

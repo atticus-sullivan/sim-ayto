@@ -18,7 +18,7 @@ impl DupData {
     fn aggregate_by_bitset(&self) -> Vec<(Bitset, usize)> {
         let mut agg: HashMap<Bitset, usize> = HashMap::new();
         for ((_, js), c) in self.cnt.iter() {
-            *agg.entry(js.clone()).or_default() += *c;
+            *agg.entry(*js).or_default() += *c;
         }
         let mut v: Vec<_> = agg.into_iter().collect();
         v.sort_by(|a, b| b.1.cmp(&a.1));
