@@ -19,3 +19,8 @@ gh.bash
 *.conf
 
 data/**/*.md
+
+diff-outputs.bash
+solver_eval
+rust/flamegraph.bash
+rust/archive-src.bash

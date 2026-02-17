@@ -6,5 +6,3 @@ Makefile
 *yaml
 perf.data*
 flamegraph*.svg
-bench.bash
-coverage.html
