@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'rust/**'
+      - '!rust/src/bin/solver.rs'
       - 'data/**.yaml'
       - 'gh-pages/**'
 
@@ -36,7 +37,7 @@ jobs:
       sims: ${{ steps.detect_changes.outputs.sims }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           ref: main
           fetch-depth: 0
@@ -45,15 +46,30 @@ jobs:
         id: detect_changes
         run: |
           set +o pipefail
-          # Check if there's a push affecting the `rust/**` path or if it's a manual trigger
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" || echo "")" != "" ]]; then
+
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+
+          # Get changed files (empty on workflow_dispatch)
+          CHANGED_FILES="$(git diff --name-only "$BEFORE" "$AFTER" || true)"
+
+          # Detect rust changes excluding bin/solver.rs
+          RUST_CHANGED=false
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            RUST_CHANGED=true
+          elif echo "$CHANGED_FILES" | grep -qE '^rust/' ; then
+              if echo "$CHANGED_FILES" | grep -qE '^rust/' \
+               && ! echo "$CHANGED_FILES" | grep -qE '^rust/src/bin/solver\.rs$' ; then
+              RUST_CHANGED=true
+            fi
+          fi
+
+          if [[ "$RUST_CHANGED" == true ]]; then
             echo "re-generate all"
-            # If `rust/**` is changed or it's a manual trigger, run all simulations
             sims="[\"$(find ./data -not -path '*/[@.]*' -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           else
             echo "re-generate only required"
-            # Detect which simulation inputs have changed
-            sims="[\"$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
+            sims="[\"$(echo "$CHANGED_FILES" | grep "data/[^.]*\.yaml" | sed "s/\(.*\)\.yaml$/\1/" | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
           fi
 
           echo "$sims"
@@ -67,7 +83,7 @@ jobs:
     outputs:
       ayto: ${{ steps.upload-artifact.outputs.ayto }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
 
@@ -111,7 +127,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: ${{ matrix.sim != '' }}
         with:
           ref: build
@@ -168,9 +184,7 @@ jobs:
             ${{ env.STEM }}.col.out
             ${{ env.STEM }}.md
             ${{ env.STEM }}*.dot
-            ${{ env.STEMD }}/statInfo.csv
-            ${{ env.STEMD }}/statMB.csv
-            ${{ env.STEMD }}/statMN.csv
+            ${{ env.STEMD }}/stats.json
             ./data/.gitkeep
 
   commit-results:
@@ -178,7 +192,7 @@ jobs:
     needs:
       - run-sim
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: build
           fetch-depth: 0
@@ -213,7 +227,7 @@ jobs:
       sims: ${{ steps.detect_changes.outputs.sims }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           ref: build
 
@@ -237,7 +251,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: build
 
@@ -257,8 +271,9 @@ jobs:
           sim="${{ matrix.sim }}"
           output_dir="./gh-pages/static/${sim}"
           if [[ ! -e "${output_dir}/${sim}_tab.png" ]]; then
-            sudo apt install graphviz python3 python3-pip
-            pip install --break-system-packages ansitoimg
+            sudo apt install graphviz python3 python3-pip python3-venv
+            python3 -m venv venv
+            source venv/bin/activate && pip install ansitoimg install-playwright==0.1.1
           fi
 
       - name: Compute for ${{ matrix.sim }}
@@ -273,9 +288,9 @@ jobs:
             echo "Generating pictures for simulation: ${sim}"
 
             # Generate pictures using your Python script
-            python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
+            source venv/bin/activate && python3 generate_png.py "${input_file}" "${output_dir}/${sim}"
 
-            ls -al "./data/${sim}/${sim}"*.dot
+            # ls -al "./data/${sim}/${sim}"*.dot
             for dot_file in "./data/${sim}/${sim}"*.dot ; do
             if [[ -e "${dot_file}" ]]; then
               name="${dot_file##*/}"
@@ -305,7 +320,7 @@ jobs:
       - commit-results
       - generate-pictures
     env:
-      HUGO_VERSION: 0.128.0
+      HUGO_VERSION: 0.155.2
     steps:
       - name: Install Hugo CLI
         run: |
@@ -316,7 +331,7 @@ jobs:
         run: sudo snap install dart-sass
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: build
           submodules: recursive
@@ -343,7 +358,7 @@ jobs:
       - name: Build comparisons
         run: |
           chmod +x ./ayto
-          ./ayto graph gh-pages/content/ayto/comparison/de.md gh-pages/content/ayto/comparison/us.md
+          ./ayto comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
       - name: Build with Hugo
         env:

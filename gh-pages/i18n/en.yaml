@@ -5,6 +5,16 @@ tab-everything: All toegther
 tree-current: Current Tree
 tab-start: Start Distribution
 
+blackouts: "Blackouts"
+sold: "Sold"
+soldButGood: "PC sold"
+matchesFound: "PC in TB found"
+total: "Total"
+won: "Won?"
+solvable: "Solvable?"
+offers: "Offers"
+offerAndMatch: "Offered PCs"
+offeredMoney: "Σ Offered Money"
 
 de-season1: "DE Season 1"
 de-season2: "DE Season 2"
@@ -35,9 +45,14 @@ rulesetShort: "RS"
 rulesetDesc: "Ruleset"
 players: "Players"
 
-rs-SomeoneIsDup: "doublematch unknown"
+# rs-XTimesDup-fixed-someone: ""
+rs-XTimesDup-0-1: "1 doublematch unknown"
+rs-XTimesDup-0-2: "2 doublematches unknown"
+rs-XTimesDup-1-0: "1 doublematch, one person is known"
+rs-XTimesDup-1-1: "2 doublematches, of one match, one person is known"
+rs-XTimesDup-2-0: "2 doublematches, one person each is known"
+
 rs-SomeoneIsTrip: "tripplematch unknown"
 rs-NToN: "Everyone with Everyone"
-rs-FixedDup: "one person of the doublematch is known"
 rs-FixedTrip: "one person of the tripplematch is known"
 rs-Eq: "normal gamemode"

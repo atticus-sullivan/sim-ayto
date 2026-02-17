@@ -1,6 +1,8 @@
 ---
-title: 'Home'
+linkTitle: 'Home'
 weight: 1
+cascade:
+  type: docs
 # bookFlatSection: false
 # bookToc: true
 # bookHidden: false
@@ -13,27 +15,26 @@ weight: 1
 
 | Format     | AYTO DE                           | AYTO DE RSIL                           | AYTO US                           | AYTO UK                           |
 | ----       | :--:                              | :--:                                   | :---:                             | :---:                             |
-| Season  1 | [:white_check_mark:](ayto/de/01/) | [:white_check_mark:](ayto/de-rsil/01/) | [:white_check_mark:](ayto/us/01/) | [:white_check_mark:](ayto/uk/01/) |
-| Season  2 | [:white_check_mark:](ayto/de/02/) | [:white_check_mark:](ayto/de-rsil/02/) | [:white_check_mark:](ayto/us/02/) |                                   |
-| Season  3 | [:white_check_mark:](ayto/de/03/) | [:white_check_mark:](ayto/de-rsil/03/) | [:white_check_mark:](ayto/us/03/) |                                   |
-| Season  4 | [:white_check_mark:](ayto/de/04/) | [:white_check_mark:](ayto/de-rsil/04/) | [:white_check_mark:](ayto/us/04/) |                                   |
-| Staffel  5 | [:white_check_mark:](ayto/de/05/) | [:hourglass:       ](ayto/de-rsil/05/) | [:white_check_mark:](ayto/us/05/) |                                   |
-| Staffel  6 | [:white_check_mark:](ayto/de/06/) |                                        | [:white_check_mark:](ayto/us/06/) |                                   |
-| Season  7 |                                   |                                        | [:white_check_mark:](ayto/us/07/) |                                   |
-| Season  8 |                                   |                                        | [:white_check_mark:](ayto/us/08/) |                                   |
-| Season  9 |                                   |                                        | [:white_check_mark:](ayto/us/09/) |                                   |
+| Season  1 | [:white_check_mark:](de/01/) | [:white_check_mark:](de-rsil/01/) | [:white_check_mark:](us/01/) | [:white_check_mark:](uk/01/) |
+| Season  2 | [:white_check_mark:](de/02/) | [:white_check_mark:](de-rsil/02/) | [:white_check_mark:](us/02/) |                                   |
+| Season  3 | [:white_check_mark:](de/03/) | [:white_check_mark:](de-rsil/03/) | [:white_check_mark:](us/03/) |                                   |
+| Season  4 | [:white_check_mark:](de/04/) | [:white_check_mark:](de-rsil/04/) | [:white_check_mark:](us/04/) |                                   |
+| Season  5 | [:white_check_mark:](de/05/) | [:white_check_mark:       ](de-rsil/05/) | [:white_check_mark:](us/05/) |                                   |
+| Season  6 | [:white_check_mark:](de/06/) |                                        | [:white_check_mark:](us/06/) |                                   |
+| Season  7 | [:hourglass:       ](de/07/)|                                        | [:white_check_mark:](us/07/) |                                   |
+| Season  8 |                                   |                                        | [:white_check_mark:](us/08/) |                                   |
+| Season  9 |                                   |                                        | [:white_check_mark:](us/09/) |                                   |
 | Season 10 |                                   |                                        | [                  ]()            |                                   |
 <!-- :x: -->
 
 Since there only was one *UK* season so far, this seson is also included in the
 comparison with the *US* seasons.
 
-{{% hint info %}}
-In german the "matching ceremonies" are called "Matchingnights" (MN) and the
-"truth booths" are called "Matchboses" (MB).
-So you'll probably find some places where these terms / acronyms are used
-instead of the ones you're accustomed to (I did not localize everything).
-{{% /hint %}}
+> [!NOTE]
+> In german the "matching ceremonies" are called "Matchingnights" (MN) and the
+> "truth booths" are called "Matchboses" (MB).
+> So you'll probably find some places where these terms / acronyms are used
+> instead of the ones you're accustomed to (I did not localize everything).
 
 ## Information regarding the Illustration
 
@@ -63,7 +64,7 @@ Tables* what the most recent entry is.
 
 ## More details
 
-{{% details "Click here for more details" %}}
+{{% details title="Click here for more details" closed="true" %}}
 In the following you can find more explanations regarding the outputs. For even
 more details (e.g. how the input files work or how to manually add more data)
 see the [complete repository](https://github.com/atticus-sullivan/sim-ayto)
@@ -125,3 +126,4 @@ Already known matches (be it from truth booth or throug elimination) are put on
 the topmost levels. For the remaining levels the ordering is sorted based on the
 amount of *different* matches for the fixed person.
 {{% /details %}}
+

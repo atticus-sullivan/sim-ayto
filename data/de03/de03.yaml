@@ -2,12 +2,12 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: DE Staffel 3
+  linkTitle: DE Staffel 3
   identifier: de-season3
   weight: 1
 
 # rule_set: !SomeoneIsDup
-rule_set: !FixedDup Desiree
+rule_set: !XTimesDup [Desiree]
 
 setA:
   - Andre
@@ -35,7 +35,7 @@ setB:
   - Desiree
 
 constraints:
-  - type: !Box {num: 1, comment: "E02"}
+  - type: !Box {num: 1, comment: "E01"}
     check: !Lights [0]
     map:
       Mike: Jessica
@@ -73,7 +73,7 @@ constraints:
       William: Raphaela
       Jordi: Zaira
 
-  - type: !Box {num: 3, comment: "E06"}
+  - type: !Box {num: 3, comment: "E06", offer: !Group {by: "Antonino", amount: 20000}}
     check: !Lights [0]
     map:
       Andre: Raphaela
@@ -92,8 +92,8 @@ constraints:
       Andre: Raphaela
       Dustin: Zaira
 
-  - type: !Box {num: 4, comment: "E08 -- verkauft"}
-    check: !Nothing
+  - type: !Box {num: 4, comment: "E08 -- verkauft", offer: !Group {by: "Antonino", amount: 50000}}
+    check: !Sold
     map:
       William: Dana
 
@@ -110,6 +110,8 @@ constraints:
       Antonino: Monami
       Jordi: Raphaela
       Dustin: Zaira
+
+# newcomer: Desiree
 
   - type: !Box {num: 5, comment: "E10"}
     check: !Lights [0]
@@ -150,7 +152,7 @@ constraints:
       William: Raphaela
       Marius: Zaira
 
-  - type: !Box {num: 7, comment: "E14"}
+  - type: !Box {num: 7, comment: "E14 -- -50k Regelverstoß d. Antonino+Monami"}
     check: !Lights [1]
     buildTree: true
     map:

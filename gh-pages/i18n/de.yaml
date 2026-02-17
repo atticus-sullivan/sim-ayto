@@ -5,6 +5,16 @@ tab-everything: Alle zusammen
 tree-current: Aktuellster Baum
 tab-start: Anfangsverteilung
 
+blackouts: "Blackouts"
+sold: "Verkauft"
+soldButGood: "PMs verkauft"
+matchesFound: "PMs in MB"
+total: "Total"
+won: "Gewonnen?"
+solvable: "Lösbar?"
+offers: "Angebote"
+offerAndMatch: "Angebote für PMs"
+offeredMoney: "Σ Angebotenes Geld"
 
 de-season1: "DE Staffel 1"
 de-season2: "DE Staffel 2"
@@ -35,9 +45,14 @@ rulesetShort: "R"
 rulesetDesc: "Spielmodus / Regeln"
 players: "Spieler"
 
-rs-SomeoneIsDup: "Doppelmatch unbekannt"
+# rs-XTimesDup-fixed-someone: ""
+rs-XTimesDup-0-1: "1 Doppelmatch unbekannt"
+rs-XTimesDup-0-2: "2 Doppelmatches unbekannt"
+rs-XTimesDup-1-0: "1 Doppelmatch, eine Person ist bekannt"
+rs-XTimesDup-1-1: "2 Doppelmatch, einmal ist eine Person bekannt"
+rs-XTimesDup-2-0: "2 Doppelmatches, je eine Person ist bekannt"
+
 rs-SomeoneIsTrip: "Tripplematch unbekannt"
 rs-NToN: "Jeder mit Jedem"
-rs-FixedDup: "eine Person des Doppelmatches bekannt"
 rs-FixedTrip: "eine Person des Tripplematches bekannt"
 rs-Eq: "normal gamemode"

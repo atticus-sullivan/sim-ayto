@@ -1,13 +1,15 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+no_offerings_noted: true
+
 frontmatter:
-  title: DE Staffel 2
+  linkTitle: DE Staffel 2
   identifier: de-season2
   weight: 1
 
 # rule_set: !SomeoneIsDup
-rule_set: !FixedDup VanessaM
+rule_set: !XTimesDup [VanessaM]
 
 setA:
   - Aaron
@@ -55,7 +57,7 @@ constraints:
       Sascha: Vanessa
 
   - type: !Box {num: 2, comment: "E04 -- verkauft?"}
-    check: !Nothing
+    check: !Sold
     map:
       Germain: Victoria
 
@@ -131,7 +133,7 @@ constraints:
       Sascha: Jill
 
   - type: !Box {num: 6, comment: "E12 -- verkauft"}
-    check: !Nothing
+    check: !Sold
     map:
       Marc: Mirjam
 

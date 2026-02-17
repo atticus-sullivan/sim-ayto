@@ -2,12 +2,12 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: DE RSIL Staffel 3
+  linkTitle: DE RSIL Staffel 3
   identifier: deR-season3
   weight: 1
 
 # rule_set: !SomeoneIsDup
-rule_set: !FixedDup Max
+rule_set: !XTimesDup [Max]
 
 setA:
   - Alicia
@@ -35,10 +35,11 @@ setB:
   - Max
 
 constraints:
-  - type: !Box {num: 1, comment: "E03"}
+  - type: !Box {num: 1, comment: "E03", offer: !Group {by: "Paco", amount: 50000}}
     check: !Lights [0]
     map:
       Jenny: Danilo
+      # Paulina: Fabio
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [3]
@@ -59,6 +60,7 @@ constraints:
     check: !Lights [0]
     map:
       Jenny: Elia
+      # Darya: Danilo
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [2]
@@ -78,6 +80,7 @@ constraints:
     check: !Lights [0]
     map:
       Darya: Elia
+      # Steffi: Steffen
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [2]
@@ -97,6 +100,9 @@ constraints:
     check: !Lights [0]
     map:
       Kim: Mike
+      # Marie: Elia
+
+# newcomer: Max
 
   - type: !Night {num: 4, comment: "E10"}
     check: !Lights [4]
@@ -117,6 +123,7 @@ constraints:
     check: !Lights [1]
     map:
       Darya: Danilo
+      # Steffi: Max
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [3]
@@ -131,7 +138,7 @@ constraints:
       Sandra: Max
       Shakira: Paco
       Steffi: Elia
-      # Dummy: Peter
+      # Peter
 
   - type: !Box {num: 6, comment: "E13"}
     check: !Lights [0]
@@ -155,7 +162,11 @@ constraints:
       Jenny: Marvin
       # Jenny: Max
 
-  # Max hat sein "double" verkauft => das "double" wurde bekannt
+
+  # Kim: Peter
+  # Paulina: Mike
+
+  # Max hat sein "double" verkauft => das "double" wurde bekannt # für 50k
   - type: !Box {num: 7, comment: "E15"}
     buildTree: true
     # Eq meint nur, dass die beiden values gleich sein müssen. Die jeweiligen
@@ -164,7 +175,7 @@ constraints:
     # dasselbe match, wer das ist bleibt aber offen)
     check: !Eq
     map:
-      Alicia: Peter
+      Alicia: Peter # Peter muss gehen
       Darya: Max
 
   - type: !Night {num: 7, comment: "E16"}
@@ -181,6 +192,7 @@ constraints:
       Jenny: Paco
       Alicia: Fabio
       Sandra: Mike
+      # Peter
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [0]
@@ -203,6 +215,7 @@ constraints:
       Sabrina: Emanuell
       Paulina: Teezy
       Marie: Elia
+      # Peter
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [1]
@@ -225,6 +238,7 @@ constraints:
       Paulina: Paco
       Alicia: Steffen
       Sandra: Elia
+      # Peter
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [1]
@@ -247,3 +261,4 @@ constraints:
       Sandra: Steffen
       Paulina: Max
       Jenny: Paco
+      # Peter

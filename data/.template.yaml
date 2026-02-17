@@ -1,11 +1,13 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+solved: false
+
 frontmatter:
   title: 'DE Staffel 1'
   weight: 1
 
-tree_gen: false
+gen_cache: false
 
 # rule_set: !SomeoneIsDup
 # rule_set: !FixedDup Christina
@@ -24,5 +26,5 @@ constraints:
   #   check: !Lights [2]
   #   resultUnknown: true
   #   # noExclude: true
-  #   # buildTreee: true
+  #   # buildTree: true
   #   map:

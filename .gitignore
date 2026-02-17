@@ -4,12 +4,12 @@
 *.out
 *.txt
 *.png
-*.csv
+stats.json
 *.html
 !gh-pages/layouts/*.html
 
-gh-pages/content/ayto/comparison/*md
-!gh-pages/content/ayto/comparison/index.*md
+gh-pages/content/comparison/*md
+!gh-pages/content/comparison/index.*md
 
 *.dot
 *.xopp

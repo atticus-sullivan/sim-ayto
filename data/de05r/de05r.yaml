@@ -2,18 +2,16 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: DE RSIL Staffel 4
+  linkTitle: DE RSIL Staffel 5
   identifier: deR-season5
   weight: 1
 
-tree_gen: false
+gen_cache: true
 
-rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Christina
-# rule_set: !Eq
+rule_set: !XTimesDup [null, JimiBlue]
 
 setA:
-  - Antonina
+  - Antonia
   - Ariel
   - Beverly
   - Elli
@@ -21,31 +19,322 @@ setA:
   - Henna
   - Joanna
   - Nelly
-  - SandraJanina
+  - Sandra # SandraJanina
   - Viki
 
 setB:
-  - CalvinO
-  - CalvinS
+  - CalvinBlond # CalvinS
+  - CalvinHot # CalvinO
   - Jonny
   - Kevin
-  - Leandro
-  - Lennert
+  - Lennert # JustinBiber
   - Nico
   - Olli
   - Rob
   - Sidar
   - Xander
-  # - JimiBlue
+  ##
+  - Leandro
+  - JimiBlue
 
 constraints:
-  # - type: !Box {num: 1, comment: "E01"}
-  #   check: !Lights [0]
-  #   map:
+  - type: !Box {num: 1, comment: "E03 -- verkauft > 20€ > Joanna", offer: !Single {by: "Joanna", amount: 20, reducedPot: true, save: true}}
+    check: !Sold
+    map:
+      Sandra: Kevin
+      # Olli: Elli
 
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTreee: true
-  #   map:
+  - type: !Night {num: 1, comment: "E04"}
+    check: !Lights [2]
+    map:
+      Viki: Leandro
+      Hati: CalvinHot
+      Henna: Jonny
+      Nelly: Sidar
+      Sandra: Kevin
+      Joanna: Rob
+      Ariel: Nico
+      Antonia: Lennert
+      Elli: Xander
+      Beverly: CalvinBlond
+      # Antonia: Olli
+
+  - type: !Box {num: 2, comment: "E05"}
+    check: !Lights [1]
+    map:
+      Elli: Xander
+      # Joanna: Rob
+
+  - type: !Night {num: 2, comment: "E06 -- -50k Kamera verdeckt (Kevin+Ariel)"}
+    check: !Lights [2]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Joanna: CalvinBlond
+      Nelly: Rob
+      Sandra: Kevin
+      Ariel: Nico
+      Beverly: Sidar
+      Henna: Olli
+      Hati: CalvinHot
+      Viki: Leandro
+      Antonia: Jonny
+      # Lennert
+
+  - type: !Box {num: 3, comment: "E07"}
+    check: !Lights [0]
+    map:
+      Nelly: CalvinBlond
+      # Henna: Leandro
+
+  - type: !Night {num: 3, comment: "E08 -- +20€ aus Grosszuegigkeit :)"}
+    check: !Lights [2]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Joanna: CalvinBlond
+      Antonia: Olli
+      Beverly: Nico
+      Viki: Jonny
+      Hati: Rob
+      Sandra: Kevin
+      Henna: Leandro
+      Nelly: Lennert
+      Ariel: CalvinHot
+      # Sandra: Sidar
+
+  - type: !Box {num: 4, comment: "E09"}
+    check: !Lights [0]
+    map:
+      # Nelly: Rob
+      Beverly: Jonny
+
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights [3]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Joanna: CalvinBlond
+      Nelly: CalvinHot
+      Sandra: Leandro
+      Ariel: Nico
+      Beverly: Sidar
+      Henna: Lennert
+      Viki: Kevin
+      Hati: Rob
+      Antonia: Olli
+      # Jonny
+
+  - type: !Box {num: 5, comment: "E10"}
+    check: !Lights [0]
+    map:
+      Sandra: Leandro
+      # Viki: Jonny
+
+# newcomer: JimiBlue
+
+  - type: !Box {num: 5.2, comment: "E11 -- Geschenk wegen JimiBlue +10k €"}
+    check: !Lights [0]
+    map:
+      Nelly: JimiBlue
+
+  - type: !Night {num: 5, comment: "E12"}
+    check: !Lights [4]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Antonia: Olli
+      Sandra: Lennert
+      Beverly: Sidar
+      Hati: Rob
+      Joanna: CalvinBlond
+      Ariel: Nico
+      Viki: Kevin
+      # Nelly: Jonny
+      Nelly: CalvinHot
+      Henna: JimiBlue
+      # Henna: Leandro
+
+  - type: !Box {num: 6, comment: "E13"}
+    check: !Lights [1]
+    map:
+      Sandra: Lennert
+      # Ariel: Nico
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights [4]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Henna: Olli
+      Hati: JimiBlue
+      Beverly: Leandro
+      Viki: Jonny
+      Ariel: Kevin
+      Antonia: CalvinBlond
+      Joanna: Sidar
+      Nelly: CalvinHot
+      # Rob
+      # Nico
+
+  - type: !Box {num: 7, comment: "E14"}
+    check: !Lights [0]
+    map:
+      Antonia: Olli
+      # Hati: JimiBlue
+
+  - type: !Box {num: 7.2, comment: "E15 -- JimiBlue Exit-MatchBox"} # +20k für die Gruppe wenn JimiBlue es schafft
+    check: !Lights [0]
+    map:
+      Hati: JimiBlue
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [5]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Hati: Jonny
+      Antonia: CalvinBlond
+      Joanna: Sidar
+      Ariel: Leandro
+      Henna: Olli
+      Viki: Kevin
+      Beverly: Nico
+      # Nelly: CalvinHot
+      Nelly: Rob
+
+  - type: !Box {num: 8, comment: "E17"}
+    check: !Lights [0]
+    map:
+      Henna: Sidar
+      # CalvinHot: Nelly
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights [4]
+    # buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Henna: Olli
+      Ariel: Kevin
+      Beverly: Nico
+      Viki: Leandro
+      Hati: Jonny
+      Antonia: CalvinBlond
+      Nelly: Rob
+      Joanna: CalvinHot
+      # Sidar
+
+  - type: !Box {num: 9, comment: "E19 -- verkauft 5k Sidar", offer: !Single {by: "Sidar", amount: 5000, reducedPot: true, save: true}}
+    check: !Sold
+    map:
+      # Beverly: Sidar
+      Nelly: CalvinHot
+
+  - type: !Night {num: 9, comment: "E19"}
+    check: !Lights [4]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Rob
+      Henna: Olli
+      Ariel: Leandro
+      Hati: Kevin
+      Beverly: Sidar
+      Antonia: Jonny
+      Joanna: CalvinBlond
+      # Joanna: Nico
+
+  - type: !Box {num: 9.6, comment: "E20 -- Geschenk: MN Überprüfung -40k => 115k"}
+    check: !Lights [1]
+    buildTree: true
+    map:
+      Nelly: CalvinHot
+
+  - type: !Box {num: 10, comment: "E21"}
+    check: !Lights [0]
+    buildTree: true
+    map:
+      Joanna: CalvinBlond
+
+  - type: !Night {num: 10, comment: "E21"}
+    check: !Lights [7]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Joanna: Rob
+      Antonia: CalvinBlond
+      Henna: Leandro
+      Viki: Kevin
+      Beverly: Nico
+      Hati: Sidar
+      Ariel: Olli
+      # Jonny
+
+  - type: !Night {num: 11, comment: "E22 (Wiedersehen)"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Kevin
+      Beverly: Nico
+      Joanna: Rob
+      Hati: Sidar
+      Henna: Olli
+      Ariel: CalvinBlond
+      Antonia: Leandro
+      # Beverly: JimiBlue
+      # Joanna: Jonny
+
+  - type: !Night {num: 11, comment: "E22 (Wiedersehen)"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Kevin
+      Beverly: Nico
+      Joanna: Rob
+      Hati: Sidar
+      Henna: Olli
+      Ariel: CalvinBlond
+      Antonia: Leandro
+      # Beverly: JimiBlue
+      # Joanna: Jonny
+  - type: !Night {num: 11.2, comment: "E22 (Wiedersehen-2)"}
+    check: !Lights [10]
+    buildTree: true
+    # resultUnknown: true
+    map:
+      Elli: Xander
+      Sandra: Lennert
+      Nelly: CalvinHot
+      Viki: Kevin
+      # Beverly: Nico
+      # Joanna: Rob
+      Hati: Sidar
+      Henna: Olli
+      Ariel: CalvinBlond
+      Antonia: Leandro
+      Beverly: JimiBlue
+      Joanna: Jonny

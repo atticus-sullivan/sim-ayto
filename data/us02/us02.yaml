@@ -1,13 +1,15 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+no_offerings_noted: true
+
 frontmatter:
-  title: US Staffel 2
+  linkTitle: US Staffel 2
   identifier: us-season2
   weight: 1
 
 # rule_set: !SomeoneIsDup
-rule_set: !FixedDup Christina
+rule_set: !XTimesDup [Christina]
 # rule_set: !Eq
 
 setA:

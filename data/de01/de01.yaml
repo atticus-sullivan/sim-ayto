@@ -1,12 +1,15 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+no_offerings_noted: true
+
 frontmatter:
-  title: DE Staffel 1
+  linkTitle: DE Staffel 1
   identifier: de-season1
   weight: 1
 
-rule_set: !FixedDup Edin
+rule_set: !XTimesDup [Edin]
+
 # rule_set: !Eq
 
 setA:

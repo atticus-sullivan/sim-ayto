@@ -182,5 +182,21 @@ Wie alle Möglichkeiten aufgezählt werden können unterscheidet sich von Rulese
 2. Rechne jede dieser hierbei generierten Möglichkeiten auf keine, eine oder mehrere "echte" Möglichkeiten (je nach Ruleset) um
 - (durch 2. kann die Fortschrittsanzeige teils night ganz korrekt sein. Extrem fällt das aktuell beim `NToN` ruleset auf.)
 
+## Caching
+Ergebnisse einer Simulation können gecached werden. Somit können dann folgende
+Simulationen auf dem Cache aufsetzen und müssen nicht mehr alle alten
+constraints durchrechnen. Wenn noch viele Möglichkeiten übrig sind, bietet das
+Caching nicht wirklich einen Geschwingikeitsvorteil, jedoch wird die Datei
+welche fürs Caching verwendet wird in diesem Fall sehr schnell sehr groß. Aus
+diesem Grund muss das Caching manuell in der Eingabe Datei eingeschaltet werden
+(`gen_cache: true`).
+
+Durch das Caching werden die alten Constraints nicht mehr richtig abgearbeitet.
+Daraus folgt, dass für die "übersprungenen" Constraints die Tabellen nicht mehr
+richtig generiert werden. Aus diesem Grund kann es sinnvoll sein einen älteren
+Cache zu verwenden als theoretisch möglich wäre. Dies kann man mittels dem
+CLI-Parameter `use_cache` umsetzen (hier den Basename des Caches angeben welcher
+verwendet werden soll)
+
 # Kontakt
 Falls irgendwas nicht passen sollte, ihr was nicht versteht oder andere Anmerkungen habt, könnt ihr mir oben unter [Discussions](https://github.com/atticus-sullivan/sim-ayto/discussions/categories/q-a) hier auf Github eine Nachricht schreiben (wenn ihr auch einen Github Account habt).

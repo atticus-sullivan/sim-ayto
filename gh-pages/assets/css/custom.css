@@ -1,0 +1,12 @@
+/* default: hide dark plot */
+.plot-dark {
+  display: none;
+}
+
+/* When dark mode is active (Hextra adds `dark` class) */
+html.dark .plot-dark {
+  display: block;
+}
+html.dark .plot-light {
+  display: none;
+}

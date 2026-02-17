@@ -2,11 +2,11 @@
 # 0wvedwvep0wPj
 
 frontmatter:
-  title: DE Staffel 6
+  linkTitle: DE Staffel 6
   identifier: de-season6
   weight: 1
 
-rule_set: !SomeoneIsDup
+rule_set: !XTimesDup [null]
 # rule_set: !FixedDup Tori
 # rule_set: !Eq
 
@@ -46,6 +46,8 @@ constraints:
       Josh: Anna
       # Danish: Deisy
 
+# newcomer: Tori
+
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [2]
     # resultUnknown: true
@@ -63,8 +65,8 @@ constraints:
       Tano: Chiara
       Dion: Tori
 
-  - type: !Box {num: 2, comment: "E05 -- verkauft +30.000€"}
-    check: !Nothing
+  - type: !Box {num: 2, comment: "E05 -- verkauft", offer: !Group {by: "Dino", amount: 30000}}
+    check: !Sold
     map:
       Levin: Camelia
       # Danish: Joanna
@@ -84,7 +86,7 @@ constraints:
       Joshua: Joanna
       Sinan: Ina
       Dion: Selina
-      # Sophia
+      # Dion: Sophia
 
   - type: !Box {num: 3, comment: "E07"}
     check: !Lights [0]
@@ -154,8 +156,8 @@ constraints:
       Tano: Tori
       # Tano: Anna
 
-  - type: !Box {num: 6, comment: "E13 -- verkauft d. Tano+Tori 2 x 20k"}
-    check: !Nothing
+  - type: !Box {num: 6, comment: "E13 -- verkauft", offer: !SinglePair {byA: "Tano", byB: "Tori", amount: 40000, save: true, reducedPot: true}} # 190k übrig
+    check: !Sold
     map:
       Tano: Tori
       # Josh: Ina
@@ -174,7 +176,7 @@ constraints:
       Tano: Tori
       Enes: Selina
       Joshua: Ina
-      # Joanna
+      # Joshua: Joanna
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [0]
@@ -222,7 +224,7 @@ constraints:
       Tano: Joanna
       # Tori
 
-  - type: !Box {num: 9, comment: "E19"}
+  - type: !Box {num: 9, comment: "E19", offer: !Group {by: "Levin"}} # amount unknown
     check: !Lights [1]
     map:
       # Dion: Chiara
@@ -247,6 +249,7 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [1]
+    buildTree: true
     map:
       # Tano: Joanna
       Josh: Camelia
