@@ -8,10 +8,7 @@ use crate::comparison::CmpData;
 ///
 /// `cmp_data` is expected to be a vector of `(ruleset_name, CmpData)` pairs.
 /// Returns a vector of `(tab_title, inline_html_string)` ready to be embedded.
-pub fn build_information_plots(
-    cmp_data: &[(String, CmpData)],
-    theme: u8,
-) -> Vec<(String, String)> {
+pub fn build_information_plots(cmp_data: &[(String, CmpData)], theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
