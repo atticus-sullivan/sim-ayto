@@ -9,7 +9,7 @@ use crate::comparison::plotly::layout::plotly_gen_layout;
 
 use crate::comparison::theme::lut_theme;
 use crate::comparison::data::CmpData;
-use crate::constraint::eval_types::EvalEvent;
+use crate::constraint::compare::EvalEvent;
 
 /// Build plots about "lights" (lighting related evaluation metrics).
 ///

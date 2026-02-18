@@ -13,6 +13,7 @@ use comfy_table::{Cell, Color, Table};
 
 use crate::constraint::parse::ConstraintParse;
 use crate::game::Game;
+use crate::ignore_ops::IgnoreOps;
 use crate::ruleset::parse::RuleSetParse;
 use crate::{Lut, Matching, MatchingS, Rename};
 
@@ -268,14 +269,10 @@ impl GameParse {
         // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
         let mut known_lights: u8 = 0;
         for c in self.constraints_orig {
-            if ignore_boxes && c.is_box() {
+            if ignore_boxes && c.ignore_on(&IgnoreOps::Boxes) {
                 continue;
             }
-            let l = if !c.is_hidden() {
-                c.added_known_lights()
-            } else {
-                0
-            };
+            let l = c.added_known_lights();
             g.constraints_orig.push(c.finalize_parsing(
                 &g.lut_a,
                 &g.lut_b,

@@ -4,7 +4,7 @@ use num_format::ToFormattedString;
 
 use crate::comparison::data::CmpData;
 use crate::comparison::Language;
-use crate::constraint::eval_types::SumCounts;
+use crate::constraint::compare::SumCounts;
 
 /// Build a summary Markdown tab for all rulesets.
 ///

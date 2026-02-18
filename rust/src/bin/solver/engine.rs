@@ -165,7 +165,7 @@ impl<S: StrategyBundle> Simulation<S> {
             (m, l, ct, self.lights_known_before)
         };
 
-        Ok(Constraint::new_unchecked(
+        Ok(Constraint::new_with_defaults(
             ct,
             CheckType::Lights(l, Default::default()),
             m,

@@ -74,7 +74,7 @@ TODO (ausgelassen erstmal)
 - [x] Write doc-comments for files
 
 ## constraint
-- [ ] (re-)organization of functions and files
+- [x] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
 

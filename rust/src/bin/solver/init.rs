@@ -51,7 +51,7 @@ pub(crate) fn build_initial_constraint(
         }
     };
 
-    Ok(Constraint::new_unchecked(
+    Ok(Constraint::new_with_defaults(
         constraint_type,
         CheckType::Lights(lights as u8, Default::default()),
         matching,
@@ -147,9 +147,7 @@ mod tests {
             0,
         ).unwrap();
 
-        let ct = constraint.get_type();
-
-        assert!(matches!(ct, ConstraintType::Box { .. }));
+        assert!(constraint.is_mb());
     }
 
     #[test]
@@ -167,9 +165,7 @@ mod tests {
             0,
         ).unwrap();
 
-        let ct = constraint.get_type();
-
-        assert!(matches!(ct, ConstraintType::Box { .. }));
+        assert!(constraint.is_mb());
     }
 
     #[test]
@@ -186,10 +182,7 @@ mod tests {
             0,
         ).unwrap();
 
-        match constraint.get_check_type() {
-            CheckType::Lights(l, _) => assert_eq!(l, 3),
-            _ => panic!("Expected Lights check type"),
-        }
+        assert_eq!(constraint.check.as_lights(), Some(3));
     }
 
     // ------------------------------------------------------------

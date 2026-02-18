@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 
-use ayto::constraint::eval_types::EvalEvent;
+use ayto::constraint::compare::EvalEvent;
 
 /// Collects the results of one entire simulation (playing the game once)
 #[derive(Serialize, Deserialize)]

@@ -2,6 +2,7 @@ pub mod comparison;
 pub mod game;
 
 pub mod constraint;
+pub mod ignore_ops;
 pub mod iterstate;
 pub mod ruleset;
 pub mod ruleset_data;

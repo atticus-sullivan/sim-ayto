@@ -1,5 +1,13 @@
+/// This module contains getters / evaluations which is used to pre-process the gathered data for a
+/// comparison with other simulations.
+/// The root is `EvalData` (which is at some point serialized/stored so the comparison can take
+/// place later)
+
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
+use anyhow::{Context, Result};
+
+use crate::constraint::{Constraint, ConstraintType};
 
 /// Container of evaluation output used for plotting and summaries.
 ///
@@ -175,7 +183,6 @@ pub struct EvalMN {
     pub lights_known_before: u8,
     pub bits_gained: f64,
     pub comment: String,
-    pub offer: bool,
 }
 
 /// Aggregated counts and summary metrics for a run / ruleset.
@@ -189,59 +196,14 @@ pub struct SumCounts {
     pub matches_found: u8,
     pub solvable: Option<bool>,
 
-    pub offers_mn: SumOffersMN,
-    pub offers_mb: SumOffersMB,
-}
-
-/// Collect sums regarding offers made for MBs
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct SumOffersMB {
-    pub sold_but_match_active: bool,
-    pub sold_cnt: u8,
+    pub sold: u8,
     pub sold_but_match: u8,
+    pub sold_but_match_active: bool,
 
     pub offers_noted: bool,
     pub offers: u64,
     pub offer_and_match: u64,
     pub offered_money: u128,
-}
-
-/// Collect sums regarding offers made for MNs
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct SumOffersMN {
-    pub sold_cnt: u8,
-
-    pub offers_noted: bool,
-    pub offers: u64,
-    pub offered_money: u128,
-}
-
-impl SumOffersMB {
-    /// Increment this `SumOffersMB` with values found in `other`.
-    ///
-    /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
-        self.sold_cnt += other.sold_cnt;
-        self.sold_but_match += other.sold_but_match;
-        self.sold_but_match_active |= other.sold_but_match_active;
-
-        self.offers += other.offers;
-        self.offered_money += other.offered_money;
-        self.offer_and_match += other.offer_and_match;
-        self.offers_noted |= other.offers_noted;
-    }
-}
-impl SumOffersMN {
-    /// Increment this `SumOffersMB` with values found in `other`.
-    ///
-    /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
-        self.sold_cnt += other.sold_cnt;
-
-        self.offers += other.offers;
-        self.offered_money += other.offered_money;
-        self.offers_noted |= other.offers_noted;
-    }
 }
 
 impl SumCounts {
@@ -251,64 +213,131 @@ impl SumCounts {
     pub fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
 
-        self.offers_mn.add(&other.offers_mn);
-        self.offers_mb.add(&other.offers_mb);
+        self.sold += other.sold;
+        self.sold_but_match += other.sold_but_match;
+        // self.sold_but_match_active &= other.sold_but_match_active;
+
+        self.matches_found += other.matches_found;
+
+        self.offers += other.offers;
+        self.offer_and_match += other.offer_and_match;
+        self.offered_money += other.offered_money;
+    }
+}
+
+impl Constraint {
+    pub fn get_stats(&self) -> Result<Option<EvalEvent>> {
+        if self.hidden {
+            return Ok(None);
+        }
+
+        let meta_b = format!("{}-{}", self.type_str(), self.comment());
+        match self.r#type {
+            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::MN(EvalMN {
+                num,
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::MB(EvalMB {
+                offer: {
+                    if let ConstraintType::Box { offer, .. } = &self.r#type {
+                        offer.is_some()
+                    } else {
+                        false
+                    }
+                },
+                num,
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use std::collections::{BTreeMap, HashMap};
+
+    use crate::{constraint::CheckType, matching_repr::MaskedMatching, ruleset_data::dummy::DummyData};
+
     use super::*;
 
     #[test]
-    #[allow(clippy::bool_assert_comparison)]
-    fn sumcounts_add_combines_counts() {
+    fn get_stats_simple() {
+        // let c = Constraint::new();
+        let c = Constraint {
+            result_unknown: false,
+            exclude: None,
+            map_s: HashMap::from([("A".to_string(), "a".to_string())]),
+            check: CheckType::Lights(1, BTreeMap::new()),
+            map: MaskedMatching::from_matching_ref(&[vec![0]]),
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; 1]; 1],
+            information: Some(2.0),
+            left_after: Some(1024),
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: dec![3.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+
+        if let Ok(Some(EvalEvent::MB(ev))) = c.get_stats() {
+            assert_eq!(ev.num, dec![3.0]);
+            assert_eq!(ev.lights_total, Some(1u8));
+            assert!((ev.bits_left_after - (1024f64).log2()).abs() < 1e-9);
+            assert!((ev.bits_gained - 2.0).abs() < 1e-9);
+        } else {
+            panic!("expected MB event");
+        }
+    }
+
+
+    #[test]
+    fn sumcounts_add_simple() {
         let mut a = SumCounts {
             blackouts: 1,
-            offers_mb: SumOffersMB {
-                sold_cnt: 2,
-                sold_but_match: 0,
-                sold_but_match_active: true,
-                offers_noted: false,
-                offer_and_match: 0,
-                offered_money: 0,
-                offers: 0,
-            },
-            offers_mn: SumOffersMN {
-                sold_cnt: 2,
-                offers_noted: false,
-                offered_money: 0,
-                offers: 0,
-            },
+            sold: 2,
+            sold_but_match: 0,
+            sold_but_match_active: true,
             matches_found: 1,
             won: false,
+            offers_noted: false,
+            offer_and_match: 0,
+            offered_money: 0,
+            offers: 0,
             solvable: Some(true),
         };
         let b = SumCounts {
             blackouts: 2,
-            offers_mb: SumOffersMB {
-                sold_cnt: 2,
-                sold_but_match: 0,
-                sold_but_match_active: true,
-                offers_noted: false,
-                offer_and_match: 0,
-                offered_money: 0,
-                offers: 0,
-            },
-            offers_mn: SumOffersMN {
-                sold_cnt: 2,
-                offers_noted: false,
-                offered_money: 0,
-                offers: 0,
-            },
+            sold: 1,
+            sold_but_match: 3,
+            sold_but_match_active: false,
             matches_found: 0,
             won: true,
+            offers_noted: true,
+            offer_and_match: 1,
+            offered_money: 100,
+            offers: 2,
             solvable: Some(false),
         };
         a.add(&b);
+
         assert_eq!(a.blackouts, 3);
+        assert_eq!(a.sold, 3);
         assert_eq!(a.matches_found, 1);
-        assert_eq!(a.offers_mn.sold_cnt, 4);
-        assert_eq!(a.offers_mb.sold_but_match_active, true);
+        assert_eq!(a.offers, 2);
     }
 }

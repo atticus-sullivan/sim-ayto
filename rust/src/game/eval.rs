@@ -9,9 +9,7 @@ use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-use crate::constraint::eval_types::{
-    EvalData, EvalEvent, EvalInitial, SumCounts, SumOffersMB, SumOffersMN,
-};
+use crate::constraint::compare::{EvalData, EvalEvent, EvalInitial, SumCounts};
 use crate::constraint::Constraint;
 use crate::game::DumpMode;
 use crate::game::Game;
@@ -251,58 +249,38 @@ impl Game {
     ) -> SumCounts {
         let mut cnts = SumCounts {
             blackouts: 0,
+            sold: 0,
+            sold_but_match: 0,
+            sold_but_match_active: solutions.is_some(),
             matches_found: 0,
             won: false,
+            offers_noted,
+            offer_and_match: 0,
+            offers: 0,
+            offered_money: 0,
             solvable: None,
-            offers_mb: SumOffersMB {
-                sold_cnt: 0,
-                sold_but_match: 0,
-                sold_but_match_active: solutions.is_some(),
-                offers_noted,
-                offer_and_match: 0,
-                offers: 0,
-                offered_money: 0,
-            },
-            offers_mn: SumOffersMN {
-                sold_cnt: 0,
-                offers_noted,
-                offers: 0,
-                offered_money: 0,
-            },
         };
 
         for c in merged_constraints.iter() {
             if c.is_blackout() {
                 cnts.blackouts += 1;
             }
+            if c.is_sold() {
+                cnts.sold += 1;
+            }
             if c.is_match_found() {
                 cnts.matches_found += 1;
             }
-            if c.is_mb() {
-                if c.is_sold() {
-                    cnts.offers_mb.sold_cnt += 1;
+            if c.is_sold() && c.is_mb_hit(solutions) {
+                cnts.sold_but_match += 1;
+            }
+            if let Some(o) = c.try_get_offer() {
+                cnts.offers += 1;
+                if let Some(m) = o.try_get_amount() {
+                    cnts.offered_money += m;
                 }
-                if c.is_sold() && c.is_mb_hit(solutions) {
-                    cnts.offers_mb.sold_but_match += 1;
-                }
-                if let Some(o) = c.try_get_offer() {
-                    cnts.offers_mb.offers += 1;
-                    if let Some(m) = o.try_get_amount() {
-                        cnts.offers_mb.offered_money += m;
-                    }
-                    if c.is_mb_hit(solutions) {
-                        cnts.offers_mb.offer_and_match += 1;
-                    }
-                }
-            } else if c.is_mn() {
-                if c.is_sold() {
-                    cnts.offers_mn.sold_cnt += 1;
-                }
-                if let Some(o) = c.try_get_offer() {
-                    cnts.offers_mn.offers += 1;
-                    if let Some(m) = o.try_get_amount() {
-                        cnts.offers_mn.offered_money += m;
-                    }
+                if c.is_mb_hit(solutions) {
+                    cnts.offer_and_match += 1;
                 }
             }
         }
