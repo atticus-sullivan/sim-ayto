@@ -183,6 +183,7 @@ pub struct EvalMN {
     pub lights_known_before: u8,
     pub bits_gained: f64,
     pub comment: String,
+    pub offer: bool,
 }
 
 /// Aggregated counts and summary metrics for a run / ruleset.
@@ -196,14 +197,58 @@ pub struct SumCounts {
     pub matches_found: u8,
     pub solvable: Option<bool>,
 
-    pub sold: u8,
-    pub sold_but_match: u8,
+    pub offers_mn: SumOffersMN,
+    pub offers_mb: SumOffersMB,
+}
+
+/// Collect sums regarding offers made for MBs
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct SumOffersMB {
     pub sold_but_match_active: bool,
+    pub sold_cnt: u8,
+    pub sold_but_match: u8,
 
     pub offers_noted: bool,
     pub offers: u64,
     pub offer_and_match: u64,
     pub offered_money: u128,
+}
+/// Collect sums regarding offers made for MNs
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct SumOffersMN {
+    pub sold_cnt: u8,
+
+    pub offers_noted: bool,
+    pub offers: u64,
+    pub offered_money: u128,
+}
+
+impl SumOffersMB {
+    /// Increment this `SumOffersMB` with values found in `other`.
+    ///
+    /// This is an in-place, allocation-free aggregator used while building a summary.
+    pub fn add(&mut self, other: &Self) {
+        self.sold_cnt += other.sold_cnt;
+        self.sold_but_match += other.sold_but_match;
+        self.sold_but_match_active |= other.sold_but_match_active;
+
+        self.offers += other.offers;
+        self.offered_money += other.offered_money;
+        self.offer_and_match += other.offer_and_match;
+        self.offers_noted |= other.offers_noted;
+    }
+}
+impl SumOffersMN {
+    /// Increment this `SumOffersMB` with values found in `other`.
+    ///
+    /// This is an in-place, allocation-free aggregator used while building a summary.
+    pub fn add(&mut self, other: &Self) {
+        self.sold_cnt += other.sold_cnt;
+
+        self.offers += other.offers;
+        self.offered_money += other.offered_money;
+        self.offers_noted |= other.offers_noted;
+    }
 }
 
 impl SumCounts {
@@ -213,15 +258,8 @@ impl SumCounts {
     pub fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
 
-        self.sold += other.sold;
-        self.sold_but_match += other.sold_but_match;
-        // self.sold_but_match_active &= other.sold_but_match_active;
-
-        self.matches_found += other.matches_found;
-
-        self.offers += other.offers;
-        self.offer_and_match += other.offer_and_match;
-        self.offered_money += other.offered_money;
+        self.offers_mn.add(&other.offers_mn);
+        self.offers_mb.add(&other.offers_mb);
     }
 }
 
@@ -232,9 +270,10 @@ impl Constraint {
         }
 
         let meta_b = format!("{}-{}", self.type_str(), self.comment());
-        match self.r#type {
-            ConstraintType::Night { num, .. } => Ok(Some(EvalEvent::MN(EvalMN {
-                num,
+        match &self.r#type {
+            ConstraintType::Night { num, offer, .. } => Ok(Some(EvalEvent::MN(EvalMN {
+                offer: offer.is_some(),
+                num: *num,
                 lights_total: self.check.as_lights(),
                 lights_known_before: self.known_lights,
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
@@ -249,7 +288,7 @@ impl Constraint {
                         false
                     }
                 },
-                num,
+                num: *num,
                 lights_total: self.check.as_lights(),
                 lights_known_before: self.known_lights,
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
@@ -309,28 +348,44 @@ mod tests {
     fn sumcounts_add_simple() {
         let mut a = SumCounts {
             blackouts: 1,
-            sold: 2,
-            sold_but_match: 0,
-            sold_but_match_active: true,
+            offers_mb: SumOffersMB {
+                sold_cnt: 2,
+                sold_but_match: 0,
+                sold_but_match_active: true,
+                offers_noted: false,
+                offer_and_match: 0,
+                offered_money: 0,
+                offers: 0,
+            },
+            offers_mn: SumOffersMN {
+                sold_cnt: 2,
+                offers_noted: false,
+                offered_money: 0,
+                offers: 0,
+            },
             matches_found: 1,
             won: false,
-            offers_noted: false,
-            offer_and_match: 0,
-            offered_money: 0,
-            offers: 0,
             solvable: Some(true),
         };
         let b = SumCounts {
             blackouts: 2,
-            sold: 1,
-            sold_but_match: 3,
-            sold_but_match_active: false,
+            offers_mb: SumOffersMB {
+                sold_cnt: 2,
+                sold_but_match: 0,
+                sold_but_match_active: true,
+                offers_noted: false,
+                offer_and_match: 0,
+                offered_money: 0,
+                offers: 0,
+            },
+            offers_mn: SumOffersMN {
+                sold_cnt: 2,
+                offers_noted: false,
+                offered_money: 0,
+                offers: 0,
+            },
             matches_found: 0,
             won: true,
-            offers_noted: true,
-            offer_and_match: 1,
-            offered_money: 100,
-            offers: 2,
             solvable: Some(false),
         };
         a.add(&b);

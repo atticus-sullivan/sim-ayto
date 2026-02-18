@@ -160,6 +160,7 @@ impl<S: StrategyBundle> Simulation<S> {
             let ct = ConstraintType::Night {
                 num: (Decimal::from(iteration) / dec![2]).floor(),
                 comment: String::new(),
+                offer: None,
             };
 
             (m, l, ct, self.lights_known_before)

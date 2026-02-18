@@ -4,7 +4,7 @@ use num_format::ToFormattedString;
 
 use crate::comparison::data::CmpData;
 use crate::comparison::Language;
-use crate::constraint::compare::SumCounts;
+use crate::constraint::compare::{SumCounts, SumOffersMB, SumOffersMN};
 
 /// Build a summary Markdown tab for all rulesets.
 ///
@@ -14,15 +14,23 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
     let mut total_counts = SumCounts {
         solvable: None,
         blackouts: 0,
-        sold: 0,
-        sold_but_match: 0,
-        sold_but_match_active: true,
         matches_found: 0,
         won: false,
-        offers_noted: true,
-        offer_and_match: 0,
-        offered_money: 0,
-        offers: 0,
+        offers_mb: SumOffersMB {
+            sold_cnt: 0,
+            sold_but_match: 0,
+            sold_but_match_active: true,
+            offers_noted: true,
+            offer_and_match: 0,
+            offers: 0,
+            offered_money: 0,
+        },
+        offers_mn: SumOffersMN {
+            sold_cnt: 0,
+            offers_noted: true,
+            offers: 0,
+            offered_money: 0,
+        },
     };
 
     let mut tab_lines = vec![
@@ -32,7 +40,7 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
 
     for (name, cd) in cmp_data {
         tab_lines.push(format!(
-            "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} | {} | | {} | {} | {} |",
+            "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} / {} | {} | | {} | {} | {} / {} |",
             name,
 
             lang.format_bool_yes_no(cd.cnts.won),
@@ -47,25 +55,31 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             cd.cnts.matches_found,
             cd.cnts.blackouts,
 
-            cd.cnts.sold,
-            if cd.cnts.sold_but_match_active {
-                cd.cnts.sold_but_match.to_string()
+            cd.cnts.offers_mb.sold_cnt,
+            cd.cnts.offers_mn.sold_cnt,
+            if cd.cnts.offers_mb.sold_but_match_active {
+                cd.cnts.offers_mb.sold_but_match.to_string()
             } else {
                 "".to_string()
             },
 
-            if cd.cnts.offers_noted {
-                cd.cnts.offers.to_string()
+            if cd.cnts.offers_mb.offers_noted {
+                cd.cnts.offers_mb.offers.to_string()
             } else {
                 "".to_string()
             },
-            if cd.cnts.offers_noted {
-                cd.cnts.offer_and_match.to_string()
+            if cd.cnts.offers_mb.offers_noted {
+                cd.cnts.offers_mb.offer_and_match.to_string()
             } else {
                 "".to_string()
             },
-            if cd.cnts.offers_noted {
-                cd.cnts.offered_money.to_formatted_string(&lang.number_formatting())
+            if cd.cnts.offers_mb.offers_noted {
+                cd.cnts.offers_mb.offered_money.to_formatted_string(&lang.number_formatting())
+            } else {
+                "".to_string()
+            },
+            if cd.cnts.offers_mn.offers_noted {
+                cd.cnts.offers_mn.offered_money.to_formatted_string(&lang.number_formatting())
             } else {
                 "".to_string()
             },
@@ -76,28 +90,38 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
 
     tab_lines.push("| | | | | | | | | | | | |".to_string());
     tab_lines.push(format!(
-        "| {} | | | {} | {} | | {} | {} | | {} | {} | {} |",
+        "| {} | | | {} | {} | | {} / {} | {} | | {} | {} | {} / {} |",
         "{{< i18n \"total\" >}}",
         total_counts.matches_found,
         total_counts.blackouts,
-        total_counts.sold,
-        if total_counts.sold_but_match_active {
-            total_counts.sold_but_match.to_string()
+        total_counts.offers_mb.sold_cnt,
+        total_counts.offers_mn.sold_cnt,
+        if total_counts.offers_mb.sold_but_match_active {
+            total_counts.offers_mb.sold_but_match.to_string()
         } else {
             "".to_string()
         },
-        if total_counts.offers_noted {
-            total_counts.offers.to_string()
+        if total_counts.offers_mb.offers_noted {
+            total_counts.offers_mb.offers.to_string()
         } else {
             "".to_string()
         },
-        if total_counts.offers_noted {
-            total_counts.offer_and_match.to_string()
+        if total_counts.offers_mb.offers_noted {
+            total_counts.offers_mb.offer_and_match.to_string()
         } else {
             "".to_string()
         },
-        if total_counts.offers_noted {
+        if total_counts.offers_mb.offers_noted {
             total_counts
+                .offers_mb
+                .offered_money
+                .to_formatted_string(&lang.number_formatting())
+        } else {
+            "".to_string()
+        },
+        if total_counts.offers_mn.offers_noted {
+            total_counts
+                .offers_mn
                 .offered_money
                 .to_formatted_string(&lang.number_formatting())
         } else {

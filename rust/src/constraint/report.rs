@@ -3,7 +3,6 @@ use std::{fs::File, path::PathBuf};
 
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 
-use crate::constraint::compare::{EvalEvent, EvalMB, EvalMN};
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
 use crate::MapS;

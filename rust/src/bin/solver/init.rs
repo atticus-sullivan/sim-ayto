@@ -48,6 +48,7 @@ pub(crate) fn build_initial_constraint(
         ConstraintType::Night {
             num: dec![1.0],
             comment: String::new(),
+            offer: None,
         }
     };
 
