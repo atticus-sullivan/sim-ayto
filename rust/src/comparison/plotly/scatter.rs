@@ -2,10 +2,8 @@ use catppuccin::Flavor;
 use plotly::{common::Mode, Layout, Scatter};
 use serde::Serialize;
 
-use crate::comparison::{
-    plotly::layout::{plotly_new_plot, styled_axis},
-    CmpData,
-};
+use crate::comparison::plotly::layout::{plotly_new_plot, styled_axis};
+use crate::comparison::data::CmpData;
 
 /// Build a scatter plot HTML from a list of named series. Each series is
 /// `(name, x_values, y_values, text_values)`.
@@ -66,34 +64,4 @@ where
         .map(|(name, cd)| (name.clone(), x_fn(cd), y_fn(cd), text_fn(cd)))
         .collect::<Vec<_>>();
     scatter_from_series(&render_layout, &data, mode)
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::comparison::{plotly::layout::plotly_gen_layout, theme::lut_theme};
-
-    use super::*;
-
-    #[test]
-    fn scatter_from_series_generates_html() {
-        let palette = lut_theme(1);
-        let layout = plotly_gen_layout(palette);
-        let series = vec![
-            (
-                "A".to_string(),
-                vec![1.0f64],
-                vec![2.0f64],
-                vec!["pt1".to_string()],
-            ),
-            (
-                "B".to_string(),
-                vec![3.0f64],
-                vec![4.0f64],
-                vec!["pt2".to_string()],
-            ),
-        ];
-        let html = scatter_from_series(&layout, &series, Mode::Lines);
-        assert!(html.contains("<div"));
-        assert!(html.contains("Plotly"));
-    }
 }

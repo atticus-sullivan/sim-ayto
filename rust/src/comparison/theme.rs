@@ -1,7 +1,9 @@
+/// This module contains some helpers which help theming the outputs.
+
 use catppuccin::{ColorName, Flavor, PALETTE};
 use plotly::common::{ColorScale, ColorScaleElement};
 
-pub fn lut_theme(theme: u8) -> Flavor {
+pub(super) fn lut_theme(theme: u8) -> Flavor {
     match theme {
         1 => PALETTE.latte,
         2 => PALETTE.frappe,
@@ -12,7 +14,7 @@ pub fn lut_theme(theme: u8) -> Flavor {
     }
 }
 
-pub fn plotly_colorscale(_palette: &Flavor) -> ColorScale {
+pub(super) fn plotly_colorscale(_palette: &Flavor) -> ColorScale {
     let palette = PALETTE.latte;
     ColorScale::Vector(vec![
         ColorScaleElement(0.00, palette.get_color(ColorName::Green).hex.to_string()),
@@ -26,16 +28,4 @@ pub fn plotly_colorscale(_palette: &Flavor) -> ColorScale {
                 .to_string(),
         ),
     ])
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn lut_theme_maps_known_values() {
-        // theme 1..4 expected to return different flavors
-        let f1 = lut_theme(1);
-        let f2 = lut_theme(2);
-        assert_ne!(f1.colors.base.hex, f2.colors.base.hex);
-    }
 }

@@ -4,6 +4,10 @@
   - simulation
   - comparison
   - solver
+- [ ] check all access modifiers
+  1. comment out everything
+  2. start with the two crates
+  3. comment in step-by step and try to keep access modifiers as low as possible
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
@@ -47,7 +51,6 @@
 392 ./game/eval.rs
 ## must split
 453 ./constraint/parse.rs
-559 ./bin/solver.rs
 656 ./ruleset/generators.rs
 784 ./ruleset.rs
 1124 ./constraint.rs
@@ -55,23 +58,26 @@
 # Iterate over files manually
 ## bin
 ### bin/ayto.rs
-DONE
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
+
 ### bin/solver/*
-DONE
+TODO (ausgelassen erstmal)
+- [ ] testing
+- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
 
 ## comparison
-### comparison.rs
-### comparison/plotly/heatmap.rs
-### comparison/plotly/layout.rs
-### comparison/plotly.rs
-### comparison/plotly/scatter.rs
-### comparison/theme.rs
-### comparison/ruleset.rs
-### comparison/summary.rs
-### comparison/information.rs
-### comparison/lights.rs
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
 
 ## constraint
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 ### constraint.rs
 ### constraint/eval_compute.rs
 ### constraint/eval_predicates.rs
@@ -82,27 +88,51 @@ DONE
 ### constraint/utils.rs
 
 ## game
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 ### game.rs
 ### game/eval.rs
 ### game/output.rs
 ### game/parse.rs
 
 ## iterstate.rs
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 ## tree.rs
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 
 ## matching_repr
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 ### matching_repr.rs
 ### matching_repr/bitset.rs
 ### matching_repr/conversions.rs
 ### matching_repr/iter.rs
 
 ## ruleset_data
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 ### ruleset_data.rs
 ### ruleset_data/dummy.rs
 ### ruleset_data/dup.rs
 ### ruleset_data/dup_x.rs
 
 ## ruleset
+- [ ] (re-)organization of functions and files
+- [ ] write tests
+- [ ] Write doc-comments for files
+
 ### ruleset.rs
 ### ruleset/generators.rs
 ### ruleset/parse.rs

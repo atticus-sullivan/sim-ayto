@@ -1,14 +1,18 @@
+/// This renders the plots which show information regarding the amount of information/uncertainty
+/// left or the amount of information gained over the course of time
+
 use plotly::common::Mode;
 
-use crate::comparison::plotly::{layout::plotly_gen_layout, scatter::build_scatter_plot};
+use crate::comparison::plotly::layout::plotly_gen_layout;
+use crate::comparison::plotly::scatter::build_scatter_plot;
 use crate::comparison::theme::lut_theme;
-use crate::comparison::CmpData;
+use crate::comparison::data::CmpData;
 
 /// Build the set of plots (scatter/heatmap) regarding information theory (knowledge (change) in bits) for the site.
 ///
 /// `cmp_data` is expected to be a vector of `(ruleset_name, CmpData)` pairs.
 /// Returns a vector of `(tab_title, inline_html_string)` ready to be embedded.
-pub fn build_information_plots(cmp_data: &[(String, CmpData)], theme: u8) -> Vec<(String, String)> {
+pub(crate) fn plots(cmp_data: &[(String, CmpData)], theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
