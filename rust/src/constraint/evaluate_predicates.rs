@@ -1,4 +1,8 @@
-use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
+/// This module contains predicates to be used after the simulation has completed.
+///
+/// Note there is also evaluate which contains the non-predicate functions
+
+use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
 impl Constraint {
@@ -10,7 +14,6 @@ impl Constraint {
         }
         false
     }
-
 
     pub fn is_mb(&self) -> bool {
         matches!(self.r#type, ConstraintType::Box { .. })
@@ -33,14 +36,6 @@ impl Constraint {
             }
         }
         false
-    }
-
-    pub fn try_get_offer(&self) -> Option<Offer> {
-        if let ConstraintType::Box { offer, .. } = &self.r#type {
-            offer.clone()
-        } else {
-            None
-        }
     }
 
     pub fn is_mb_hit(&self, solutions: Option<&Vec<MaskedMatching>>) -> bool {
@@ -78,227 +73,84 @@ impl Constraint {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::constraint::compare::{EvalEvent, EvalInitial, EvalMN};
     use crate::matching_repr::MaskedMatching;
-    use crate::{constraint::compare::EvalMB, ruleset_data::dummy::DummyData};
+    use crate::ruleset_data::dummy::DummyData;
     use rust_decimal::dec;
     use std::collections::{BTreeMap, HashMap};
 
     #[test]
-    fn evalevent_query_functions_mixed_variants() {
-        // MB event
-        let mb = EvalMB {
-            num: dec![2.0],
-            bits_left_after: 8.0,
-            lights_total: Some(3),
-            lights_known_before: 1,
-            bits_gained: 2.5,
-            comment: "mb".to_string(),
-            offer: true,
-        };
-        let ev_mb = EvalEvent::MB(mb.clone());
+    fn is_blackout_simple() {
+        let mut c = Constraint::default();
+        c.known_lights = 2;
+        c.check = CheckType::Lights(2, BTreeMap::new());
+        assert!(c.is_blackout());
 
-        // MN event
-        let mn = EvalMN {
-            num: dec![4.0],
-            bits_left_after: 16.0,
-            lights_total: Some(2),
-            lights_known_before: 0,
-            bits_gained: 3.5,
-            comment: "mn".to_string(),
+        let mut c = Constraint::default();
+        c.known_lights = 1;
+        c.check = CheckType::Lights(2, BTreeMap::new());
+        assert!(!c.is_blackout());
+    }
+
+    #[test]
+    fn is_match_found_simple() {
+        let mut c = Constraint::default();
+        c.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
             offer: None,
         };
-        let ev_mn = EvalEvent::MN(mn.clone());
+        c.check = CheckType::Lights(1, BTreeMap::new());
+        assert!(!c.is_match_found());
 
-        // Initial event
-        let ini = EvalInitial {
-            bits_left_after: 32.0,
-            comment: "init".to_string(),
+        let mut c = Constraint::default();
+        c.r#type = ConstraintType::Box {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
         };
-        let ev_ini = EvalEvent::Initial(ini.clone());
+        c.check = CheckType::Lights(0, BTreeMap::new());
+        assert!(!c.is_match_found());
 
-        // MB: get number using closures (mn_pred, mb_pred, init_pred)
-        assert_eq!(ev_mb.num(|_| false, |_| true, |_| false), Some(dec![2.0]));
-        assert_eq!(ev_mn.num(|_| true, |_| false, |_| false), Some(dec![4.0]));
-        assert_eq!(ev_ini.num(|_| false, |_| false, |_| true), Some(dec![0]));
-
-        // bits_gained: MB and MN present, Initial -> None
-        assert_eq!(ev_mb.bits_gained(|_| false, |_| true, |_| false), Some(2.5));
-        assert_eq!(ev_mn.bits_gained(|_| true, |_| false, |_| false), Some(3.5));
-        assert_eq!(ev_ini.bits_gained(|_| false, |_| false, |_| true), None);
-
-        // lights_total: present for MB/MN; Initial -> None
-        assert_eq!(ev_mb.lights_total(|_| false, |_| true, |_| false), Some(3));
-        assert_eq!(ev_mn.lights_total(|_| true, |_| false, |_| false), Some(2));
-        assert_eq!(ev_ini.lights_total(|_| false, |_| false, |_| true), None);
-
-        // new_lights = lights_total - lights_known_before
-        assert_eq!(ev_mb.new_lights(|_| false, |_| true, |_| false), Some(2));
-        assert_eq!(ev_mn.new_lights(|_| true, |_| false, |_| false), Some(2));
+        let mut c = Constraint::default();
+        c.r#type = ConstraintType::Box {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
+        c.check = CheckType::Lights(1, BTreeMap::new());
+        assert!(c.is_match_found());
     }
 
     #[test]
-    fn predicates_and_offer_detection() {
-        // NIGHT with lights == known_lights -> blackout
-        let c_blackout = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(2, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![0]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 1]; 1],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: dec![1.0],
-                comment: "".to_string(),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 2,
+    fn is_mb_hit_simple() {
+        // match is 0 -> 2
+        let sol = vec![MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]])];
+
+        let mut c = Constraint::default();
+        c.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
         };
-        assert!(c_blackout.is_blackout());
-        assert!(c_blackout.might_won());
-        assert!(!c_blackout.is_sold());
-        assert!(!c_blackout.is_match_found());
+        c.map = MaskedMatching::from_matching_ref(&[vec![2]]);
+        assert!(!c.is_mb_hit(Some(&sol)));
 
-        // BOX with CheckType::Sold
-        let c_sold = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Sold,
-            map: MaskedMatching::from_matching_ref(&[vec![0]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 1]; 1],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: dec![1.0],
-                comment: "".to_string(),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
+        let mut c = Constraint::default();
+        c.r#type = ConstraintType::Box {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
         };
-        assert!(c_sold.is_sold());
-        assert!(!c_sold.is_blackout());
+        c.map = MaskedMatching::from_matching_ref(&[vec![0]]);
+        assert!(!c.is_mb_hit(Some(&sol)));
 
-        // BOX with offer
-        let c_offer = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            map: MaskedMatching::from_matching_ref(&[vec![0]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 1]; 1],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: dec![2.0],
-                comment: "".to_string(),
-                offer: Some(Offer::Single {
-                    amount: Some(10),
-                    by: "X".into(),
-                    reduced_pot: false,
-                    save: false,
-                }),
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
+        let mut c = Constraint::default();
+        c.r#type = ConstraintType::Box {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
         };
-        assert!(c_offer.try_get_offer().is_some());
-    }
-
-    #[test]
-    fn was_solvable_before_none_and_true_false_cases() {
-        let mut c = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(1, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 2]; 2],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: dec![1.0],
-                comment: "".to_string(),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-
-        // empty left_poss -> Ok(None)
-        assert_eq!(c.was_solvable_before().unwrap(), None);
-
-        // identical left_poss -> should be Some(true)
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
-        c.left_poss.push(m.clone());
-        c.left_poss.push(m.clone());
-        assert_eq!(c.was_solvable_before().unwrap(), Some(true));
-
-        // conflicting left_poss -> Some(false)
-        let m1 = MaskedMatching::from_matching_ref(&[vec![0], vec![2]]);
-        let m2 = MaskedMatching::from_matching_ref(&[vec![1], vec![2]]);
-        let mut c2 = c.clone();
-        c2.left_poss = vec![m1.clone(), m2.clone()];
-        // if overlaying reduces lights below sol.len() should return Some(false)
-        // In practice this depends on calculate_lights behavior — assert we get an Option
-        let res = c2.was_solvable_before();
-        assert!(res.is_ok());
-    }
-
-    #[test]
-    fn md_title_and_show_flags() {
-        let c_n = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(2, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![0]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 1]; 1],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: dec![7.0],
-                comment: "hello -- extra".to_string(),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-        assert!(c_n.md_title().starts_with("MN#7.0"));
-        assert!(c_n.show_lights_information());
-        assert!(c_n.show_expected_information());
-        assert!(c_n.show_past_cnt());
-        assert!(c_n.show_new());
-        assert!(c_n.show_past_dist());
-        assert!(c_n.adds_new());
+        c.map = MaskedMatching::from_matching_ref(&[vec![2]]);
+        assert!(c.is_mb_hit(Some(&sol)));
     }
 }

@@ -1,4 +1,9 @@
-use crate::{constraint::Constraint, Rem};
+/// This module contains functions to be used when evaluating after the simulation completed.
+///
+/// Note: There is also evaluate_predicates which contains functions serving as predicates during
+/// the evaluation.
+
+use crate::{constraint::{Constraint, ConstraintType, Offer}, Rem};
 
 use anyhow::{bail, ensure, Result};
 
@@ -8,7 +13,7 @@ impl Constraint {
     /// - Returns Ok(Some(true)) if definitely solvable,
     /// - Ok(Some(false)) if definitely unsolvable,
     /// - Ok(None) if the constraint does not express solvability information.
-    pub fn was_solvable_before(&self) -> Result<Option<bool>> {
+    pub fn is_solvable_after(&self) -> Result<Option<bool>> {
         // not all constraints capture the remaining possibilities
         if self.left_poss.is_empty() {
             return Ok(None);
@@ -81,55 +86,73 @@ impl Constraint {
 
         Some(rem)
     }
+
+    pub fn try_get_offer(&self) -> Option<Offer> {
+        if let ConstraintType::Box { offer, .. } = &self.r#type {
+            offer.clone()
+        } else {
+            None
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use std::collections::{BTreeMap, HashMap};
-
-    use rust_decimal::dec;
-
-    use crate::{constraint::{CheckType, ConstraintType}, matching_repr::{bitset::Bitset, MaskedMatching}, ruleset_data::dummy::DummyData};
-
     use super::*;
 
-    fn constraint_def(exclude: Option<(u8, Bitset)>, lights: u8) -> Constraint {
-        Constraint {
-            result_unknown: false,
-            exclude,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(lights, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
-            eliminated: 0,
-            eliminated_tab: vec![
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-            ],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: dec![1.0],
-                comment: String::from(""),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        }
-    }
+    use std::collections::BTreeMap;
+
+    use crate::constraint::CheckType;
+    use crate::matching_repr::MaskedMatching;
+
+    // TODO: remove
+    // fn constraint_def(exclude: Option<(u8, Bitset)>, lights: u8) -> Constraint {
+    //     Constraint {
+    //         result_unknown: false,
+    //         exclude,
+    //         map_s: HashMap::new(),
+    //         check: CheckType::Lights(lights, BTreeMap::new()),
+    //         map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
+    //         eliminated: 0,
+    //         eliminated_tab: vec![
+    //             vec![0, 0, 0, 0, 0],
+    //             vec![0, 0, 0, 0, 0],
+    //             vec![0, 0, 0, 0, 0],
+    //             vec![0, 0, 0, 0, 0],
+    //         ],
+    //         information: None,
+    //         left_after: None,
+    //         hidden: false,
+    //         r#type: ConstraintType::Night {
+    //             num: dec![1.0],
+    //             comment: String::from(""),
+    //             offer: None,
+    //         },
+    //         build_tree: false,
+    //         left_poss: vec![],
+    //         hide_ruleset_data: false,
+    //         ruleset_data: Box::new(DummyData::default()),
+    //         known_lights: 0,
+    //     }
+    // }
 
     #[test]
     #[allow(clippy::identity_op)]
-    fn test_apply() {
-        let mut c = constraint_def(None, 2);
+    fn apply_to_rem_simple() {
+        let mut c = Constraint::default();
+        c.eliminated_tab = vec![
+            vec![0, 0, 0, 0, 0],
+            vec![0, 0, 0, 0, 0],
+            vec![0, 0, 0, 0, 0],
+            vec![0, 0, 0, 0, 0],
+        ];
+        c.map = MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]);
+        c.check = CheckType::Lights(2, BTreeMap::new());
+        c.eliminated = 0;
+
         let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
 
-        c.eliminate(&m);
+        c.test_eliminate(&m);
         assert_eq!(c.eliminated, 1);
 
         let mut rem: Rem = (vec![vec![15; 5]; 4], 5 * 4 * 3 * 2 * 1 * 4 / 2);
@@ -148,59 +171,28 @@ mod tests {
     }
 
     #[test]
-    fn test_merge() {
-        let mut c_a = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(2, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
-            eliminated: 200,
-            eliminated_tab: vec![
-                vec![1, 0, 0, 0, 0],
-                vec![0, 1, 0, 3, 0],
-                vec![0, 0, 2, 0, 3],
-                vec![0, 6, 0, 5, 0],
-            ],
-            information: Some(4.5),
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: dec![1.0],
-                comment: String::from(""),
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-        let c_b = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Lights(2, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
-            eliminated: 100,
-            eliminated_tab: vec![
-                vec![1, 0, 0, 0, 0],
-                vec![0, 1, 0, 3, 0],
-                vec![0, 0, 2, 0, 3],
-                vec![0, 6, 0, 5, 0],
-            ],
-            information: Some(3.5),
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Night {
-                num: dec![1.0],
-                comment: String::from(""),
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
+    fn merge_simple() {
+        let mut c_a = Constraint::default();
+        c_a.eliminated_tab = vec![
+            vec![1, 0, 0, 0, 0],
+            vec![0, 1, 0, 3, 0],
+            vec![0, 0, 2, 0, 3],
+            vec![0, 6, 0, 5, 0],
+        ];
+        c_a.eliminated = 200;
+        c_a.information = Some(4.5);
+        c_a.left_after = Some(10);
+
+        let mut c_b = Constraint::default();
+        c_b.eliminated_tab = vec![
+            vec![1, 0, 0, 0, 0],
+            vec![0, 1, 0, 3, 0],
+            vec![0, 0, 2, 0, 3],
+            vec![0, 6, 0, 5, 0],
+        ];
+        c_b.eliminated = 100;
+        c_b.information = Some(3.5);
+        c_b.left_after = None;
 
         c_a.merge(&c_b).unwrap();
 
@@ -218,5 +210,37 @@ mod tests {
 
         assert_eq!(c_a.information, None);
         assert_eq!(c_a.left_after, None);
+    }
+
+    #[test]
+    fn is_solvable_after_simple() {
+        // left possibilities not captured -> cannot tell => none
+        let mut c = Constraint::default();
+        c.left_poss = vec![];
+        assert!(c.is_solvable_after().unwrap().is_none());
+
+        // only one possibility left => definitely solvable
+        let mut c = Constraint::default();
+        c.left_poss = vec![MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]])];
+        assert!(c.is_solvable_after().unwrap().unwrap());
+
+        // multiple total solutions left, but there is one unambiguous partial working solution which applies to
+        // all solutions left
+        let mut c = Constraint::default();
+        c.left_poss = vec![
+            MaskedMatching::from_matching_ref(&[vec![0],    vec![1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![0],    vec![1], vec![2, 3]]),
+        ];
+        assert!(c.is_solvable_after().unwrap().unwrap());
+
+        // multiple total solutions left, also not one unambiguous partial solution existing
+        let mut c = Constraint::default();
+        c.left_poss = vec![
+            MaskedMatching::from_matching_ref(&[vec![0],    vec![1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![3],    vec![1], vec![2, 0]]),
+        ];
+        assert!(!c.is_solvable_after().unwrap().unwrap());
     }
 }

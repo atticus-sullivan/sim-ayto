@@ -309,7 +309,6 @@ mod tests {
 
     #[test]
     fn get_stats_simple() {
-        // let c = Constraint::new();
         let c = Constraint {
             result_unknown: false,
             exclude: None,
@@ -391,8 +390,82 @@ mod tests {
         a.add(&b);
 
         assert_eq!(a.blackouts, 3);
-        assert_eq!(a.sold, 3);
         assert_eq!(a.matches_found, 1);
-        assert_eq!(a.offers, 2);
+        assert_eq!(a.offers_mn.sold_cnt, 4);
+        assert_eq!(a.offers_mb.sold_but_match_active, true);
     }
+
+    #[test]
+    fn eval_event_query_data_simple() {
+        // MB event
+        let mb = EvalMB {
+            num: dec![2.0],
+            bits_left_after: 8.0,
+            lights_total: Some(3),
+            lights_known_before: 1,
+            bits_gained: 2.5,
+            comment: "mb".to_string(),
+            offer: true,
+        };
+        let ev_mb = EvalEvent::MB(mb.clone());
+
+        // MN event
+        let mn = EvalMN {
+            num: dec![4.0],
+            bits_left_after: 16.0,
+            lights_total: Some(2),
+            lights_known_before: 0,
+            bits_gained: 3.5,
+            comment: "mn".to_string(),
+            offer: false,
+        };
+        let ev_mn = EvalEvent::MN(mn.clone());
+
+        // Initial event
+        let ini = EvalInitial {
+            bits_left_after: 32.0,
+            comment: "init".to_string(),
+        };
+        let ev_ini = EvalEvent::Initial(ini.clone());
+
+        // MB: get number using closures (mn_pred, mb_pred, init_pred)
+        assert_eq!(ev_mb.num(|_| false, |_| true, |_| false), Some(dec![2.0]));
+        assert_eq!(ev_mn.num(|_| true, |_| false, |_| false), Some(dec![4.0]));
+        assert_eq!(ev_ini.num(|_| false, |_| false, |_| true), Some(dec![0]));
+
+        // bits_gained: MB and MN present, Initial -> None
+        assert_eq!(ev_mb.bits_gained(|_| false, |_| true, |_| false), Some(2.5));
+        assert_eq!(ev_mn.bits_gained(|_| true, |_| false, |_| false), Some(3.5));
+        assert_eq!(ev_ini.bits_gained(|_| false, |_| false, |_| true), None);
+
+        // lights_total: present for MB/MN; Initial -> None
+        assert_eq!(ev_mb.lights_total(|_| false, |_| true, |_| false), Some(3));
+        assert_eq!(ev_mn.lights_total(|_| true, |_| false, |_| false), Some(2));
+        assert_eq!(ev_ini.lights_total(|_| false, |_| false, |_| true), None);
+
+        // new_lights = lights_total - lights_known_before
+        assert_eq!(ev_mb.new_lights(|_| false, |_| true, |_| false), Some(2));
+        assert_eq!(ev_mn.new_lights(|_| true, |_| false, |_| false), Some(2));
+
+        // lights_known_before: present for MB/MN; Initial -> None
+        assert_eq!(ev_mb.lights_known_before(|_| false, |_| true, |_| false), Some(1));
+        assert_eq!(ev_mn.lights_known_before(|_| true, |_| false, |_| false), Some(0));
+        assert_eq!(ev_ini.lights_known_before(|_| false, |_| false, |_| true), None);
+
+        // num_unified: num but scaled so it climbs monotonically
+        assert_eq!(ev_mb.num_unified(|_| false, |_| true, |_| false), Some(dec![3.0]));
+        assert_eq!(ev_mn.num_unified(|_| true, |_| false, |_| false), Some(dec![8.0]));
+        assert_eq!(ev_ini.num_unified(|_| false, |_| false, |_| true), Some(dec![0.0]));
+
+        // bits_left_after: present for MB/MN; Initial -> None
+        assert_eq!(ev_mb.bits_left_after(|_| false, |_| true, |_| false), Some(8.0));
+        assert_eq!(ev_mn.bits_left_after(|_| true, |_| false, |_| false), Some(16.0));
+        assert_eq!(ev_ini.bits_left_after(|_| false, |_| false, |_| true), Some(32.0));
+
+        // comment: present for MB/MN; Initial -> None
+        assert_eq!(ev_mb.comment(|_| false, |_| true, |_| false), Some("mb".to_string()));
+        assert_eq!(ev_mn.comment(|_| true, |_| false, |_| false), Some("mn".to_string()));
+        assert_eq!(ev_ini.comment(|_| false, |_| false, |_| true), Some("init".to_string()));
+    }
+
 }

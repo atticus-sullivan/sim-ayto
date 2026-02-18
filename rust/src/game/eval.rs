@@ -322,7 +322,7 @@ impl Game {
             .find(|x| x[1].num() == dec![10.0] && x[1].might_won())
             .map(|x| &x[0])
             .or_else(|| merged_constraints.last())
-            .and_then(|x| x.was_solvable_before().ok().flatten());
+            .and_then(|x| x.is_solvable_after().ok().flatten());
 
         cnts
     }

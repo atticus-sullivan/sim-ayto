@@ -30,10 +30,11 @@ mod report_utils;
 use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
 
-use rust_decimal::Decimal;
+use rust_decimal::{dec, Decimal};
 use serde::Deserialize;
 
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
+use crate::ruleset_data::dummy::DummyData;
 use crate::ruleset_data::RuleSetData;
 use crate::MapS;
 
@@ -220,46 +221,30 @@ pub struct Constraint {
     known_lights: u8,
 }
 
-impl Constraint {
-    #[cfg(test)]
-    pub fn new(
-        r#type: ConstraintType,
-        check: CheckType,
-        hidden: bool,
-        result_unknown: bool,
-        build_tree: bool,
-        map: MaskedMatching,
-        map_s: MapS,
-        exclude: Option<(u8, Bitset)>,
-        eliminated: u128,
-        eliminated_tab: Vec<Vec<u128>>,
-        information: Option<f64>,
-        left_after: Option<u128>,
-        left_poss: Vec<MaskedMatching>,
-        hide_ruleset_data: bool,
-        ruleset_data: Box<dyn RuleSetData>,
-        known_lights: u8,
-    ) -> Self {
-        Self {
-            r#type,
-            check,
-            hidden,
-            result_unknown,
-            build_tree,
-            map,
-            map_s,
-            exclude,
-            eliminated,
-            eliminated_tab,
-            information,
-            left_after,
-            left_poss,
-            hide_ruleset_data,
-            ruleset_data,
-            known_lights,
+impl Default for Constraint {
+    fn default() -> Self {
+        Constraint {
+            r#type: ConstraintType::Box { num: dec![1], comment: String::new(), offer: None },
+            check: CheckType::Lights(1, Default::default()),
+            hidden: false,
+            result_unknown: false,
+            build_tree: false,
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![0], vec![0]]),
+            map_s: MapS::default(),
+            exclude: None,
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; 3]; 3],
+            information: None,
+            left_after: None,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
         }
     }
+}
 
+impl Constraint {
     /// Create a new `Constraint`. The most important data can be passed as arguments, the
     /// remaining fields will be filled with typical defaults.
     pub fn new_with_defaults(
@@ -271,24 +256,18 @@ impl Constraint {
         b_len: usize,
         known_lights: u8,
     ) -> Self {
-        Constraint {
-            r#type: t,
-            check,
-            hidden: false,
-            result_unknown: false,
-            build_tree: false,
-            map,
-            map_s: MapS::default(),
-            exclude: None,
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; b_len]; a_len],
-            information: None,
-            left_after: None,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: rs_dat,
-            known_lights,
-        }
+        // obtain the defaults defined elsewhere
+        let mut ret = Self::default();
+
+        // overwrite wit the values specified
+        ret.r#type = t;
+        ret.check = check;
+        ret.map = map;
+        ret.known_lights = known_lights;
+        ret.eliminated_tab = vec![vec![0; b_len]; a_len];
+        ret.ruleset_data = rs_dat;
+
+        ret
     }
 }
 

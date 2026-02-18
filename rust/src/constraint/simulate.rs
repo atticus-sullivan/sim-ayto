@@ -64,6 +64,10 @@ impl Constraint {
         Ok(fits)
     }
 
+    #[cfg(test)]
+    pub(super) fn test_eliminate(&mut self, m: &MaskedMatching) {
+        self.eliminate(m)
+    }
     fn eliminate(&mut self, m: &MaskedMatching) {
         for (k, v) in m.iter_pairs() {
             self.eliminated_tab[k as usize][v as usize] += 1;

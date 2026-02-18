@@ -1,16 +1,18 @@
+/// This module contains some helper functions which assist in parsing/converting/validating
+/// constraints
+
 use std::collections::{HashMap, HashSet};
 
 use anyhow::{ensure, Context, Result};
 
 use crate::constraint::parse::ConstraintParse;
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::constraint::{CheckType, ConstraintType};
 use crate::ignore_ops::IgnoreOps;
-use crate::matching_repr::bitset::Bitset;
 use crate::{Lut, Map, MapS};
 
 impl ConstraintParse {
-    /// How many lights this constraint *adds* when converting a box constraint
-    /// with lights==1 to a new effective constraint.
+    /// How many known lights this constraint *adds* when converting a box constraint with
+    /// lights==1 to a new effective constraint.
     pub(crate) fn added_known_lights(&self) -> u8 {
         if self.hidden {
             return 0;
@@ -50,9 +52,7 @@ impl ConstraintParse {
             ConstraintType::Box { num, .. } => format!("MB#{}", num),
         }
     }
-}
 
-impl ConstraintParse {
     // convert the string map_s into numeric ids using LUTs.
     /// Convert `self.map_s` (names) into numeric id map and return `(c_map, c_map_s)`.
     /// `c_map` is `HashMap<u8,u8>` and `c_map_s` is the original string map (not renamed).
@@ -70,7 +70,7 @@ impl ConstraintParse {
                 let v_id = *lut_b
                     .get(v)
                     .with_context(|| format!("Invalid Value {}", v))?
-                    as u8;
+                as u8;
                 Ok((k_id, v_id))
             })
             .collect::<Result<HashMap<u8, u8>>>()?;
@@ -82,40 +82,38 @@ impl ConstraintParse {
     }
 
     /// Check cardinality / shape invariants for the parsed constraint.
-    /// This mirrors the previous inline `ensure!` checks in `finalize_parsing`.
-    pub(crate) fn validate_map_cardinalities(
-        exclude_s: &Option<(String, Vec<String>)>,
-        c: &Constraint,
+    pub(crate) fn validate_constraint(
+        &self,
         map_len: usize,
     ) -> Result<()> {
-        match c.r#type {
+        match self.r#type {
             ConstraintType::Night { .. } => {
                 ensure!(
-                    c.map_s.len() == map_len,
+                    self.map_s.len() == map_len,
                     "Map in a night must contain exactly as many entries as set_a {} (was: {})",
                     map_len,
-                    c.map_s.len()
+                    self.map_s.len()
                 );
-                let value_len = c.map_s.values().collect::<HashSet<_>>().len();
+                let value_len = self.map_s.values().collect::<HashSet<_>>().len();
                 ensure!(
-                    value_len == c.map_s.len(),
+                    value_len == self.map_s.len(),
                     "Keys in the map of a night must be unique {:?}",
-                    c.map_s
+                    self.map_s
                 );
                 ensure!(
-                    exclude_s.is_none(),
+                    self.exclude_s.is_none(),
                     "Exclude is not yet supported for nights"
                 );
             }
-            ConstraintType::Box { .. } => match &c.check {
+            ConstraintType::Box { .. } => match &self.check {
                 CheckType::Eq => {}
                 CheckType::Nothing | CheckType::Sold => {}
                 CheckType::Lights(_, _) => {
                     ensure!(
-                        c.map_s.len() == 1,
+                        self.map_s.len() == 1,
                         "Map in a box must contain exactly {} entry (was: {})",
                         1,
-                        c.map_s.len()
+                        self.map_s.len()
                     );
                 }
             },
@@ -123,112 +121,218 @@ impl ConstraintParse {
         Ok(())
     }
 
-    /// Build the optional exclude bitset based on `exclude_s` and the LUTs.
-    pub(crate) fn build_exclude_if_any(
-        exclude_s: &Option<(String, Vec<String>)>,
-        lut_a: &Lut,
-        lut_b: &Lut,
-    ) -> Result<Option<(u8, Bitset)>> {
-        if let Some(ex) = exclude_s {
-            let (ex_a, ex_b) = ex;
-            let mut bs = Bitset::empty();
-            let a = *lut_a
-                .get(ex_a)
-                .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
-            for x in ex_b {
-                bs.insert(
-                    *lut_b
-                        .get(x)
-                        .with_context(|| format!("Invalid Value {}", x))? as u8,
-                );
-            }
-            Ok(Some((a, bs)))
-        } else {
-            Ok(None)
-        }
+    /// Normalize and possibly flip `c_map` and `c_map_s` so that the internal ordering
+    /// is consistent: the key/value pairs are arranged such that `lut_a[key] < lut_b[value]`
+    /// if possible. This mutation happens in-place.
+    ///
+    /// # Arguments
+    ///
+    /// * `c_map` - map from `u8 -> u8` that may be flipped in-place.
+    /// * `c_map_s` - string-keyed map used for output; entries are flipped consistent with `c_map`.
+    /// * `lut_a` / `lut_b` - lookup tables used to compare names (must contain all keys present).
+    ///
+    /// # Panics
+    ///
+    /// Panics if `lut_a`/`lut_b` do not contain expected keys (caller must supply valid LUTs).
+    pub(super) fn sort_maps(c_map: &mut Map, c_map_s: &mut MapS, lut_a: &Lut, lut_b: &Lut) {
+        let c_map2 = c_map
+            .drain()
+            .map(|(k, v)| if k < v { (v, k) } else { (k, v) })
+            .collect();
+
+        let c_map_s2 = c_map_s
+            .drain()
+            .map(|(k, v)| {
+                if lut_a[&k] < lut_b[&v] {
+                    (v, k)
+                } else {
+                    (k, v)
+                }
+            })
+            .collect();
+
+        *c_map = c_map2;
+        *c_map_s = c_map_s2;
     }
-}
-
-/// Normalize and possibly flip `c_map` and `c_map_s` so that the internal ordering
-/// is consistent: the key/value pairs are arranged such that `lut_a[key] < lut_b[value]`
-/// if possible. This mutation happens in-place.
-///
-/// # Arguments
-///
-/// * `c_map` - map from `u8 -> u8` that may be flipped in-place.
-/// * `c_map_s` - string-keyed map used for output; entries are flipped consistent with `c_map`.
-/// * `lut_a` / `lut_b` - lookup tables used to compare names (must contain all keys present).
-///
-/// # Panics
-///
-/// Panics if `lut_a`/`lut_b` do not contain expected keys (caller must supply valid LUTs).
-pub(super) fn sort_maps(c_map: &mut Map, c_map_s: &mut MapS, lut_a: &Lut, lut_b: &Lut) {
-    let c_map2 = c_map
-        .drain()
-        .map(|(k, v)| if k < v { (v, k) } else { (k, v) })
-        .collect();
-
-    let c_map_s2 = c_map_s
-        .drain()
-        .map(|(k, v)| {
-            if lut_a[&k] < lut_b[&v] {
-                (v, k)
-            } else {
-                (k, v)
-            }
-        })
-        .collect();
-
-    *c_map = c_map2;
-    *c_map_s = c_map_s2;
-}
-
-#[cfg(test)]
-mod test {
-    use rust_decimal::dec;
-
-    use super::*;
-
-    // #[test]
-    // fn convert_map_s_to_ids_works() {
-    //     // TODO: new in tests with private members
-    //     let mut cp = ConstraintParse {
-    //         r#type: ConstraintType::Box {
-    //             num: dec![1.0],
-    //             comment: "".to_string(),
-    //             offer: None,
-    //         },
-    //         map_s: HashMap::new(),
-    //         check: CheckType::Eq,
-    //         hidden: false,
-    //         no_exclude: false,
-    //         exclude_s: None,
-    //         result_unknown: false,
-    //         build_tree: false,
-    //         hide_ruleset_data: false,
-    //     };
-    //     cp.map_s.insert("A".to_string(), "B".to_string());
-    //     let lut_a = HashMap::from_iter(vec![("A".to_string(), 0)]);
-    //     let lut_b = HashMap::from_iter(vec![("B".to_string(), 1)]);
-    //
-    //     let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
-    //     assert_eq!(c_map.get(&0).cloned(), Some(1u8));
-    //     assert_eq!(c_map_s.get("A").unwrap(), "B");
-    // }
 }
 
 #[cfg(test)]
 mod tests {
     use rust_decimal::dec;
 
-    use super::Constraint;
     use super::*;
-    use crate::ruleset_data::dummy::DummyData;
-    use crate::Rem;
-    use std::collections::HashMap;
+    use std::collections::{BTreeMap, HashMap};
 
     #[test]
-    fn test_sort_maps_basic() {
+    fn added_known_lights_simple() {
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        assert_eq!(cp.added_known_lights(), 0);
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(0, BTreeMap::default());
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        assert_eq!(cp.added_known_lights(), 0);
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(2, BTreeMap::default());
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        assert_eq!(cp.added_known_lights(), 0);
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        assert_eq!(cp.added_known_lights(), 1);
+    }
+
+    #[test]
+    fn has_impact_simple() {
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.result_unknown = false;
+        assert!(cp.has_impact());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Sold;
+        cp.result_unknown = false;
+        assert!(!cp.has_impact());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Nothing;
+        cp.result_unknown = false;
+        assert!(!cp.has_impact());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.result_unknown = true;
+        assert!(cp.has_impact());
+    }
+
+    #[test]
+    fn ignore_on_simple() {
+        let mut cp = ConstraintParse::default();
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        assert!(!cp.ignore_on(&IgnoreOps::Boxes));
+
+        let mut cp = ConstraintParse::default();
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        assert!(cp.ignore_on(&IgnoreOps::Boxes));
+    }
+
+    #[test]
+    fn type_str_simple() {
+        let mut cp = ConstraintParse::default();
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        assert_eq!(cp.type_str(), "MN#1.0");
+
+        let mut cp = ConstraintParse::default();
+        cp.r#type = ConstraintType::Night { num: dec![3], comment: "".to_string(), offer: None };
+        assert_eq!(cp.type_str(), "MN#3.0");
+
+        let mut cp = ConstraintParse::default();
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        assert_eq!(cp.type_str(), "MB#1.0");
+
+        let mut cp = ConstraintParse::default();
+        cp.r#type = ConstraintType::Box { num: dec![3], comment: "".to_string(), offer: None };
+        assert_eq!(cp.type_str(), "MB#3.0");
+    }
+
+    #[test]
+    fn convert_map_s_to_ids_simple() {
+        let mut cp = ConstraintParse::default();
+        cp.map_s.insert("A".to_string(), "b".to_string());
+        cp.map_s.insert("B".to_string(), "c".to_string());
+
+        let lut_a = vec![
+            ("A", 0),
+            ("B", 5),
+        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
+        let lut_b = vec![
+            ("b", 2),
+            ("c", 20),
+        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
+
+        let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
+
+        let c_ref = vec![
+            (0, 2),
+            (5, 20),
+        ].into_iter().map(|(k,v)| (k, v)).collect::<HashMap<_,_>>();
+
+        let c_ref_s = vec![
+            ("A", "b"),
+            ("B", "c"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+
+        assert_eq!(c_map, c_ref);
+        assert_eq!(c_map_s, c_ref_s);
+    }
+
+    #[test]
+    fn validate_constraint_simple() {
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.map_s = vec![
+            ("A", "b"),
+            ("B", "c"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        assert!(cp.validate_constraint(2).is_ok());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.map_s = vec![
+            ("A", "b"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        // Night has too few entries in map
+        assert!(cp.validate_constraint(2).is_err());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.map_s = vec![
+            ("A", "b"),
+            ("B", "b"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        // Night has duplicates in map
+        assert!(cp.validate_constraint(2).is_err());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.map_s = vec![
+            ("A", "b"),
+            ("B", "c"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.exclude_s = Some(("".to_string(), vec!["".to_string()]));
+        // exclude_s is not supported with nigt
+        assert!(cp.validate_constraint(2).is_err());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.map_s = vec![
+            ("A", "b"),
+            ("B", "c"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        // Box can always only have one entry in the map
+        assert!(cp.validate_constraint(2).is_err());
+
+        let mut cp = ConstraintParse::default();
+        cp.check = CheckType::Lights(1, BTreeMap::default());
+        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.map_s = vec![
+            ("A", "b"),
+        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        // Box can always only have one entry in the map
+        assert!(cp.validate_constraint(2).is_ok());
+    }
+
+    #[test]
+    fn sort_maps_w_flip() {
         let mut map_s = HashMap::new();
         let mut map = HashMap::new();
 
@@ -236,32 +340,38 @@ mod tests {
         map.insert(1, 0);
         map.insert(2, 3);
 
-        map_s.insert("B".to_string(), "A".to_string());
-        map_s.insert("C".to_string(), "D".to_string());
+        map_s.insert("B".to_string(), "a".to_string());
+        map_s.insert("C".to_string(), "d".to_string());
 
         // Initialize lookup tables
         let lut_a = HashMap::from_iter(vec![
-            ("A".to_string(), 0),
+            ("a".to_string(), 0),
             ("B".to_string(), 1),
             ("C".to_string(), 2),
-            ("D".to_string(), 3),
+            ("d".to_string(), 3),
         ]);
         let lut_b = lut_a.clone();
 
         // Perform sorting
-        sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
+        ConstraintParse::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
 
         // Validate the map is sorted and flipped correctly
-        assert_eq!(*map.get(&1).unwrap(), 0);
-        assert_eq!(*map.get(&3).unwrap(), 2);
+        let ref_map = vec![
+            (1, 0),
+            (3, 2),
+        ].into_iter().map(|(k,v)| (k,v)).collect::<HashMap<_,_>>();
+        assert_eq!(map, ref_map);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        assert_eq!(map_s.get("B").unwrap(), "A");
-        assert_eq!(map_s.get("D").unwrap(), "C");
+        let ref_map = vec![
+            ("B", "a"),
+            ("d", "C"),
+        ].into_iter().map(|(k,v)| (k.to_string(),v.to_string())).collect::<HashMap<_,_>>();
+        assert_eq!(map_s, ref_map);
     }
 
     #[test]
-    fn test_sort_maps_no_flipping_needed() {
+    fn sort_maps_wo_flip() {
         let mut map_s = HashMap::new();
         let mut map = HashMap::new();
 
@@ -269,45 +379,33 @@ mod tests {
         map.insert(1, 0);
         map.insert(3, 2);
 
-        map_s.insert("B".to_string(), "A".to_string());
-        map_s.insert("D".to_string(), "C".to_string());
+        map_s.insert("B".to_string(), "a".to_string());
+        map_s.insert("D".to_string(), "c".to_string());
 
         // Initialize lookup tables
         let lut_a = HashMap::from_iter(vec![
-            ("A".to_string(), 0),
+            ("a".to_string(), 0),
             ("B".to_string(), 1),
-            ("C".to_string(), 2),
+            ("c".to_string(), 2),
             ("D".to_string(), 3),
         ]);
         let lut_b = lut_a.clone();
 
         // Perform sorting
-        sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
+        ConstraintParse::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
 
         // Validate the map is sorted and flipped correctly
-        assert_eq!(*map.get(&1).unwrap(), 0);
-        assert_eq!(*map.get(&3).unwrap(), 2);
+        let ref_map = vec![
+            (1, 0),
+            (3, 2),
+        ].into_iter().map(|(k,v)| (k,v)).collect::<HashMap<_,_>>();
+        assert_eq!(map, ref_map);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        assert_eq!(map_s.get("B").unwrap(), "A");
-        assert_eq!(map_s.get("D").unwrap(), "C");
-    }
-
-    #[test]
-    #[should_panic]
-    fn test_sort_maps_panic_on_missing_lut_keys() {
-        let mut map_s = HashMap::new();
-        let mut map = HashMap::new();
-
-        map.insert(1, 0);
-        // Initialize the map_s with keys not present in lut_a or lut_b
-        map_s.insert("unknown".to_string(), "value".to_string());
-
-        // Initialize lookup tables with different keys
-        let lut_a = HashMap::new();
-        let lut_b = HashMap::new();
-
-        // Perform sorting (should panic due to missing keys)
-        sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
+        let ref_map = vec![
+            ("B", "a"),
+            ("d", "C"),
+        ].into_iter().map(|(k,v)| (k.to_string(),v.to_string())).collect::<HashMap<_,_>>();
+        assert_eq!(map_s, ref_map);
     }
 }
