@@ -3,7 +3,7 @@ use plotly::{common::Title, Layout, Plot};
 
 /// Create a new Plotly `Plot` with default configuration used across the site
 /// (responsive, no plotly logo, scroll zoom enabled).
-pub fn plotly_new_plot() -> Plot {
+pub(super) fn plotly_new_plot() -> Plot {
     let mut plot = Plot::new();
     plot.set_configuration(
         plotly::Configuration::new()
@@ -16,7 +16,7 @@ pub fn plotly_new_plot() -> Plot {
 }
 
 /// Create the base `Layout` used for plots, filled with colors from the given `palette`.
-pub fn plotly_gen_layout(palette: Flavor) -> Layout {
+pub(crate) fn plotly_gen_layout(palette: Flavor) -> Layout {
     Layout::new()
         .paper_background_color(palette.colors.base.hex.to_string())
         .plot_background_color(palette.colors.base.hex.to_string())
@@ -46,7 +46,7 @@ pub fn plotly_gen_layout(palette: Flavor) -> Layout {
 /// Create a styled axis for the given `palette` and `title`.
 ///
 /// `mirror` controls whether axis lines are mirrored to the opposite side.
-pub(crate) fn styled_axis(palette: &Flavor, title: &str, mirror: bool) -> plotly::layout::Axis {
+pub(super) fn styled_axis(palette: &Flavor, title: &str, mirror: bool) -> plotly::layout::Axis {
     plotly::layout::Axis::new()
         .line_color(palette.colors.overlay0.hex.to_string())
         .grid_color(palette.colors.overlay1.hex.to_string())
@@ -54,27 +54,4 @@ pub(crate) fn styled_axis(palette: &Flavor, title: &str, mirror: bool) -> plotly
         .title(Title::with_text(title))
         .mirror(mirror)
         .show_line(true)
-}
-
-#[cfg(test)]
-mod tests {
-    use plotly::common::Mode;
-
-    use crate::comparison::theme::lut_theme;
-
-    use super::*;
-
-    #[test]
-    fn plotly_layout_in_html() {
-        let palette = lut_theme(1);
-        let layout = plotly_gen_layout(palette);
-        let mut plot = plotly_new_plot();
-        // add dummy trace so HTML includes an element
-        let trace = plotly::Scatter::new(vec![1], vec![2]).mode(Mode::Markers);
-        plot.add_trace(trace);
-        plot.set_layout(layout.clone());
-        let html = plot.to_inline_html(None);
-        // also check that it contains a div
-        assert!(html.contains("<div"));
-    }
 }

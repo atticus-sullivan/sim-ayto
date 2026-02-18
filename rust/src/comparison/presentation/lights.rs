@@ -1,18 +1,21 @@
+/// This renders the plots which show information regarding the amount of lights over the course of
+/// time
+
 use plotly::common::Mode;
 
-use crate::comparison::plotly::{
-    heatmap::build_heatmap_plot, heatmap::EntryDatum, layout::plotly_gen_layout,
-    scatter::build_scatter_plot,
-};
+use crate::comparison::plotly::heatmap::{build_heatmap_plot, EntryDatum};
+use crate::comparison::plotly::scatter::build_scatter_plot;
+use crate::comparison::plotly::layout::plotly_gen_layout;
+
 use crate::comparison::theme::lut_theme;
-use crate::comparison::CmpData;
+use crate::comparison::data::CmpData;
 use crate::constraint::eval_types::EvalEvent;
 
 /// Build plots about "lights" (lighting related evaluation metrics).
 ///
 /// Accepts the comparison dataset and a `theme` index. Returns
 /// pairs `(tab label, plot HTML)` to be embedded in the generated pages.
-pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
+pub fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
@@ -115,7 +118,7 @@ pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(S
         ),
         (
             "HM #Lights MB".to_owned(),
-            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MB", |cd| {
+            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MB", "Lights", |cd| {
                 cd.eval_data
                     .iter()
                     .filter_map(|i| match i {
@@ -132,7 +135,7 @@ pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(S
         ),
         (
             "HM #Lights MN".to_owned(),
-            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MN", |cd| {
+            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MN", "Lights", |cd| {
                 cd.eval_data
                     .iter()
                     .filter_map(|i| match i {
@@ -149,7 +152,7 @@ pub fn build_light_plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(S
         ),
         (
             "HM #Lights-known MN".to_owned(),
-            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MN", |cd| {
+            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MN", "Lights", |cd| {
                 cd.eval_data
                     .iter()
                     .filter_map(|i| match i {
