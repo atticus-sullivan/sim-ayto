@@ -419,4 +419,37 @@ mod test {
             vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5", "", ""]
         );
     }
+
+    #[test]
+    fn md_title_and_show_flags() {
+        let c_n = Constraint {
+            result_unknown: false,
+            exclude: None,
+            map_s: HashMap::new(),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: MaskedMatching::from_matching_ref(&[vec![0]]),
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; 1]; 1],
+            information: None,
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: dec![7.0],
+                comment: "hello -- extra".to_string(),
+                offer: None,
+            },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+        assert!(c_n.md_title().starts_with("MN#7.0"));
+        assert!(c_n.show_lights_information());
+        assert!(c_n.show_expected_information());
+        assert!(c_n.show_past_cnt());
+        assert!(c_n.show_new());
+        assert!(c_n.show_past_dist());
+        assert!(c_n.adds_new());
+    }
 }

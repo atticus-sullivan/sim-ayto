@@ -1,11 +1,19 @@
+/// This module is typically used to
+/// 1. deserialize into `ConstraintParse`
+/// 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
+///
+/// Some helpers were soutsourced to parse_utils
+
 use std::hash::{Hash, Hasher};
+use std::collections::BTreeMap;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 
+use rust_decimal::dec;
 use serde::Deserialize;
 
-use crate::constraint::parse_utils::sort_maps;
 use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::matching_repr::bitset::Bitset;
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, MapS, Rename};
 
@@ -20,15 +28,35 @@ pub struct ConstraintParse {
     #[serde(default)]
     pub(super) hidden: bool,
     #[serde(default, rename = "noExclude")]
-    no_exclude: bool,
+    pub(super) no_exclude: bool,
     #[serde(rename = "exclude")]
-    exclude_s: Option<(String, Vec<String>)>,
+    pub(super) exclude_s: Option<(String, Vec<String>)>,
     #[serde(default, rename = "resultUnknown")]
-    pub result_unknown: bool,
+    pub(super) result_unknown: bool,
     #[serde(default, rename = "buildTree")]
-    build_tree: bool,
+    pub(super) build_tree: bool,
     #[serde(default, rename = "hideRulesetData")]
-    hide_ruleset_data: bool,
+    pub(super) hide_ruleset_data: bool,
+}
+
+impl Default for ConstraintParse {
+    fn default() -> Self {
+        ConstraintParse {
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: MapS::default(),
+            check: CheckType::Lights(0, BTreeMap::default()),
+            hidden: false,
+            no_exclude: false,
+            exclude_s: None,
+            result_unknown: false,
+            build_tree: false,
+            hide_ruleset_data: true,
+        }
+    }
 }
 
 impl Hash for ConstraintParse {
@@ -100,8 +128,11 @@ impl ConstraintParse {
 
         // optional sorting based on LUT comparators
         if sort_constraint {
-            sort_maps(&mut c_map, &mut c_map_s, lut_a, lut_b);
+            ConstraintParse::sort_maps(&mut c_map, &mut c_map_s, lut_a, lut_b);
         }
+
+        // validate shape invariants
+        self.validate_constraint(map_len)?;
 
         // create the base Constraint (eliminated_tab sized using LUT lengths)
         let mut c = Constraint {
@@ -123,9 +154,6 @@ impl ConstraintParse {
             known_lights,
         };
 
-        // validate shape invariants
-        Self::validate_map_cardinalities(&self.exclude_s, &c, map_len)?;
-
         // rename keys in map_s for user-facing output
         let mut map_s = MapS::default();
         for (k, v) in &c.map_s {
@@ -146,32 +174,61 @@ impl ConstraintParse {
 
     /// Generates the exclude list for the constraint, by inserting the elements from `map_b`
     ///
-    /// This function modifies the internal state of the `Constraint`. If exclusion is not needed (constraint type is no box or lights != 1), no exclude list is generated.
-    ///
     /// # Arguments
     ///
-    /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be drawn. The function will create a new exclusion vector by removing any elements from `map_b` that match the current value in `self.map_s`.
+    /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be
+    ///   drawn. The function will create a new exclusion vector by removing any elements from
+    ///   `map_b` that match the current value in `self.map_s`.
     fn add_exclude(&self, map_b: &[String]) -> Option<(String, Vec<String>)> {
         if self.no_exclude {
             return None;
         }
         if let CheckType::Lights(l, _) = self.check {
+            // only exclude if
+            // 1. is match
+            // 2. is valid box
+            // 3. exclude is not already set
             if !(l == 1 && self.map_s.len() == 1 && self.exclude_s.is_none()) {
                 return None;
             }
             if let ConstraintType::Box { .. } = self.r#type {
                 // if the constraint is a box constraint the map contains only one item anyhow
-                if let Some((k, v)) = self.map_s.iter().next() {
+                if let Some((a, v)) = self.map_s.iter().next() {
                     let bs: Vec<String> = map_b
                         .iter()
                         .filter(|&i| i != v)
                         .map(|i| i.to_string())
                         .collect();
-                    return Some((k.to_string(), bs));
+                    return Some((a.clone(), bs));
                 }
             }
         }
         None
+    }
+
+    /// Build the optional exclude bitset based on `exclude_s` and the LUTs.
+    pub(crate) fn build_exclude_if_any(
+        exclude_s: &Option<(String, Vec<String>)>,
+        lut_a: &Lut,
+        lut_b: &Lut,
+    ) -> Result<Option<(u8, Bitset)>> {
+        if let Some(ex) = exclude_s {
+            let (ex_a, ex_b) = ex;
+            let mut bs = Bitset::empty();
+            let a = *lut_a
+                .get(ex_a)
+                .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
+            for x in ex_b {
+                bs.insert(
+                    *lut_b
+                        .get(x)
+                        .with_context(|| format!("Invalid Value {}", x))? as u8,
+                );
+            }
+            Ok(Some((a, bs)))
+        } else {
+            Ok(None)
+        }
     }
 }
 
@@ -180,7 +237,6 @@ mod tests {
     use rust_decimal::dec;
 
     use super::*;
-    use crate::matching_repr::bitset::Bitset;
     use crate::matching_repr::MaskedMatching;
     use crate::ruleset_data::dummy::DummyData;
     use std::collections::BTreeMap;
@@ -339,7 +395,7 @@ mod tests {
     }
 
     #[test]
-    fn test_add_exclude() {
+    fn add_exclude_simple() {
         let mut constraint = ConstraintParse {
             r#type: ConstraintType::Box {
                 num: dec![1.0],
@@ -364,8 +420,24 @@ mod tests {
         let exclude_s = constraint.add_exclude(&map_b);
 
         assert_eq!(
-            exclude_s.unwrap(),
+            exclude_s.clone().unwrap(),
             ("A".to_string(), vec!["c".to_string(), "d".to_string()])
         );
+
+
+        let lut_a = vec![
+            ("A".to_string(), 3usize),
+        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
+
+        let lut_b = vec![
+            ("b", 0usize),
+            ("c", 1usize),
+            ("d", 2usize),
+        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
+
+        let exclude = ConstraintParse::build_exclude_if_any(&exclude_s, &lut_a, &lut_b).unwrap();
+
+        assert_eq!(exclude.unwrap(), (3, Bitset::from_idxs(&[1,2])));
+
     }
 }
