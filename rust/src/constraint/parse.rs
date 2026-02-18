@@ -4,7 +4,8 @@ use anyhow::Result;
 
 use serde::Deserialize;
 
-use crate::constraint::{sort_maps, CheckType, Constraint, ConstraintType};
+use crate::constraint::parse_utils::sort_maps;
+use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::ruleset_data::RuleSetData;
 use crate::{Lut, MapS, Rename};
 
@@ -12,12 +13,12 @@ use crate::{Lut, MapS, Rename};
 // The function `finalize_parsing` is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
 pub struct ConstraintParse {
-    r#type: ConstraintType,
+    pub(super) r#type: ConstraintType,
     #[serde(rename = "map")]
     pub(super) map_s: MapS,
-    check: CheckType,
+    pub(super) check: CheckType,
     #[serde(default)]
-    hidden: bool,
+    pub(super) hidden: bool,
     #[serde(default, rename = "noExclude")]
     no_exclude: bool,
     #[serde(rename = "exclude")]
@@ -47,57 +48,6 @@ impl Hash for ConstraintParse {
 
         // Hash the check field
         self.check.hash(state);
-    }
-}
-
-// helpers
-impl ConstraintParse {
-    /// How many lights this constraint *adds* when converting a box constraint
-    /// with lights==1 to a new effective constraint.
-    pub fn added_known_lights(&self) -> u8 {
-        if let ConstraintType::Box { .. } = self.r#type {
-            if let CheckType::Lights(1, _) = self.check {
-                return 1;
-            }
-        }
-        0
-    }
-
-    /// Whether this constraint actually restricts the solution set (not a no-op).
-    pub fn has_impact(&self) -> bool {
-        if self.result_unknown {
-            return false;
-        }
-        if let CheckType::Nothing | CheckType::Sold = &self.check {
-            return false;
-        }
-        true
-    }
-
-    pub fn is_box(&self) -> bool {
-        matches!(self.r#type, ConstraintType::Box { .. })
-    }
-}
-
-// getter functions
-impl ConstraintParse {
-    #[allow(dead_code)]
-    pub fn comment(&self) -> &str {
-        match &self.r#type {
-            ConstraintType::Night { comment, .. } => comment,
-            ConstraintType::Box { comment, .. } => comment,
-        }
-    }
-
-    pub fn type_str(&self) -> String {
-        match &self.r#type {
-            ConstraintType::Night { num, .. } => format!("MN#{}", num),
-            ConstraintType::Box { num, .. } => format!("MB#{}", num),
-        }
-    }
-
-    pub fn is_hidden(&self) -> bool {
-        self.hidden
     }
 }
 
@@ -417,31 +367,5 @@ mod tests {
             exclude_s.unwrap(),
             ("A".to_string(), vec!["c".to_string(), "d".to_string()])
         );
-    }
-
-    #[test]
-    fn convert_map_s_to_ids_works() {
-        let mut cp = ConstraintParse {
-            r#type: ConstraintType::Box {
-                num: dec![1.0],
-                comment: "".to_string(),
-                offer: None,
-            },
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            hidden: false,
-            no_exclude: false,
-            exclude_s: None,
-            result_unknown: false,
-            build_tree: false,
-            hide_ruleset_data: false,
-        };
-        cp.map_s.insert("A".to_string(), "B".to_string());
-        let lut_a = HashMap::from_iter(vec![("A".to_string(), 0)]);
-        let lut_b = HashMap::from_iter(vec![("B".to_string(), 1)]);
-
-        let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
-        assert_eq!(c_map.get(&0).cloned(), Some(1u8));
-        assert_eq!(c_map_s.get("A").unwrap(), "B");
     }
 }

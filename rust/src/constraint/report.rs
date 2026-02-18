@@ -3,14 +3,10 @@ use std::{fs::File, path::PathBuf};
 
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 
-use crate::{
-    constraint::{
-        eval_types::{EvalEvent, EvalMB, EvalMN},
-        CheckType, Constraint, ConstraintType,
-    },
-    matching_repr::bitset::Bitset,
-    MapS,
-};
+use crate::constraint::compare::{EvalEvent, EvalMB, EvalMN};
+use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::matching_repr::bitset::Bitset;
+use crate::MapS;
 
 impl Constraint {
     pub fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
@@ -189,35 +185,6 @@ impl Constraint {
         )
     }
 
-    pub fn get_stats(&self) -> Result<Option<EvalEvent>> {
-        if self.hidden {
-            return Ok(None);
-        }
-
-        #[allow(clippy::useless_format)]
-        let meta_b = format!("{}-{}", self.type_str(), self.comment());
-        match &self.r#type {
-            ConstraintType::Night { num, offer, .. } => Ok(Some(EvalEvent::MN(EvalMN {
-                offer: offer.is_some(),
-                num: *num,
-                lights_total: self.check.as_lights(),
-                lights_known_before: self.known_lights,
-                bits_gained: self.information.unwrap_or(f64::INFINITY),
-                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
-                comment: meta_b,
-            }))),
-            ConstraintType::Box { num, offer, .. } => Ok(Some(EvalEvent::MB(EvalMB {
-                offer: offer.is_some(),
-                num: *num,
-                lights_total: self.check.as_lights(),
-                lights_known_before: self.known_lights,
-                bits_gained: self.information.unwrap_or(f64::INFINITY),
-                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
-                comment: meta_b,
-            }))),
-        }
-    }
-
     // TODO: split up / output
     pub fn print_hdr(&self, past_constraints: &Vec<&Constraint>) -> Result<()> {
         match &self.r#type {
@@ -327,5 +294,130 @@ impl Constraint {
                 comment.split("--").collect::<Vec<_>>()[0]
             ),
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    #[test]
+    fn test_stat_row() {
+        let c = Constraint {
+            result_unknown: false,
+            exclude: None,
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            information: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Night {
+                num: dec![1.0],
+                comment: String::from(""),
+            },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+
+        let row = c.stat_row(
+            false,
+            &[
+                "A".to_string(),
+                "B".to_string(),
+                "C".to_string(),
+                "D".to_string(),
+                "E".to_string(),
+            ],
+            &Vec::default(),
+        );
+        let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
+        assert_eq!(
+            row,
+            vec!["MN#1.0", "2", "b*", "c*", "a*", "d*", "", "", "3.5", "4", ""]
+        );
+
+        let row = c.stat_row(
+            false,
+            &[
+                "A".to_string(),
+                "B".to_string(),
+                "C".to_string(),
+                "D".to_string(),
+                "E".to_string(),
+            ],
+            &vec![&c],
+        );
+        let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
+        assert_eq!(
+            row,
+            vec!["MN#1.0", "2", "b", "c", "a", "d", "", "", "3.5", "0", "0/MN#1.0"]
+        );
+    }
+
+    #[test]
+    fn test_stat_row_box_eq() {
+        let c = Constraint {
+            exclude: None,
+            map_s: HashMap::from([
+                ("A".to_string(), "b".to_string()),
+                ("B".to_string(), "c".to_string()),
+                ("C".to_string(), "a".to_string()),
+                ("D".to_string(), "d".to_string()),
+            ]),
+            check: CheckType::Eq,
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
+            eliminated: 100,
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            information: Some(3.5),
+            left_after: None,
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: String::from(""),
+                offer: None,
+            },
+            result_unknown: false,
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+
+        let row = c.stat_row(
+            false,
+            &[
+                "A".to_string(),
+                "B".to_string(),
+                "C".to_string(),
+                "D".to_string(),
+                "E".to_string(),
+            ],
+            &Vec::default(),
+        );
+        let row = row.iter().map(|x| x.content()).collect::<Vec<_>>();
+        assert_eq!(
+            row,
+            vec!["MB#1.0", "E", "b", "c", "a", "d", "", "", "3.5", "", ""]
+        );
     }
 }

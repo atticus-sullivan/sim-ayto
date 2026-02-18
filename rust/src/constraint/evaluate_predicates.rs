@@ -1,7 +1,5 @@
-use crate::{
-    constraint::{CheckType, Constraint, ConstraintType, Offer},
-    matching_repr::{bitset::Bitset, MaskedMatching},
-};
+use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
 impl Constraint {
     pub fn is_blackout(&self) -> bool {
@@ -13,6 +11,17 @@ impl Constraint {
         false
     }
 
+
+    pub fn is_mb(&self) -> bool {
+        matches!(self.r#type, ConstraintType::Box { .. })
+    }
+    pub fn is_mn(&self) -> bool {
+        matches!(self.r#type, ConstraintType::Night { .. })
+    }
+
+    pub fn is_lights(&self) -> bool {
+        matches!(self.r#check, CheckType::Lights { .. })
+    }
     pub fn is_sold(&self) -> bool {
         matches!(self.check, CheckType::Sold)
     }
@@ -220,41 +229,6 @@ mod tests {
             known_lights: 0,
         };
         assert!(c_offer.try_get_offer().is_some());
-    }
-
-    #[test]
-    fn get_stats_produces_expected_eval_events() {
-        let c = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::from([("A".to_string(), "a".to_string())]),
-            check: CheckType::Lights(1, BTreeMap::new()),
-            map: MaskedMatching::from_matching_ref(&[vec![0]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 1]; 1],
-            information: Some(2.0),
-            left_after: Some(1024),
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: dec![3.0],
-                comment: "".to_string(),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-
-        if let Ok(Some(EvalEvent::MB(ev))) = c.get_stats() {
-            assert_eq!(ev.num, dec![3.0]);
-            assert_eq!(ev.lights_total, Some(1u8));
-            assert!((ev.bits_left_after - (1024f64).log2()).abs() < 1e-9);
-            assert!((ev.bits_gained - 2.0).abs() < 1e-9);
-        } else {
-            panic!("expected MB event");
-        }
     }
 
     #[test]

@@ -11,7 +11,7 @@ use anyhow::Result;
 use serde::de::DeserializeOwned;
 use walkdir::WalkDir;
 
-use crate::constraint::eval_types::{EvalData, EvalEvent, SumCounts};
+use crate::constraint::compare::{EvalData, EvalEvent, SumCounts};
 use crate::game::Game;
 
 /// Compact comparison data for a ruleset / season used by the comparison pages.
