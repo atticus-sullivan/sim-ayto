@@ -56,7 +56,7 @@
 ## bin
 ### bin/ayto.rs
 DONE
-### bin/solver.rs
+### bin/solver/*
 DONE
 
 ## comparison
