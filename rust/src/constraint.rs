@@ -114,6 +114,7 @@ pub enum ConstraintType {
     Night {
         num: Decimal,
         comment: String,
+        offer: Option<Offer>,
     },
     Box {
         num: Decimal,
@@ -125,10 +126,11 @@ pub enum ConstraintType {
 impl Hash for ConstraintType {
     fn hash<H: Hasher>(&self, state: &mut H) {
         match self {
-            ConstraintType::Night { num, comment } => {
+            ConstraintType::Night { num, comment, offer } => {
                 0.hash(state); // A constant to distinguish this variant
                 num.hash(state);
                 comment.hash(state);
+                offer.hash(state)
             }
             ConstraintType::Box {
                 num,
@@ -357,6 +359,7 @@ mod tests {
             ConstraintType::Night {
                 num: dec![1.0],
                 comment: String::new(),
+                offer: None,
             },
             CheckType::Nothing,
             mm,

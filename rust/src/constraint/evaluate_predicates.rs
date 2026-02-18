@@ -36,9 +36,10 @@ impl Constraint {
     }
 
     pub fn try_get_offer(&self) -> Option<Offer> {
-        match &self.r#type {
-            ConstraintType::Night { offer, .. } => offer.clone(),
-            ConstraintType::Box { offer, .. } => offer.clone(),
+        if let ConstraintType::Box { offer, .. } = &self.r#type {
+            offer.clone()
+        } else {
+            None
         }
     }
 
@@ -55,14 +56,6 @@ impl Constraint {
             }
         }
         false
-    }
-
-    pub fn is_mb(&self) -> bool {
-        matches!(self.r#type, ConstraintType::Box { .. })
-    }
-
-    pub fn is_mn(&self) -> bool {
-        matches!(self.r#type, ConstraintType::Night { .. })
     }
 
     pub fn might_won(&self) -> bool {
@@ -85,9 +78,9 @@ impl Constraint {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::constraint::eval_types::{EvalEvent, EvalInitial, EvalMN};
+    use crate::constraint::compare::{EvalEvent, EvalInitial, EvalMN};
     use crate::matching_repr::MaskedMatching;
-    use crate::{constraint::eval_types::EvalMB, ruleset_data::dummy::DummyData};
+    use crate::{constraint::compare::EvalMB, ruleset_data::dummy::DummyData};
     use rust_decimal::dec;
     use std::collections::{BTreeMap, HashMap};
 
@@ -113,7 +106,7 @@ mod tests {
             lights_known_before: 0,
             bits_gained: 3.5,
             comment: "mn".to_string(),
-            offer: true,
+            offer: None,
         };
         let ev_mn = EvalEvent::MN(mn.clone());
 
