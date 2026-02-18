@@ -73,4 +73,12 @@ impl Constraint {
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
+
+    pub fn get_type(&self) -> ConstraintType {
+        self.r#type.clone()
+    }
+
+    pub fn get_check_type(&self) -> CheckType {
+        self.check.clone()
+    }
 }

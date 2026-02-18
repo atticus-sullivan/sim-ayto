@@ -1,10 +1,9 @@
 - [ ] licensing headers. Better: switch to "reuse" project
-- [ ] enhance heatmap (see https://github.com/plotly/plotly.rs/pull/385#issuecomment-3904858185)
-- [ ] regenerate the output once more and check everything
-  - [ ] check *.col.out
-  - [ ] check generated comparison plots/pages as well
-
 - [ ] re-create `build` branch (`.gitignore` changed)
+- [ ] split into different crates/binaries? (ree roughly the subcommands). Maybe this way the amount of full re-builds can be reduced (e.g. when just changing something regarding the comparisons)
+  - simulation
+  - comparison
+  - solver
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
@@ -56,7 +55,9 @@
 # Iterate over files manually
 ## bin
 ### bin/ayto.rs
+DONE
 ### bin/solver.rs
+DONE
 
 ## comparison
 ### comparison.rs
