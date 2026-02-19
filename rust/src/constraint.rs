@@ -24,8 +24,9 @@ pub(super) mod evaluate_predicates;
 pub(super) mod parse;
 pub(super) mod parse_utils;
 pub(super) mod report;
+pub(super) mod report_summary;
 pub(super) mod simulate;
-mod report_utils;
+mod report_predicates;
 
 use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
