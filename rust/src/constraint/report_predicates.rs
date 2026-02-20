@@ -1,6 +1,5 @@
 /// This module provides some simple predicates for the use of generating a report. They all decide
 /// whether some kind of information shall be reported/shown or not
-
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 
 // internal helper functions

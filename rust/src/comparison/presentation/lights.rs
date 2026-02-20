@@ -1,14 +1,13 @@
 /// This renders the plots which show information regarding the amount of lights over the course of
 /// time
-
 use plotly::common::Mode;
 
 use crate::comparison::plotly::heatmap::{build_heatmap_plot, EntryDatum};
-use crate::comparison::plotly::scatter::build_scatter_plot;
 use crate::comparison::plotly::layout::plotly_gen_layout;
+use crate::comparison::plotly::scatter::build_scatter_plot;
 
-use crate::comparison::theme::lut_theme;
 use crate::comparison::data::CmpData;
+use crate::comparison::theme::lut_theme;
 use crate::constraint::compare::EvalEvent;
 
 /// Build plots about "lights" (lighting related evaluation metrics).
@@ -118,54 +117,78 @@ pub fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, Strin
         ),
         (
             "HM #Lights MB".to_owned(),
-            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MB", "Lights", |cd| {
-                cd.eval_data
-                    .iter()
-                    .filter_map(|i| match i {
-                        EvalEvent::MB(e) => Some(EntryDatum {
-                            num: e.num,
-                            val: e.lights_total.map(|v| v as f64),
-                            hover: Some(e.comment.clone()),
-                        }),
-                        EvalEvent::MN(_) => None,
-                        EvalEvent::Initial(_) => None,
-                    })
-                    .collect()
-            }),
+            build_heatmap_plot(
+                cmp_data,
+                &layout,
+                &palette,
+                "Heatmap",
+                "#MB",
+                "Lights",
+                |cd| {
+                    cd.eval_data
+                        .iter()
+                        .filter_map(|i| match i {
+                            EvalEvent::MB(e) => Some(EntryDatum {
+                                num: e.num,
+                                val: e.lights_total.map(|v| v as f64),
+                                hover: Some(e.comment.clone()),
+                            }),
+                            EvalEvent::MN(_) => None,
+                            EvalEvent::Initial(_) => None,
+                        })
+                        .collect()
+                },
+            ),
         ),
         (
             "HM #Lights MN".to_owned(),
-            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MN", "Lights", |cd| {
-                cd.eval_data
-                    .iter()
-                    .filter_map(|i| match i {
-                        EvalEvent::MN(e) => Some(EntryDatum {
-                            num: e.num,
-                            val: e.lights_total.map(|v| v as f64),
-                            hover: Some(e.comment.clone()),
-                        }),
-                        EvalEvent::MB(_) => None,
-                        EvalEvent::Initial(_) => None,
-                    })
-                    .collect()
-            }),
+            build_heatmap_plot(
+                cmp_data,
+                &layout,
+                &palette,
+                "Heatmap",
+                "#MN",
+                "Lights",
+                |cd| {
+                    cd.eval_data
+                        .iter()
+                        .filter_map(|i| match i {
+                            EvalEvent::MN(e) => Some(EntryDatum {
+                                num: e.num,
+                                val: e.lights_total.map(|v| v as f64),
+                                hover: Some(e.comment.clone()),
+                            }),
+                            EvalEvent::MB(_) => None,
+                            EvalEvent::Initial(_) => None,
+                        })
+                        .collect()
+                },
+            ),
         ),
         (
             "HM #Lights-known MN".to_owned(),
-            build_heatmap_plot(cmp_data, &layout, &palette, "Heatmap", "#MN", "Lights", |cd| {
-                cd.eval_data
-                    .iter()
-                    .filter_map(|i| match i {
-                        EvalEvent::MN(e) => Some(EntryDatum {
-                            num: e.num,
-                            val: e.lights_total.map(|v| (v - e.lights_known_before) as f64),
-                            hover: Some(e.comment.clone()),
-                        }),
-                        EvalEvent::MB(_) => None,
-                        EvalEvent::Initial(_) => None,
-                    })
-                    .collect()
-            }),
+            build_heatmap_plot(
+                cmp_data,
+                &layout,
+                &palette,
+                "Heatmap",
+                "#MN",
+                "Lights",
+                |cd| {
+                    cd.eval_data
+                        .iter()
+                        .filter_map(|i| match i {
+                            EvalEvent::MN(e) => Some(EntryDatum {
+                                num: e.num,
+                                val: e.lights_total.map(|v| (v - e.lights_known_before) as f64),
+                                hover: Some(e.comment.clone()),
+                            }),
+                            EvalEvent::MB(_) => None,
+                            EvalEvent::Initial(_) => None,
+                        })
+                        .collect()
+                },
+            ),
         ),
     ]
 }

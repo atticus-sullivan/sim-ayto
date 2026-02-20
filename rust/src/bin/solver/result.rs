@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use ayto::constraint::compare::EvalEvent;
 
@@ -46,13 +46,7 @@ mod tests {
     fn new_sets_all_fields_correctly() {
         let stats = Vec::<EvalEvent>::new();
 
-        let result = SimulationResult::new(
-            42,
-            1337,
-            stats.clone(),
-            10,
-            250,
-        );
+        let result = SimulationResult::new(42, 1337, stats.clone(), 10, 250);
 
         assert_eq!(result.sim_id, 42);
         assert_eq!(result.seed, 1337);
@@ -67,13 +61,7 @@ mod tests {
 
     #[test]
     fn identifier_returns_sim_id() {
-        let result = SimulationResult::new(
-            7,
-            999,
-            vec![],
-            3,
-            100,
-        );
+        let result = SimulationResult::new(7, 999, vec![], 3, 100);
 
         assert_eq!(result.identifier(), 7);
     }
@@ -84,13 +72,7 @@ mod tests {
 
     #[test]
     fn serializes_to_json() {
-        let result = SimulationResult::new(
-            1,
-            2,
-            vec![],
-            3,
-            4,
-        );
+        let result = SimulationResult::new(1, 2, vec![], 3, 4);
 
         let json = serde_json::to_string(&result).expect("serialization failed");
 
@@ -107,13 +89,7 @@ mod tests {
 
     #[test]
     fn handles_zero_values() {
-        let result = SimulationResult::new(
-            0,
-            0,
-            vec![],
-            0,
-            0,
-        );
+        let result = SimulationResult::new(0, 0, vec![], 0, 0);
 
         assert_eq!(result.identifier(), 0);
         assert_eq!(result.iterations_count, 0);

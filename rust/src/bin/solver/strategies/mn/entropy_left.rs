@@ -44,7 +44,6 @@ impl MnOptimizer for EntropyLeftMnOptimizer {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -67,7 +66,7 @@ mod tests {
         let m3 = make_masked_matching(&[1, 0, 1]);
         let left_poss = vec![m1.clone(), m2.clone(), m3.clone()];
 
-        // Entropy calculations: 
+        // Entropy calculations:
         // For this small set, m2 has the highest entropy
         let chosen = optimizer.choose_mn(&left_poss, &mut rng);
         assert_eq!(chosen, m3);

@@ -1,11 +1,10 @@
+use std::collections::BTreeMap;
 /// This module is typically used to
 /// 1. deserialize into `ConstraintParse`
 /// 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
 ///
 /// Some helpers were soutsourced to parse_utils
-
 use std::hash::{Hash, Hasher};
-use std::collections::BTreeMap;
 
 use anyhow::{Context, Result};
 
@@ -424,20 +423,18 @@ mod tests {
             ("A".to_string(), vec!["c".to_string(), "d".to_string()])
         );
 
+        let lut_a = vec![("A".to_string(), 3usize)]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v))
+            .collect::<HashMap<_, _>>();
 
-        let lut_a = vec![
-            ("A".to_string(), 3usize),
-        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
-
-        let lut_b = vec![
-            ("b", 0usize),
-            ("c", 1usize),
-            ("d", 2usize),
-        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
+        let lut_b = vec![("b", 0usize), ("c", 1usize), ("d", 2usize)]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v))
+            .collect::<HashMap<_, _>>();
 
         let exclude = ConstraintParse::build_exclude_if_any(&exclude_s, &lut_a, &lut_b).unwrap();
 
-        assert_eq!(exclude.unwrap(), (3, Bitset::from_idxs(&[1,2])));
-
+        assert_eq!(exclude.unwrap(), (3, Bitset::from_idxs(&[1, 2])));
     }
 }

@@ -1,13 +1,12 @@
+mod data;
 /// This complete module contains the functionality to
 /// 1. collect stored data about seasons from disk
 /// 2. render them in plots (plotly) and tables (markdown using hextra/hugo additions)
 ///
 /// This module is the only one needed to the outside (`write_pages`). Everything is plugged together here.
-
 mod plotly;
 mod presentation;
 mod theme;
-mod data;
 
 use std::path::{Path, PathBuf};
 

@@ -72,13 +72,12 @@ fn execute_parallel_simulations<S: StrategyBundle>(
     drop(tx);
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rand::Rng;
     use std::fs;
     use std::sync::Arc;
-    use rand::Rng;
     use tempfile::tempdir;
 
     use ayto::matching_repr::MaskedMatching;
@@ -105,11 +104,7 @@ mod tests {
             self.initial_value()
         }
 
-        fn choose_mn(
-            &self,
-            left_poss: &[MaskedMatching],
-            _rng: &mut dyn Rng,
-        ) -> MaskedMatching {
+        fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> MaskedMatching {
             left_poss.first().cloned().unwrap()
         }
     }
@@ -172,12 +167,7 @@ mod tests {
 
         let strategy = Arc::new(TestStrategy);
 
-        let result = run_many_and_write(
-            3,
-            &file_path,
-            Some(42),
-            strategy,
-        );
+        let result = run_many_and_write(3, &file_path, Some(42), strategy);
 
         assert!(result.is_ok());
 
@@ -202,12 +192,7 @@ mod tests {
         // Invalid path (directory that cannot be created)
         let invalid_path = Path::new("/this/path/should/not/exist/output.json");
 
-        let result = run_many_and_write(
-            1,
-            invalid_path,
-            Some(1),
-            strategy,
-        );
+        let result = run_many_and_write(1, invalid_path, Some(1), strategy);
 
         assert!(result.is_err());
     }

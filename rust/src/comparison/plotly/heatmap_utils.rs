@@ -2,7 +2,6 @@
 /// native plotly heatmap features.
 /// Namely this is
 /// - "uneven boxsizes"
-
 use std::collections::{BTreeMap, HashMap};
 
 use rust_decimal::{dec, prelude::FromPrimitive, Decimal};
@@ -163,16 +162,18 @@ mod tests {
             ],
         };
         let d2 = Dummy {
-            entries: vec![EntryDatum {
-                num: dec![1],
-                val: Some(3.0),
-                hover: Some("c".to_string()),
-            },
-            EntryDatum {
-                num: dec![1.5],
-                val: Some(5.0),
-                hover: Some("x".to_string()),
-            }],
+            entries: vec![
+                EntryDatum {
+                    num: dec![1],
+                    val: Some(3.0),
+                    hover: Some("c".to_string()),
+                },
+                EntryDatum {
+                    num: dec![1.5],
+                    val: Some(5.0),
+                    hover: Some("x".to_string()),
+                },
+            ],
         };
 
         vec![
@@ -199,8 +200,7 @@ mod tests {
         let cmp_data = simple_sample_data();
 
         // entries_fn just clones the entries
-        let (_, layouts) =
-            generate_buckets_from_entries(&cmp_data, &|d: &Dummy| d.entries.clone());
+        let (_, layouts) = generate_buckets_from_entries(&cmp_data, &|d: &Dummy| d.entries.clone());
 
         // sanity check
         assert_eq!(layouts.len(), 2);
@@ -209,13 +209,19 @@ mod tests {
         let (texts, z) = build_z_from_entries(&cmp_data, &layouts, &|d: &Dummy| d.entries.clone());
 
         // z rows == number of seasons
-        assert_eq!(texts, vec![
-            vec!["a".to_string(), "b".to_string(), "b".to_string()],
-            vec!["".to_string(),  "c".to_string(), "x".to_string()],
-        ]);
-        assert_eq!(z, vec![
-            vec![Some(1.0), Some(2.0), Some(2.0)],
-            vec![None,      Some(3.0), Some(5.0)],
-        ]);
+        assert_eq!(
+            texts,
+            vec![
+                vec!["a".to_string(), "b".to_string(), "b".to_string()],
+                vec!["".to_string(), "c".to_string(), "x".to_string()],
+            ]
+        );
+        assert_eq!(
+            z,
+            vec![
+                vec![Some(1.0), Some(2.0), Some(2.0)],
+                vec![None, Some(3.0), Some(5.0)],
+            ]
+        );
     }
 }

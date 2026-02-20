@@ -1,6 +1,5 @@
 /// This module allows rendering an overview over the different rulesets used for the various
 /// seasons.
-
 use crate::comparison::data::CmpData;
 
 /// Render ruleset metadata as a Markdown table.

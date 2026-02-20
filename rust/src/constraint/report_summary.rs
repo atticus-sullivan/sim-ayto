@@ -1,6 +1,5 @@
 /// This module renders one row for a comfy_table table showing a summary of this constraint (type,
 /// map, information, etc)
-
 use core::fmt;
 
 use comfy_table::Cell;
@@ -21,31 +20,43 @@ pub(crate) struct SummaryRow {
 impl SummaryRow {
     pub(crate) fn render<F>(&self, style: F) -> Vec<Cell>
     where
-        F: Fn(Cell) -> Cell
+        F: Fn(Cell) -> Cell,
     {
         let mut ret = vec![];
         ret.push(Cell::new(self.label.clone()));
         ret.push(
-            self.light_status.1.style(Cell::new(self.light_status.0.to_string()))
+            self.light_status
+                .1
+                .style(Cell::new(self.light_status.0.to_string())),
         );
         ret.extend(
-            self.entries.iter().map(|x| x.1.style(Cell::new(x.0.to_string())))
+            self.entries
+                .iter()
+                .map(|x| x.1.style(Cell::new(x.0.to_string()))),
         );
 
         ret.push(Cell::new(""));
 
-        ret.push(Cell::new(self.info
-            .map(|x| format!("{:6.4}", x).trim_end_matches('0').trim_end_matches('.').to_owned())
-            .unwrap_or("".to_string())
+        ret.push(Cell::new(
+            self.info
+                .map(|x| {
+                    format!("{:6.4}", x)
+                        .trim_end_matches('0')
+                        .trim_end_matches('.')
+                        .to_owned()
+                })
+                .unwrap_or("".to_string()),
         ));
-        ret.push(Cell::new(self.new_count
-            .map(|x| x.to_string())
-            .unwrap_or("".to_string())
+        ret.push(Cell::new(
+            self.new_count
+                .map(|x| x.to_string())
+                .unwrap_or("".to_string()),
         ));
-        ret.push(Cell::new(self.min_dist
-            .clone()
-            .map(|x| format!("{}/{}", x.1, x.0))
-            .unwrap_or("".to_string())
+        ret.push(Cell::new(
+            self.min_dist
+                .clone()
+                .map(|x| format!("{}/{}", x.1, x.0))
+                .unwrap_or("".to_string()),
         ));
         // apply the style specified from the outside
         ret.into_iter().map(style).collect::<Vec<_>>()
@@ -54,7 +65,7 @@ impl SummaryRow {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum LightSemantic {
-    Match,    // green
+    Match,   // green
     NoMatch, // red
     NoGain,  // yellow
     Neutral,
@@ -123,7 +134,12 @@ impl fmt::Display for EntryCell {
 }
 
 impl Constraint {
-    pub(crate) fn summary_row_data(&self, transpose: bool, map_hor: &[String], past: &[&Constraint]) -> SummaryRow {
+    pub(crate) fn summary_row_data(
+        &self,
+        transpose: bool,
+        map_hor: &[String],
+        past: &[&Constraint],
+    ) -> SummaryRow {
         let map_s = if transpose {
             &self
                 .map_s
@@ -146,7 +162,9 @@ impl Constraint {
                 CheckType::Lights(lights, _) => {
                     let lights = *lights;
                     match self.r#type {
-                        ConstraintType::Night { .. } => (LightCell::Value(lights), LightSemantic::Neutral),
+                        ConstraintType::Night { .. } => {
+                            (LightCell::Value(lights), LightSemantic::Neutral)
+                        }
                         ConstraintType::Box { .. } => {
                             if self.is_match_found() {
                                 match_sem = Some(EntrySemantic::Match);
@@ -163,40 +181,42 @@ impl Constraint {
 
         let entries = map_hor
             .iter()
-            .map(|v1| map_s.get(v1).map(|v2| {
-                let (a,b) = if !transpose {
-                    (v1, v2)
-                } else {
-                    (v2, v1)
-                };
-                (
-                    EntryCell{
-                        value: v2.to_string(),
-                        is_new: past
-                            .iter()
-                            .any(|&c| c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b)),
-                        show_new: self.show_new(),
-                    },
-                    match_sem.unwrap_or(EntrySemantic::Unknown)
-                )
-            }).unwrap_or((EntryCell{
-                    value: "".to_string(),
-                    is_new: false,
-                    show_new: self.show_new(),
-                }, match_sem.unwrap_or(EntrySemantic::Unknown))))
-            .collect::<Vec<_>>()
-        ;
+            .map(|v1| {
+                map_s
+                    .get(v1)
+                    .map(|v2| {
+                        let (a, b) = if !transpose { (v1, v2) } else { (v2, v1) };
+                        (
+                            EntryCell {
+                                value: v2.to_string(),
+                                is_new: past.iter().any(|&c| {
+                                    c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b)
+                                }),
+                                show_new: self.show_new(),
+                            },
+                            match_sem.unwrap_or(EntrySemantic::Unknown),
+                        )
+                    })
+                    .unwrap_or((
+                        EntryCell {
+                            value: "".to_string(),
+                            is_new: false,
+                            show_new: self.show_new(),
+                        },
+                        match_sem.unwrap_or(EntrySemantic::Unknown),
+                    ))
+            })
+            .collect::<Vec<_>>();
 
         let info = match &self.check {
             CheckType::Eq | CheckType::Lights(..) => {
                 Some(self.information.unwrap_or(f64::INFINITY))
-            },
+            }
             CheckType::Nothing | CheckType::Sold => None,
         };
 
         let min_dist = if self.show_past_dist() {
-            past
-                .iter()
+            past.iter()
                 .filter(|&c| c.show_past_dist())
                 .map(|&c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX)))
                 .min_by_key(|i| i.1)
@@ -239,6 +259,7 @@ impl Constraint {
 }
 
 #[cfg(test)]
+#[allow(clippy::field_reassign_with_default)]
 mod tests {
     use std::collections::HashMap;
 
@@ -250,10 +271,17 @@ mod tests {
 
     #[test]
     fn summary_row_render_simple() {
-        let sr = SummaryRow{
+        let sr = SummaryRow {
             label: "label".to_string(),
             light_status: (LightCell::Value(5), LightSemantic::Neutral),
-            entries: vec![(EntryCell{value: "abc".to_string(), is_new: true, show_new: true}, EntrySemantic::Unknown)],
+            entries: vec![(
+                EntryCell {
+                    value: "abc".to_string(),
+                    is_new: true,
+                    show_new: true,
+                },
+                EntrySemantic::Unknown,
+            )],
             info: Some(1.0),
             new_count: Some(5),
             min_dist: Some(("MN1".to_string(), 5)),
@@ -271,67 +299,130 @@ mod tests {
 
     #[test]
     fn entrycell_display_simple() {
-        assert_eq!(EntryCell{
-            value: "abc".to_string(),
-            is_new: true,
-            show_new: true,
-        }.to_string(), "abc*");
+        assert_eq!(
+            EntryCell {
+                value: "abc".to_string(),
+                is_new: true,
+                show_new: true,
+            }
+            .to_string(),
+            "abc*"
+        );
 
-        assert_eq!(EntryCell{
-            value: "abc".to_string(),
-            is_new: false,
-            show_new: true,
-        }.to_string(), "abc");
+        assert_eq!(
+            EntryCell {
+                value: "abc".to_string(),
+                is_new: false,
+                show_new: true,
+            }
+            .to_string(),
+            "abc"
+        );
 
-        assert_eq!(EntryCell{
-            value: "abc".to_string(),
-            is_new: true,
-            show_new: false,
-        }.to_string(), "abc");
+        assert_eq!(
+            EntryCell {
+                value: "abc".to_string(),
+                is_new: true,
+                show_new: false,
+            }
+            .to_string(),
+            "abc"
+        );
 
-        assert_eq!(EntryCell{
-            value: "abc".to_string(),
-            is_new: false,
-            show_new: false,
-        }.to_string(), "abc");
+        assert_eq!(
+            EntryCell {
+                value: "abc".to_string(),
+                is_new: false,
+                show_new: false,
+            }
+            .to_string(),
+            "abc"
+        );
     }
 
     #[test]
     fn row_data_simple() {
         let mut c1 = Constraint::default();
         c1.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")].into_iter().map(|(i,j)| (i.to_string(),j.to_string())).collect::<HashMap<_,_>>();
-        c1.r#type = ConstraintType::Night { num: dec![2.5], comment: "abc".to_string(), offer: None };
+        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<HashMap<_, _>>();
+        c1.r#type = ConstraintType::Night {
+            num: dec![2.5],
+            comment: "abc".to_string(),
+            offer: None,
+        };
         c1.check = CheckType::Lights(3, Default::default());
         c1.result_unknown = false;
         c1.information = Some(1.5);
 
         let mut c2 = Constraint::default();
         c2.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
-        c2.map_s = vec![("a", "A"), ("b", "B")].into_iter().map(|(i,j)| (i.to_string(),j.to_string())).collect::<HashMap<_,_>>();
-        c2.r#type = ConstraintType::Night { num: dec![0.5], comment: "ihg".to_string(), offer: None };
+        c2.map_s = vec![("a", "A"), ("b", "B")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<HashMap<_, _>>();
+        c2.r#type = ConstraintType::Night {
+            num: dec![0.5],
+            comment: "ihg".to_string(),
+            offer: None,
+        };
         c2.check = CheckType::Eq;
         c2.result_unknown = true;
         c2.information = Some(1.5);
 
-
         let mut c3 = Constraint::default();
         c3.map = MaskedMatching::from_matching_ref(&[vec![], vec![1]]);
-        c3.map_s = vec![("b", "B")].into_iter().map(|(i,j)| (i.to_string(),j.to_string())).collect::<HashMap<_,_>>();
-        c3.r#type = ConstraintType::Box { num: dec![10], comment: "xyz".to_string(), offer: None };
+        c3.map_s = vec![("b", "B")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<HashMap<_, _>>();
+        c3.r#type = ConstraintType::Box {
+            num: dec![10],
+            comment: "xyz".to_string(),
+            offer: None,
+        };
         c3.check = CheckType::Lights(1, Default::default());
         c3.result_unknown = false;
         c3.information = None;
 
-
-        let sr = c1.summary_row_data(false, &["a", "b", "c"].iter().map(|i| i.to_string()).collect::<Vec<_>>(), &vec![&c2, &c3]);
-        let ref_sr = SummaryRow{
+        let sr = c1.summary_row_data(
+            false,
+            &["a", "b", "c"]
+                .iter()
+                .map(|i| i.to_string())
+                .collect::<Vec<_>>(),
+            &[&c2, &c3],
+        );
+        let ref_sr = SummaryRow {
             label: "MN#2.5".to_string(),
             light_status: (LightCell::Value(3), LightSemantic::Neutral),
             entries: vec![
-                (EntryCell{value: "A".to_string(), is_new: true, show_new: true}, EntrySemantic::Unknown),
-                (EntryCell{value: "B".to_string(), is_new: false, show_new: true}, EntrySemantic::Unknown),
-                (EntryCell{value: "C".to_string(), is_new: true, show_new: true}, EntrySemantic::Unknown),
+                (
+                    EntryCell {
+                        value: "A".to_string(),
+                        is_new: true,
+                        show_new: true,
+                    },
+                    EntrySemantic::Unknown,
+                ),
+                (
+                    EntryCell {
+                        value: "B".to_string(),
+                        is_new: false,
+                        show_new: true,
+                    },
+                    EntrySemantic::Unknown,
+                ),
+                (
+                    EntryCell {
+                        value: "C".to_string(),
+                        is_new: true,
+                        show_new: true,
+                    },
+                    EntrySemantic::Unknown,
+                ),
             ],
             info: Some(0.5),
             new_count: None,
@@ -344,14 +435,42 @@ mod tests {
         assert_eq!(sr.new_count, ref_sr.new_count);
         assert_eq!(sr.min_dist, ref_sr.min_dist);
 
-        let sr = c2.summary_row_data(false, &["a", "b", "c"].iter().map(|i| i.to_string()).collect::<Vec<_>>(), &vec![&c1, &c3]);
-        let ref_sr = SummaryRow{
+        let sr = c2.summary_row_data(
+            false,
+            &["a", "b", "c"]
+                .iter()
+                .map(|i| i.to_string())
+                .collect::<Vec<_>>(),
+            &[&c1, &c3],
+        );
+        let ref_sr = SummaryRow {
             label: "MN#2.5".to_string(),
             light_status: (LightCell::Equal, LightSemantic::Neutral),
             entries: vec![
-                (EntryCell{value: "A".to_string(), is_new: true, show_new: false}, EntrySemantic::Unknown),
-                (EntryCell{value: "B".to_string(), is_new: true, show_new: false}, EntrySemantic::Unknown),
-                (EntryCell{value: "".to_string(), is_new: false, show_new: false}, EntrySemantic::Unknown),
+                (
+                    EntryCell {
+                        value: "A".to_string(),
+                        is_new: true,
+                        show_new: false,
+                    },
+                    EntrySemantic::Unknown,
+                ),
+                (
+                    EntryCell {
+                        value: "B".to_string(),
+                        is_new: true,
+                        show_new: false,
+                    },
+                    EntrySemantic::Unknown,
+                ),
+                (
+                    EntryCell {
+                        value: "".to_string(),
+                        is_new: false,
+                        show_new: false,
+                    },
+                    EntrySemantic::Unknown,
+                ),
             ],
             info: None,
             new_count: None,
@@ -364,13 +483,34 @@ mod tests {
         assert_eq!(sr.new_count, ref_sr.new_count);
         assert_eq!(sr.min_dist, ref_sr.min_dist);
 
-        let ref_sr = SummaryRow{
+        let ref_sr = SummaryRow {
             label: "MB#10".to_string(),
             light_status: (LightCell::Value(1), LightSemantic::Match),
             entries: vec![
-                (EntryCell{value: "".to_string(), is_new: true, show_new: false}, EntrySemantic::Unknown),
-                (EntryCell{value: "B".to_string(), is_new: true, show_new: false}, EntrySemantic::Unknown),
-                (EntryCell{value: "".to_string(), is_new: false, show_new: false}, EntrySemantic::Unknown),
+                (
+                    EntryCell {
+                        value: "".to_string(),
+                        is_new: true,
+                        show_new: false,
+                    },
+                    EntrySemantic::Unknown,
+                ),
+                (
+                    EntryCell {
+                        value: "B".to_string(),
+                        is_new: true,
+                        show_new: false,
+                    },
+                    EntrySemantic::Unknown,
+                ),
+                (
+                    EntryCell {
+                        value: "".to_string(),
+                        is_new: false,
+                        show_new: false,
+                    },
+                    EntrySemantic::Unknown,
+                ),
             ],
             info: Some(0.5),
             new_count: None,
@@ -388,18 +528,39 @@ mod tests {
     fn new_matches_simple() {
         let mut c1 = Constraint::default();
         c1.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")].into_iter().map(|(i,j)| (i.to_string(),j.to_string())).collect::<HashMap<_,_>>();
-        c1.r#type = ConstraintType::Night { num: dec![2.5], comment: "abc".to_string(), offer: None };
+        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<HashMap<_, _>>();
+        c1.r#type = ConstraintType::Night {
+            num: dec![2.5],
+            comment: "abc".to_string(),
+            offer: None,
+        };
 
         let mut c2 = Constraint::default();
         c2.map = MaskedMatching::from_matching_ref(&[vec![1], vec![0], vec![2]]);
-        c2.map_s = vec![("a", "B"), ("b", "A"), ("c", "C")].into_iter().map(|(i,j)| (i.to_string(),j.to_string())).collect::<HashMap<_,_>>();
-        c2.r#type = ConstraintType::Night { num: dec![0.5], comment: "xyz".to_string(), offer: None };
+        c2.map_s = vec![("a", "B"), ("b", "A"), ("c", "C")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<HashMap<_, _>>();
+        c2.r#type = ConstraintType::Night {
+            num: dec![0.5],
+            comment: "xyz".to_string(),
+            offer: None,
+        };
 
         let mut c3 = Constraint::default();
         c3.map = MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]);
-        c3.map_s = vec![("a", "C"), ("b", "B"), ("c", "A")].into_iter().map(|(i,j)| (i.to_string(),j.to_string())).collect::<HashMap<_,_>>();
-        c3.r#type = ConstraintType::Night { num: dec![10.5], comment: "jkl".to_string(), offer: None };
+        c3.map_s = vec![("a", "C"), ("b", "B"), ("c", "A")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<HashMap<_, _>>();
+        c3.r#type = ConstraintType::Night {
+            num: dec![10.5],
+            comment: "jkl".to_string(),
+            offer: None,
+        };
 
         let n = c1.new_matches(&[&c2, &c2]);
         assert_eq!(n, Some(1));

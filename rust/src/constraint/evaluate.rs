@@ -2,8 +2,10 @@
 ///
 /// Note: There is also evaluate_predicates which contains functions serving as predicates during
 /// the evaluation.
-
-use crate::{constraint::{Constraint, ConstraintType, Offer}, Rem};
+use crate::{
+    constraint::{Constraint, ConstraintType, Offer},
+    Rem,
+};
 
 use anyhow::{bail, ensure, Result};
 
@@ -97,6 +99,7 @@ impl Constraint {
 }
 
 #[cfg(test)]
+#[allow(clippy::field_reassign_with_default)]
 mod tests {
     use super::*;
 
@@ -104,37 +107,6 @@ mod tests {
 
     use crate::constraint::CheckType;
     use crate::matching_repr::MaskedMatching;
-
-    // TODO: remove
-    // fn constraint_def(exclude: Option<(u8, Bitset)>, lights: u8) -> Constraint {
-    //     Constraint {
-    //         result_unknown: false,
-    //         exclude,
-    //         map_s: HashMap::new(),
-    //         check: CheckType::Lights(lights, BTreeMap::new()),
-    //         map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
-    //         eliminated: 0,
-    //         eliminated_tab: vec![
-    //             vec![0, 0, 0, 0, 0],
-    //             vec![0, 0, 0, 0, 0],
-    //             vec![0, 0, 0, 0, 0],
-    //             vec![0, 0, 0, 0, 0],
-    //         ],
-    //         information: None,
-    //         left_after: None,
-    //         hidden: false,
-    //         r#type: ConstraintType::Night {
-    //             num: dec![1.0],
-    //             comment: String::from(""),
-    //             offer: None,
-    //         },
-    //         build_tree: false,
-    //         left_poss: vec![],
-    //         hide_ruleset_data: false,
-    //         ruleset_data: Box::new(DummyData::default()),
-    //         known_lights: 0,
-    //     }
-    // }
 
     #[test]
     #[allow(clippy::identity_op)]
@@ -221,25 +193,29 @@ mod tests {
 
         // only one possibility left => definitely solvable
         let mut c = Constraint::default();
-        c.left_poss = vec![MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]])];
+        c.left_poss = vec![MaskedMatching::from_matching_ref(&[
+            vec![0],
+            vec![1],
+            vec![2],
+        ])];
         assert!(c.is_solvable_after().unwrap().unwrap());
 
         // multiple total solutions left, but there is one unambiguous partial working solution which applies to
         // all solutions left
         let mut c = Constraint::default();
         c.left_poss = vec![
-            MaskedMatching::from_matching_ref(&[vec![0],    vec![1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
             MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0],    vec![1], vec![2, 3]]),
+            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
         ];
         assert!(c.is_solvable_after().unwrap().unwrap());
 
         // multiple total solutions left, also not one unambiguous partial solution existing
         let mut c = Constraint::default();
         c.left_poss = vec![
-            MaskedMatching::from_matching_ref(&[vec![0],    vec![1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
             MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![3],    vec![1], vec![2, 0]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![1], vec![2, 0]]),
         ];
         assert!(!c.is_solvable_after().unwrap().unwrap());
     }

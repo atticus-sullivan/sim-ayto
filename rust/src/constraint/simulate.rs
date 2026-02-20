@@ -1,7 +1,6 @@
 /// This module provides the functionality related to the constraint which is needed during the
 /// simulation. In the process statistics are stored/gathered, but the evaluation is the job of
 /// another module(s).
-
 use anyhow::Result;
 
 use crate::constraint::{CheckType, Constraint};
@@ -81,11 +80,8 @@ impl Constraint {
 }
 
 #[cfg(test)]
+#[allow(clippy::field_reassign_with_default)]
 mod tests {
-    use rust_decimal::dec;
-
-    use crate::{constraint::ConstraintType, ruleset_data::{dummy::DummyData, RuleSetData}};
-
     use super::*;
 
     #[test]
@@ -99,10 +95,22 @@ mod tests {
         c.check = CheckType::Lights(3, Default::default());
 
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (f, m) in &ms {
@@ -110,8 +118,10 @@ mod tests {
             assert_eq!(x, *f);
             assert_eq!(c.left_poss.len(), c.left_after.unwrap() as usize);
         }
-        assert_eq!(c.left_poss, ms[0..2].into_iter().map(|(_, m)| m.clone()).collect::<Vec<_>>());
-
+        assert_eq!(
+            c.left_poss,
+            ms[0..2].iter().map(|(_, m)| m.clone()).collect::<Vec<_>>()
+        );
 
         // shouldn't collect
         let mut c = Constraint::default();
@@ -122,10 +132,22 @@ mod tests {
         c.check = CheckType::Lights(3, Default::default());
 
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (f, m) in &ms {
@@ -134,7 +156,6 @@ mod tests {
             assert!(c.left_after.is_some());
             assert_eq!(c.left_poss.len(), 0);
         }
-
 
         // shouldn't collect
         let mut c = Constraint::default();
@@ -145,10 +166,22 @@ mod tests {
         c.check = CheckType::Lights(3, Default::default());
 
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (f, m) in &ms {
@@ -157,7 +190,6 @@ mod tests {
             assert!(c.left_after.is_some());
             assert_eq!(c.left_poss.len(), 0);
         }
-
 
         // should collect + everything fits as result is unkown
         let mut c = Constraint::default();
@@ -168,10 +200,22 @@ mod tests {
         c.check = CheckType::Lights(3, Default::default());
 
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (_f, m) in &ms {
@@ -179,7 +223,10 @@ mod tests {
             assert!(x);
             assert_eq!(c.left_poss.len(), c.left_after.unwrap() as usize);
         }
-        assert_eq!(c.left_poss, ms[0..].into_iter().map(|(_, m)| m.clone()).collect::<Vec<_>>());
+        assert_eq!(
+            c.left_poss,
+            ms[0..].iter().map(|(_, m)| m.clone()).collect::<Vec<_>>()
+        );
     }
 
     #[test]
@@ -187,24 +234,34 @@ mod tests {
         let mut c = Constraint::default();
         c.eliminated_tab = vec![vec![0; 4]; 3];
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (_f, m) in &ms {
             let old = c.eliminated;
             c.eliminate(m);
-            assert_eq!(c.eliminated, old+1);
+            assert_eq!(c.eliminated, old + 1);
         }
         assert_eq!(c.eliminated, ms.len() as u128);
-        assert_eq!(c.eliminated_tab, vec![
-            vec![3, 1, 0, 1],
-            vec![1, 3, 0, 2],
-            vec![0, 0, 4, 1],
-        ]);
-
+        assert_eq!(
+            c.eliminated_tab,
+            vec![vec![3, 1, 0, 1], vec![1, 3, 0, 2], vec![0, 0, 4, 1],]
+        );
     }
 
     #[test]
@@ -212,10 +269,22 @@ mod tests {
         let mut c = Constraint::default();
         c.check = CheckType::Nothing;
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
         assert!(!ms.into_iter().any(|(_f, m)| c.fits(&m)));
     }
@@ -225,10 +294,22 @@ mod tests {
         let mut c = Constraint::default();
         c.check = CheckType::Sold;
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
         assert!(!ms.into_iter().any(|(_f, m)| c.fits(&m)));
     }
@@ -239,10 +320,22 @@ mod tests {
         c.check = CheckType::Lights(3, Default::default());
         c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (f, m) in &ms {
@@ -258,10 +351,22 @@ mod tests {
         // 1 must match with ONLY 1 => exclude matching with 0, 2 or 3
         c.exclude = Some((1, Bitset::from_idxs(&[0, 2, 3])));
         let ms = vec![
-            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
-            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
-            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1, 3], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
         ];
 
         for (f, m) in &ms {

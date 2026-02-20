@@ -90,8 +90,8 @@ pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterStat
 mod tests {
     use super::*;
     use ayto::matching_repr::bitset::Bitset;
-    use rand::SeedableRng;
     use rand::rngs::StdRng;
+    use rand::SeedableRng;
 
     // ------------------------------------------------------------
     // generate_solution
@@ -141,12 +141,7 @@ mod tests {
         // Matching of length 1 triggers Box constraint
         let matching = MaskedMatching::from(&[0u8][..]);
 
-        let constraint = build_initial_constraint(
-            matching,
-            1,
-            &ruleset,
-            0,
-        ).unwrap();
+        let constraint = build_initial_constraint(matching, 1, &ruleset, 0).unwrap();
 
         assert!(constraint.is_mb());
     }
@@ -155,16 +150,10 @@ mod tests {
     fn build_initial_constraint_night_if_len_gt_one() {
         let ruleset = RuleSet::Eq;
 
-        let matching = MaskedMatching::from(
-            &vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]
-        );
+        let matching =
+            MaskedMatching::from(&vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
-        let constraint = build_initial_constraint(
-            matching,
-            2,
-            &ruleset,
-            0,
-        ).unwrap();
+        let constraint = build_initial_constraint(matching, 2, &ruleset, 0).unwrap();
 
         assert!(constraint.is_mb());
     }
@@ -172,16 +161,9 @@ mod tests {
     #[test]
     fn build_initial_constraint_sets_lights_correctly() {
         let ruleset = RuleSet::Eq;
-        let matching = MaskedMatching::from(
-            vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]
-        );
+        let matching = MaskedMatching::from(vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
-        let constraint = build_initial_constraint(
-            matching,
-            3,
-            &ruleset,
-            0,
-        ).unwrap();
+        let constraint = build_initial_constraint(matching, 3, &ruleset, 0).unwrap();
 
         assert_eq!(constraint.check.as_lights(), Some(3));
     }
@@ -194,16 +176,9 @@ mod tests {
     fn create_iteration_state_initializes_properly() {
         let ruleset = RuleSet::Eq;
 
-        let matching = MaskedMatching::from(
-            vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]
-        );
+        let matching = MaskedMatching::from(vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
-        let constraint = build_initial_constraint(
-            matching,
-            0,
-            &ruleset,
-            0,
-        ).unwrap();
+        let constraint = build_initial_constraint(matching, 0, &ruleset, 0).unwrap();
 
         let iter_state = create_iteration_state(&constraint);
 

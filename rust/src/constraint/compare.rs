@@ -1,11 +1,10 @@
+use anyhow::{Context, Result};
 /// This module contains getters / evaluations which is used to pre-process the gathered data for a
 /// comparison with other simulations.
 /// The root is `EvalData` (which is at some point serialized/stored so the comparison can take
 /// place later)
-
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
-use anyhow::{Context, Result};
 
 use crate::constraint::{Constraint, ConstraintType};
 
@@ -303,7 +302,9 @@ impl Constraint {
 mod tests {
     use std::collections::{BTreeMap, HashMap};
 
-    use crate::{constraint::CheckType, matching_repr::MaskedMatching, ruleset_data::dummy::DummyData};
+    use crate::{
+        constraint::CheckType, matching_repr::MaskedMatching, ruleset_data::dummy::DummyData,
+    };
 
     use super::*;
 
@@ -341,7 +342,6 @@ mod tests {
             panic!("expected MB event");
         }
     }
-
 
     #[test]
     fn sumcounts_add_simple() {
@@ -392,7 +392,7 @@ mod tests {
         assert_eq!(a.blackouts, 3);
         assert_eq!(a.matches_found, 1);
         assert_eq!(a.offers_mn.sold_cnt, 4);
-        assert_eq!(a.offers_mb.sold_but_match_active, true);
+        assert!(a.offers_mb.sold_but_match_active);
     }
 
     #[test]
@@ -448,24 +448,59 @@ mod tests {
         assert_eq!(ev_mn.new_lights(|_| true, |_| false, |_| false), Some(2));
 
         // lights_known_before: present for MB/MN; Initial -> None
-        assert_eq!(ev_mb.lights_known_before(|_| false, |_| true, |_| false), Some(1));
-        assert_eq!(ev_mn.lights_known_before(|_| true, |_| false, |_| false), Some(0));
-        assert_eq!(ev_ini.lights_known_before(|_| false, |_| false, |_| true), None);
+        assert_eq!(
+            ev_mb.lights_known_before(|_| false, |_| true, |_| false),
+            Some(1)
+        );
+        assert_eq!(
+            ev_mn.lights_known_before(|_| true, |_| false, |_| false),
+            Some(0)
+        );
+        assert_eq!(
+            ev_ini.lights_known_before(|_| false, |_| false, |_| true),
+            None
+        );
 
         // num_unified: num but scaled so it climbs monotonically
-        assert_eq!(ev_mb.num_unified(|_| false, |_| true, |_| false), Some(dec![3.0]));
-        assert_eq!(ev_mn.num_unified(|_| true, |_| false, |_| false), Some(dec![8.0]));
-        assert_eq!(ev_ini.num_unified(|_| false, |_| false, |_| true), Some(dec![0.0]));
+        assert_eq!(
+            ev_mb.num_unified(|_| false, |_| true, |_| false),
+            Some(dec![3.0])
+        );
+        assert_eq!(
+            ev_mn.num_unified(|_| true, |_| false, |_| false),
+            Some(dec![8.0])
+        );
+        assert_eq!(
+            ev_ini.num_unified(|_| false, |_| false, |_| true),
+            Some(dec![0.0])
+        );
 
         // bits_left_after: present for MB/MN; Initial -> None
-        assert_eq!(ev_mb.bits_left_after(|_| false, |_| true, |_| false), Some(8.0));
-        assert_eq!(ev_mn.bits_left_after(|_| true, |_| false, |_| false), Some(16.0));
-        assert_eq!(ev_ini.bits_left_after(|_| false, |_| false, |_| true), Some(32.0));
+        assert_eq!(
+            ev_mb.bits_left_after(|_| false, |_| true, |_| false),
+            Some(8.0)
+        );
+        assert_eq!(
+            ev_mn.bits_left_after(|_| true, |_| false, |_| false),
+            Some(16.0)
+        );
+        assert_eq!(
+            ev_ini.bits_left_after(|_| false, |_| false, |_| true),
+            Some(32.0)
+        );
 
         // comment: present for MB/MN; Initial -> None
-        assert_eq!(ev_mb.comment(|_| false, |_| true, |_| false), Some("mb".to_string()));
-        assert_eq!(ev_mn.comment(|_| true, |_| false, |_| false), Some("mn".to_string()));
-        assert_eq!(ev_ini.comment(|_| false, |_| false, |_| true), Some("init".to_string()));
+        assert_eq!(
+            ev_mb.comment(|_| false, |_| true, |_| false),
+            Some("mb".to_string())
+        );
+        assert_eq!(
+            ev_mn.comment(|_| true, |_| false, |_| false),
+            Some("mn".to_string())
+        );
+        assert_eq!(
+            ev_ini.comment(|_| false, |_| false, |_| true),
+            Some("init".to_string())
+        );
     }
-
 }

@@ -90,7 +90,6 @@ pub(crate) fn writer_loop(
     Ok(())
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -111,8 +110,16 @@ mod tests {
         let (tx, handle) = spawn_writer_thread(2, &file_path).unwrap();
 
         // Send Started messages
-        tx.send(WriterMsg::Started { sim_id: 1, start_ms: 0 }).unwrap();
-        tx.send(WriterMsg::Started { sim_id: 2, start_ms: 10 }).unwrap();
+        tx.send(WriterMsg::Started {
+            sim_id: 1,
+            start_ms: 0,
+        })
+        .unwrap();
+        tx.send(WriterMsg::Started {
+            sim_id: 2,
+            start_ms: 10,
+        })
+        .unwrap();
 
         // Send Finished messages
         tx.send(WriterMsg::Finished(dummy_sim_result(1))).unwrap();
@@ -143,7 +150,8 @@ mod tests {
         let (tx, handle) = spawn_writer_thread(1, &file_path).unwrap();
 
         // Send Failed message
-        tx.send(WriterMsg::Failed(1, "sim failed".to_string())).unwrap();
+        tx.send(WriterMsg::Failed(1, "sim failed".to_string()))
+            .unwrap();
 
         drop(tx);
         let result = handle.join().unwrap();
@@ -161,8 +169,13 @@ mod tests {
 
         let (tx, handle) = spawn_writer_thread(3, &file_path).unwrap();
 
-        tx.send(WriterMsg::Started { sim_id: 0, start_ms: 0 }).unwrap();
-        tx.send(WriterMsg::Failed(0, "failure 0".to_string())).unwrap();
+        tx.send(WriterMsg::Started {
+            sim_id: 0,
+            start_ms: 0,
+        })
+        .unwrap();
+        tx.send(WriterMsg::Failed(0, "failure 0".to_string()))
+            .unwrap();
         tx.send(WriterMsg::Finished(dummy_sim_result(1))).unwrap();
 
         drop(tx);

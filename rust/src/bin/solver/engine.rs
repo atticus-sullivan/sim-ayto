@@ -251,11 +251,7 @@ mod tests {
             self.initial_value()
         }
 
-        fn choose_mn(
-            &self,
-            left_poss: &[MaskedMatching],
-            _rng: &mut dyn Rng,
-        ) -> MaskedMatching {
+        fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> MaskedMatching {
             left_poss.first().cloned().expect("no possibilities left")
         }
     }

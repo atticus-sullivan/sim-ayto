@@ -1,12 +1,11 @@
 /// This renders the plots which show information regarding the amount of information/uncertainty
 /// left or the amount of information gained over the course of time
-
 use plotly::common::Mode;
 
+use crate::comparison::data::CmpData;
 use crate::comparison::plotly::layout::plotly_gen_layout;
 use crate::comparison::plotly::scatter::build_scatter_plot;
 use crate::comparison::theme::lut_theme;
-use crate::comparison::data::CmpData;
 
 /// Build the set of plots (scatter/heatmap) regarding information theory (knowledge (change) in bits) for the site.
 ///
