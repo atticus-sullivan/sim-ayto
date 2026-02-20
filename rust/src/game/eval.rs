@@ -158,7 +158,7 @@ impl Game {
                             &self.lut_b,
                             rem.1,
                         )?;
-                        md_tables.push((c.md_title(), tab_idx, tree, true));
+                        md_tables.push((c.md_heading(), tab_idx, tree, true));
                         tab_idx += 1;
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
@@ -171,7 +171,7 @@ impl Game {
                             &self.lut_b,
                             rem.1,
                         )?;
-                        md_tables.push((c.md_title(), tab_idx, tree, true));
+                        md_tables.push((c.md_heading(), tab_idx, tree, true));
                         tab_idx += 1;
                     }
                 }
