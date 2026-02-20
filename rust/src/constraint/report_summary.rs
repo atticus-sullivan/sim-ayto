@@ -189,7 +189,7 @@ impl Constraint {
                         (
                             EntryCell {
                                 value: v2.to_string(),
-                                is_new: past.iter().any(|&c| {
+                                is_new: !past.iter().any(|&c| {
                                     c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b)
                                 }),
                                 show_new: self.show_new(),
@@ -208,12 +208,15 @@ impl Constraint {
             })
             .collect::<Vec<_>>();
 
-        let info = match &self.check {
+        let info = if self.result_unknown {
+            None
+        } else{
+            match &self.check {
             CheckType::Eq | CheckType::Lights(..) => {
                 Some(self.information.unwrap_or(f64::INFINITY))
             }
             CheckType::Nothing | CheckType::Sold => None,
-        };
+        }};
 
         let min_dist = if self.show_past_dist() {
             past.iter()
@@ -235,25 +238,29 @@ impl Constraint {
     }
 
     fn new_matches(&self, past: &[&Constraint]) -> Option<usize> {
-        if let ConstraintType::Night { .. } = self.r#type {
-            let cnt = self
-                .map
-                .iter()
-                .enumerate()
-                .filter(|&(k, v)| {
-                    !v.is_empty()
+        if self.result_unknown {
+            None
+        } else {
+            if let ConstraintType::Night { .. } = self.r#type {
+                let cnt = self
+                    .map
+                    .iter()
+                    .enumerate()
+                    .filter(|&(k, v)| {
+                        !v.is_empty()
                         && !past.iter().any(|&c| {
                             c.adds_new()
-                                && c.map
-                                    .slot_mask(k)
-                                    .unwrap_or(&Bitset::empty())
-                                    .contains_any(&v)
+                            && c.map
+                                .slot_mask(k)
+                                .unwrap_or(&Bitset::empty())
+                                .contains_any(&v)
                         })
-                })
-                .count();
-            Some(cnt)
-        } else {
-            None
+                    })
+                    .count();
+                Some(cnt)
+            } else {
+                None
+            }
         }
     }
 }
@@ -356,6 +363,7 @@ mod tests {
         c1.check = CheckType::Lights(3, Default::default());
         c1.result_unknown = false;
         c1.information = Some(1.5);
+        assert!(c1.adds_new());
 
         let mut c2 = Constraint::default();
         c2.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
@@ -371,6 +379,7 @@ mod tests {
         c2.check = CheckType::Eq;
         c2.result_unknown = true;
         c2.information = Some(1.5);
+        assert!(!c2.adds_new());
 
         let mut c3 = Constraint::default();
         c3.map = MaskedMatching::from_matching_ref(&[vec![], vec![1]]);
@@ -386,6 +395,7 @@ mod tests {
         c3.check = CheckType::Lights(1, Default::default());
         c3.result_unknown = false;
         c3.information = None;
+        assert!(c3.adds_new());
 
         let sr = c1.summary_row_data(
             false,
@@ -425,7 +435,7 @@ mod tests {
                 ),
             ],
             info: Some(0.5),
-            new_count: None,
+            new_count: Some(2),
             min_dist: None,
         };
         assert_eq!(sr.label, ref_sr.label);
@@ -444,13 +454,13 @@ mod tests {
             &[&c1, &c3],
         );
         let ref_sr = SummaryRow {
-            label: "MN#2.5".to_string(),
-            light_status: (LightCell::Equal, LightSemantic::Neutral),
+            label: "MN#0.5".to_string(),
+            light_status: (LightCell::Unknown, LightSemantic::Neutral),
             entries: vec![
                 (
                     EntryCell {
                         value: "A".to_string(),
-                        is_new: true,
+                        is_new: false,
                         show_new: false,
                     },
                     EntrySemantic::Unknown,
@@ -458,7 +468,7 @@ mod tests {
                 (
                     EntryCell {
                         value: "B".to_string(),
-                        is_new: true,
+                        is_new: false,
                         show_new: false,
                     },
                     EntrySemantic::Unknown,
@@ -483,6 +493,14 @@ mod tests {
         assert_eq!(sr.new_count, ref_sr.new_count);
         assert_eq!(sr.min_dist, ref_sr.min_dist);
 
+        let sr = c3.summary_row_data(
+            false,
+            &["a", "b", "c"]
+                .iter()
+                .map(|i| i.to_string())
+                .collect::<Vec<_>>(),
+            &[&c1, &c2],
+        );
         let ref_sr = SummaryRow {
             label: "MB#10".to_string(),
             light_status: (LightCell::Value(1), LightSemantic::Match),
@@ -490,18 +508,18 @@ mod tests {
                 (
                     EntryCell {
                         value: "".to_string(),
-                        is_new: true,
+                        is_new: false,
                         show_new: false,
                     },
-                    EntrySemantic::Unknown,
+                    EntrySemantic::Match,
                 ),
                 (
                     EntryCell {
                         value: "B".to_string(),
-                        is_new: true,
+                        is_new: false,
                         show_new: false,
                     },
-                    EntrySemantic::Unknown,
+                    EntrySemantic::Match,
                 ),
                 (
                     EntryCell {
@@ -509,7 +527,7 @@ mod tests {
                         is_new: false,
                         show_new: false,
                     },
-                    EntrySemantic::Unknown,
+                    EntrySemantic::Match,
                 ),
             ],
             info: Some(0.5),
@@ -563,6 +581,6 @@ mod tests {
         };
 
         let n = c1.new_matches(&[&c2, &c2]);
-        assert_eq!(n, Some(1));
+        assert_eq!(n, Some(2));
     }
 }

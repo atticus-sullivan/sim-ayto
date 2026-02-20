@@ -23,7 +23,7 @@ impl fmt::Display for CheckTypeRender<'_> {
             CheckType::Lights(l, _) => {
                 // information theory
                 if let Some(is) = &self.i {
-                    write!(
+                    writeln!(
                         f,
                         "-> I[l]/bits: {{{}}}",
                         is.iter()
@@ -71,12 +71,10 @@ impl fmt::Display for MapSRender<'_, '_> {
                 rows[i].0 = k;
                 rows[i].1.add_cell(format!("{}x {}", cnt, k).into());
                 rows[i].1.add_cell(v.into());
-                // println!("{}x {} -> {}", cnt, k, v);
             } else {
                 rows[i].0 = k;
                 rows[i].1.add_cell(k.into());
                 rows[i].1.add_cell(v.into());
-                // println!("{} -> {}", k, v);
             }
         }
         rows.sort_by_key(|i| i.0);
@@ -164,11 +162,11 @@ mod tests {
         let ctr = CheckTypeRender {
             check: &CheckType::Lights(3, Default::default()),
             i: Some(vec![(0, 1.0)]),
-            e: Some(0.5),
+            e: Some(-0.5),
         };
         assert_eq!(
             ctr.to_string(),
-            "-> I[l]/bits: {0: 1.00}\n-> E[I]/bits: 0.50 = H\n3 Lights "
+            "-> I[l]/bits: {0: 1.00}\n-> E[I]/bits: 0.50 = H\n3 lights "
         );
 
         let ctr = CheckTypeRender {
@@ -176,21 +174,21 @@ mod tests {
             i: Some(vec![(0, 1.0)]),
             e: None,
         };
-        assert_eq!(ctr.to_string(), "-> I[l]/bits: {0: 1.00}\n3 Lights ");
+        assert_eq!(ctr.to_string(), "-> I[l]/bits: {0: 1.00}\n3 lights ");
 
         let ctr = CheckTypeRender {
             check: &CheckType::Lights(3, Default::default()),
             i: None,
             e: None,
         };
-        assert_eq!(ctr.to_string(), "3 Lights ");
+        assert_eq!(ctr.to_string(), "3 lights ");
 
         let ctr = CheckTypeRender {
             check: &CheckType::Lights(3, Default::default()),
             i: None,
-            e: Some(0.5),
+            e: Some(-0.5),
         };
-        assert_eq!(ctr.to_string(), "-> E[I]/bits: 0.50 = H\n3 Lights ");
+        assert_eq!(ctr.to_string(), "-> E[I]/bits: 0.50 = H\n3 lights ");
     }
 
     #[test]
@@ -205,9 +203,10 @@ mod tests {
         };
         assert_eq!(
             msr.to_string(),
-            r#"a   → A
-        bbb → B
-        c   → C"#
+            r#"a   → A 
+bbb → B 
+c   → C 
+"#
         );
 
         let msr = MapSRender {
@@ -220,9 +219,10 @@ mod tests {
         };
         assert_eq!(
             msr.to_string(),
-            r#"0x a   → A
-        0x bbb → B
-        0x c   → C"#
+            r#"0x a   → A 
+0x bbb → B 
+0x c   → C 
+"#
         );
 
         let mut c1 = Constraint::default();
@@ -235,6 +235,7 @@ mod tests {
             .into_iter()
             .map(|(i, j)| (i.to_string(), j.to_string()))
             .collect::<MapS>();
+        assert!(!c1.show_past_cnt());
 
         let mut c2 = Constraint::default();
         c2.r#type = ConstraintType::Night {
@@ -246,6 +247,7 @@ mod tests {
             .into_iter()
             .map(|(i, j)| (i.to_string(), j.to_string()))
             .collect::<MapS>();
+        assert!(c2.show_past_cnt());
 
         let mut c3 = Constraint::default();
         c3.r#type = ConstraintType::Night {
@@ -257,20 +259,22 @@ mod tests {
             .into_iter()
             .map(|(i, j)| (i.to_string(), j.to_string()))
             .collect::<MapS>();
+        assert!(c3.show_past_cnt());
 
         let msr = MapSRender {
             map: &vec![("b", "B"), ("a", "A"), ("c", "C")]
                 .into_iter()
                 .map(|(i, j)| (i.to_string(), j.to_string()))
                 .collect::<MapS>(),
-            past_constraints: &[],
+            past_constraints: &[&c1, &c2, &c3],
             show_past_cnt: true,
         };
         assert_eq!(
             msr.to_string(),
-            r#"2x a → A
-        0x b → B
-        1x c → C"#
+            r#"2x a → A 
+0x b → B 
+1x c → C 
+"#
         );
     }
 }
