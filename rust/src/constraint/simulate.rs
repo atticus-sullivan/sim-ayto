@@ -84,257 +84,188 @@ impl Constraint {
 mod tests {
     use rust_decimal::dec;
 
-    use crate::{constraint::ConstraintType, ruleset_data::dummy::DummyData};
+    use crate::{constraint::ConstraintType, ruleset_data::{dummy::DummyData, RuleSetData}};
 
     use super::*;
 
     #[test]
     fn test_process_remaining() {
-    }
+        // should collect
+        let mut c = Constraint::default();
+        c.result_unknown = false;
+        c.build_tree = true;
+        c.hidden = false;
+        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
+        c.check = CheckType::Lights(3, Default::default());
 
-    #[test]
-    fn test_process_rs_data() {
-        // TODO: mock ruleset_data
-    }
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
 
-    #[test]
-    fn test_process_light() {
-        let mut c = constraint_def(None, 2);
-
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-        assert!(!c.process(&m).unwrap());
-        // change amount of lights
-        match &mut c.check {
-            CheckType::Eq => {}
-            CheckType::Nothing | CheckType::Sold => {}
-            CheckType::Lights(l, _) => *l = 1,
+        for (f, m) in &ms {
+            let x = c.process(m).unwrap();
+            assert_eq!(x, *f);
+            assert_eq!(c.left_poss.len(), c.left_after.unwrap() as usize);
         }
-        assert!(c.process(&m).unwrap());
-    }
+        assert_eq!(c.left_poss, ms[0..2].into_iter().map(|(_, m)| m.clone()).collect::<Vec<_>>());
 
-    #[test]
-    fn test_process_light_exclude() {
-        let mut c = constraint_def(Some((0, Bitset::from_idxs(&[2, 3]))), 1);
 
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-        assert!(c.process(&m).unwrap());
+        // shouldn't collect
+        let mut c = Constraint::default();
+        c.result_unknown = false;
+        c.build_tree = false;
+        c.hidden = false;
+        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
+        c.check = CheckType::Lights(3, Default::default());
 
-        let m = MaskedMatching::from_matching_ref(&[vec![0, 2], vec![1], vec![4], vec![3]]);
-        assert!(!c.process(&m).unwrap());
-    }
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
 
-    #[test]
-    fn test_process_eq() {
-        let mut c = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            // 1 and 2 have the same match
-            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2]]),
-            eliminated: 0,
-            eliminated_tab: vec![
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-                vec![0, 0, 0, 0, 0],
-            ],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: dec![1.0],
-                comment: String::from(""),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-        assert!(!c.process(&m).unwrap());
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1, 2], vec![3], vec![4]]);
-        assert!(c.process(&m).unwrap());
-    }
-
-    #[test]
-    fn test_eliminate() {
-        let mut c = constraint_def(None, 2);
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-
-        c.eliminate(&m);
-        assert_eq!(c.eliminated, 1);
-        assert_eq!(
-            c.eliminated_tab,
-            vec![
-                vec![1, 0, 0, 0, 0],
-                vec![0, 1, 0, 0, 0],
-                vec![0, 0, 1, 0, 0],
-                vec![0, 0, 0, 1, 1]
-            ]
-        );
-
-        c.eliminate(&m);
-        assert_eq!(c.eliminated, 2);
-        assert_eq!(
-            c.eliminated_tab,
-            vec![
-                vec![2, 0, 0, 0, 0],
-                vec![0, 2, 0, 0, 0],
-                vec![0, 0, 2, 0, 0],
-                vec![0, 0, 0, 2, 2]
-            ]
-        );
-    }
-
-    #[test]
-    #[allow(clippy::bool_assert_comparison)]
-    fn fits_eq_mask_behavior() {
-        // Construct constraint that checks Eq with mapping 1->1 (two items)
-        let mut c = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Eq,
-            // map: 1->1, 2->2 style (we only need a map that produces a non-empty mask)
-            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 5]; 4],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: dec![1.0],
-                comment: String::from(""),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-
-        // Matching `m` that *does not* include all required mask bits -> fits() should be false
-        let m1 = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-        assert_eq!(c.fits(&m1), false);
-
-        // Matching `m` that includes the required mask -> fits() true
-        // second matching has same structure but element 1 has options [1,2] so contains mask
-        let m2 = MaskedMatching::from_matching_ref(&[vec![0], vec![1, 2], vec![3], vec![4]]);
-        assert_eq!(c.fits(&m2), true);
-    }
-
-    #[test]
-    fn fits_nothing_and_sold_are_always_true() {
-        let mut c1 = Constraint {
-            result_unknown: false,
-            exclude: None,
-            map_s: HashMap::new(),
-            check: CheckType::Nothing,
-            map: MaskedMatching::from_matching_ref(&[vec![0]]),
-            eliminated: 0,
-            eliminated_tab: vec![vec![0; 1]; 1],
-            information: None,
-            left_after: None,
-            hidden: false,
-            r#type: ConstraintType::Box {
-                num: dec![1.0],
-                comment: String::new(),
-                offer: None,
-            },
-            build_tree: false,
-            left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
-            known_lights: 0,
-        };
-        let m = MaskedMatching::from_matching_ref(&[vec![0]]);
-        assert!(c1.fits(&m));
-
-        let mut c2 = c1.clone();
-        c2.check = CheckType::Sold;
-        assert!(c2.fits(&m));
-    }
-
-    #[test]
-    #[allow(clippy::bool_assert_comparison)]
-    fn fits_lights_updates_histogram_and_matches_count() {
-        // use constraint_def helper to create Lights constraint (default known settings)
-        let mut c = constraint_def(None, 2); // expects 2 lights
-
-        // create a matching that yields 0 lights (based on constraint_def's internal map)
-        let m_no = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-        // histogram should start empty
-        match &c.check {
-            CheckType::Lights(_, hist) => assert!(hist.is_empty()),
-            _ => panic!("expected lights"),
+        for (f, m) in &ms {
+            let x = c.process(m).unwrap();
+            assert_eq!(x, *f);
+            assert!(c.left_after.is_some());
+            assert_eq!(c.left_poss.len(), 0);
         }
 
-        // call fits: expected false, but histogram will be updated for computed lights (some l)
-        let res = c.fits(&m_no);
-        assert_eq!(res, false);
 
-        // After call, histogram should have one entry for the computed lights value
-        match &c.check {
-            CheckType::Lights(_, hist) => {
-                // ensure an entry exists for the computed lights count
-                assert!(hist.values().sum::<u128>() >= 1);
-                // The histogram key matches the stored lights value `l` (we can't know exact l here,
-                // but ensure there's a key present)
-                assert!(!hist.is_empty());
-            }
-            _ => panic!("expected lights"),
+        // shouldn't collect
+        let mut c = Constraint::default();
+        c.result_unknown = false;
+        c.build_tree = true;
+        c.hidden = true;
+        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
+        c.check = CheckType::Lights(3, Default::default());
+
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
+
+        for (f, m) in &ms {
+            let x = c.process(m).unwrap();
+            assert_eq!(x, *f);
+            assert!(c.left_after.is_some());
+            assert_eq!(c.left_poss.len(), 0);
         }
 
-        // Now change the expected lights inside the constraint to something matching the computed `l`
-        // We can inspect the histogram key to set the needed value to force success
-        let computed_key = match &c.check {
-            CheckType::Lights(_, hist) => *hist.keys().next().unwrap(),
-            _ => unreachable!(),
-        };
-        // mutate check so the required lights matches computed_key
-        c.check = CheckType::Lights(computed_key, BTreeMap::new());
-        assert!(c.fits(&m_no));
+
+        // should collect + everything fits as result is unkown
+        let mut c = Constraint::default();
+        c.result_unknown = true;
+        c.build_tree = true;
+        c.hidden = false;
+        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
+        c.check = CheckType::Lights(3, Default::default());
+
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
+
+        for (_f, m) in &ms {
+            let x = c.process(m).unwrap();
+            assert!(x);
+            assert_eq!(c.left_poss.len(), c.left_after.unwrap() as usize);
+        }
+        assert_eq!(c.left_poss, ms[0..].into_iter().map(|(_, m)| m.clone()).collect::<Vec<_>>());
     }
 
     #[test]
-    fn fits_lights_with_exclude_respects_exclusion_mask() {
-        // create a constraint that expects 1 light and has an exclude on slot 0 (positions masked)
-        let exclude_bs = Bitset::from_idxs(&[2, 3]); // exclude values indices 2,3
-        let mut c = constraint_def(Some((0, exclude_bs)), 1);
+    fn eliminate_simple() {
+        let mut c = Constraint::default();
+        c.eliminated_tab = vec![vec![0; 4]; 3];
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
 
-        // matching m1: slot0 does not include any excluded index -> should pass (fits true)
-        let m1 = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
-        assert!(c.fits(&m1));
+        for (_f, m) in &ms {
+            let old = c.eliminated;
+            c.eliminate(m);
+            assert_eq!(c.eliminated, old+1);
+        }
+        assert_eq!(c.eliminated, ms.len() as u128);
+        assert_eq!(c.eliminated_tab, vec![
+            vec![3, 1, 0, 1],
+            vec![1, 3, 0, 2],
+            vec![0, 0, 4, 1],
+        ]);
 
-        // matching m2: slot0 contains an excluded index -> should fail (fits false)
-        let m2 = MaskedMatching::from_matching_ref(&[vec![0, 2], vec![1], vec![4], vec![3]]);
-        assert!(!c.fits(&m2));
     }
 
     #[test]
-    #[allow(clippy::bool_assert_comparison)]
-    fn process_respects_result_unknown_and_does_not_eliminate() {
-        // construct a Lights constraint that would normally reject a matching; set result_unknown
-        let c = constraint_def(None, 2);
-        let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
+    fn fits_nothing() {
+        let mut c = Constraint::default();
+        c.check = CheckType::Nothing;
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
+        assert!(!ms.into_iter().any(|(_f, m)| c.fits(&m)));
+    }
 
-        // For baseline: process without result_unknown eliminates (returns false)
-        let mut c2 = c.clone();
-        let ok = c2.process(&m).unwrap();
-        assert_eq!(ok, false);
-        assert_eq!(c2.eliminated, 1);
+    #[test]
+    fn fits_sold() {
+        let mut c = Constraint::default();
+        c.check = CheckType::Sold;
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
+        assert!(!ms.into_iter().any(|(_f, m)| c.fits(&m)));
+    }
 
-        // Now set result_unknown true on a fresh constraint -> process should return true and not eliminate
-        let mut c3 = constraint_def(None, 2);
-        c3.result_unknown = true;
-        let ok2 = c3.process(&m).unwrap();
-        assert_eq!(ok2, true);
-        // no elimination performed in this case
-        assert_eq!(c3.eliminated, 0);
+    #[test]
+    fn fits_lights() {
+        let mut c = Constraint::default();
+        c.check = CheckType::Lights(3, Default::default());
+        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
+
+        for (f, m) in &ms {
+            assert_eq!(c.fits(m), *f);
+        }
+    }
+
+    #[test]
+    fn fits_lights_exclude() {
+        let mut c = Constraint::default();
+        c.check = CheckType::Lights(1, Default::default());
+        c.map = MaskedMatching::from_matching_ref(&[vec![], vec![1]]);
+        // 1 must match with ONLY 1 => exclude matching with 0, 2 or 3
+        c.exclude = Some((1, Bitset::from_idxs(&[0, 2, 3])));
+        let ms = vec![
+            (true,  MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1],    vec![2]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![0],    vec![1, 3], vec![2]])),
+            (true,  MaskedMatching::from_matching_ref(&[vec![0],    vec![1],    vec![2, 3]])),
+            (false, MaskedMatching::from_matching_ref(&[vec![1],    vec![0, 3], vec![2]])),
+        ];
+
+        for (f, m) in &ms {
+            assert_eq!(c.fits(m), *f);
+        }
     }
 }
