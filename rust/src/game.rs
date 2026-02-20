@@ -1,6 +1,9 @@
 mod eval;
 mod output;
 pub mod parse;
+mod query_matchings;
+mod query_pairs;
+mod report_body;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -61,14 +64,9 @@ impl Game {
         }
     }
 
-    /// Pure, testable helper that formats player counts as "A/B".
-    pub(crate) fn format_players(a_len: usize, b_len: usize) -> String {
-        format!("{}/{}", a_len, b_len)
-    }
-
     /// Return a formatted players string "A/B".
     pub fn players_str(&self) -> String {
-        Self::format_players(self.map_a.len(), self.map_b.len())
+        format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
     /// Run the simulation (populate an `IterState` by iterating ruleset permutations).
