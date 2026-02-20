@@ -19,51 +19,27 @@
 /// simple getters.
 
 pub mod compare;
+pub mod check_type;
 pub(super) mod evaluate;
 pub(super) mod evaluate_predicates;
 pub(super) mod parse;
 pub(super) mod parse_utils;
 pub(super) mod report;
 pub(super) mod report_summary;
+pub(super) mod report_hdr;
 pub(super) mod simulate;
 mod report_predicates;
 
-use std::collections::BTreeMap;
 use std::hash::{Hash, Hasher};
 
 use rust_decimal::{dec, Decimal};
 use serde::Deserialize;
 
+use crate::constraint::check_type::CheckType;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset_data::dummy::DummyData;
 use crate::ruleset_data::RuleSetData;
 use crate::MapS;
-
-/// Types used to decide how to check a matching against a constraint.
-///
-/// - `Eq` checks that two entries are equal (used for "box" equality constraints).
-/// - `Nothing` no-op check.
-/// - `Sold` special check for sold events.
-/// - `Lights(n, stats)` checks exact number of lights; `stats` is a mutable bucket
-///   map used while processing to accumulate frequencies (kept in the Constraint).
-#[derive(Deserialize, Debug, Clone, Hash)]
-pub enum CheckType {
-    Eq,
-    Nothing,
-    Sold,
-    Lights(u8, #[serde(skip)] BTreeMap<u8, u128>),
-}
-
-impl CheckType {
-    /// Return the lights-count if this `CheckType` is `Lights`.
-    pub fn as_lights(&self) -> Option<u8> {
-        if let CheckType::Lights(l, _) = *self {
-            Some(l)
-        } else {
-            None
-        }
-    }
-}
 
 /// An offer attached to a box event. The enum mirrors the YAML structure and
 /// contains optional amounts and actors.
@@ -306,12 +282,6 @@ mod tests {
     use crate::ruleset_data::dummy::DummyData;
 
     use super::*;
-
-    #[test]
-    fn as_lights_simple() {
-        assert_eq!(CheckType::Eq.as_lights(), None);
-        assert_eq!(CheckType::Lights(3, BTreeMap::new()).as_lights(), Some(3));
-    }
 
     #[test]
     fn try_get_amount_simple() {
