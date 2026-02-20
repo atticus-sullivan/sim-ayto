@@ -5,6 +5,8 @@ use anyhow::Result;
 
 use crate::matching_repr::MaskedMatching;
 
+// TODO: writer -> don't use io writer, use the fmt::writer like in the fmt::Display trait ->
+// "implements" to_string this way => can test more easily
 /// Write a Graphviz DOT representation of the tree to any `Write`.
 ///
 /// This is the testable, generic helper. `data` are the possible partial solutions
