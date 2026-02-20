@@ -253,7 +253,7 @@ impl Game {
             blackouts: 0,
             matches_found: 0,
             won: false,
-            solvable_after: None,
+            solvable_in: None,
             offers_mb: SumOffersMB {
                 sold_cnt: 0,
                 sold_but_match: 0,
@@ -319,7 +319,7 @@ impl Game {
                 .unwrap_or(false)
         };
 
-        cnts.solvable_after = merged_constraints
+        cnts.solvable_in = merged_constraints
             .windows(2)
             // search for the first constraint which would have been/is solvable with the
             // information available

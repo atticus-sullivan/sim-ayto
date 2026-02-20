@@ -11,7 +11,7 @@ use crate::constraint::compare::{SumCounts, SumOffersMB, SumOffersMN};
 /// labels (e.g. `Language::De` / `Language::En`). Returns a Markdown table string.
 pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
     let mut total_counts = SumCounts {
-        solvable_after: None,
+        solvable_in: None,
         blackouts: 0,
         matches_found: 0,
         won: false,
@@ -44,10 +44,10 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
 
             lang.format_bool_yes_no(cd.cnts.won),
             if cd.cnts.won { "green" } else { "red" },
-            if let Some(solv) = &cd.cnts.solvable_after {
+            if let Some(solv) = &cd.cnts.solvable_in {
                 solv.1.clone()
             } else { lang.format_bool_yes_no(false).to_string() },
-            if let Some(solv) = &cd.cnts.solvable_after {
+            if let Some(solv) = &cd.cnts.solvable_in {
                 if solv.0 { "green" } else { "red" }
             } else { "red" },
 
