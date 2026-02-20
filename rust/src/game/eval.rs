@@ -253,7 +253,7 @@ impl Game {
             blackouts: 0,
             matches_found: 0,
             won: false,
-            solvable: None,
+            solvable_after: None,
             offers_mb: SumOffersMB {
                 sold_cnt: 0,
                 sold_but_match: 0,
@@ -319,13 +319,33 @@ impl Game {
                 .unwrap_or(false)
         };
 
-        cnts.solvable = merged_constraints
+        cnts.solvable_after = merged_constraints
             .windows(2)
-            .find(|x| x[1].num() == dec![10.0] && x[1].might_won())
-            .map(|x| &x[0])
-            .or_else(|| merged_constraints.last())
-            .and_then(|x| x.is_solvable_after().ok().flatten());
+            // search for the first constraint which would have been/is solvable with the
+            // information available
+            .find(|w| {
+                let c_before = &w[0];
+                let c = &w[1];
 
+                matches!(c_before.is_solvable_after(), Ok(Some(true))) && c.might_won()
+            })
+            .map(|w| {
+                let c = &w[1];
+                (c.num() <= dec![10], c.type_str())
+            })
+            // use the last constraint which still is part of the regular show as fallback
+            // check if it lead to a solvable state (maybe the players got lucky and guessed
+            // correctly)
+            .or_else(|| {
+                merged_constraints
+                    .iter()
+                    .rev()
+                    .find(|c| c.num() < dec![11] && c.might_won())
+                    .and_then(|last| {
+                        matches!(last.is_solvable_after(), Ok(Some(true)))
+                            .then_some((last.num() + dec![1] <= dec![10], "End".to_string()))
+                    })
+            });
         cnts
     }
 
