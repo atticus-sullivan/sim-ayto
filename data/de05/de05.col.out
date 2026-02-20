@@ -38,8 +38,8 @@ Paulo → Jana
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 179625600 left -> 27.4204 bits left
 top4 Pr[Trip]: 0.2%/362880: Eti -> ["Sina", "Jana", "Melanie"] | 0.2%/362880: Eti -> ["Tais", "Jana", "Melanie"] | 0.2%/362880: Eti -> ["Jana", "Julia", "Melanie"] | 0.2%/362880: Eti -> ["Jana", "Pia", "Melanie"]
-top5 Pr[Trip]: 1.8%/3265920: ["Afra", "Edda", "Melanie"] | 1.8%/3265920: ["Edda", "Lina", "Melanie"] | 1.8%/3265920: ["Jana", "Julia", "Melanie"] | 1.8%/3265920: ["Tais", "Maja", "Melanie"] | 1.8%/3265920: ["Tais", "Afra", "Melanie"]
-top5 Pr[Trip]: 100.0%/179625600: Melanie | 18.2%/32659200: Pia | 18.2%/32659200: Maja | 18.2%/32659200: Lina | 18.2%/32659200: Tais
+top5 Pr[Trip]: 1.8%/3265920: ["Sina", "Afra", "Melanie"] | 1.8%/3265920: ["Jana", "Lisa-Marie", "Melanie"] | 1.8%/3265920: ["Lisa-Marie", "Maja", "Melanie"] | 1.8%/3265920: ["Shelly", "Maja", "Melanie"] | 1.8%/3265920: ["Pia", "Edda", "Melanie"]
+top5 Pr[Trip]: 100.0%/179625600: Melanie | 18.2%/32659200: Jana | 18.2%/32659200: Afra | 18.2%/32659200: Sina | 18.2%/32659200: Edda
 top5 Pr[Trip]: 10.1%/18144000: Eti | 10.1%/18144000: Gerrit | 10.1%/18144000: Kevin | 10.1%/18144000: Martin | 10.1%/18144000: Paddy
 
 MN#1 E04
@@ -73,8 +73,8 @@ MN#1 E04
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 33752266 left -> 25.0085 bits left
 top4 Pr[Trip]: 0.4%/133497: Paulo -> ["Tais", "Afra", "Melanie"] | 0.4%/133497: Sidar -> ["Jana", "Afra", "Melanie"] | 0.4%/133496: Eti -> ["Jana", "Lisa-Marie", "Melanie"] | 0.4%/133496: Gerrit -> ["Jana", "Pia", "Melanie"]
-top5 Pr[Trip]: 1.8%/623908: ["Jana", "Shelly", "Melanie"] | 1.8%/623908: ["Jana", "Lisa-Marie", "Melanie"] | 1.8%/623908: ["Sina", "Jana", "Melanie"] | 1.8%/623908: ["Jana", "Edda", "Melanie"] | 1.8%/623908: ["Jana", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/33752266: Melanie | 18.2%/6151015: Edda | 18.2%/6151015: Sina | 18.2%/6151015: Shelly | 18.2%/6151015: Maja
+top5 Pr[Trip]: 1.8%/623908: ["Jana", "Julia", "Melanie"] | 1.8%/623908: ["Jana", "Pia", "Melanie"] | 1.8%/623908: ["Jana", "Lina", "Melanie"] | 1.8%/623908: ["Jana", "Maja", "Melanie"] | 1.8%/623908: ["Jana", "Edda", "Melanie"]
+top5 Pr[Trip]: 100.0%/33752266: Melanie | 18.2%/6151015: Maja | 18.2%/6151015: Pia | 18.2%/6151015: Julia | 18.2%/6151015: Edda
 top5 Pr[Trip]: 10.2%/3441233: Sidar | 10.1%/3400906: Eti | 10.1%/3400906: Gerrit | 10.1%/3400906: Kevin | 10.1%/3400906: Martin
 
 MB#2 E05
@@ -99,8 +99,8 @@ Ryan → Lina
 ╰────────┴────────┴────────┴────────┴────────┴────────┴────────────┴────────┴────────┴────────┴────────┴────────┴─────────╯
 27149771 left -> 24.6944 bits left
 top4 Pr[Trip]: 0.5%/133496: Paulo -> ["Tais", "Lina", "Melanie"] | 0.5%/133496: Sidar -> ["Jana", "Lina", "Melanie"] | 0.4%/118928: Eti -> ["Lisa-Marie", "Lina", "Melanie"] | 0.4%/118928: Gerrit -> ["Pia", "Lina", "Melanie"]
-top5 Pr[Trip]: 1.9%/503126: ["Jana", "Pia", "Melanie"] | 1.9%/503126: ["Jana", "Edda", "Melanie"] | 1.9%/503126: ["Jana", "Lisa-Marie", "Melanie"] | 1.9%/503126: ["Sina", "Jana", "Melanie"] | 1.9%/503126: ["Jana", "Shelly", "Melanie"]
-top5 Pr[Trip]: 100.0%/27149771: Melanie | 18.2%/4951140: Edda | 18.2%/4951140: Shelly | 18.2%/4951140: Sina | 18.2%/4951140: Julia
+top5 Pr[Trip]: 1.9%/503126: ["Jana", "Maja", "Melanie"] | 1.9%/503126: ["Jana", "Lisa-Marie", "Melanie"] | 1.9%/503126: ["Sina", "Jana", "Melanie"] | 1.9%/503126: ["Jana", "Edda", "Melanie"] | 1.9%/503126: ["Jana", "Shelly", "Melanie"]
+top5 Pr[Trip]: 100.0%/27149771: Melanie | 18.2%/4951140: Pia | 18.2%/4951140: Shelly | 18.2%/4951140: Sina | 18.2%/4951140: Edda
 top5 Pr[Trip]: 10.4%/2832157: Sidar | 10.3%/2793949: Eti | 10.3%/2793949: Gerrit | 10.3%/2793949: Kevin | 10.3%/2793949: Martin
 
 MN#2 E06
@@ -344,7 +344,7 @@ MN#5 E12
 115 left -> 6.8455 bits left
 top4 Pr[Trip]: 100.0%/115: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/115: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/115: Pia | 100.0%/115: Tais | 100.0%/115: Melanie
+top5 Pr[Trip]: 100.0%/115: Melanie | 100.0%/115: Pia | 100.0%/115: Tais
 top5 Pr[Trip]: 100.0%/115: Gerrit
 
 MB#6 E13
@@ -370,7 +370,7 @@ Sandro → Sina
 61 left -> 5.9307 bits left
 top4 Pr[Trip]: 100.0%/61: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/61: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/61: Melanie | 100.0%/61: Tais | 100.0%/61: Pia
+top5 Pr[Trip]: 100.0%/61: Pia | 100.0%/61: Melanie | 100.0%/61: Tais
 top5 Pr[Trip]: 100.0%/61: Gerrit
 
 MN#6 E14
@@ -405,7 +405,7 @@ MN#6 E14
 19 left -> 4.2479 bits left
 top4 Pr[Trip]: 100.0%/19: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/19: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/19: Melanie | 100.0%/19: Tais | 100.0%/19: Pia
+top5 Pr[Trip]: 100.0%/19: Melanie | 100.0%/19: Pia | 100.0%/19: Tais
 top5 Pr[Trip]: 100.0%/19: Gerrit
 
 MB#7 E15
@@ -431,7 +431,7 @@ Paulo → Julia
 18 left -> 4.1699 bits left
 top4 Pr[Trip]: 100.0%/18: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/18: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/18: Melanie | 100.0%/18: Pia | 100.0%/18: Tais
+top5 Pr[Trip]: 100.0%/18: Tais | 100.0%/18: Pia | 100.0%/18: Melanie
 top5 Pr[Trip]: 100.0%/18: Gerrit
 
 MN#7 E16
@@ -466,7 +466,7 @@ MN#7 E16
 3 left -> 1.585 bits left
 top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/3: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/3: Tais | 100.0%/3: Melanie | 100.0%/3: Pia
+top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Melanie | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#8 E16 -- verkauft
@@ -490,7 +490,7 @@ Nothing => I = 0 bits
 3 left -> 1.585 bits left
 top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/3: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/3: Tais | 100.0%/3: Pia | 100.0%/3: Melanie
+top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Tais | 100.0%/3: Pia
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#8 E17
@@ -525,7 +525,7 @@ MN#8 E17
 3 left -> 1.585 bits left
 top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/3: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Tais | 100.0%/3: Melanie
+top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Melanie | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#9 E18
@@ -586,7 +586,7 @@ MN#9 E19
 3 left -> 1.585 bits left
 top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/3: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/3: Tais | 100.0%/3: Pia | 100.0%/3: Melanie
+top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Tais | 100.0%/3: Pia
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#10 E20
@@ -612,7 +612,7 @@ Kevin → Lina
 3 left -> 1.585 bits left
 top4 Pr[Trip]: 100.0%/3: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/3: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/3: Pia | 100.0%/3: Melanie | 100.0%/3: Tais
+top5 Pr[Trip]: 100.0%/3: Tais | 100.0%/3: Pia | 100.0%/3: Melanie
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#10 E20
@@ -647,7 +647,7 @@ MN#10 E20
 2 left -> 1 bits left
 top4 Pr[Trip]: 100.0%/2: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/2: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/2: Tais | 100.0%/2: Melanie | 100.0%/2: Pia
+top5 Pr[Trip]: 100.0%/2: Pia | 100.0%/2: Melanie | 100.0%/2: Tais
 top5 Pr[Trip]: 100.0%/2: Gerrit
 
 MN#11 E21 -- Reunion
@@ -682,7 +682,7 @@ MN#11 E21 -- Reunion
 1 left -> 0 bits left
 top4 Pr[Trip]: 100.0%/1: Gerrit -> ["Tais", "Pia", "Melanie"]
 top5 Pr[Trip]: 100.0%/1: ["Tais", "Pia", "Melanie"]
-top5 Pr[Trip]: 100.0%/1: Tais | 100.0%/1: Pia | 100.0%/1: Melanie
+top5 Pr[Trip]: 100.0%/1: Tais | 100.0%/1: Melanie | 100.0%/1: Pia
 top5 Pr[Trip]: 100.0%/1: Gerrit
 
 ╭────────┬────┬─────────────┬────────┬──────────┬─────────────┬─────────┬─────────────┬───────┬────────┬─────────────┬─────────┬───┬────────┬──────┬──────────╮
@@ -739,4 +739,4 @@ top5 Pr[Trip]: 100.0%/1: Gerrit
 ╰────────┴────┴─────────┴─────────┴────────┴─────────┴─────────┴────────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 24.32s
+Ran in 24.62s
