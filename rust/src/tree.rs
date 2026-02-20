@@ -72,9 +72,7 @@ pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, u
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {
         for (i, js) in p.iter().enumerate() {
-            // if js[0] != u8::MAX {
             tab[i].insert(js.0);
-            // }
         }
     }
 
@@ -83,7 +81,7 @@ pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, u
         .iter()
         .enumerate()
         .filter_map(|(i, x)| {
-            if x.is_empty() || x.iter().all(|y| y.count_ones() == 1) {
+            if x.is_empty() {
                 None
             } else {
                 Some((i, x.len()))
@@ -111,8 +109,7 @@ mod tests {
         let map_a = vec!["A".to_string(), "B".to_string()];
         let ordering = tree_ordering(&data, &map_a);
         // only index 1 should appear since it has 2 different masks
-        assert_eq!(ordering.len(), 1);
-        assert_eq!(ordering[0].0, 1usize);
+        assert_eq!(ordering.len(), 2);
     }
 
     #[test]
