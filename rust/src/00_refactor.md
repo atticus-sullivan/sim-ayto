@@ -34,17 +34,8 @@ TODO (ausgelassen erstmal)
 
 ## constraint
 - [x] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
-
-### constraint.rs
-### constraint/eval_compute.rs
-### constraint/eval_predicates.rs
-### constraint/eval_report.rs
-### constraint/eval_types.rs
-### constraint/parse_helpers.rs
-### constraint/parse.rs
-### constraint/utils.rs
+- [x] write tests
+- [x] Write doc-comments for files
 
 ## game
 - [ ] (re-)organization of functions and files
