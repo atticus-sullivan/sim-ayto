@@ -210,13 +210,14 @@ impl Constraint {
 
         let info = if self.result_unknown {
             None
-        } else{
+        } else {
             match &self.check {
-            CheckType::Eq | CheckType::Lights(..) => {
-                Some(self.information.unwrap_or(f64::INFINITY))
+                CheckType::Eq | CheckType::Lights(..) => {
+                    Some(self.information.unwrap_or(f64::INFINITY))
+                }
+                CheckType::Nothing | CheckType::Sold => None,
             }
-            CheckType::Nothing | CheckType::Sold => None,
-        }};
+        };
 
         let min_dist = if self.show_past_dist() {
             past.iter()
@@ -240,27 +241,25 @@ impl Constraint {
     fn new_matches(&self, past: &[&Constraint]) -> Option<usize> {
         if self.result_unknown {
             None
-        } else {
-            if let ConstraintType::Night { .. } = self.r#type {
-                let cnt = self
-                    .map
-                    .iter()
-                    .enumerate()
-                    .filter(|&(k, v)| {
-                        !v.is_empty()
+        } else if let ConstraintType::Night { .. } = self.r#type {
+            let cnt = self
+                .map
+                .iter()
+                .enumerate()
+                .filter(|&(k, v)| {
+                    !v.is_empty()
                         && !past.iter().any(|&c| {
                             c.adds_new()
-                            && c.map
-                                .slot_mask(k)
-                                .unwrap_or(&Bitset::empty())
-                                .contains_any(&v)
+                                && c.map
+                                    .slot_mask(k)
+                                    .unwrap_or(&Bitset::empty())
+                                    .contains_any(&v)
                         })
-                    })
-                    .count();
-                Some(cnt)
-            } else {
-                None
-            }
+                })
+                .count();
+            Some(cnt)
+        } else {
+            None
         }
     }
 }

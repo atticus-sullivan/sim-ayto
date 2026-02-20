@@ -82,13 +82,21 @@ mod tests {
         let mut c = Constraint::default();
         c.known_lights = 2;
         c.check = CheckType::Lights(2, BTreeMap::new());
-        c.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        c.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert!(c.is_blackout());
 
         let mut c = Constraint::default();
         c.known_lights = 1;
         c.check = CheckType::Lights(2, BTreeMap::new());
-        c.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        c.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert!(!c.is_blackout());
     }
 
