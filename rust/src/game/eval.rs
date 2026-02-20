@@ -1,6 +1,6 @@
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;
-use comfy_table::presets::{NOTHING, UTF8_FULL_CONDENSED};
-use comfy_table::{Cell, Row, Table};
+use comfy_table::presets::{UTF8_FULL_CONDENSED};
+use comfy_table::{Cell, Table};
 
 use rust_decimal::prelude::*;
 
@@ -13,8 +13,9 @@ use crate::constraint::compare::{
     EvalData, EvalEvent, EvalInitial, SumCounts, SumOffersMB, SumOffersMN,
 };
 use crate::constraint::Constraint;
-use crate::game::DumpMode;
+use crate::game::{query_pairs, DumpMode};
 use crate::game::Game;
+use crate::game::query_matchings;
 use crate::iterstate::IterState;
 use crate::matching_repr::MaskedMatching;
 use crate::Rem;
@@ -34,83 +35,20 @@ impl Game {
     ) -> Result<()> {
         // track table indices
         let mut tab_idx = 0;
-        let mut md_tables: Vec<(String, u16, bool, bool)> = vec![];
+        let mut md_tables: Vec<(String, usize, bool, bool)> = vec![];
 
         // generate additional tables
-        if is.query_matchings.iter().any(|(_, x)| x.is_some()) {
-            println!("Trace at which point a particular matching was elimiated:");
-            for (q, id) in &is.query_matchings {
-                if let Some(id) = id {
-                    let mut tab = Table::new();
-                    tab
-                        .force_no_tty()
-                        .enforce_styling()
-                        .load_preset(NOTHING)
-                        .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-                    // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-                    // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-                    // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
-                    ;
-                    let mut rows = vec![Row::new(); q.len()];
-                    for (a, b) in q.iter().enumerate() {
-                        let ass = self.map_a.get(a).unwrap();
-                        let bs = b
-                            .iter()
-                            .map(|b| self.map_b.get(b as usize).unwrap())
-                            .collect::<Vec<_>>();
-                        rows[a].add_cell(ass.into());
-                        rows[a].add_cell(format!("{:?}", bs).into());
-                    }
-                    tab.add_rows(rows);
-                    tab.column_mut(0)
-                        .context("no 0th column in table found")?
-                        .set_padding((0, 1));
-                    println!("{tab}");
-                    println!("=> Eliminated in {}", id);
-                    tab_idx += 1;
-                }
+        {
+            let m_data = query_matchings::MatchingReport::new(&is.query_matchings, &self.map_a, &self.map_b)?;
+            if let Some(m_data) = m_data {
+                println!("{m_data}");
+                tab_idx += m_data.tab_cnt();
             }
-            println!();
-        }
-        if !is.query_pair.0.is_empty() {
-            for (a, i) in is.query_pair.0.iter() {
-                let mut tab = Table::new();
-                tab.force_no_tty()
-                    .enforce_styling()
-                    .load_preset(UTF8_FULL_CONDENSED)
-                    .set_header(vec!["", self.map_a.get(*a as usize).unwrap()]);
-                for b in i.iter() {
-                    tab.add_row(vec![
-                        format!("{}", b.1),
-                        format!(
-                            "{:?}",
-                            b.0.iter()
-                                .map(|b| self.map_b.get(b as usize).unwrap())
-                                .collect::<Vec<_>>()
-                        ),
-                    ]);
-                }
-                println!("{tab}")
-            }
-        }
-        if !is.query_pair.1.is_empty() {
-            for (b, i) in is.query_pair.1.iter() {
-                let mut tab = Table::new();
-                tab.force_no_tty()
-                    .enforce_styling()
-                    .load_preset(UTF8_FULL_CONDENSED)
-                    .set_header(vec!["", self.map_b.get(*b as usize).unwrap()]);
-                println!("{}", self.map_b.get(*b as usize).unwrap());
-                for a in i.iter() {
-                    tab.add_row(vec![
-                        format!("{}", a.1),
-                        format!("{:?}", self.map_a.get(*a.0 as usize).unwrap()),
-                    ]);
-                }
-                println!("{tab}")
-            }
+            let p_data = query_pairs::QueryPairReport::new(&is.query_pair, &self.map_a, &self.map_b)?;
+            println!("{p_data}");
         }
 
+        // TODO: first reporting_body step
         let mut rem: Rem = (is.each.clone(), is.total);
         if print_transposed {
             self.print_rem_generic(&rem, &self.map_b, &self.map_a, |v, h| (h, v))
@@ -122,6 +60,13 @@ impl Game {
         md_tables.push(("tab-start".to_owned(), tab_idx, false, false));
         tab_idx += 1;
         println!();
+
+        // TODO: extract the merging of the constraints
+        // TODO: print_hdr returns something which has a render function? -> don't need to store
+        // all constraints, only that data + rem needs to be stored for printing
+        // TODO: well but due to past_constraints I need to store the (cloned) merged constraints
+        // all at once anyhow => make the code simpler by fully separating the concerns here
+        // TODO: but past_constraints only stores references...
 
         let mut constr = vec![];
         let mut to_merge = vec![]; // collect hidden constraints to merge them down

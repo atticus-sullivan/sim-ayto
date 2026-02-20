@@ -12,6 +12,11 @@ use anyhow::Result;
 use crate::constraint::Constraint;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
+pub(super) type QueryPairData = (
+    HashMap<u8, HashMap<Bitset, u64>>,
+    HashMap<u8, HashMap<u8, u64>>,
+);
+
 /// Trait describing a consumer of emitted matchings during iteration.
 ///
 /// Implementers receive lifecycle calls (`start`, `finish`) and `step` calls for
@@ -41,10 +46,7 @@ pub struct IterState {
     // allows to query when a Matching was eliminated (by which "comment")
     pub query_matchings: Vec<(MaskedMatching, Option<String>)>,
     #[allow(clippy::type_complexity)]
-    pub query_pair: (
-        HashMap<u8, HashMap<Bitset, u64>>,
-        HashMap<u8, HashMap<u8, u64>>,
-    ),
+    pub query_pair: QueryPairData,
     cnt_update: usize,
     progress: ProgressBar,
     cache_file: Option<BufWriter<File>>,

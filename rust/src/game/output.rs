@@ -18,7 +18,7 @@ impl Game {
     pub fn write_page_md(
         &self,
         out: &mut File,
-        md_tables: &[(String, u16, bool, bool)],
+        md_tables: &[(String, usize, bool, bool)],
     ) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
