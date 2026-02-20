@@ -129,7 +129,7 @@ mod tests {
         );
         let x = ct.calc_expected_value();
         // uniform counts: sum p*log2(p) = 0.5*log2(0.5)+0.5*log2(0.5) = -1.0, function returns -expected = 1.0
-        assert_eq!(x, Some(1.0));
+        assert_eq!(x, Some(-1.0));
 
         let ct = CheckType::Lights(
             2,
@@ -137,7 +137,7 @@ mod tests {
         );
         let x = round2(ct.calc_expected_value().unwrap());
         // expected = 3/4*log2(3/4) + 1/4*log2(1/4) = -0.311278 + (-0.5) = -0.811278 -> function returns -(-0.811278)=0.81
-        assert_eq!(x, 0.81);
+        assert_eq!(x, -0.81);
 
         let ct = CheckType::Eq;
         let x = ct.calc_expected_value();

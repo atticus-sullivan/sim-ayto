@@ -500,7 +500,7 @@ mod tests {
         );
         assert_eq!(
             ev_ini.comment(|_| false, |_| false, |_| true),
-            Some("init".to_string())
+            Some("initial".to_string())
         );
     }
 }

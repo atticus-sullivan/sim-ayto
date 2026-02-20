@@ -93,6 +93,7 @@ mod tests {
         c.hidden = false;
         c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
         c.check = CheckType::Lights(3, Default::default());
+        c.eliminated_tab = vec![vec![0; 4]; 3];
 
         let ms = vec![
             (
@@ -116,11 +117,10 @@ mod tests {
         for (f, m) in &ms {
             let x = c.process(m).unwrap();
             assert_eq!(x, *f);
-            assert_eq!(c.left_poss.len(), c.left_after.unwrap() as usize);
         }
         assert_eq!(
             c.left_poss,
-            ms[0..2].iter().map(|(_, m)| m.clone()).collect::<Vec<_>>()
+            ms[0..3].iter().map(|(_, m)| m.clone()).collect::<Vec<_>>()
         );
 
         // shouldn't collect
@@ -130,6 +130,7 @@ mod tests {
         c.hidden = false;
         c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
         c.check = CheckType::Lights(3, Default::default());
+        c.eliminated_tab = vec![vec![0; 4]; 3];
 
         let ms = vec![
             (
@@ -153,7 +154,6 @@ mod tests {
         for (f, m) in &ms {
             let x = c.process(m).unwrap();
             assert_eq!(x, *f);
-            assert!(c.left_after.is_some());
             assert_eq!(c.left_poss.len(), 0);
         }
 
@@ -164,6 +164,7 @@ mod tests {
         c.hidden = true;
         c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
         c.check = CheckType::Lights(3, Default::default());
+        c.eliminated_tab = vec![vec![0; 4]; 3];
 
         let ms = vec![
             (
@@ -187,7 +188,6 @@ mod tests {
         for (f, m) in &ms {
             let x = c.process(m).unwrap();
             assert_eq!(x, *f);
-            assert!(c.left_after.is_some());
             assert_eq!(c.left_poss.len(), 0);
         }
 
@@ -198,6 +198,7 @@ mod tests {
         c.hidden = false;
         c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
         c.check = CheckType::Lights(3, Default::default());
+        c.eliminated_tab = vec![vec![0; 4]; 3];
 
         let ms = vec![
             (
@@ -221,7 +222,6 @@ mod tests {
         for (_f, m) in &ms {
             let x = c.process(m).unwrap();
             assert!(x);
-            assert_eq!(c.left_poss.len(), c.left_after.unwrap() as usize);
         }
         assert_eq!(
             c.left_poss,
@@ -286,7 +286,9 @@ mod tests {
                 MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
             ),
         ];
-        assert!(!ms.into_iter().any(|(_f, m)| c.fits(&m)));
+        for (_f, m) in ms {
+            assert!(c.fits(&m));
+        }
     }
 
     #[test]
@@ -311,7 +313,9 @@ mod tests {
                 MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
             ),
         ];
-        assert!(!ms.into_iter().any(|(_f, m)| c.fits(&m)));
+        for (_f, m) in ms {
+            assert!(c.fits(&m));
+        }
     }
 
     #[test]

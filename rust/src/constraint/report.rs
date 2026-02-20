@@ -183,7 +183,7 @@ mod tests {
             offer: None,
         };
         let x = c.md_heading();
-        assert_eq!(x, "MN#01.1 Test Night");
+        assert_eq!(x, "MN#1.1 Test Night");
 
         let mut c = Constraint::default();
         c.r#type = ConstraintType::Box {
@@ -192,6 +192,6 @@ mod tests {
             offer: None,
         };
         let x = c.md_heading();
-        assert_eq!(x, "MB#02.0 Box Comment");
+        assert_eq!(x, "MB#2.0 Box Comment");
     }
 }

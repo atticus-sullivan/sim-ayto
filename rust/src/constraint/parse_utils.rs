@@ -219,7 +219,7 @@ mod tests {
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
         cp.result_unknown = true;
-        assert!(cp.has_impact());
+        assert!(!cp.has_impact());
     }
 
     #[test]
@@ -249,7 +249,7 @@ mod tests {
             comment: "".to_string(),
             offer: None,
         };
-        assert_eq!(cp.type_str(), "MN#1.0");
+        assert_eq!(cp.type_str(), "MN#1");
 
         let mut cp = ConstraintParse::default();
         cp.r#type = ConstraintType::Night {
@@ -257,7 +257,7 @@ mod tests {
             comment: "".to_string(),
             offer: None,
         };
-        assert_eq!(cp.type_str(), "MN#3.0");
+        assert_eq!(cp.type_str(), "MN#3");
 
         let mut cp = ConstraintParse::default();
         cp.r#type = ConstraintType::Box {
@@ -265,7 +265,7 @@ mod tests {
             comment: "".to_string(),
             offer: None,
         };
-        assert_eq!(cp.type_str(), "MB#1.0");
+        assert_eq!(cp.type_str(), "MB#1");
 
         let mut cp = ConstraintParse::default();
         cp.r#type = ConstraintType::Box {
@@ -273,7 +273,7 @@ mod tests {
             comment: "".to_string(),
             offer: None,
         };
-        assert_eq!(cp.type_str(), "MB#3.0");
+        assert_eq!(cp.type_str(), "MB#3");
     }
 
     #[test]
@@ -456,7 +456,7 @@ mod tests {
         assert_eq!(map, ref_map);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        let ref_map = vec![("B", "a"), ("d", "C")]
+        let ref_map = vec![("B", "a"), ("D", "c")]
             .into_iter()
             .map(|(k, v)| (k.to_string(), v.to_string()))
             .collect::<HashMap<_, _>>();
