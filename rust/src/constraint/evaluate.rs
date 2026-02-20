@@ -90,10 +90,9 @@ impl Constraint {
     }
 
     pub fn try_get_offer(&self) -> Option<Offer> {
-        if let ConstraintType::Box { offer, .. } = &self.r#type {
-            offer.clone()
-        } else {
-            None
+        match &self.r#type {
+            ConstraintType::Night { offer, .. } => offer.clone(),
+            ConstraintType::Box { offer, .. } => offer.clone(),
         }
     }
 }
