@@ -8,6 +8,7 @@
   1. comment out everything
   2. start with the two crates
   3. comment in step-by step and try to keep access modifiers as low as possible
+- [ ] search for all uses of `u8` and use a type alias like `LightsCnt`
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
@@ -73,7 +74,7 @@ TODO (ausgelassen erstmal)
 - [x] write tests
 - [x] Write doc-comments for files
 
-## constraint
+## constraint (next up is report.rs, but report_summary is already done)
 - [x] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files

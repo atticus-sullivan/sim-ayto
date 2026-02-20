@@ -31,7 +31,9 @@ impl SummaryRow {
         ret.extend(
             self.entries.iter().map(|x| x.1.style(Cell::new(x.0.to_string())))
         );
+
         ret.push(Cell::new(""));
+
         ret.push(Cell::new(self.info
             .map(|x| format!("{:6.4}", x).trim_end_matches('0').trim_end_matches('.').to_owned())
             .unwrap_or("".to_string())

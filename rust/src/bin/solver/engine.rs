@@ -5,7 +5,7 @@ use anyhow::{bail, Context, Result};
 use rand::rngs::StdRng;
 use rust_decimal::{dec, Decimal};
 
-use ayto::constraint::{CheckType, Constraint, ConstraintType};
+use ayto::constraint::{check_type::CheckType, Constraint, ConstraintType};
 use ayto::matching_repr::MaskedMatching;
 use ayto::ruleset::RuleSet;
 use ayto::Rem;
