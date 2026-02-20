@@ -12,49 +12,7 @@
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
-## unproblematic
-3 ./comparison/plotly.rs
-25 ./comparison/ruleset.rs
-25 ./comparison/theme.rs
-27 ./ruleset/parse.rs
-42 ./ruleset_data/dummy.rs
-46 ./lib.rs
-64 ./ruleset_data.rs
-66 ./comparison/information.rs
-76 ./constraint/utils.rs
-82 ./comparison/plotly/layout.rs
-91 ./comparison/plotly/scatter.rs
-91 ./constraint/eval_compute.rs
-100 ./constraint/parse_helpers.rs
-106 ./comparison/summary.rs
-118 ./comparison/lights.rs
-120 ./bin/ayto.rs
-130 ./game.rs
-137 ./tree.rs
-189 ./matching_repr.rs
-
-## can something be done?
-204 ./ruleset_data/dup.rs
-226 ./ruleset/utils.rs
-227 ./constraint/eval_types.rs
-257 ./ruleset_data/dup_x.rs
-271 ./game/output.rs
-280 ./comparison.rs
-285 ./iterstate.rs
-## try to split
-304 ./constraint/eval_predicates.rs
-311 ./comparison/plotly/heatmap.rs
-327 ./constraint/eval_report.rs
-341 ./matching_repr/bitset.rs
-346 ./game/parse.rs
-348 ./matching_repr/iter.rs
-386 ./matching_repr/conversions.rs
-392 ./game/eval.rs
-## must split
-453 ./constraint/parse.rs
-656 ./ruleset/generators.rs
-784 ./ruleset.rs
-1124 ./constraint.rs
+- TODO re-generate the report
 
 # Iterate over files manually
 ## bin
@@ -74,7 +32,7 @@ TODO (ausgelassen erstmal)
 - [x] write tests
 - [x] Write doc-comments for files
 
-## constraint (next up is report.rs, but report_summary is already done)
+## constraint
 - [x] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files

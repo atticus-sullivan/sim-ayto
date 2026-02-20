@@ -1,3 +1,7 @@
+/// This module provides the functionality related to the constraint which is needed during the
+/// simulation. In the process statistics are stored/gathered, but the evaluation is the job of
+/// another module(s).
+
 use anyhow::Result;
 
 use crate::constraint::{CheckType, Constraint};
@@ -78,6 +82,21 @@ impl Constraint {
 
 #[cfg(test)]
 mod tests {
+    use rust_decimal::dec;
+
+    use crate::{constraint::ConstraintType, ruleset_data::dummy::DummyData};
+
+    use super::*;
+
+    #[test]
+    fn test_process_remaining() {
+    }
+
+    #[test]
+    fn test_process_rs_data() {
+        // TODO: mock ruleset_data
+    }
+
     #[test]
     fn test_process_light() {
         let mut c = constraint_def(None, 2);
