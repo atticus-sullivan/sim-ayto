@@ -15,8 +15,6 @@ local_workflow.bash
 gh.bash
 *.conf
 
-data/**/*.md
-
 diff-outputs.bash
 solver_eval
 rust/flamegraph.bash
