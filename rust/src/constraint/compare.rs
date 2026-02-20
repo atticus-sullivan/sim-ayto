@@ -194,7 +194,7 @@ pub struct SumCounts {
     pub blackouts: u8,
     pub won: bool,
     pub matches_found: u8,
-    pub solvable: Option<bool>,
+    pub solvable_in: Option<(bool, String)>,
 
     pub offers_mn: SumOffersMN,
     pub offers_mb: SumOffersMB,
@@ -364,7 +364,7 @@ mod tests {
             },
             matches_found: 1,
             won: false,
-            solvable: Some(true),
+            solvable_in: Some((true, "".to_string())),
         };
         let b = SumCounts {
             blackouts: 2,
@@ -385,7 +385,7 @@ mod tests {
             },
             matches_found: 0,
             won: true,
-            solvable: Some(false),
+            solvable_in: Some((false, "".to_string())),
         };
         a.add(&b);
 
