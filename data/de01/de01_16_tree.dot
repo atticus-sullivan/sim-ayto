@@ -1,0 +1,4 @@
+digraph D { labelloc="b"; label="Stand: MN#8 / E16"; ranksep=0.8;
+"root/10000100000"[label="Madleine\nJuliano\nEdin"]
+"root" -> "root/10000100000";
+}

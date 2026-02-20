@@ -1,0 +1,18 @@
+digraph D { labelloc="b"; label="Stand: MN#10 / E21"; ranksep=0.8;
+"root/1000010000"[label="Joshi-Josh\nIna\nSophia"]
+"root" -> "root/1000010000";
+"root/1000010000/100"[label="Levin\nChiara"]
+"root/1000010000" -> "root/1000010000/100";
+"root/1000010000/100/100000"[label="Tano\nJoanna"]
+"root/1000010000/100" -> "root/1000010000/100/100000";
+"root/10000"[label="Joshi-Josh\nIna"]
+"root" -> "root/10000";
+"root/10000/1000000100"[label="Levin\nChiara\nSophia"]
+"root/10000" -> "root/10000/1000000100";
+"root/10000/1000000100/100000"[label="Tano\nJoanna"]
+"root/10000/1000000100" -> "root/10000/1000000100/100000";
+"root/10000/100"[label="Levin\nChiara"]
+"root/10000" -> "root/10000/100";
+"root/10000/100/1000100000"[label="Tano\nJoanna\nSophia"]
+"root/10000/100" -> "root/10000/100/1000100000";
+}

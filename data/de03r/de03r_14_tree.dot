@@ -1,0 +1,12 @@
+digraph D { labelloc="b"; label="Stand: MN#7 / E16"; ranksep=0.8;
+"root/1000"[label="Paulina\nFabio"]
+"root" -> "root/1000";
+"root/1000/10010000000"[label="Kim\nPeter\nMax"]
+"root/1000" -> "root/1000/10010000000";
+"root/10010000000"[label="Paulina\nPeter\nMax"]
+"root" -> "root/10010000000";
+"root/10010000000/1000"[label="Kim\nFabio"]
+"root/10010000000" -> "root/10010000000/1000";
+"root/10010000000/1000000000"[label="Kim\nTeezy"]
+"root/10010000000" -> "root/10010000000/1000000000";
+}

@@ -1,0 +1,6 @@
+digraph D { labelloc="b"; label="Stand: MN#11.2 / E22 (Wiedersehen-2)"; ranksep=0.8;
+"root/100000100000"[label="Beverly\nNico\nJimiBlue"]
+"root" -> "root/100000100000";
+"root/100000100000/10000100"[label="Joanna\nJonny\nRob"]
+"root/100000100000" -> "root/100000100000/10000100";
+}
