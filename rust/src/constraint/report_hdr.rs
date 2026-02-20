@@ -80,15 +80,13 @@ impl fmt::Display for MapSRender<'_, '_> {
         rows.sort_by_key(|i| i.0);
         tab.add_rows(rows.into_iter().map(|i| i.1).collect::<Vec<_>>());
         tab.column_mut(0).ok_or(fmt::Error)?.set_padding((0, 1));
-        writeln!(f, "{tab}")
+        write!(f, "{tab}")
     }
 }
 
 impl Constraint {
     pub fn print_hdr(&self, past_constraints: &[&Constraint]) -> Result<()> {
-        println!("{}", self.type_str());
-
-        println!();
+        println!("{} {}", self.type_str(), self.comment());
 
         println!(
             "{}",
@@ -101,7 +99,7 @@ impl Constraint {
 
         println!("---");
 
-        println!(
+        print!(
             "{}",
             CheckTypeRender {
                 check: &self.check,
@@ -205,8 +203,7 @@ mod tests {
             msr.to_string(),
             r#"a   → A 
 bbb → B 
-c   → C 
-"#
+c   → C "#
         );
 
         let msr = MapSRender {
@@ -221,8 +218,7 @@ c   → C
             msr.to_string(),
             r#"0x a   → A 
 0x bbb → B 
-0x c   → C 
-"#
+0x c   → C "#
         );
 
         let mut c1 = Constraint::default();
@@ -273,8 +269,7 @@ c   → C
             msr.to_string(),
             r#"2x a → A 
 0x b → B 
-1x c → C 
-"#
+1x c → C "#
         );
     }
 }
