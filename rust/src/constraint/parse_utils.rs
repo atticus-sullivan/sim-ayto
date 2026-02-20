@@ -1,6 +1,5 @@
 /// This module contains some helper functions which assist in parsing/converting/validating
 /// constraints
-
 use std::collections::{HashMap, HashSet};
 
 use anyhow::{ensure, Context, Result};
@@ -70,7 +69,7 @@ impl ConstraintParse {
                 let v_id = *lut_b
                     .get(v)
                     .with_context(|| format!("Invalid Value {}", v))?
-                as u8;
+                    as u8;
                 Ok((k_id, v_id))
             })
             .collect::<Result<HashMap<u8, u8>>>()?;
@@ -82,10 +81,7 @@ impl ConstraintParse {
     }
 
     /// Check cardinality / shape invariants for the parsed constraint.
-    pub(crate) fn validate_constraint(
-        &self,
-        map_len: usize,
-    ) -> Result<()> {
+    pub(crate) fn validate_constraint(&self, map_len: usize) -> Result<()> {
         match self.r#type {
             ConstraintType::Night { .. } => {
                 ensure!(
@@ -157,6 +153,7 @@ impl ConstraintParse {
 }
 
 #[cfg(test)]
+#[allow(clippy::field_reassign_with_default)]
 mod tests {
     use rust_decimal::dec;
 
@@ -167,22 +164,38 @@ mod tests {
     fn added_known_lights_simple() {
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.added_known_lights(), 0);
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(0, BTreeMap::default());
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.added_known_lights(), 0);
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(2, BTreeMap::default());
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.added_known_lights(), 0);
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.added_known_lights(), 1);
     }
 
@@ -212,30 +225,54 @@ mod tests {
     #[test]
     fn ignore_on_simple() {
         let mut cp = ConstraintParse::default();
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert!(!cp.ignore_on(&IgnoreOps::Boxes));
 
         let mut cp = ConstraintParse::default();
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert!(cp.ignore_on(&IgnoreOps::Boxes));
     }
 
     #[test]
     fn type_str_simple() {
         let mut cp = ConstraintParse::default();
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.type_str(), "MN#1.0");
 
         let mut cp = ConstraintParse::default();
-        cp.r#type = ConstraintType::Night { num: dec![3], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Night {
+            num: dec![3],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.type_str(), "MN#3.0");
 
         let mut cp = ConstraintParse::default();
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.type_str(), "MB#1.0");
 
         let mut cp = ConstraintParse::default();
-        cp.r#type = ConstraintType::Box { num: dec![3], comment: "".to_string(), offer: None };
+        cp.r#type = ConstraintType::Box {
+            num: dec![3],
+            comment: "".to_string(),
+            offer: None,
+        };
         assert_eq!(cp.type_str(), "MB#3.0");
     }
 
@@ -245,26 +282,23 @@ mod tests {
         cp.map_s.insert("A".to_string(), "b".to_string());
         cp.map_s.insert("B".to_string(), "c".to_string());
 
-        let lut_a = vec![
-            ("A", 0),
-            ("B", 5),
-        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
-        let lut_b = vec![
-            ("b", 2),
-            ("c", 20),
-        ].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<HashMap<_,_>>();
+        let lut_a = vec![("A", 0), ("B", 5)]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v))
+            .collect::<HashMap<_, _>>();
+        let lut_b = vec![("b", 2), ("c", 20)]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v))
+            .collect::<HashMap<_, _>>();
 
         let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
 
-        let c_ref = vec![
-            (0, 2),
-            (5, 20),
-        ].into_iter().map(|(k,v)| (k, v)).collect::<HashMap<_,_>>();
+        let c_ref = vec![(0, 2), (5, 20)].into_iter().collect::<HashMap<_, _>>();
 
-        let c_ref_s = vec![
-            ("A", "b"),
-            ("B", "c"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        let c_ref_s = vec![("A", "b"), ("B", "c")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
 
         assert_eq!(c_map, c_ref);
         assert_eq!(c_map_s, c_ref_s);
@@ -274,59 +308,85 @@ mod tests {
     fn validate_constraint_simple() {
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
-        cp.map_s = vec![
-            ("A", "b"),
-            ("B", "c"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
+        cp.map_s = vec![("A", "b"), ("B", "c")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         assert!(cp.validate_constraint(2).is_ok());
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
-        cp.map_s = vec![
-            ("A", "b"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
+        cp.map_s = vec![("A", "b")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         // Night has too few entries in map
         assert!(cp.validate_constraint(2).is_err());
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
-        cp.map_s = vec![
-            ("A", "b"),
-            ("B", "b"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
+        cp.map_s = vec![("A", "b"), ("B", "b")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         // Night has duplicates in map
         assert!(cp.validate_constraint(2).is_err());
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Night { num: dec![1], comment: "".to_string(), offer: None };
-        cp.map_s = vec![
-            ("A", "b"),
-            ("B", "c"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.r#type = ConstraintType::Night {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
+        cp.map_s = vec![("A", "b"), ("B", "c")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         cp.exclude_s = Some(("".to_string(), vec!["".to_string()]));
         // exclude_s is not supported with nigt
         assert!(cp.validate_constraint(2).is_err());
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
-        cp.map_s = vec![
-            ("A", "b"),
-            ("B", "c"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
+        cp.map_s = vec![("A", "b"), ("B", "c")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         // Box can always only have one entry in the map
         assert!(cp.validate_constraint(2).is_err());
 
         let mut cp = ConstraintParse::default();
         cp.check = CheckType::Lights(1, BTreeMap::default());
-        cp.r#type = ConstraintType::Box { num: dec![1], comment: "".to_string(), offer: None };
-        cp.map_s = vec![
-            ("A", "b"),
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<HashMap<_,_>>();
+        cp.r#type = ConstraintType::Box {
+            num: dec![1],
+            comment: "".to_string(),
+            offer: None,
+        };
+        cp.map_s = vec![("A", "b")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         // Box can always only have one entry in the map
         assert!(cp.validate_constraint(2).is_ok());
     }
@@ -356,17 +416,14 @@ mod tests {
         ConstraintParse::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
 
         // Validate the map is sorted and flipped correctly
-        let ref_map = vec![
-            (1, 0),
-            (3, 2),
-        ].into_iter().map(|(k,v)| (k,v)).collect::<HashMap<_,_>>();
+        let ref_map = vec![(1, 0), (3, 2)].into_iter().collect::<HashMap<_, _>>();
         assert_eq!(map, ref_map);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        let ref_map = vec![
-            ("B", "a"),
-            ("d", "C"),
-        ].into_iter().map(|(k,v)| (k.to_string(),v.to_string())).collect::<HashMap<_,_>>();
+        let ref_map = vec![("B", "a"), ("d", "C")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         assert_eq!(map_s, ref_map);
     }
 
@@ -395,17 +452,14 @@ mod tests {
         ConstraintParse::sort_maps(&mut map, &mut map_s, &lut_a, &lut_b);
 
         // Validate the map is sorted and flipped correctly
-        let ref_map = vec![
-            (1, 0),
-            (3, 2),
-        ].into_iter().map(|(k,v)| (k,v)).collect::<HashMap<_,_>>();
+        let ref_map = vec![(1, 0), (3, 2)].into_iter().collect::<HashMap<_, _>>();
         assert_eq!(map, ref_map);
 
         // Validate map_s is sorted and flipped correctly according to the LUTs
-        let ref_map = vec![
-            ("B", "a"),
-            ("d", "C"),
-        ].into_iter().map(|(k,v)| (k.to_string(),v.to_string())).collect::<HashMap<_,_>>();
+        let ref_map = vec![("B", "a"), ("d", "C")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<HashMap<_, _>>();
         assert_eq!(map_s, ref_map);
     }
 }

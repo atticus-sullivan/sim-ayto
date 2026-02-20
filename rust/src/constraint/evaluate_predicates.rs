@@ -1,7 +1,6 @@
 /// This module contains predicates to be used after the simulation has completed.
 ///
 /// Note there is also evaluate which contains the non-predicate functions
-
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
@@ -71,12 +70,12 @@ impl Constraint {
 }
 
 #[cfg(test)]
+#[allow(clippy::field_reassign_with_default)]
 mod tests {
     use super::*;
     use crate::matching_repr::MaskedMatching;
-    use crate::ruleset_data::dummy::DummyData;
     use rust_decimal::dec;
-    use std::collections::{BTreeMap, HashMap};
+    use std::collections::BTreeMap;
 
     #[test]
     fn is_blackout_simple() {
@@ -124,7 +123,11 @@ mod tests {
     #[test]
     fn is_mb_hit_simple() {
         // match is 0 -> 2
-        let sol = vec![MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]])];
+        let sol = vec![MaskedMatching::from_matching_ref(&[
+            vec![2],
+            vec![1],
+            vec![0],
+        ])];
 
         let mut c = Constraint::default();
         c.r#type = ConstraintType::Night {

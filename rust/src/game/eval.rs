@@ -9,7 +9,9 @@ use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-use crate::constraint::compare::{EvalData, EvalEvent, EvalInitial, SumCounts, SumOffersMB, SumOffersMN};
+use crate::constraint::compare::{
+    EvalData, EvalEvent, EvalInitial, SumCounts, SumOffersMB, SumOffersMN,
+};
 use crate::constraint::Constraint;
 use crate::game::DumpMode;
 use crate::game::Game;

@@ -5,10 +5,9 @@
 /// Note:
 /// Some larger functionality has been factored out to individual modules:
 /// - generating a row for the summary table
-/// 
+///
 /// Also some predicates used for generating the reports has been moved to a new module:
 /// - report_predicates
-
 use anyhow::Result;
 use std::{fs::File, path::PathBuf};
 
@@ -85,6 +84,7 @@ impl Constraint {
 }
 
 #[cfg(test)]
+#[allow(clippy::field_reassign_with_default)]
 mod tests {
     use rust_decimal::dec;
 
@@ -95,27 +95,42 @@ mod tests {
     #[test]
     fn distance_simple() {
         let mut c = Constraint::default();
-        c.r#type = ConstraintType::Night { num: dec![1.0], comment: "".to_string(), offer: None };
+        c.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
         c.check = CheckType::Sold;
         // show_past_dist: false
 
         let mut other = Constraint::default();
-        other.r#type = ConstraintType::Night { num: dec![1.0], comment: "".to_string(), offer: None };
+        other.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
         other.check = CheckType::Lights(1, Default::default());
         // show_past_dist: true
 
         let x = c.distance(&other);
         assert_eq!(x, None);
 
-
         let mut c = Constraint::default();
-        c.r#type = ConstraintType::Night { num: dec![1.0], comment: "".to_string(), offer: None };
+        c.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
         c.check = CheckType::Lights(1, Default::default());
         // show_past_dist: true
         c.map = MaskedMatching::from_matching_ref(&[vec![0]]);
 
         let mut other = Constraint::default();
-        other.r#type = ConstraintType::Night { num: dec![1.0], comment: "".to_string(), offer: None };
+        other.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
         other.check = CheckType::Lights(1, Default::default());
         // show_past_dist: true
         other.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
@@ -124,15 +139,22 @@ mod tests {
         // maps have different length
         assert_eq!(x, None);
 
-
         let mut c = Constraint::default();
-        c.r#type = ConstraintType::Night { num: dec![1.0], comment: "".to_string(), offer: None };
+        c.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
         c.check = CheckType::Lights(1, Default::default());
         // show_past_dist: true
         c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
 
         let mut other = Constraint::default();
-        other.r#type = ConstraintType::Night { num: dec![1.0], comment: "".to_string(), offer: None };
+        other.r#type = ConstraintType::Night {
+            num: dec![1.0],
+            comment: "".to_string(),
+            offer: None,
+        };
         other.check = CheckType::Lights(1, Default::default());
         // show_past_dist: true
         other.map = MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]);
@@ -155,12 +177,20 @@ mod tests {
     #[test]
     fn md_heading_simple() {
         let mut c = Constraint::default();
-        c.r#type = ConstraintType::Night { num: dec![1.1], comment: "Test Night--extra".to_string(), offer: None };
+        c.r#type = ConstraintType::Night {
+            num: dec![1.1],
+            comment: "Test Night--extra".to_string(),
+            offer: None,
+        };
         let x = c.md_heading();
         assert_eq!(x, "MN#01.1 Test Night");
 
         let mut c = Constraint::default();
-        c.r#type = ConstraintType::Box { num: dec![2], comment: "Box Comment--extra".to_string(), offer: None };
+        c.r#type = ConstraintType::Box {
+            num: dec![2],
+            comment: "Box Comment--extra".to_string(),
+            offer: None,
+        };
         let x = c.md_heading();
         assert_eq!(x, "MB#02.0 Box Comment");
     }

@@ -103,18 +103,9 @@ mod tests {
 
     #[test]
     fn calc_entropy_varied_case() {
-        let m = MaskedMatching::from_masks(vec![
-            Bitset::from_word(1),
-            Bitset::from_word(2),
-        ]);
-        let p1 = MaskedMatching::from_masks(vec![
-            Bitset::from_word(1),
-            Bitset::from_word(2),
-        ]);
-        let p2 = MaskedMatching::from_masks(vec![
-            Bitset::from_word(1),
-            Bitset::from_word(0),
-        ]);
+        let m = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(2)]);
+        let p1 = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(2)]);
+        let p2 = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(0)]);
         let left = vec![p1, p2];
         let h = calc_entropy(&m, &left);
         assert!(h > 0.0);

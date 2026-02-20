@@ -1,6 +1,5 @@
 /// This module provides a mean to represent how a constraint is checked (e.g. Lights, Sold, ...).
 /// Along with the representation it also already contains means for the evaluation
-
 use std::collections::BTreeMap;
 
 use serde::Deserialize;
@@ -34,17 +33,19 @@ impl CheckType {
         match self {
             CheckType::Lights(_, ls) => {
                 let total = ls.values().sum::<u128>() as f64;
-                Some(ls.iter()
-                    .map(|(l, c)| {
-                        let i = -(*c as f64 / total).log2();
-                        if i == -0.0 {
-                            (*l, 0.0)
-                        } else {
-                            (*l,i)
-                        }
-                    })
-                    .collect::<Vec<_>>())
-            },
+                Some(
+                    ls.iter()
+                        .map(|(l, c)| {
+                            let i = -(*c as f64 / total).log2();
+                            if i == -0.0 {
+                                (*l, 0.0)
+                            } else {
+                                (*l, i)
+                            }
+                        })
+                        .collect::<Vec<_>>(),
+                )
+            }
             _ => None,
         }
     }
@@ -60,12 +61,8 @@ impl CheckType {
                         p * p.log2()
                     })
                     .sum();
-                Some(if expected == 0.0 {
-                    -0.0
-                } else {
-                    expected
-                })
-            },
+                Some(if expected == 0.0 { -0.0 } else { expected })
+            }
             _ => None,
         }
     }
@@ -75,7 +72,9 @@ impl CheckType {
 mod tests {
     use super::*;
 
-    fn round2(x: f64) -> f64 { (x*100.0).round()/100.0 }
+    fn round2(x: f64) -> f64 {
+        (x * 100.0).round() / 100.0
+    }
 
     #[test]
     fn as_lights_simple() {
@@ -87,30 +86,26 @@ mod tests {
     fn calc_information_gain_simple() {
         let ct = CheckType::Lights(
             2,
-            vec![(1,1), (2,1)]
-            .into_iter()
-            .collect::<BTreeMap<_, _>>(),
+            vec![(1, 1), (2, 1)].into_iter().collect::<BTreeMap<_, _>>(),
         );
-        let x = ct.calc_information_gain()
+        let x = ct
+            .calc_information_gain()
             .unwrap()
             .into_iter()
-            .map(|(i,j)| (i,round2(j)))
-            .collect::<Vec<_>>()
-        ;
+            .map(|(i, j)| (i, round2(j)))
+            .collect::<Vec<_>>();
         assert_eq!(x, vec![(1, 1.0), (2, 1.0)]);
 
         let ct = CheckType::Lights(
             2,
-            vec![(1,3), (2,1)]
-            .into_iter()
-            .collect::<BTreeMap<_, _>>(),
+            vec![(1, 3), (2, 1)].into_iter().collect::<BTreeMap<_, _>>(),
         );
-        let x = ct.calc_information_gain()
+        let x = ct
+            .calc_information_gain()
             .unwrap()
             .into_iter()
-            .map(|(i,j)| (i,round2(j)))
-            .collect::<Vec<_>>()
-        ;
+            .map(|(i, j)| (i, round2(j)))
+            .collect::<Vec<_>>();
         assert_eq!(x, vec![(1, 0.42), (2, 2.0)]);
 
         let ct = CheckType::Eq;
@@ -130,9 +125,7 @@ mod tests {
     fn calc_expected_value_simple() {
         let ct = CheckType::Lights(
             2,
-            vec![(1,1), (2,1)]
-            .into_iter()
-            .collect::<BTreeMap<_, _>>(),
+            vec![(1, 1), (2, 1)].into_iter().collect::<BTreeMap<_, _>>(),
         );
         let x = ct.calc_expected_value();
         // uniform counts: sum p*log2(p) = 0.5*log2(0.5)+0.5*log2(0.5) = -1.0, function returns -expected = 1.0
@@ -140,9 +133,7 @@ mod tests {
 
         let ct = CheckType::Lights(
             2,
-            vec![(1,3), (2,1)]
-            .into_iter()
-            .collect::<BTreeMap<_, _>>(),
+            vec![(1, 3), (2, 1)].into_iter().collect::<BTreeMap<_, _>>(),
         );
         let x = round2(ct.calc_expected_value().unwrap());
         // expected = 3/4*log2(3/4) + 1/4*log2(1/4) = -0.311278 + (-0.5) = -0.811278 -> function returns -(-0.811278)=0.81

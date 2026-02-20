@@ -2,18 +2,17 @@
 /// means that a box for on y-series can be of different length than the box on for the same
 /// x-column for another y-series. It achieves this by splitting the larger box into multiple identical
 /// ones.
-
 use catppuccin::Flavor;
 use plotly::common::{ColorScale, Title};
 use plotly::{HeatMap, Layout};
 use rust_decimal::Decimal;
 use serde::Serialize;
 
+use crate::comparison::data::CmpData;
+use crate::comparison::plotly::heatmap_utils::*;
 use crate::comparison::plotly::layout::plotly_new_plot;
 use crate::comparison::plotly::layout::styled_axis;
-use crate::comparison::plotly::heatmap_utils::*;
 use crate::comparison::theme::plotly_colorscale;
-use crate::comparison::data::CmpData;
 
 /// Single input datum used to construct heatmap entries.
 ///
@@ -22,8 +21,8 @@ use crate::comparison::data::CmpData;
 /// `hover` - optional hover string for this datum.
 #[derive(Clone, Debug)]
 pub(crate) struct EntryDatum {
-    pub(crate) num: Decimal,          // the value you bucket by (we call .floor() on it)
-    pub(crate) val: Option<f64>,      // the value to render in the heatmap cell (None => empty)
+    pub(crate) num: Decimal, // the value you bucket by (we call .floor() on it)
+    pub(crate) val: Option<f64>, // the value to render in the heatmap cell (None => empty)
     pub(crate) hover: Option<String>, // comment/additional data shown on hover
 }
 
@@ -58,7 +57,10 @@ where
         .color_scale(color_scale)
         .x_gap(4)
         .y_gap(4)
-        .hover_template(format!("{}: %{{z}}<br>%{{y}}<br>%{{text}}<extra></extra>", z_title))
+        .hover_template(format!(
+            "{}: %{{z}}<br>%{{y}}<br>%{{text}}<extra></extra>",
+            z_title
+        ))
         .text_matrix(texts);
 
     // Add the trace and apply layout (title + axis styling).

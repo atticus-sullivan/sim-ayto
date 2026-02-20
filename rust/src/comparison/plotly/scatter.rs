@@ -2,8 +2,8 @@ use catppuccin::Flavor;
 use plotly::{common::Mode, Layout, Scatter};
 use serde::Serialize;
 
-use crate::comparison::plotly::layout::{plotly_new_plot, styled_axis};
 use crate::comparison::data::CmpData;
+use crate::comparison::plotly::layout::{plotly_new_plot, styled_axis};
 
 /// Build a scatter plot HTML from a list of named series. Each series is
 /// `(name, x_values, y_values, text_values)`.

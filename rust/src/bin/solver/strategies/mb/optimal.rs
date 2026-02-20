@@ -35,11 +35,7 @@ mod tests {
         let optimizer = OptimalMbOptimizer;
 
         // data: 3x3 matrix
-        let data = vec![
-            vec![10, 20, 30],
-            vec![40, 50, 60],
-            vec![70, 80, 90],
-        ];
+        let data = vec![vec![10, 20, 30], vec![40, 50, 60], vec![70, 80, 90]];
         let total = 100u128; // target = 50
         let mut rng = StdRng::seed_from_u64(1);
 

@@ -1,3 +1,4 @@
+pub mod check_type;
 /// This module implements all types of constraints limiting the possible solutions as the game
 /// goes on.
 ///
@@ -17,18 +18,16 @@
 ///
 /// This specific module only implements the "real" (in contrast to parsing) datatypes and some
 /// simple getters.
-
 pub mod compare;
-pub mod check_type;
 pub(super) mod evaluate;
 pub(super) mod evaluate_predicates;
 pub(super) mod parse;
 pub(super) mod parse_utils;
 pub(super) mod report;
-pub(super) mod report_summary;
 pub(super) mod report_hdr;
-pub(super) mod simulate;
 mod report_predicates;
+pub(super) mod report_summary;
+pub(super) mod simulate;
 
 use std::hash::{Hash, Hasher};
 
@@ -104,7 +103,11 @@ pub enum ConstraintType {
 impl Hash for ConstraintType {
     fn hash<H: Hasher>(&self, state: &mut H) {
         match self {
-            ConstraintType::Night { num, comment, offer } => {
+            ConstraintType::Night {
+                num,
+                comment,
+                offer,
+            } => {
                 0.hash(state); // A constant to distinguish this variant
                 num.hash(state);
                 comment.hash(state);
@@ -201,7 +204,11 @@ pub struct Constraint {
 impl Default for Constraint {
     fn default() -> Self {
         Constraint {
-            r#type: ConstraintType::Box { num: dec![1], comment: String::new(), offer: None },
+            r#type: ConstraintType::Box {
+                num: dec![1],
+                comment: String::new(),
+                offer: None,
+            },
             check: CheckType::Lights(1, Default::default()),
             hidden: false,
             result_unknown: false,
@@ -224,6 +231,7 @@ impl Default for Constraint {
 impl Constraint {
     /// Create a new `Constraint`. The most important data can be passed as arguments, the
     /// remaining fields will be filled with typical defaults.
+    #[allow(clippy::field_reassign_with_default)]
     pub fn new_with_defaults(
         t: ConstraintType,
         check: CheckType,
