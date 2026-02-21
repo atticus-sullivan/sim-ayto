@@ -67,7 +67,7 @@ impl QueryPairReport {
 impl fmt::Display for QueryPairReport {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         for i in &self.sections {
-            write!(f, "{i}")?;
+            writeln!(f, "{i}")?;
         }
         Ok(())
     }

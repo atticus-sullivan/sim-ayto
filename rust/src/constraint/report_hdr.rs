@@ -3,7 +3,6 @@
 /// solutions.
 use core::fmt;
 
-use anyhow::Result;
 use comfy_table::{presets::NOTHING, Row, Table};
 
 use crate::constraint::{CheckType, Constraint};
@@ -42,13 +41,13 @@ impl fmt::Display for CheckTypeRender<'_> {
     }
 }
 
-struct MapSRender<'a, 'b> {
+struct MapSRender<'a> {
     map: &'a MapS,
-    past_constraints: &'b [&'b Constraint],
+    past_constraints: &'a [Constraint],
     show_past_cnt: bool,
 }
 
-impl fmt::Display for MapSRender<'_, '_> {
+impl fmt::Display for MapSRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut tab = Table::new();
         tab
@@ -84,24 +83,35 @@ impl fmt::Display for MapSRender<'_, '_> {
     }
 }
 
-impl Constraint {
-    pub fn print_hdr(&self, past_constraints: &[&Constraint]) -> Result<()> {
-        println!("{} {}", self.type_str(), self.comment());
+pub(crate) struct ReportData<'a> {
+    hdr: String,
+    map_s: MapSRender<'a>,
+    check_type: CheckTypeRender<'a>,
+    footer: String,
+}
 
-        println!(
-            "{}",
-            MapSRender {
+impl<'a> fmt::Display for ReportData<'a> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{}", self.hdr)?;
+        writeln!(f, "{}", self.map_s)?;
+        writeln!(f, "---")?;
+
+        write!(f, "{}", self.check_type)?;
+        write!(f, "{}", self.footer)?;
+        Ok(())
+    }
+}
+
+impl Constraint {
+    pub(crate) fn generate_hdr_report<'a>(&'a self, past_constraints: &'a[Constraint]) -> ReportData<'a> {
+        ReportData{
+            hdr: format!("{} {}", self.type_str(), self.comment()),
+            map_s: MapSRender {
                 map: &self.map_s,
                 show_past_cnt: self.show_past_cnt(),
                 past_constraints,
-            }
-        );
-
-        println!("---");
-
-        print!(
-            "{}",
-            CheckTypeRender {
+            },
+            check_type: CheckTypeRender {
                 check: &self.check,
                 i: if self.show_lights_information() {
                     self.check.calc_information_gain()
@@ -113,15 +123,14 @@ impl Constraint {
                 } else {
                     None
                 },
-            }
-        );
-        println!(
-            "=> I = {} bits",
-            format!("{:.4}", self.information.unwrap_or(f64::INFINITY))
-                .trim_end_matches('0')
-                .trim_end_matches('.')
-        );
-        Ok(())
+            },
+            footer: format!(
+                "=> I = {} bits",
+                format!("{:.4}", self.information.unwrap_or(f64::INFINITY))
+                    .trim_end_matches('0')
+                    .trim_end_matches('.')
+            ),
+        }
     }
 }
 
@@ -262,7 +271,7 @@ c   → C "#
                 .into_iter()
                 .map(|(i, j)| (i.to_string(), j.to_string()))
                 .collect::<MapS>(),
-            past_constraints: &[&c1, &c2, &c3],
+            past_constraints: &[c1, c2, c3],
             show_past_cnt: true,
         };
         assert_eq!(

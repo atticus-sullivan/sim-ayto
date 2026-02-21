@@ -7,6 +7,7 @@ use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Color, Table};
 
+use crate::game::eval_utils::MdTable;
 use crate::game::Game;
 use crate::Rem;
 use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};
@@ -15,10 +16,10 @@ impl Game {
     /// Write the main markdown output file (frontmatter + images/tabs).
     ///
     /// `md_tables` describes which generated plots / images will be embedded in the page.
-    pub fn write_page_md(
+    pub(super) fn write_page_md(
         &self,
         out: &mut File,
-        md_tables: &[(String, usize, bool, bool)],
+        md_tables: &[MdTable],
     ) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
@@ -33,22 +34,23 @@ impl Game {
         writeln!(out, "{{{{% /details %}}}}")?;
 
         writeln!(out, "\n{{{{% translateHdr \"tab-individual\" %}}}}")?;
-        for (name, idx, tree, detail) in md_tables.iter() {
-            if *detail {
+        for tab in md_tables.iter() {
+            if tab.detail {
                 writeln!(
                     out,
-                    "\n{{{{% details title=\"{name}\" closed=\"true\" %}}}}"
+                    "\n{{{{% details title=\"{}\" closed=\"true\" %}}}}",
+                    tab.name
                 )?;
             } else {
-                writeln!(out, "\n{{{{% translatedDetails \"{name}\" %}}}}")?;
+                writeln!(out, "\n{{{{% translatedDetails \"{}\" %}}}}", tab.name)?;
             }
 
-            writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{idx}.png\" %}}}}")?;
-            if *tree {
-                writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{idx}_tree.png\" %}}}}")?;
+            writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{}.png\" %}}}}", tab.idx)?;
+            if tab.tree {
+                writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{}_tree.png\" %}}}}", tab.idx)?;
             }
 
-            if *detail {
+            if tab.detail {
                 writeln!(out, "{{{{% /details %}}}}")?;
             } else {
                 writeln!(out, "{{{{% /translatedDetails %}}}}")?;
