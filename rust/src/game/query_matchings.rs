@@ -58,8 +58,7 @@ impl MatchingEntry {
             let b_s = b
                 .iter()
                 .map(|b| map_b
-                    .get(b as usize)
-                    .map(|x| x.clone())
+                    .get(b as usize).cloned()
                     .with_context(|| format!("{} is out of bounds for map_b", b))
                 )
                 .collect::<Result<Vec<_>>>()?;

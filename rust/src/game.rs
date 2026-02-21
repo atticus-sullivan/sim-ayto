@@ -4,25 +4,22 @@ pub mod parse;
 mod query_matchings;
 mod query_pairs;
 mod report_body;
+mod eval_utils;
+pub mod dump_mode;
+mod compare;
+mod report_summary;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
 
 use anyhow::Result;
 
+use crate::game::dump_mode::DumpMode;
 use crate::constraint::Constraint;
 use crate::iterstate::IterState;
 use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::Lut;
-
-#[derive(clap::ValueEnum, Clone, Debug)]
-pub enum DumpMode {
-    Full,
-    FullNames,
-    Winning,
-    WinningNames,
-}
 
 #[derive(Debug)]
 pub struct Game {
@@ -113,16 +110,5 @@ impl Game {
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
 
         Ok(is)
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn format_players_formats() {
-        assert_eq!(Game::format_players(3, 4), "3/4".to_string());
-        assert_eq!(Game::format_players(0, 1), "0/1".to_string());
     }
 }
