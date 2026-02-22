@@ -1,4 +1,5 @@
 use ayto::comparison;
+use ayto::game::cache::{CacheModeArg, CacheModeFallback};
 use ayto::game::parse::GameParse;
 
 use ayto::dump_mode::DumpMode;
@@ -46,11 +47,38 @@ enum Commands {
         )]
         full: bool,
 
+
         #[arg(
-            long = "use-cache",
-            help = "Enable caching. Pass a cache-id to start the simulation from there. Needs to be passed in order to build a cache. To use the optimal cache provide an arbitrary string"
+            long = "allow-cache",
+            help = "Allow caching to be used in principle. Whether it will be used depends on the config and/or the use-cache flag"
         )]
-        use_cache: Option<String>,
+        allow_cache: bool,
+
+        #[arg(
+            long = "gen-cache",
+            help = "Generate a cache of the current final stage. Overrides the setting in the config if set"
+        )]
+        gen_cache: bool,
+
+        #[arg(
+            value_enum,
+            long = "use-cache",
+            help = "Specifies which/whether cache shall be used. Overrides the setting of the config if set",
+        )]
+        use_cache: Option<CacheModeArg>,
+
+        #[arg(
+            value_enum,
+            long = "cache-fallback",
+            help = "Specifies what shall be done if cache is requested but the specified one is not found. Overrides the setting of the config"
+        )]
+        cache_fallback: Option<CacheModeFallback>,
+
+        #[arg(long, conflicts_with = "cache_event", help = "If specific cache is requested, this specifies which one")]
+        cache_path: Option<PathBuf>,
+
+        #[arg(long, conflicts_with = "cache_path", help = "if the cache of a specific event is requested, this specifies which one")]
+        cache_event: Option<String>,
     },
     Check {
         /// The path to the file to read
@@ -83,26 +111,56 @@ fn main() {
             stem,
             dump,
             full,
+
+            allow_cache,
+            gen_cache,
             use_cache,
+            cache_fallback,
+            cache_path,
+            cache_event,
         } => {
             let gp =
-                GameParse::new_from_yaml(&yaml_path, use_cache.clone()).expect("Parsing failed");
+                GameParse::new_from_yaml(&yaml_path).expect("Parsing failed");
+            let gp_cache = (gp.gen_cache, gp.use_cache.clone(), gp.cache_fallback.clone());
             let mut g = gp
                 .finalize_parsing(&stem, ignore_boxes)
                 .expect("processing game failed");
+
+            if allow_cache {
+                // construct the full cache-mode (postprocess the cli arguments)
+                let cache_mode = use_cache.map(|x| x.finalize(&cache_path, &cache_event)).transpose().unwrap();
+
+                // cli arguments override the settings in the config
+                let cache_mode = cache_mode.or(gp_cache.1);
+                let cache_fallback = cache_fallback.or(gp_cache.2);
+
+                let cs = g.get_cache_candidates();
+                // try selecting a cache in case a cache mode was provided
+                if let Some(cache_mode) = cache_mode {
+                    g.select_cache(&cs, cache_mode, &cache_fallback, true).unwrap();
+                }
+                if gp_cache.0 || gen_cache {
+                    g.set_gen_cache(&cs, true).unwrap();
+                }
+            }
+
             let start = Instant::now();
-            let result = g.sim(dump.clone(), use_cache).unwrap();
+            let result = g.sim(dump.clone()).unwrap();
             g.eval(transpose_tabs, dump, full, &result, no_tree_output)
                 .unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
         Commands::Cache { yaml_path } => {
             let gp =
-                GameParse::new_from_yaml(&yaml_path, Some("".to_string())).expect("Parsing failed");
-            println!("{}", gp.show_caches().expect("Failed evaluating caches"));
+                GameParse::new_from_yaml(&yaml_path).expect("Parsing failed");
+            let mut g = gp.finalize_parsing(std::path::Path::new(".trash"), false)
+                .expect("processing game failed");
+
+            let cs = g.get_cache_candidates();
+            println!("{}", cs);
         }
         Commands::Check { yaml_path } => {
-            let gp = GameParse::new_from_yaml(&yaml_path, None).expect("Parsing failed");
+            let gp = GameParse::new_from_yaml(&yaml_path).expect("Parsing failed");
             gp.finalize_parsing(std::path::Path::new(".trash"), false)
                 .expect("processing game failed");
         }

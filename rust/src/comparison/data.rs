@@ -46,7 +46,7 @@ fn read_json_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Op
 /// error in current behavior (keeps earlier behavior intact).
 fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
     fn_path.set_extension("yaml");
-    let gp = crate::game::parse::GameParse::new_from_yaml(fn_path.as_path(), None)
+    let gp = crate::game::parse::GameParse::new_from_yaml(fn_path.as_path())
         .expect("Parsing failed");
     gp.finalize_parsing(Path::new("/tmp/"), false)
 }

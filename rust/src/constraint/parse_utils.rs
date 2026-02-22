@@ -25,30 +25,12 @@ impl ConstraintParse {
         0
     }
 
-    /// Whether this constraint actually restricts the solution set (not a no-op).
-    pub(crate) fn has_impact(&self) -> bool {
-        if self.result_unknown {
-            return false;
-        }
-        if let CheckType::Nothing | CheckType::Sold = &self.check {
-            return false;
-        }
-        true
-    }
-
     pub(crate) fn ignore_on(&self, ops: &IgnoreOps) -> bool {
         match ops {
             IgnoreOps::Boxes => {
                 // ignore if this constraint is a box
                 matches!(self.r#type, ConstraintType::Box { .. })
             }
-        }
-    }
-
-    pub(crate) fn type_str(&self) -> String {
-        match &self.r#type {
-            ConstraintType::Night { num, .. } => format!("MN#{}", num),
-            ConstraintType::Box { num, .. } => format!("MB#{}", num),
         }
     }
 
@@ -208,37 +190,6 @@ mod tests {
     }
 
     #[test]
-    fn has_impact_simple() {
-        let cp = ConstraintParse {
-            check: CheckType::Lights(1, BTreeMap::default()),
-            result_unknown: false,
-            ..Default::default()
-        };
-        assert!(cp.has_impact());
-
-        let cp = ConstraintParse {
-            check: CheckType::Sold,
-            result_unknown: false,
-            ..Default::default()
-        };
-        assert!(!cp.has_impact());
-
-        let cp = ConstraintParse {
-            check: CheckType::Nothing,
-            result_unknown: false,
-            ..Default::default()
-        };
-        assert!(!cp.has_impact());
-
-        let cp = ConstraintParse {
-            check: CheckType::Lights(1, BTreeMap::default()),
-            result_unknown: true,
-            ..Default::default()
-        };
-        assert!(!cp.has_impact());
-    }
-
-    #[test]
     fn ignore_on_simple() {
         let cp = ConstraintParse {
             r#type: ConstraintType::Night {
@@ -259,49 +210,6 @@ mod tests {
             ..Default::default()
         };
         assert!(cp.ignore_on(&IgnoreOps::Boxes));
-    }
-
-    #[test]
-    fn type_str_simple() {
-        let cp = ConstraintParse {
-            r#type: ConstraintType::Night {
-                num: dec![1],
-                comment: "".to_string(),
-                offer: None,
-            },
-            ..Default::default()
-        };
-        assert_eq!(cp.type_str(), "MN#1");
-
-        let cp = ConstraintParse {
-            r#type: ConstraintType::Night {
-                num: dec![3],
-                comment: "".to_string(),
-                offer: None,
-            },
-            ..Default::default()
-        };
-        assert_eq!(cp.type_str(), "MN#3");
-
-        let cp = ConstraintParse {
-            r#type: ConstraintType::Box {
-                num: dec![1],
-                comment: "".to_string(),
-                offer: None,
-            },
-            ..Default::default()
-        };
-        assert_eq!(cp.type_str(), "MB#1");
-
-        let cp = ConstraintParse {
-            r#type: ConstraintType::Box {
-                num: dec![3],
-                comment: "".to_string(),
-                offer: None,
-            },
-            ..Default::default()
-        };
-        assert_eq!(cp.type_str(), "MB#3");
     }
 
     #[test]

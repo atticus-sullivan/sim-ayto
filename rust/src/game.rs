@@ -8,12 +8,14 @@
 mod compare;
 mod eval;
 mod eval_utils;
-mod output;
+mod md_output;
 pub mod parse;
 mod query_matchings;
 mod query_pairs;
 mod report_summary;
 mod report_trail;
+mod report_utils;
+pub mod cache;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -47,8 +49,9 @@ pub struct Game {
     stem: String,
     query_matchings: Vec<MaskedMatching>,
     query_pair: (HashSet<u8>, HashSet<u8>),
+
     cache_file: Option<PathBuf>,
-    final_cache_hash: Option<PathBuf>,
+    cache_to: Option<PathBuf>,
 }
 
 impl Default for Game {
@@ -68,7 +71,7 @@ impl Default for Game {
             query_matchings: vec![],
             query_pair: (Default::default(), Default::default()),
             cache_file: None,
-            final_cache_hash: None,
+            cache_to: None,
         }
     }
 }
@@ -96,24 +99,17 @@ impl Game {
 
     /// Run the simulation (populate an `IterState` by iterating ruleset permutations).
     ///
-    /// `dump_mode` controls if permutations are collected; `use_cache` optionally
-    /// instructs using a cache file identity. Returns the final `IterState`.
+    /// `dump_mode` controls if permutations are collected
+    /// Returns the final `IterState`.
     pub fn sim(
         &mut self,
         dump_mode: Option<DumpMode>,
-        use_cache: Option<String>,
     ) -> Result<IterState> {
-        let input_file = if use_cache.is_some() {
-            &self.cache_file
-        } else {
-            &None
-        };
-
         let mut is = {
             // mathematically calculate amount of permutations (for the progressbar)
             let perm_amount =
                 self.rule_set
-                    .get_perms_amount(self.map_a.len(), self.map_b.len(), input_file)?;
+                    .get_perms_amount(self.map_a.len(), self.map_b.len(), &self.cache_file)?;
 
             IterState::new(
                 // whether to store the permutations which are valid solutions
@@ -124,18 +120,14 @@ impl Game {
                 &self.query_matchings,
                 // query possible matches for person A/B (any how many possible solutions for this)
                 &self.query_pair,
-                if use_cache.is_some() {
-                    &self.final_cache_hash
-                } else {
-                    &None
-                },
+                &self.cache_to,
                 (self.map_a.len(), self.map_b.len()),
             )?
         };
 
         // run the entire simulation
         self.rule_set
-            .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
+            .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, &self.cache_file)?;
 
         Ok(is)
     }

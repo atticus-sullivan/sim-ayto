@@ -4,8 +4,6 @@ use std::collections::BTreeMap;
 /// 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
 ///
 /// Some helpers were soutsourced to parse_utils
-use std::hash::{Hash, Hasher};
-
 use anyhow::{Context, Result};
 
 use rust_decimal::dec;
@@ -55,26 +53,6 @@ impl Default for ConstraintParse {
             build_tree: false,
             hide_ruleset_data: true,
         }
-    }
-}
-
-impl Hash for ConstraintParse {
-    fn hash<H: Hasher>(&self, state: &mut H) {
-        // Hash the r#type field
-        self.r#type.hash(state);
-
-        // Sort the map_s entries by key to ensure stable hashing
-        let mut sorted_entries: Vec<_> = self.map_s.iter().collect();
-        sorted_entries.sort_by(|(key_a, _), (key_b, _)| key_a.cmp(key_b)); // Sort by key lexicographically
-
-        // Hash each sorted entry
-        for (key, value) in sorted_entries {
-            key.hash(state);
-            value.hash(state);
-        }
-
-        // Hash the check field
-        self.check.hash(state);
     }
 }
 
