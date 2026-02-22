@@ -201,6 +201,26 @@ pub struct Constraint {
     known_lights: u8,
 }
 
+impl Hash for Constraint {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        // Hash the r#type field
+        self.r#type.hash(state);
+
+        // Sort the map_s entries by key to ensure stable hashing
+        let mut sorted_entries: Vec<_> = self.map_s.iter().collect();
+        sorted_entries.sort_by(|(key_a, _), (key_b, _)| key_a.cmp(key_b)); // Sort by key lexicographically
+
+        // Hash each sorted entry
+        for (key, value) in sorted_entries {
+            key.hash(state);
+            value.hash(state);
+        }
+
+        // Hash the check field
+        self.check.hash(state);
+    }
+}
+
 impl Default for Constraint {
     fn default() -> Self {
         Constraint {
@@ -289,8 +309,28 @@ impl ConstraintGetters for Constraint {
     }
 }
 
+pub(super) trait ConstraintImpact {
+    fn has_impact(&self) -> bool;
+}
+
+impl ConstraintImpact for Constraint {
+    /// Whether this constraint actually restricts the solution set (not a no-op).
+    fn has_impact(&self) -> bool {
+        if self.result_unknown {
+            return false;
+        }
+        if let CheckType::Nothing | CheckType::Sold = &self.check {
+            return false;
+        }
+        true
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
+    use std::collections::BTreeMap;
+
     use rust_decimal::dec;
 
     use crate::ruleset_data::dummy::DummyData;
@@ -334,5 +374,79 @@ mod tests {
         );
         // basic invariants
         assert_eq!(c.eliminated, 0);
+    }
+
+    #[test]
+    fn has_impact_simple() {
+        let c = Constraint {
+            check: CheckType::Lights(1, BTreeMap::default()),
+            result_unknown: false,
+            ..Default::default()
+        };
+        assert!(c.has_impact());
+
+        let c = Constraint {
+            check: CheckType::Sold,
+            result_unknown: false,
+            ..Default::default()
+        };
+        assert!(!c.has_impact());
+
+        let c = Constraint {
+            check: CheckType::Nothing,
+            result_unknown: false,
+            ..Default::default()
+        };
+        assert!(!c.has_impact());
+
+        let c = Constraint {
+            check: CheckType::Lights(1, BTreeMap::default()),
+            result_unknown: true,
+            ..Default::default()
+        };
+        assert!(!c.has_impact());
+    }
+
+    #[test]
+    fn type_str_simple() {
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            ..Default::default()
+        };
+        assert_eq!(c.type_str(), "MN#1");
+
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![3],
+                comment: "".to_string(),
+                offer: None,
+            },
+            ..Default::default()
+        };
+        assert_eq!(c.type_str(), "MN#3");
+
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            ..Default::default()
+        };
+        assert_eq!(c.type_str(), "MB#1");
+
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![3],
+                comment: "".to_string(),
+                offer: None,
+            },
+            ..Default::default()
+        };
+        assert_eq!(c.type_str(), "MB#3");
     }
 }

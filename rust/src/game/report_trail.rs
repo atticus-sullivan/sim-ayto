@@ -1,6 +1,7 @@
 use anyhow::{Context, Result};
 
 use crate::constraint::{report_hdr::ReportData, Constraint};
+use crate::game::report_utils::print_rem_generic;
 use crate::game::Game;
 use crate::Rem;
 
@@ -73,9 +74,10 @@ impl Game {
         } else {
             |v, h| (v, h)
         };
+        let ignore_pairing = |v,h| self.rule_set.ignore_pairing(v, h);
 
-        self.print_rem_generic(&data.0, mv, mh, norm_idx)
-            .context("Error printing")?;
+        println!("{}", print_rem_generic(&data.0, mv, mh, norm_idx, ignore_pairing)
+            .context("Error printing")?);
 
         md_tables.push(MdTable {
             name: "tab-start".to_owned(),
@@ -104,8 +106,8 @@ impl Game {
                 false
             };
 
-            self.print_rem_generic(&event.rem, mv, mh, norm_idx)
-                .context("Error printing")?;
+            println!("{}", print_rem_generic(&event.rem, mv, mh, norm_idx, ignore_pairing)
+                .context("Error printing")?);
             event.constraint.ruleset_data.print(
                 full,
                 &self.rule_set,
