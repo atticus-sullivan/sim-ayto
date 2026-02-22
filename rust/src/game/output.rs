@@ -7,7 +7,7 @@ use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Color, Table};
 
-use crate::game::eval_utils::MdTable;
+use crate::game::report_trail::MdTable;
 use crate::game::Game;
 use crate::Rem;
 use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};

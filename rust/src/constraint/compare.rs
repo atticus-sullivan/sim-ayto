@@ -6,14 +6,14 @@ use anyhow::{Context, Result};
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
 
-use crate::constraint::{Constraint, ConstraintType};
+use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
 
 /// Container of evaluation output used for plotting and summaries.
 ///
 /// - `events` are the chronological evaluation events (MB/MN/Initial).
 /// - `cnts` are aggregated counters and summary data.
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct EvalData {
+pub struct ComparisonData {
     pub events: Vec<EvalEvent>,
     pub cnts: SumCounts,
 }
@@ -189,10 +189,10 @@ pub struct EvalMN {
 ///
 /// Provide small helper methods to update and combine counts.
 /// Keep `add(&mut self, other: &SumCounts)` as a pure & cheap aggregator.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct SumCounts {
     pub blackouts: u8,
-    pub won: bool,
+    pub won_in: Option<(bool, String)>,
     pub matches_found: u8,
     pub solvable_in: Option<(bool, String)>,
 
@@ -200,26 +200,62 @@ pub struct SumCounts {
     pub offers_mb: SumOffersMB,
 }
 
+impl Default for SumCounts {
+    fn default() -> Self {
+        Self {
+            blackouts: 0,
+            won_in: None,
+            matches_found: 0,
+            solvable_in: None,
+            offers_mn: Default::default(),
+            offers_mb: Default::default() }
+    }
+}
+
 /// Collect sums regarding offers made for MBs
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct SumOffersMB {
     pub sold_but_match_active: bool,
     pub sold_cnt: u8,
     pub sold_but_match: u8,
 
     pub offers_noted: bool,
-    pub offers: u64,
+    pub offers_cnt: u64,
     pub offer_and_match: u64,
     pub offered_money: u128,
 }
 /// Collect sums regarding offers made for MNs
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct SumOffersMN {
     pub sold_cnt: u8,
 
     pub offers_noted: bool,
-    pub offers: u64,
+    pub offers_cnt: u64,
     pub offered_money: u128,
+}
+
+impl Default for SumOffersMB {
+    fn default() -> Self {
+        Self {
+            sold_but_match_active: false,
+            sold_cnt: 0,
+            sold_but_match: 0,
+            offers_noted: false,
+            offers_cnt: 0,
+            offer_and_match: 0,
+            offered_money: 0,
+        }
+    }
+}
+impl Default for SumOffersMN {
+    fn default() -> Self {
+        Self {
+            sold_cnt: 0,
+            offers_noted: false,
+            offers_cnt: 0,
+            offered_money: 0,
+        }
+    }
 }
 
 impl SumOffersMB {
@@ -231,7 +267,7 @@ impl SumOffersMB {
         self.sold_but_match += other.sold_but_match;
         self.sold_but_match_active |= other.sold_but_match_active;
 
-        self.offers += other.offers;
+        self.offers_cnt += other.offers_cnt;
         self.offered_money += other.offered_money;
         self.offer_and_match += other.offer_and_match;
         self.offers_noted |= other.offers_noted;
@@ -244,7 +280,7 @@ impl SumOffersMN {
     pub fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
 
-        self.offers += other.offers;
+        self.offers_cnt += other.offers_cnt;
         self.offered_money += other.offered_money;
         self.offers_noted |= other.offers_noted;
     }
@@ -354,16 +390,16 @@ mod tests {
                 offers_noted: false,
                 offer_and_match: 0,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             offers_mn: SumOffersMN {
                 sold_cnt: 2,
                 offers_noted: false,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             matches_found: 1,
-            won: false,
+            won_in: None,
             solvable_in: Some((true, "".to_string())),
         };
         let b = SumCounts {
@@ -375,16 +411,16 @@ mod tests {
                 offers_noted: false,
                 offer_and_match: 0,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             offers_mn: SumOffersMN {
                 sold_cnt: 2,
                 offers_noted: false,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             matches_found: 0,
-            won: true,
+            won_in: Some((true, "MN#1".to_string())),
             solvable_in: Some((false, "".to_string())),
         };
         a.add(&b);

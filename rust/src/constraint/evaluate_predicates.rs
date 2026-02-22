@@ -1,11 +1,29 @@
 /// This module contains predicates to be used after the simulation has completed.
 ///
 /// Note there is also evaluate which contains the non-predicate functions
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
+pub trait ConstraintEval {
+    fn is_blackout(&self) -> bool;
+    fn is_match_found(&self) -> bool;
+    fn is_mb(&self) -> bool;
+    fn is_mn(&self) -> bool;
+    fn is_sold(&self) -> bool;
+    fn is_mb_hit(&self, sols: Option<&Vec<MaskedMatching>>) -> bool;
+    fn try_get_offer(&self) -> Option<Offer>;
+    fn might_won(&self) -> bool;
+    fn won(&self, rl: usize) -> bool;
+}
+
 impl Constraint {
-    pub fn is_blackout(&self) -> bool {
+    pub fn is_lights(&self) -> bool {
+        matches!(self.r#check, CheckType::Lights { .. })
+    }
+}
+
+impl ConstraintEval for Constraint {
+    fn is_blackout(&self) -> bool {
         if let ConstraintType::Night { .. } = self.r#type {
             if let CheckType::Lights(l, _) = self.check {
                 return self.known_lights == l;
@@ -14,21 +32,18 @@ impl Constraint {
         false
     }
 
-    pub fn is_mb(&self) -> bool {
+    fn is_mb(&self) -> bool {
         matches!(self.r#type, ConstraintType::Box { .. })
     }
-    pub fn is_mn(&self) -> bool {
+    fn is_mn(&self) -> bool {
         matches!(self.r#type, ConstraintType::Night { .. })
     }
 
-    pub fn is_lights(&self) -> bool {
-        matches!(self.r#check, CheckType::Lights { .. })
-    }
-    pub fn is_sold(&self) -> bool {
+    fn is_sold(&self) -> bool {
         matches!(self.check, CheckType::Sold)
     }
 
-    pub fn is_match_found(&self) -> bool {
+    fn is_match_found(&self) -> bool {
         if let ConstraintType::Box { .. } = self.r#type {
             if let CheckType::Lights(1, _) = self.check {
                 return true;
@@ -37,7 +52,7 @@ impl Constraint {
         false
     }
 
-    pub fn is_mb_hit(&self, solutions: Option<&Vec<MaskedMatching>>) -> bool {
+    fn is_mb_hit(&self, solutions: Option<&Vec<MaskedMatching>>) -> bool {
         if let Some(sols) = solutions {
             if let ConstraintType::Box { .. } = self.r#type {
                 return sols.iter().all(|sol| {
@@ -52,11 +67,11 @@ impl Constraint {
         false
     }
 
-    pub fn might_won(&self) -> bool {
+    fn might_won(&self) -> bool {
         matches!(self.r#type, ConstraintType::Night { .. })
     }
 
-    pub fn won(&self, required_lights: usize) -> bool {
+    fn won(&self, required_lights: usize) -> bool {
         if let ConstraintType::Night { .. } = self.r#type {
             match self.check {
                 CheckType::Eq => false,
@@ -65,6 +80,13 @@ impl Constraint {
             }
         } else {
             false
+        }
+    }
+
+    fn try_get_offer(&self) -> Option<Offer> {
+        match &self.r#type {
+            ConstraintType::Night { offer, .. } => offer.clone(),
+            ConstraintType::Box { offer, .. } => offer.clone(),
         }
     }
 }

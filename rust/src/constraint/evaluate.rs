@@ -3,19 +3,23 @@
 /// Note: There is also evaluate_predicates which contains functions serving as predicates during
 /// the evaluation.
 use crate::{
-    constraint::{Constraint, ConstraintType, Offer},
+    constraint::Constraint,
     Rem,
 };
 
 use anyhow::{bail, ensure, Result};
 
-impl Constraint {
+pub(crate) trait ConstraintSolvable {
+    fn is_solvable_after(&self) -> Result<Option<bool>>;
+}
+
+impl ConstraintSolvable for Constraint {
     /// Return whether the game was solvable *before* applying this constraint.
     ///
     /// - Returns Ok(Some(true)) if definitely solvable,
     /// - Ok(Some(false)) if definitely unsolvable,
     /// - Ok(None) if the constraint does not express solvability information.
-    pub fn is_solvable_after(&self) -> Result<Option<bool>> {
+    fn is_solvable_after(&self) -> Result<Option<bool>> {
         // not all constraints capture the remaining possibilities
         if self.left_poss.is_empty() {
             return Ok(None);
@@ -37,7 +41,9 @@ impl Constraint {
         }
         Ok(Some(true))
     }
+}
 
+impl Constraint {
     pub fn should_merge(&self) -> bool {
         self.hidden
     }
@@ -87,13 +93,6 @@ impl Constraint {
         };
 
         Some(rem)
-    }
-
-    pub fn try_get_offer(&self) -> Option<Offer> {
-        match &self.r#type {
-            ConstraintType::Night { offer, .. } => offer.clone(),
-            ConstraintType::Box { offer, .. } => offer.clone(),
-        }
     }
 }
 

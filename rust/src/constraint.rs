@@ -19,8 +19,8 @@ pub mod check_type;
 /// This specific module only implements the "real" (in contrast to parsing) datatypes and some
 /// simple getters.
 pub mod compare;
+pub mod evaluate_predicates;
 pub(super) mod evaluate;
-pub(super) mod evaluate_predicates;
 pub(super) mod parse;
 pub(super) mod parse_utils;
 pub(super) mod report;
@@ -256,10 +256,16 @@ impl Constraint {
     }
 }
 
+pub(super) trait ConstraintGetters {
+    fn comment(&self) -> &str;
+    fn type_str(&self) -> String;
+    fn num(&self) -> Decimal;
+}
+
 // getter functions
-impl Constraint {
+impl ConstraintGetters for Constraint {
     /// Return user-supplied comment from the underlying `ConstraintType`.
-    pub(super) fn comment(&self) -> &str {
+    fn comment(&self) -> &str {
         match &self.r#type {
             ConstraintType::Night { comment, .. } => comment,
             ConstraintType::Box { comment, .. } => comment,
@@ -267,7 +273,7 @@ impl Constraint {
     }
 
     /// Textual representation of the constraint type (used in summary tables).
-    pub(super) fn type_str(&self) -> String {
+    fn type_str(&self) -> String {
         match &self.r#type {
             ConstraintType::Night { num, .. } => format!("MN#{}", num),
             ConstraintType::Box { num, .. } => format!("MB#{}", num),
@@ -275,7 +281,7 @@ impl Constraint {
     }
 
     /// The numeric index associated with this constraint (MB or MN index).
-    pub(super) fn num(&self) -> Decimal {
+    fn num(&self) -> Decimal {
         match &self.r#type {
             ConstraintType::Night { num, .. } => *num,
             ConstraintType::Box { num, .. } => *num,

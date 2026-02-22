@@ -3,9 +3,11 @@
 use anyhow::Result;
 
 use std::fs::File;
+use std::io;
 
 use crate::constraint::Constraint;
-use crate::game::eval_utils::{gen_report_data, merge_constraints, MdTable, Trail};
+use crate::game::eval_utils::merge_constraints;
+use crate::game::report_trail::{gen_report_data, MdTable, Trail};
 use crate::game::{query_matchings, query_pairs, DumpMode};
 use crate::game::Game;
 use crate::iterstate::IterState;
@@ -33,7 +35,7 @@ impl Game {
         // COMPARISON
         // this is gethering data for a comparison at a later point in time
         let solutions = is.keep_rem.then_some(&is.left_poss);
-        self.do_statistics(is.total as f64, &constraints, solutions)?;
+        self.write_comparison_data(is.total as f64, &constraints, solutions)?;
 
         Ok(())
     }
@@ -87,7 +89,7 @@ impl Game {
         is: &IterState,
         ) -> Result<()> {
         if let Some(d) = dump_mode {
-            d.dump(&is.left_poss, &self.map_a, &self.map_b);
+            d.dump(&is.left_poss, &self.map_a, &self.map_b, io::stdout())?;
         }
 
         println!("{}", self.summary_table(false, constraints)?);
