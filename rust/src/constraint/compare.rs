@@ -208,7 +208,8 @@ impl Default for SumCounts {
             matches_found: 0,
             solvable_in: None,
             offers_mn: Default::default(),
-            offers_mb: Default::default() }
+            offers_mb: Default::default(),
+        }
     }
 }
 

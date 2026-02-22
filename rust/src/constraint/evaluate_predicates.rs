@@ -101,54 +101,64 @@ mod tests {
 
     #[test]
     fn is_blackout_simple() {
-        let mut c = Constraint::default();
-        c.known_lights = 2;
-        c.check = CheckType::Lights(2, BTreeMap::new());
-        c.r#type = ConstraintType::Night {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            known_lights: 2,
+            check: CheckType::Lights(2, BTreeMap::new()),
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
         assert!(c.is_blackout());
 
-        let mut c = Constraint::default();
-        c.known_lights = 1;
-        c.check = CheckType::Lights(2, BTreeMap::new());
-        c.r#type = ConstraintType::Night {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            known_lights: 1,
+            check: CheckType::Lights(2, BTreeMap::new()),
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
         assert!(!c.is_blackout());
     }
 
     #[test]
     fn is_match_found_simple() {
-        let mut c = Constraint::default();
-        c.r#type = ConstraintType::Night {
-            num: dec![1.0],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(1, BTreeMap::new()),
+            ..Default::default()
         };
-        c.check = CheckType::Lights(1, BTreeMap::new());
         assert!(!c.is_match_found());
 
-        let mut c = Constraint::default();
-        c.r#type = ConstraintType::Box {
-            num: dec![1.0],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(0, BTreeMap::new()),
+            ..Default::default()
         };
-        c.check = CheckType::Lights(0, BTreeMap::new());
         assert!(!c.is_match_found());
 
-        let mut c = Constraint::default();
-        c.r#type = ConstraintType::Box {
-            num: dec![1.0],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(1, BTreeMap::new()),
+            ..Default::default()
         };
-        c.check = CheckType::Lights(1, BTreeMap::new());
         assert!(c.is_match_found());
     }
 
@@ -161,31 +171,37 @@ mod tests {
             vec![0],
         ])];
 
-        let mut c = Constraint::default();
-        c.r#type = ConstraintType::Night {
-            num: dec![1.0],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map: MaskedMatching::from_matching_ref(&[vec![2]]),
+            ..Default::default()
         };
-        c.map = MaskedMatching::from_matching_ref(&[vec![2]]);
         assert!(!c.is_mb_hit(Some(&sol)));
 
-        let mut c = Constraint::default();
-        c.r#type = ConstraintType::Box {
-            num: dec![1.0],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map: MaskedMatching::from_matching_ref(&[vec![0]]),
+            ..Default::default()
         };
-        c.map = MaskedMatching::from_matching_ref(&[vec![0]]);
         assert!(!c.is_mb_hit(Some(&sol)));
 
-        let mut c = Constraint::default();
-        c.r#type = ConstraintType::Box {
-            num: dec![1.0],
-            comment: "".to_string(),
-            offer: None,
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map: MaskedMatching::from_matching_ref(&[vec![2]]),
+            ..Default::default()
         };
-        c.map = MaskedMatching::from_matching_ref(&[vec![2]]);
         assert!(c.is_mb_hit(Some(&sol)));
     }
 }

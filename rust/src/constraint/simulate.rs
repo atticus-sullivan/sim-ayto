@@ -87,13 +87,15 @@ mod tests {
     #[test]
     fn test_process_remaining() {
         // should collect
-        let mut c = Constraint::default();
-        c.result_unknown = false;
-        c.build_tree = true;
-        c.hidden = false;
-        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c.check = CheckType::Lights(3, Default::default());
-        c.eliminated_tab = vec![vec![0; 4]; 3];
+        let mut c = Constraint {
+            result_unknown: false,
+            build_tree: true,
+            hidden: false,
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            check: CheckType::Lights(3, Default::default()),
+            eliminated_tab: vec![vec![0; 4]; 3],
+            ..Default::default()
+        };
 
         let ms = vec![
             (
@@ -124,13 +126,15 @@ mod tests {
         );
 
         // shouldn't collect
-        let mut c = Constraint::default();
-        c.result_unknown = false;
-        c.build_tree = false;
-        c.hidden = false;
-        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c.check = CheckType::Lights(3, Default::default());
-        c.eliminated_tab = vec![vec![0; 4]; 3];
+        let mut c = Constraint {
+            result_unknown: false,
+            build_tree: false,
+            hidden: false,
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            check: CheckType::Lights(3, Default::default()),
+            eliminated_tab: vec![vec![0; 4]; 3],
+            ..Default::default()
+        };
 
         let ms = vec![
             (
@@ -158,13 +162,15 @@ mod tests {
         }
 
         // shouldn't collect
-        let mut c = Constraint::default();
-        c.result_unknown = false;
-        c.build_tree = true;
-        c.hidden = true;
-        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c.check = CheckType::Lights(3, Default::default());
-        c.eliminated_tab = vec![vec![0; 4]; 3];
+        let mut c = Constraint {
+            result_unknown: false,
+            build_tree: true,
+            hidden: true,
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            check: CheckType::Lights(3, Default::default()),
+            eliminated_tab: vec![vec![0; 4]; 3],
+            ..Default::default()
+        };
 
         let ms = vec![
             (
@@ -192,13 +198,15 @@ mod tests {
         }
 
         // should collect + everything fits as result is unkown
-        let mut c = Constraint::default();
-        c.result_unknown = true;
-        c.build_tree = true;
-        c.hidden = false;
-        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c.check = CheckType::Lights(3, Default::default());
-        c.eliminated_tab = vec![vec![0; 4]; 3];
+        let mut c = Constraint {
+            result_unknown: true,
+            build_tree: true,
+            hidden: false,
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            check: CheckType::Lights(3, Default::default()),
+            eliminated_tab: vec![vec![0; 4]; 3],
+            ..Default::default()
+        };
 
         let ms = vec![
             (
@@ -231,8 +239,10 @@ mod tests {
 
     #[test]
     fn eliminate_simple() {
-        let mut c = Constraint::default();
-        c.eliminated_tab = vec![vec![0; 4]; 3];
+        let mut c = Constraint {
+            eliminated_tab: vec![vec![0; 4]; 3],
+            ..Default::default()
+        };
         let ms = vec![
             (
                 true,
@@ -266,8 +276,10 @@ mod tests {
 
     #[test]
     fn fits_nothing() {
-        let mut c = Constraint::default();
-        c.check = CheckType::Nothing;
+        let mut c = Constraint {
+            check: CheckType::Nothing,
+            ..Default::default()
+        };
         let ms = vec![
             (
                 true,
@@ -293,8 +305,10 @@ mod tests {
 
     #[test]
     fn fits_sold() {
-        let mut c = Constraint::default();
-        c.check = CheckType::Sold;
+        let mut c = Constraint {
+            check: CheckType::Sold,
+            ..Default::default()
+        };
         let ms = vec![
             (
                 true,
@@ -320,9 +334,11 @@ mod tests {
 
     #[test]
     fn fits_lights() {
-        let mut c = Constraint::default();
-        c.check = CheckType::Lights(3, Default::default());
-        c.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
+        let mut c = Constraint {
+            check: CheckType::Lights(3, Default::default()),
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            ..Default::default()
+        };
         let ms = vec![
             (
                 true,
@@ -349,11 +365,13 @@ mod tests {
 
     #[test]
     fn fits_lights_exclude() {
-        let mut c = Constraint::default();
-        c.check = CheckType::Lights(1, Default::default());
-        c.map = MaskedMatching::from_matching_ref(&[vec![], vec![1]]);
-        // 1 must match with ONLY 1 => exclude matching with 0, 2 or 3
-        c.exclude = Some((1, Bitset::from_idxs(&[0, 2, 3])));
+        let mut c = Constraint {
+            check: CheckType::Lights(1, Default::default()),
+            map: MaskedMatching::from_matching_ref(&[vec![], vec![1]]),
+            // 1 must match with ONLY 1 => exclude matching with 0, 2 or 3
+            exclude: Some((1, Bitset::from_idxs(&[0, 2, 3]))),
+            ..Default::default()
+        };
         let ms = vec![
             (
                 true,

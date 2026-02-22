@@ -2,10 +2,7 @@
 ///
 /// Note: There is also evaluate_predicates which contains functions serving as predicates during
 /// the evaluation.
-use crate::{
-    constraint::Constraint,
-    Rem,
-};
+use crate::{constraint::Constraint, Rem};
 
 use anyhow::{bail, ensure, Result};
 
@@ -43,12 +40,17 @@ impl ConstraintSolvable for Constraint {
     }
 }
 
-impl Constraint {
-    pub fn should_merge(&self) -> bool {
+pub(crate) trait ConstraintMerge {
+    fn should_merge(&self) -> bool;
+    fn merge(&mut self, other: &Self) -> Result<()>;
+}
+
+impl ConstraintMerge for Constraint {
+    fn should_merge(&self) -> bool {
         self.hidden
     }
 
-    pub fn merge(&mut self, other: &Self) -> Result<()> {
+    fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
         ensure!(
             self.eliminated_tab.len() == other.eliminated_tab.len(),
@@ -71,7 +73,9 @@ impl Constraint {
         self.left_after = None;
         Ok(())
     }
+}
 
+impl Constraint {
     pub fn apply_to_rem(&mut self, mut rem: Rem) -> Option<Rem> {
         rem.1 -= self.eliminated;
 
@@ -109,16 +113,18 @@ mod tests {
     #[test]
     #[allow(clippy::identity_op)]
     fn apply_to_rem_simple() {
-        let mut c = Constraint::default();
-        c.eliminated_tab = vec![
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-        ];
-        c.map = MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]);
-        c.check = CheckType::Lights(2, BTreeMap::new());
-        c.eliminated = 0;
+        let mut c = Constraint {
+            eliminated_tab: vec![
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+            ],
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            eliminated: 0,
+            ..Default::default()
+        };
 
         let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
 
@@ -142,27 +148,31 @@ mod tests {
 
     #[test]
     fn merge_simple() {
-        let mut c_a = Constraint::default();
-        c_a.eliminated_tab = vec![
-            vec![1, 0, 0, 0, 0],
-            vec![0, 1, 0, 3, 0],
-            vec![0, 0, 2, 0, 3],
-            vec![0, 6, 0, 5, 0],
-        ];
-        c_a.eliminated = 200;
-        c_a.information = Some(4.5);
-        c_a.left_after = Some(10);
+        let mut c_a = Constraint {
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            eliminated: 200,
+            information: Some(4.5),
+            left_after: Some(10),
+            ..Default::default()
+        };
 
-        let mut c_b = Constraint::default();
-        c_b.eliminated_tab = vec![
-            vec![1, 0, 0, 0, 0],
-            vec![0, 1, 0, 3, 0],
-            vec![0, 0, 2, 0, 3],
-            vec![0, 6, 0, 5, 0],
-        ];
-        c_b.eliminated = 100;
-        c_b.information = Some(3.5);
-        c_b.left_after = None;
+        let c_b = Constraint {
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            eliminated: 100,
+            information: Some(3.5),
+            left_after: None,
+            ..Default::default()
+        };
 
         c_a.merge(&c_b).unwrap();
 
@@ -185,36 +195,44 @@ mod tests {
     #[test]
     fn is_solvable_after_simple() {
         // left possibilities not captured -> cannot tell => none
-        let mut c = Constraint::default();
-        c.left_poss = vec![];
+        let c = Constraint {
+            left_poss: vec![],
+            ..Default::default()
+        };
         assert!(c.is_solvable_after().unwrap().is_none());
 
         // only one possibility left => definitely solvable
-        let mut c = Constraint::default();
-        c.left_poss = vec![MaskedMatching::from_matching_ref(&[
-            vec![0],
-            vec![1],
-            vec![2],
-        ])];
+        let c = Constraint {
+            left_poss: vec![MaskedMatching::from_matching_ref(&[
+                vec![0],
+                vec![1],
+                vec![2],
+            ])],
+            ..Default::default()
+        };
         assert!(c.is_solvable_after().unwrap().unwrap());
 
         // multiple total solutions left, but there is one unambiguous partial working solution which applies to
         // all solutions left
-        let mut c = Constraint::default();
-        c.left_poss = vec![
-            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
-        ];
+        let c = Constraint {
+            left_poss: vec![
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ],
+            ..Default::default()
+        };
         assert!(c.is_solvable_after().unwrap().unwrap());
 
         // multiple total solutions left, also not one unambiguous partial solution existing
-        let mut c = Constraint::default();
-        c.left_poss = vec![
-            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![3], vec![1], vec![2, 0]]),
-        ];
+        let c = Constraint {
+            left_poss: vec![
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![3], vec![1], vec![2, 0]]),
+            ],
+            ..Default::default()
+        };
         assert!(!c.is_solvable_after().unwrap().unwrap());
     }
 }
