@@ -16,11 +16,7 @@ impl Game {
     /// Write the main markdown output file (frontmatter + images/tabs).
     ///
     /// `md_tables` describes which generated plots / images will be embedded in the page.
-    pub(super) fn write_page_md(
-        &self,
-        out: &mut File,
-        md_tables: &[MdTable],
-    ) -> Result<()> {
+    pub(super) fn write_page_md(&self, out: &mut File, md_tables: &[MdTable]) -> Result<()> {
         writeln!(out, "---")?;
         writeln!(out, "{}", serde_yaml::to_string(&self.frontmatter)?)?;
         writeln!(out, "---")?;
@@ -45,9 +41,17 @@ impl Game {
                 writeln!(out, "\n{{{{% translatedDetails \"{}\" %}}}}", tab.name)?;
             }
 
-            writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{}.png\" %}}}}", tab.idx)?;
+            writeln!(
+                out,
+                "{{{{% img src=\"/{stem}/{stem}_{}.png\" %}}}}",
+                tab.idx
+            )?;
             if tab.tree {
-                writeln!(out, "{{{{% img src=\"/{stem}/{stem}_{}_tree.png\" %}}}}", tab.idx)?;
+                writeln!(
+                    out,
+                    "{{{{% img src=\"/{stem}/{stem}_{}_tree.png\" %}}}}",
+                    tab.idx
+                )?;
             }
 
             if tab.detail {

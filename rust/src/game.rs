@@ -5,25 +5,23 @@
 /// 3. simulated `sim()` -> main module
 /// 4. evaluated `eval()` -> eval module
 /// 5. report generated and printed `report()` -> eval/report module
-
 mod compare;
 mod eval;
 mod eval_utils;
 mod output;
+pub mod parse;
 mod query_matchings;
 mod query_pairs;
 mod report_summary;
 mod report_trail;
-pub mod dump_mode;
-pub mod parse;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
 
 use anyhow::Result;
 
-use crate::game::dump_mode::DumpMode;
 use crate::constraint::Constraint;
+use crate::dump_mode::DumpMode;
 use crate::iterstate::IterState;
 use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
@@ -55,7 +53,7 @@ pub struct Game {
 
 impl Default for Game {
     fn default() -> Self {
-        Self{
+        Self {
             no_offerings_noted: false,
             solved: false,
             constraints_orig: vec![],
@@ -143,35 +141,62 @@ impl Game {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn ruleset_str_simple() {
-        let mut g = Game::default();
-        g.rule_set = RuleSet::Eq;
+        let g = Game{
+            rule_set: RuleSet::Eq,
+            ..Default::default()
+        };
         assert_eq!(g.ruleset_str(), ("rs-Eq".to_string(), "=".to_string()));
 
-        g.rule_set = RuleSet::NToN;
+        let g = Game{
+            rule_set: RuleSet::NToN,
+            ..Default::default()
+        };
         assert_eq!(g.ruleset_str(), ("rs-NToN".to_string(), "N:N".to_string()));
 
-        g.rule_set = RuleSet::SomeoneIsTrip;
-        assert_eq!(g.ruleset_str(), ("rs-SomeoneIsTrip".to_string(), "?3".to_string()));
+        let g = Game{
+            rule_set: RuleSet::SomeoneIsTrip,
+            ..Default::default()
+        };
+        assert_eq!(
+            g.ruleset_str(),
+            ("rs-SomeoneIsTrip".to_string(), "?3".to_string())
+        );
 
-        g.rule_set = RuleSet::FixedTrip("abc".to_string());
-        assert_eq!(g.ruleset_str(), ("rs-FixedTrip".to_string(), "=3".to_string()));
+        let g = Game{
+            rule_set: RuleSet::FixedTrip("abc".to_string()),
+            ..Default::default()
+        };
+        assert_eq!(
+            g.ruleset_str(),
+            ("rs-FixedTrip".to_string(), "=3".to_string())
+        );
 
-        g.rule_set = RuleSet::XTimesDup((3, vec!["a".to_string(), "b".to_string()]));
-        assert_eq!(g.ruleset_str(), ("rs-XTimesDup-2-3".to_string(), "?3=2".to_string()));
+        let g = Game{
+            rule_set: RuleSet::XTimesDup((3, vec!["a".to_string(), "b".to_string()])),
+            ..Default::default()
+        };
+        assert_eq!(
+            g.ruleset_str(),
+            ("rs-XTimesDup-2-3".to_string(), "?3=2".to_string())
+        );
     }
 
     #[test]
     fn players_str_simple() {
-        let mut g = Game::default();
-        g.map_a = vec!["a", "b", "c"].into_iter().map(|x| x.to_string()).collect();
-        g.map_b = vec!["a"].into_iter().map(|x| x.to_string()).collect();
+        let g = Game{
+            map_a: vec!["a", "b", "c"]
+                .into_iter()
+                .map(|x| x.to_string())
+                .collect(),
+            map_b: vec!["a"].into_iter().map(|x| x.to_string()).collect(),
+            ..Default::default()
+        };
         assert_eq!(g.players_str(), "3/1");
     }
 }

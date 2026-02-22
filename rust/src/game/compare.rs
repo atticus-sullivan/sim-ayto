@@ -1,7 +1,6 @@
 /// This module provides all functionalities to generate and store data which can later be used for
 /// a comparison.
 /// Prerequisite is that the evaluation already took place.
-
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
@@ -165,8 +164,8 @@ fn calculate_summary_data<T: ConstraintEval + ConstraintGetters + ConstraintSolv
 mod tests {
     use rust_decimal::Decimal;
 
+    use crate::constraint::compare::{SumOffersMB, SumOffersMN};
     use crate::constraint::Offer;
-    use crate::constraint::compare::{SumOffersMN, SumOffersMB};
 
     use super::*;
 
@@ -189,7 +188,7 @@ mod tests {
 
     impl Default for ConstraintMock {
         fn default() -> Self {
-            Self{
+            Self {
                 blackout: false,
                 match_found: false,
                 mb: false,
@@ -266,13 +265,8 @@ mod tests {
     #[test]
     fn calculate_summary_data_aggregation() {
         // empty
-        let res = calculate_summary_data::<ConstraintMock>(
-            &[],
-            None,
-            false,
-            10
-        );
-        let reference = SumCounts{
+        let res = calculate_summary_data::<ConstraintMock>(&[], None, false, 10);
+        let reference = SumCounts {
             blackouts: 0,
             won_in: None,
             matches_found: 0,
@@ -296,30 +290,31 @@ mod tests {
         assert_eq!(res, reference);
 
         // simple
-        let res = calculate_summary_data::<ConstraintMock>( &[
-            ConstraintMock{
-                blackout: true,
-                ..Default::default()
-            },
-            ConstraintMock{
-                match_found: true,
-                sold: true,
-                ..Default::default()
-            },
-            ConstraintMock{
-                mb: true,
-                ..Default::default()
-            },
-            ConstraintMock{
-                mn: true,
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    blackout: true,
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    match_found: true,
+                    sold: true,
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mb: true,
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mn: true,
+                    ..Default::default()
+                },
+            ],
             None,
             false,
-            10
+            10,
         );
-        let reference = SumCounts{
+        let reference = SumCounts {
             blackouts: 1,
             won_in: None,
             matches_found: 1,
@@ -342,28 +337,35 @@ mod tests {
         };
         assert_eq!(res, reference);
 
-        let res = calculate_summary_data::<ConstraintMock>( &[
-            ConstraintMock{
-                mb: true,
-                ..Default::default()
-            },
-            ConstraintMock{
-                mn: true,
-                offer: Some(Offer::Group { amount: Some(5), by: "".to_string() }),
-                sold: true,
-                ..Default::default()
-            },
-            ConstraintMock{
-                mn: true,
-                offer: Some(Offer::Group { amount: Some(5), by: "".to_string() }),
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    mb: true,
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mn: true,
+                    offer: Some(Offer::Group {
+                        amount: Some(5),
+                        by: "".to_string(),
+                    }),
+                    sold: true,
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mn: true,
+                    offer: Some(Offer::Group {
+                        amount: Some(5),
+                        by: "".to_string(),
+                    }),
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
-        let reference = SumCounts{
+        let reference = SumCounts {
             blackouts: 0,
             won_in: None,
             matches_found: 0,
@@ -386,30 +388,39 @@ mod tests {
         };
         assert_eq!(res, reference);
 
-        let res = calculate_summary_data::<ConstraintMock>( &[
-            ConstraintMock{
-                mb: true,
-                sold: true,
-                offer: Some(Offer::Group { amount: Some(5), by: "".to_string() }),
-                ..Default::default()
-            },
-            ConstraintMock{
-                mb: true,
-                offer: Some(Offer::Group { amount: Some(5), by: "".to_string() }),
-                ..Default::default()
-            },
-            ConstraintMock{
-                mn: true,
-                sold: true,
-                mb_hit: true,
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    mb: true,
+                    sold: true,
+                    offer: Some(Offer::Group {
+                        amount: Some(5),
+                        by: "".to_string(),
+                    }),
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mb: true,
+                    offer: Some(Offer::Group {
+                        amount: Some(5),
+                        by: "".to_string(),
+                    }),
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mn: true,
+                    sold: true,
+                    mb_hit: true,
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
-        assert_eq!(res.offers_mb, SumOffersMB{
+        assert_eq!(
+            res.offers_mb,
+            SumOffersMB {
                 sold_cnt: 1,
                 offers_noted: true,
                 offers_cnt: 2,
@@ -417,28 +428,45 @@ mod tests {
                 sold_but_match_active: false,
                 sold_but_match: 0,
                 offer_and_match: 0,
-        });
-
-        let res = calculate_summary_data::<ConstraintMock>( &[
-            ConstraintMock{
-                mb: true,
-                sold: true,
-                offer: Some(Offer::Single { amount: Some(5), by: "".to_string(), reduced_pot: false, save: true }),
-                mb_hit: true,
-                ..Default::default()
-            },
-            ConstraintMock{
-                mb: true,
-                offer: Some(Offer::Single { amount: Some(5), by: "".to_string(), reduced_pot: false, save: true }),
-                mb_hit: true,
-                ..Default::default()
-            },
-        ],
-            Some(&vec![MaskedMatching::from_matching_ref(&[vec![0], vec![1]])]),
-            true,
-            10
+            }
         );
-        assert_eq!(res.offers_mb, SumOffersMB{
+
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    mb: true,
+                    sold: true,
+                    offer: Some(Offer::Single {
+                        amount: Some(5),
+                        by: "".to_string(),
+                        reduced_pot: false,
+                        save: true,
+                    }),
+                    mb_hit: true,
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    mb: true,
+                    offer: Some(Offer::Single {
+                        amount: Some(5),
+                        by: "".to_string(),
+                        reduced_pot: false,
+                        save: true,
+                    }),
+                    mb_hit: true,
+                    ..Default::default()
+                },
+            ],
+            Some(&vec![MaskedMatching::from_matching_ref(&[
+                vec![0],
+                vec![1],
+            ])]),
+            true,
+            10,
+        );
+        assert_eq!(
+            res.offers_mb,
+            SumOffersMB {
                 sold_cnt: 1,
                 offers_noted: true,
                 offers_cnt: 2,
@@ -446,62 +474,64 @@ mod tests {
                 sold_but_match_active: true,
                 sold_but_match: 1,
                 offer_and_match: 2,
-        });
+            }
+        );
     }
 
     #[test]
     fn calculate_summary_data_won_in() {
         // won in time
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                won: false,
-                num: dec![5],
-                ..Default::default()
-            },
-            ConstraintMock{
-                won: true,
-                type_str: "MB+10.9".to_string(),
-                num: dec![10.9],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    won: false,
+                    num: dec![5],
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    won: true,
+                    type_str: "MB+10.9".to_string(),
+                    num: dec![10.9],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.won_in, Some((true, "MB+10.9".to_string())));
 
         // "won" out of time
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                won: false,
-                num: dec![5],
-                ..Default::default()
-            },
-            ConstraintMock{
-                won: true,
-                type_str: "MB+11.0".to_string(),
-                num: dec![11.0],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    won: false,
+                    num: dec![5],
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    won: true,
+                    type_str: "MB+11.0".to_string(),
+                    num: dec![11.0],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.won_in, Some((false, "MB+11.0".to_string())));
 
         // not won
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[ConstraintMock {
                 won: false,
                 num: dec![5],
                 ..Default::default()
-            },
-        ],
+            }],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.won_in, None);
     }
@@ -509,106 +539,111 @@ mod tests {
     #[test]
     fn calculate_summary_data_solvable_in() {
         // solvable in time
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                num: dec![5],
-                solvable_after: Some(true),
-                ..Default::default()
-            },
-            ConstraintMock{
-                might_won: true,
-                type_str: "MB+10.9".to_string(),
-                num: dec![10.9],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    num: dec![5],
+                    solvable_after: Some(true),
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    might_won: true,
+                    type_str: "MB+10.9".to_string(),
+                    num: dec![10.9],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.solvable_in, Some((true, "MB+10.9".to_string())));
 
         // solvable out of time
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                num: dec![5],
-                solvable_after: Some(true),
-                ..Default::default()
-            },
-            ConstraintMock{
-                might_won: true,
-                type_str: "MB+11".to_string(),
-                num: dec![11],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    num: dec![5],
+                    solvable_after: Some(true),
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    might_won: true,
+                    type_str: "MB+11".to_string(),
+                    num: dec![11],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.solvable_in, Some((false, "MB+11".to_string())));
 
         // solvable but nothing comes after (e.g. they won the game through "guessing")
         // -> guessing was too late so there would not have been an opportunity left to officially
         // solve it now after the solution is known
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                num: dec![5],
-                ..Default::default()
-            },
-            ConstraintMock{
-                solvable_after: Some(true),
-                might_won: true,
-                type_str: "MB+10.9".to_string(),
-                num: dec![10.9],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    num: dec![5],
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    solvable_after: Some(true),
+                    might_won: true,
+                    type_str: "MB+10.9".to_string(),
+                    num: dec![10.9],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.solvable_in, Some((false, "End".to_string())));
 
         // solvable but nothing comes after (e.g. they won the game through "guessing")
         // -> guessing was early enough so now that the game is solved there would be an
         // opportunity left to officially solve it
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                num: dec![5],
-                ..Default::default()
-            },
-            ConstraintMock{
-                solvable_after: Some(true),
-                might_won: true,
-                type_str: "MB+9.9".to_string(),
-                num: dec![9.9],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    num: dec![5],
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    solvable_after: Some(true),
+                    might_won: true,
+                    type_str: "MB+9.9".to_string(),
+                    num: dec![9.9],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.solvable_in, Some((true, "End".to_string())));
 
         // not solvable
-        let res = calculate_summary_data::<ConstraintMock>(&[
-            ConstraintMock{
-                num: dec![5],
-                ..Default::default()
-            },
-            ConstraintMock{
-                solvable_after: Some(false),
-                might_won: true,
-                type_str: "MB+9.9".to_string(),
-                num: dec![9.9],
-                ..Default::default()
-            },
-        ],
+        let res = calculate_summary_data::<ConstraintMock>(
+            &[
+                ConstraintMock {
+                    num: dec![5],
+                    ..Default::default()
+                },
+                ConstraintMock {
+                    solvable_after: Some(false),
+                    might_won: true,
+                    type_str: "MB+9.9".to_string(),
+                    num: dec![9.9],
+                    ..Default::default()
+                },
+            ],
             None,
             true,
-            10
+            10,
         );
         assert_eq!(res.solvable_in, None);
     }

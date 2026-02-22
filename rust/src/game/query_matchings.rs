@@ -3,7 +3,7 @@ use std::fmt;
 use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 
-use crate::{matching_repr::MaskedMatching};
+use crate::matching_repr::MaskedMatching;
 
 pub(super) struct MatchingReport {
     entries: Vec<MatchingEntry>,
@@ -11,7 +11,11 @@ pub(super) struct MatchingReport {
 
 impl MatchingReport {
     /// Only call when query_matchings actually contains data
-    pub(super) fn new(query_matchings: &[(MaskedMatching, Option<String>)], map_a: &[String], map_b: &[String]) -> Result<Option<Self>> {
+    pub(super) fn new(
+        query_matchings: &[(MaskedMatching, Option<String>)],
+        map_a: &[String],
+        map_b: &[String],
+    ) -> Result<Option<Self>> {
         if !query_matchings.iter().any(|(_, x)| x.is_some()) {
             return Ok(None);
         }
@@ -21,7 +25,7 @@ impl MatchingReport {
             let Some(id) = id else { continue };
             entries.push(MatchingEntry::new(q, id, map_a, map_b)?);
         }
-        Ok(Some(MatchingReport { entries  }))
+        Ok(Some(MatchingReport { entries }))
     }
 
     pub(super) fn tab_cnt(&self) -> usize {
@@ -31,7 +35,10 @@ impl MatchingReport {
 
 impl fmt::Display for MatchingReport {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        writeln!(f, "Trace at which point a particular matching was elimiated:")?;
+        writeln!(
+            f,
+            "Trace at which point a particular matching was elimiated:"
+        )?;
 
         for entry in &self.entries {
             writeln!(f, "{}", entry)?;
@@ -49,7 +56,7 @@ struct MatchingEntry {
 impl MatchingEntry {
     fn new(q: &MaskedMatching, id: &str, map_a: &[String], map_b: &[String]) -> Result<Self> {
         let mut rows = Vec::with_capacity(q.len());
-        for (a,b) in q.iter().enumerate() {
+        for (a, b) in q.iter().enumerate() {
             let a_s = map_a
                 .get(a)
                 .with_context(|| format!("{} is out of bounds for map_a", a))?
@@ -57,16 +64,18 @@ impl MatchingEntry {
 
             let b_s = b
                 .iter()
-                .map(|b| map_b
-                    .get(b as usize).cloned()
-                    .with_context(|| format!("{} is out of bounds for map_b", b))
-                )
+                .map(|b| {
+                    map_b
+                        .get(b as usize)
+                        .cloned()
+                        .with_context(|| format!("{} is out of bounds for map_b", b))
+                })
                 .collect::<Result<Vec<_>>>()?;
 
             rows.push((a_s, b_s));
         }
 
-        Ok(MatchingEntry{
+        Ok(MatchingEntry {
             rows,
             eliminated_in: id.to_string(),
         })
@@ -85,17 +94,13 @@ impl fmt::Display for MatchingEntry {
         // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
         // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
         ;
-        tab.add_rows(
-            self.rows.iter().map(|(a,b)| {
-                let mut row = Row::new();
-                row.add_cell(Cell::new(a));
-                row.add_cell(Cell::new(format!("{:?}", b)));
-                row
-            })
-        );
-        tab.column_mut(0)
-            .ok_or(fmt::Error)?
-            .set_padding((0, 1));
+        tab.add_rows(self.rows.iter().map(|(a, b)| {
+            let mut row = Row::new();
+            row.add_cell(Cell::new(a));
+            row.add_cell(Cell::new(format!("{:?}", b)));
+            row
+        }));
+        tab.column_mut(0).ok_or(fmt::Error)?.set_padding((0, 1));
         writeln!(f, "{tab}")?;
         writeln!(f, "=> Eliminated in {}", self.eliminated_in)
     }
