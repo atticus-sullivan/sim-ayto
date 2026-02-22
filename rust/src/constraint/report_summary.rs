@@ -349,52 +349,58 @@ mod tests {
 
     #[test]
     fn row_data_simple() {
-        let mut c1 = Constraint::default();
-        c1.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c1.r#type = ConstraintType::Night {
-            num: dec![2.5],
-            comment: "abc".to_string(),
-            offer: None,
+        let c1 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            map_s: vec![("a", "A"), ("b", "B"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![2.5],
+                comment: "abc".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(3, Default::default()),
+            result_unknown: false,
+            information: Some(1.5),
+            ..Default::default()
         };
-        c1.check = CheckType::Lights(3, Default::default());
-        c1.result_unknown = false;
-        c1.information = Some(1.5);
         assert!(c1.adds_new());
 
-        let mut c2 = Constraint::default();
-        c2.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
-        c2.map_s = vec![("a", "A"), ("b", "B")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c2.r#type = ConstraintType::Night {
-            num: dec![0.5],
-            comment: "ihg".to_string(),
-            offer: None,
+        let c2 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1]]),
+            map_s: vec![("a", "A"), ("b", "B")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![0.5],
+                comment: "ihg".to_string(),
+                offer: None,
+            },
+            check: CheckType::Eq,
+            result_unknown: true,
+            information: Some(1.5),
+            ..Default::default()
         };
-        c2.check = CheckType::Eq;
-        c2.result_unknown = true;
-        c2.information = Some(1.5);
         assert!(!c2.adds_new());
 
-        let mut c3 = Constraint::default();
-        c3.map = MaskedMatching::from_matching_ref(&[vec![], vec![1]]);
-        c3.map_s = vec![("b", "B")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c3.r#type = ConstraintType::Box {
-            num: dec![10],
-            comment: "xyz".to_string(),
-            offer: None,
+        let c3 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![], vec![1]]),
+            map_s: vec![("b", "B")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Box {
+                num: dec![10],
+                comment: "xyz".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(1, Default::default()),
+            result_unknown: false,
+            information: None,
+            ..Default::default()
         };
-        c3.check = CheckType::Lights(1, Default::default());
-        c3.result_unknown = false;
-        c3.information = None;
         assert!(c3.adds_new());
 
         let sr = c1.summary_row_data(
@@ -544,41 +550,47 @@ mod tests {
 
     #[test]
     fn new_matches_simple() {
-        let mut c1 = Constraint::default();
-        c1.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c1.r#type = ConstraintType::Night {
-            num: dec![2.5],
-            comment: "abc".to_string(),
-            offer: None,
+        let c1 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            map_s: vec![("a", "A"), ("b", "B"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![2.5],
+                comment: "abc".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
 
-        let mut c2 = Constraint::default();
-        c2.map = MaskedMatching::from_matching_ref(&[vec![1], vec![0], vec![2]]);
-        c2.map_s = vec![("a", "B"), ("b", "A"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c2.r#type = ConstraintType::Night {
-            num: dec![0.5],
-            comment: "xyz".to_string(),
-            offer: None,
+        let c2 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![0], vec![2]]),
+            map_s: vec![("a", "B"), ("b", "A"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![0.5],
+                comment: "xyz".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
 
-        let mut c3 = Constraint::default();
-        c3.map = MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]);
-        c3.map_s = vec![("a", "C"), ("b", "B"), ("c", "A")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c3.r#type = ConstraintType::Night {
-            num: dec![10.5],
-            comment: "jkl".to_string(),
-            offer: None,
-        };
+        // let c3 = Constraint {
+        //     map: MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]),
+        //     map_s: vec![("a", "C"), ("b", "B"), ("c", "A")]
+        //         .into_iter()
+        //         .map(|(i, j)| (i.to_string(), j.to_string()))
+        //         .collect::<HashMap<_, _>>(),
+        //     r#type: ConstraintType::Night {
+        //         num: dec![10.5],
+        //         comment: "jkl".to_string(),
+        //         offer: None,
+        //     },
+        //     ..Default::default()
+        // };
 
         let n = c1.new_matches(&[&c2, &c2]);
         assert_eq!(n, Some(2));

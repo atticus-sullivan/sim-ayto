@@ -103,8 +103,11 @@ impl<'a> fmt::Display for ReportData<'a> {
 }
 
 impl Constraint {
-    pub(crate) fn generate_hdr_report<'a>(&'a self, past_constraints: &'a[Constraint]) -> ReportData<'a> {
-        ReportData{
+    pub(crate) fn generate_hdr_report<'a>(
+        &'a self,
+        past_constraints: &'a [Constraint],
+    ) -> ReportData<'a> {
+        ReportData {
             hdr: format!("{} {}", self.type_str(), self.comment()),
             map_s: MapSRender {
                 map: &self.map_s,
@@ -230,40 +233,46 @@ c   → C "#
 0x c   → C "#
         );
 
-        let mut c1 = Constraint::default();
-        c1.r#type = ConstraintType::Box {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c1 = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("a", "A")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            ..Default::default()
         };
-        c1.map_s = vec![("a", "A")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<MapS>();
         assert!(!c1.show_past_cnt());
 
-        let mut c2 = Constraint::default();
-        c2.r#type = ConstraintType::Night {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c2 = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("a", "A"), ("b", "C"), ("c", "B")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            ..Default::default()
         };
-        c2.map_s = vec![("a", "A"), ("b", "C"), ("c", "B")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<MapS>();
         assert!(c2.show_past_cnt());
 
-        let mut c3 = Constraint::default();
-        c3.r#type = ConstraintType::Night {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c3 = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("a", "A"), ("b", "D"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            ..Default::default()
         };
-        c3.map_s = vec![("a", "A"), ("b", "D"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<MapS>();
         assert!(c3.show_past_cnt());
 
         let msr = MapSRender {
