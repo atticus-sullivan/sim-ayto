@@ -19,8 +19,8 @@ pub mod check_type;
 /// This specific module only implements the "real" (in contrast to parsing) datatypes and some
 /// simple getters.
 pub mod compare;
-pub mod evaluate_predicates;
 pub(super) mod evaluate;
+pub mod evaluate_predicates;
 pub(super) mod parse;
 pub(super) mod parse_utils;
 pub(super) mod report;

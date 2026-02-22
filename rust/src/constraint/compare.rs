@@ -200,6 +200,7 @@ pub struct SumCounts {
     pub offers_mb: SumOffersMB,
 }
 
+#[allow(clippy::derivable_impls)]
 impl Default for SumCounts {
     fn default() -> Self {
         Self {
@@ -235,6 +236,7 @@ pub struct SumOffersMN {
     pub offered_money: u128,
 }
 
+#[allow(clippy::derivable_impls)]
 impl Default for SumOffersMB {
     fn default() -> Self {
         Self {
@@ -248,6 +250,7 @@ impl Default for SumOffersMB {
         }
     }
 }
+#[allow(clippy::derivable_impls)]
 impl Default for SumOffersMN {
     fn default() -> Self {
         Self {

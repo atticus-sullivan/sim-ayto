@@ -1,5 +1,5 @@
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;
-use comfy_table::presets::{UTF8_FULL_CONDENSED};
+use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Table};
 
 use anyhow::Result;
@@ -8,7 +8,11 @@ use crate::constraint::Constraint;
 use crate::game::Game;
 
 impl Game {
-    pub(super) fn summary_table(&self, transpose: bool, merged_constraints: &[Constraint]) -> Result<Table> {
+    pub(super) fn summary_table(
+        &self,
+        transpose: bool,
+        merged_constraints: &[Constraint],
+    ) -> Result<Table> {
         // let map_vert;
         let map_hor = if !transpose {
             &self.map_a

@@ -1,7 +1,7 @@
 use ayto::comparison;
 use ayto::game::parse::GameParse;
 
-use ayto::game::dump_mode::DumpMode;
+use ayto::dump_mode::DumpMode;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use std::time::Instant;

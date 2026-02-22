@@ -12,7 +12,10 @@ pub(super) struct ReportEvent<'a> {
 
 pub(super) type Trail<'a> = (Rem, Vec<ReportEvent<'a>>);
 
-pub(super) fn gen_report_data<'a>(constraints: &'a mut [Constraint], mut rem: Rem) -> Result<Trail<'a>> {
+pub(super) fn gen_report_data<'a>(
+    constraints: &'a mut [Constraint],
+    mut rem: Rem,
+) -> Result<Trail<'a>> {
     let initial = rem.clone();
 
     let mut report_data = (vec![], vec![]);
@@ -24,20 +27,24 @@ pub(super) fn gen_report_data<'a>(constraints: &'a mut [Constraint], mut rem: Re
         report_data.1.push((
             c,
             // .. is a half-opened range => upper bound is not included
-            c.generate_hdr_report(&constraints[0..i])
+            c.generate_hdr_report(&constraints[0..i]),
         ));
     }
 
     Ok((
         initial,
-        report_data.0.into_iter().zip(report_data.1).map(|(r, (c, cd))| ReportEvent{
-        rem: r,
-        constr_report: cd,
-        constraint: c,
-    }).collect::<Vec<_>>()
+        report_data
+            .0
+            .into_iter()
+            .zip(report_data.1)
+            .map(|(r, (c, cd))| ReportEvent {
+                rem: r,
+                constr_report: cd,
+                constraint: c,
+            })
+            .collect::<Vec<_>>(),
     ))
 }
-
 
 pub(super) struct MdTable {
     pub(super) name: String,
@@ -57,30 +64,24 @@ impl Game {
         md_tables: &mut Vec<MdTable>,
     ) -> Result<usize> {
         let (mv, mh) = if print_transposed {
-            (
-                &self.map_b,
-                &self.map_a,
-            )
+            (&self.map_b, &self.map_a)
         } else {
-            (
-                &self.map_a,
-                &self.map_b,
-            )
+            (&self.map_a, &self.map_b)
         };
         let norm_idx = if print_transposed {
-            |v,h| (h,v)
+            |v, h| (h, v)
         } else {
-            |v,h| (v,h)
+            |v, h| (v, h)
         };
 
         self.print_rem_generic(&data.0, mv, mh, norm_idx)
             .context("Error printing")?;
 
-        md_tables.push(MdTable{
+        md_tables.push(MdTable {
             name: "tab-start".to_owned(),
             idx: tab_idx,
             tree: false,
-            detail: false
+            detail: false,
         });
         tab_idx += 1;
         println!();
@@ -114,11 +115,11 @@ impl Game {
                 event.rem.1,
             )?;
 
-            md_tables.push(MdTable{
+            md_tables.push(MdTable {
                 name: event.constraint.md_heading(),
                 idx: tab_idx,
                 tree,
-                detail: true
+                detail: true,
             });
             tab_idx += 1;
             println!();

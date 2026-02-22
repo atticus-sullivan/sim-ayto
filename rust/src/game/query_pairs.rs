@@ -48,7 +48,6 @@ impl QueryPairReport {
 
             let mut rows = Vec::new();
 
-
             for (a, count) in items {
                 let name = map_a
                     .get(*a as usize)
@@ -60,7 +59,7 @@ impl QueryPairReport {
             sections.push(QueryPairSection { header, rows });
         }
 
-        Ok(QueryPairReport{ sections })
+        Ok(QueryPairReport { sections })
     }
 }
 
@@ -86,14 +85,12 @@ impl fmt::Display for QueryPairSection {
             .load_preset(UTF8_FULL_CONDENSED)
             .set_header(vec!["", &self.header]);
 
-        tab.add_rows(
-            self.rows.iter().map(|(c, i)| {
-                let mut row = Row::new();
-                row.add_cell(Cell::new(c));
-                row.add_cell(Cell::new(format!("{:?}", i)));
-                row
-            })
-        );
+        tab.add_rows(self.rows.iter().map(|(c, i)| {
+            let mut row = Row::new();
+            row.add_cell(Cell::new(c));
+            row.add_cell(Cell::new(format!("{:?}", i)));
+            row
+        }));
         writeln!(f, "{tab}")
     }
 }
