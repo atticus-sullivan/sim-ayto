@@ -11,7 +11,7 @@
 use anyhow::Result;
 use std::{fs::File, path::PathBuf};
 
-use crate::constraint::{Constraint, ConstraintType};
+use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
 use crate::tree::{dot_tree, tree_ordering};
 

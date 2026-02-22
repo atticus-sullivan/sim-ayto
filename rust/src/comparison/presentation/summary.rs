@@ -14,20 +14,20 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
         solvable_in: None,
         blackouts: 0,
         matches_found: 0,
-        won: false,
+        won_in: None,
         offers_mb: SumOffersMB {
             sold_cnt: 0,
             sold_but_match: 0,
             sold_but_match_active: true,
             offers_noted: true,
             offer_and_match: 0,
-            offers: 0,
+            offers_cnt: 0,
             offered_money: 0,
         },
         offers_mn: SumOffersMN {
             sold_cnt: 0,
             offers_noted: true,
-            offers: 0,
+            offers_cnt: 0,
             offered_money: 0,
         },
     };
@@ -42,8 +42,13 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} / {} | {} | | {} | {} | {} / {} |",
             name,
 
-            lang.format_bool_yes_no(cd.cnts.won),
-            if cd.cnts.won { "green" } else { "red" },
+            if let Some(won) = &cd.cnts.won_in {
+                won.1.clone()
+            } else { lang.format_bool_yes_no(false).to_string() },
+            if let Some(won) = &cd.cnts.won_in {
+                if won.0 { "green" } else { "red" }
+            } else { "red" },
+
             if let Some(solv) = &cd.cnts.solvable_in {
                 solv.1.clone()
             } else { lang.format_bool_yes_no(false).to_string() },
@@ -63,7 +68,7 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             },
 
             if cd.cnts.offers_mb.offers_noted {
-                cd.cnts.offers_mb.offers.to_string()
+                cd.cnts.offers_mb.offers_cnt.to_string()
             } else {
                 "".to_string()
             },
@@ -101,7 +106,7 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             "".to_string()
         },
         if total_counts.offers_mb.offers_noted {
-            total_counts.offers_mb.offers.to_string()
+            total_counts.offers_mb.offers_cnt.to_string()
         } else {
             "".to_string()
         },

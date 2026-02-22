@@ -10,7 +10,7 @@ use anyhow::Result;
 use serde::de::DeserializeOwned;
 use walkdir::WalkDir;
 
-use crate::constraint::compare::{EvalData, EvalEvent, SumCounts};
+use crate::constraint::compare::{ComparisonData, EvalEvent, SumCounts};
 use crate::game::Game;
 
 /// Compact comparison data for a ruleset / season used by the comparison pages.
@@ -77,7 +77,7 @@ pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, Cmp
     {
         let game = read_yaml_spec(entry.path().join(entry.file_name()))?;
 
-        let eval_data: EvalData = match read_json_data("stats.json", entry.path())? {
+        let eval_data: ComparisonData = match read_json_data("stats.json", entry.path())? {
             Some(x) => x,
             None => continue,
         };

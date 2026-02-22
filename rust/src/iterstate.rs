@@ -9,7 +9,7 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 
-use crate::constraint::Constraint;
+use crate::constraint::{Constraint, ConstraintGetters};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
 pub(super) type QueryPairData = (

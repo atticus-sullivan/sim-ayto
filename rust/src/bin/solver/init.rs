@@ -89,6 +89,7 @@ pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterStat
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ayto::constraint::evaluate_predicates::ConstraintEval;
     use ayto::matching_repr::bitset::Bitset;
     use rand::rngs::StdRng;
     use rand::SeedableRng;

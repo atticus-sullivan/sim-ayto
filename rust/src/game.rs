@@ -1,13 +1,21 @@
+/// This module represents the whole game.
+/// A game has te following lifecycle:
+/// 1. parsed from yaml as `GameParse` -> parse module
+/// 2. converted to a regular `Game` -> parse module
+/// 3. simulated `sim()` -> main module
+/// 4. evaluated `eval()` -> eval module
+/// 5. report generated and printed `report()` -> eval/report module
+
+mod compare;
 mod eval;
+mod eval_utils;
 mod output;
-pub mod parse;
 mod query_matchings;
 mod query_pairs;
-mod report_body;
-mod eval_utils;
-pub mod dump_mode;
-mod compare;
 mod report_summary;
+mod report_trail;
+pub mod dump_mode;
+pub mod parse;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -45,10 +53,32 @@ pub struct Game {
     final_cache_hash: Option<PathBuf>,
 }
 
+impl Default for Game {
+    fn default() -> Self {
+        Self{
+            no_offerings_noted: false,
+            solved: false,
+            constraints_orig: vec![],
+            rule_set: RuleSet::Eq,
+            frontmatter: Default::default(),
+            map_a: vec![],
+            map_b: vec![],
+            lut_a: Default::default(),
+            lut_b: Default::default(),
+            dir: Default::default(),
+            stem: "abc".to_string(),
+            query_matchings: vec![],
+            query_pair: (Default::default(), Default::default()),
+            cache_file: None,
+            final_cache_hash: None,
+        }
+    }
+}
+
 impl Game {
     // returns (translationKeyForExplanation, shortcode)
     /// Return a (translation-key, short-code) describing the ruleset.
-    pub fn ruleset_str(&self) -> (String, String) {
+    pub(super) fn ruleset_str(&self) -> (String, String) {
         match &self.rule_set {
             RuleSet::XTimesDup((cnt, fixed)) => (
                 format!("rs-XTimesDup-{}-{}", fixed.len(), cnt),
@@ -62,7 +92,7 @@ impl Game {
     }
 
     /// Return a formatted players string "A/B".
-    pub fn players_str(&self) -> String {
+    pub(super) fn players_str(&self) -> String {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
@@ -110,5 +140,38 @@ impl Game {
             .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, input_file)?;
 
         Ok(is)
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn ruleset_str_simple() {
+        let mut g = Game::default();
+        g.rule_set = RuleSet::Eq;
+        assert_eq!(g.ruleset_str(), ("rs-Eq".to_string(), "=".to_string()));
+
+        g.rule_set = RuleSet::NToN;
+        assert_eq!(g.ruleset_str(), ("rs-NToN".to_string(), "N:N".to_string()));
+
+        g.rule_set = RuleSet::SomeoneIsTrip;
+        assert_eq!(g.ruleset_str(), ("rs-SomeoneIsTrip".to_string(), "?3".to_string()));
+
+        g.rule_set = RuleSet::FixedTrip("abc".to_string());
+        assert_eq!(g.ruleset_str(), ("rs-FixedTrip".to_string(), "=3".to_string()));
+
+        g.rule_set = RuleSet::XTimesDup((3, vec!["a".to_string(), "b".to_string()]));
+        assert_eq!(g.ruleset_str(), ("rs-XTimesDup-2-3".to_string(), "?3=2".to_string()));
+    }
+
+    #[test]
+    fn players_str_simple() {
+        let mut g = Game::default();
+        g.map_a = vec!["a", "b", "c"].into_iter().map(|x| x.to_string()).collect();
+        g.map_b = vec!["a"].into_iter().map(|x| x.to_string()).collect();
+        assert_eq!(g.players_str(), "3/1");
     }
 }

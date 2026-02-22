@@ -4,7 +4,8 @@ use core::fmt;
 
 use comfy_table::Cell;
 
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::constraint::evaluate_predicates::ConstraintEval;
+use crate::constraint::{CheckType, Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
 
 #[derive(Clone, Debug)]

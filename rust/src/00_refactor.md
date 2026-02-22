@@ -9,6 +9,11 @@
   2. start with the two crates
   3. comment in step-by step and try to keep access modifiers as low as possible
 - [ ] search for all uses of `u8` and use a type alias like `LightsCnt`
+- [ ] revisit caching. How the arguments are set and how it's determined which
+cache is used (cli arg vs automatic detection) currently is just weird. Maybe it
+also makes sense to make it possible for constraints to generate caches along
+the way and to specify which cache to use in the config file
+- [ ] grep for `::default()` check where initializer list + `..Default::default()` is better
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
@@ -41,11 +46,6 @@ TODO (ausgelassen erstmal)
 - [ ] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
-
-### game.rs
-### game/eval.rs
-### game/output.rs
-### game/parse.rs
 
 ## iterstate.rs
 - [ ] (re-)organization of functions and files

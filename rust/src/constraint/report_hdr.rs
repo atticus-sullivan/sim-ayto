@@ -5,7 +5,7 @@ use core::fmt;
 
 use comfy_table::{presets::NOTHING, Row, Table};
 
-use crate::constraint::{CheckType, Constraint};
+use crate::constraint::{CheckType, Constraint, ConstraintGetters};
 use crate::MapS;
 
 struct CheckTypeRender<'a> {
