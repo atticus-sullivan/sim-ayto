@@ -135,7 +135,7 @@ impl GameParse {
             &g.rule_set,
             &self.rename_a,
             &self.rename_b,
-            &g.map_b
+            &g.map_b,
         )?;
 
         // translate the matchings that were querried for tracing

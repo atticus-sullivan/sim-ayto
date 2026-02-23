@@ -206,8 +206,8 @@ impl Game {
 
 #[cfg(test)]
 mod tests {
-    use rust_decimal::Decimal;
     use pretty_assertions::assert_eq;
+    use rust_decimal::Decimal;
 
     use super::*;
 
@@ -270,9 +270,21 @@ mod tests {
     fn get_caches_respects_impact_flag() {
         let init_hash = 0xdeadbeefu64;
         let constraints = [
-            MockConstraint { typ: "A".to_string(), impact: true, ..Default::default() },
-            MockConstraint { typ: "B".to_string(), impact: false, ..Default::default() }, // should be skipped
-            MockConstraint { typ: "C".to_string(), impact: true, ..Default::default() },
+            MockConstraint {
+                typ: "A".to_string(),
+                impact: true,
+                ..Default::default()
+            },
+            MockConstraint {
+                typ: "B".to_string(),
+                impact: false,
+                ..Default::default()
+            }, // should be skipped
+            MockConstraint {
+                typ: "C".to_string(),
+                impact: true,
+                ..Default::default()
+            },
         ];
 
         let caches: Vec<MockSpec> = get_caches(init_hash, &constraints);
@@ -306,10 +318,26 @@ mod tests {
         // new is skipped because it does not exist
         // => should select mid
         let specs = vec![
-            MockSpec { event_name: "old".into(), path: PathBuf::from("old.cache"), exists: true },
-            MockSpec { event_name: "mid".into(), path: PathBuf::from("mid.cache"), exists: true },
-            MockSpec { event_name: "new".into(), path: PathBuf::from("new.cache"), exists: false },
-            MockSpec { event_name: "now".into(), path: PathBuf::from("now.cache"), exists: true },
+            MockSpec {
+                event_name: "old".into(),
+                path: PathBuf::from("old.cache"),
+                exists: true,
+            },
+            MockSpec {
+                event_name: "mid".into(),
+                path: PathBuf::from("mid.cache"),
+                exists: true,
+            },
+            MockSpec {
+                event_name: "new".into(),
+                path: PathBuf::from("new.cache"),
+                exists: false,
+            },
+            MockSpec {
+                event_name: "now".into(),
+                path: PathBuf::from("now.cache"),
+                exists: true,
+            },
         ];
         let chosen = CacheModeFallback::MostRecent.select_cache(&specs);
         assert_eq!(chosen.unwrap().event_name(), "mid");
@@ -318,9 +346,21 @@ mod tests {
     #[test]
     fn mode_select_cache_falls_back_when_missing() {
         let specs = vec![
-            MockSpec { event_name: "alpha".into(), path: PathBuf::from("a.cache"), exists: false },
-            MockSpec { event_name: "beta".into(), path: PathBuf::from("b.cache"), exists: true },
-            MockSpec { event_name: "now".into(), path: PathBuf::from("now.cache"), exists: true },
+            MockSpec {
+                event_name: "alpha".into(),
+                path: PathBuf::from("a.cache"),
+                exists: false,
+            },
+            MockSpec {
+                event_name: "beta".into(),
+                path: PathBuf::from("b.cache"),
+                exists: true,
+            },
+            MockSpec {
+                event_name: "now".into(),
+                path: PathBuf::from("now.cache"),
+                exists: true,
+            },
         ];
 
         let mode = CacheMode::SpecificEvent("gamma".into()); // not present
@@ -335,9 +375,21 @@ mod tests {
     #[test]
     fn mode_select_cache_none_when_no_fallback() {
         let specs = vec![
-            MockSpec { event_name: "alpha".into(), path: PathBuf::from("a.cache"), exists: false },
-            MockSpec { event_name: "beta".into(), path: PathBuf::from("b.cache"), exists: true },
-            MockSpec { event_name: "now".into(), path: PathBuf::from("now.cache"), exists: true },
+            MockSpec {
+                event_name: "alpha".into(),
+                path: PathBuf::from("a.cache"),
+                exists: false,
+            },
+            MockSpec {
+                event_name: "beta".into(),
+                path: PathBuf::from("b.cache"),
+                exists: true,
+            },
+            MockSpec {
+                event_name: "now".into(),
+                path: PathBuf::from("now.cache"),
+                exists: true,
+            },
         ];
 
         let mode = CacheMode::SpecificEvent("gamma".into()); // not present

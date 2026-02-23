@@ -260,9 +260,9 @@ pub fn emit_slice_to_state<T: IterStateTrait>(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
     use std::collections::HashMap;
     use std::collections::HashSet;
-    use pretty_assertions::assert_eq;
 
     #[derive(Default)]
     struct TestingIterState {

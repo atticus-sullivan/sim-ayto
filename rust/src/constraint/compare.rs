@@ -340,8 +340,8 @@ impl Constraint {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::{BTreeMap, HashMap};
     use pretty_assertions::assert_eq;
+    use std::collections::{BTreeMap, HashMap};
 
     use crate::{
         constraint::CheckType, matching_repr::MaskedMatching, ruleset_data::dummy::DummyData,

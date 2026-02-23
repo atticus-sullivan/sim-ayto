@@ -116,19 +116,19 @@ title: abc
             ..Default::default()
         };
         let tabs = vec![
-            MdTable{
+            MdTable {
                 name: "a".to_string(),
                 idx: 1,
                 tree: true,
                 detail: true,
             },
-            MdTable{
+            MdTable {
                 name: "z".to_string(),
                 idx: 10,
                 tree: false,
                 detail: false,
             },
-            MdTable{
+            MdTable {
                 name: "x".to_string(),
                 idx: 23,
                 tree: false,

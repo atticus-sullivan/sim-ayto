@@ -404,8 +404,8 @@ where
 
 #[cfg(test)]
 mod generator_tests {
-    use std::collections::HashSet;
     use pretty_assertions::assert_eq;
+    use std::collections::HashSet;
 
     use super::*;
     use crate::matching_repr::{bitset::Bitset, IdBase, MaskedMatching};

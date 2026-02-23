@@ -71,7 +71,7 @@ impl<'a> Display for CacheStatusAll<'a> {
             let row = vec![
                 Cell::new(r.name),
                 Cell::new(format!("{:?}", r.path)),
-                Cell::new(r.exists).fg(if r.exists {Color::Green} else {Color::Red}),
+                Cell::new(r.exists).fg(if r.exists { Color::Green } else { Color::Red }),
                 Cell::new(r.line_count.map(|x| x.to_string()).unwrap_or_default()),
                 Cell::new(r.size_mb.map(|x| x.to_string()).unwrap_or_default()),
                 // eta,

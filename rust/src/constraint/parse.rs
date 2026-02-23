@@ -1,10 +1,10 @@
-use std::collections::BTreeMap;
 /// This module is typically used to
 /// 1. deserialize into `ConstraintParse`
 /// 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
 ///
 /// Some helpers were soutsourced to parse_utils
 use anyhow::{Context, Result};
+use std::collections::BTreeMap;
 
 use rust_decimal::dec;
 use serde::Deserialize;
@@ -211,8 +211,8 @@ impl ConstraintParse {
 
 #[cfg(test)]
 mod tests {
-    use rust_decimal::dec;
     use pretty_assertions::assert_eq;
+    use rust_decimal::dec;
 
     use super::*;
     use crate::matching_repr::MaskedMatching;

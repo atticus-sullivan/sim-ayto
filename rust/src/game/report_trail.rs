@@ -1,3 +1,6 @@
+/// This module offers the functionality to print a trail of the evaluated constraints.
+/// This includes for the most part a table for each constraint with the remaining probabilities
+/// along with some additional information before and after this table.
 use anyhow::{Context, Result};
 
 use crate::constraint::{report_hdr::ReportData, Constraint};
@@ -13,7 +16,6 @@ pub(super) struct ReportEvent<'a> {
 
 pub(super) type Trail<'a> = (Rem, Vec<ReportEvent<'a>>);
 
-// TODO: write test
 pub(super) fn gen_report_data<'a>(
     constraints: &'a mut [Constraint],
     mut rem: Rem,
@@ -56,7 +58,6 @@ pub(super) struct MdTable {
 }
 
 impl Game {
-    // TODO: testing?
     pub(super) fn gen_report(
         &self,
         data: &Trail,
@@ -76,10 +77,12 @@ impl Game {
         } else {
             |v, h| (v, h)
         };
-        let ignore_pairing = |v,h| self.rule_set.ignore_pairing(v, h);
+        let ignore_pairing = |v, h| self.rule_set.ignore_pairing(v, h);
 
-        println!("{}", print_rem_generic(&data.0, mv, mh, norm_idx, ignore_pairing)
-            .context("Error printing")?);
+        println!(
+            "{}",
+            print_rem_generic(&data.0, mv, mh, norm_idx, ignore_pairing)
+        );
 
         md_tables.push(MdTable {
             name: "tab-start".to_owned(),
@@ -108,8 +111,10 @@ impl Game {
                 false
             };
 
-            println!("{}", print_rem_generic(&event.rem, mv, mh, norm_idx, ignore_pairing)
-                .context("Error printing")?);
+            println!(
+                "{}",
+                print_rem_generic(&event.rem, mv, mh, norm_idx, ignore_pairing)
+            );
             event.constraint.ruleset_data.print(
                 full,
                 &self.rule_set,

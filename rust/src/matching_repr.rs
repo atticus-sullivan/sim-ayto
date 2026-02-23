@@ -135,8 +135,8 @@ impl<'a> std::ops::BitAnd<&'a MaskedMatching> for MaskedMatching {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
     use pretty_assertions::assert_eq;
+    use std::collections::HashSet;
 
     use super::*;
 

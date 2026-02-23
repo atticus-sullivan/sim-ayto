@@ -326,7 +326,6 @@ impl ConstraintImpact for Constraint {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use std::collections::BTreeMap;

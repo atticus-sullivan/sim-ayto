@@ -1,3 +1,5 @@
+pub mod cache;
+pub mod cache_report;
 /// This module represents the whole game.
 /// A game has te following lifecycle:
 /// 1. parsed from yaml as `GameParse` -> parse module
@@ -16,8 +18,6 @@ mod query_pairs;
 mod report_summary;
 mod report_trail;
 mod report_utils;
-pub mod cache;
-pub mod cache_report;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -103,15 +103,14 @@ impl Game {
     ///
     /// `dump_mode` controls if permutations are collected
     /// Returns the final `IterState`.
-    pub fn sim(
-        &mut self,
-        dump_mode: Option<DumpMode>,
-    ) -> Result<IterState> {
+    pub fn sim(&mut self, dump_mode: Option<DumpMode>) -> Result<IterState> {
         let mut is = {
             // mathematically calculate amount of permutations (for the progressbar)
-            let perm_amount =
-                self.rule_set
-                    .get_perms_amount(self.map_a.len(), self.map_b.len(), &self.cache_file)?;
+            let perm_amount = self.rule_set.get_perms_amount(
+                self.map_a.len(),
+                self.map_b.len(),
+                &self.cache_file,
+            )?;
 
             IterState::new(
                 // whether to store the permutations which are valid solutions
@@ -142,19 +141,19 @@ mod tests {
 
     #[test]
     fn ruleset_str_simple() {
-        let g = Game{
+        let g = Game {
             rule_set: RuleSet::Eq,
             ..Default::default()
         };
         assert_eq!(g.ruleset_str(), ("rs-Eq".to_string(), "=".to_string()));
 
-        let g = Game{
+        let g = Game {
             rule_set: RuleSet::NToN,
             ..Default::default()
         };
         assert_eq!(g.ruleset_str(), ("rs-NToN".to_string(), "N:N".to_string()));
 
-        let g = Game{
+        let g = Game {
             rule_set: RuleSet::SomeoneIsTrip,
             ..Default::default()
         };
@@ -163,7 +162,7 @@ mod tests {
             ("rs-SomeoneIsTrip".to_string(), "?3".to_string())
         );
 
-        let g = Game{
+        let g = Game {
             rule_set: RuleSet::FixedTrip("abc".to_string()),
             ..Default::default()
         };
@@ -172,7 +171,7 @@ mod tests {
             ("rs-FixedTrip".to_string(), "=3".to_string())
         );
 
-        let g = Game{
+        let g = Game {
             rule_set: RuleSet::XTimesDup((3, vec!["a".to_string(), "b".to_string()])),
             ..Default::default()
         };
@@ -184,7 +183,7 @@ mod tests {
 
     #[test]
     fn players_str_simple() {
-        let g = Game{
+        let g = Game {
             map_a: vec!["a", "b", "c"]
                 .into_iter()
                 .map(|x| x.to_string())

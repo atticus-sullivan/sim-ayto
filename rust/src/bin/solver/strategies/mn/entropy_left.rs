@@ -48,9 +48,9 @@ impl MnOptimizer for EntropyLeftMnOptimizer {
 mod tests {
     use super::*;
     use ayto::matching_repr::MaskedMatching;
+    use pretty_assertions::assert_eq;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
-    use pretty_assertions::assert_eq;
 
     fn make_masked_matching(values: &[u8]) -> MaskedMatching {
         MaskedMatching::from(values)
