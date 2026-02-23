@@ -91,9 +91,9 @@ mod tests {
     use super::*;
     use ayto::constraint::evaluate_predicates::ConstraintEval;
     use ayto::matching_repr::bitset::Bitset;
+    use pretty_assertions::assert_eq;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
-    use pretty_assertions::assert_eq;
 
     // ------------------------------------------------------------
     // generate_solution

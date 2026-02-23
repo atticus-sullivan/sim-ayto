@@ -139,7 +139,7 @@ impl Constraint {
         &self,
         transpose: bool,
         map_hor: &[String],
-        past: &[&Constraint],
+        past: &[Constraint],
     ) -> SummaryRow {
         let map_s = if transpose {
             &self
@@ -190,7 +190,7 @@ impl Constraint {
                         (
                             EntryCell {
                                 value: v2.to_string(),
-                                is_new: !past.iter().any(|&c| {
+                                is_new: !past.iter().any(|c| {
                                     c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b)
                                 }),
                                 show_new: self.show_new(),
@@ -223,7 +223,7 @@ impl Constraint {
         let min_dist = if self.show_past_dist() {
             past.iter()
                 .filter(|&c| c.show_past_dist())
-                .map(|&c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX)))
+                .map(|c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX)))
                 .min_by_key(|i| i.1)
         } else {
             None
@@ -239,7 +239,7 @@ impl Constraint {
         }
     }
 
-    fn new_matches(&self, past: &[&Constraint]) -> Option<usize> {
+    fn new_matches(&self, past: &[Constraint]) -> Option<usize> {
         if self.result_unknown {
             None
         } else if let ConstraintType::Night { .. } = self.r#type {
@@ -249,7 +249,7 @@ impl Constraint {
                 .enumerate()
                 .filter(|&(k, v)| {
                     !v.is_empty()
-                        && !past.iter().any(|&c| {
+                        && !past.iter().any(|c| {
                             c.adds_new()
                                 && c.map
                                     .slot_mask(k)
@@ -270,8 +270,8 @@ impl Constraint {
 mod tests {
     use std::collections::HashMap;
 
-    use rust_decimal::dec;
     use pretty_assertions::assert_eq;
+    use rust_decimal::dec;
 
     use crate::matching_repr::MaskedMatching;
 
@@ -410,7 +410,7 @@ mod tests {
                 .iter()
                 .map(|i| i.to_string())
                 .collect::<Vec<_>>(),
-            &[&c2, &c3],
+            &[c2.clone(), c3.clone()],
         );
         let ref_sr = SummaryRow {
             label: "MN#2.5".to_string(),
@@ -458,7 +458,7 @@ mod tests {
                 .iter()
                 .map(|i| i.to_string())
                 .collect::<Vec<_>>(),
-            &[&c1, &c3],
+            &[c1.clone(), c3.clone()],
         );
         let ref_sr = SummaryRow {
             label: "MN#0.5".to_string(),
@@ -506,7 +506,7 @@ mod tests {
                 .iter()
                 .map(|i| i.to_string())
                 .collect::<Vec<_>>(),
-            &[&c1, &c2],
+            &[c1, c2],
         );
         let ref_sr = SummaryRow {
             label: "MB#10".to_string(),
@@ -579,21 +579,21 @@ mod tests {
             ..Default::default()
         };
 
-        // let c3 = Constraint {
-        //     map: MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]),
-        //     map_s: vec![("a", "C"), ("b", "B"), ("c", "A")]
-        //         .into_iter()
-        //         .map(|(i, j)| (i.to_string(), j.to_string()))
-        //         .collect::<HashMap<_, _>>(),
-        //     r#type: ConstraintType::Night {
-        //         num: dec![10.5],
-        //         comment: "jkl".to_string(),
-        //         offer: None,
-        //     },
-        //     ..Default::default()
-        // };
+        let c3 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]),
+            map_s: vec![("a", "C"), ("b", "B"), ("c", "A")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![10.5],
+                comment: "jkl".to_string(),
+                offer: None,
+            },
+            ..Default::default()
+        };
 
-        let n = c1.new_matches(&[&c2, &c2]);
-        assert_eq!(n, Some(2));
+        let n = c1.new_matches(&[c2.clone(), c3.clone()]);
+        assert_eq!(n, Some(1));
     }
 }

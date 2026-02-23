@@ -93,8 +93,8 @@ pub(crate) fn writer_loop(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tempfile::tempdir;
     use pretty_assertions::assert_eq;
+    use tempfile::tempdir;
 
     use crate::result::SimulationResult;
 

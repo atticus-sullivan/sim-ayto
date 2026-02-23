@@ -75,11 +75,11 @@ fn execute_parallel_simulations<S: StrategyBundle>(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
     use rand::Rng;
     use std::fs;
     use std::sync::Arc;
     use tempfile::tempdir;
-    use pretty_assertions::assert_eq;
 
     use ayto::matching_repr::MaskedMatching;
 

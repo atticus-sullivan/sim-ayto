@@ -98,8 +98,8 @@ mod tests {
     use super::*;
     use crate::matching_repr::bitset::Bitset;
     use crate::matching_repr::MaskedMatching;
-    use std::io::Cursor;
     use pretty_assertions::assert_eq;
+    use std::io::Cursor;
 
     #[test]
     fn tree_ordering_detects_variable_slots() {

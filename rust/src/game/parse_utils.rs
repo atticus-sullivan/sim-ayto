@@ -93,7 +93,12 @@ pub(super) fn process_constraints(
 /// This function mutates the supplied slices in place and does not allocate
 /// new vectors.
 /// ```
-pub(super) fn apply_renames(map_a: &mut [String], map_b: &mut [String], rename_a: &Rename, rename_b: &Rename) {
+pub(super) fn apply_renames(
+    map_a: &mut [String],
+    map_b: &mut [String],
+    rename_a: &Rename,
+    rename_b: &Rename,
+) {
     for name in map_a.iter_mut() {
         *name = rename_a.get(name).unwrap_or(name).to_owned();
     }
@@ -109,20 +114,32 @@ mod test {
 
     #[test]
     fn build_luts_happy_path() -> Result<()> {
-        let left  = vec!["A".to_string(), "B".to_string()];
+        let left = vec!["A".to_string(), "B".to_string()];
         let right = vec!["a".to_string(), "b".to_string(), "c".to_string()];
 
         let (lut_a, lut_b) = build_luts(&left, &right)?;
 
         // Verify that each name maps to its index.
-        assert_eq!(lut_a, vec![("A", 0), ("B", 1)].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<Lut>());
-        assert_eq!(lut_b, vec![("a", 0), ("b", 1), ("c", 2)].into_iter().map(|(k,v)| (k.to_string(), v)).collect::<Lut>());
+        assert_eq!(
+            lut_a,
+            vec![("A", 0), ("B", 1)]
+                .into_iter()
+                .map(|(k, v)| (k.to_string(), v))
+                .collect::<Lut>()
+        );
+        assert_eq!(
+            lut_b,
+            vec![("a", 0), ("b", 1), ("c", 2)]
+                .into_iter()
+                .map(|(k, v)| (k.to_string(), v))
+                .collect::<Lut>()
+        );
         Ok(())
     }
 
     #[test]
     fn build_luts_detects_duplicate_in_set_a() {
-        let left  = vec!["dup".to_string(), "dup".to_string()];
+        let left = vec!["dup".to_string(), "dup".to_string()];
         let right = vec!["unique".to_string()];
 
         let err = build_luts(&left, &right).expect_err("expected duplicate error");
@@ -139,7 +156,7 @@ mod test {
 
     #[test]
     fn build_luts_detects_duplicate_in_set_b() {
-        let left  = vec!["unique".to_string()];
+        let left = vec!["unique".to_string()];
         let right = vec!["dup".to_string(), "dup".to_string()];
 
         let err = build_luts(&left, &right).expect_err("expected duplicate error");
@@ -156,14 +173,14 @@ mod test {
     #[test]
     fn apply_renames_renames_only_mapped_names() {
         // Input vectors - some names have a rename entry, others do not.
-        let mut left  = vec!["old_a".to_string(), "keep_a".to_string()];
+        let mut left = vec!["old_a".to_string(), "keep_a".to_string()];
         let mut right = vec!["keep_b".to_string(), "old_b".to_string()];
 
         // Build a tiny rename table: old_a -> new_a, old_b -> new_b.
-        let rename = vec![
-            ("old_a", "new_a"),
-            ("old_b", "new_b")
-        ].into_iter().map(|(k,v)| (k.to_string(), v.to_string())).collect::<Rename>();
+        let rename = vec![("old_a", "new_a"), ("old_b", "new_b")]
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v.to_string()))
+            .collect::<Rename>();
 
         // The second rename table is empty (no right‑hand renames besides the one above).
         let empty_rename = Rename::default();

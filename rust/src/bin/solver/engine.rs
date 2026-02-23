@@ -227,8 +227,8 @@ impl<S: StrategyBundle> TryInto<SimulationResult> for Simulation<S> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use rand::Rng;
     use pretty_assertions::assert_eq;
+    use rand::Rng;
 
     /// Deterministic test strategy.
     /// Always picks the first available possibility.
