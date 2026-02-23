@@ -3,7 +3,47 @@ use std::fmt;
 use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 
-use crate::matching_repr::MaskedMatching;
+use crate::{matching_repr::MaskedMatching, Lut, Matching, MatchingS};
+
+pub(super) fn translate_query_matchings(
+    src: &[MatchingS],
+    lut_a: &Lut,
+    lut_b: &Lut,
+) -> Result<Vec<MaskedMatching>> {
+    let mut out = Vec::with_capacity(src.len());
+
+    for q in src {
+        // TODO: directly translate to masked_matching
+        // start with a zero‑filled matrix sized to the left side
+        let mut matching: Matching = vec![vec![0]; lut_a.len()];
+
+        for (k, v) in q {
+            // Resolve left‑hand side
+            let left_idx = *lut_a
+                .get(k)
+                .with_context(|| format!("{} not found in lut_a", k))?;
+
+            // Resolve right‑hand side values
+            let mut right_idxs: Vec<u8> = v
+                .iter()
+                .map(|r| {
+                    lut_b
+                        .get(r)
+                        .map(|i| *i as u8)
+                        .with_context(|| format!("{} not found in lut_b", r))
+                })
+                .collect::<Result<_>>()?;
+
+            right_idxs.sort(); // deterministic order
+            matching[left_idx] = right_idxs;
+        }
+
+        out.push(matching.into());
+    }
+
+    Ok(out)
+}
+
 
 pub(super) struct MatchingReport {
     entries: Vec<MatchingEntry>,
@@ -105,3 +145,7 @@ impl fmt::Display for MatchingEntry {
         writeln!(f, "=> Eliminated in {}", self.eliminated_in)
     }
 }
+
+// TODO: test for translation
+// TODO: test for MatchingEntry::new
+// TODO: test for MatchingReport::new

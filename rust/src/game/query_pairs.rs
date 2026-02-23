@@ -1,9 +1,33 @@
-use std::fmt;
+use std::{collections::HashSet, fmt};
 
 use anyhow::{Context, Result};
 use comfy_table::{presets::UTF8_FULL_CONDENSED, Cell, Row, Table};
 
-use crate::iterstate::QueryPairData;
+use crate::{game::parse::QueryPair, iterstate::QueryPairData, Lut};
+
+pub(super) fn translate_query_pairs(
+    pair: &QueryPair,
+    lut_a: &Lut,
+    lut_b: &Lut,
+) -> Result<(HashSet<u8>, HashSet<u8>)> {
+    let mut left = HashSet::new();
+    let mut right = HashSet::new();
+
+    for a in &pair.map_a {
+        let idx = *lut_a
+            .get(a)
+            .with_context(|| format!("{} not found in lut_a", a))? as u8;
+        left.insert(idx);
+    }
+    for b in &pair.map_b {
+        let idx = *lut_b
+            .get(b)
+            .with_context(|| format!("{} not found in lut_b", b))? as u8;
+        right.insert(idx);
+    }
+    Ok((left, right))
+}
+
 
 pub(super) struct QueryPairReport {
     sections: Vec<QueryPairSection>,
@@ -94,3 +118,6 @@ impl fmt::Display for QueryPairSection {
         writeln!(f, "{tab}")
     }
 }
+
+// TODO: test for translation
+// TODO: test for QueryPairReport::new

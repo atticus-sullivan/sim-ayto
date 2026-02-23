@@ -57,6 +57,7 @@ mod tests {
     use super::*;
     use ayto::matching_repr::bitset::Bitset;
     use ayto::matching_repr::MaskedMatching;
+    use pretty_assertions::assert_eq;
 
     // -----------------------------
     // calc_entropy

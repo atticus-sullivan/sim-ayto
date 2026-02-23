@@ -139,6 +139,8 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
+
     // define a tiny test data type that holds pre-built EntryDatum
     #[derive(Clone, Debug)]
     struct Dummy {

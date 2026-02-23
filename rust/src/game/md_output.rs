@@ -70,6 +70,7 @@ impl Game {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn write_page_md_empty() {
@@ -157,7 +158,9 @@ title: abc
 {{% img src="/stem/stem_1_tree.png" %}}
 {{% /details %}}
 
+{{% translatedDetails "z" %}}
 {{% img src="/stem/stem_10.png" %}}
+{{% /translatedDetails %}}
 
 {{% details title="x" closed="true" %}}
 {{% img src="/stem/stem_23.png" %}}

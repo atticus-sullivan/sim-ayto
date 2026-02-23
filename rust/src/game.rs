@@ -10,12 +10,14 @@ mod eval;
 mod eval_utils;
 mod md_output;
 pub mod parse;
+pub(super) mod parse_utils;
 mod query_matchings;
 mod query_pairs;
 mod report_summary;
 mod report_trail;
 mod report_utils;
 pub mod cache;
+pub mod cache_report;
 
 use std::collections::HashSet;
 use std::path::PathBuf;
@@ -136,6 +138,7 @@ impl Game {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn ruleset_str_simple() {

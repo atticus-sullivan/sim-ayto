@@ -94,6 +94,7 @@ pub(crate) fn writer_loop(
 mod tests {
     use super::*;
     use tempfile::tempdir;
+    use pretty_assertions::assert_eq;
 
     use crate::result::SimulationResult;
 

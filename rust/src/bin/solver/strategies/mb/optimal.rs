@@ -29,6 +29,7 @@ mod tests {
     use super::*;
     use ayto::matching_repr::MaskedMatching;
     use rand::{rngs::StdRng, SeedableRng};
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn chooses_closest_to_half_total() {

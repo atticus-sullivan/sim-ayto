@@ -93,6 +93,7 @@ mod tests {
     use ayto::matching_repr::bitset::Bitset;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
+    use pretty_assertions::assert_eq;
 
     // ------------------------------------------------------------
     // generate_solution

@@ -83,6 +83,7 @@ impl Constraint {
 #[allow(clippy::field_reassign_with_default)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn test_process_remaining() {

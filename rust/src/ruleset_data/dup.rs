@@ -183,6 +183,7 @@ impl RuleSetData for DupData {
 mod tests {
     use super::*;
     use crate::matching_repr::MaskedMatching;
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn dupdata_push_and() {

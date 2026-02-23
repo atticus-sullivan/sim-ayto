@@ -163,6 +163,7 @@ fn calculate_summary_data<T: ConstraintEval + ConstraintGetters + ConstraintSolv
 #[cfg(test)]
 mod tests {
     use rust_decimal::Decimal;
+    use pretty_assertions::assert_eq;
 
     use crate::constraint::compare::{SumOffersMB, SumOffersMN};
     use crate::constraint::Offer;

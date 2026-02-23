@@ -141,6 +141,7 @@ impl Constraint {
 #[allow(clippy::field_reassign_with_default)]
 mod tests {
     use rust_decimal::dec;
+    use pretty_assertions::assert_eq;
 
     use crate::constraint::ConstraintType;
 
