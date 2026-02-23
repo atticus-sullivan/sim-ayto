@@ -31,6 +31,7 @@ pub(super) mod simulate;
 
 use std::hash::{Hash, Hasher};
 
+use anyhow::Result;
 use rust_decimal::{dec, Decimal};
 use serde::Deserialize;
 
@@ -42,7 +43,7 @@ use crate::MapS;
 
 /// An offer attached to a box event. The enum mirrors the YAML structure and
 /// contains optional amounts and actors.
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub enum Offer {
     Single {
         amount: Option<u128>,
@@ -86,7 +87,7 @@ impl Offer {
     }
 }
 
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 pub enum ConstraintType {
     Night {
         num: Decimal,
@@ -246,6 +247,10 @@ impl Default for Constraint {
             known_lights: 0,
         }
     }
+}
+
+pub trait ConstraintSim {
+    fn process(&mut self, m: &MaskedMatching) -> Result<bool>;
 }
 
 impl Constraint {

@@ -7,7 +7,7 @@ use std::collections::HashMap;
 /// Collect statistics about "dup" (or "trip") events.
 ///
 /// Internally keeps a map from `(index_in_set_a, bitset_of_b_indices)` -> count.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct DupData {
     cnt: HashMap<(usize, Bitset), usize>,
 }

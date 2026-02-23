@@ -179,6 +179,9 @@ impl From<Vec<Bitset>> for MaskedMatching {
     }
 }
 
+/// TODO: needs rewrite?
+/// Write more tests
+/// review existing tests
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;

@@ -3,8 +3,33 @@
 /// another module(s).
 use anyhow::Result;
 
+use crate::constraint::ConstraintSim;
 use crate::constraint::{CheckType, Constraint};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
+
+impl ConstraintSim for Constraint {
+    /// Process a matching `m` and apply side effects:
+    /// - if `m` does not fit the constraint it is recorded as eliminated,
+    /// - otherwise `m` may be pushed into `ruleset_data` for later usage,
+    /// - if `build_tree` is enabled we collect `left_poss` examples for tree building.
+    fn process(&mut self, m: &MaskedMatching) -> Result<bool> {
+        // check fits actually has a value and make it immutable
+        let fits = self.fits(m) || self.result_unknown;
+
+        if !fits {
+            self.eliminate(m);
+        } else {
+            if self.build_tree && !self.hidden {
+                self.left_poss.push(m.clone());
+            }
+            if !self.hide_ruleset_data && !self.hidden {
+                self.ruleset_data.push(m)?;
+            }
+        }
+
+        Ok(fits)
+    }
+}
 
 impl Constraint {
     /// Internal predicate: whether `m` would satisfy the constraint's `check`.
@@ -43,28 +68,6 @@ impl Constraint {
                 }
             }
         }
-    }
-
-    /// Process a matching `m` and apply side effects:
-    /// - if `m` does not fit the constraint it is recorded as eliminated,
-    /// - otherwise `m` may be pushed into `ruleset_data` for later usage,
-    /// - if `build_tree` is enabled we collect `left_poss` examples for tree building.
-    pub fn process(&mut self, m: &MaskedMatching) -> Result<bool> {
-        // check fits actually has a value and make it immutable
-        let fits = self.fits(m) || self.result_unknown;
-
-        if !fits {
-            self.eliminate(m);
-        } else {
-            if self.build_tree && !self.hidden {
-                self.left_poss.push(m.clone());
-            }
-            if !self.hide_ruleset_data && !self.hidden {
-                self.ruleset_data.push(m)?;
-            }
-        }
-
-        Ok(fits)
     }
 
     #[cfg(test)]

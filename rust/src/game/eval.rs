@@ -11,15 +11,16 @@ use crate::game::report_trail::{gen_report_data, MdTable, Trail};
 use crate::game::Game;
 use crate::game::{query_matchings, query_pairs, DumpMode};
 use crate::iterstate::IterState;
+use crate::progressbar::ProgressBarTrait;
 
 impl Game {
     /// This function orchestrates the complete evaluation, reporting + comparison preparation
-    pub fn eval(
+    pub fn eval<T: ProgressBarTrait>(
         &mut self,
         print_transposed: bool,
         dump_mode: Option<DumpMode>,
         full: bool,
-        is: &IterState,
+        is: &IterState<T>,
         no_tree_output: bool,
     ) -> Result<()> {
         // EVALUATION
@@ -43,11 +44,11 @@ impl Game {
     /// This does all the reporting based on the Trail => Generates the report for the trail of the
     /// constraints
     /// (other parts of the report are split off, so they can borrow the constraints again)
-    fn report(
+    fn report<T: ProgressBarTrait>(
         &mut self,
         print_transposed: bool,
         full: bool,
-        is: &IterState,
+        is: &IterState<T>,
         no_tree_output: bool,
         data: Trail,
     ) -> Result<()> {
@@ -94,11 +95,11 @@ impl Game {
     /// Writes the final part of the report.
     ///
     /// Split off so it can borrow the constraints again
-    fn report_finalize(
+    fn report_finalize<T: ProgressBarTrait>(
         &mut self,
         dump_mode: Option<DumpMode>,
         constraints: &[Constraint],
-        is: &IterState,
+        is: &IterState<T>,
     ) -> Result<()> {
         if let Some(d) = dump_mode {
             d.dump(&is.left_poss, &self.map_a, &self.map_b, io::stdout())?;

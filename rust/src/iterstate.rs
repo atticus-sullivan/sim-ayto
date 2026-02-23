@@ -1,4 +1,7 @@
-use indicatif::{ProgressBar, ProgressStyle};
+/// This module implements an object which statefully manages the whole simulation logic while
+/// gathering some statistics along the way.
+/// It is also responsible for features like showing a progressbar if this is desired.
+use indicatif::ProgressStyle;
 
 use serde_json::to_writer;
 
@@ -9,8 +12,9 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 
-use crate::constraint::{Constraint, ConstraintGetters};
+use crate::constraint::{Constraint, ConstraintGetters, ConstraintSim};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
+use crate::progressbar::ProgressBarTrait;
 
 pub(super) type QueryPairData = (
     HashMap<u8, HashMap<Bitset, u64>>,
@@ -33,10 +37,11 @@ pub trait IterStateTrait {
     /// - `i`: the global sequential index of the emitted matching.
     /// - `p`: the `MaskedMatching` describing the matching.
     /// - `output`: whether this should be treated as an output (verbose/reporting).
-    fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()>;
+    fn step(&mut self, i: usize, p: &MaskedMatching) -> Result<()>;
 }
 
-pub struct IterState {
+#[derive(Debug)]
+pub struct IterState<T: ProgressBarTrait> {
     pub constraints: Vec<Constraint>,
     pub keep_rem: bool,
     pub each: Vec<Vec<u128>>,
@@ -48,11 +53,43 @@ pub struct IterState {
     #[allow(clippy::type_complexity)]
     pub query_pair: QueryPairData,
     cnt_update: usize,
-    progress: ProgressBar,
+    progress: T,
     cache_file: Option<BufWriter<File>>,
 }
 
-impl IterStateTrait for IterState {
+/// does not take the constraints into consideration
+impl<T: ProgressBarTrait> PartialEq for IterState<T> {
+    fn eq(&self, other: &Self) -> bool {
+        self.keep_rem == other.keep_rem
+            && self.each == other.each
+            && self.total == other.total
+            && self.eliminated == other.eliminated
+            && self.left_poss == other.left_poss
+            && self.query_matchings == other.query_matchings
+            && self.query_pair == other.query_pair
+            && self.cnt_update == other.cnt_update
+    }
+}
+
+impl<T: ProgressBarTrait> Default for IterState<T> {
+    fn default() -> Self {
+        Self {
+            constraints: Default::default(),
+            keep_rem: Default::default(),
+            each: Default::default(),
+            total: Default::default(),
+            eliminated: Default::default(),
+            left_poss: Default::default(),
+            query_matchings: Default::default(),
+            query_pair: Default::default(),
+            cnt_update: Default::default(),
+            progress: T::new(100),
+            cache_file: Default::default(),
+        }
+    }
+}
+
+impl<T: ProgressBarTrait> IterStateTrait for IterState<T> {
     /// Start the iteration progress indicator.
     ///
     /// Called at the beginning of an iteration run to initialize progress state.
@@ -71,11 +108,11 @@ impl IterStateTrait for IterState {
     ///
     /// Updates internal statistics and progress for permutation `p` at index `i`.
     /// If `output` is true the progress bar may be advanced.
-    fn step(&mut self, i: usize, p: &MaskedMatching, output: bool) -> Result<()> {
-        if i.is_multiple_of(self.cnt_update) && output {
+    fn step(&mut self, i: usize, p: &MaskedMatching) -> Result<()> {
+        if i.is_multiple_of(self.cnt_update) {
             self.progress.inc(2);
         }
-        self.step_counting_stats(p);
+        self.step_counting_all(p);
         let left = self.step_process(p)?;
 
         // permutation still works?
@@ -88,16 +125,13 @@ impl IterStateTrait for IterState {
                 writeln!(fs)?;
             }
 
-            // store the permutation as still possible solution
-            if self.keep_rem {
-                self.left_poss.push(p.clone());
-            }
+            self.step_handle_eliminated(p);
         }
         Ok(())
     }
 }
 
-impl IterState {
+impl<T: ProgressBarTrait> IterState<T> {
     /// Create a new `IterState`.
     ///
     /// - `keep_rem`: whether to keep remaining permutations in memory for reporting.
@@ -113,7 +147,7 @@ impl IterState {
         query_pair: &(HashSet<u8>, HashSet<u8>),
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
-    ) -> Result<IterState> {
+    ) -> Result<IterState<T>> {
         let file = if let Some(path) = cache_file {
             Some(BufWriter::new(File::create(path)?))
         } else {
@@ -139,7 +173,7 @@ impl IterState {
             total: 0,
             eliminated: 0,
             left_poss: vec![],
-            progress: ProgressBar::new(100),
+            progress: T::new(100),
             cnt_update: std::cmp::max(perm_amount / 50, 1),
             cache_file: file,
         };
@@ -154,7 +188,7 @@ impl IterState {
     }
 
     /// Update per-pair counts for statistics from a raw `MaskedMatching`.
-    fn step_counting_stats(&mut self, p: &MaskedMatching) {
+    fn step_counting_all(&mut self, p: &MaskedMatching) {
         // count how often each pairing occurs without filtering
         // - necessary to be able to work with caching
         // - important to generate the "base-table" from which to calculate how much a constraint
@@ -178,14 +212,8 @@ impl IterState {
         for c in &mut self.constraints {
             if !c.process(p)? {
                 // permutation was eliminated by this constraint
-                self.eliminated += 1;
-                // check if this permutation was queried.
-                // If so store by which constraint it was eliminated
-                for (q, id) in &mut self.query_matchings {
-                    if q == p {
-                        *id = Some(c.type_str().to_string() + " " + c.comment());
-                    }
-                }
+                let by = c.type_str().to_string() + " " + c.comment();
+                self.step_collect_query_matching(p, by);
                 return Ok(false);
             }
         }
@@ -212,76 +240,126 @@ impl IterState {
             }
         }
     }
+
+    fn step_collect_query_matching(&mut self, p: &MaskedMatching, eliminated_by: String) {
+        // check if this permutation was queried.
+        // If so store by which constraint it was eliminated
+        for (q, id) in &mut self.query_matchings {
+            if q == p {
+                *id = Some(eliminated_by.clone());
+            }
+        }
+    }
+
+    fn step_handle_eliminated(&mut self, p: &MaskedMatching) {
+        self.eliminated += 1;
+
+        // store the permutation as still possible solution
+        if self.keep_rem {
+            self.left_poss.push(p.clone());
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::matching_repr::bitset::Bitset;
-    use crate::matching_repr::MaskedMatching;
-    use pretty_assertions::assert_eq;
-    use std::collections::HashSet;
 
-    /// Create a `MaskedMatching` template with capacity for `cnt` slots.
-    ///
-    /// Used to (re-)build a matching container for counting/publishing. This function
-    /// tries to be allocation-friendly by reserving capacity once.
-    fn mk_mm() -> MaskedMatching {
-        // slot0: {1,2}, slot1: {0}
-        MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]])
+    use crate::matching_repr::MaskedMatching;
+    use crate::progressbar::MockProgressBar;
+
+    use pretty_assertions::assert_eq;
+
+    fn sample_matching() -> MaskedMatching {
+        // slot0 -> {1,2}, slot1 -> {0}
+        MaskedMatching::from_matching_ref(&[vec![1u8, 2u8], vec![0u8]])
     }
 
     #[test]
-    fn iterstate_step_counts_each_and_total_and_query_pair() {
-        // Create an IterState with:
-        // - no constraints
-        // - query_pair tracking slot 0 and value index 0 (for right-hand map)
-        let mut query_slots = HashSet::new();
-        query_slots.insert(0u8); // track slot 0 keyed by slot index
-        let mut query_values = HashSet::new();
-        query_values.insert(0u8); // track value 0 keyed by value index
+    fn step_counting_all_updates_matrix_and_total() {
+        // Build a minimal IterState - only the `each` matrix matters.
+        let mut state: IterState<MockProgressBar> = IterState {
+            each: vec![vec![0; 3]; 2],
+            ..Default::default()
+        };
 
-        let mut is = IterState::new(
-            false,      // keep_rem
-            10,         // perm_amount (only used to size progress, cnt_update)
-            Vec::new(), // constraints
-            &[],        // query_matchings
-            &(query_slots, query_values),
-            &None,            // cache_file
-            (2usize, 4usize), // map_lens: 2 slots, universe size 4
-        )
-        .expect("failed to create IterState");
+        state.step_counting_all(&sample_matching());
 
-        // perform a step with our test permutation
-        let p = mk_mm();
-        // step returns Result<()>
-        is.step(0usize, &p, false).expect("step failed");
+        assert_eq!(state.each, vec![vec![0, 1, 1], vec![1, 0, 0],]);
+        assert_eq!(state.total, 1);
+    }
 
-        // total should have incremented
-        assert_eq!(is.total, 1u128);
+    #[test]
+    fn step_collect_query_pair_populates_maps() {
+        // TODO: "simplify" this creation
+        // We want to track left index 0 and right value 0.
+        let left_set: HashSet<u8> = [0u8].iter().cloned().collect();
+        let right_set: HashSet<u8> = [0u8].iter().cloned().collect();
 
-        // each[slot][value] should reflect our permutation:
-        // slot 0 had values 1 and 2 -> each[0][1] == 1 and each[0][2] == 1
-        assert_eq!(is.each[0][1], 1u128);
-        assert_eq!(is.each[0][2], 1u128);
+        let mut state: IterState<MockProgressBar> = IterState {
+            query_pair: (
+                left_set.iter().map(|i| (*i, HashMap::new())).collect(),
+                right_set.iter().map(|i| (*i, HashMap::new())).collect(),
+            ),
+            ..Default::default()
+        };
 
-        // check query_pair maps: because we tracked slot 0 (query_pair.0 contains 0),
-        // there should be an entry with key = Bitset corresponding to slot mask {1,2}
-        if let Some(slot_map) = is.query_pair.0.get(&0u8) {
-            let mask = Bitset::from_idxs(&[1u8, 2u8]);
-            // the value for that Bitset should be 1 (first observation)
-            assert_eq!(slot_map.get(&mask).copied().unwrap_or(0), 1u64);
-        } else {
-            panic!("expected query_pair.0 to contain key 0");
-        }
+        state.step_collect_query_pair(&sample_matching());
+        state.step_collect_query_pair(&sample_matching());
+        state.step_collect_query_pair(&sample_matching());
 
-        // and because we tracked value 0 on right-side, the second map should record
-        // how often value index 0 occurred and at which slot(s) (we had value 0 at slot 1)
-        if let Some(val_map) = is.query_pair.1.get(&0u8) {
-            // the slot index 1 should be recorded (value 0 was present at slot1)
-            assert_eq!(val_map.get(&1u8).copied().unwrap_or(0), 1u64);
-        } else {
-            panic!("expected query_pair.1 to contain key 0");
-        }
+        assert_eq!(
+            state.query_pair.0,
+            HashMap::from_iter([(0, HashMap::from_iter([(Bitset::from_idxs(&[1, 2]), 3)])),])
+        );
+        assert_eq!(
+            state.query_pair.1,
+            HashMap::from_iter([(0, HashMap::from_iter([(1, 3)])),])
+        );
+    }
+
+    #[test]
+    fn step_collect_query_matching_stores_elimination_comment() {
+        // Prepare a query_matchings vector that contains the sample matching.
+        let mut state: IterState<MockProgressBar> = IterState {
+            query_matchings: vec![(sample_matching(), None)],
+            ..Default::default()
+        };
+
+        state.step_collect_query_matching(&sample_matching(), "TYPE comment".to_string());
+
+        assert_eq!(
+            state.query_matchings,
+            vec![(sample_matching(), Some("TYPE comment".to_string())),]
+        );
+    }
+
+    #[test]
+    fn step_handle_eliminated_updates_counters_and_keeps_if_requested() {
+        let mut state: IterState<MockProgressBar> = IterState {
+            keep_rem: false,
+            eliminated: 0,
+            left_poss: Vec::new(),
+            ..Default::default()
+        };
+
+        state.step_handle_eliminated(&sample_matching());
+        state.step_handle_eliminated(&sample_matching());
+
+        assert_eq!(state.eliminated, 2);
+        assert_eq!(state.left_poss, vec![]);
+
+        let mut state: IterState<MockProgressBar> = IterState {
+            keep_rem: true,
+            eliminated: 0,
+            left_poss: Vec::new(),
+            ..Default::default()
+        };
+
+        state.step_handle_eliminated(&sample_matching());
+        state.step_handle_eliminated(&sample_matching());
+
+        assert_eq!(state.eliminated, 2);
+        assert_eq!(state.left_poss, vec![sample_matching(), sample_matching(),]);
     }
 }
