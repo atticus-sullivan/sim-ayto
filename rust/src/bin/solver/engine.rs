@@ -5,7 +5,7 @@ use anyhow::{bail, Context, Result};
 use rand::rngs::StdRng;
 use rust_decimal::{dec, Decimal};
 
-use ayto::constraint::{check_type::CheckType, Constraint, ConstraintType};
+use ayto::constraint::{check_type::CheckType, Constraint, ConstraintSim, ConstraintType};
 use ayto::matching_repr::MaskedMatching;
 use ayto::ruleset::RuleSet;
 use ayto::Rem;
@@ -91,7 +91,7 @@ impl<S: StrategyBundle> Simulation<S> {
 
         // use the ruleset for the first constraint
         self.ruleset
-            .iter_perms(&lut, &HashMap::new(), &mut iter_state, false, &None)?;
+            .iter_perms(&lut, &HashMap::new(), &mut iter_state, &None)?;
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
         rem = iter_state

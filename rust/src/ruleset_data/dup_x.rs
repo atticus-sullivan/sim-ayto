@@ -8,7 +8,7 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 
 /// DupXData collects counts for duplicate/trip patterns for the "dup_x" ruleset.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct DupXData {
     // key: (index_in_set_a, bitset_of_b_indices)
     // value: count

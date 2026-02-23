@@ -35,12 +35,9 @@ impl RuleSet {
         lut_a: &Lut,
         lut_b: &Lut,
         is: &mut T,
-        output: bool,
         cache: &Option<PathBuf>,
     ) -> Result<()> {
-        if output {
-            is.start();
-        }
+        is.start();
 
         // If a cache of serialized MaskedMatching objects exists, prefer streaming that
         // (we deserialize MaskedMatching directly and pass a reference to is.step).
@@ -49,11 +46,9 @@ impl RuleSet {
             let reader = BufReader::new(file);
             for (i, line) in reader.lines().enumerate() {
                 let p = serde_json::from_str::<MaskedMatching>(&line?)?;
-                is.step(i, &p, output)?;
+                is.step(i, &p)?;
             }
-            if output {
-                is.finish();
-            }
+            is.finish();
             return Ok(());
         }
 
@@ -78,7 +73,7 @@ impl RuleSet {
                     // emit current permutation
                     let idx = global_idx;
                     global_idx += 1;
-                    emit_slice_to_state(idx, slice, &mut mm, is, output)
+                    emit_slice_to_state(idx, slice, &mut mm, is)
                 })?
             }
 
@@ -111,7 +106,7 @@ impl RuleSet {
                             // emit current permutation
                             let idx = global_idx;
                             global_idx += 1;
-                            emit_slice_to_state(idx, slice, &mut mm, is, output)
+                            emit_slice_to_state(idx, slice, &mut mm, is)
                         })
                     })
                 })?;
@@ -127,7 +122,7 @@ impl RuleSet {
                         // emit current permutation
                         let idx = global_idx;
                         global_idx += 1;
-                        emit_slice_to_state(idx, slice, &mut mm, is, output)
+                        emit_slice_to_state(idx, slice, &mut mm, is)
                     })
                 })?;
             }
@@ -150,7 +145,7 @@ impl RuleSet {
                         // emit current permutation
                         let idx = global_idx;
                         global_idx += 1;
-                        emit_slice_to_state(idx, slice, &mut mm, is, output)
+                        emit_slice_to_state(idx, slice, &mut mm, is)
                     })
                 })?;
             }
@@ -159,14 +154,12 @@ impl RuleSet {
                 n_to_n_inplace(lut_a.len(), |slice| -> anyhow::Result<()> {
                     let idx = global_idx;
                     global_idx += 1;
-                    emit_slice_to_state(idx, slice, &mut mm, is, output)
+                    emit_slice_to_state(idx, slice, &mut mm, is)
                 })?;
             }
         }
 
-        if output {
-            is.finish();
-        }
+        is.finish();
         Ok(())
     }
 
@@ -251,10 +244,9 @@ pub fn emit_slice_to_state<T: IterStateTrait>(
     slice: &[Bitset],
     mm: &mut MaskedMatching,
     is: &mut T,
-    output: bool,
 ) -> Result<()> {
     mm.set_masks_from_slice(slice); // small cheap memcpy
-    is.step(idx, mm, output)
+    is.step(idx, mm)
 }
 
 #[cfg(test)]
@@ -272,7 +264,7 @@ mod tests {
         fn start(&mut self) {}
         fn finish(&mut self) {}
 
-        fn step(&mut self, _i: usize, p: &MaskedMatching, _output: bool) -> Result<()> {
+        fn step(&mut self, _i: usize, p: &MaskedMatching) -> Result<()> {
             self.seen.push(p.clone());
             Ok(())
         }
@@ -287,9 +279,7 @@ mod tests {
         let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
         let mut is = TestingIterState::default();
 
-        eq_rule
-            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-            .unwrap();
+        eq_rule.iter_perms(&lut_a, &lut_b, &mut is, &None).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is
@@ -335,9 +325,7 @@ mod tests {
         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         let mut is = TestingIterState::default();
 
-        dup_rule
-            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-            .unwrap();
+        dup_rule.iter_perms(&lut_a, &lut_b, &mut is, &None).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is
@@ -385,9 +373,7 @@ mod tests {
         );
         let mut is = TestingIterState::default();
 
-        dup_rule
-            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-            .unwrap();
+        dup_rule.iter_perms(&lut_a, &lut_b, &mut is, &None).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is
@@ -438,7 +424,7 @@ mod tests {
         let mut is = TestingIterState::default();
 
         trip_rule
-            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .iter_perms(&lut_a, &lut_b, &mut is, &None)
             .unwrap();
 
         // check if another permutation than from ground_truth was generated
@@ -483,9 +469,7 @@ mod tests {
         let lut_b = HashMap::from([("A", 0), ("B", 1), ("C", 2)].map(|(k, v)| (k.to_string(), v)));
         let mut is = TestingIterState::default();
 
-        dup_rule
-            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-            .unwrap();
+        dup_rule.iter_perms(&lut_a, &lut_b, &mut is, &None).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is
@@ -534,7 +518,7 @@ mod tests {
         let mut is = TestingIterState::default();
 
         trip_rule
-            .iter_perms(&lut_a, &lut_b, &mut is, false, &None)
+            .iter_perms(&lut_a, &lut_b, &mut is, &None)
             .unwrap();
 
         // check if another permutation than from ground_truth was generated
@@ -649,8 +633,7 @@ mod tests {
         );
         let mut is = TestingIterState::default();
 
-        rule.iter_perms(&lut_a, &lut_b, &mut is, false, &None)
-            .unwrap();
+        rule.iter_perms(&lut_a, &lut_b, &mut is, &None).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is
@@ -707,9 +690,7 @@ mod tests {
         );
         let mut is = TestingIterState::default();
 
-        nn_rule
-            .iter_perms(&lut, &lut, &mut is, false, &None)
-            .unwrap();
+        nn_rule.iter_perms(&lut, &lut, &mut is, &None).unwrap();
 
         // check if another permutation than from ground_truth was generated
         for x in &mut is
@@ -777,7 +758,7 @@ mod tests {
         let mut is = TestingIterState::default();
 
         // call the function under test
-        emit_slice_to_state(7, &slice, &mut mm, &mut is, true).expect("emit failed");
+        emit_slice_to_state(7, &slice, &mut mm, &mut is).expect("emit failed");
 
         // ensure the test IterState got one entry and the masks match
         assert_eq!(is.seen.len(), 1);

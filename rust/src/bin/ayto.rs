@@ -5,6 +5,8 @@ use ayto::game::parse::GameParse;
 
 use ayto::dump_mode::DumpMode;
 use ayto::ignore_ops::IgnoreOps;
+use ayto::iterstate::IterState;
+use ayto::progressbar::ProgressBar;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use std::time::Instant;
@@ -163,7 +165,7 @@ fn main() {
             }
 
             let start = Instant::now();
-            let result = g.sim(dump.clone()).unwrap();
+            let result: IterState<ProgressBar> = g.sim(dump.clone()).unwrap();
             g.eval(transpose_tabs, dump, full, &result, no_tree_output)
                 .unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());

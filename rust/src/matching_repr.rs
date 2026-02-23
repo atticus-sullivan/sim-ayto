@@ -1,3 +1,4 @@
+/// This module implements a representation for storing a full matching.
 pub mod bitset;
 mod conversions;
 mod iter;
@@ -133,6 +134,9 @@ impl<'a> std::ops::BitAnd<&'a MaskedMatching> for MaskedMatching {
     }
 }
 
+/// TODO: needs rewrite?
+/// Write more tests
+/// review existing tests
 #[cfg(test)]
 mod tests {
     use pretty_assertions::assert_eq;

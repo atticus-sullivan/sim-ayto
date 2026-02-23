@@ -6,7 +6,7 @@ use anyhow::Result;
 
 /// Dummy implementation of `RuleSetData` used when the ruleset does not need
 /// per-solution statistics. Methods are intentionally no-ops.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct DummyData {}
 
 impl RuleSetData for DummyData {

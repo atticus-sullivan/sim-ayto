@@ -1,6 +1,7 @@
 use std::collections::HashSet;
 
 use anyhow::Result;
+use ayto::progressbar::ProgressBar;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
 use rust_decimal::dec;
@@ -74,7 +75,7 @@ pub(crate) fn build_initial_constraint(
 ///
 /// # Returns
 /// A fully initialized `IterState`.
-pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterState> {
+pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterState<ProgressBar>> {
     IterState::new(
         true,
         NUM_PLAYERS_SET_A,

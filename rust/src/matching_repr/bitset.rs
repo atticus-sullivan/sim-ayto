@@ -196,6 +196,9 @@ impl Iterator for BitIter {
     }
 }
 
+/// TODO: needs rewrite?
+/// Write more tests
+/// review existing tests
 #[cfg(test)]
 mod tests {
     use super::*;

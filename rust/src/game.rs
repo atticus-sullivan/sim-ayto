@@ -28,6 +28,7 @@ use crate::constraint::Constraint;
 use crate::dump_mode::DumpMode;
 use crate::iterstate::IterState;
 use crate::matching_repr::MaskedMatching;
+use crate::progressbar::ProgressBarTrait;
 use crate::ruleset::RuleSet;
 use crate::Lut;
 
@@ -103,7 +104,10 @@ impl Game {
     ///
     /// `dump_mode` controls if permutations are collected
     /// Returns the final `IterState`.
-    pub fn sim(&mut self, dump_mode: Option<DumpMode>) -> Result<IterState> {
+    pub fn sim<T: ProgressBarTrait>(
+        &mut self,
+        dump_mode: Option<DumpMode>,
+    ) -> Result<IterState<T>> {
         let mut is = {
             // mathematically calculate amount of permutations (for the progressbar)
             let perm_amount = self.rule_set.get_perms_amount(
@@ -128,7 +132,7 @@ impl Game {
 
         // run the entire simulation
         self.rule_set
-            .iter_perms(&self.lut_a, &self.lut_b, &mut is, true, &self.cache_file)?;
+            .iter_perms(&self.lut_a, &self.lut_b, &mut is, &self.cache_file)?;
 
         Ok(is)
     }

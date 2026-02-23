@@ -45,14 +45,14 @@ TODO (ausgelassen erstmal)
 - [x] Write doc-comments for files
 
 ## game
-- [ ] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
 
 ## iterstate.rs
-- [ ] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
 
 ## tree.rs
 - [ ] (re-)organization of functions and files

@@ -11,7 +11,7 @@ use serde::Deserialize;
 /// - `Sold` special check for sold events.
 /// - `Lights(n, stats)` checks exact number of lights; `stats` is a mutable bucket
 ///   map used while processing to accumulate frequencies (kept in the Constraint).
-#[derive(Deserialize, Debug, Clone, Hash)]
+#[derive(Deserialize, Debug, Clone, Hash, PartialEq)]
 pub enum CheckType {
     Eq,
     Nothing,
