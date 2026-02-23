@@ -13,6 +13,7 @@ pub(super) struct ReportEvent<'a> {
 
 pub(super) type Trail<'a> = (Rem, Vec<ReportEvent<'a>>);
 
+// TODO: write test
 pub(super) fn gen_report_data<'a>(
     constraints: &'a mut [Constraint],
     mut rem: Rem,
@@ -55,6 +56,7 @@ pub(super) struct MdTable {
 }
 
 impl Game {
+    // TODO: testing?
     pub(super) fn gen_report(
         &self,
         data: &Trail,

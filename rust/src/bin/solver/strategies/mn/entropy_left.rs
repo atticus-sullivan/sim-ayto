@@ -50,6 +50,7 @@ mod tests {
     use ayto::matching_repr::MaskedMatching;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
+    use pretty_assertions::assert_eq;
 
     fn make_masked_matching(values: &[u8]) -> MaskedMatching {
         MaskedMatching::from(values)

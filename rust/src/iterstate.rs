@@ -220,6 +220,7 @@ mod tests {
     use crate::matching_repr::bitset::Bitset;
     use crate::matching_repr::MaskedMatching;
     use std::collections::HashSet;
+    use pretty_assertions::assert_eq;
 
     /// Create a `MaskedMatching` template with capacity for `cnt` slots.
     ///

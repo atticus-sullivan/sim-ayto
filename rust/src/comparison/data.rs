@@ -12,6 +12,7 @@ use walkdir::WalkDir;
 
 use crate::constraint::compare::{ComparisonData, EvalEvent, SumCounts};
 use crate::game::Game;
+use crate::ignore_ops::IgnoreOps;
 
 /// Compact comparison data for a ruleset / season used by the comparison pages.
 ///
@@ -48,7 +49,7 @@ fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
     fn_path.set_extension("yaml");
     let gp = crate::game::parse::GameParse::new_from_yaml(fn_path.as_path())
         .expect("Parsing failed");
-    gp.finalize_parsing(Path::new("/tmp/"), false)
+    gp.finalize_parsing(Path::new("/tmp/"), &IgnoreOps::Nothing)
 }
 
 /// Scan `./data` and parse comparison files for the selected directories.

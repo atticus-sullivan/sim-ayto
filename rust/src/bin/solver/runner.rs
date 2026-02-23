@@ -79,6 +79,7 @@ mod tests {
     use std::fs;
     use std::sync::Arc;
     use tempfile::tempdir;
+    use pretty_assertions::assert_eq;
 
     use ayto::matching_repr::MaskedMatching;
 

@@ -1,23 +1,29 @@
+/// This module is concerned with parsing a game from a config stored as yaml on disk.
+/// Based on the data which is deserialized, it allows to construct a ready to use `Game` by using
+/// the `finalize_parsing` function.
 use std::fs::File;
 use std::path::Path;
 
 use serde::Deserialize;
 
-use anyhow::{ensure, Context, Result};
+use anyhow::{Context, Result};
 
 use crate::constraint::parse::ConstraintParse;
 use crate::game::cache::{CacheMode, CacheModeFallback};
+use crate::game::parse_utils::{apply_renames, build_luts, process_constraints};
+use crate::game::query_matchings::translate_query_matchings;
+use crate::game::query_pairs::translate_query_pairs;
 use crate::game::Game;
 use crate::ignore_ops::IgnoreOps;
 use crate::ruleset::parse::RuleSetParse;
-use crate::{Lut, Matching, MatchingS, Rename};
+use crate::{Lut, MatchingS, Rename};
 
 #[derive(Deserialize, Debug, Default)]
-struct QueryPair {
+pub(super) struct QueryPair {
     #[serde(rename = "setA", default)]
-    map_a: Vec<String>,
+    pub(super) map_a: Vec<String>,
     #[serde(rename = "setB", default)]
-    map_b: Vec<String>,
+    pub(super) map_b: Vec<String>,
 }
 
 /// Small helper used as a default for the `solved` field during deserialization.
@@ -68,8 +74,28 @@ impl GameParse {
         Ok(gp)
     }
 
-    // TODO: split up?
-    pub fn finalize_parsing(self, stem: &Path, ignore_boxes: bool) -> Result<Game> {
+    /// Consumes a `GameParse` and produces a fully-initialised `Game`.
+    ///
+    /// The function performs the following ordered steps:
+    /// 1. Constructs lookup tables (`lut_a`, `lut_b`) from `setA`/`setB`.
+    /// 2. Validates the lookup tables against the parsed rule set.
+    /// 3. Transforms raw `ConstraintParse` objects into concrete `Constraint`s,
+    ///    honouring the `ignore` flags and rename tables.
+    /// 4. Converts the user-provided query matchings and query pairs into the
+    ///    internal `MaskedMatching` representation.
+    /// 5. Applies any rename mappings to `map_a`/`map_b` for output purposes.
+    ///
+    /// Errors from any step are propagated with context, making debugging easier.
+    ///
+    /// # Arguments
+    /// * `stem` - Path to the YAML file (used to derive the game directory and
+    ///   stem name).  
+    /// * `ignore` - Global `IgnoreOps` that dictate which constraints should be
+    ///   silently skipped.
+    ///
+    /// # Returns
+    /// A fully-populated `Game` ready for solving or caching.
+    pub fn finalize_parsing(self, stem: &Path, ignore: &IgnoreOps) -> Result<Game> {
         let mut g = Game {
             no_offerings_noted: self.no_offerings_noted,
             solved: self.solved,
@@ -96,88 +122,30 @@ impl GameParse {
         };
 
         // build up the look up tables (LUT)
-        for (lut, map) in [(&mut g.lut_a, &g.map_a), (&mut g.lut_b, &g.map_b)] {
-            for (index, name) in map.iter().enumerate() {
-                lut.insert(name.clone(), index);
-            }
-        }
+        (g.lut_a, g.lut_b) = build_luts(&g.map_a, &g.map_b)?;
 
-        ensure!(g.lut_a.len() == g.map_a.len(), "something is wrong with the sets. There might be duplicates in setA (len: {}, dedup len: {}).", g.lut_a.len(), g.map_a.len());
-        ensure!(g.lut_b.len() == g.map_b.len(), "something is wrong with the sets. There might be duplicates in setB (len: {}, dedup len: {}).", g.lut_b.len(), g.map_b.len());
         // validate the lut in combination with the ruleset
         g.rule_set.validate_lut(&g.lut_a, &g.lut_b)?;
 
-        // eg translates strings to indices (u8) but also adds the exclude rules if the ruleset demands it as well as sorts if the ruleset needs it
-        let mut known_lights: u8 = 0;
-        for c in self.constraints_orig {
-            if ignore_boxes && c.ignore_on(&IgnoreOps::Boxes) {
-                continue;
-            }
-            let l = c.added_known_lights();
-            g.constraints_orig.push(c.finalize_parsing(
-                &g.lut_a,
-                &g.lut_b,
-                g.rule_set.constr_map_len(g.lut_a.len(), g.lut_b.len()),
-                &g.map_b,
-                g.rule_set.must_add_exclude(),
-                g.rule_set.must_sort_constraint(),
-                (&self.rename_a, &self.rename_b),
-                g.rule_set.init_data()?,
-                known_lights,
-            )?);
-            known_lights += l;
-        }
+        (g.constraints_orig, _) = process_constraints(
+            self.constraints_orig,
+            ignore,
+            &g.lut_a,
+            &g.lut_b,
+            &g.rule_set,
+            &self.rename_a,
+            &self.rename_b,
+            &g.map_b
+        )?;
 
         // translate the matchings that were querried for tracing
-        // TODO: directly translate to masked_matching
-        for q in &self.query_matchings_s {
-            let mut matching: Matching = vec![vec![0]; g.lut_a.len()];
-            for (k, v) in q {
-                let mut x = v
-                    .iter()
-                    .map(|v| {
-                        g.lut_b
-                            .get(v)
-                            .map(|v| *v as u8)
-                            .with_context(|| format!("{} not found in lut_b", v))
-                    })
-                    .collect::<Result<Vec<_>>>()?;
-                x.sort();
-                matching[*g
-                    .lut_a
-                    .get(k)
-                    .with_context(|| format!("{} not found in lut_a", k))?] = x;
-            }
-            g.query_matchings.push(matching.into());
-        }
+        g.query_matchings = translate_query_matchings(&self.query_matchings_s, &g.lut_a, &g.lut_b)?;
 
         // translate the pairs that were querried for tracing
-        for a in self.query_pair_s.map_a.iter() {
-            let v = g
-                .lut_a
-                .get(a)
-                .map(|v| *v as u8)
-                .with_context(|| format!("{} not found in lut_a", a))?;
-            g.query_pair.0.insert(v);
-        }
-        for b in self.query_pair_s.map_b.iter() {
-            let v = g
-                .lut_b
-                .get(b)
-                .map(|v| *v as u8)
-                .with_context(|| format!("{} not found in lut_b", b))?;
-            g.query_pair.1.insert(v);
-        }
+        g.query_pair = translate_query_pairs(&self.query_pair_s, &g.lut_a, &g.lut_b)?;
 
         // rename names in map_a and map_b for output use
-        for (rename, map) in [
-            (&self.rename_a, &mut g.map_a),
-            (&self.rename_b, &mut g.map_b),
-        ] {
-            for n in map {
-                *n = rename.get(n).unwrap_or(n).to_owned();
-            }
-        }
+        apply_renames(&mut g.map_a, &mut g.map_b, &self.rename_a, &self.rename_b);
 
         Ok(g)
     }

@@ -331,6 +331,7 @@ impl ConstraintImpact for Constraint {
 mod tests {
     use std::collections::BTreeMap;
 
+    use pretty_assertions::assert_eq;
     use rust_decimal::dec;
 
     use crate::ruleset_data::dummy::DummyData;

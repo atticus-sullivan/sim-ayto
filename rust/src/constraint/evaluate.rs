@@ -104,6 +104,7 @@ impl Constraint {
 #[allow(clippy::field_reassign_with_default)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     use std::collections::BTreeMap;
 

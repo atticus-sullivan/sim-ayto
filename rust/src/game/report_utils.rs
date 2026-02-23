@@ -22,6 +22,8 @@ impl Display for RemTable {
     }
 }
 
+// TODO: is it worth writing a test here? (and split up the function for that)
+
 /// Render a generic remaining-percentage table (or transposed).
 ///
 /// `norm_idx` maps the table coordinates used in `rem` to the visible (vert, hor)

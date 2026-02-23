@@ -262,6 +262,7 @@ mod tests {
     use super::*;
     use std::collections::HashMap;
     use std::collections::HashSet;
+    use pretty_assertions::assert_eq;
 
     #[derive(Default)]
     struct TestingIterState {

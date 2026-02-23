@@ -271,6 +271,7 @@ mod tests {
     use std::collections::HashMap;
 
     use rust_decimal::dec;
+    use pretty_assertions::assert_eq;
 
     use crate::matching_repr::MaskedMatching;
 

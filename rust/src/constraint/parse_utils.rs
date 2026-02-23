@@ -30,7 +30,8 @@ impl ConstraintParse {
             IgnoreOps::Boxes => {
                 // ignore if this constraint is a box
                 matches!(self.r#type, ConstraintType::Box { .. })
-            }
+            },
+            IgnoreOps::Nothing => false,
         }
     }
 
@@ -138,6 +139,7 @@ impl ConstraintParse {
 #[allow(clippy::field_reassign_with_default)]
 mod tests {
     use rust_decimal::dec;
+    use pretty_assertions::assert_eq;
 
     use super::*;
     use std::collections::{BTreeMap, HashMap};

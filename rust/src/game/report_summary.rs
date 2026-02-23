@@ -7,6 +7,7 @@ use anyhow::Result;
 use crate::constraint::Constraint;
 use crate::game::Game;
 
+// TODO: no test, only write docstring
 impl Game {
     pub(super) fn summary_table(
         &self,

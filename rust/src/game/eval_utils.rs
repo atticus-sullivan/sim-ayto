@@ -24,6 +24,7 @@ pub(super) fn merge_constraints<T: ConstraintMerge + Clone>(constraints: &[T]) -
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     #[derive(Clone, Debug, PartialEq)]
     struct MockConstraint {

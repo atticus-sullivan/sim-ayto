@@ -13,7 +13,9 @@
 cache is used (cli arg vs automatic detection) currently is just weird. Maybe it
 also makes sense to make it possible for constraints to generate caches along
 the way and to specify which cache to use in the config file
-- [ ] grep for `::default()` check where initializer list + `..Default::default()` is better
+- [ ] test cases aufräumen, aktuell häufig eine große Funktion mit mehreren
+cases -> sollten mehrere kleine funktionen (mit aussagekräftigem Namen) sein mit
+je nur einem case
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
