@@ -29,10 +29,10 @@ impl Constraint {
         let ordering = tree_ordering(&self.left_poss, map_a);
         // delegate drawing the tree to a dedicated module
         dot_tree(
+            &mut File::create(path)?,
             &self.left_poss,
             &ordering,
             &(self.type_str() + " / " + self.comment()),
-            &mut File::create(path)?,
             map_a,
             map_b,
         )?;
