@@ -74,3 +74,28 @@ TODO (ausgelassen erstmal)
 - [ ] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
+
+
+
+---
+
+
+I have the following module. Please review the code. Focus on whether the functions are nice for testing. Options to consider are measures like splitting up functions, making functions generic over newly defined traits etc.
+
+---
+
+Please review the following unit-tests. Please focus on the following:
+- Are there cases/functions which are untesed?
+- Should unit-tests be split up / merged?
+- Are there duplicate test-cases which can be deleted?
+- Are there tests for functions which are not defined in this module?
+- Note I have the following convention: Test-cases must have the following naming: <original function-name>_<"simple" or a short description of the case>
+
+
+Also note that MaskedMatching::from() is not available anymore. These occurrences usually are replaced by MaskedMatching::from_matching_ref() now.
+
+Do NOT write any tests yet.
+
+---
+
+Alright then please write tests (with the guidelines I've given). Use your suite as template. You may extend if you find yet uncovered cases/functions.

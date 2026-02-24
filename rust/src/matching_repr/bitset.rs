@@ -196,149 +196,229 @@ impl Iterator for BitIter {
     }
 }
 
-/// TODO: needs rewrite?
-/// Write more tests
-/// review existing tests
+// TODO: review tests
+// also check if everything is covered
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq;
+    use std::collections::HashSet;
 
     #[test]
-    fn test_bitset_basic() {
-        let mut b = Bitset::empty();
+    fn empty_basic() {
+        let b = Bitset::empty();
+        assert_eq!(b.0, 0);
         assert!(b.is_empty());
+    }
+
+    #[test]
+    fn from_word_basic() {
+        let w: Word = 0b10101;
+        let b = Bitset::from_word(w);
+        assert_eq!(b.0, w);
+    }
+
+    #[test]
+    fn from_idxs_basic() {
+        let ids: &[IdBase] = &[0, 2, 5];
+        let b = Bitset::from_idxs(ids);
+        let expected = (1 << 0) | (1 << 2) | (1 << 5);
+        assert_eq!(b.0, expected);
+    }
+
+    #[test]
+    fn insert_basic() {
+        let mut b = Bitset::empty();
         b.insert(3);
-        assert!(!b.is_empty());
-        assert!(b.contains(3));
-        assert_eq!(b.count(), 1);
-        b.insert(1);
-        assert_eq!(b.count(), 2);
-        let collected: Vec<IdBase> = b.iter().collect();
-        assert_eq!(collected, vec![1, 3]);
+        assert_eq!(b.0, 1 << 3);
+        b.insert(0);
+        assert_eq!(b.0, (1 << 3) | 1);
     }
 
     #[test]
-    fn test_bitset_ops_and_assign() {
-        let a = Bitset::from_idxs(&[1u8, 3u8]);
-        let b = Bitset::from_idxs(&[3u8, 5u8]);
-        let and = a & b;
-        assert_eq!(and, Bitset::from_idxs(&[3u8]));
-        let or = a | b;
-        assert!(or.contains(1));
-        assert!(or.contains(3));
-        assert!(or.contains(5));
-
-        let mut c = a;
-        c &= b;
-        assert_eq!(c, Bitset::from_idxs(&[3u8]));
-        let mut d = Bitset::empty();
-        d |= a;
-        assert_eq!(d, a);
+    fn clear_lowest_bit_basic() {
+        let mut b = Bitset::from_word(0b11010);
+        b.clear_lowest_bit();
+        assert_eq!(b.0, 0b11000);
+        b.clear_lowest_bit();
+        assert_eq!(b.0, 0b10000);
     }
 
     #[test]
-    fn test_bitset_binary_fmt_and_ord() {
-        let a = Bitset::from_idxs(&[0u8, 2u8]); // 1 + 4 = 5 -> "101"
-        assert_eq!(format!("{:b}", a), "101");
-
-        // Ord/PartialOrd are derived over the inner word; check numeric ordering.
-        let small = Bitset::from_idxs(&[1u8]); // 2
-        let large = Bitset::from_idxs(&[3u8]); // 8
-        assert!(small < large);
-        assert_eq!(small.cmp(&large), std::cmp::Ordering::Less);
+    fn contains_basic() {
+        let b = Bitset::from_idxs(&[1, 4]);
+        assert!(b.contains(1));
+        assert!(!b.contains(2));
     }
 
     #[test]
-    fn bitset_empty_and_from_word_and_from_idxs() {
-        let e = Bitset::empty();
-        assert_eq!(e.0, 0);
-        let w = Bitset::from_word(0b1010);
-        assert_eq!(w.as_word(), 0b1010);
-        let s = Bitset::from_idxs(&[1u8, 3u8]);
-        assert_eq!(s, w);
-    }
-
-    #[test]
-    fn bitset_insert_and_contains_and_count_is_empty() {
-        let mut b = Bitset::empty();
-        assert!(b.is_empty());
-        b.insert(5);
-        assert!(!b.is_empty());
-        assert!(b.contains(5));
-        assert_eq!(b.count(), 1);
-        b.insert(2);
-        assert_eq!(b.count(), 2);
-    }
-
-    #[test]
-    fn bitset_contains_any_idx() {
-        let b = Bitset::from_idxs(&[1u8, 4u8]);
+    fn contains_any_idx_basic() {
+        let b = Bitset::from_idxs(&[2, 5]);
         let mut set = HashSet::new();
-        set.insert(0u8);
-        set.insert(4u8);
+        set.insert(5);
+        set.insert(7);
         assert!(b.contains_any_idx(&set));
-        set.remove(&4u8);
+        set.clear();
+        set.insert(0);
         assert!(!b.contains_any_idx(&set));
     }
 
     #[test]
-    fn bitset_trailing_clear_and_iter_and_trailing_zeros() {
-        let b = Bitset::from_word(0b10110);
-        // trailing zeros of 0b10110 is 1
-        assert_eq!(b.trailing_zeros(), 1);
+    fn contains_any_basic() {
+        let a = Bitset::from_idxs(&[1, 3]);
+        let b = Bitset::from_idxs(&[3, 4]);
+        let c = Bitset::from_idxs(&[0, 2]);
+        assert!(a.contains_any(&b));
+        assert!(!a.contains_any(&c));
+    }
+
+    #[test]
+    fn as_word_basic() {
+        let w: Word = 0b1110;
+        let b = Bitset::from_word(w);
+        assert_eq!(b.as_word(), w);
+    }
+
+    #[test]
+    fn count_basic() {
+        let b = Bitset::from_idxs(&[0, 2, 4, 7]);
+        assert_eq!(b.count(), 4);
+    }
+
+    #[test]
+    fn is_empty_basic() {
+        let b = Bitset::empty();
+        assert!(b.is_empty());
+        let c = Bitset::from_word(1);
+        assert!(!c.is_empty());
+    }
+
+    #[test]
+    fn trailing_zeros_basic() {
+        let b = Bitset::from_word(0b1000);
+        assert_eq!(b.trailing_zeros(), 3);
+    }
+
+    #[test]
+    fn is_singleton_true() {
+        let b = Bitset::from_word(1 << 5);
+        assert!(b.is_singleton());
+    }
+
+    #[test]
+    fn is_singleton_false() {
+        let b = Bitset::from_word((1 << 2) | (1 << 4));
+        assert!(!b.is_singleton());
+    }
+
+    #[test]
+    fn single_idx_some() {
+        let b = Bitset::from_word(1 << 6);
+        assert_eq!(b.single_idx(), Some(6));
+    }
+
+    #[test]
+    fn single_idx_none() {
+        let b = Bitset::from_word(0);
+        assert_eq!(b.single_idx(), None);
+        let c = Bitset::from_word((1 << 1) | (1 << 3));
+        assert_eq!(c.single_idx(), None);
+    }
+
+    #[test]
+    fn and_method_basic() {
+        let a = Bitset::from_idxs(&[1, 3, 5]);
+        let b = Bitset::from_idxs(&[3, 4]);
+        let c = a.and(b);
+        assert_eq!(c, Bitset::from_idxs(&[3]));
+    }
+
+    #[test]
+    fn or_method_basic() {
+        let a = Bitset::from_idxs(&[0, 2]);
+        let b = Bitset::from_idxs(&[1, 2]);
+        let c = a.or(b);
+        assert_eq!(c, Bitset::from_idxs(&[0, 1, 2]));
+    }
+
+    #[test]
+    fn bitand_operator_basic() {
+        let a = Bitset::from_word(0b1010);
+        let b = Bitset::from_word(0b1100);
+        let c = a & b;
+        assert_eq!(c, Bitset::from_word(0b1000));
+    }
+
+    #[test]
+    fn bitor_operator_basic() {
+        let a = Bitset::from_word(0b0011);
+        let b = Bitset::from_word(0b0101);
+        let c = a | b;
+        assert_eq!(c, Bitset::from_word(0b0111));
+    }
+
+    #[test]
+    fn bitand_assign_operator_basic() {
+        let mut a = Bitset::from_word(0b1110);
+        let b = Bitset::from_word(0b1010);
+        a &= b;
+        assert_eq!(a, Bitset::from_word(0b1010));
+    }
+
+    #[test]
+    fn bitor_assign_operator_basic() {
+        let mut a = Bitset::from_word(0b0010);
+        let b = Bitset::from_word(0b0101);
+        a |= b;
+        assert_eq!(a, Bitset::from_word(0b0111));
+    }
+
+    #[test]
+    fn iter_basic() {
+        let b = Bitset::from_idxs(&[0, 3, 5]);
         let mut it = b.iter();
-        assert_eq!(it.next(), Some(1));
+        assert_eq!(it.next(), Some(0));
+        assert_eq!(it.next(), Some(3));
+        assert_eq!(it.next(), Some(5));
+        assert_eq!(it.next(), None);
+    }
+
+    #[test]
+    fn bititer_next_basic() {
+        let b = Bitset::from_idxs(&[2, 4]);
+        let mut it = BitIter { w: b };
         assert_eq!(it.next(), Some(2));
         assert_eq!(it.next(), Some(4));
         assert_eq!(it.next(), None);
-
-        // clear_lowest_bit works
-        let mut b2 = Bitset::from_word(0b10110);
-        b2.clear_lowest_bit();
-        assert_eq!(b2.as_word(), 0b10100);
     }
 
     #[test]
-    fn bitset_and_or_and_assign_ops() {
-        let a = Bitset::from_idxs(&[1u8, 3u8]);
-        let b = Bitset::from_idxs(&[3u8, 5u8]);
-        assert_eq!((a & b), Bitset::from_idxs(&[3u8]));
-        assert_eq!((a | b), Bitset::from_idxs(&[1u8, 3u8, 5u8]));
-        let mut c = a;
-        c &= b;
-        assert_eq!(c, Bitset::from_idxs(&[3u8]));
-        let mut d = Bitset::empty();
-        d |= a;
-        assert_eq!(d, a);
+    fn bititer_clone_independent_basic() {
+        let b = Bitset::from_idxs(&[1, 2]);
+        let mut it1 = BitIter { w: b };
+        let mut it2 = it1.clone();
+        assert_eq!(it1.next(), Some(1));
+        assert_eq!(it2.next(), Some(1));
+        assert_eq!(it1.next(), Some(2));
+        assert_eq!(it2.next(), Some(2));
     }
 
     #[test]
-    fn bitset_binary_format_and_ord() {
-        let a = Bitset::from_idxs(&[0u8, 2u8]); // 5 -> "101"
-        assert_eq!(format!("{:b}", a), "101");
-        let small = Bitset::from_idxs(&[1u8]); // 2
-        let large = Bitset::from_idxs(&[3u8]); // 8
-        assert!(small < large);
+    fn binary_fmt_basic() {
+        let b = Bitset::from_word(0b10101);
+        let s = format!("{:b}", b);
+        assert_eq!(s, "10101");
     }
 
     #[test]
-    fn test_bitset_and_or_methods() {
-        let a = Bitset::from_idxs(&[0u8, 2u8]); // 101
-        let b = Bitset::from_idxs(&[2u8, 3u8]); // 1100
-                                                // method forms:
-        let m_and = a.and(b);
-        assert_eq!(m_and, Bitset::from_idxs(&[2u8]));
-        let m_or = a.or(b);
-        assert!(m_or.contains(0));
-        assert!(m_or.contains(2));
-        assert!(m_or.contains(3));
-    }
-
-    #[test]
-    fn test_bititer_on_empty_returns_none() {
-        let b = Bitset::empty();
-        let mut it = b.iter();
-        assert_eq!(it.next(), None);
+    fn ordering_basic() {
+        let a = Bitset::from_word(0b0010);
+        let b = Bitset::from_word(0b0100);
+        let c = Bitset::from_word(0b0010);
+        assert!(a < b);
+        assert!(b > a);
+        assert_eq!(a, c);
+        let mut vec = vec![b, a];
+        vec.sort();
+        assert_eq!(vec, vec![a, b]);
     }
 }
