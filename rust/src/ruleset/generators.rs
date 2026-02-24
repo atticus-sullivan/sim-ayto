@@ -611,7 +611,7 @@ mod generator_tests {
             ],
         ]
         .into_iter()
-        .map(|x| x.into())
+        .map(|x| MaskedMatching::from_matching_ref(&x))
         .collect();
         let expected = expected
             .into_iter()

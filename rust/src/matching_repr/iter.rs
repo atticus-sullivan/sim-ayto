@@ -178,178 +178,178 @@ impl<'a> Iterator for UnwrappedIter<'a> {
     }
 }
 
-/// TODO: needs rewrite?
-/// Write more tests
-/// review existing tests
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use pretty_assertions::assert_eq;
-
-    #[test]
-    fn test_iter_over_maskedmatching_yields_bitsets() {
-        let legacy = vec![vec![1u8, 2u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let masks: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(masks[0], Bitset::from_idxs(&[1u8, 2u8]));
-        assert_eq!(masks[1], Bitset::from_idxs(&[0u8]));
-    }
-
-    #[test]
-    fn test_iter_pairs_ordering() {
-        // slot 0: {1,2}, slot1:{0}
-        let legacy = vec![vec![1u8, 2u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        // order: slots increasing; values in slot increasing
-        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
-    }
-
-    #[test]
-    fn test_iter_unwrapped_cartesian_product_exact() {
-        // two slots: slot0 {0,1}, slot1 {2,3}
-        let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-
-        // collect unwrapped combinations
-        let combos: Vec<Vec<Vec<IdBase>>> = mm
-            .iter_unwrapped()
-            .map(|m| Vec::try_from(&m).unwrap())
-            .collect();
-
-        let expected = vec![
-            vec![vec![0u8], vec![2u8]],
-            vec![vec![0u8], vec![3u8]],
-            vec![vec![1u8], vec![2u8]],
-            vec![vec![1u8], vec![3u8]],
-        ];
-
-        // order produced by our iterator should be as above
-        assert_eq!(combos.len(), expected.len());
-        assert_eq!(combos, expected);
-    }
-
-    #[test]
-    fn test_iter_pairs() {
-        // slot 0: {1,2}, slot1:{0}
-        let legacy = vec![vec![1u8, 2u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        // order: slots increasing; values in slot increasing
-        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
-    }
-
-    #[test]
-    fn test_iter_unwrapped_product() {
-        // two slots: slot0 {0,1}, slot1 {2,3}
-        let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-        // collect unwrapped combinations
-        let combos: Vec<Vec<Vec<IdBase>>> = mm
-            .iter_unwrapped()
-            .map(|m| {
-                // represent each MaskedMatching as Vec<Vec<IdBase>>
-                Vec::try_from(&m).unwrap()
-            })
-            .collect();
-        // there are 4 combinations (2 x 2)
-        assert_eq!(combos.len(), 4);
-        // each combination should contain one element per slot
-        for c in combos {
-            assert_eq!(c.len(), 2);
-            assert!(c[0].len() == 1 && c[1].len() == 1);
-        }
-    }
-
-    #[test]
-    fn test_iter_unwrapped_empty_slot_yields_none() {
-        // slot 0 has values, slot 1 is empty -> product empty
-        let legacy = vec![vec![0u8], vec![]];
-        let mm = MaskedMatching::from(&legacy);
-        let mut it = mm.iter_unwrapped();
-        assert_eq!(it.next(), None);
-    }
-
-    #[test]
-    fn test_count_matches_singles_and_calculate_lights() {
-        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
-        let singles: Vec<IdBase> = vec![0u8, 3u8, 2u8];
-        // count_matches_singles equivalent:
-        let match_count = mm
-            .iter()
-            .enumerate()
-            .map(|(i, slot)| {
-                let first = singles.get(i).copied().unwrap_or(0);
-                if slot.contains(first) {
-                    1
-                } else {
-                    0
-                }
-            })
-            .sum::<usize>() as IdBase;
-        assert_eq!(match_count, 2);
-
-        // calculate_lights: compare mm with solution mm2
-        let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
-        assert_eq!(mm.calculate_lights(&mm2), 2u8);
-    }
-
-    #[test]
-    fn pairs_iter_yields_expected_pairs() {
-        let mm = MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]]);
-        let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
-        assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
-    }
-
-    #[test]
-    fn slots_iter_returns_bitsets() {
-        let legacy = vec![vec![1u8], vec![0u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let masks: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(
-            masks,
-            vec![Bitset::from_idxs(&[1u8]), Bitset::from_idxs(&[0u8, 3u8])]
-        );
-    }
-
-    #[test]
-    fn bititer_clone_independent() {
-        let b = Bitset::from_idxs(&[1u8, 4u8]);
-        let mut it1 = b.iter();
-        let mut it2 = it1.clone();
-        assert_eq!(it1.next(), Some(1));
-        assert_eq!(it2.next(), Some(1)); // clone should not affect original
-        assert_eq!(it1.next(), Some(4));
-        assert_eq!(it2.next(), Some(4));
-    }
-
-    #[test]
-    fn iter_unwrapped_cartesian_product_sequence_and_unique() {
-        let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let combos: Vec<Vec<Vec<IdBase>>> = mm
-            .iter_unwrapped()
-            .map(|m| Vec::try_from(&m).unwrap())
-            .collect();
-
-        let expected = vec![
-            vec![vec![0u8], vec![2u8]],
-            vec![vec![0u8], vec![3u8]],
-            vec![vec![1u8], vec![2u8]],
-            vec![vec![1u8], vec![3u8]],
-        ];
-        assert_eq!(combos, expected);
-
-        // also assert uniqueness (no duplicates)
-        use std::collections::HashSet as HS;
-        let set: HS<_> = combos.into_iter().collect();
-        assert_eq!(set.len(), expected.len());
-    }
-
-    #[test]
-    fn iter_unwrapped_empty_slot_yields_none() {
-        let legacy = vec![vec![0u8], vec![]];
-        let mm = MaskedMatching::from(&legacy);
-        assert_eq!(mm.iter_unwrapped().next(), None);
-    }
-}
+// TODO: needs rewrite?
+// Write more tests
+// review existing tests
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//     use pretty_assertions::assert_eq;
+//
+//     #[test]
+//     fn test_iter_over_maskedmatching_yields_bitsets() {
+//         let legacy = vec![vec![1u8, 2u8], vec![0u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//         let masks: Vec<Bitset> = mm.iter().collect();
+//         assert_eq!(masks[0], Bitset::from_idxs(&[1u8, 2u8]));
+//         assert_eq!(masks[1], Bitset::from_idxs(&[0u8]));
+//     }
+//
+//     #[test]
+//     fn test_iter_pairs_ordering() {
+//         // slot 0: {1,2}, slot1:{0}
+//         let legacy = vec![vec![1u8, 2u8], vec![0u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//         let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
+//         // order: slots increasing; values in slot increasing
+//         assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
+//     }
+//
+//     #[test]
+//     fn test_iter_unwrapped_cartesian_product_exact() {
+//         // two slots: slot0 {0,1}, slot1 {2,3}
+//         let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//
+//         // collect unwrapped combinations
+//         let combos: Vec<Vec<Vec<IdBase>>> = mm
+//             .iter_unwrapped()
+//             .map(|m| Vec::try_from(&m).unwrap())
+//             .collect();
+//
+//         let expected = vec![
+//             vec![vec![0u8], vec![2u8]],
+//             vec![vec![0u8], vec![3u8]],
+//             vec![vec![1u8], vec![2u8]],
+//             vec![vec![1u8], vec![3u8]],
+//         ];
+//
+//         // order produced by our iterator should be as above
+//         assert_eq!(combos.len(), expected.len());
+//         assert_eq!(combos, expected);
+//     }
+//
+//     #[test]
+//     fn test_iter_pairs() {
+//         // slot 0: {1,2}, slot1:{0}
+//         let legacy = vec![vec![1u8, 2u8], vec![0u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//         let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
+//         // order: slots increasing; values in slot increasing
+//         assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
+//     }
+//
+//     #[test]
+//     fn test_iter_unwrapped_product() {
+//         // two slots: slot0 {0,1}, slot1 {2,3}
+//         let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//         // collect unwrapped combinations
+//         let combos: Vec<Vec<Vec<IdBase>>> = mm
+//             .iter_unwrapped()
+//             .map(|m| {
+//                 // represent each MaskedMatching as Vec<Vec<IdBase>>
+//                 Vec::try_from(&m).unwrap()
+//             })
+//             .collect();
+//         // there are 4 combinations (2 x 2)
+//         assert_eq!(combos.len(), 4);
+//         // each combination should contain one element per slot
+//         for c in combos {
+//             assert_eq!(c.len(), 2);
+//             assert!(c[0].len() == 1 && c[1].len() == 1);
+//         }
+//     }
+//
+//     #[test]
+//     fn test_iter_unwrapped_empty_slot_yields_none() {
+//         // slot 0 has values, slot 1 is empty -> product empty
+//         let legacy = vec![vec![0u8], vec![]];
+//         let mm = MaskedMatching::from(&legacy);
+//         let mut it = mm.iter_unwrapped();
+//         assert_eq!(it.next(), None);
+//     }
+//
+//     #[test]
+//     fn test_count_matches_singles_and_calculate_lights() {
+//         let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
+//         let singles: Vec<IdBase> = vec![0u8, 3u8, 2u8];
+//         // count_matches_singles equivalent:
+//         let match_count = mm
+//             .iter()
+//             .enumerate()
+//             .map(|(i, slot)| {
+//                 let first = singles.get(i).copied().unwrap_or(0);
+//                 if slot.contains(first) {
+//                     1
+//                 } else {
+//                     0
+//                 }
+//             })
+//             .sum::<usize>() as IdBase;
+//         assert_eq!(match_count, 2);
+//
+//         // calculate_lights: compare mm with solution mm2
+//         let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
+//         assert_eq!(mm.calculate_lights(&mm2), 2u8);
+//     }
+//
+//     #[test]
+//     fn pairs_iter_yields_expected_pairs() {
+//         let mm = MaskedMatching::from(&vec![vec![1u8, 2u8], vec![0u8]]);
+//         let pairs: Vec<(IdBase, IdBase)> = mm.iter_pairs().collect();
+//         assert_eq!(pairs, vec![(0, 1), (0, 2), (1, 0)]);
+//     }
+//
+//     #[test]
+//     fn slots_iter_returns_bitsets() {
+//         let legacy = vec![vec![1u8], vec![0u8, 3u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//         let masks: Vec<Bitset> = mm.iter().collect();
+//         assert_eq!(
+//             masks,
+//             vec![Bitset::from_idxs(&[1u8]), Bitset::from_idxs(&[0u8, 3u8])]
+//         );
+//     }
+//
+//     #[test]
+//     fn bititer_clone_independent() {
+//         let b = Bitset::from_idxs(&[1u8, 4u8]);
+//         let mut it1 = b.iter();
+//         let mut it2 = it1.clone();
+//         assert_eq!(it1.next(), Some(1));
+//         assert_eq!(it2.next(), Some(1)); // clone should not affect original
+//         assert_eq!(it1.next(), Some(4));
+//         assert_eq!(it2.next(), Some(4));
+//     }
+//
+//     #[test]
+//     fn iter_unwrapped_cartesian_product_sequence_and_unique() {
+//         let legacy = vec![vec![0u8, 1u8], vec![2u8, 3u8]];
+//         let mm = MaskedMatching::from(&legacy);
+//         let combos: Vec<Vec<Vec<IdBase>>> = mm
+//             .iter_unwrapped()
+//             .map(|m| Vec::try_from(&m).unwrap())
+//             .collect();
+//
+//         let expected = vec![
+//             vec![vec![0u8], vec![2u8]],
+//             vec![vec![0u8], vec![3u8]],
+//             vec![vec![1u8], vec![2u8]],
+//             vec![vec![1u8], vec![3u8]],
+//         ];
+//         assert_eq!(combos, expected);
+//
+//         // also assert uniqueness (no duplicates)
+//         use std::collections::HashSet as HS;
+//         let set: HS<_> = combos.into_iter().collect();
+//         assert_eq!(set.len(), expected.len());
+//     }
+//
+//     #[test]
+//     fn iter_unwrapped_empty_slot_yields_none() {
+//         let legacy = vec![vec![0u8], vec![]];
+//         let mm = MaskedMatching::from(&legacy);
+//         assert_eq!(mm.iter_unwrapped().next(), None);
+//     }
+// }

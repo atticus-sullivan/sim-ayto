@@ -1,3 +1,4 @@
+/// This module contains all kinds of conversions from and to MaskedMatching.
 use core::fmt;
 use std::collections::HashMap;
 
@@ -71,7 +72,7 @@ impl MaskedMatching {
         // We'll use safe APIs: clear + extend_from_slice. Because we've reserved,
         // extend_from_slice will not allocate in the hot path.
         self.masks.clear();
-        self.masks.extend_from_slice(slice);
+        self.masks.extend(slice);
     }
 
     /// Construct from legacy `Matching` reference.
@@ -103,18 +104,6 @@ impl MaskedMatching {
     }
 }
 
-/// From<&Vec<Vec<IdBase>>> and Vec
-impl From<&Vec<Vec<IdBase>>> for MaskedMatching {
-    fn from(m: &Vec<Vec<IdBase>>) -> Self {
-        MaskedMatching::from_matching_ref(m)
-    }
-}
-impl From<Vec<Vec<IdBase>>> for MaskedMatching {
-    fn from(m: Vec<Vec<IdBase>>) -> Self {
-        MaskedMatching::from_matching_ref(&m)
-    }
-}
-
 impl From<&[IdBase]> for MaskedMatching {
     fn from(ms: &[IdBase]) -> Self {
         let mut slots = vec![];
@@ -132,6 +121,27 @@ impl From<(IdBase, IdBase)> for MaskedMatching {
         let mut slots = vec![Bitset::empty(); m.0 as usize + 1];
         slots[m.0 as usize].insert(m.1);
         MaskedMatching::from_masks(slots)
+    }
+}
+
+impl From<Vec<Bitset>> for MaskedMatching {
+    fn from(m: Vec<Bitset>) -> Self {
+        MaskedMatching { masks: m }
+    }
+}
+
+impl TryFrom<HashMap<IdBase, IdBase>> for MaskedMatching {
+    type Error = ConversionError;
+    fn try_from(masked: HashMap<IdBase, IdBase>) -> Result<Self, Self::Error> {
+        let max = *masked
+            .keys()
+            .max()
+            .ok_or(ConversionError::RequiredSlotsNotFound)?;
+        let mut slots = vec![Bitset::empty(); (max as usize) + 1];
+        for (k, v) in masked.into_iter() {
+            slots[k as usize].insert(v);
+        }
+        Ok(MaskedMatching::from_masks(slots))
     }
 }
 
@@ -158,123 +168,44 @@ impl TryFrom<&MaskedMatching> for Vec<Vec<IdBase>> {
     }
 }
 
-impl TryFrom<HashMap<IdBase, IdBase>> for MaskedMatching {
-    type Error = ConversionError;
-    fn try_from(masked: HashMap<IdBase, IdBase>) -> Result<Self, Self::Error> {
-        let max = *masked
-            .keys()
-            .max()
-            .ok_or(ConversionError::RequiredSlotsNotFound)?;
-        let mut slots = vec![Bitset::empty(); (max as usize) + 1];
-        for (k, v) in masked.into_iter() {
-            slots[k as usize].insert(v);
-        }
-        Ok(MaskedMatching::from_masks(slots))
-    }
-}
-
-impl From<Vec<Bitset>> for MaskedMatching {
-    fn from(m: Vec<Bitset>) -> Self {
-        MaskedMatching { masks: m }
-    }
-}
-
-/// TODO: needs rewrite?
-/// Write more tests
-/// review existing tests
 #[cfg(test)]
 mod tests {
+    use anyhow::Result;
     use pretty_assertions::assert_eq;
-    use std::collections::HashSet;
 
     use super::*;
 
     #[test]
-    fn test_contains_mask_and_slot_contains_any() {
-        let legacy = vec![vec![4u8], vec![2u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let m = Bitset::from_idxs(&[4u8]);
-        assert!(mm.contains_mask(m));
-        let mut set = HashSet::new();
-        set.insert(3u8);
-        set.insert(4u8);
-        assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
-    }
-
-    #[test]
-    fn test_tryfrom_hashmap_and_roundtrip_conversion() {
-        let mut map = HashMap::new();
-        map.insert(0u8, 7u8);
-        map.insert(2u8, 3u8);
-        let mm = MaskedMatching::try_from(map).unwrap();
-        let as_vec = Vec::try_from(&mm).unwrap();
-        assert_eq!(as_vec[0], vec![7u8]);
-        assert_eq!(as_vec[2], vec![3u8]);
-
-        // roundtrip via from_masks
-        let masks = mm.iter().collect::<Vec<_>>();
-        let mm2 = MaskedMatching::from_masks(masks);
-        let round: Vec<Vec<IdBase>> = Vec::try_from(&mm2).unwrap();
-        assert_eq!(round, as_vec);
-    }
-
-    #[test]
-    fn test_count_matches_singles_and_calculate_lights() {
-        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
-        let singles: Vec<IdBase> = vec![0u8, 3u8, 2u8];
-        // count_matches_singles equivalent:
-        let match_count = mm
-            .iter()
-            .enumerate()
-            .map(|(i, slot)| {
-                let first = singles.get(i).copied().unwrap_or(0);
-                if slot.contains(first) {
-                    1
-                } else {
-                    0
-                }
-            })
-            .sum::<usize>() as IdBase;
-        assert_eq!(match_count, 2);
-
-        // calculate_lights: compare mm with solution mm2
-        let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
-        assert_eq!(mm.calculate_lights(&mm2), 2u8);
-    }
-
-    #[test]
-    fn test_tryfrom_hashmap() {
-        let mut map = HashMap::new();
-        map.insert(0u8, 7u8);
-        map.insert(2u8, 3u8);
-        let mm = MaskedMatching::try_from(map).unwrap();
-        let as_vec = Vec::try_from(&mm).unwrap();
-        assert_eq!(as_vec[0], vec![7u8]);
-        assert_eq!(as_vec[2], vec![3u8]);
-    }
-
-    #[test]
-    fn test_from_word_and_from_masks_roundtrip() {
+    fn from_masks_simple() {
         let masks = vec![Bitset::from_word(0b101), Bitset::from_word(0b10)];
         let mm = MaskedMatching::from_masks(masks.clone());
-        let collected: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(collected, masks);
-
-        // Roundtrip to Vec<Vec<IdBase>> and back
-        let as_vec: Vec<Vec<IdBase>> = Vec::try_from(&mm).unwrap();
-        let mm2 = MaskedMatching::from(&as_vec);
-        let collected2: Vec<Bitset> = mm2.iter().collect();
-        assert_eq!(collected2, masks);
+        assert_eq!(mm.masks, masks);
+    }
+    #[test]
+    fn into_masks_simple() {
+        let original_masks = vec![Bitset::from_word(0b1010), Bitset::from_word(0b0101)];
+        let mm = MaskedMatching::from_masks(original_masks.clone());
+        let moved = mm.into_masks();
+        assert_eq!(moved, original_masks);
     }
 
     #[test]
-    fn maskedmatching_from_masks_and_with_slots_and_len_and_iter() {
-        let masks = vec![Bitset::from_idxs(&[0]), Bitset::from_idxs(&[1, 3])];
-        let mm = MaskedMatching::from_masks(masks.clone());
-        assert_eq!(mm.len(), 2);
-        let collected: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(collected, masks);
+    fn swap_masks_simple() {
+        let mut mm =
+            MaskedMatching::from_masks(vec![Bitset::from_word(0b101), Bitset::from_word(0b010)]);
+        let mut external = vec![Bitset::from_word(0b111)];
 
+        mm.swap_masks(&mut external);
+
+        assert_eq!(mm.masks, vec![Bitset::from_word(0b111)]);
+        assert_eq!(
+            external,
+            vec![Bitset::from_word(0b101), Bitset::from_word(0b010),]
+        );
+    }
+
+    #[test]
+    fn with_slots_simple() {
         let mm2 = MaskedMatching::with_slots(3);
         assert_eq!(mm2.len(), 3);
         for (i, mask) in mm2.iter().enumerate() {
@@ -283,104 +214,107 @@ mod tests {
     }
 
     #[test]
-    fn maskedmatching_from_matching_ref_and_computed_universe() {
-        let legacy = vec![vec![0u8, 2u8], vec![1u8]];
-        let mm = MaskedMatching::from_matching_ref(&legacy);
-        assert_eq!(mm.computed_universe(), 3);
-        let dbg = mm.prepare_debug_print();
-        assert_eq!(dbg, legacy);
+    fn set_masks_from_slice_cap_enough() {
+        // Path where capacity is already sufficient.
+        let mut mm = MaskedMatching::with_slots(5);
+        let slice = [
+            Bitset::from_word(0b001),
+            Bitset::from_word(0b010),
+            Bitset::from_word(0b100),
+        ];
+        mm.set_masks_from_slice(&slice);
+        assert_eq!(mm.masks, slice);
     }
 
     #[test]
-    fn prepare_debug_print_names_ok_and_panic_on_bad_maps() {
-        let legacy = vec![vec![0u8], vec![1u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let map_a = vec!["a".to_string(), "b".to_string()];
-        let map_b = vec!["x".to_string(), "y".to_string()];
-        let res = mm.prepare_debug_print_names(&map_a, &map_b);
+    fn set_masks_from_slice_cap_too_small() {
+        // Path where we need to reserve additional capacity.
+        let mut mm = MaskedMatching::with_slots(0);
+        let long_slice = [
+            Bitset::from_word(0b1),
+            Bitset::from_word(0b10),
+            Bitset::from_word(0b100),
+            Bitset::from_word(0b1000),
+        ];
+
+        let prev_cap = mm.masks.capacity();
+        mm.set_masks_from_slice(&long_slice);
+
+        assert_eq!(mm.masks, long_slice);
+        assert!(mm.masks.capacity() >= long_slice.len());
+        assert!(mm.masks.capacity() >= prev_cap);
+    }
+
+    #[test]
+    fn from_matching_ref_and_into_vector() -> Result<()> {
+        let legacy = vec![vec![1u8], vec![2u8, 3u8]];
+        let mm = MaskedMatching::from_matching_ref(&legacy);
         assert_eq!(
-            res,
+            mm.masks,
+            vec![Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2, 3]),]
+        );
+        let back: Vec<Vec<IdBase>> = Vec::try_from(&mm)?;
+        assert_eq!(back, legacy);
+        Ok(())
+    }
+
+    // [IdBase] -> MaskedMatching
+    #[test]
+    fn from_idbase_slice() {
+        let mm = MaskedMatching::from(&[1 as IdBase, 2 as IdBase][..]);
+        assert_eq!(mm.masks, vec![Bitset::from_idxs(&[1, 2]),])
+    }
+
+    // (idBase, idBase) -> MaskedMatching
+    #[test]
+    fn from_idbase_tuple() {
+        let mm = MaskedMatching::from((1 as IdBase, 2 as IdBase));
+        assert_eq!(
+            mm.masks,
+            vec![Bitset::from_idxs(&[]), Bitset::from_idxs(&[2]),]
+        )
+    }
+
+    // Vec<Bitset> -> MaskedMatching
+    #[test]
+    fn from_bitset_vector() {
+        let mm = MaskedMatching::from(vec![Bitset::from_idxs(&[1, 2]), Bitset::from_idxs(&[3, 4])]);
+        assert_eq!(
+            mm.masks,
+            vec![Bitset::from_idxs(&[1, 2]), Bitset::from_idxs(&[3, 4]),]
+        )
+    }
+
+    // HashMap<IdBase, IdBase> -> MaskedMatching (tryfrom)
+    #[test]
+    fn try_from_idbase_hashmap() -> Result<()> {
+        let mm = MaskedMatching::try_from(HashMap::from_iter([(0, 7), (2, 3)]))?;
+        assert_eq!(
+            mm.masks,
             vec![
-                ("a".to_string(), "x".to_string()),
-                ("b".to_string(), "y".to_string())
+                Bitset::from_idxs(&[7]),
+                Bitset::from_idxs(&[]),
+                Bitset::from_idxs(&[3]),
             ]
         );
-
-        // If map_b too small the function is expected to panic; we explicitly assert that.
-        let map_b_small = vec!["only".to_string()];
-        let result =
-            std::panic::catch_unwind(|| mm.prepare_debug_print_names(&map_a, &map_b_small));
-        assert!(result.is_err());
+        Ok(())
+    }
+    #[test]
+    fn try_from_idbase_hashmap_conversion_error() {
+        let empty_map: HashMap<IdBase, IdBase> = HashMap::new();
+        let err = MaskedMatching::try_from(empty_map).unwrap_err();
+        match err {
+            ConversionError::RequiredSlotsNotFound => {}
+            _ => panic!("expected RequiredSlotsNotFound error"),
+        }
     }
 
+    // MaskedMatching -> VecVecIdBase (tryfrom)
     #[test]
-    fn contains_mask_and_slot_contains_any() {
-        let legacy = vec![vec![4u8], vec![2u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let m = Bitset::from_idxs(&[4u8]);
-        assert!(mm.contains_mask(m));
-        let mut set = HashSet::new();
-        set.insert(3u8);
-        set.insert(4u8);
-        assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
-    }
-
-    #[test]
-    fn calculate_lights_counts_overlaps() {
-        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
-        let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![9u8], vec![2u8]]);
-        assert_eq!(mm.calculate_lights(&mm2), 2u8); // slots 0 and 2 overlap
-    }
-
-    #[test]
-    fn try_from_maskedmatching_to_vec_roundtrip() {
-        let legacy = vec![vec![1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from(&legacy);
-        let back: Vec<Vec<IdBase>> = Vec::try_from(&mm).expect("conversion back failed");
-        assert_eq!(back, legacy);
-    }
-
-    #[test]
-    fn try_from_hashmap_to_maskedmatching_and_roundtrip() {
-        let mut map = HashMap::new();
-        map.insert(0u8, 7u8);
-        map.insert(2u8, 3u8);
-        let mm = MaskedMatching::try_from(map).unwrap();
-        let as_vec = Vec::try_from(&mm).unwrap();
-        assert_eq!(as_vec[0], vec![7u8]);
-        assert_eq!(as_vec[2], vec![3u8]);
-    }
-
-    #[test]
-    fn maskedmatching_bitand_operator() {
-        let a = MaskedMatching::from(&vec![vec![0u8, 1u8], vec![2u8]]);
-        let b = MaskedMatching::from(&vec![vec![1u8], vec![2u8]]);
-        let c = a.clone() & &b;
-        // c slot 0 should be intersection {1}, slot1 {2}
-        let c_vec: Vec<Vec<IdBase>> = Vec::try_from(&c).unwrap();
-        assert_eq!(c_vec[0], vec![1u8]);
-        assert_eq!(c_vec[1], vec![2u8]);
-    }
-
-    #[test]
-    fn from_masks_roundtrip_via_tryfrom() {
-        let masks = vec![Bitset::from_word(0b101), Bitset::from_word(0b10)];
-        let mm = MaskedMatching::from_masks(masks.clone());
-        let collected: Vec<Bitset> = mm.iter().collect();
-        assert_eq!(collected, masks);
-
-        let as_vec: Vec<Vec<IdBase>> = Vec::try_from(&mm).unwrap();
-        let mm2 = MaskedMatching::from(&as_vec);
-        let collected2: Vec<Bitset> = mm2.iter().collect();
-        assert_eq!(collected2, masks);
-    }
-
-    // Keep this broad: ensure nothing panics for typical scenarios
-    #[test]
-    fn smoke_test_various_calls() {
-        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8, 2u8]]);
-        let _ = mm.len();
-        let _ = mm.computed_universe();
-        let _ = mm.prepare_debug_print();
+    fn try_to_matching_ref() -> Result<()> {
+        let a = vec![vec![1, 2], vec![], vec![3, 4]];
+        let b = Vec::<Vec<IdBase>>::try_from(&MaskedMatching::from_matching_ref(&a))?;
+        assert_eq!(b, a);
+        Ok(())
     }
 }

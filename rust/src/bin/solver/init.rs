@@ -144,7 +144,7 @@ mod tests {
         let ruleset = RuleSet::Eq;
 
         // Matching of length 1 triggers Box constraint
-        let matching = MaskedMatching::from(&[0u8][..]);
+        let matching = MaskedMatching::from_matching_ref(&[vec![0u8]]);
 
         let constraint = build_initial_constraint(matching, 1, &ruleset, 0).unwrap();
 
@@ -156,7 +156,7 @@ mod tests {
         let ruleset = RuleSet::Eq;
 
         let matching =
-            MaskedMatching::from(&vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
+            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
         let constraint = build_initial_constraint(matching, 2, &ruleset, 0).unwrap();
 
@@ -166,7 +166,8 @@ mod tests {
     #[test]
     fn build_initial_constraint_sets_lights_correctly() {
         let ruleset = RuleSet::Eq;
-        let matching = MaskedMatching::from(vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
+        let matching =
+            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
         let constraint = build_initial_constraint(matching, 3, &ruleset, 0).unwrap();
 
@@ -181,7 +182,8 @@ mod tests {
     fn create_iteration_state_initializes_properly() {
         let ruleset = RuleSet::Eq;
 
-        let matching = MaskedMatching::from(vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
+        let matching =
+            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
         let constraint = build_initial_constraint(matching, 0, &ruleset, 0).unwrap();
 

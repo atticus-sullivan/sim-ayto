@@ -54,11 +54,11 @@ TODO (ausgelassen erstmal)
 - [x] write tests
 - [x] Write doc-comments for files
 
-
 ## tree.rs
-- [ ] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
+
 
 ## matching_repr
 - [ ] (re-)organization of functions and files
