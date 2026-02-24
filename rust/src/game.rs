@@ -107,7 +107,7 @@ impl Game {
     pub fn sim<T: ProgressBarTrait>(
         &mut self,
         dump_mode: Option<DumpMode>,
-    ) -> Result<IterState<T>> {
+    ) -> Result<IterState<T, Constraint>> {
         let mut is = {
             // mathematically calculate amount of permutations (for the progressbar)
             let perm_amount = self.rule_set.get_perms_amount(

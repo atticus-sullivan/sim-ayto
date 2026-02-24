@@ -20,7 +20,7 @@ impl Game {
         print_transposed: bool,
         dump_mode: Option<DumpMode>,
         full: bool,
-        is: &IterState<T>,
+        is: &IterState<T, Constraint>,
         no_tree_output: bool,
     ) -> Result<()> {
         // EVALUATION
@@ -48,7 +48,7 @@ impl Game {
         &mut self,
         print_transposed: bool,
         full: bool,
-        is: &IterState<T>,
+        is: &IterState<T, Constraint>,
         no_tree_output: bool,
         data: Trail,
     ) -> Result<()> {
@@ -99,7 +99,7 @@ impl Game {
         &mut self,
         dump_mode: Option<DumpMode>,
         constraints: &[Constraint],
-        is: &IterState<T>,
+        is: &IterState<T, Constraint>,
     ) -> Result<()> {
         if let Some(d) = dump_mode {
             d.dump(&is.left_poss, &self.map_a, &self.map_b, io::stdout())?;
@@ -111,7 +111,7 @@ impl Game {
         println!(
             "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",
             is.total,
-            is.total - is.eliminated,
+            is.total - is.survivors,
             is.each[0][0]
         );
 

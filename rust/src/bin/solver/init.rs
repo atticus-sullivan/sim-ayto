@@ -75,7 +75,9 @@ pub(crate) fn build_initial_constraint(
 ///
 /// # Returns
 /// A fully initialized `IterState`.
-pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterState<ProgressBar>> {
+pub(crate) fn create_iteration_state(
+    constraint: &Constraint,
+) -> Result<IterState<ProgressBar, Constraint>> {
     IterState::new(
         true,
         NUM_PLAYERS_SET_A,

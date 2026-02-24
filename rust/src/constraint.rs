@@ -281,7 +281,7 @@ impl Constraint {
     }
 }
 
-pub(super) trait ConstraintGetters {
+pub trait ConstraintGetters {
     fn comment(&self) -> &str;
     fn type_str(&self) -> String;
     fn num(&self) -> Decimal;

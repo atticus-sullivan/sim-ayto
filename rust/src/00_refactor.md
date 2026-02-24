@@ -54,38 +54,23 @@ TODO (ausgelassen erstmal)
 - [x] write tests
 - [x] Write doc-comments for files
 
+
 ## tree.rs
 - [ ] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
-
 
 ## matching_repr
 - [ ] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
 
-### matching_repr.rs
-### matching_repr/bitset.rs
-### matching_repr/conversions.rs
-### matching_repr/iter.rs
-
 ## ruleset_data
 - [ ] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
 
-### ruleset_data.rs
-### ruleset_data/dummy.rs
-### ruleset_data/dup.rs
-### ruleset_data/dup_x.rs
-
 ## ruleset
 - [ ] (re-)organization of functions and files
 - [ ] write tests
 - [ ] Write doc-comments for files
-
-### ruleset.rs
-### ruleset/generators.rs
-### ruleset/parse.rs
-### ruleset/utils.rs

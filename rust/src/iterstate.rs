@@ -12,7 +12,7 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 
-use crate::constraint::{Constraint, ConstraintGetters, ConstraintSim};
+use crate::constraint::{ConstraintGetters, ConstraintSim};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::progressbar::ProgressBarTrait;
 
@@ -41,12 +41,12 @@ pub trait IterStateTrait {
 }
 
 #[derive(Debug)]
-pub struct IterState<T: ProgressBarTrait> {
-    pub constraints: Vec<Constraint>,
+pub struct IterState<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> {
+    pub constraints: Vec<S>,
     pub keep_rem: bool,
     pub each: Vec<Vec<u128>>,
     pub total: u128,
-    pub eliminated: u128,
+    pub survivors: u128,
     pub left_poss: Vec<MaskedMatching>,
     // allows to query when a Matching was eliminated (by which "comment")
     pub query_matchings: Vec<(MaskedMatching, Option<String>)>,
@@ -58,12 +58,12 @@ pub struct IterState<T: ProgressBarTrait> {
 }
 
 /// does not take the constraints into consideration
-impl<T: ProgressBarTrait> PartialEq for IterState<T> {
+impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> PartialEq for IterState<T, S> {
     fn eq(&self, other: &Self) -> bool {
         self.keep_rem == other.keep_rem
             && self.each == other.each
             && self.total == other.total
-            && self.eliminated == other.eliminated
+            && self.survivors == other.survivors
             && self.left_poss == other.left_poss
             && self.query_matchings == other.query_matchings
             && self.query_pair == other.query_pair
@@ -71,14 +71,14 @@ impl<T: ProgressBarTrait> PartialEq for IterState<T> {
     }
 }
 
-impl<T: ProgressBarTrait> Default for IterState<T> {
+impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> Default for IterState<T, S> {
     fn default() -> Self {
         Self {
             constraints: Default::default(),
             keep_rem: Default::default(),
             each: Default::default(),
             total: Default::default(),
-            eliminated: Default::default(),
+            survivors: Default::default(),
             left_poss: Default::default(),
             query_matchings: Default::default(),
             query_pair: Default::default(),
@@ -89,7 +89,7 @@ impl<T: ProgressBarTrait> Default for IterState<T> {
     }
 }
 
-impl<T: ProgressBarTrait> IterStateTrait for IterState<T> {
+impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterStateTrait for IterState<T, S> {
     /// Start the iteration progress indicator.
     ///
     /// Called at the beginning of an iteration run to initialize progress state.
@@ -125,13 +125,18 @@ impl<T: ProgressBarTrait> IterStateTrait for IterState<T> {
                 writeln!(fs)?;
             }
 
-            self.step_handle_eliminated(p);
+            self.survivors += 1;
+
+            // store the permutation as still possible solution
+            if self.keep_rem {
+                self.left_poss.push(p.clone());
+            }
         }
         Ok(())
     }
 }
 
-impl<T: ProgressBarTrait> IterState<T> {
+impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> {
     /// Create a new `IterState`.
     ///
     /// - `keep_rem`: whether to keep remaining permutations in memory for reporting.
@@ -142,12 +147,12 @@ impl<T: ProgressBarTrait> IterState<T> {
     pub fn new(
         keep_rem: bool,
         perm_amount: usize,
-        constraints: Vec<Constraint>,
+        constraints: Vec<S>,
         query_matchings: &[MaskedMatching],
         query_pair: &(HashSet<u8>, HashSet<u8>),
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
-    ) -> Result<IterState<T>> {
+    ) -> Result<IterState<T, S>> {
         let file = if let Some(path) = cache_file {
             Some(BufWriter::new(File::create(path)?))
         } else {
@@ -171,7 +176,7 @@ impl<T: ProgressBarTrait> IterState<T> {
             ),
             each: vec![vec![0; map_lens.1]; map_lens.0],
             total: 0,
-            eliminated: 0,
+            survivors: 0,
             left_poss: vec![],
             progress: T::new(100),
             cnt_update: std::cmp::max(perm_amount / 50, 1),
@@ -211,9 +216,13 @@ impl<T: ProgressBarTrait> IterState<T> {
     fn step_process(&mut self, p: &MaskedMatching) -> Result<bool> {
         for c in &mut self.constraints {
             if !c.process(p)? {
-                // permutation was eliminated by this constraint
-                let by = c.type_str().to_string() + " " + c.comment();
-                self.step_collect_query_matching(p, by);
+                // check if this permutation was queried.
+                // If so store by which constraint it was eliminated
+                for (q, id) in &mut self.query_matchings {
+                    if q == p {
+                        *id = Some(c.type_str().to_string() + " " + c.comment());
+                    }
+                }
                 return Ok(false);
             }
         }
@@ -240,25 +249,6 @@ impl<T: ProgressBarTrait> IterState<T> {
             }
         }
     }
-
-    fn step_collect_query_matching(&mut self, p: &MaskedMatching, eliminated_by: String) {
-        // check if this permutation was queried.
-        // If so store by which constraint it was eliminated
-        for (q, id) in &mut self.query_matchings {
-            if q == p {
-                *id = Some(eliminated_by.clone());
-            }
-        }
-    }
-
-    fn step_handle_eliminated(&mut self, p: &MaskedMatching) {
-        self.eliminated += 1;
-
-        // store the permutation as still possible solution
-        if self.keep_rem {
-            self.left_poss.push(p.clone());
-        }
-    }
 }
 
 #[cfg(test)]
@@ -269,16 +259,46 @@ mod tests {
     use crate::progressbar::MockProgressBar;
 
     use pretty_assertions::assert_eq;
+    use rust_decimal::Decimal;
 
     fn sample_matching() -> MaskedMatching {
         // slot0 -> {1,2}, slot1 -> {0}
         MaskedMatching::from_matching_ref(&[vec![1u8, 2u8], vec![0u8]])
     }
 
+    #[derive(Default, Debug, Clone, PartialEq)]
+    struct MockConstraint {
+        process_cnt: usize,
+        fits: bool,
+        comment: String,
+        type_str: String,
+        num: Decimal,
+    }
+
+    impl ConstraintSim for MockConstraint {
+        fn process(&mut self, _m: &MaskedMatching) -> Result<bool> {
+            self.process_cnt += 1;
+            Ok(self.fits)
+        }
+    }
+    impl ConstraintGetters for MockConstraint {
+        fn comment(&self) -> &str {
+            &self.comment
+        }
+
+        fn type_str(&self) -> String {
+            self.type_str.clone()
+        }
+
+        fn num(&self) -> rust_decimal::Decimal {
+            self.num
+        }
+    }
+
     #[test]
     fn step_counting_all_updates_matrix_and_total() {
         // Build a minimal IterState - only the `each` matrix matters.
-        let mut state: IterState<MockProgressBar> = IterState {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
             each: vec![vec![0; 3]; 2],
             ..Default::default()
         };
@@ -291,15 +311,10 @@ mod tests {
 
     #[test]
     fn step_collect_query_pair_populates_maps() {
-        // TODO: "simplify" this creation
-        // We want to track left index 0 and right value 0.
-        let left_set: HashSet<u8> = [0u8].iter().cloned().collect();
-        let right_set: HashSet<u8> = [0u8].iter().cloned().collect();
-
-        let mut state: IterState<MockProgressBar> = IterState {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
             query_pair: (
-                left_set.iter().map(|i| (*i, HashMap::new())).collect(),
-                right_set.iter().map(|i| (*i, HashMap::new())).collect(),
+                HashMap::from_iter([(0, HashMap::from_iter([]))]),
+                HashMap::from_iter([(0, HashMap::from_iter([]))]),
             ),
             ..Default::default()
         };
@@ -319,47 +334,127 @@ mod tests {
     }
 
     #[test]
-    fn step_collect_query_matching_stores_elimination_comment() {
+    fn step_process_stores_elimination_comment_for_queried_matching() -> Result<()> {
         // Prepare a query_matchings vector that contains the sample matching.
-        let mut state: IterState<MockProgressBar> = IterState {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
+            constraints: vec![MockConstraint {
+                fits: false,
+                type_str: "TYPE".to_string(),
+                comment: "comment".to_string(),
+                ..Default::default()
+            }],
             query_matchings: vec![(sample_matching(), None)],
             ..Default::default()
         };
 
-        state.step_collect_query_matching(&sample_matching(), "TYPE comment".to_string());
+        assert!(!state.step_process(&sample_matching())?);
 
         assert_eq!(
             state.query_matchings,
             vec![(sample_matching(), Some("TYPE comment".to_string())),]
         );
+
+        Ok(())
     }
 
     #[test]
-    fn step_handle_eliminated_updates_counters_and_keeps_if_requested() {
-        let mut state: IterState<MockProgressBar> = IterState {
+    fn step_updates_survivors_and_optionally_keeps_remaining() -> Result<()> {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
             keep_rem: false,
-            eliminated: 0,
+            survivors: 0,
             left_poss: Vec::new(),
+            constraints: vec![], // ensures permutation survives
             ..Default::default()
         };
 
-        state.step_handle_eliminated(&sample_matching());
-        state.step_handle_eliminated(&sample_matching());
+        state.step(0, &sample_matching())?;
+        state.step(1, &sample_matching())?;
 
-        assert_eq!(state.eliminated, 2);
+        assert_eq!(state.survivors, 2);
         assert_eq!(state.left_poss, vec![]);
 
-        let mut state: IterState<MockProgressBar> = IterState {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
             keep_rem: true,
-            eliminated: 0,
+            survivors: 0,
             left_poss: Vec::new(),
+            constraints: vec![], // ensures permutation survives
             ..Default::default()
         };
 
-        state.step_handle_eliminated(&sample_matching());
-        state.step_handle_eliminated(&sample_matching());
+        state.step(0, &sample_matching())?;
+        state.step(1, &sample_matching())?;
 
-        assert_eq!(state.eliminated, 2);
+        assert_eq!(state.survivors, 2);
         assert_eq!(state.left_poss, vec![sample_matching(), sample_matching(),]);
+
+        Ok(())
+    }
+
+    #[test]
+    fn step_process_all_constraints_pass() -> Result<()> {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
+            constraints: vec![],
+            ..Default::default()
+        };
+        assert!(state.step_process(&sample_matching())?);
+
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
+            constraints: vec![MockConstraint {
+                process_cnt: 0,
+                fits: true,
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+        assert!(state.step_process(&sample_matching())?);
+        assert!(state.step_process(&sample_matching())?);
+
+        assert_eq!(
+            state.constraints,
+            vec![MockConstraint {
+                process_cnt: 2,
+                fits: true,
+                ..Default::default()
+            },]
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn step_process_multiple() -> Result<()> {
+        let mut state: IterState<MockProgressBar, MockConstraint> = IterState {
+            constraints: vec![
+                MockConstraint {
+                    process_cnt: 0,
+                    fits: false,
+                    ..Default::default()
+                },
+                MockConstraint {
+                    process_cnt: 0,
+                    fits: true,
+                    ..Default::default()
+                },
+            ],
+            ..Default::default()
+        };
+        assert!(!state.step_process(&sample_matching())?);
+        assert!(!state.step_process(&sample_matching())?);
+
+        assert_eq!(
+            state.constraints,
+            vec![
+                MockConstraint {
+                    process_cnt: 2,
+                    fits: false,
+                    ..Default::default()
+                },
+                MockConstraint {
+                    process_cnt: 0,
+                    fits: true,
+                    ..Default::default()
+                },
+            ]
+        );
+        Ok(())
     }
 }

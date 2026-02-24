@@ -165,7 +165,7 @@ fn main() {
             }
 
             let start = Instant::now();
-            let result: IterState<ProgressBar> = g.sim(dump.clone()).unwrap();
+            let result: IterState<ProgressBar, _> = g.sim(dump.clone()).unwrap();
             g.eval(transpose_tabs, dump, full, &result, no_tree_output)
                 .unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
