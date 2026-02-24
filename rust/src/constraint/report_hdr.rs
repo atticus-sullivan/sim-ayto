@@ -2,11 +2,12 @@
 /// used as a header to the table showing the matching possibilities left in all possible
 /// solutions.
 use core::fmt;
+use std::collections::HashMap;
 
 use comfy_table::{presets::NOTHING, Row, Table};
 
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
-use crate::MapS;
+use crate::{Lut, MapS, Rem};
 
 struct CheckTypeRender<'a> {
     check: &'a CheckType,
@@ -43,6 +44,7 @@ impl fmt::Display for CheckTypeRender<'_> {
 
 struct MapSRender<'a> {
     map: &'a MapS,
+    probs: HashMap<&'a String, f64>,
     past_constraints: &'a [Constraint],
     show_past_cnt: bool,
 }
@@ -70,10 +72,12 @@ impl fmt::Display for MapSRender<'_> {
                 rows[i].0 = k;
                 rows[i].1.add_cell(format!("{}x {}", cnt, k).into());
                 rows[i].1.add_cell(v.into());
+                rows[i].1.add_cell(self.probs.get(k).unwrap().into());
             } else {
                 rows[i].0 = k;
                 rows[i].1.add_cell(k.into());
                 rows[i].1.add_cell(v.into());
+                rows[i].1.add_cell(self.probs.get(k).unwrap().into());
             }
         }
         rows.sort_by_key(|i| i.0);
@@ -106,11 +110,17 @@ impl Constraint {
     pub(crate) fn generate_hdr_report<'a>(
         &'a self,
         past_constraints: &'a [Constraint],
+        rem: &Rem,
+        lut_a: &Lut,
+        lut_b: &Lut,
     ) -> ReportData<'a> {
         ReportData {
             hdr: format!("{} {}", self.type_str(), self.comment()),
             map_s: MapSRender {
                 map: &self.map_s,
+                probs: self.map_s.iter().map(|(k,v)| {
+                    (k, rem.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0 / rem.1 as f64)
+                }).collect(),
                 show_past_cnt: self.show_past_cnt(),
                 past_constraints,
             },
