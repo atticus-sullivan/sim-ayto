@@ -107,3 +107,17 @@ Ok no. I'd like to keep the modules as is. Now let us start with this module. Pl
 Note I have the following convention: Test-cases must have the following naming: &lt;original function name&gt;\_&lt;"simple" or a short description of the case&gt;
 
 Do not add comments.
+
+---
+
+Alright. This is the final module: 
+
+Please write me an internal unit-test suite for it. You may rename, edit, remove the existing tests. Only write tests for functions defined in this module!
+
+Note I have the following convention: Test-cases must have the following naming: &lt;original function name&gt;\_&lt;"simple" or a short description of the case&gt;
+
+Do not add comments. 
+
+---
+
+Alright. This is the next module to review. Start with writing a review focused on the testability. But do NOT write tests yet.
