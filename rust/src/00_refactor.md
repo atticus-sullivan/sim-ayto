@@ -16,6 +16,10 @@ the way and to specify which cache to use in the config file
 - [ ] test cases aufräumen, aktuell häufig eine große Funktion mit mehreren
 cases -> sollten mehrere kleine funktionen (mit aussagekräftigem Namen) sein mit
 je nur einem case
+- [ ] nach folgenden begriffen suchen und dann aufräumen:
+    - existing
+    - code
+    - legacy
 
 # LOCs (sorted)
 - instead of splitting it is also ok to simplify the code
@@ -71,9 +75,9 @@ TODO (ausgelassen erstmal)
 - [x] Write doc-comments for files
 
 ## ruleset
-- [ ] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
 
 
 
