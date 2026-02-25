@@ -108,8 +108,7 @@ impl From<&[IdBase]> for MaskedMatching {
     fn from(ms: &[IdBase]) -> Self {
         let mut slots = vec![];
         for m in ms {
-            let mut b = Bitset::empty();
-            b.insert(*m);
+            let b = Bitset::from_idxs(&[*m]);
             slots.push(b);
         }
         MaskedMatching::from_masks(slots)
@@ -262,7 +261,10 @@ mod tests {
     #[test]
     fn from_idbase_slice() {
         let mm = MaskedMatching::from(&[1 as IdBase, 2 as IdBase][..]);
-        assert_eq!(mm.masks, vec![Bitset::from_idxs(&[1, 2]),])
+        assert_eq!(
+            mm.masks,
+            vec![Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2]),]
+        )
     }
 
     // (idBase, idBase) -> MaskedMatching

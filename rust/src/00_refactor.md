@@ -59,16 +59,16 @@ TODO (ausgelassen erstmal)
 - [x] write tests
 - [x] Write doc-comments for files
 
-
 ## matching_repr
-- [ ] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
+
 
 ## ruleset_data
-- [ ] (re-)organization of functions and files
-- [ ] write tests
-- [ ] Write doc-comments for files
+- [x] (re-)organization of functions and files
+- [x] write tests
+- [x] Write doc-comments for files
 
 ## ruleset
 - [ ] (re-)organization of functions and files
@@ -99,3 +99,11 @@ Do NOT write any tests yet.
 ---
 
 Alright then please write tests (with the guidelines I've given). Use your suite as template. You may extend if you find yet uncovered cases/functions.
+
+---
+
+Ok no. I'd like to keep the modules as is. Now let us start with this module. Please write me testcases for every function which should be tested (just plugging code does not need to be tested).
+
+Note I have the following convention: Test-cases must have the following naming: &lt;original function name&gt;\_&lt;"simple" or a short description of the case&gt;
+
+Do not add comments.

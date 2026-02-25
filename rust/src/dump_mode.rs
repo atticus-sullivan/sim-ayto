@@ -1,5 +1,6 @@
 /// This module implements different ways to dump the remaining possible solutions
 use crate::matching_repr::MaskedMatching;
+use std::io;
 
 #[derive(clap::ValueEnum, Clone, Debug)]
 pub enum DumpMode {
@@ -10,13 +11,13 @@ pub enum DumpMode {
 }
 
 impl DumpMode {
-    pub(super) fn dump<W: std::io::Write>(
+    pub(super) fn dump<W: io::Write>(
         &self,
         left_poss: &[MaskedMatching],
         map_a: &[String],
         map_b: &[String],
         mut out: W,
-    ) -> std::io::Result<()> {
+    ) -> io::Result<()> {
         match self {
             DumpMode::Full => {
                 for p in left_poss.iter() {
@@ -25,7 +26,12 @@ impl DumpMode {
             }
             DumpMode::FullNames => {
                 for p in left_poss.iter() {
-                    writeln!(out, "{:?}", p.prepare_debug_print_names(map_a, map_b))?;
+                    writeln!(
+                        out,
+                        "{:?}",
+                        p.prepare_debug_print_names(map_a, map_b)
+                            .map_err(io::Error::other)?
+                    )?;
                 }
             }
             DumpMode::Winning => {
@@ -38,7 +44,12 @@ impl DumpMode {
             DumpMode::WinningNames => {
                 for p in left_poss.iter() {
                     for pw in p.iter_unwrapped() {
-                        writeln!(out, "{:?}", pw.prepare_debug_print_names(map_a, map_b))?;
+                        writeln!(
+                            out,
+                            "{:?}",
+                            pw.prepare_debug_print_names(map_a, map_b)
+                                .map_err(io::Error::other)?
+                        )?;
                     }
                 }
             }

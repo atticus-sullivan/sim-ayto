@@ -29,7 +29,7 @@ impl MaskedMatching {
     ///
     /// ```
     /// # use ayto::matching_repr::MaskedMatching;
-    /// let m = MaskedMatching::from(&vec![vec![0], vec![]]);
+    /// let m = MaskedMatching::from_matching_ref(&vec![vec![0], vec![]]);
     /// assert!(!m.slot_empty(0));
     /// assert!(m.slot_empty(1));
     /// assert!(m.slot_empty(2)); // out-of-range -> empty
