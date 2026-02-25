@@ -59,7 +59,7 @@ impl ConstraintEval for Constraint {
                     self.map.iter_pairs().all(|(a, b)| {
                         sol.slot_mask(a as usize)
                             .unwrap_or(&Bitset::empty())
-                            .contains(b)
+                            .contains_idx(b)
                     })
                 });
             }

@@ -85,7 +85,7 @@ impl RuleSet {
                 // build base vector `x` = all lut_b indices excluding the fixed numbers
                 // Len(x) == a + unknown_cnt
                 let mut x = (0..lut_b.len() as u8)
-                    .filter(|i| !fixed_nums.contains(*i))
+                    .filter(|i| !fixed_nums.contains_idx(*i))
                     .map(|i| Bitset::from_idxs(&[i]))
                     .collect::<Vec<_>>();
 

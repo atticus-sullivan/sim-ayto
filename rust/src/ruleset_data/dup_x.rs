@@ -49,7 +49,9 @@ impl DupXData {
             Some(q) => self
                 .cnt
                 .iter()
-                .filter(|i| i.0 .1.contains(q) && i.0 .1.iter().all(|j| !query_not.contains(&j)))
+                .filter(|i| {
+                    i.0 .1.contains_idx(q) && i.0 .1.iter().all(|j| !query_not.contains(&j))
+                })
                 .collect::<Vec<_>>(),
             None => self
                 .cnt
