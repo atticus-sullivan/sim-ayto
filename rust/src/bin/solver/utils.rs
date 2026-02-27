@@ -27,7 +27,6 @@ pub(crate) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> 
             -p * p.log2()
         })
         .sum();
-    println!("{x}");
     x
 }
 
