@@ -269,8 +269,8 @@ mod tests {
         let a = Bitset::from_idxs(&[1, 3]);
         let b = Bitset::from_idxs(&[3, 4]);
         let c = Bitset::from_idxs(&[0, 2]);
-        assert!(a.contains_any(&b));
-        assert!(!a.contains_any(&c));
+        assert!(a.contains_any(b));
+        assert!(!a.contains_any(c));
     }
 
     #[test]

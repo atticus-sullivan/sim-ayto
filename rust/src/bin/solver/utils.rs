@@ -19,15 +19,14 @@ pub(crate) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> 
         lights[l as usize] += 1;
     }
 
-    let x = lights
+    lights
         .into_iter()
         .filter(|&i| i > 0)
         .map(|i| {
             let p = (i as f64) / total;
             -p * p.log2()
         })
-        .sum();
-    x
+        .sum()
 }
 
 /// Format a millisecond timestamp into HH:MM:SS for the progress display.
