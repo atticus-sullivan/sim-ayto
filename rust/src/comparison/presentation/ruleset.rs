@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module allows rendering an overview over the different rulesets used for the various
 //! seasons.
 

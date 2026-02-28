@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module-tree offers various ways of generating permutations.
 //! The basic idea is to write functions which are pluggable. This means that one function
 //! generates a sequence of permutations. Then another function takes one of these permutations,

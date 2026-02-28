@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This is a mostly a definition which plots shall be drawn
 //!
 //! # Testing

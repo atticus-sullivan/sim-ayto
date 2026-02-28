@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This implements a trait, a normal + a mock implementation for working with a progressbar.
 
 use indicatif::ProgressStyle;

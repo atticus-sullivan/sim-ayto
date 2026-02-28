@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements helpers used to evaluate the data gathered by ruleset_data.
 
 use std::{collections::HashMap, io::Write, ops::AddAssign};

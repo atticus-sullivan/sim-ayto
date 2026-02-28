@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements a writer thread which receives SimulationResults from the worker threads
 //! and writes the results in a line-delimited JSON file to disk.
 //! As this is the location where information flows together, it is also the responsibility of the

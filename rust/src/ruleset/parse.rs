@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module parses a ruleset. It transfers a RuleSetParse to a ready to use Ruleset.
 
 use crate::ruleset::RuleSet;

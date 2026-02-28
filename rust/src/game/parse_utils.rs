@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module contains standalone helpers to faciliate turning a parsed (from yaml) game to a
 //! ready-to-use `Game`.
 

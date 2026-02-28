@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module provides all functionalities required for printing a table of the remaining
 //! probabilities of a match.
 //! For the outside the computation is split into two steps:

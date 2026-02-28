@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module is typically used to
 //! 1. deserialize into `ConstraintParse`
 //! 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation

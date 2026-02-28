@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This ruleset_data can be used if no specific data should be collected. The functions which need
 //! to be implemented are simple no-ops.
 

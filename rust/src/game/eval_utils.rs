@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements helper-utilities to use when evaluating the series of constraints.
 
 use anyhow::Result;

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module offers the functionality to generate a tree of a collection of matchings. For every
 //! pairing it adds a node. The ordering of the levels so pairings with high probability are placed
 //! higher and pairings with lower probability are placed lower.

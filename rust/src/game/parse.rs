@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module is concerned with parsing a game from a config stored as yaml on disk.
 //! Based on the data which is deserialized, it allows to construct a ready to use `Game` by using
 //! the `finalize_parsing` function.

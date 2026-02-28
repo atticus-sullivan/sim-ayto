@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 use ayto::comparison;
 use ayto::game::cache::{CacheModeArg, CacheModeFallback, CacheSpec};
 use ayto::game::cache_report::show_caches;

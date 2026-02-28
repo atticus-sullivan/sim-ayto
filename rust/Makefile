@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Lukas Heindl
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 .PHONY: all run build buildAll buildRelease run check contCheck cont test
 
 SRC_FILES = $(shell find src/ -iname "*.rs")

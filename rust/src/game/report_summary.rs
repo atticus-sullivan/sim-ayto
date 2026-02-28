@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module offers printing a summary table for a collection of constraints.
 
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module contains getters / evaluations which is used to pre-process the gathered data for a
 //! comparison with other simulations.
 //! The root is `EvalData` (which is at some point serialized/stored so the comparison can take

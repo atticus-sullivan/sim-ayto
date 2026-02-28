@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module contains functions to be used when evaluating after the simulation completed.
 //!
 //! Note: There is also evaluate_predicates which contains functions serving as predicates during

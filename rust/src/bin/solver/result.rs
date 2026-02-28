@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements the struct which collects all statistics collected during the simulation
 //! which are stored on disk for a later evaluation.
 

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! Optimize/Select a full matching to seat at the Matching-Night
 
 pub(crate) mod entropy_left;

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This complete module contains the functionality to
 //! 1. collect stored data about seasons from disk
 //! 2. render them in plots (plotly) and tables (markdown using hextra/hugo additions)

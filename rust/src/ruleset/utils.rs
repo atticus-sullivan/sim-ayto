@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements various helper functions to be used when working with the rulesets.
 
 use anyhow::{ensure, Result};

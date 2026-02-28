@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module represents the whole game.
 //! A game has te following lifecycle:
 //! 1. parsed from yaml as `GameParse` -> parse module

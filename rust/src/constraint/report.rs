@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module is concerned with building reports. This is coupled with evaluation and comparison.
 //! But in contrast to these two concerns, this mostly covers presenting and visualizing the data.
 //! So not much raw processing takes place here.

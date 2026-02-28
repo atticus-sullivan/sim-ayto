@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements an object which statefully manages the whole simulation logic while
 //! gathering some statistics along the way.
 //! It is also responsible for features like showing a progressbar if this is desired.

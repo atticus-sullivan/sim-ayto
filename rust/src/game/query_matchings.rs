@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module contains everything needed (in the game module) to query specific matchings. This
 //! includes finishing the parsing from the config and generating the final report.
 

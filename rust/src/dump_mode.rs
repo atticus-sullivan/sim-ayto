@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements different ways to dump the remaining possible solutions
 
 use crate::matching_repr::MaskedMatching;

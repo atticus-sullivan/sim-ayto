@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module facilitates writing a markdown file which includes tables contained in the terminal
 //! output. The markdown rendering depends on that terminal output split into the various tables
 //! and converted to png files as specified. Similarly the tree (dot) files must have been

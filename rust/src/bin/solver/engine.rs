@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module offers the functionality to run a single simulation. It is so to speak the engine
 //! which drives the benchmarking.
 

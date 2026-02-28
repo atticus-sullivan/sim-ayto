@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module implements a dup_data which tracks how often people occur in multi-matches
 //! (dup/trip). Here it is mandatory that only one multi-match exists.
 

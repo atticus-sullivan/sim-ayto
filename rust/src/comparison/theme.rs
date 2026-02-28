@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module contains some helpers which help theming the outputs.
 
 use catppuccin::{ColorName, Flavor, PALETTE};

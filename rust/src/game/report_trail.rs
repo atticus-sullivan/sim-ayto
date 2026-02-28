@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module offers the functionality to print a trail of the evaluated constraints.
 //! This includes for the most part a table for each constraint with the remaining probabilities
 //! along with some additional information before and after this table.

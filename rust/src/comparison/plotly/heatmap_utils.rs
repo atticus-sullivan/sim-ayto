@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module provides helpers for the functionality the heatmap module builds on top of the
 //! native plotly heatmap features.
 //! Namely this is

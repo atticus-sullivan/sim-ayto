@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! An implementation for an optimizer for Match-Box decisions.
 //! Selects the optimal match to place in the Match-Box. The optimum is the match which is closest
 //! to 50% probability.

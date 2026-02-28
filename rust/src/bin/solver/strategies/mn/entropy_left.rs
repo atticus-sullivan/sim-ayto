@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! An implementation for an optimizer for Matching-Night.
 //! Tries to find the optimal way full-matching to seat. The true optimum would be iterate over all
 //! possible seatings and calculate with which the highest drop of possibilities can be expected (= H max)

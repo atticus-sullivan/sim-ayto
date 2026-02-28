@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module handles all kinds of duplicates:
 //! 1. We know a value which must be part of the triple entry
 //! 2. The base was extended and the value(s) which is/are part of the triple(s) are simply the

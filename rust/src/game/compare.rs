@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module provides all functionalities to generate and store data which can later be used for
 //! a comparison.
 //! Prerequisite is that the evaluation already took place.

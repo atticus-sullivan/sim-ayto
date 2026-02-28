@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module collects some functions to generate uniformly styled plotly figures.
 
 use catppuccin::Flavor;

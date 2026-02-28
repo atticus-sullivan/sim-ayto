@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module provides some simple predicates for the use of generating a report. They all decide
 //! whether some kind of information shall be reported/shown or not
 

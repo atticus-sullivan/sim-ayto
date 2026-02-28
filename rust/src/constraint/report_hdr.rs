@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module provides all functionality to display the constraint in detail. Usually this is
 //! used as a header to the table showing the matching possibilities left in all possible
 //! solutions.

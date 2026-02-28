@@ -1,1 +1,0 @@
-- [ ] licensing headers. Better: switch to "reuse" project

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module (and its submodules) implement a mean to store data specific for a ruleset.
 //! Depending on the ruleset chosen, different kinds of evaluations might be intereseting. For this
 //! different statistics need to be collected during the simulation. Also reporting on these

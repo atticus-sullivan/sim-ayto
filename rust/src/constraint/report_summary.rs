@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 //! This module renders one row for a comfy_table table showing a summary of this constraint (type,
 //! map, information, etc)
 
