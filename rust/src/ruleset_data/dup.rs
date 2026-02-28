@@ -7,6 +7,7 @@ use std::io::Write;
 
 use anyhow::{Context, Result};
 
+use crate::matching_repr::IdBase;
 use crate::ruleset_data::utils::{
     aggregate_by_bitset, aggregate_by_individual_a, aggregate_by_individual_b, print_stats,
 };

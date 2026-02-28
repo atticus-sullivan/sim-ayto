@@ -9,7 +9,7 @@ use crate::constraint::parse::ConstraintParse;
 use crate::constraint::{CheckType, ConstraintType};
 use crate::ignore_ops::IgnoreOps;
 use crate::matching_repr::IdBase;
-use crate::{Lut, Map, MapS};
+use crate::{LightCnt, Lut, Map, MapS};
 
 impl ConstraintParse {
     /// How many known lights this constraint *adds* when converting a box constraint with

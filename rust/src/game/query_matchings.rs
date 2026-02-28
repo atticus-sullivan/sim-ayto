@@ -7,6 +7,7 @@ use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 use smallvec::SmallVec;
 
+use crate::matching_repr::IdBase;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::{Lut, MatchingS};
 
