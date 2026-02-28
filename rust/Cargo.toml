@@ -12,7 +12,7 @@ license = "GPL-3.0-or-later"
 [profile.release]
 codegen-units = 1
 lto = true
-# rustflags = ["-C", "target-cpu=skylake"]
+# rustflags = ["-C", "target-cpu=native"]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
