@@ -55,12 +55,12 @@ impl MnOptimizer for EntropyLeftMnOptimizer {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ayto::matching_repr::MaskedMatching;
+    use ayto::matching_repr::{IdBase, MaskedMatching};
     use pretty_assertions::assert_eq;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
 
-    fn make_masked_matching(values: &[u8]) -> MaskedMatching {
+    fn make_masked_matching(values: &[IdBase]) -> MaskedMatching {
         MaskedMatching::from(values)
     }
 

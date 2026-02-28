@@ -30,7 +30,7 @@ use anyhow::Result;
 use crate::constraint::Constraint;
 use crate::dump_mode::DumpMode;
 use crate::iterstate::IterState;
-use crate::matching_repr::MaskedMatching;
+use crate::matching_repr::{IdBase, MaskedMatching};
 use crate::progressbar::ProgressBarTrait;
 use crate::ruleset::RuleSet;
 use crate::Lut;
@@ -54,7 +54,7 @@ pub struct Game {
     dir: PathBuf,
     stem: String,
     query_matchings: Vec<MaskedMatching>,
-    query_pair: (HashSet<u8>, HashSet<u8>),
+    query_pair: (HashSet<IdBase>, HashSet<IdBase>),
 
     cache_file: Option<PathBuf>,
     cache_to: Option<PathBuf>,

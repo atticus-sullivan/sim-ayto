@@ -2,7 +2,7 @@
 
 use std::{collections::HashMap, io::Write, ops::AddAssign};
 
-use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::{IdBase, bitset::Bitset};
 
 /// Helper that aggregates a `(usize, Bitset)` map by the Bitset itself.
 /// cnt: (a, bs) -> increase count by v
@@ -23,11 +23,11 @@ where
 /// Helper that aggregates by each individual index inside the Bitset.
 /// cnt: (a, bs) -> increase count by v
 /// returns a sorted vector
-pub(super) fn aggregate_by_individual_b<T>(cnt: &HashMap<(usize, Bitset), T>) -> Vec<(u8, T)>
+pub(super) fn aggregate_by_individual_b<T>(cnt: &HashMap<(usize, Bitset), T>) -> Vec<(IdBase, T)>
 where
     T: Copy + AddAssign + Default + Ord,
 {
-    let mut agg: HashMap<u8, T> = HashMap::new();
+    let mut agg: HashMap<IdBase, T> = HashMap::new();
     for ((_, bs), v) in cnt.iter() {
         for idx in bs.iter() {
             *agg.entry(idx).or_default() += *v;

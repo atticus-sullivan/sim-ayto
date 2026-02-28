@@ -9,6 +9,7 @@ use std::io::Write;
 
 use anyhow::{Context, Result};
 
+use crate::matching_repr::IdBase;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset::RuleSet;
 use crate::ruleset::RuleSetDupX;
@@ -45,8 +46,8 @@ impl DupXData {
         map_a: &[String],
         map_b: &[String],
         total: u128,
-        query: Option<u8>,
-        query_not: &HashSet<u8>,
+        query: Option<IdBase>,
+        query_not: &HashSet<IdBase>,
         hdr: &str,
     ) -> Result<()> {
         let word = match ruleset {
@@ -108,7 +109,7 @@ impl RuleSetData for DupXData {
                 .map(|i| {
                     lut_b
                         .get(i)
-                        .map(|x| *x as u8)
+                        .map(|x| *x as IdBase)
                         .with_context(|| format!("{i} not found"))
                 })
                 .collect::<Result<HashSet<_>>>()?;
@@ -134,12 +135,12 @@ struct DupXStats<'a> {
 
     full_matches: Vec<((usize, Bitset), usize)>,
     by_bitset: Vec<(Bitset, usize)>,
-    by_individual: Vec<(u8, usize)>,
+    by_individual: Vec<(IdBase, usize)>,
     by_a: Vec<(usize, usize)>,
 }
 
 impl<'a> DupXStats<'a> {
-    fn new(data: &DupXData, hdr: &'a str, query: Option<u8>, query_not: &HashSet<u8>) -> Self {
+    fn new(data: &DupXData, hdr: &'a str, query: Option<IdBase>, query_not: &HashSet<IdBase>) -> Self {
         // filter according to query / query_not
         let filtered = match query {
             Some(q) => data
@@ -244,14 +245,14 @@ impl<'a> DupXStats<'a> {
     }
 }
 
-fn dup_query_not(rs: &RuleSetDupX, lut_b: &Lut, d: &String) -> Result<HashSet<u8>> {
+fn dup_query_not(rs: &RuleSetDupX, lut_b: &Lut, d: &String) -> Result<HashSet<IdBase>> {
     rs.1.iter()
         .filter_map(|i| {
             if i != d {
                 Some(
                     lut_b
                         .get(i)
-                        .map(|x| *x as u8)
+                        .map(|x| *x as IdBase)
                         .with_context(|| format!("{i} not found")),
                 )
             } else {
@@ -261,10 +262,10 @@ fn dup_query_not(rs: &RuleSetDupX, lut_b: &Lut, d: &String) -> Result<HashSet<u8
         .collect::<Result<HashSet<_>>>()
 }
 
-fn dup_query(lut_b: &Lut, d: &String) -> Result<u8> {
+fn dup_query(lut_b: &Lut, d: &String) -> Result<IdBase> {
     lut_b
         .get(d)
-        .map(|d| *d as u8)
+        .map(|d| *d as IdBase)
         .with_context(|| format!("{d} not found"))
 }
 

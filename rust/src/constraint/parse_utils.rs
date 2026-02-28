@@ -8,12 +8,13 @@ use anyhow::{ensure, Context, Result};
 use crate::constraint::parse::ConstraintParse;
 use crate::constraint::{CheckType, ConstraintType};
 use crate::ignore_ops::IgnoreOps;
+use crate::matching_repr::IdBase;
 use crate::{Lut, Map, MapS};
 
 impl ConstraintParse {
     /// How many known lights this constraint *adds* when converting a box constraint with
     /// lights==1 to a new effective constraint.
-    pub(crate) fn added_known_lights(&self) -> u8 {
+    pub(crate) fn added_known_lights(&self) -> LightCnt {
         if self.hidden {
             return 0;
         }
@@ -44,19 +45,19 @@ impl ConstraintParse {
         &self,
         lut_a: &Lut,
         lut_b: &Lut,
-    ) -> Result<(HashMap<u8, u8>, MapS)> {
+    ) -> Result<(HashMap<IdBase, IdBase>, MapS)> {
         let c_map = self
             .map_s
             .iter()
             .map(&|(k, v)| {
-                let k_id = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as u8;
+                let k_id = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as IdBase;
                 let v_id = *lut_b
                     .get(v)
                     .with_context(|| format!("Invalid Value {}", v))?
-                    as u8;
+                    as IdBase;
                 Ok((k_id, v_id))
             })
-            .collect::<Result<HashMap<u8, u8>>>()?;
+            .collect::<Result<HashMap<IdBase, IdBase>>>()?;
 
         // c_map_s will be owned copy of map_s so caller can mutate it (sort/rename later)
         let c_map_s = self.map_s.clone();

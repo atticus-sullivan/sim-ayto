@@ -7,11 +7,11 @@ use core::fmt;
 use comfy_table::{presets::NOTHING, Row, Table};
 
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
-use crate::MapS;
+use crate::{LightCnt, MapS};
 
 struct CheckTypeRender<'a> {
     check: &'a CheckType,
-    i: Option<Vec<(u8, f64)>>,
+    i: Option<Vec<(LightCnt, f64)>>,
     e: Option<f64>,
 }
 

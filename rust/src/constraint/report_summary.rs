@@ -5,6 +5,7 @@ use core::fmt;
 
 use comfy_table::Cell;
 
+use crate::LightCnt;
 use crate::constraint::evaluate_predicates::ConstraintEval;
 use crate::constraint::{CheckType, Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
@@ -88,7 +89,7 @@ impl LightSemantic {
 enum LightCell {
     Unknown,
     Equal,
-    Value(u8),
+    Value(LightCnt),
 }
 
 impl fmt::Display for LightCell {

@@ -17,10 +17,12 @@ use std::collections::HashMap;
 
 use comfy_table::Color;
 
+use crate::matching_repr::IdBase;
+
 type MatchingS = HashMap<String, Vec<String>>;
-pub type Matching = Vec<Vec<u8>>;
+pub type Matching = Vec<Vec<IdBase>>;
 type MapS = HashMap<String, String>;
-pub type Map = HashMap<u8, u8>;
+pub type Map = HashMap<IdBase, IdBase>;
 type Lut = HashMap<String, usize>;
 type Rename = HashMap<String, String>;
 
@@ -48,3 +50,5 @@ pub const COLOR_ALT_BG: Color = Color::Rgb {
     g: 44,
     b: 60,
 };
+
+pub type LightCnt = u8;

@@ -61,7 +61,7 @@ impl RuleSetData for DupData {
 struct DupStats {
     full_matches: Vec<((usize, Bitset), usize)>,
     by_bitset: Vec<(Bitset, usize)>,
-    by_individual: Vec<(u8, usize)>,
+    by_individual: Vec<(IdBase, usize)>,
     by_a: Vec<(usize, usize)>,
 }
 

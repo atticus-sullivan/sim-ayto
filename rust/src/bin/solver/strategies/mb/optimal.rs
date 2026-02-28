@@ -2,7 +2,7 @@
 //! Selects the optimal match to place in the Match-Box. The optimum is the match which is closest
 //! to 50% probability.
 
-use ayto::matching_repr::MaskedMatching;
+use ayto::matching_repr::{IdBase, MaskedMatching};
 use rand::Rng;
 
 use crate::strategies::mb::MbOptimizer;
@@ -22,7 +22,7 @@ impl MbOptimizer for OptimalMbOptimizer {
                 let diff = val.abs_diff(target);
                 if diff < closest_diff {
                     closest_diff = diff;
-                    closest_index = (i as u8, j as u8);
+                    closest_index = (i as IdBase, j as IdBase);
                 }
             }
         }

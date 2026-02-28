@@ -12,12 +12,13 @@ use indicatif::ProgressStyle;
 use serde_json::to_writer;
 
 use crate::constraint::{ConstraintGetters, ConstraintSim};
+use crate::matching_repr::IdBase;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::progressbar::ProgressBarTrait;
 
 pub(super) type QueryPairData = (
-    HashMap<u8, HashMap<Bitset, u64>>,
-    HashMap<u8, HashMap<u8, u64>>,
+    HashMap<IdBase, HashMap<Bitset, u64>>,
+    HashMap<IdBase, HashMap<IdBase, u64>>,
 );
 
 /// Trait describing a consumer of emitted matchings during iteration.
@@ -151,7 +152,7 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
         perm_amount: usize,
         constraints: Vec<S>,
         query_matchings: &[MaskedMatching],
-        query_pair: &(HashSet<u8>, HashSet<u8>),
+        query_pair: &(HashSet<IdBase>, HashSet<IdBase>),
         cache_file: &Option<PathBuf>,
         map_lens: (usize, usize),
     ) -> Result<IterState<T, S>> {
@@ -238,14 +239,14 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
     fn step_collect_query_pair(&mut self, p: &MaskedMatching) {
         if !self.query_pair.0.is_empty() || !self.query_pair.1.is_empty() {
             for (a, bs) in p.iter().enumerate() {
-                if self.query_pair.0.contains_key(&(a as u8)) {
-                    if let Some(val) = self.query_pair.0.get_mut(&(a as u8)) {
+                if self.query_pair.0.contains_key(&(a as IdBase)) {
+                    if let Some(val) = self.query_pair.0.get_mut(&(a as IdBase)) {
                         val.entry(bs).and_modify(|cnt| *cnt += 1).or_insert(1);
                     };
                 }
                 for b in bs.iter() {
                     if let Some(val) = self.query_pair.1.get_mut(&b) {
-                        val.entry(a as u8).and_modify(|cnt| *cnt += 1).or_insert(1);
+                        val.entry(a as IdBase).and_modify(|cnt| *cnt += 1).or_insert(1);
                     };
                 }
             }

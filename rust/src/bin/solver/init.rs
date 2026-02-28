@@ -3,6 +3,7 @@
 use std::collections::HashSet;
 
 use anyhow::Result;
+use ayto::LightCnt;
 use ayto::progressbar::MockProgressBar;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
@@ -10,14 +11,14 @@ use rust_decimal::dec;
 
 use ayto::constraint::{check_type::CheckType, Constraint, ConstraintType};
 use ayto::iterstate::IterState;
-use ayto::matching_repr::MaskedMatching;
+use ayto::matching_repr::{IdBase, MaskedMatching};
 use ayto::ruleset::RuleSet;
 
 use crate::NUM_PLAYERS_SET_A;
 
 /// Generates a random solution and converts it into `MaskedMatching`.
 pub(super) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
-    let mut solution: Vec<u8> = (0..NUM_PLAYERS_SET_A).map(|x| x as u8).collect();
+    let mut solution: Vec<IdBase> = (0..NUM_PLAYERS_SET_A).map(|x| x as IdBase).collect();
     solution.shuffle(rng);
     (*solution).into()
 }
@@ -60,12 +61,12 @@ pub(super) fn build_initial_constraint(
 
     Ok(Constraint::new_with_defaults(
         constraint_type,
-        CheckType::Lights(lights as u8, Default::default()),
+        CheckType::Lights(lights as LightCnt, Default::default()),
         matching,
         ruleset.init_data()?,
         NUM_PLAYERS_SET_A,
         NUM_PLAYERS_SET_A,
-        lights_known_before as u8,
+        lights_known_before as LightCnt,
     ))
 }
 

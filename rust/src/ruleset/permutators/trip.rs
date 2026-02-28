@@ -8,7 +8,7 @@
 //! - even add_trip_inplace only allows to fix 1/3 of the triple. The other one is taken from the
 //!   end of the base.
 
-use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::{IdBase, bitset::Bitset};
 
 /// In-place version of the "add trip" generator.
 ///
@@ -26,7 +26,7 @@ use crate::matching_repr::bitset::Bitset;
 /// - `buf` is restored to its original state after return.
 /// - No per-emission heap allocations.
 #[inline]
-pub(crate) fn add_trip_inplace<F>(buf: &mut [Bitset], add: u8, mut emit: F) -> anyhow::Result<()>
+pub(crate) fn add_trip_inplace<F>(buf: &mut [Bitset], add: IdBase, mut emit: F) -> anyhow::Result<()>
 where
     F: FnMut(&mut [Bitset]) -> anyhow::Result<()>,
 {
@@ -43,8 +43,8 @@ where
             continue;
         }
         // ordering test: representative of bucket's single value
-        let first_val = buf[idx].single_idx().unwrap_or(u8::MAX);
-        let last_val = buf[last_idx].single_idx().unwrap_or(u8::MAX);
+        let first_val = buf[idx].single_idx().unwrap_or(IdBase::MAX);
+        let last_val = buf[last_idx].single_idx().unwrap_or(IdBase::MAX);
         if first_val < last_val {
             continue;
         }

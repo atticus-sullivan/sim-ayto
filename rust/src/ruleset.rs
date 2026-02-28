@@ -7,7 +7,7 @@ mod permutators;
 mod utils;
 
 use crate::matching_repr::bitset::Bitset;
-use crate::matching_repr::MaskedMatching;
+use crate::matching_repr::{IdBase, MaskedMatching};
 use crate::ruleset::permutators::{
     dup::add_x_dups_inplace, dup::someone_is_dup_inplace, heaps_permute, n_to_n::n_to_n_inplace,
     trip::add_trip_inplace, trip::someone_is_trip_inplace,
@@ -91,7 +91,7 @@ impl RuleSet {
                 );
                 // build fixed numbers as u8 indices
                 let fixed_nums =
-                    Bitset::from_idxs(&fixed.iter().map(|d| lut_b[d] as u8).collect::<Vec<_>>());
+                    Bitset::from_idxs(&fixed.iter().map(|d| lut_b[d] as IdBase).collect::<Vec<_>>());
 
                 // build base vector `x` = all lut_b indices excluding the fixed numbers
                 // Len(x) == a + unknown_cnt
@@ -126,7 +126,7 @@ impl RuleSet {
             }
 
             RuleSet::SomeoneIsTrip => {
-                let mut base = (0..lut_b.len() as u8)
+                let mut base = (0..lut_b.len() as IdBase)
                     .map(|i| Bitset::from_idxs(&[i]))
                     .collect::<Vec<_>>();
 
@@ -153,7 +153,7 @@ impl RuleSet {
                     as u8;
 
                 // base buffer: all values except the fixed one
-                let mut base = (0..lut_b.len() as u8)
+                let mut base = (0..lut_b.len() as IdBase)
                     .filter(|i| *i != fixed_val)
                     .map(|i| Bitset::from_idxs(&[i]))
                     .collect::<Vec<_>>();

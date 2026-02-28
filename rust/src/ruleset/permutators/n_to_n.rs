@@ -3,7 +3,7 @@
 use anyhow::ensure;
 use permutator::{Combination, Permutation};
 
-use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::{IdBase, bitset::Bitset};
 
 /// In-place generator for N-to-N assignments.
 ///
@@ -34,12 +34,12 @@ where
     let mut c = vec![Bitset::empty(); slots];
 
     // Precompute full index set as u8 vector for perm/combo helpers
-    let full_indices: Vec<u8> = (0..slots as u8).collect();
+    let full_indices: Vec<IdBase> = (0..slots as IdBase).collect();
 
     // Iterate combinations of indices (ks)
     for ks in full_indices.combination(len) {
         // produce the list of remaining values (vs)
-        let mut vs = (0..slots as u8)
+        let mut vs = (0..slots as IdBase)
             .filter(|x| !ks.contains(&x))
             .collect::<Vec<_>>();
 
@@ -57,7 +57,7 @@ where
                 let v = *v_u8;
                 // original semantics had a guard `if k <= v { return None }` (reject)
                 // so we keep the same check:
-                if (k as u8) <= v {
+                if (k as IdBase) <= v {
                     ok = false;
                     break;
                 }

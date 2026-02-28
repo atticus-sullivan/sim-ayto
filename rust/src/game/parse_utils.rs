@@ -7,7 +7,7 @@ use crate::constraint::parse::ConstraintParse;
 use crate::constraint::Constraint;
 use crate::ignore_ops::IgnoreOps;
 use crate::ruleset::RuleSet;
-use crate::{Lut, Rename};
+use crate::{LightCnt, Lut, Rename};
 
 /// Build lookup tables (`Lut`) for the left-hand side (`setA`) and right-hand
 /// side (`setB`).  Each unique name is mapped to its index in the original
@@ -44,7 +44,7 @@ pub(super) fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut
 /// Returns a tuple containing:
 /// * `Vec<Constraint>` - the processed constraints in the same order as the
 ///   input (minus any that were ignored).
-/// * `u8` - the cumulative number of *known lights* added while processing,
+/// * `LightCnt` - the cumulative number of *known lights* added while processing,
 ///   useful for later bookkeeping.
 ///
 /// # Errors
@@ -60,9 +60,9 @@ pub(super) fn process_constraints(
     rename_a: &Rename,
     rename_b: &Rename,
     map_b: &[String],
-) -> Result<(Vec<Constraint>, u8)> {
+) -> Result<(Vec<Constraint>, LightCnt)> {
     let mut out = Vec::with_capacity(raw.len());
-    let mut known_lights: u8 = 0;
+    let mut known_lights: LightCnt = 0;
 
     for cp in raw {
         if cp.ignore_on(ignore) {

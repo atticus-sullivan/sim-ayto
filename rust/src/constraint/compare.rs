@@ -7,7 +7,7 @@ use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
 use anyhow::{Context, Result};
 
-use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
+use crate::{LightCnt, constraint::{Constraint, ConstraintGetters, ConstraintType}};
 
 /// Container of evaluation output used for plotting and summaries.
 ///
@@ -131,7 +131,7 @@ impl EvalEvent {
     eval_event_query_data!(
         lights_total,
         " (if available/set)",
-        u8,
+        LightCnt,
         MN(eval_mn) => Some(eval_mn.lights_total?),
         MB(eval_mb) => Some(eval_mb.lights_total?),
         Initial(ini) => None
@@ -140,7 +140,7 @@ impl EvalEvent {
     eval_event_query_data!(
         lights_known_before,
         "",
-        u8,
+        LightCnt,
         MN(eval_mn) => Some(eval_mn.lights_known_before),
         MB(eval_mb) => Some(eval_mb.lights_known_before),
         Initial(ini) => None
@@ -149,7 +149,7 @@ impl EvalEvent {
     eval_event_query_data!(
         new_lights,
         " (lights_total - lights_known_before)",
-        u8,
+        LightCnt,
         MN(eval_mn) => Some(eval_mn.lights_total? - eval_mn.lights_known_before),
         MB(eval_mb) => Some(eval_mb.lights_total? - eval_mb.lights_known_before),
         Initial(ini) => None
@@ -167,8 +167,8 @@ pub struct EvalMB {
     #[serde(with = "rust_decimal::serde::float")]
     pub num: Decimal,
     pub bits_left_after: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
+    pub lights_total: Option<LightCnt>,
+    pub lights_known_before: LightCnt,
     pub bits_gained: f64,
     pub comment: String,
     pub offer: bool,
@@ -179,8 +179,8 @@ pub struct EvalMN {
     #[serde(with = "rust_decimal::serde::float")]
     pub num: Decimal,
     pub bits_left_after: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
+    pub lights_total: Option<LightCnt>,
+    pub lights_known_before: LightCnt,
     pub bits_gained: f64,
     pub comment: String,
     pub offer: bool,

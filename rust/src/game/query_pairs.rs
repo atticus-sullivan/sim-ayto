@@ -6,26 +6,26 @@ use std::{collections::HashSet, fmt};
 use anyhow::{Context, Result};
 use comfy_table::{presets::UTF8_FULL_CONDENSED, Cell, Row, Table};
 
-use crate::{game::parse::QueryPair, iterstate::QueryPairData, Lut};
+use crate::{Lut, game::parse::QueryPair, iterstate::QueryPairData, matching_repr::IdBase};
 
 pub(super) fn translate_query_pairs(
     pair: &QueryPair,
     lut_a: &Lut,
     lut_b: &Lut,
-) -> Result<(HashSet<u8>, HashSet<u8>)> {
+) -> Result<(HashSet<IdBase>, HashSet<IdBase>)> {
     let mut left = HashSet::new();
     let mut right = HashSet::new();
 
     for a in &pair.map_a {
         let idx = *lut_a
             .get(a)
-            .with_context(|| format!("{} not found in lut_a", a))? as u8;
+            .with_context(|| format!("{} not found in lut_a", a))? as IdBase;
         left.insert(idx);
     }
     for b in &pair.map_b {
         let idx = *lut_b
             .get(b)
-            .with_context(|| format!("{} not found in lut_b", b))? as u8;
+            .with_context(|| format!("{} not found in lut_b", b))? as IdBase;
         right.insert(idx);
     }
     Ok((left, right))
@@ -148,11 +148,11 @@ mod tests {
 
     #[allow(clippy::type_complexity)]
     fn make_query_pair_data(
-        left: &[(u8, &[(&[u8], u64)])],
-        right: &[(u8, &[(u8, u64)])],
+        left: &[(IdBase, &[(&[IdBase], u64)])],
+        right: &[(IdBase, &[(IdBase, u64)])],
     ) -> QueryPairData {
         // left_map: a_index -> (Bitset of b-indices -> count)
-        let mut left_map: HashMap<u8, HashMap<Bitset, u64>> = HashMap::new();
+        let mut left_map: HashMap<IdBase, HashMap<Bitset, u64>> = HashMap::new();
 
         for (a_idx, items) in left {
             // Build the inner HashMap for this particular a-index.
@@ -170,10 +170,10 @@ mod tests {
         }
 
         // right_map: b_index -> (a_index -> count)
-        let mut right_map: HashMap<u8, HashMap<u8, u64>> = HashMap::new();
+        let mut right_map: HashMap<IdBase, HashMap<IdBase, u64>> = HashMap::new();
 
         for (b_idx, items) in right {
-            let mut inner: HashMap<u8, u64> = HashMap::new();
+            let mut inner: HashMap<IdBase, u64> = HashMap::new();
 
             for (a_idx, cnt) in *items {
                 inner.insert(*a_idx, *cnt);

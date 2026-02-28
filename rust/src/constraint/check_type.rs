@@ -5,6 +5,8 @@ use std::collections::BTreeMap;
 
 use serde::Deserialize;
 
+use crate::{LightCnt, matching_repr::IdBase};
+
 /// Type used to decide how to check a matching against a constraint.
 ///
 /// - `Eq` checks that two entries are equal (used for "box" equality constraints).
@@ -17,12 +19,12 @@ pub enum CheckType {
     Eq,
     Nothing,
     Sold,
-    Lights(u8, #[serde(skip)] BTreeMap<u8, u128>),
+    Lights(LightCnt, #[serde(skip)] BTreeMap<IdBase, u128>),
 }
 
 impl CheckType {
     /// Return the lights-count if this `CheckType` is `Lights`.
-    pub fn as_lights(&self) -> Option<u8> {
+    pub fn as_lights(&self) -> Option<LightCnt> {
         if let CheckType::Lights(l, _) = *self {
             Some(l)
         } else {
@@ -30,7 +32,7 @@ impl CheckType {
         }
     }
 
-    pub(super) fn calc_information_gain(&self) -> Option<Vec<(u8, f64)>> {
+    pub(super) fn calc_information_gain(&self) -> Option<Vec<(LightCnt, f64)>> {
         match self {
             CheckType::Lights(_, ls) => {
                 let total = ls.values().sum::<u128>() as f64;

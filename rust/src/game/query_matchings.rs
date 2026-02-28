@@ -30,12 +30,12 @@ pub(super) fn translate_query_matchings(
                 .with_context(|| format!("{} not found in lut_a", k))?;
 
             // Resolve right-hand side values
-            let mut right_idxs: Vec<u8> = v
+            let mut right_idxs: Vec<IdBase> = v
                 .iter()
                 .map(|r| {
                     lut_b
                         .get(r)
-                        .map(|i| *i as u8)
+                        .map(|i| *i as IdBase)
                         .with_context(|| format!("{} not found in lut_b", r))
                 })
                 .collect::<Result<_>>()?;

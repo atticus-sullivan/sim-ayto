@@ -11,7 +11,7 @@ use rust_decimal::{dec, Decimal};
 use ayto::constraint::{check_type::CheckType, Constraint, ConstraintSim, ConstraintType};
 use ayto::matching_repr::MaskedMatching;
 use ayto::ruleset::RuleSet;
-use ayto::Rem;
+use ayto::{LightCnt, Rem};
 
 use crate::init::{build_initial_constraint, create_iteration_state, generate_solution};
 use crate::result::SimulationResult;
@@ -170,7 +170,7 @@ impl<S: StrategyBundle> Simulation<S> {
             self.ruleset.init_data()?,
             NUM_PLAYERS_SET_A,
             NUM_PLAYERS_SET_A,
-            self.lights_known_before as u8,
+            self.lights_known_before as LightCnt,
         );
         self.lights_known_before += c.added_known_lights() as usize;
         Ok(c)
@@ -226,7 +226,7 @@ impl<S: StrategyBundle> TryInto<SimulationResult> for Simulation<S> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ayto::constraint::ConstraintGetters;
+    use ayto::{constraint::ConstraintGetters, matching_repr::IdBase};
     use pretty_assertions::assert_eq;
     use rand::Rng;
 
@@ -238,7 +238,7 @@ mod tests {
     impl StrategyBundle for DeterministicStrategy {
         fn initial_value(&self) -> MaskedMatching {
             // Single deterministic matching
-            let ids: Vec<u8> = (0..NUM_PLAYERS_SET_A as u8).collect();
+            let ids: Vec<IdBase> = (0..NUM_PLAYERS_SET_A as IdBase).collect();
             MaskedMatching::from(ids.as_slice())
         }
 

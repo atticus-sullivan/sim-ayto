@@ -11,9 +11,10 @@ use rust_decimal::dec;
 use serde::Deserialize;
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::matching_repr::IdBase;
 use crate::matching_repr::bitset::Bitset;
 use crate::ruleset_data::RuleSetData;
-use crate::{Lut, MapS, Rename};
+use crate::{LightCnt, Lut, MapS, Rename};
 
 // this struct is only used when parsing the yaml file.
 // The function `finalize_parsing` is intended to convert this to a regular constraint.
@@ -89,7 +90,7 @@ impl ConstraintParse {
         sort_constraint: bool,
         rename: (&Rename, &Rename),
         ruleset_data: Box<dyn RuleSetData>,
-        known_lights: u8,
+        known_lights: LightCnt,
     ) -> Result<Constraint> {
         // If add_exclude requested prefer computed add_exclude result, fallback to explicit exclude in YAML
         let exclude_s_final = if add_exclude {
@@ -189,18 +190,18 @@ impl ConstraintParse {
         exclude_s: &Option<(String, Vec<String>)>,
         lut_a: &Lut,
         lut_b: &Lut,
-    ) -> Result<Option<(u8, Bitset)>> {
+    ) -> Result<Option<(IdBase, Bitset)>> {
         if let Some(ex) = exclude_s {
             let (ex_a, ex_b) = ex;
             let mut bs = Bitset::empty();
             let a = *lut_a
                 .get(ex_a)
-                .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
+                .with_context(|| format!("Invalid Key {}", ex_a))? as IdBase;
             for x in ex_b {
                 bs.insert(
                     *lut_b
                         .get(x)
-                        .with_context(|| format!("Invalid Value {}", x))? as u8,
+                        .with_context(|| format!("Invalid Value {}", x))? as IdBase,
                 );
             }
             Ok(Some((a, bs)))

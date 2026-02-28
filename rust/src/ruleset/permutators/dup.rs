@@ -5,7 +5,7 @@
 
 use anyhow::ensure;
 
-use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::{IdBase, bitset::Bitset};
 
 /// Apply a sequence of duplicate-add operations to `buf` *in-place* and emit every final result.
 ///
@@ -28,7 +28,7 @@ use crate::matching_repr::bitset::Bitset;
 #[inline]
 pub(crate) fn add_x_dups_inplace<F>(
     buf: &mut [Bitset],
-    add: &[u8],
+    add: &[IdBase],
     mut emit: F,
 ) -> anyhow::Result<()>
 where
@@ -46,7 +46,7 @@ where
     // We define it here as a nested generic fn to avoid allocation and to be monomorphized
     // with the outer `F`.
     #[inline]
-    fn dfs<F>(buf: &mut [Bitset], add: &[u8], depth: usize, emit: &mut F) -> anyhow::Result<()>
+    fn dfs<F>(buf: &mut [Bitset], add: &[IdBase], depth: usize, emit: &mut F) -> anyhow::Result<()>
     where
         F: FnMut(&mut [Bitset]) -> anyhow::Result<()>,
     {
@@ -147,8 +147,8 @@ where
                     return Ok(()); // reject this combination
                 }
                 // ordering check
-                let existing_min = old.single_idx().unwrap_or(u8::MAX);
-                let dup_min = (dups_words[j].trailing_zeros()) as u8;
+                let existing_min = old.single_idx().unwrap_or(IdBase::MAX);
+                let dup_min = (dups_words[j].trailing_zeros()) as IdBase;
                 if existing_min > dup_min {
                     return Ok(());
                 }

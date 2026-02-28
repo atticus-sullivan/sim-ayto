@@ -42,7 +42,7 @@ use crate::constraint::check_type::CheckType;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset_data::dummy::DummyData;
 use crate::ruleset_data::RuleSetData;
-use crate::MapS;
+use crate::{LightCnt, MapS};
 
 /// An offer attached to a box event. The enum mirrors the YAML structure and
 /// contains optional amounts and actors.
@@ -202,7 +202,7 @@ pub struct Constraint {
 
     hide_ruleset_data: bool,
     pub(crate) ruleset_data: Box<dyn RuleSetData>,
-    known_lights: u8,
+    known_lights: LightCnt,
 }
 
 impl Hash for Constraint {
@@ -267,7 +267,7 @@ impl Constraint {
         rs_dat: Box<dyn RuleSetData>,
         a_len: usize,
         b_len: usize,
-        known_lights: u8,
+        known_lights: LightCnt,
     ) -> Self {
         // obtain the defaults defined elsewhere
         let mut ret = Self::default();
@@ -285,7 +285,7 @@ impl Constraint {
 
     /// How many known lights this constraint *adds*
     /// TODO: tests missing
-    pub fn added_known_lights(&self) -> u8 {
+    pub fn added_known_lights(&self) -> LightCnt {
         if self.hidden {
             return 0;
         }
