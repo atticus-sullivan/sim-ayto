@@ -134,7 +134,7 @@ jobs:
 
       - name: Download the built tool artifact
         if: ${{ matrix.sim != '' }}
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: ayto
 
@@ -193,7 +193,7 @@ jobs:
           git push
 
       - name: Download simulation results
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: sim-results-*  # Download all the artifacts from the matrix jobs
           path: ./data
@@ -329,14 +329,14 @@ jobs:
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
 
       - name: Download picture assets
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: pictures-*  # Download all the artifacts from the matrix jobs
           path: ./gh-pages/static/
           merge-multiple: true
 
       - name: Download the built tool artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: ayto
 
