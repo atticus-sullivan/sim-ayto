@@ -1,10 +1,9 @@
+//! This module allows to iterate in various different ways over a MaskedMatching.
+
 use smallvec::SmallVec;
 
-/// This module allows to iterate in various different ways over a MaskedMatching.
-use crate::matching_repr::{
-    bitset::{BitIter, Bitset},
-    IdBase, MaskedMatching, Word, WORD_BITS,
-};
+use crate::matching_repr::bitset::{BitIter, Bitset};
+use crate::matching_repr::{IdBase, MaskedMatching, Word, WORD_BITS};
 
 impl MaskedMatching {
     /// Iterate over slots: returns an iterator of `Bitset` (one bitset per slot).

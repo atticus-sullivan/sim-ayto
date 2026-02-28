@@ -1,9 +1,10 @@
-/// This module orchestrates the complete evaluation, reporting and comparison data
-/// generation/storing.
-use anyhow::Result;
+//! This module orchestrates the complete evaluation, reporting and comparison data
+//! generation/storing.
 
 use std::fs::File;
 use std::io;
+
+use anyhow::Result;
 
 use crate::constraint::Constraint;
 use crate::game::eval_utils::merge_constraints;

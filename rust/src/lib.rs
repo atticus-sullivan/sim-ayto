@@ -1,5 +1,6 @@
-/// This is the crate's root.
-/// It also defines some widely used type aliases and constants.
+//! This is the crate's root.
+//! It also defines some widely used type aliases and constants.
+
 pub mod comparison;
 pub mod game;
 pub mod constraint;

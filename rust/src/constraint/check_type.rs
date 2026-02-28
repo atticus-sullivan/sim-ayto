@@ -1,5 +1,6 @@
-/// This module provides a mean to represent how a constraint is checked (e.g. Lights, Sold, ...).
-/// Along with the representation it also already contains means for the evaluation
+//! This module provides a mean to represent how a constraint is checked (e.g. Lights, Sold, ...).
+//! Along with the representation it also already contains means for the evaluation
+
 use std::collections::BTreeMap;
 
 use serde::Deserialize;

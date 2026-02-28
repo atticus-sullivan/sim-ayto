@@ -1,16 +1,19 @@
-/// This module (and its submodules) implement a mean to store data specific for a ruleset.
-/// Depending on the ruleset chosen, different kinds of evaluations might be intereseting. For this
-/// different statistics need to be collected during the simulation. Also reporting on these
-/// statistics is specific to the collected data of course.
+//! This module (and its submodules) implement a mean to store data specific for a ruleset.
+//! Depending on the ruleset chosen, different kinds of evaluations might be intereseting. For this
+//! different statistics need to be collected during the simulation. Also reporting on these
+//! statistics is specific to the collected data of course.
+
 pub mod dummy;
 pub mod dup;
 pub mod dup_x;
 mod utils;
 
+use anyhow::Result;
+
 use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::Lut;
-use anyhow::Result;
+
 
 /// Small helper trait to allow cloning boxed trait objects.
 ///

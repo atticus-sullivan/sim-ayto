@@ -1,4 +1,5 @@
-/// This module renders overviews over complete seasons.
+//! This module renders overviews over complete seasons.
+
 use num_format::ToFormattedString;
 
 use crate::comparison::data::CmpData;

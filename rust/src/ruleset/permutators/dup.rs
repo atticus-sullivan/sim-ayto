@@ -1,9 +1,11 @@
-/// This module handles all kinds of duplicates:
-/// 1. We know a value which must be part of the dplicate entry
-/// 2. The base was extended and the value(s) which is/are part of the duplicate(s) are simply the
-///    values at the end of the base.
-use crate::matching_repr::bitset::Bitset;
+//! This module handles all kinds of duplicates:
+//! 1. We know a value which must be part of the dplicate entry
+//! 2. The base was extended and the value(s) which is/are part of the duplicate(s) are simply the
+//!    values at the end of the base.
+
 use anyhow::ensure;
+
+use crate::matching_repr::bitset::Bitset;
 
 /// Apply a sequence of duplicate-add operations to `buf` *in-place* and emit every final result.
 ///

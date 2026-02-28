@@ -3,10 +3,6 @@
   - simulation
   - comparison
   - solver
-- [ ] check all access modifiers
-  1. comment out everything
-  2. start with the two crates
-  3. comment in step-by step and try to keep access modifiers as low as possible
 - [ ] search for all uses of `u8` and use a type alias like `LightsCnt`
 - [ ] test cases aufräumen, aktuell häufig eine große Funktion mit mehreren
 cases -> sollten mehrere kleine funktionen (mit aussagekräftigem Namen) sein mit

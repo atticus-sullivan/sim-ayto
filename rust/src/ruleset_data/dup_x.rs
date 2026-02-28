@@ -1,6 +1,14 @@
-/// This module implements a dup_data which tracks how often people occur in multi-matches
-/// (dup/trip). This module also works for `RuleSetDupX` where multiple duplicates can be present
-/// (but only duplicates, no triples)
+//! This module implements a dup_data which tracks how often people occur in multi-matches
+//! (dup/trip). This module also works for `RuleSetDupX` where multiple duplicates can be present
+//! (but only duplicates, no triples)
+
+use std::collections::HashMap;
+use std::collections::HashSet;
+use std::io;
+use std::io::Write;
+
+use anyhow::{Context, Result};
+
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset::RuleSet;
 use crate::ruleset::RuleSetDupX;
@@ -9,11 +17,6 @@ use crate::ruleset_data::utils::{
 };
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use anyhow::{Context, Result};
-use std::collections::HashMap;
-use std::collections::HashSet;
-use std::io;
-use std::io::Write;
 
 /// DupXData collects counts for duplicate/trip patterns for the "dup_x" ruleset.
 #[derive(Debug, Clone, PartialEq)]

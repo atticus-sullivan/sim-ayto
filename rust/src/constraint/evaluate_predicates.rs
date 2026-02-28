@@ -1,6 +1,7 @@
-/// This module contains predicates to be used after the simulation has completed.
-///
-/// Note there is also evaluate which contains the non-predicate functions
+//! This module contains predicates to be used after the simulation has completed.
+//!
+//! Note there is also evaluate which contains the non-predicate functions
+
 use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 

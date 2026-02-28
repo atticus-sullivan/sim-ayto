@@ -1,13 +1,14 @@
-/// This module provides all functionalities required for printing a table of the remaining
-/// probabilities of a match.
-/// For the outside the computation is split into two steps:
-/// 1. generate the data: `print_rem_generic`
-/// 2. print the data via the Display trait of the returned struct (`RemTable`)
-///
-/// On the inside the computation is further split up into:
-/// 1. Translating the remaining counts to percentages/probabilities
-/// 2. Calculating row/col maxima
-/// 3. Generating a styled (comfy)table
+//! This module provides all functionalities required for printing a table of the remaining
+//! probabilities of a match.
+//! For the outside the computation is split into two steps:
+//! 1. generate the data: `print_rem_generic`
+//! 2. print the data via the Display trait of the returned struct (`RemTable`)
+//!
+//! On the inside the computation is further split up into:
+//! 1. Translating the remaining counts to percentages/probabilities
+//! 2. Calculating row/col maxima
+//! 3. Generating a styled (comfy)table
+
 use std::fmt::Display;
 
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;

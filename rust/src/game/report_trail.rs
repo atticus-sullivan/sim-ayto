@@ -1,6 +1,7 @@
-/// This module offers the functionality to print a trail of the evaluated constraints.
-/// This includes for the most part a table for each constraint with the remaining probabilities
-/// along with some additional information before and after this table.
+//! This module offers the functionality to print a trail of the evaluated constraints.
+//! This includes for the most part a table for each constraint with the remaining probabilities
+//! along with some additional information before and after this table.
+
 use anyhow::{Context, Result};
 
 use crate::constraint::{report_hdr::ReportData, Constraint};

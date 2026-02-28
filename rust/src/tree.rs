@@ -1,6 +1,7 @@
-/// This module offers the functionality to generate a tree of a collection of matchings. For every
-/// pairing it adds a node. The ordering of the levels so pairings with high probability are placed
-/// higher and pairings with lower probability are placed lower.
+//! This module offers the functionality to generate a tree of a collection of matchings. For every
+//! pairing it adds a node. The ordering of the levels so pairings with high probability are placed
+//! higher and pairings with lower probability are placed lower.
+
 use std::collections::HashSet;
 use std::io::Write;
 

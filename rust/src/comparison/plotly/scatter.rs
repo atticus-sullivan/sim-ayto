@@ -1,3 +1,5 @@
+//! This module helps in creating correctly styled scatter plots.
+
 use catppuccin::Flavor;
 use plotly::{common::Mode, Layout, Scatter};
 use serde::Serialize;

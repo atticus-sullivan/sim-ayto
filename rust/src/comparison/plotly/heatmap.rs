@@ -1,7 +1,8 @@
-/// This module renders heatmaps with the help of plotly. It also supports "uneven" boxes. This
-/// means that a box for on y-series can be of different length than the box on for the same
-/// x-column for another y-series. It achieves this by splitting the larger box into multiple identical
-/// ones.
+//! This module renders heatmaps with the help of plotly. It also supports "uneven" boxes. This
+//! means that a box for on y-series can be of different length than the box on for the same
+//! x-column for another y-series. It achieves this by splitting the larger box into multiple identical
+//! ones.
+
 use catppuccin::Flavor;
 use plotly::common::{ColorScale, Title};
 use plotly::{HeatMap, Layout};

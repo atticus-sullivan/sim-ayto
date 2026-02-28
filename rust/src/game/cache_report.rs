@@ -1,5 +1,6 @@
-/// This module contains the functionality to gather statistics on all eligible caches and nicely
-/// show them.
+//! This module contains the functionality to gather statistics on all eligible caches and nicely
+//! show them.
+
 use std::fmt::Display;
 use std::fs::{self, File};
 use std::io::{BufRead, BufReader};

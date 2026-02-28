@@ -1,15 +1,17 @@
-/// This module is concerned with building reports. This is coupled with evaluation and comparison.
-/// But in contrast to these two concerns, this mostly covers presenting and visualizing the data.
-/// So not much raw processing takes place here.
-///
-/// Note:
-/// Some larger functionality has been factored out to individual modules:
-/// - generating a row for the summary table
-///
-/// Also some predicates used for generating the reports has been moved to a new module:
-/// - report_predicates
-use anyhow::Result;
+//! This module is concerned with building reports. This is coupled with evaluation and comparison.
+//! But in contrast to these two concerns, this mostly covers presenting and visualizing the data.
+//! So not much raw processing takes place here.
+//!
+//! Note:
+//! Some larger functionality has been factored out to individual modules:
+//! - generating a row for the summary table
+//!
+//! Also some predicates used for generating the reports has been moved to a new module:
+//! - report_predicates
+
 use std::{fs::File, path::PathBuf};
+
+use anyhow::Result;
 
 use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;

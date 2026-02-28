@@ -1,3 +1,5 @@
+//! This module collects some functions to generate uniformly styled plotly figures.
+
 use catppuccin::Flavor;
 use plotly::{common::Title, Layout, Plot};
 

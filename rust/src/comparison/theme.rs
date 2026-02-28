@@ -1,4 +1,5 @@
-/// This module contains some helpers which help theming the outputs.
+//! This module contains some helpers which help theming the outputs.
+
 use catppuccin::{ColorName, Flavor, PALETTE};
 use plotly::common::{ColorScale, ColorScaleElement};
 

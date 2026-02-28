@@ -1,5 +1,6 @@
-/// This renders the plots which show information regarding the amount of information/uncertainty
-/// left or the amount of information gained over the course of time
+//! This renders the plots which show information regarding the amount of information/uncertainty
+//! left or the amount of information gained over the course of time
+
 use plotly::common::Mode;
 
 use crate::comparison::data::CmpData;

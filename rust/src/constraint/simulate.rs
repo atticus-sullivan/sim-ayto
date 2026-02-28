@@ -1,6 +1,7 @@
-/// This module provides the functionality related to the constraint which is needed during the
-/// simulation. In the process statistics are stored/gathered, but the evaluation is the job of
-/// another module(s).
+//! This module provides the functionality related to the constraint which is needed during the
+//! simulation. In the process statistics are stored/gathered, but the evaluation is the job of
+//! another module(s).
+
 use anyhow::Result;
 
 use crate::constraint::ConstraintSim;

@@ -1,4 +1,5 @@
-/// This module implements a representation for storing a full matching.
+//! This module implements a representation for storing a full matching.
+
 pub mod bitset;
 mod conversions;
 mod iter;

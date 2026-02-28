@@ -1,5 +1,6 @@
-/// This module renders one row for a comfy_table table showing a summary of this constraint (type,
-/// map, information, etc)
+//! This module renders one row for a comfy_table table showing a summary of this constraint (type,
+//! map, information, etc)
+
 use core::fmt;
 
 use comfy_table::Cell;

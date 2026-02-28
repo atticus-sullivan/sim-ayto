@@ -1,3 +1,5 @@
+//! This module parses a ruleset. It transfers a RuleSetParse to a ready to use Ruleset.
+
 use crate::ruleset::RuleSet;
 use serde::Deserialize;
 

@@ -1,5 +1,6 @@
-/// This module contains standalone helpers to faciliate turning a parsed (from yaml) game to a
-/// ready-to-use `Game`.
+//! This module contains standalone helpers to faciliate turning a parsed (from yaml) game to a
+//! ready-to-use `Game`.
+
 use anyhow::{bail, Result};
 
 use crate::constraint::parse::ConstraintParse;

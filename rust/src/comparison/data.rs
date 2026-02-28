@@ -1,7 +1,8 @@
-/// This module contains the datastructure to collect all data which can be compared
-///
-/// # Testing
-/// The function directly serialize from files found on disk. This is very hard to test
+//! This module contains the datastructure to collect all data which can be compared
+//!
+//! # Testing
+//! The function directly serialize from files found on disk. This is very hard to test
+
 use std::fs::File;
 use std::io::BufReader;
 use std::path::{Path, PathBuf};

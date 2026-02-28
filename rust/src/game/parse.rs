@@ -1,11 +1,11 @@
-/// This module is concerned with parsing a game from a config stored as yaml on disk.
-/// Based on the data which is deserialized, it allows to construct a ready to use `Game` by using
-/// the `finalize_parsing` function.
+//! This module is concerned with parsing a game from a config stored as yaml on disk.
+//! Based on the data which is deserialized, it allows to construct a ready to use `Game` by using
+//! the `finalize_parsing` function.
+
 use std::fs::File;
 use std::path::Path;
 
 use serde::Deserialize;
-
 use anyhow::{Context, Result};
 
 use crate::constraint::parse::ConstraintParse;

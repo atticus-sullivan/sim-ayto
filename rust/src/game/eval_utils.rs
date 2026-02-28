@@ -1,4 +1,5 @@
-/// This module implements helper-utilities to use when evaluating the series of constraints.
+//! This module implements helper-utilities to use when evaluating the series of constraints.
+
 use anyhow::Result;
 
 use crate::constraint::evaluate::ConstraintMerge;

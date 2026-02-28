@@ -1,10 +1,11 @@
-use anyhow::{Context, Result};
-/// This module contains getters / evaluations which is used to pre-process the gathered data for a
-/// comparison with other simulations.
-/// The root is `EvalData` (which is at some point serialized/stored so the comparison can take
-/// place later)
+//! This module contains getters / evaluations which is used to pre-process the gathered data for a
+//! comparison with other simulations.
+//! The root is `EvalData` (which is at some point serialized/stored so the comparison can take
+//! place later)
+
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
+use anyhow::{Context, Result};
 
 use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
 

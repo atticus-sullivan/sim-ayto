@@ -1,9 +1,10 @@
-/// This module-tree offers various ways of generating permutations.
-/// The basic idea is to write functions which are pluggable. This means that one function
-/// generates a sequence of permutations. Then another function takes one of these permutations,
-/// modifies/explodes/etc it and generates a new sequence this way. Since this is not that easily
-/// done in rust with the strong typing, I chose to implement this via nested function calls and
-/// closures.
+//! This module-tree offers various ways of generating permutations.
+//! The basic idea is to write functions which are pluggable. This means that one function
+//! generates a sequence of permutations. Then another function takes one of these permutations,
+//! modifies/explodes/etc it and generates a new sequence this way. Since this is not that easily
+//! done in rust with the strong typing, I chose to implement this via nested function calls and
+//! closures.
+
 pub(super) mod dup;
 pub(super) mod n_to_n;
 pub(super) mod trip;

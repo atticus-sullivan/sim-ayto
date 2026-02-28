@@ -1,5 +1,6 @@
-/// This module contains everything needed (in the game module) to query specific pairs. This
-/// includes finishing the parsing from the config and generating the final report.
+//! This module contains everything needed (in the game module) to query specific pairs. This
+//! includes finishing the parsing from the config and generating the final report.
+
 use std::{collections::HashSet, fmt};
 
 use anyhow::{Context, Result};

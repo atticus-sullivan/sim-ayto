@@ -1,25 +1,26 @@
-pub mod check_type;
-/// This module implements all types of constraints limiting the possible solutions as the game
-/// goes on.
-///
-/// Usually the life-cycle of a constraint is as follows:
-/// 1. Parsing -> see the parse module
-///   1. parsed from yaml to `ConstraintParse`
-///   2. converted to `Constraint`
-/// 2. Simulating -> see the simulate module
-///   - here `process` is the core function which plugs everything together
-/// 3. Evaluating -> see the evaluate module
-///   - after the simulation is done the stats collected during the simulation are evaluated
-/// 4. Comparing -> see the compare module
-///   - somehow similar to the evaluation. But here data is pre-processed and stored for a
-///     comparison with other simulations at a later point in time.
-///
-/// Some submodules have helper modules to group some kinds of dedicated functions.
-///
-/// This specific module only implements the "real" (in contrast to parsing) datatypes and some
-/// simple getters.
+//! This module implements all types of constraints limiting the possible solutions as the game
+//! goes on.
+//!
+//! Usually the life-cycle of a constraint is as follows:
+//! 1. Parsing -> see the parse module
+//!   1. parsed from yaml to `ConstraintParse`
+//!   2. converted to `Constraint`
+//! 2. Simulating -> see the simulate module
+//!   - here `process` is the core function which plugs everything together
+//! 3. Evaluating -> see the evaluate module
+//!   - after the simulation is done the stats collected during the simulation are evaluated
+//! 4. Comparing -> see the compare module
+//!   - somehow similar to the evaluation. But here data is pre-processed and stored for a
+//!     comparison with other simulations at a later point in time.
+//!
+//! Some submodules have helper modules to group some kinds of dedicated functions.
+//!
+//! This specific module only implements the "real" (in contrast to parsing) datatypes and some
+//! simple getters.
+
 pub mod compare;
 pub mod evaluate_predicates;
+pub mod check_type;
 
 pub(super) mod evaluate;
 pub(super) mod parse;

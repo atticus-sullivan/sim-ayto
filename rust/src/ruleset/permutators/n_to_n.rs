@@ -1,6 +1,9 @@
-use crate::matching_repr::bitset::Bitset;
+//! This module implements a generator for n-to-n matchings
+
 use anyhow::ensure;
 use permutator::{Combination, Permutation};
+
+use crate::matching_repr::bitset::Bitset;
 
 /// In-place generator for N-to-N assignments.
 ///

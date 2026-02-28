@@ -1,7 +1,8 @@
-/// This module contains functions to be used when evaluating after the simulation completed.
-///
-/// Note: There is also evaluate_predicates which contains functions serving as predicates during
-/// the evaluation.
+//! This module contains functions to be used when evaluating after the simulation completed.
+//!
+//! Note: There is also evaluate_predicates which contains functions serving as predicates during
+//! the evaluation.
+
 use crate::{constraint::Constraint, Rem};
 
 use anyhow::{bail, ensure, Result};

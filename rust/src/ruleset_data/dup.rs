@@ -1,15 +1,18 @@
-/// This module implements a dup_data which tracks how often people occur in multi-matches
-/// (dup/trip). Here it is mandatory that only one multi-match exists.
+//! This module implements a dup_data which tracks how often people occur in multi-matches
+//! (dup/trip). Here it is mandatory that only one multi-match exists.
+
+use std::collections::HashMap;
+use std::io;
+use std::io::Write;
+
+use anyhow::{Context, Result};
+
 use crate::ruleset_data::utils::{
     aggregate_by_bitset, aggregate_by_individual_a, aggregate_by_individual_b, print_stats,
 };
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
 use crate::{matching_repr::bitset::Bitset, matching_repr::MaskedMatching, ruleset::RuleSet};
-use anyhow::{Context, Result};
-use std::collections::HashMap;
-use std::io;
-use std::io::Write;
 
 /// Collect statistics about "dup" (or "trip") events.
 ///

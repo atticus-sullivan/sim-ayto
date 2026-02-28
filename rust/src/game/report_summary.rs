@@ -1,4 +1,5 @@
-/// This module offers printing a summary table for a collection of constraints.
+//! This module offers printing a summary table for a collection of constraints.
+
 use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Table};

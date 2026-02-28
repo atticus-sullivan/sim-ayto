@@ -1,5 +1,6 @@
-/// This module contains some helper functions which assist in parsing/converting/validating
-/// constraints
+//! This module contains some helper functions which assist in parsing/converting/validating
+//! constraints
+
 use std::collections::{HashMap, HashSet};
 
 use anyhow::{ensure, Context, Result};

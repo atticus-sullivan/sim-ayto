@@ -1,6 +1,7 @@
-/// This module provides all functionality to display the constraint in detail. Usually this is
-/// used as a header to the table showing the matching possibilities left in all possible
-/// solutions.
+//! This module provides all functionality to display the constraint in detail. Usually this is
+//! used as a header to the table showing the matching possibilities left in all possible
+//! solutions.
+
 use core::fmt;
 
 use comfy_table::{presets::NOTHING, Row, Table};

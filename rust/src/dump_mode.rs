@@ -1,4 +1,5 @@
-/// This module implements different ways to dump the remaining possible solutions
+//! This module implements different ways to dump the remaining possible solutions
+
 use crate::matching_repr::MaskedMatching;
 use std::io;
 

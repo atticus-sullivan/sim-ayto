@@ -1,5 +1,8 @@
-use crate::matching_repr::bitset::Bitset;
+//! This module implements helpers used to evaluate the data gathered by ruleset_data.
+
 use std::{collections::HashMap, io::Write, ops::AddAssign};
+
+use crate::matching_repr::bitset::Bitset;
 
 /// Helper that aggregates a `(usize, Bitset)` map by the Bitset itself.
 /// cnt: (a, bs) -> increase count by v

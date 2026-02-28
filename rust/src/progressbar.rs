@@ -1,4 +1,5 @@
-/// This implements a trait, a normal + a mock implementation for working with a progressbar.
+//! This implements a trait, a normal + a mock implementation for working with a progressbar.
+
 use indicatif::ProgressStyle;
 
 pub trait ProgressBarTrait {

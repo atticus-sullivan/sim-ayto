@@ -1,10 +1,10 @@
-/// This module represents the whole game.
-/// A game has te following lifecycle:
-/// 1. parsed from yaml as `GameParse` -> parse module
-/// 2. converted to a regular `Game` -> parse module
-/// 3. simulated `sim()` -> main module
-/// 4. evaluated `eval()` -> eval module
-/// 5. report generated and printed `report()` -> eval/report module
+//! This module represents the whole game.
+//! A game has te following lifecycle:
+//! 1. parsed from yaml as `GameParse` -> parse module
+//! 2. converted to a regular `Game` -> parse module
+//! 3. simulated `sim()` -> main module
+//! 4. evaluated `eval()` -> eval module
+//! 5. report generated and printed `report()` -> eval/report module
 
 pub mod cache;
 pub mod cache_report;

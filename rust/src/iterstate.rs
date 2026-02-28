@@ -1,9 +1,6 @@
-/// This module implements an object which statefully manages the whole simulation logic while
-/// gathering some statistics along the way.
-/// It is also responsible for features like showing a progressbar if this is desired.
-use indicatif::ProgressStyle;
-
-use serde_json::to_writer;
+//! This module implements an object which statefully manages the whole simulation logic while
+//! gathering some statistics along the way.
+//! It is also responsible for features like showing a progressbar if this is desired.
 
 use std::collections::{HashMap, HashSet};
 use std::fs::File;
@@ -11,6 +8,8 @@ use std::io::{BufWriter, Write};
 use std::path::PathBuf;
 
 use anyhow::Result;
+use indicatif::ProgressStyle;
+use serde_json::to_writer;
 
 use crate::constraint::{ConstraintGetters, ConstraintSim};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};

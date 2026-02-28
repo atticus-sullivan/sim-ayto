@@ -1,7 +1,8 @@
-/// This module provides helpers for the functionality the heatmap module builds on top of the
-/// native plotly heatmap features.
-/// Namely this is
-/// - "uneven boxsizes"
+//! This module provides helpers for the functionality the heatmap module builds on top of the
+//! native plotly heatmap features.
+//! Namely this is
+//! - "uneven boxsizes"
+
 use std::collections::{BTreeMap, HashMap};
 
 use rust_decimal::{dec, prelude::FromPrimitive, Decimal};

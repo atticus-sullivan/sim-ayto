@@ -1,5 +1,6 @@
-/// This module implements all functionality to search for eligible caches and select one according
-/// to the chose policy.
+//! This module implements all functionality to search for eligible caches and select one according
+//! to the chose policy.
+
 use std::hash::{DefaultHasher, Hash, Hasher};
 use std::path::{Path, PathBuf};
 

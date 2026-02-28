@@ -1,6 +1,7 @@
-/// This module provides all functionalities to generate and store data which can later be used for
-/// a comparison.
-/// Prerequisite is that the evaluation already took place.
+//! This module provides all functionalities to generate and store data which can later be used for
+//! a comparison.
+//! Prerequisite is that the evaluation already took place.
+
 use std::fs::File;
 use std::io::{BufWriter, Write};
 

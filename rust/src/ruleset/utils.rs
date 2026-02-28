@@ -1,4 +1,5 @@
-/// This module implements various helper functions to be used when working with the rulesets.
+//! This module implements various helper functions to be used when working with the rulesets.
+
 use anyhow::{ensure, Result};
 
 use crate::ruleset::RuleSet;

@@ -1,5 +1,6 @@
-/// This renders the plots which show information regarding the amount of lights over the course of
-/// time
+//! This renders the plots which show information regarding the amount of lights over the course of
+//! time
+
 use plotly::common::Mode;
 
 use crate::comparison::plotly::heatmap::{build_heatmap_plot, EntryDatum};

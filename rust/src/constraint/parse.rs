@@ -1,8 +1,9 @@
-/// This module is typically used to
-/// 1. deserialize into `ConstraintParse`
-/// 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
-///
-/// Some helpers were soutsourced to parse_utils
+//! This module is typically used to
+//! 1. deserialize into `ConstraintParse`
+//! 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
+//!
+//! Some helpers were soutsourced to parse_utils
+
 use anyhow::{Context, Result};
 use std::collections::BTreeMap;
 

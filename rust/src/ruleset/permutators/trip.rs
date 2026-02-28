@@ -1,12 +1,13 @@
-/// This module handles all kinds of duplicates:
-/// 1. We know a value which must be part of the triple entry
-/// 2. The base was extended and the value(s) which is/are part of the triple(s) are simply the
-///    values at the end of the base => only one triple is supported here (in contrast to the more
-///    generic dup implementation)
-///
-/// Notes:
-/// - even add_trip_inplace only allows to fix 1/3 of the triple. The other one is taken from the
-///   end of the base.
+//! This module handles all kinds of duplicates:
+//! 1. We know a value which must be part of the triple entry
+//! 2. The base was extended and the value(s) which is/are part of the triple(s) are simply the
+//!    values at the end of the base => only one triple is supported here (in contrast to the more
+//!    generic dup implementation)
+//!
+//! Notes:
+//! - even add_trip_inplace only allows to fix 1/3 of the triple. The other one is taken from the
+//!   end of the base.
+
 use crate::matching_repr::bitset::Bitset;
 
 /// In-place version of the "add trip" generator.

@@ -1,4 +1,5 @@
-/// This module contains all kinds of conversions from and to MaskedMatching.
+//! This module contains all kinds of conversions from and to MaskedMatching.
+
 use core::fmt;
 use std::collections::HashMap;
 

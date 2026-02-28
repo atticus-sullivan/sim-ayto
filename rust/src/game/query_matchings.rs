@@ -1,15 +1,14 @@
-/// This module contains everything needed (in the game module) to query specific matchings. This
-/// includes finishing the parsing from the config and generating the final report.
+//! This module contains everything needed (in the game module) to query specific matchings. This
+//! includes finishing the parsing from the config and generating the final report.
+
 use std::fmt;
 
 use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 use smallvec::SmallVec;
 
-use crate::{
-    matching_repr::{bitset::Bitset, MaskedMatching},
-    Lut, MatchingS,
-};
+use crate::matching_repr::{bitset::Bitset, MaskedMatching};
+use crate::{Lut, MatchingS};
 
 /// Translates the query for a matching
 pub(super) fn translate_query_matchings(

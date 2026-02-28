@@ -1,10 +1,12 @@
-/// This ruleset_data can be used if no specific data should be collected. The functions which need
-/// to be implemented are simple no-ops.
+//! This ruleset_data can be used if no specific data should be collected. The functions which need
+//! to be implemented are simple no-ops.
+
+use anyhow::Result;
+
 use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use anyhow::Result;
 
 /// Dummy implementation of `RuleSetData` used when the ruleset does not need
 /// per-solution statistics. Methods are intentionally no-ops.

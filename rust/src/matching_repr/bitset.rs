@@ -1,8 +1,9 @@
-/// This module provides a complete implementation of a *Bitset*. A *Bitset* can be compared with a
-/// HashSet but much more efficient as it stores its elements in a binary representation. In this
-/// representation, the indices (with a set bit) are the elements which are stored. This is also
-/// the cause for the major constraint: The elements of such a set can only be integers (of a
-/// limited range).
+//! This module provides a complete implementation of a *Bitset*. A *Bitset* can be compared with a
+//! HashSet but much more efficient as it stores its elements in a binary representation. In this
+//! representation, the indices (with a set bit) are the elements which are stored. This is also
+//! the cause for the major constraint: The elements of such a set can only be integers (of a
+//! limited range).
+
 use std::fmt::Binary;
 use std::ops::{BitAndAssign, BitOrAssign};
 

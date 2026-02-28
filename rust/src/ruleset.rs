@@ -1,3 +1,7 @@
+//! This module implements a ruleset. This way the game can be played with various different rules.
+//! The fore function the ruleset offers is `iter_perms` which basically performs the entire
+//! simulation.
+
 pub mod parse;
 mod permutators;
 mod utils;
