@@ -254,7 +254,7 @@ impl Constraint {
                                 && c.map
                                     .slot_mask(k)
                                     .unwrap_or(&Bitset::empty())
-                                    .contains_any(&v)
+                                    .contains_any(v)
                         })
                 })
                 .count();

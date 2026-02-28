@@ -83,7 +83,7 @@ impl Bitset {
 
     /// Returns `true` if the intersection of the two sets is non-empty.
     #[inline(always)]
-    pub fn contains_any(&self, eles: &Bitset) -> bool {
+    pub fn contains_any(self, eles: Bitset) -> bool {
         self.0 & eles.0 != 0
     }
 

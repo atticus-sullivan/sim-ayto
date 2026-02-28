@@ -55,7 +55,7 @@ impl Constraint {
                 let f = self
                     .exclude
                     .as_ref()
-                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| !m.contains_any(&ex.1)));
+                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| !m.contains_any(ex.1)));
 
                 // use calculated lights to collect stats on based on the matching possible until
                 // here, how many lights are calculated how often for this map
