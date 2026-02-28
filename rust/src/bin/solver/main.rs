@@ -1,6 +1,3 @@
-// TODO: more initial_value(s) -> conditionally -- the possible outcomes of the first constraint
-// are usually limited, so we can hardcode the (optimal) responses for the second step as well
-
 mod engine;
 mod init;
 mod result;
@@ -15,10 +12,8 @@ use std::path::PathBuf;
 use anyhow::Result;
 use clap::Parser;
 
-use crate::{
-    runner::run_many_and_write,
-    strategies::{mb, mn, Strategy},
-};
+use crate::runner::run_many_and_write;
+use crate::strategies::{mb, mn, Strategy};
 
 const NUM_PLAYERS_SET_A: usize = 10;
 

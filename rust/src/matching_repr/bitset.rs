@@ -10,7 +10,6 @@ use serde::{Deserialize, Serialize};
 
 use crate::matching_repr::{IdBase, Word, WORD_BITS};
 
-
 /// Small strongly-typed wrapper around a single-word bitset.
 ///
 /// Encapsulates the low-level bit fiddling so higher-level code doesn't

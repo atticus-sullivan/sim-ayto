@@ -21,7 +21,8 @@ pub(super) fn translate_query_matchings(
 
     for q in src {
         // start with a zero-filled matrix sized to the left side
-        let mut matching: SmallVec<[Bitset; 12]> = SmallVec::from_elem(Bitset::empty(), lut_a.len());
+        let mut matching: SmallVec<[Bitset; 12]> =
+            SmallVec::from_elem(Bitset::empty(), lut_a.len());
 
         for (k, v) in q {
             // Resolve left-hand side
@@ -358,7 +359,7 @@ mod tests {
 
     #[test]
     fn matching_entry_display_looks_reasonable() -> Result<()> {
-        let masked = MaskedMatching::from(vec![Bitset::from_idxs(&[0, 1])]);
+        let masked = MaskedMatching::from(SmallVec::from_slice(&[Bitset::from_idxs(&[0, 1])]));
         let map_a = vec!["alpha".to_string()];
         let map_b = vec!["beta".to_string(), "gamma".to_string()];
 

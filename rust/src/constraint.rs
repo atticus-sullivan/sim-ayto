@@ -279,6 +279,20 @@ impl Constraint {
 
         ret
     }
+
+    /// How many known lights this constraint *adds*
+    pub fn added_known_lights(&self) -> u8 {
+        if self.hidden {
+            return 0;
+        }
+
+        if let ConstraintType::Box { .. } = self.r#type {
+            if let CheckType::Lights(1, _) = self.check {
+                return 1;
+            }
+        }
+        0
+    }
 }
 
 pub trait ConstraintGetters {

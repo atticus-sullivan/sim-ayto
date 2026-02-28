@@ -180,13 +180,14 @@ mod tests {
 
     #[test]
     fn from_masks_simple() {
-        let masks = vec![Bitset::from_word(0b101), Bitset::from_word(0b10)];
+        let masks = SmallVec::from_slice(&[Bitset::from_word(0b101), Bitset::from_word(0b10)]);
         let mm = MaskedMatching::from_masks(masks.clone());
         assert_eq!(mm.masks, masks);
     }
     #[test]
     fn into_masks_simple() {
-        let original_masks = vec![Bitset::from_word(0b1010), Bitset::from_word(0b0101)];
+        let original_masks =
+            SmallVec::from_slice(&[Bitset::from_word(0b1010), Bitset::from_word(0b0101)]);
         let mm = MaskedMatching::from_masks(original_masks.clone());
         let moved = mm.into_masks();
         assert_eq!(moved, original_masks);
@@ -194,16 +195,18 @@ mod tests {
 
     #[test]
     fn swap_masks_simple() {
-        let mut mm =
-            MaskedMatching::from_masks(vec![Bitset::from_word(0b101), Bitset::from_word(0b010)]);
-        let mut external = vec![Bitset::from_word(0b111)];
+        let mut mm = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b101),
+            Bitset::from_word(0b010),
+        ]));
+        let mut external = SmallVec::from_slice(&[Bitset::from_word(0b111)]);
 
         mm.swap_masks(&mut external);
 
-        assert_eq!(mm.masks, vec![Bitset::from_word(0b111)]);
+        assert_eq!(mm.masks.as_slice(), &[Bitset::from_word(0b111)]);
         assert_eq!(
-            external,
-            vec![Bitset::from_word(0b101), Bitset::from_word(0b010),]
+            external.as_slice(),
+            &[Bitset::from_word(0b101), Bitset::from_word(0b010),]
         );
     }
 
@@ -226,7 +229,7 @@ mod tests {
             Bitset::from_word(0b100),
         ];
         mm.set_masks_from_slice(&slice);
-        assert_eq!(mm.masks, slice);
+        assert_eq!(mm.masks.as_slice(), slice);
     }
 
     #[test]
@@ -243,7 +246,7 @@ mod tests {
         let prev_cap = mm.masks.capacity();
         mm.set_masks_from_slice(&long_slice);
 
-        assert_eq!(mm.masks, long_slice);
+        assert_eq!(mm.masks.as_slice(), long_slice);
         assert!(mm.masks.capacity() >= long_slice.len());
         assert!(mm.masks.capacity() >= prev_cap);
     }
@@ -253,8 +256,8 @@ mod tests {
         let legacy = vec![vec![1u8], vec![2u8, 3u8]];
         let mm = MaskedMatching::from_matching_ref(&legacy);
         assert_eq!(
-            mm.masks,
-            vec![Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2, 3]),]
+            mm.masks.as_slice(),
+            &[Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2, 3]),]
         );
         let back: Vec<Vec<IdBase>> = Vec::try_from(&mm)?;
         assert_eq!(back, legacy);
@@ -266,8 +269,8 @@ mod tests {
     fn from_idbase_slice() {
         let mm = MaskedMatching::from(&[1 as IdBase, 2 as IdBase][..]);
         assert_eq!(
-            mm.masks,
-            vec![Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2]),]
+            mm.masks.as_slice(),
+            &[Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2]),]
         )
     }
 
@@ -276,18 +279,21 @@ mod tests {
     fn from_idbase_tuple() {
         let mm = MaskedMatching::from((1 as IdBase, 2 as IdBase));
         assert_eq!(
-            mm.masks,
-            vec![Bitset::from_idxs(&[]), Bitset::from_idxs(&[2]),]
+            mm.masks.as_slice(),
+            &[Bitset::from_idxs(&[]), Bitset::from_idxs(&[2]),]
         )
     }
 
     // Vec<Bitset> -> MaskedMatching
     #[test]
     fn from_bitset_vector() {
-        let mm = MaskedMatching::from(vec![Bitset::from_idxs(&[1, 2]), Bitset::from_idxs(&[3, 4])]);
+        let mm = MaskedMatching::from(SmallVec::from_slice(&[
+            Bitset::from_idxs(&[1, 2]),
+            Bitset::from_idxs(&[3, 4]),
+        ]));
         assert_eq!(
-            mm.masks,
-            vec![Bitset::from_idxs(&[1, 2]), Bitset::from_idxs(&[3, 4]),]
+            mm.masks.as_slice(),
+            &[Bitset::from_idxs(&[1, 2]), Bitset::from_idxs(&[3, 4]),]
         )
     }
 
@@ -296,8 +302,8 @@ mod tests {
     fn try_from_idbase_hashmap() -> Result<()> {
         let mm = MaskedMatching::try_from(HashMap::from_iter([(0, 7), (2, 3)]))?;
         assert_eq!(
-            mm.masks,
-            vec![
+            mm.masks.as_slice(),
+            &[
                 Bitset::from_idxs(&[7]),
                 Bitset::from_idxs(&[]),
                 Bitset::from_idxs(&[3]),

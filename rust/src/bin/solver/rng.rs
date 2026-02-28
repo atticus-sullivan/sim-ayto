@@ -1,3 +1,5 @@
+//! Helper function which builds an (reproducible) rng from a seed
+
 use rand::{rngs::StdRng, SeedableRng};
 
 /// Creates a reproducible RNG for a simulation.

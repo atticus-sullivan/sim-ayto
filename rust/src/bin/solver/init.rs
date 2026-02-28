@@ -1,3 +1,5 @@
+//! This module contains some helper functions used when initializing the simulation.
+
 use std::collections::HashSet;
 
 use anyhow::Result;
@@ -14,7 +16,7 @@ use ayto::ruleset::RuleSet;
 use crate::NUM_PLAYERS_SET_A;
 
 /// Generates a random solution and converts it into `MaskedMatching`.
-pub(crate) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
+pub(super) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
     let mut solution: Vec<u8> = (0..NUM_PLAYERS_SET_A).map(|x| x as u8).collect();
     solution.shuffle(rng);
     (*solution).into()
@@ -33,12 +35,15 @@ pub(crate) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
 ///
 /// # Returns
 /// A fully initialized `Constraint`.
-pub(crate) fn build_initial_constraint(
+pub(super) fn build_initial_constraint(
     matching: MaskedMatching,
     lights: usize,
     ruleset: &RuleSet,
     lights_known_before: usize,
 ) -> Result<Constraint> {
+    // TODO: does not work in general. matching might contain empty slots -> len is not what we
+    // expect here.
+    // Not an issue with the current initial values used
     let constraint_type = if matching.len() == 1 {
         ConstraintType::Box {
             num: dec![1.0],
@@ -75,7 +80,7 @@ pub(crate) fn build_initial_constraint(
 ///
 /// # Returns
 /// A fully initialized `IterState`.
-pub(crate) fn create_iteration_state(
+pub(super) fn create_iteration_state(
     constraint: &Constraint,
 ) -> Result<IterState<MockProgressBar, Constraint>> {
     IterState::new(
@@ -98,10 +103,6 @@ mod tests {
     use rand::rngs::StdRng;
     use rand::SeedableRng;
 
-    // ------------------------------------------------------------
-    // generate_solution
-    // ------------------------------------------------------------
-
     #[test]
     fn generate_solution_has_correct_length() {
         let mut rng = StdRng::seed_from_u64(42);
@@ -115,13 +116,10 @@ mod tests {
         let mut rng = StdRng::seed_from_u64(42);
         let solution = generate_solution(&mut rng);
 
-        let mut seen = std::collections::HashSet::new();
+        // all values are set
         for i in 0..NUM_PLAYERS_SET_A as u8 {
             assert!(solution.contains_mask(Bitset::from_idxs(&[i])));
-            seen.insert(i);
         }
-
-        assert_eq!(seen.len(), NUM_PLAYERS_SET_A);
     }
 
     #[test]
@@ -135,10 +133,6 @@ mod tests {
         assert_eq!(s1, s2);
     }
 
-    // ------------------------------------------------------------
-    // build_initial_constraint
-    // ------------------------------------------------------------
-
     #[test]
     fn build_initial_constraint_box_if_len_one() {
         let ruleset = RuleSet::Eq;
@@ -149,6 +143,7 @@ mod tests {
         let constraint = build_initial_constraint(matching, 1, &ruleset, 0).unwrap();
 
         assert!(constraint.is_mb());
+        assert_eq!(constraint.check.as_lights(), Some(1));
     }
 
     #[test]
@@ -161,22 +156,8 @@ mod tests {
         let constraint = build_initial_constraint(matching, 2, &ruleset, 0).unwrap();
 
         assert!(constraint.is_mb());
+        assert_eq!(constraint.check.as_lights(), Some(2));
     }
-
-    #[test]
-    fn build_initial_constraint_sets_lights_correctly() {
-        let ruleset = RuleSet::Eq;
-        let matching =
-            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
-
-        let constraint = build_initial_constraint(matching, 3, &ruleset, 0).unwrap();
-
-        assert_eq!(constraint.check.as_lights(), Some(3));
-    }
-
-    // ------------------------------------------------------------
-    // create_iteration_state
-    // ------------------------------------------------------------
 
     #[test]
     fn create_iteration_state_initializes_properly() {
@@ -193,7 +174,6 @@ mod tests {
 
         let state = iter_state.unwrap();
 
-        // initial constraint should be present
         assert_eq!(state.constraints.len(), 1);
     }
 }

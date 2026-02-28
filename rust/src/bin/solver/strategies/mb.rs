@@ -1,3 +1,5 @@
+//! Optimize/Select a matching to place in a Match-Box
+
 pub(crate) mod optimal;
 
 use rand::Rng;

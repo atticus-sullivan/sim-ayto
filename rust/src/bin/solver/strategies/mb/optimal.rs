@@ -1,8 +1,14 @@
+//! An implementation for an optimizer for Match-Box decisions.
+//! Selects the optimal match to place in the Match-Box. The optimum is the match which is closest
+//! to 50% probability.
+
 use ayto::matching_repr::MaskedMatching;
 use rand::Rng;
 
 use crate::strategies::mb::MbOptimizer;
 
+/// Selects the optimal match to place in the Match-Box. The optimum is the match which is closest
+/// to 50% probability.
 pub(crate) struct OptimalMbOptimizer;
 
 impl MbOptimizer for OptimalMbOptimizer {
@@ -32,26 +38,24 @@ mod tests {
     use rand::{rngs::StdRng, SeedableRng};
 
     #[test]
-    fn chooses_closest_to_half_total() {
+    fn choose_mb_closest_to_half_total() {
         let optimizer = OptimalMbOptimizer;
 
-        // data: 3x3 matrix
         let data = vec![vec![10, 20, 30], vec![40, 50, 60], vec![70, 80, 90]];
-        let total = 100u128; // target = 50
+        let total = 100; // target = 50
         let mut rng = StdRng::seed_from_u64(1);
 
         let selected: MaskedMatching = optimizer.choose_mb(&data, total, &mut rng);
 
-        // The element closest to 50 is 50 at (1,1)
+        // The element closest to 50% is 50 at (1,1)
         let expected: MaskedMatching = (1u8, 1u8).into();
         assert_eq!(selected, expected);
     }
 
     #[test]
-    fn chooses_first_if_multiple_equal_closest() {
+    fn choose_mb_first_if_multiple_equal_closest() {
         let optimizer = OptimalMbOptimizer;
 
-        // two elements equally close to 50: 49 and 51
         let data = vec![vec![49, 51]];
         let total = 100u128;
         let mut rng = StdRng::seed_from_u64(1);
@@ -64,7 +68,7 @@ mod tests {
     }
 
     #[test]
-    fn works_with_single_element() {
+    fn choose_mb_single_element() {
         let optimizer = OptimalMbOptimizer;
 
         let data = vec![vec![42]];

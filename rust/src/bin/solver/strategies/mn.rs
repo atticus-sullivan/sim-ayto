@@ -1,3 +1,5 @@
+//! Optimize/Select a full matching to seat at the Matching-Night
+
 pub(crate) mod entropy_left;
 
 use ayto::matching_repr::MaskedMatching;

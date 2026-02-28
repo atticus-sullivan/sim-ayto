@@ -249,12 +249,18 @@ mod tests {
 
     #[test]
     fn bit_and_simple() {
-        let left =
-            MaskedMatching::from_masks(vec![Bitset::from_word(0b101), Bitset::from_word(0b110)]);
-        let right =
-            MaskedMatching::from_masks(vec![Bitset::from_word(0b011), Bitset::from_word(0b100)]);
-        let expected =
-            MaskedMatching::from_masks(vec![Bitset::from_word(0b001), Bitset::from_word(0b100)]);
+        let left = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b101),
+            Bitset::from_word(0b110),
+        ]));
+        let right = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b011),
+            Bitset::from_word(0b100),
+        ]));
+        let expected = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b001),
+            Bitset::from_word(0b100),
+        ]));
         let result = left & &right;
         assert_eq!(result, expected);
     }

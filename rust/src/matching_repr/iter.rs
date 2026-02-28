@@ -239,7 +239,7 @@ mod tests {
 
     #[test]
     fn iter_unwrapped_no_slots() {
-        let mm = MaskedMatching::from_masks(Vec::new());
+        let mm = MaskedMatching::from_masks(SmallVec::new());
         let mut it = mm.iter_unwrapped();
         assert_eq!(it.next(), None);
     }
