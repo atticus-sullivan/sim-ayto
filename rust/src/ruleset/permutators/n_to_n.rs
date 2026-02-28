@@ -55,8 +55,6 @@ where
             for (k_u8, v_u8) in ks.iter().zip(perm_vs.iter()) {
                 let k = **k_u8 as usize;
                 let v = *v_u8;
-                // original semantics had a guard `if k <= v { return None }` (reject)
-                // so we keep the same check:
                 if (k as IdBase) <= v {
                     ok = false;
                     break;

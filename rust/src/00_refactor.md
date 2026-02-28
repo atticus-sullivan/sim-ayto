@@ -3,7 +3,6 @@
   - simulation
   - comparison
   - solver
-- [ ] search for all uses of `u8` and use a type alias like `LightsCnt`
 - [ ] test cases aufräumen, aktuell häufig eine große Funktion mit mehreren
 cases -> sollten mehrere kleine funktionen (mit aussagekräftigem Namen) sein mit
 je nur einem case

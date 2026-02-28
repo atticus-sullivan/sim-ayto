@@ -78,8 +78,6 @@ impl MaskedMatching {
         self.masks.extend_from_slice(slice);
     }
 
-    /// Construct from legacy `Matching` reference.
-    ///
     /// The `m` is expected to be a `Vec` of slots; each slot is a `Vec<IdBase>`
     /// listing value indices.
     ///
@@ -254,14 +252,14 @@ mod tests {
 
     #[test]
     fn from_matching_ref_and_into_vector() -> Result<()> {
-        let legacy = vec![vec![1u8], vec![2u8, 3u8]];
-        let mm = MaskedMatching::from_matching_ref(&legacy);
+        let m = vec![vec![1u8], vec![2u8, 3u8]];
+        let mm = MaskedMatching::from_matching_ref(&m);
         assert_eq!(
             mm.masks.as_slice(),
             &[Bitset::from_idxs(&[1]), Bitset::from_idxs(&[2, 3]),]
         );
         let back: Vec<Vec<IdBase>> = Vec::try_from(&mm)?;
-        assert_eq!(back, legacy);
+        assert_eq!(back, m);
         Ok(())
     }
 

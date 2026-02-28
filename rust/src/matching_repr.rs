@@ -159,10 +159,10 @@ mod tests {
 
     #[test]
     fn prepare_debug_print_simple() {
-        let legacy = vec![vec![3u8, 5u8], vec![0u8]];
-        let mm = MaskedMatching::from_matching_ref(&legacy);
+        let m = vec![vec![3u8, 5u8], vec![0u8]];
+        let mm = MaskedMatching::from_matching_ref(&m);
         let dbg = mm.prepare_debug_print();
-        assert_eq!(dbg, legacy);
+        assert_eq!(dbg, m);
     }
 
     #[test]

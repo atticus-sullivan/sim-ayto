@@ -159,9 +159,6 @@ mod tests {
             let mut inner: HashMap<Bitset, u64> = HashMap::new();
 
             for (b_slice, cnt) in *items {
-                // Convert the slice of `u8` into a Bitset that the production code
-                // expects.  `Bitset::from_idxs` creates a deterministic bitset
-                // from the provided indices.
                 let bs = Bitset::from_idxs(b_slice);
                 inner.insert(bs, *cnt);
             }
