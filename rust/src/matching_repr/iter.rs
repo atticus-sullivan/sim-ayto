@@ -1,3 +1,5 @@
+use smallvec::SmallVec;
+
 /// This module allows to iterate in various different ways over a MaskedMatching.
 use crate::matching_repr::{
     bitset::{BitIter, Bitset},
@@ -156,7 +158,7 @@ impl UnwrappedIter<'_> {
             .current
             .iter()
             .map(|&opt_idx| opt_idx.map_or_else(Bitset::empty, |idx| Bitset::from_idxs(&[idx])))
-            .collect::<Vec<Bitset>>();
+            .collect::<SmallVec<[Bitset; 12]>>();
         MaskedMatching::from_masks(slots)
     }
 

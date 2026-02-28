@@ -2,7 +2,9 @@
 use core::fmt;
 use std::collections::HashMap;
 
-use crate::matching_repr::{bitset::Bitset, IdBase, MaskedMatching, Word};
+use smallvec::SmallVec;
+
+use crate::matching_repr::{bitset::Bitset, IdBase, MaskedMatching, Word, MATCH_MAX_LEN};
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum ConversionError {
@@ -32,12 +34,12 @@ impl std::error::Error for ConversionError {}
 impl MaskedMatching {
     /// Consume self and return the owned `Vec<Bitset>` masks.
     /// Use for zero-copy handoff: move the internal vector out, then re-use it.
-    pub fn into_masks(self) -> Vec<Bitset> {
+    pub fn into_masks(self) -> SmallVec<[Bitset; MATCH_MAX_LEN]> {
         self.masks
     }
 
     /// Construct from raw bitset masks.
-    pub fn from_masks(masks: Vec<Bitset>) -> Self {
+    pub fn from_masks(masks: SmallVec<[Bitset; MATCH_MAX_LEN]>) -> Self {
         MaskedMatching { masks }
     }
 
@@ -46,14 +48,14 @@ impl MaskedMatching {
     /// After calling `self.swap_masks(&mut buf)`, `self` will own the contents of
     /// `buf` and `buf` will own what `self` used to own.
     #[inline]
-    pub fn swap_masks(&mut self, other: &mut Vec<Bitset>) {
+    pub fn swap_masks(&mut self, other: &mut SmallVec<[Bitset; MATCH_MAX_LEN]>) {
         std::mem::swap(&mut self.masks, other)
     }
 
     /// Create empty with `slots`.
     pub fn with_slots(slots: usize) -> Self {
         MaskedMatching {
-            masks: vec![Bitset::empty(); slots],
+            masks: SmallVec::from_elem(Bitset::empty(), slots),
         }
     }
 
@@ -72,7 +74,7 @@ impl MaskedMatching {
         // We'll use safe APIs: clear + extend_from_slice. Because we've reserved,
         // extend_from_slice will not allocate in the hot path.
         self.masks.clear();
-        self.masks.extend(slice);
+        self.masks.extend_from_slice(slice);
     }
 
     /// Construct from legacy `Matching` reference.
@@ -89,7 +91,7 @@ impl MaskedMatching {
     /// assert_eq!(mm.computed_universe(), 3);
     /// ```
     pub fn from_matching_ref(m: &[Vec<IdBase>]) -> Self {
-        let mut masks: Vec<Bitset> = Vec::with_capacity(m.len());
+        let mut masks = SmallVec::with_capacity(m.len());
         for slot in m.iter() {
             // construct the value representing the vector 'slot'
             let mut w: Word = 0;
@@ -106,7 +108,7 @@ impl MaskedMatching {
 
 impl From<&[IdBase]> for MaskedMatching {
     fn from(ms: &[IdBase]) -> Self {
-        let mut slots = vec![];
+        let mut slots = SmallVec::with_capacity(ms.len());
         for m in ms {
             let b = Bitset::from_idxs(&[*m]);
             slots.push(b);
@@ -117,14 +119,15 @@ impl From<&[IdBase]> for MaskedMatching {
 
 impl From<(IdBase, IdBase)> for MaskedMatching {
     fn from(m: (IdBase, IdBase)) -> Self {
-        let mut slots = vec![Bitset::empty(); m.0 as usize + 1];
-        slots[m.0 as usize].insert(m.1);
+        let mut slots = SmallVec::from_elem(Bitset::empty(), m.0 as usize + 1);
+        let x: &mut Bitset = slots.get_mut(m.0 as usize).unwrap();
+        x.insert(m.1);
         MaskedMatching::from_masks(slots)
     }
 }
 
-impl From<Vec<Bitset>> for MaskedMatching {
-    fn from(m: Vec<Bitset>) -> Self {
+impl From<SmallVec<[Bitset; MATCH_MAX_LEN]>> for MaskedMatching {
+    fn from(m: SmallVec<[Bitset; MATCH_MAX_LEN]>) -> Self {
         MaskedMatching { masks: m }
     }
 }
@@ -136,9 +139,10 @@ impl TryFrom<HashMap<IdBase, IdBase>> for MaskedMatching {
             .keys()
             .max()
             .ok_or(ConversionError::RequiredSlotsNotFound)?;
-        let mut slots = vec![Bitset::empty(); (max as usize) + 1];
+        let mut slots = SmallVec::from_elem(Bitset::empty(), (max as usize) + 1);
         for (k, v) in masked.into_iter() {
-            slots[k as usize].insert(v);
+            let x: &mut Bitset = slots.get_mut(k as usize).unwrap();
+            x.insert(v);
         }
         Ok(MaskedMatching::from_masks(slots))
     }

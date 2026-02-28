@@ -4,6 +4,7 @@ use std::fmt;
 
 use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
+use smallvec::SmallVec;
 
 use crate::{
     matching_repr::{bitset::Bitset, MaskedMatching},
@@ -20,7 +21,7 @@ pub(super) fn translate_query_matchings(
 
     for q in src {
         // start with a zero-filled matrix sized to the left side
-        let mut matching: Vec<Bitset> = vec![Bitset::empty(); lut_a.len()];
+        let mut matching: SmallVec<[Bitset; 12]> = SmallVec::from_elem(Bitset::empty(), lut_a.len());
 
         for (k, v) in q {
             // Resolve left-hand side

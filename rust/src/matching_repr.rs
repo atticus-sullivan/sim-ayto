@@ -5,6 +5,7 @@ mod iter;
 
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
+use smallvec::SmallVec;
 
 use crate::matching_repr::bitset::Bitset;
 
@@ -13,10 +14,12 @@ pub type IdBase = u8;
 const WORD_BITS: usize = 64;
 // const WORD_BITS_LOG: usize = 6; // log2(64)
 
+const MATCH_MAX_LEN: usize = 12;
+
 /// Public type used by hot code.
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct MaskedMatching {
-    masks: Vec<Bitset>,
+    masks: SmallVec<[Bitset; MATCH_MAX_LEN]>,
 }
 
 impl MaskedMatching {
