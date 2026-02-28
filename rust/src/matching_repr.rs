@@ -88,13 +88,11 @@ impl MaskedMatching {
     /// how many slots have a non-zero intersection.
     pub fn calculate_lights(&self, sol: &MaskedMatching) -> IdBase {
         let mut l: IdBase = 0;
-        for (i, j) in self.masks.iter().enumerate() {
-            if j.is_empty() {
-                continue;
-            }
-            if !((sol.masks[i] & *j).is_empty()) {
-                l += 1;
-            }
+        let a: &[Bitset] = &self.masks;
+        let b: &[Bitset] = &sol.masks;
+        for i in 0..a.len() {
+            // try to help the comiler using vector instructions here
+            l += a[i].contains_any(b[i]) as IdBase;
         }
         l
     }
