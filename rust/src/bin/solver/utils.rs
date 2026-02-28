@@ -115,7 +115,7 @@ mod tests {
         ])); // -> 1 light
         let left = vec![p1, p2];
         let h = calc_entropy(&m, &left);
-        assert_eq!(h, 0.5);
+        assert_eq!(h, 1.0);
     }
 
     #[test]

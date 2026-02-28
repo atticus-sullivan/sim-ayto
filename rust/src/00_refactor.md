@@ -29,8 +29,8 @@ je nur einem case
 
 ### bin/solver/*
 TODO (ausgelassen erstmal)
-- [ ] testing
-- [ ] Write doc-comments for files
+- [x] testing
+- [x] Write doc-comments for files
 - [x] (re-)organization of functions and files
 
 ## comparison

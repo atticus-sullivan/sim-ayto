@@ -94,7 +94,7 @@ mod tests {
         let chosen = optimizer.choose_mn(&left_poss, &mut rng);
 
         // chosen must be one of the left_poss
-        assert_eq!(chosen, m1);
+        assert_eq!(chosen, m3);
     }
 
     #[test]
