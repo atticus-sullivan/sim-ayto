@@ -13,9 +13,9 @@ use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
 /// - `events` are the chronological evaluation events (MB/MN/Initial).
 /// - `cnts` are aggregated counters and summary data.
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct ComparisonData {
-    pub events: Vec<EvalEvent>,
-    pub cnts: SumCounts,
+pub(crate) struct ComparisonData {
+    pub(crate) events: Vec<EvalEvent>,
+    pub(crate) cnts: SumCounts,
 }
 
 /// One recorded evaluation event (MB/MN/Initial).
@@ -190,14 +190,14 @@ pub struct EvalMN {
 /// Provide small helper methods to update and combine counts.
 /// Keep `add(&mut self, other: &SumCounts)` as a pure & cheap aggregator.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub struct SumCounts {
-    pub blackouts: u8,
-    pub won_in: Option<(bool, String)>,
-    pub matches_found: u8,
-    pub solvable_in: Option<(bool, String)>,
+pub(crate) struct SumCounts {
+    pub(crate) blackouts: u8,
+    pub(crate) won_in: Option<(bool, String)>,
+    pub(crate) matches_found: u8,
+    pub(crate) solvable_in: Option<(bool, String)>,
 
-    pub offers_mn: SumOffersMN,
-    pub offers_mb: SumOffersMB,
+    pub(crate) offers_mn: SumOffersMN,
+    pub(crate) offers_mb: SumOffersMB,
 }
 
 #[allow(clippy::derivable_impls)]
@@ -216,24 +216,24 @@ impl Default for SumCounts {
 
 /// Collect sums regarding offers made for MBs
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub struct SumOffersMB {
-    pub sold_but_match_active: bool,
-    pub sold_cnt: u8,
-    pub sold_but_match: u8,
+pub(crate) struct SumOffersMB {
+    pub(crate) sold_but_match_active: bool,
+    pub(crate) sold_cnt: u8,
+    pub(crate) sold_but_match: u8,
 
-    pub offers_noted: bool,
-    pub offers_cnt: u64,
-    pub offer_and_match: u64,
-    pub offered_money: u128,
+    pub(crate) offers_noted: bool,
+    pub(crate) offers_cnt: u64,
+    pub(crate) offer_and_match: u64,
+    pub(crate) offered_money: u128,
 }
 /// Collect sums regarding offers made for MNs
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
-pub struct SumOffersMN {
-    pub sold_cnt: u8,
+pub(crate) struct SumOffersMN {
+    pub(crate) sold_cnt: u8,
 
-    pub offers_noted: bool,
-    pub offers_cnt: u64,
-    pub offered_money: u128,
+    pub(crate) offers_noted: bool,
+    pub(crate) offers_cnt: u64,
+    pub(crate) offered_money: u128,
 }
 
 #[allow(clippy::derivable_impls)]
@@ -266,7 +266,7 @@ impl SumOffersMB {
     /// Increment this `SumOffersMB` with values found in `other`.
     ///
     /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
+    pub(crate) fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
         self.sold_but_match += other.sold_but_match;
         self.sold_but_match_active |= other.sold_but_match_active;
@@ -281,7 +281,7 @@ impl SumOffersMN {
     /// Increment this `SumOffersMB` with values found in `other`.
     ///
     /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
+    pub(crate) fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
 
         self.offers_cnt += other.offers_cnt;
@@ -294,7 +294,7 @@ impl SumCounts {
     /// Increment this `SumCounts` with values found in `other`.
     ///
     /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
+    pub(crate) fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
 
         self.offers_mn.add(&other.offers_mn);

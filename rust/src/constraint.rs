@@ -19,15 +19,17 @@ pub mod check_type;
 /// This specific module only implements the "real" (in contrast to parsing) datatypes and some
 /// simple getters.
 pub mod compare;
-pub(super) mod evaluate;
 pub mod evaluate_predicates;
+
+pub(super) mod evaluate;
 pub(super) mod parse;
 pub(super) mod parse_utils;
 pub(super) mod report;
 pub(super) mod report_hdr;
-mod report_predicates;
 pub(super) mod report_summary;
 pub(super) mod simulate;
+
+mod report_predicates;
 
 use std::hash::{Hash, Hasher};
 
@@ -77,7 +79,7 @@ pub enum Offer {
 
 impl Offer {
     /// Return the numeric `amount` if present on the offer.
-    pub fn try_get_amount(&self) -> Option<u128> {
+    pub(crate) fn try_get_amount(&self) -> Option<u128> {
         match &self {
             Offer::Single { amount, .. } => *amount,
             Offer::SinglePair { amount, .. } => *amount,
@@ -198,7 +200,7 @@ pub struct Constraint {
     left_poss: Vec<MaskedMatching>,
 
     hide_ruleset_data: bool,
-    pub ruleset_data: Box<dyn RuleSetData>,
+    pub(crate) ruleset_data: Box<dyn RuleSetData>,
     known_lights: u8,
 }
 
@@ -281,6 +283,7 @@ impl Constraint {
     }
 
     /// How many known lights this constraint *adds*
+    /// TODO: tests missing
     pub fn added_known_lights(&self) -> u8 {
         if self.hidden {
             return 0;

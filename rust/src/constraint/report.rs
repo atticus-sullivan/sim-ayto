@@ -20,7 +20,7 @@ impl Constraint {
     /// requested. If no tree is requested for this constraint, this function is a no-op.
     ///
     /// Returns whether a tree has been generated/drawn
-    pub fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
+    pub(crate) fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
         if !self.build_tree {
             return Ok(false);
         }
@@ -39,7 +39,7 @@ impl Constraint {
         Ok(true)
     }
 
-    pub fn distance(&self, other: &Constraint) -> Option<usize> {
+    pub(crate) fn distance(&self, other: &Constraint) -> Option<usize> {
         if !self.show_past_dist() || !other.show_past_dist() {
             return None;
         }
@@ -63,11 +63,11 @@ impl Constraint {
         )
     }
 
-    pub fn show_rem_table(&self) -> bool {
+    pub(crate) fn show_rem_table(&self) -> bool {
         !self.result_unknown
     }
 
-    pub fn md_heading(&self) -> String {
+    pub(crate) fn md_heading(&self) -> String {
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => format!(
                 "MN#{:02.1} {}",

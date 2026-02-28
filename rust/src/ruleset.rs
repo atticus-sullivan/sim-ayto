@@ -1,5 +1,4 @@
 pub mod parse;
-/// ruleset.rs
 mod permutators;
 mod utils;
 

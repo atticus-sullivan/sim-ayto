@@ -8,7 +8,7 @@ use crate::comparison::plotly::layout::{plotly_new_plot, styled_axis};
 /// Build a scatter plot HTML from a list of named series. Each series is
 /// `(name, x_values, y_values, text_values)`.
 #[allow(clippy::type_complexity)]
-pub fn scatter_from_series<Tx, Ty>(
+pub(crate) fn scatter_from_series<Tx, Ty>(
     layout: &Layout,
     series: &[(String, Vec<Tx>, Vec<Ty>, Vec<String>)],
     mode: Mode,
@@ -34,7 +34,7 @@ where
 }
 
 #[allow(clippy::too_many_arguments)]
-pub fn build_scatter_plot<X, Y, FX, FY, FString>(
+pub(crate) fn build_scatter_plot<X, Y, FX, FY, FString>(
     cmp_data: &[(String, CmpData)],
     layout: &Layout,
     palette: &Flavor,

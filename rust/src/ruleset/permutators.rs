@@ -22,7 +22,7 @@ pub(super) mod trip;
 ///   does not guarantee restoring the original ordering). If you need the original
 ///   order afterwards, clone `a` before calling or restore it yourself.
 #[inline]
-pub fn heaps_permute<T, F>(a: &mut [T], mut f: F) -> anyhow::Result<()>
+pub(super) fn heaps_permute<T, F>(a: &mut [T], mut f: F) -> anyhow::Result<()>
 where
     F: FnMut(&mut [T]) -> anyhow::Result<()>,
 {

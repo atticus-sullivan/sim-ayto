@@ -2,7 +2,7 @@ use crate::ruleset::RuleSet;
 use serde::Deserialize;
 
 #[derive(Deserialize, Debug)]
-pub enum RuleSetParse {
+pub(crate) enum RuleSetParse {
     SomeoneIsTrip,
     XTimesDup(Vec<Option<String>>),
     NToN,
@@ -11,7 +11,7 @@ pub enum RuleSetParse {
 }
 
 impl RuleSetParse {
-    pub fn finalize_parsing(self) -> RuleSet {
+    pub(crate) fn finalize_parsing(self) -> RuleSet {
         match self {
             RuleSetParse::SomeoneIsTrip => RuleSet::SomeoneIsTrip,
             RuleSetParse::NToN => RuleSet::NToN,

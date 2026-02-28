@@ -1,7 +1,7 @@
 //! This module-tree implements different strategies to play the game.
 
-pub mod mb;
-pub mod mn;
+pub(super) mod mb;
+pub(super) mod mn;
 
 use ayto::matching_repr::{bitset::Bitset, MaskedMatching};
 use rand::Rng;
@@ -16,7 +16,7 @@ use crate::strategies::{mb::MbOptimizer, mn::MnOptimizer};
 /// - `initial_value`: produce an initial HashMap
 ///
 /// The `usize` value is a practical default; change the return type if you want another payload.
-pub trait StrategyBundle: Send + Sync {
+pub(super) trait StrategyBundle: Send + Sync {
     fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching;
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 
@@ -25,9 +25,9 @@ pub trait StrategyBundle: Send + Sync {
 }
 
 /// Combines the different strategies needed.
-pub struct Strategy<S: MbOptimizer, T: MnOptimizer> {
-    pub mb: S,
-    pub mn: T,
+pub(super) struct Strategy<S: MbOptimizer, T: MnOptimizer> {
+    pub(super) mb: S,
+    pub(super) mn: T,
 }
 
 impl<S, T> StrategyBundle for Strategy<S, T>

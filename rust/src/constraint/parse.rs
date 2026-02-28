@@ -17,7 +17,7 @@ use crate::{Lut, MapS, Rename};
 // this struct is only used when parsing the yaml file.
 // The function `finalize_parsing` is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
-pub struct ConstraintParse {
+pub(crate) struct ConstraintParse {
     pub(super) r#type: ConstraintType,
     #[serde(rename = "map")]
     pub(super) map_s: MapS,
@@ -78,7 +78,7 @@ impl ConstraintParse {
     /// # Returns
     /// `Result<Constraint>` on success.
     #[allow(clippy::too_many_arguments)]
-    pub fn finalize_parsing(
+    pub(crate) fn finalize_parsing(
         self,
         lut_a: &Lut,
         lut_b: &Lut,

@@ -5,7 +5,7 @@
 pub mod dummy;
 pub mod dup;
 pub mod dup_x;
-pub mod utils;
+mod utils;
 
 use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;

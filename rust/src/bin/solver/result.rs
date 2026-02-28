@@ -7,7 +7,7 @@ use ayto::constraint::compare::EvalEvent;
 
 /// Collects the results of one entire simulation (playing the game once)
 #[derive(Serialize, Deserialize)]
-pub(crate) struct SimulationResult {
+pub(super) struct SimulationResult {
     sim_id: usize,
     seed: u64,
     stats: Vec<EvalEvent>,
@@ -16,7 +16,7 @@ pub(crate) struct SimulationResult {
 }
 
 impl SimulationResult {
-    pub(crate) fn new(
+    pub(super) fn new(
         sim_id: usize,
         seed: u64,
         stats: Vec<EvalEvent>,
@@ -32,7 +32,7 @@ impl SimulationResult {
         }
     }
 
-    pub(crate) fn identifier(&self) -> usize {
+    pub(super) fn identifier(&self) -> usize {
         self.sim_id
     }
 }

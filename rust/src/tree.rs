@@ -14,7 +14,7 @@ use crate::matching_repr::MaskedMatching;
 /// serialized in which order (pairs of `(index, something)` - only the index is used).
 ///
 /// `title` is placed in the graph label. `map_a`/`map_b` are used to render readable labels.
-pub fn dot_tree<W: Write>(
+pub(crate) fn dot_tree<W: Write>(
     writer: &mut W,
     data: &[MaskedMatching],
     ordering: &[(usize, usize)],
@@ -112,7 +112,7 @@ fn write_footer<W: Write>(writer: &mut W) -> Result<()> {
 /// The returned vector is sorted by the amount (i.1) ascending.
 ///
 /// This is used to decide a sensible ordering for the tree layers.
-pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, usize)> {
+pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, usize)> {
     // tab maps people from set_a -> possible matches (set -> no duplicates)
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {

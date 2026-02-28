@@ -38,7 +38,7 @@ pub(super) enum Language {
 
 impl Language {
     /// Format a boolean as a localized "Yes/No" string.
-    pub fn format_bool_yes_no(&self, val: bool) -> &str {
+    pub(crate) fn format_bool_yes_no(&self, val: bool) -> &str {
         match self {
             Language::De => {
                 if val {
@@ -58,7 +58,7 @@ impl Language {
     }
 
     /// Return the number formatting `Locale` used for formatting monetary amounts / numbers.
-    pub fn number_formatting(&self) -> num_format::Locale {
+    pub(crate) fn number_formatting(&self) -> num_format::Locale {
         match self {
             Language::De => num_format::Locale::de,
             Language::En => num_format::Locale::en,

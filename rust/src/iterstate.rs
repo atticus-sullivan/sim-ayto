@@ -52,8 +52,11 @@ pub struct IterState<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> 
     pub query_matchings: Vec<(MaskedMatching, Option<String>)>,
     #[allow(clippy::type_complexity)]
     pub query_pair: QueryPairData,
+
+    // progressbar related
     cnt_update: usize,
     progress: T,
+
     cache_file: Option<BufWriter<File>>,
 }
 

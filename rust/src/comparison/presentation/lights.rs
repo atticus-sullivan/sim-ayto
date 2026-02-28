@@ -14,7 +14,7 @@ use crate::constraint::compare::EvalEvent;
 ///
 /// Accepts the comparison dataset and a `theme` index. Returns
 /// pairs `(tab label, plot HTML)` to be embedded in the generated pages.
-pub fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
+pub(crate) fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 

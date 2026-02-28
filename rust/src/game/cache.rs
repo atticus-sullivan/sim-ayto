@@ -137,7 +137,7 @@ impl CacheModeFallback {
 }
 
 impl CacheMode {
-    pub fn select_cache<'a, S: CachableSpec>(
+    pub(crate) fn select_cache<'a, S: CachableSpec>(
         &self,
         fallback: &Option<CacheModeFallback>,
         caches: &'a [S],

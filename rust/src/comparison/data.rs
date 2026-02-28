@@ -20,10 +20,10 @@ use crate::ignore_ops::IgnoreOps;
 /// - `cnts` contains aggregated counts and summary metrics for the season.
 /// - `game` holds the parsed ruleset/game specification.
 #[derive(Debug)]
-pub struct CmpData {
-    pub eval_data: Vec<EvalEvent>,
-    pub cnts: SumCounts,
-    pub game: Game,
+pub(crate) struct CmpData {
+    pub(crate) eval_data: Vec<EvalEvent>,
+    pub(crate) cnts: SumCounts,
+    pub(crate) game: Game,
 }
 
 /// Read JSON data from `path.join(fn_param)` and deserialize into `T`.
@@ -61,7 +61,7 @@ fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
 ///
 /// This function walks the real filesystem and is integration-y; see
 /// `gather_cmp_data_from` (test-friendly wrapper) in the suggestions section.
-pub fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, CmpData)>> {
+pub(crate) fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, CmpData)>> {
     let mut ret = vec![];
 
     // loop over the data directories selected/filterd by filter_dirs

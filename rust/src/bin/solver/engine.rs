@@ -112,7 +112,7 @@ impl<S: StrategyBundle> Simulation<S> {
     }
 
     /// Full simulation execution.
-    pub(crate) fn run(mut self) -> Result<SimulationResult> {
+    pub(super) fn run(mut self) -> Result<SimulationResult> {
         let solution = self.init()?;
         self.run_loop(&solution)?;
         self.try_into()
