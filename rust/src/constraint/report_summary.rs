@@ -9,10 +9,10 @@ use core::fmt;
 
 use comfy_table::Cell;
 
-use crate::LightCnt;
 use crate::constraint::evaluate_predicates::ConstraintEval;
 use crate::constraint::{CheckType, Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
+use crate::LightCnt;
 
 /// A struct representing a row in the summary table. The idea is this is produced by the
 /// evaluation. Then this can be displayed in the process of reporting.
@@ -85,11 +85,11 @@ impl SummaryRow {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum LightSemantic {
     /// we know this was a match
-    Match,   // green
+    Match, // green
     /// we know this was not a match
     NoMatch, // red
     /// we don't gain information by this
-    NoGain,  // yellow
+    NoGain, // yellow
     /// we did gain information, but nothing certain
     Neutral,
 }

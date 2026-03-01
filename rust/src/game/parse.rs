@@ -9,8 +9,8 @@
 use std::fs::File;
 use std::path::Path;
 
-use serde::Deserialize;
 use anyhow::{Context, Result};
+use serde::Deserialize;
 
 use crate::constraint::parse::ConstraintParse;
 use crate::game::cache::{CacheMode, CacheModeFallback};

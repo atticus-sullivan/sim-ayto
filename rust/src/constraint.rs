@@ -22,9 +22,9 @@
 //! This specific module only implements the "real" (in contrast to parsing) datatypes and some
 //! simple getters.
 
+pub mod check_type;
 pub mod compare;
 pub mod evaluate_predicates;
-pub mod check_type;
 
 pub(super) mod evaluate;
 pub(super) mod parse;
@@ -302,7 +302,6 @@ impl Default for Constraint {
     }
 }
 
-
 /// collects the functionalities used during the simulation needed from the constraint
 ///
 /// Avoids having to pull in the whole constraint functionality when using generics
@@ -326,7 +325,7 @@ impl Constraint {
         b_len: usize,
         known_lights: LightCnt,
     ) -> Self {
-        Self{
+        Self {
             r#type: t,
             check,
             map,

@@ -111,8 +111,9 @@ impl RuleSet {
                     "lut too long"
                 );
                 // build fixed numbers as u8 indices
-                let fixed_nums =
-                    Bitset::from_idxs(&fixed.iter().map(|d| lut_b[d] as IdBase).collect::<Vec<_>>());
+                let fixed_nums = Bitset::from_idxs(
+                    &fixed.iter().map(|d| lut_b[d] as IdBase).collect::<Vec<_>>(),
+                );
 
                 // build base vector `x` = all lut_b indices excluding the fixed numbers
                 // Len(x) == a + unknown_cnt

@@ -12,7 +12,7 @@
 //! - even add_trip_inplace only allows to fix 1/3 of the triple. The other one is taken from the
 //!   end of the base.
 
-use crate::matching_repr::{IdBase, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, IdBase};
 
 /// In-place "add trip" generator. Here one of the three items building the triplet is fixed.
 ///
@@ -34,7 +34,11 @@ use crate::matching_repr::{IdBase, bitset::Bitset};
 /// Notes:
 /// - Does not support adding multiple triples (yet)
 #[inline]
-pub(crate) fn add_trip_inplace<F>(buf: &mut [Bitset], add: IdBase, mut emit: F) -> anyhow::Result<()>
+pub(crate) fn add_trip_inplace<F>(
+    buf: &mut [Bitset],
+    add: IdBase,
+    mut emit: F,
+) -> anyhow::Result<()>
 where
     F: FnMut(&mut [Bitset]) -> anyhow::Result<()>,
 {

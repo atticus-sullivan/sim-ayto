@@ -15,8 +15,8 @@ use rust_decimal::dec;
 use serde::Deserialize;
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
-use crate::matching_repr::IdBase;
 use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::IdBase;
 use crate::ruleset_data::RuleSetData;
 use crate::{LightCnt, Lut, MapS, Rename};
 
@@ -219,7 +219,8 @@ impl ConstraintParse {
                 bs.insert(
                     *lut_b
                         .get(x)
-                        .with_context(|| format!("Invalid Value {}", x))? as IdBase,
+                        .with_context(|| format!("Invalid Value {}", x))?
+                        as IdBase,
                 );
             }
             Ok(Some((a, bs)))

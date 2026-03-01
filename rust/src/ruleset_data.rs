@@ -18,7 +18,6 @@ use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::Lut;
 
-
 /// Small helper trait to allow cloning boxed trait objects.
 ///
 /// Implementors of `RuleSetData` should derive/impl `Clone` and `RuleSetDataClone`

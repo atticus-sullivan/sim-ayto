@@ -16,7 +16,7 @@ use crate::matching_repr::{IdBase, MaskedMatching};
 
 /// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
 /// calculated beforehand.
-/// 
+///
 /// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
 /// afterwards.
 ///
@@ -79,7 +79,7 @@ impl<'a, W: Write> DotBuilder<'a, W> {
     }
 
     /// Ensure a node exists and return its identifier.
-    /// 
+    ///
     /// If the node does not exist yet, this function creates the node in the `.dot` output (with
     /// the correct id and label).
     fn ensure_node(&mut self, parent: &str, idx: usize, mask: &Bitset) -> Result<String> {

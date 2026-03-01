@@ -47,7 +47,6 @@ enum Commands {
 
         // #[arg(short = 'c', long = "color")]
         // colored: bool,
-
         /// option to transpose the generated tables (swaps set_a with set_b)
         /// swapping via the config is not possible as it matters for the maps on which side
         /// duplicates are possible to store
@@ -143,7 +142,7 @@ enum Commands {
     /// Report cache availability for a YAML file
     Cache {
         /// Path to the game-config for which the caches shall be listed
-        yaml_path: PathBuf
+        yaml_path: PathBuf,
     },
 }
 

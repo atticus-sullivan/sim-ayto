@@ -8,10 +8,10 @@
 //!
 //! This module is the only one needed to the outside (`write_pages`). Everything is plugged together here.
 
+mod data;
 mod plotly;
 mod presentation;
 mod theme;
-mod data;
 
 use std::path::{Path, PathBuf};
 

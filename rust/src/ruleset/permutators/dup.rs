@@ -9,7 +9,7 @@
 
 use anyhow::ensure;
 
-use crate::matching_repr::{IdBase, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, IdBase};
 
 /// Apply a sequence of duplicate-add operations to `buf` *in-place* and emit every final result.
 ///

@@ -88,7 +88,7 @@ where
 /// Accepts `cmp_data` as `Vec<(label, data)>` where `data` will be passed to `entries_fn`.
 ///
 /// `entries_fn` shall be a closure/function which extracts from/converts the data relevant for the
-/// heatmap generation to EntryDatum 
+/// heatmap generation to EntryDatum
 ///
 /// Returns inline plot HTML.
 pub(crate) fn build_heatmap_plot<F>(

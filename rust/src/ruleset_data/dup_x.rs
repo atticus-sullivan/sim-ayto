@@ -169,7 +169,12 @@ impl<'a> DupXStats<'a> {
     /// - `hdr` a header to be printed later when displaying the results
     /// - `query` filter data to entries which all contain this item
     /// - `query_not` filter data to entries which all do not contain any of these items
-    fn new(data: &DupXData, hdr: &'a str, query: Option<IdBase>, query_not: &HashSet<IdBase>) -> Self {
+    fn new(
+        data: &DupXData,
+        hdr: &'a str,
+        query: Option<IdBase>,
+        query_not: &HashSet<IdBase>,
+    ) -> Self {
         // filter according to query / query_not
         let filtered = match query {
             Some(q) => data

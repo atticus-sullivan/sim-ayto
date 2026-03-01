@@ -280,7 +280,9 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
                 }
                 for b in bs.iter() {
                     if let Some(val) = self.query_pair.1.get_mut(&b) {
-                        val.entry(a as IdBase).and_modify(|cnt| *cnt += 1).or_insert(1);
+                        val.entry(a as IdBase)
+                            .and_modify(|cnt| *cnt += 1)
+                            .or_insert(1);
                     };
                 }
             }

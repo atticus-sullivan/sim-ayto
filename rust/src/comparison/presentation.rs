@@ -9,7 +9,7 @@
 //! already existing/evaluated data in a nice way. Thus, not really something that should be
 //! tested.
 
+pub(super) mod information;
 pub(super) mod lights;
 pub(super) mod ruleset;
 pub(super) mod summary;
-pub(super) mod information;

@@ -11,15 +11,15 @@ use std::io::Write;
 
 use anyhow::{Context, Result};
 
+use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::IdBase;
+use crate::matching_repr::MaskedMatching;
+use crate::ruleset::RuleSet;
 use crate::ruleset_data::utils::{
     aggregate_by_bitset, aggregate_by_individual_a, aggregate_by_individual_b, print_stats,
 };
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use crate::matching_repr::bitset::Bitset;
-use crate::matching_repr::MaskedMatching;
-use crate::ruleset::RuleSet;
 
 /// Collect statistics about "dup" (or "trip") events.
 #[derive(Debug, Clone, Default, PartialEq)]

@@ -7,8 +7,8 @@
 use std::collections::HashSet;
 
 use anyhow::Result;
-use ayto::LightCnt;
 use ayto::progressbar::MockProgressBar;
+use ayto::LightCnt;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
 use rust_decimal::dec;

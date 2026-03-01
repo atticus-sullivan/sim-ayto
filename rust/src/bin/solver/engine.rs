@@ -46,7 +46,6 @@ pub struct Simulation<S: StrategyBundle> {
     /////////////////////////////////////////////////////
     // fields which are modified during the simulation //
     /////////////////////////////////////////////////////
-
     /// accumulated list of constraints used to solve this game
     constraints: Vec<Constraint>,
     /// list of all remaining possible solutions

@@ -11,8 +11,8 @@ use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 use smallvec::SmallVec;
 
-use crate::matching_repr::{IdBase, MATCH_MAX_LEN};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
+use crate::matching_repr::{IdBase, MATCH_MAX_LEN};
 use crate::{Lut, MatchingS};
 
 /// Translates the query for a matching

@@ -10,7 +10,7 @@ use std::{collections::HashSet, fmt};
 use anyhow::{Context, Result};
 use comfy_table::{presets::UTF8_FULL_CONDENSED, Cell, Row, Table};
 
-use crate::{Lut, game::parse::QueryPair, iterstate::QueryPairData, matching_repr::IdBase};
+use crate::{game::parse::QueryPair, iterstate::QueryPairData, matching_repr::IdBase, Lut};
 
 /// translate query-pairs as parsed from config to ids used during simulation and later reporting
 pub(super) fn translate_query_pairs(

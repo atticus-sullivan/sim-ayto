@@ -26,7 +26,12 @@ impl Constraint {
     /// requested. If no tree is requested for this constraint, this function is a no-op.
     ///
     /// Returns whether a tree has been generated/drawn
-    pub(crate) fn build_tree(&self, path: PathBuf, map_a: &[String], map_b: &[String]) -> Result<bool> {
+    pub(crate) fn build_tree(
+        &self,
+        path: PathBuf,
+        map_a: &[String],
+        map_b: &[String],
+    ) -> Result<bool> {
         if !self.build_tree {
             return Ok(false);
         }

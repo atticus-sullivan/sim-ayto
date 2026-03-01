@@ -7,11 +7,14 @@
 //! The root is `EvalData` (which is at some point serialized/stored so the comparison can take
 //! place later)
 
+use anyhow::{Context, Result};
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
-use anyhow::{Context, Result};
 
-use crate::{LightCnt, constraint::{Constraint, ConstraintGetters, ConstraintType}};
+use crate::{
+    constraint::{Constraint, ConstraintGetters, ConstraintType},
+    LightCnt,
+};
 
 /// Container of evaluation output used for plotting and summaries.
 ///

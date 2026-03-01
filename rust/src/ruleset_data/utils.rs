@@ -6,7 +6,7 @@
 
 use std::{collections::HashMap, io::Write, ops::AddAssign};
 
-use crate::matching_repr::{IdBase, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, IdBase};
 
 /// Helper that aggregates a `(usize, Bitset)` map by the Bitset itself.
 ///
@@ -31,7 +31,7 @@ where
 /// Helper that aggregates by each individual index inside the Bitset.
 ///
 /// Bascically a sum(groupby(idx_b))
-/// 
+///
 /// - `cnt`: (a, bs) -> increase count by v
 ///
 /// returns a sorted vector

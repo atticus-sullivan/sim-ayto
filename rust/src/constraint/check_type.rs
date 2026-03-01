@@ -9,7 +9,7 @@ use std::collections::BTreeMap;
 
 use serde::Deserialize;
 
-use crate::{LightCnt, matching_repr::IdBase};
+use crate::{matching_repr::IdBase, LightCnt};
 
 /// Type used to decide how to check a matching against a constraint.
 #[derive(Deserialize, Debug, Clone, Hash, PartialEq)]

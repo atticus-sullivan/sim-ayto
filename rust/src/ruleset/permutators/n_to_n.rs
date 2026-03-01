@@ -7,7 +7,7 @@
 use anyhow::ensure;
 use permutator::{Combination, Permutation};
 
-use crate::matching_repr::{IdBase, bitset::Bitset};
+use crate::matching_repr::{bitset::Bitset, IdBase};
 
 /// In-place generator for N-to-N assignments.
 ///

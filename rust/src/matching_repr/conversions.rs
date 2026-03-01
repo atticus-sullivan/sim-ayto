@@ -81,7 +81,7 @@ impl MaskedMatching {
     #[inline]
     pub fn set_masks_from_slice(&mut self, slice: &[Bitset])
     where
-        Bitset: Copy
+        Bitset: Copy,
     {
         // Ultra fast path - most common -> place as fist case
         if self.masks.len() == slice.len() {

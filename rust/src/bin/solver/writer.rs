@@ -25,7 +25,7 @@ pub(super) enum WriterMsg {
         /// the id of the worker which started for tracking the running threads
         sim_id: usize,
         /// the time when the worker started
-        start_ms: u128
+        start_ms: u128,
     },
     /// Signals the worker finished the simulation, contains the result so the writer can append it
     /// to the output
@@ -73,11 +73,7 @@ pub(super) fn spawn_writer_thread(
 /// This is the "event-loop" of the writer
 ///
 /// It terminates once all Sender instances are dropped.
-fn writer_loop(
-    pb: ProgressBar,
-    mut file: File,
-    rx: mpsc::Receiver<WriterMsg>,
-) -> Result<()> {
+fn writer_loop(pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -> Result<()> {
     let mut active: HashMap<usize, u128> = HashMap::new();
 
     while let Ok(msg) = rx.recv() {
