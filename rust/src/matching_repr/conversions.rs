@@ -75,19 +75,34 @@ impl MaskedMatching {
     ///
     /// This method performs a *copy* of `slice` elements (cheap, u64-sized), but it avoids
     /// heap allocations if the internal Vec capacity >= slice.len().
+    ///
+    /// Notes:
+    /// - the `slice` and self.masks must never overlap -> undefined behevior otherwise
     #[inline]
-    pub fn set_masks_from_slice(&mut self, slice: &[Bitset]) {
-        // TODO: does this still make sense now with SmallVec?
-
+    pub fn set_masks_from_slice(&mut self, slice: &[Bitset])
+    where
+        Bitset: Copy
+    {
+        // Ultra fast path - most common -> place as fist case
+        if self.masks.len() == slice.len() {
+            self.masks.as_mut_slice().copy_from_slice(slice);
+            return;
+        }
         // If capacity is insufficient, reserve once (might allocate once).
         if self.masks.capacity() < slice.len() {
             self.masks.reserve(slice.len() - self.masks.capacity());
         }
         // Fast path: if we can, overwrite existing elements and adjust length.
-        // We'll use safe APIs: clear + extend_from_slice. Because we've reserved,
-        // extend_from_slice will not allocate in the hot path.
-        self.masks.clear();
-        self.masks.extend_from_slice(slice);
+        // Safety notes:
+        //  - We reserved enough capacity above.
+        //  - as_mut_ptr() returns a pointer to the buffer; writing into uninitialized spare
+        //    memory is allowed if we do not create invalid references and we set_len afterwards.
+        //  - copy_nonoverlapping here is correct because src and dst do not overlap.
+        unsafe {
+            let dst = self.masks.as_mut_ptr();
+            std::ptr::copy_nonoverlapping(slice.as_ptr(), dst, slice.len());
+            self.masks.set_len(slice.len());
+        }
     }
 
     /// The `m` is expected to be a slice of slots; each slot is a `Vec<IdBase>`
