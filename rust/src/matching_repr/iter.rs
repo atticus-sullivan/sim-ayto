@@ -29,15 +29,14 @@ impl MaskedMatching {
     /// Helper function for producing an iterator for the unwrapped matchings
     ///
     /// Builds an bitset-iterator for every slot
-    fn build_bit_iters(&self) -> Vec<BitIter> {
+    fn build_bit_iters(&self) -> SmallVec<[BitIter; MATCH_MAX_LEN]> {
         self.masks.iter().map(|b| b.iter()).collect()
     }
 
     /// Helper function for producing an iterator for the unwrapped matchings
     ///
     /// Advances all the bitset-iterators and collects the next value
-    fn prime_iters(iters: &mut [BitIter]) -> Vec<Option<IdBase>> {
-        // TODO: use SmallVec instead of a normal vector?
+    fn prime_iters(iters: &mut [BitIter]) -> SmallVec<[Option<IdBase>; MATCH_MAX_LEN]> {
         iters.iter_mut().map(|it| it.next()).collect()
     }
 
@@ -146,9 +145,9 @@ pub struct UnwrappedIter<'a> {
     /// the stored MaskedMatching which the iterator iterates over
     mm: &'a MaskedMatching,
     /// Current iterators for each slot
-    iters: Vec<BitIter>,
+    iters: SmallVec<[BitIter; MATCH_MAX_LEN]>,
     /// Current selection (indices of bits per slot)
-    current: Vec<Option<IdBase>>,
+    current: SmallVec<[Option<IdBase>; MATCH_MAX_LEN]>,
     /// Flag to indicate iteration is done
     done: bool,
 }
