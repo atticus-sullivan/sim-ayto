@@ -8,7 +8,7 @@ pub mod bitset;
 mod conversions;
 mod iter;
 
-use anyhow::{Context, Result};
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use smallvec::SmallVec;
 
@@ -88,18 +88,13 @@ impl MaskedMatching {
         &self,
         map_a: &[String],
         map_b: &[String],
-    ) -> Result<Vec<(String, String)>> {
+    ) -> Result<Vec<(String, Vec<String>)>> {
         self.masks
             .iter()
             .enumerate()
             .map(|(a, b)| {
                 let i = map_a[a].clone();
-                let j = map_b[b
-                    .iter()
-                    .next()
-                    .with_context(|| format!("{b:?} contained no element"))?
-                    as usize]
-                    .clone();
+                let j = b.iter().map(|b| map_b[b as usize].clone()).collect();
                 Ok((i, j))
             })
             .collect()
@@ -223,17 +218,11 @@ mod tests {
         let names = mm.prepare_debug_print_names(&map_a, &map_b).unwrap();
         assert_eq!(
             names,
-            vec![("A".into(), "c".into()), ("B".into(), "a".into())]
+            vec![
+                ("A".into(), vec!["c".into()]),
+                ("B".into(), vec!["a".into(), "b".into()])
+            ]
         );
-    }
-
-    #[test]
-    fn prepare_debug_print_names_empty_slot_error() {
-        let mm = MaskedMatching::from_matching_ref(&[vec![], vec![0u8]]);
-        let map_a = vec!["A".into(), "B".into()];
-        let map_b = vec!["a".into()];
-        let err = mm.prepare_debug_print_names(&map_a, &map_b).unwrap_err();
-        assert!(format!("{err}").contains("contained no element"));
     }
 
     #[test]

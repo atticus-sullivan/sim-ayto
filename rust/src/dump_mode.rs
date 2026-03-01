@@ -120,11 +120,19 @@ mod tests {
 
         let output = String::from_utf8(buf).unwrap();
         let lines = output.lines().collect::<Vec<_>>();
-        assert_eq!(lines[0], "[(\"A\", \"a\"), (\"B\", \"b\"), (\"C\", \"c\")]");
-        assert_eq!(lines[1], "[(\"A\", \"c\"), (\"B\", \"b\"), (\"C\", \"a\")]");
-        assert_eq!(lines[2], "[(\"A\", \"a\"), (\"B\", \"c\"), (\"C\", \"b\")]");
+        assert_eq!(
+            lines[0],
+            "[(\"A\", [\"a\"]), (\"B\", [\"b\"]), (\"C\", [\"c\"])]"
+        );
+        assert_eq!(
+            lines[1],
+            "[(\"A\", [\"c\"]), (\"B\", [\"b\"]), (\"C\", [\"a\"])]"
+        );
+        assert_eq!(
+            lines[2],
+            "[(\"A\", [\"a\"]), (\"B\", [\"c\", \"d\"]), (\"C\", [\"b\"])]"
+        );
         assert_eq!(lines.len(), 3)
-        // TODO: does not show 1 -> 3
     }
 
     #[test]
@@ -182,10 +190,22 @@ mod tests {
 
         let output = String::from_utf8(buf).unwrap();
         let lines = output.lines().collect::<Vec<_>>();
-        assert_eq!(lines[0], "[(\"A\", \"a\"), (\"B\", \"b\"), (\"C\", \"c\")]");
-        assert_eq!(lines[1], "[(\"A\", \"c\"), (\"B\", \"b\"), (\"C\", \"a\")]");
-        assert_eq!(lines[2], "[(\"A\", \"a\"), (\"B\", \"c\"), (\"C\", \"b\")]");
-        assert_eq!(lines[3], "[(\"A\", \"a\"), (\"B\", \"d\"), (\"C\", \"b\")]");
+        assert_eq!(
+            lines[0],
+            "[(\"A\", [\"a\"]), (\"B\", [\"b\"]), (\"C\", [\"c\"])]"
+        );
+        assert_eq!(
+            lines[1],
+            "[(\"A\", [\"c\"]), (\"B\", [\"b\"]), (\"C\", [\"a\"])]"
+        );
+        assert_eq!(
+            lines[2],
+            "[(\"A\", [\"a\"]), (\"B\", [\"c\"]), (\"C\", [\"b\"])]"
+        );
+        assert_eq!(
+            lines[3],
+            "[(\"A\", [\"a\"]), (\"B\", [\"d\"]), (\"C\", [\"b\"])]"
+        );
         assert_eq!(lines.len(), 4)
     }
 }
