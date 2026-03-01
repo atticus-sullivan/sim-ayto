@@ -39,7 +39,7 @@ enum Commands {
         // TODO:(later) make possible to specify multiple values if makes sense (multiple ignoreOps
         // available)
         /// specify which operations/events shall be ignored
-        #[arg(long = "ignore")]
+        #[arg(long = "ignore", value_enum, default_value_t = IgnoreOps::Nothing)]
         ignore: IgnoreOps,
 
         /// The path to the file to read as game-config
