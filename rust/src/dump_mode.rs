@@ -18,10 +18,10 @@ pub enum DumpMode {
 impl DumpMode {
     pub(super) fn dump<W: io::Write>(
         &self,
+        mut out: W,
         left_poss: &[MaskedMatching],
         map_a: &[String],
         map_b: &[String],
-        mut out: W,
     ) -> io::Result<()> {
         match self {
             DumpMode::Full => {
@@ -77,7 +77,7 @@ mod tests {
         ];
         let mut buf = Vec::new();
 
-        DumpMode::Full.dump(&data, &[], &[], &mut buf).unwrap();
+        DumpMode::Full.dump(&mut buf, &data, &[], &[]).unwrap();
 
         let output = String::from_utf8(buf).unwrap();
         let lines = output.lines().collect::<Vec<_>>();
@@ -106,7 +106,7 @@ mod tests {
         let mut buf = Vec::new();
 
         DumpMode::FullNames
-            .dump(&data, &map_a, &map_b, &mut buf)
+            .dump(&mut buf, &data, &map_a, &map_b)
             .unwrap();
 
         let output = String::from_utf8(buf).unwrap();
@@ -137,7 +137,7 @@ mod tests {
         let mut buf = Vec::new();
 
         DumpMode::Winning
-            .dump(&data, &map_a, &map_b, &mut buf)
+            .dump(&mut buf, &data, &map_a, &map_b)
             .unwrap();
 
         let output = String::from_utf8(buf).unwrap();
@@ -168,7 +168,7 @@ mod tests {
         let mut buf = Vec::new();
 
         DumpMode::WinningNames
-            .dump(&data, &map_a, &map_b, &mut buf)
+            .dump(&mut buf, &data, &map_a, &map_b)
             .unwrap();
 
         let output = String::from_utf8(buf).unwrap();

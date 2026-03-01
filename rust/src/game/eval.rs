@@ -107,7 +107,7 @@ impl Game {
         is: &IterState<T, Constraint>,
     ) -> Result<()> {
         if let Some(d) = dump_mode {
-            d.dump(&is.left_poss, &self.map_a, &self.map_b, io::stdout())?;
+            d.dump(io::stdout(), &is.left_poss, &self.map_a, &self.map_b)?;
         }
 
         println!("{}", self.summary_table(false, constraints)?);
