@@ -53,21 +53,18 @@ impl Constraint {
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let l = self.map.calculate_lights(m);
 
-                let f = self
+                // true when exclude exists AND there's any overlap -> deny the matching
+                let deny = self
                     .exclude
                     .as_ref()
-                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| !ex.1.contains_any(*m)));
+                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| ex.1.contains_any(*m)))
+                    .unwrap_or(false);
 
                 // use calculated lights to collect stats on based on the matching possible until
                 // here, how many lights are calculated how often for this map
                 *light_count.entry(l).or_insert(0) += 1;
 
-                if let Some(f) = f {
-                    // TODO: logic error? previously (e.g. 28886869a64f273ae6de42523a5e4cafad17d73a) no Some(true) was able to be produced by exclude
-                    f
-                } else {
-                    l == *lights
-                }
+                !deny && l == *lights
             }
         }
     }
@@ -377,7 +374,7 @@ mod tests {
             check: CheckType::Lights(1, Default::default()),
             map: MaskedMatching::from_matching_ref(&[vec![], vec![1]]),
             // 1 must match with ONLY 1 => exclude matching with 0, 2 or 3
-            exclude: Some((1, Bitset::from_idxs(&[0, 2, 3]))),
+            exclude: Some((1, Bitset::from_idxs(&[0, 3]))),
             ..Default::default()
         };
         let ms = vec![
@@ -394,8 +391,8 @@ mod tests {
                 MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
             ),
             (
-                false,
-                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+                false, // passes the exclude check, but 1->1 does not hold anymore => 0 lights expected
+                MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0, 3]]),
             ),
         ];
 
