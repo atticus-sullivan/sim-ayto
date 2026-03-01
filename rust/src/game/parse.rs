@@ -76,7 +76,7 @@ pub struct GameParse {
     #[serde(rename = "renameB", default)]
     rename_b: Rename,
 
-    // TODO: eventually move this to the constraint, maybe keep here as default
+    // TODO:(later) eventually move this to the constraint, maybe keep here as default
     /// whether to generate a cache in the end - might get overwritten by CLI arguments
     #[serde(rename = "gen_cache", default)]
     pub gen_cache: bool,

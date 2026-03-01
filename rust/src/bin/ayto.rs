@@ -36,7 +36,7 @@ enum Commands {
         #[arg(long = "no-tree-output", action)]
         no_tree_output: bool,
 
-        // TODO: make possible to specify multiple values if makes sense (multiple ignoreOps
+        // TODO:(later) make possible to specify multiple values if makes sense (multiple ignoreOps
         // available)
         /// specify which operations/events shall be ignored
         #[arg(long = "ignore")]

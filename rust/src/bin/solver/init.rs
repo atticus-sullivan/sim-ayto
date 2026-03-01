@@ -46,10 +46,10 @@ pub(super) fn build_initial_constraint(
     ruleset: &RuleSet,
     lights_known_before: usize,
 ) -> Result<Constraint> {
-    // TODO: does not work in general. matching might contain empty slots -> len is not what we
+    // TODO:(later) does not work in general. matching might contain empty slots -> len is not what we
     // expect here.
     // Not an issue with the current initial values used
-    // TODO: becomes obsolete anyhow when strategy.inital() returns a full constraint insteaf of a
+    // TODO:(later) becomes obsolete anyhow when strategy.inital() returns a full constraint insteaf of a
     // matching
     let constraint_type = if matching.len() == 1 {
         ConstraintType::Box {
