@@ -36,8 +36,8 @@ enum Commands {
         /// The path to the file to read
         yaml_path: PathBuf,
 
-        #[arg(short = 'c', long = "color")]
-        colored: bool,
+        // #[arg(short = 'c', long = "color")]
+        // colored: bool,
 
         #[arg(long = "transpose")]
         transpose_tabs: bool,
@@ -123,7 +123,7 @@ fn main() {
             no_tree_output,
             ignore,
             yaml_path,
-            colored: _,
+            // colored: _,
             transpose_tabs,
             stem,
             dump,
