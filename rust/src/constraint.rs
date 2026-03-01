@@ -336,7 +336,6 @@ impl Constraint {
         }
     }
 
-    // TODO: tests missing
     /// Tells how many known lights this constraint *adds*
     pub fn added_known_lights(&self) -> LightCnt {
         if self.hidden {
@@ -531,5 +530,80 @@ mod tests {
             ..Default::default()
         };
         assert_eq!(c.type_str(), "MB#3");
+    }
+
+    #[test]
+    fn added_known_lights_true() {
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(1, Default::default()),
+            ..Default::default()
+        };
+        assert_eq!(c.added_known_lights(), 1);
+    }
+
+    #[test]
+    fn added_known_lights_box_false() {
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(2, Default::default()),
+            ..Default::default()
+        };
+        assert_eq!(c.added_known_lights(), 0);
+
+        let c = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(0, Default::default()),
+            ..Default::default()
+        };
+        assert_eq!(c.added_known_lights(), 0);
+    }
+
+    #[test]
+    fn added_known_lights_night_false() {
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(0, Default::default()),
+            ..Default::default()
+        };
+        assert_eq!(c.added_known_lights(), 0);
+
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(1, Default::default()),
+            ..Default::default()
+        };
+        assert_eq!(c.added_known_lights(), 0);
+
+        let c = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(10, Default::default()),
+            ..Default::default()
+        };
+        assert_eq!(c.added_known_lights(), 0);
     }
 }
