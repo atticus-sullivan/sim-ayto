@@ -11,7 +11,7 @@ use anyhow::{Context, Result};
 use comfy_table::{presets::NOTHING, Cell, Row, Table};
 use smallvec::SmallVec;
 
-use crate::matching_repr::IdBase;
+use crate::matching_repr::{IdBase, MATCH_MAX_LEN};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::{Lut, MatchingS};
 
@@ -25,7 +25,7 @@ pub(super) fn translate_query_matchings(
 
     for q in src {
         // start with a zero-filled matrix sized to the left side
-        let mut matching: SmallVec<[Bitset; 12]> =
+        let mut matching: SmallVec<[Bitset; MATCH_MAX_LEN]> =
             SmallVec::from_elem(Bitset::empty(), lut_a.len());
 
         for (k, v) in q {

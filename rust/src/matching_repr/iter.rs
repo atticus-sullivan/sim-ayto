@@ -7,7 +7,7 @@
 use smallvec::SmallVec;
 
 use crate::matching_repr::bitset::{BitIter, Bitset};
-use crate::matching_repr::{IdBase, MaskedMatching, Word, WORD_BITS};
+use crate::matching_repr::{IdBase, MaskedMatching, Word, MATCH_MAX_LEN, WORD_BITS};
 
 impl MaskedMatching {
     /// Iterate over slots: returns an iterator of `Bitset` (one bitset per slot).
@@ -161,7 +161,7 @@ impl UnwrappedIter<'_> {
             .current
             .iter()
             .map(|&opt_idx| opt_idx.map_or_else(Bitset::empty, |idx| Bitset::from_idxs(&[idx])))
-            .collect::<SmallVec<[Bitset; 12]>>();
+            .collect::<SmallVec<[Bitset; MATCH_MAX_LEN]>>();
         MaskedMatching::from_masks(slots)
     }
 
