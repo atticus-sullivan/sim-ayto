@@ -42,12 +42,12 @@ where
     T: MnOptimizer,
 {
     fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching {
-        // delegate to your previous implementation
+        // delegate to the real implementation
         self.mb.choose_mb(data, total, rng)
     }
 
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching {
-        // delegate to your previous implementation
+        // delegate to the real implementation
         self.mn.choose_mn(left_poss, rng)
     }
 
