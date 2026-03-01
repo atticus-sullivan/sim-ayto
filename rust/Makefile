@@ -13,10 +13,10 @@ test:
 	cargo test
 
 target/release/ayto: $(SRC_FILES)
-	RUSTC_WRAPPER=sccache cargo build --release
+	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo build --release
 
 target/debug/ayto: $(SRC_FILES)
-	RUSTC_WRAPPER=sccache cargo build
+	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo build
 
 buildAll: buildRelease build
 	
@@ -28,10 +28,10 @@ buildRelease: target/release/ayto
 	
 
 run:
-	RUSTC_WRAPPER=sccache cargo run
+	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo run
 
 check:
-	RUSTC_WRAPPER=sccache cargo check
+	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo check
 
 contCheck:
 	luamon -l rust -e rs -w . -t -x make -- check
