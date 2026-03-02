@@ -80,6 +80,7 @@ where
 pub(super) fn print_stats<T, W>(
     mut f: W,
     title: &str,
+    suffix: &str,
     total: u128,
     entries: impl IntoIterator<Item = (T, usize)>,
     fmt_key: impl Fn(&T) -> String,
@@ -120,6 +121,7 @@ where
         )?;
         first = false;
     }
+    write!(f, "{}", suffix)?;
     writeln!(f)
 }
 
@@ -193,6 +195,7 @@ mod tests {
         print_stats(
             &mut buf,
             "Title",
+            "",
             15,
             entries.into_iter(),
             |k| k.0.clone(),
@@ -220,6 +223,7 @@ mod tests {
         print_stats(
             &mut buf,
             "Title",
+            " suffix",
             10,
             entries.clone(),
             |k| k.clone(),
@@ -228,7 +232,7 @@ mod tests {
         )?;
         let out = String::from_utf8(buf)?;
 
-        let expected = r#"top5 Title: 10.0%/1: k0 | 10.0%/1: k1 | 10.0%/1: k2 | 10.0%/1: k3 | 10.0%/1: k4
+        let expected = r#"top5 Title: 10.0%/1: k0 | 10.0%/1: k1 | 10.0%/1: k2 | 10.0%/1: k3 | 10.0%/1: k4 suffix
 "#;
 
         assert_eq!(out, expected);

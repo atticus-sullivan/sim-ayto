@@ -118,6 +118,7 @@ impl DupStats {
         print_stats(
             &mut f,
             &format!("Pr[{word}]"),
+            "",
             total,
             self.full_matches,
             |&(a_idx, bs)| {
@@ -136,6 +137,7 @@ impl DupStats {
         print_stats(
             &mut f,
             &format!("Pr[{word}]"),
+            "",
             total,
             self.by_bitset,
             |bs| {
@@ -153,6 +155,7 @@ impl DupStats {
         print_stats(
             &mut f,
             &format!("Pr[{word}]"),
+            "",
             total,
             self.by_individual,
             |&b| map_b[b as usize].clone(),
@@ -163,6 +166,7 @@ impl DupStats {
         print_stats(
             &mut f,
             &format!("Pr[{word}]"),
+            "",
             total,
             self.by_a,
             |&a_idx| map_a[a_idx].clone(),

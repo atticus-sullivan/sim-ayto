@@ -233,6 +233,7 @@ impl<'a> DupXStats<'a> {
         print_stats(
             &mut f,
             &format!("Pr[{word}]"),
+            "",
             total,
             self.full_matches,
             |&(a_idx, bs)| {
@@ -250,7 +251,8 @@ impl<'a> DupXStats<'a> {
 
         print_stats(
             &mut f,
-            &format!("Pr({word})"),
+            &format!("Pr[{word}]"),
+            "",
             total,
             self.by_bitset,
             |bs| {
@@ -267,7 +269,8 @@ impl<'a> DupXStats<'a> {
 
         print_stats(
             &mut f,
-            &format!("Pr({word})"),
+            &format!("Pr[{word}]"),
+            " / 200 %",
             total,
             self.by_individual,
             |&b| map_b[b as usize].clone(),
@@ -277,7 +280,8 @@ impl<'a> DupXStats<'a> {
 
         print_stats(
             &mut f,
-            &format!("Pr{word}"),
+            &format!("Pr[{word}]"),
+            "",
             total,
             self.by_a,
             |&a_idx| map_a[a_idx].clone(),
@@ -399,12 +403,12 @@ mod tests {
         let expected = r#"Header
 Pr[Dup]: 
   100.0%/7: A -> ["b", "c"]
-Pr(Dup): 
+Pr[Dup]: 
   100.0%/7: ["b", "c"]
-Pr(Dup): 
+Pr[Dup]: 
   100.0%/7: c
   100.0%/7: b
-PrDup: 
+Pr[Dup]: 
   100.0%/7: A
 "#;
         assert_eq!(out, expected);
@@ -429,9 +433,9 @@ PrDup:
 
         let expected = r#"Hdr
 top4 Pr[Dup]: 10.0%/1: A9 -> ["B4"] | 10.0%/1: A8 -> ["B3"] | 10.0%/1: A7 -> ["B2"] | 10.0%/1: A6 -> ["B1"]
-top5 Pr(Dup): 20.0%/2: ["B4"] | 20.0%/2: ["B3"] | 20.0%/2: ["B2"] | 20.0%/2: ["B1"] | 20.0%/2: ["B0"]
-top5 Pr(Dup): 20.0%/2: B4 | 20.0%/2: B3 | 20.0%/2: B2 | 20.0%/2: B1 | 20.0%/2: B0
-top5 PrDup: 10.0%/1: A0 | 10.0%/1: A1 | 10.0%/1: A2 | 10.0%/1: A3 | 10.0%/1: A4
+top5 Pr[Dup]: 20.0%/2: ["B4"] | 20.0%/2: ["B3"] | 20.0%/2: ["B2"] | 20.0%/2: ["B1"] | 20.0%/2: ["B0"]
+top5 Pr[Dup]: 20.0%/2: B4 | 20.0%/2: B3 | 20.0%/2: B2 | 20.0%/2: B1 | 20.0%/2: B0
+top5 Pr[Dup]: 10.0%/1: A0 | 10.0%/1: A1 | 10.0%/1: A2 | 10.0%/1: A3 | 10.0%/1: A4
 "#;
 
         assert_eq!(out, expected);
