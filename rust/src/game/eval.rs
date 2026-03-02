@@ -9,7 +9,7 @@ use anyhow::{Context, Result};
 use std::fs::File;
 use std::io::{BufWriter, Write};
 
-use crate::constraint::eval_types::{
+use crate::constraint::compare::{
     EvalData, EvalEvent, EvalInitial, SumCounts, SumOffersMB, SumOffersMN,
 };
 use crate::constraint::Constraint;
@@ -160,7 +160,7 @@ impl Game {
                             &self.lut_b,
                             rem.1,
                         )?;
-                        md_tables.push((c.md_title(), tab_idx, tree, true));
+                        md_tables.push((c.md_heading(), tab_idx, tree, true));
                         tab_idx += 1;
                     } else {
                         self.print_rem_generic(&rem, &self.map_a, &self.map_b, |v, h| (v, h))
@@ -173,7 +173,7 @@ impl Game {
                             &self.lut_b,
                             rem.1,
                         )?;
-                        md_tables.push((c.md_title(), tab_idx, tree, true));
+                        md_tables.push((c.md_heading(), tab_idx, tree, true));
                         tab_idx += 1;
                     }
                 }
@@ -324,7 +324,7 @@ impl Game {
             .find(|x| x[1].num() == dec![10.0] && x[1].might_won())
             .map(|x| &x[0])
             .or_else(|| merged_constraints.last())
-            .and_then(|x| x.was_solvable_before().ok().flatten());
+            .and_then(|x| x.is_solvable_after().ok().flatten());
 
         cnts
     }
@@ -398,15 +398,14 @@ impl Game {
 
         let mut past_constraints: Vec<&Constraint> = Vec::default();
         for (i, c) in merged_constraints.iter().enumerate() {
-            if i % 2 == 0 {
-                table.add_row(
-                    c.stat_row(transpose, map_hor, &past_constraints)
-                        .into_iter()
-                        .map(|i| i.bg(crate::COLOR_ALT_BG)),
-                );
+            let row = c.summary_row_data(transpose, map_hor, &past_constraints);
+            let style = if i % 2 == 0 {
+                |cell: Cell| cell.bg(crate::COLOR_ALT_BG)
             } else {
-                table.add_row(c.stat_row(transpose, map_hor, &past_constraints));
-            }
+                |cell: Cell| cell
+            };
+            table.add_row(row.render(style));
+
             past_constraints.push(c);
         }
         Ok(table)

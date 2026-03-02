@@ -1,5 +1,12 @@
+use anyhow::{Context, Result};
+/// This module contains getters / evaluations which is used to pre-process the gathered data for a
+/// comparison with other simulations.
+/// The root is `EvalData` (which is at some point serialized/stored so the comparison can take
+/// place later)
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
+
+use crate::constraint::{Constraint, ConstraintType};
 
 /// Container of evaluation output used for plotting and summaries.
 ///
@@ -205,7 +212,6 @@ pub struct SumOffersMB {
     pub offer_and_match: u64,
     pub offered_money: u128,
 }
-
 /// Collect sums regarding offers made for MNs
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SumOffersMN {
@@ -256,13 +262,89 @@ impl SumCounts {
     }
 }
 
+impl Constraint {
+    pub fn get_stats(&self) -> Result<Option<EvalEvent>> {
+        if self.hidden {
+            return Ok(None);
+        }
+
+        let meta_b = format!("{}-{}", self.type_str(), self.comment());
+        match &self.r#type {
+            ConstraintType::Night { num, offer, .. } => Ok(Some(EvalEvent::MN(EvalMN {
+                offer: offer.is_some(),
+                num: *num,
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+            ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::MB(EvalMB {
+                offer: {
+                    if let ConstraintType::Box { offer, .. } = &self.r#type {
+                        offer.is_some()
+                    } else {
+                        false
+                    }
+                },
+                num: *num,
+                lights_total: self.check.as_lights(),
+                lights_known_before: self.known_lights,
+                bits_gained: self.information.unwrap_or(f64::INFINITY),
+                bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
+                comment: meta_b,
+            }))),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use std::collections::{BTreeMap, HashMap};
+
+    use crate::{
+        constraint::CheckType, matching_repr::MaskedMatching, ruleset_data::dummy::DummyData,
+    };
+
     use super::*;
 
     #[test]
-    #[allow(clippy::bool_assert_comparison)]
-    fn sumcounts_add_combines_counts() {
+    fn get_stats_simple() {
+        let c = Constraint {
+            result_unknown: false,
+            exclude: None,
+            map_s: HashMap::from([("A".to_string(), "a".to_string())]),
+            check: CheckType::Lights(1, BTreeMap::new()),
+            map: MaskedMatching::from_matching_ref(&[vec![0]]),
+            eliminated: 0,
+            eliminated_tab: vec![vec![0; 1]; 1],
+            information: Some(2.0),
+            left_after: Some(1024),
+            hidden: false,
+            r#type: ConstraintType::Box {
+                num: dec![3.0],
+                comment: "".to_string(),
+                offer: None,
+            },
+            build_tree: false,
+            left_poss: vec![],
+            hide_ruleset_data: false,
+            ruleset_data: Box::new(DummyData::default()),
+            known_lights: 0,
+        };
+
+        if let Ok(Some(EvalEvent::MB(ev))) = c.get_stats() {
+            assert_eq!(ev.num, dec![3.0]);
+            assert_eq!(ev.lights_total, Some(1u8));
+            assert!((ev.bits_left_after - (1024f64).log2()).abs() < 1e-9);
+            assert!((ev.bits_gained - 2.0).abs() < 1e-9);
+        } else {
+            panic!("expected MB event");
+        }
+    }
+
+    #[test]
+    fn sumcounts_add_simple() {
         let mut a = SumCounts {
             blackouts: 1,
             offers_mb: SumOffersMB {
@@ -306,9 +388,119 @@ mod tests {
             solvable: Some(false),
         };
         a.add(&b);
+
         assert_eq!(a.blackouts, 3);
         assert_eq!(a.matches_found, 1);
         assert_eq!(a.offers_mn.sold_cnt, 4);
-        assert_eq!(a.offers_mb.sold_but_match_active, true);
+        assert!(a.offers_mb.sold_but_match_active);
+    }
+
+    #[test]
+    fn eval_event_query_data_simple() {
+        // MB event
+        let mb = EvalMB {
+            num: dec![2.0],
+            bits_left_after: 8.0,
+            lights_total: Some(3),
+            lights_known_before: 1,
+            bits_gained: 2.5,
+            comment: "mb".to_string(),
+            offer: true,
+        };
+        let ev_mb = EvalEvent::MB(mb.clone());
+
+        // MN event
+        let mn = EvalMN {
+            num: dec![4.0],
+            bits_left_after: 16.0,
+            lights_total: Some(2),
+            lights_known_before: 0,
+            bits_gained: 3.5,
+            comment: "mn".to_string(),
+            offer: false,
+        };
+        let ev_mn = EvalEvent::MN(mn.clone());
+
+        // Initial event
+        let ini = EvalInitial {
+            bits_left_after: 32.0,
+            comment: "init".to_string(),
+        };
+        let ev_ini = EvalEvent::Initial(ini.clone());
+
+        // MB: get number using closures (mn_pred, mb_pred, init_pred)
+        assert_eq!(ev_mb.num(|_| false, |_| true, |_| false), Some(dec![2.0]));
+        assert_eq!(ev_mn.num(|_| true, |_| false, |_| false), Some(dec![4.0]));
+        assert_eq!(ev_ini.num(|_| false, |_| false, |_| true), Some(dec![0]));
+
+        // bits_gained: MB and MN present, Initial -> None
+        assert_eq!(ev_mb.bits_gained(|_| false, |_| true, |_| false), Some(2.5));
+        assert_eq!(ev_mn.bits_gained(|_| true, |_| false, |_| false), Some(3.5));
+        assert_eq!(ev_ini.bits_gained(|_| false, |_| false, |_| true), None);
+
+        // lights_total: present for MB/MN; Initial -> None
+        assert_eq!(ev_mb.lights_total(|_| false, |_| true, |_| false), Some(3));
+        assert_eq!(ev_mn.lights_total(|_| true, |_| false, |_| false), Some(2));
+        assert_eq!(ev_ini.lights_total(|_| false, |_| false, |_| true), None);
+
+        // new_lights = lights_total - lights_known_before
+        assert_eq!(ev_mb.new_lights(|_| false, |_| true, |_| false), Some(2));
+        assert_eq!(ev_mn.new_lights(|_| true, |_| false, |_| false), Some(2));
+
+        // lights_known_before: present for MB/MN; Initial -> None
+        assert_eq!(
+            ev_mb.lights_known_before(|_| false, |_| true, |_| false),
+            Some(1)
+        );
+        assert_eq!(
+            ev_mn.lights_known_before(|_| true, |_| false, |_| false),
+            Some(0)
+        );
+        assert_eq!(
+            ev_ini.lights_known_before(|_| false, |_| false, |_| true),
+            None
+        );
+
+        // num_unified: num but scaled so it climbs monotonically
+        assert_eq!(
+            ev_mb.num_unified(|_| false, |_| true, |_| false),
+            Some(dec![3.0])
+        );
+        assert_eq!(
+            ev_mn.num_unified(|_| true, |_| false, |_| false),
+            Some(dec![8.0])
+        );
+        assert_eq!(
+            ev_ini.num_unified(|_| false, |_| false, |_| true),
+            Some(dec![0.0])
+        );
+
+        // bits_left_after: present for MB/MN; Initial -> None
+        assert_eq!(
+            ev_mb.bits_left_after(|_| false, |_| true, |_| false),
+            Some(8.0)
+        );
+        assert_eq!(
+            ev_mn.bits_left_after(|_| true, |_| false, |_| false),
+            Some(16.0)
+        );
+        assert_eq!(
+            ev_ini.bits_left_after(|_| false, |_| false, |_| true),
+            Some(32.0)
+        );
+
+        // comment: present for MB/MN; Initial -> None
+        assert_eq!(
+            ev_mb.comment(|_| false, |_| true, |_| false),
+            Some("mb".to_string())
+        );
+        assert_eq!(
+            ev_mn.comment(|_| true, |_| false, |_| false),
+            Some("mn".to_string())
+        );
+        assert_eq!(
+            ev_ini.comment(|_| false, |_| false, |_| true),
+            Some("initial".to_string())
+        );
     }
 }

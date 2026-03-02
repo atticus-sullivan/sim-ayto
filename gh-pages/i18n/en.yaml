@@ -6,7 +6,7 @@ tree-current: Current Tree
 tab-start: Start Distribution
 
 blackouts: "Blackouts"
-sold: "Sold"
+sold: "Sold (TB/MC)"
 soldButGood: "PC sold"
 matchesFound: "PC in TB found"
 total: "Total"
@@ -14,7 +14,7 @@ won: "Won?"
 solvable: "Solvable?"
 offers: "Offers"
 offerAndMatch: "Offered PCs"
-offeredMoney: "Σ Offered Money"
+offeredMoney: "Σ Offered Money (TB/MC)"
 
 de-season1: "DE Season 1"
 de-season2: "DE Season 2"

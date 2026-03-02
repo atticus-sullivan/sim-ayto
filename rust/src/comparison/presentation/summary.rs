@@ -1,13 +1,15 @@
+/// This module renders overviews over complete seasons.
 use num_format::ToFormattedString;
 
-use crate::comparison::{CmpData, Language};
-use crate::constraint::eval_types::{SumCounts, SumOffersMB, SumOffersMN};
+use crate::comparison::data::CmpData;
+use crate::comparison::Language;
+use crate::constraint::compare::{SumCounts, SumOffersMB, SumOffersMN};
 
 /// Build a summary Markdown tab for all rulesets.
 ///
 /// `cmp_data` is pairs of `(ruleset_name, CmpData)`. `lang` controls the i18n
 /// labels (e.g. `Language::De` / `Language::En`). Returns a Markdown table string.
-pub fn summary_tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
+pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
     let mut total_counts = SumCounts {
         solvable: None,
         blackouts: 0,

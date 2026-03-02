@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'rust/**'
-      - '!rust/src/bin/solver.rs'
+      - '!rust/src/bin/solver/**'
       - 'data/**.yaml'
       - 'gh-pages/**'
 
@@ -47,7 +47,7 @@ jobs:
         run: |
           set +o pipefail
           # Check if there's a push affecting the `rust/**` path or if it's a manual trigger
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" | grep -v "^rust/src/bin/solver.rs$" || echo "")" != "" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep "rust/.*" | grep -v "^rust/src/bin/solver" || echo "")" != "" ]]; then
             echo "re-generate all"
             # If `rust/**` is changed or it's a manual trigger, run all simulations
             sims="[\"$(find ./data -not -path '*/[@.]*' -type f -name '*.yaml' | sort -u | sed '{:q;N;s/\n/","/g;t q}')\"]"
