@@ -7,16 +7,15 @@
 //! As this is the location where information flows together, it is also the responsibility of the
 //! writer thread to show some sot of progress indication on the console.
 
-use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
 use std::path::Path;
 use std::sync::mpsc;
 
 use anyhow::Result;
-use indicatif::{ProgressBar, ProgressStyle};
+use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 
-use crate::{result::SimulationResult, utils::set_pb_msg};
+use crate::{result::SimulationResult};
 
 /// A type for the communication *worker* -> *writer* thread
 pub(super) enum WriterMsg {
@@ -24,8 +23,8 @@ pub(super) enum WriterMsg {
     Started {
         /// the id of the worker which started for tracking the running threads
         sim_id: usize,
-        /// the time when the worker started
-        start_ms: u128,
+        /// the progressbar where this simulation tracks its progress
+        pb: ProgressBar,
     },
     /// Signals the worker finished the simulation, contains the result so the writer can append it
     /// to the output
@@ -58,7 +57,7 @@ pub(super) fn spawn_writer_thread(
 
     let pb = ProgressBar::new(num_sims as u64);
     pb.set_style(ProgressStyle::with_template(
-        "[{elapsed_precise}] [{wide_bar}] {pos:>3}/{len:3} (ETA: {eta}) {msg}",
+        "{msg}: [{elapsed_precise}] [{wide_bar}] {pos:>3}/{len:3} (ETA: {eta})",
     )?);
 
     let file = OpenOptions::new()
@@ -73,14 +72,19 @@ pub(super) fn spawn_writer_thread(
 /// This is the "event-loop" of the writer
 ///
 /// It terminates once all Sender instances are dropped.
-fn writer_loop(pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -> Result<()> {
-    let mut active: HashMap<usize, u128> = HashMap::new();
+fn writer_loop(
+    main_pb: ProgressBar,
+    mut file: File,
+    rx: mpsc::Receiver<WriterMsg>
+) -> Result<()> {
+    let multi_pb = MultiProgress::new();
+    let main_pb = multi_pb.add(main_pb);
+    main_pb.set_message("main");
 
     while let Ok(msg) = rx.recv() {
         match msg {
-            WriterMsg::Started { sim_id, start_ms } => {
-                active.insert(sim_id, start_ms);
-                set_pb_msg(&pb, &active);
+            WriterMsg::Started { sim_id: _sim_id, pb } => {
+                multi_pb.insert(0, pb);
             }
 
             WriterMsg::Finished(sim_res) => {
@@ -89,20 +93,16 @@ fn writer_loop(pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -
                 file.write_all(line.as_bytes())?;
                 file.write_all(b"\n")?;
 
-                pb.inc(1);
-                active.remove(&sim_res.identifier());
-                set_pb_msg(&pb, &active);
+                main_pb.inc(1);
                 file.flush()?;
             }
 
-            WriterMsg::Failed(sim_id, err_msg) => {
-                pb.inc(1);
-                active.remove(&sim_id);
-                pb.println(err_msg);
-                set_pb_msg(&pb, &active);
+            WriterMsg::Failed(_sim_id, err_msg) => {
+                main_pb.inc(1);
+                main_pb.println(err_msg);
             }
         }
     }
-    pb.finish_with_message("done");
+    main_pb.finish_with_message("done");
     Ok(())
 }

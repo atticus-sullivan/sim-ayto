@@ -4,11 +4,7 @@
 
 //! This module contains some utils for the whole solver module
 
-use std::collections::HashMap;
-
 use ayto::matching_repr::MaskedMatching;
-use chrono::{DateTime, TimeZone, Utc};
-use indicatif::ProgressBar;
 
 /// Entropy calculation for a candidate `m` across `left_poss`.
 pub(super) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
@@ -33,28 +29,6 @@ pub(super) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> 
         .sum()
 }
 
-/// Format a millisecond timestamp into HH:MM:SS for the progress display.
-fn format_time(ms: u128) -> String {
-    let secs = (ms / 1000) as i64;
-    let nsecs = ((ms % 1000) * 1_000_000) as u32;
-
-    let dt: DateTime<Utc> = Utc.timestamp_opt(secs, nsecs).unwrap();
-    dt.format("%H:%M:%S").to_string()
-}
-
-/// Calculate the indicator which represents all currently running workers and sets this indicator
-/// on the progressbar
-pub(super) fn set_pb_msg(pb: &ProgressBar, active: &HashMap<usize, u128>) {
-    pb.set_message(format!(
-        "active:{} {}",
-        active.len(),
-        active
-            .iter()
-            .map(|(id, start)| format!("#{}@{}", id, format_time(*start)))
-            .collect::<Vec<_>>()
-            .join(", ")
-    ));
-}
 
 #[cfg(test)]
 mod tests {
@@ -122,14 +96,5 @@ mod tests {
         let left = vec![p1, p2];
         let h = calc_entropy(&m, &left);
         assert_eq!(h, 1.0);
-    }
-
-    #[test]
-    fn format_time_known_values() {
-        assert_eq!(format_time(0), "00:00:00");
-        assert_eq!(format_time(1_000), "00:00:01");
-        assert_eq!(format_time(61_000), "00:01:01");
-        assert_eq!(format_time(3_600_000), "01:00:00");
-        assert_eq!(format_time(3_661_000), "01:01:01");
     }
 }

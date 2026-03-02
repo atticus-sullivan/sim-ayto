@@ -41,9 +41,4 @@ impl SimulationResult {
             duration_ms,
         }
     }
-
-    /// Get an identifier for the simulation which can be used for e.g. tracking the simulation
-    pub(super) fn identifier(&self) -> usize {
-        self.sim_id
-    }
 }
