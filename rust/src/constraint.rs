@@ -204,8 +204,7 @@ pub struct Constraint {
     left_after: Option<u128>,
     left_poss: Vec<MaskedMatching>,
 
-    hide_ruleset_data: bool,
-    pub(crate) ruleset_data: Box<dyn RuleSetData>,
+    pub(crate) ruleset_data: Option<Box<dyn RuleSetData>>,
     known_lights: LightCnt,
 }
 
@@ -249,8 +248,7 @@ impl Default for Constraint {
             information: None,
             left_after: None,
             left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
+            ruleset_data: Some(Box::new(DummyData::default())),
             known_lights: 0,
         }
     }
@@ -268,7 +266,7 @@ impl Constraint {
         t: ConstraintType,
         check: CheckType,
         map: MaskedMatching,
-        rs_dat: Box<dyn RuleSetData>,
+        ruleset_data: Box<dyn RuleSetData>,
         a_len: usize,
         b_len: usize,
         known_lights: LightCnt,

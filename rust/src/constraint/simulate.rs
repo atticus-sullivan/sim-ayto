@@ -27,8 +27,8 @@ impl ConstraintSim for Constraint {
             if self.build_tree && !self.hidden {
                 self.left_poss.push(m.clone());
             }
-            if !self.hide_ruleset_data && !self.hidden {
-                self.ruleset_data.push(m)?;
+            if let Some(rs_dat) = self.ruleset_data.as_mut() {
+                rs_dat.push(m)?;
             }
         }
 

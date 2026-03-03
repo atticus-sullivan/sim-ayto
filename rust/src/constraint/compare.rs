@@ -374,8 +374,7 @@ mod tests {
             },
             build_tree: false,
             left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
+            ruleset_data: Some(Box::new(DummyData::default())),
             known_lights: 0,
         };
 

@@ -120,14 +120,16 @@ impl Game {
                 "{}",
                 print_rem_generic(&event.rem, mv, mh, norm_idx, ignore_pairing)
             );
-            event.constraint.ruleset_data.print(
-                full,
-                &self.rule_set,
-                &self.map_a,
-                &self.map_b,
-                &self.lut_b,
-                event.rem.1,
-            )?;
+            if let Some(rs_dat) = event.constraint.ruleset_data.as_ref() {
+                rs_dat.print(
+                    full,
+                    &self.rule_set,
+                    &self.map_a,
+                    &self.map_b,
+                    &self.lut_b,
+                    event.rem.1,
+                )?;
+            }
 
             md_tables.push(MdTable {
                 name: event.constraint.md_heading(),

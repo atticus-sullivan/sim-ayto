@@ -132,8 +132,7 @@ impl ConstraintParse {
             information: None,
             left_after: None,
             left_poss: Default::default(),
-            ruleset_data,
-            hide_ruleset_data: self.hide_ruleset_data,
+            ruleset_data: (!self.hidden && !self.hide_ruleset_data).then_some(ruleset_data),
             known_lights,
         };
 
