@@ -178,7 +178,7 @@ impl BitOrAssign for Bitset {
 }
 
 /// Iterator over set bits (yields indices). Holds a Bitset and is Clone.
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct BitIter {
     pub(super) w: Bitset,
 }
@@ -397,7 +397,7 @@ mod tests {
     fn bititer_clone_independent_simple() {
         let b = Bitset::from_idxs(&[1, 2]);
         let mut it1 = BitIter { w: b };
-        let mut it2 = it1.clone();
+        let mut it2 = it1;
         assert_eq!(it1.next(), Some(1));
         assert_eq!(it2.next(), Some(1));
         assert_eq!(it1.next(), Some(2));
