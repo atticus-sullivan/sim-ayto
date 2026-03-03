@@ -19,9 +19,9 @@ pub type IdBase = u8;
 const WORD_BITS: usize = 64;
 // const WORD_BITS_LOG: usize = 6; // log2(64)
 
-const MATCH_MAX_LEN: usize = 12;
-
 /// Public type used by hot code.
+pub const MATCH_MAX_LEN: usize = 15;
+
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct MaskedMatching {
     masks: SmallVec<[Bitset; MATCH_MAX_LEN]>,
