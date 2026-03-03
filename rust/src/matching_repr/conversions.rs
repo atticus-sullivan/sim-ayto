@@ -39,11 +39,13 @@ impl std::error::Error for ConversionError {}
 impl MaskedMatching {
     /// Consume self and return the owned `Vec<Bitset>` masks.
     /// Use for zero-copy handoff: move the internal vector out, then re-use it.
+    #[inline]
     pub fn into_masks(self) -> SmallVec<[Bitset; MATCH_MAX_LEN]> {
         self.masks
     }
 
     /// Construct from raw bitset masks.
+    #[inline]
     pub fn from_masks(masks: SmallVec<[Bitset; MATCH_MAX_LEN]>) -> Self {
         MaskedMatching { masks }
     }
@@ -58,6 +60,7 @@ impl MaskedMatching {
     }
 
     /// Create empty with `slots`.
+    #[inline]
     pub fn with_slots(slots: usize) -> Self {
         MaskedMatching {
             masks: SmallVec::from_elem(Bitset::empty(), slots),
