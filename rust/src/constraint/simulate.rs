@@ -49,6 +49,31 @@ impl Constraint {
                     .fold(Bitset::empty(), |acc, i| i | acc);
                 m.contains_mask(mask)
             }
+            CheckType::HintCntMatch(cnt) => {
+                // iterator over all the singletons in the map of this constraint
+                let mut singles = self.map.iter().filter(|x| x.is_singleton());
+
+                // obtain the one singleton which has to exist
+                let individual_b = singles
+                    .next()
+                    .expect("HintCntMatch's map contains less than a single entry (should have been already checked on parse)");
+                // check there are not more singletons (violates the constraint-type)
+                assert!(
+                    singles.next().is_none(),
+                    "HintCntMatch's map contains more than a single entry (should have already been checked on parse)"
+                );
+
+                // search for the Bitset which contains the found singleton on which the constraint
+                // acts on
+                let b = m
+                    .iter()
+                    .find(|b| b.contains_any(individual_b))
+                    .expect("Permutation does not contain the individual from set_b -- something is wrong here");
+
+                // at it's core the constraint checks whether the given singleton only is seen in
+                // sets which size equals the given cnt
+                b.count() == *cnt
+            }
             CheckType::Nothing | CheckType::Sold => true,
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let l = self.map.calculate_lights(m);

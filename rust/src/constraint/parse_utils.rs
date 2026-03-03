@@ -93,6 +93,9 @@ impl ConstraintParse {
             }
             ConstraintType::Box { .. } => match &self.check {
                 CheckType::Eq => {}
+                CheckType::HintCntMatch(..) => {
+                    ensure!(self.map_s.len() == 1, "HintCntMatch's map can only be of length {} (was {}). Use 'Eq' for grouping.", 1, self.map_s.len())
+                }
                 CheckType::Nothing | CheckType::Sold => {}
                 CheckType::Lights(_, _) => {
                     ensure!(

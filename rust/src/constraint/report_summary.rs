@@ -116,12 +116,15 @@ enum LightCell {
     Equal,
     /// this constraint produced `LightCnt` new lights
     Value(LightCnt),
+    /// we get to known an individual is a match together with X other individuals of the same set
+    Xcnt,
 }
 
 impl fmt::Display for LightCell {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             LightCell::Unknown => write!(f, "?"),
+            LightCell::Xcnt => write!(f, "X"),
             LightCell::Equal => write!(f, "E"),
             LightCell::Value(value) => write!(f, "{value}"),
         }
@@ -196,6 +199,7 @@ impl Constraint {
         } else {
             match &self.check {
                 CheckType::Eq => (LightCell::Equal, LightSemantic::Neutral),
+                CheckType::HintCntMatch(..) => (LightCell::Xcnt, LightSemantic::Neutral),
                 CheckType::Nothing => (LightCell::Unknown, LightSemantic::Neutral),
                 CheckType::Sold => (LightCell::Unknown, LightSemantic::NoGain),
                 CheckType::Lights(lights, _) => {
@@ -251,7 +255,7 @@ impl Constraint {
             None
         } else {
             match &self.check {
-                CheckType::Eq | CheckType::Lights(..) => {
+                CheckType::Eq | CheckType::HintCntMatch(..) | CheckType::Lights(..) => {
                     Some(self.information.unwrap_or(f64::INFINITY))
                 }
                 CheckType::Nothing | CheckType::Sold => None,

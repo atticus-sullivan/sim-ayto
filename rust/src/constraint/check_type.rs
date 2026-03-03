@@ -24,6 +24,9 @@ pub enum CheckType {
     /// tells how many 1:1 matchings of the matching are correct
     /// `.1` is for collecting stats over the simulation and is not to be serialized
     Lights(LightCnt, #[serde(skip)] BTreeMap<IdBase, u128>),
+    /// `HintCntMatch` ensures the *values* of the provided map have exactly `x` *keys* which map
+    /// to them. The keys given in the constraint don't matter at all
+    HintCntMatch(usize),
 }
 
 impl CheckType {
