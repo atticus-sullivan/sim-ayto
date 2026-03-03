@@ -12,7 +12,7 @@ use std::io::Write;
 use anyhow::{Context, Result};
 
 use crate::matching_repr::bitset::Bitset;
-use crate::matching_repr::MaskedMatching;
+use crate::matching_repr::{IdBase, MaskedMatching};
 
 /// This is the testable, generic helper. `data` are the possible partial solutions
 /// (one `MaskedMatching` per leaf path). `ordering` controls which `A` indices are
@@ -22,7 +22,7 @@ use crate::matching_repr::MaskedMatching;
 pub(crate) fn dot_tree<W: Write>(
     writer: &mut W,
     data: &[MaskedMatching],
-    ordering: &[(usize, usize)],
+    ordering: &[(IdBase, usize)],
     title: &str,
     map_a: &[String],
     map_b: &[String],
@@ -35,9 +35,9 @@ pub(crate) fn dot_tree<W: Write>(
         let mut parent = "root".to_owned();
         for &(i, _) in ordering {
             let mask = p
-                .slot_mask(i)
+                .slot_mask(i as usize)
                 .with_context(|| format!("slot {i} missing in matching"))?;
-            let node = builder.ensure_node(&parent, i, mask)?;
+            let node = builder.ensure_node(&parent, i as usize, mask)?;
             builder.write_edge(&parent, &node)?;
             parent = node;
         }
@@ -117,7 +117,7 @@ fn write_footer<W: Write>(writer: &mut W) -> Result<()> {
 /// The returned vector is sorted by the amount (i.1) ascending.
 ///
 /// This is used to decide a sensible ordering for the tree layers.
-pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, usize)> {
+pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(IdBase, usize)> {
     // tab maps people from set_a -> possible matches (set -> no duplicates)
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {
@@ -134,7 +134,7 @@ pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(u
             if x.is_empty() {
                 None
             } else {
-                Some((i, x.len()))
+                Some((i as IdBase, x.len()))
             }
         })
         .collect();
