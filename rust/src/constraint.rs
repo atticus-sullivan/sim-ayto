@@ -271,18 +271,15 @@ impl Constraint {
         b_len: usize,
         known_lights: LightCnt,
     ) -> Self {
-        // obtain the defaults defined elsewhere
-        let mut ret = Self::default();
-
-        // overwrite wit the values specified
-        ret.r#type = t;
-        ret.check = check;
-        ret.map = map;
-        ret.known_lights = known_lights;
-        ret.eliminated_tab = vec![vec![0; b_len]; a_len];
-        ret.ruleset_data = rs_dat;
-
-        ret
+        Self{
+            r#type: t,
+            check,
+            map,
+            known_lights,
+            ruleset_data: Some(ruleset_data),
+            eliminated_tab: vec![vec![0; b_len]; a_len],
+            ..Default::default()
+        }
     }
 
     /// How many known lights this constraint *adds*
