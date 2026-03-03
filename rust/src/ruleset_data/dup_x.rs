@@ -26,9 +26,12 @@ use crate::Lut;
 /// DupXData collects counts for duplicate/trip patterns for the "dup_x" ruleset.
 #[derive(Debug, Clone, PartialEq)]
 pub struct DupXData {
-    // key: (index_in_set_a, bitset_of_b_indices)
-    // value: count
+    /// the counts aggregated during the simulation
+    ///
+    /// key: (index_in_set_a, bitset_of_b_indices)
+    /// value: count
     cnt: HashMap<(usize, Bitset), usize>,
+    /// data from the ruleset needed for the evaluation
     rs: RuleSetDupX,
 }
 
@@ -41,6 +44,16 @@ impl DupXData {
         })
     }
 
+    /// Print a single block of information (split off for easier readability)
+    ///
+    /// - `first` bool to achieve proper *join*ing of the strings/outputs
+    /// - `full` whether to truncate the output to x elements
+    /// - `ruleset` the ruleset on which the printing is based on
+    /// - `map_a`/`map_b` maps idx_a/idx_b to names
+    /// - `total` the total amount of possible solutions left
+    /// - `hdr` a header to be printed later when displaying the results
+    /// - `query` filter data to entries which all contain this item
+    /// - `query_not` filter data to entries which all do not contain any of these items
     #[allow(clippy::too_many_arguments)]
     fn print_one(
         &self,
@@ -134,16 +147,28 @@ impl RuleSetData for DupXData {
     }
 }
 
+/// A struct collecting the results after the evaluation step
+/// Can be printed/displayed via `fmt`
 struct DupXStats<'a> {
+    /// a header printed when displaying this data
     hdr: &'a str,
 
+    /// stats/counts grouped by the matches (regarding the dups)
     full_matches: Vec<((usize, Bitset), usize)>,
+    /// stats/counts grouped by the combination of individuals from set_b
     by_bitset: Vec<(Bitset, usize)>,
+    /// stats/counts grouped by the individual in set_b
     by_individual: Vec<(IdBase, usize)>,
+    /// stats/counts grouped by the individual in set_a
     by_a: Vec<(usize, usize)>,
 }
 
 impl<'a> DupXStats<'a> {
+    /// Create a new DupXStats from DupXData `data` - performs already the evaluation step
+    ///
+    /// - `hdr` a header to be printed later when displaying the results
+    /// - `query` filter data to entries which all contain this item
+    /// - `query_not` filter data to entries which all do not contain any of these items
     fn new(data: &DupXData, hdr: &'a str, query: Option<IdBase>, query_not: &HashSet<IdBase>) -> Self {
         // filter according to query / query_not
         let filtered = match query {
@@ -182,6 +207,14 @@ impl<'a> DupXStats<'a> {
         }
     }
 
+    /// Writer inspired by the Display trait but with additional perameters
+    ///
+    /// Writes the evaluated stats to `f`
+    ///
+    /// - `full` whether to truncate the lists to x elements
+    /// - `map_a`/`map_b` maps idx_a/idx_b to names
+    /// - `total` total amount of possible solutions left
+    /// - `word` something like an identifier of what type of information is printed here
     fn fmt<W: Write>(
         self,
         mut f: &mut W,
@@ -249,6 +282,7 @@ impl<'a> DupXStats<'a> {
     }
 }
 
+/// build a (negative/)not-query which excludes everything except `d`
 fn dup_query_not(rs: &RuleSetDupX, lut_b: &Lut, d: &String) -> Result<HashSet<IdBase>> {
     rs.1.iter()
         .filter_map(|i| {
@@ -266,6 +300,7 @@ fn dup_query_not(rs: &RuleSetDupX, lut_b: &Lut, d: &String) -> Result<HashSet<Id
         .collect::<Result<HashSet<_>>>()
 }
 
+/// build a (positive) query which searches for `d`
 fn dup_query(lut_b: &Lut, d: &String) -> Result<IdBase> {
     lut_b
         .get(d)

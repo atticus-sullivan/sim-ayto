@@ -6,13 +6,19 @@
 
 use indicatif::ProgressStyle;
 
+/// can be used as a generic to make it configurable (during compile-time) which progressbar to use
 pub trait ProgressBarTrait {
+    /// increase the progressbar by `n`
     fn inc(&self, n: u64);
+    /// signal the progressbar that it is finished
     fn finish(&self);
+    /// set a `style` for the progressbar
     fn set_style(&self, style: ProgressStyle);
+    /// create a new progressbar with a maxumum `num`
     fn new(num: u64) -> Self;
 }
 
+/// the generic progressbar which maps to the original indicatif progressbar
 pub struct ProgressBar(indicatif::ProgressBar);
 impl ProgressBarTrait for ProgressBar {
     fn inc(&self, n: u64) {
@@ -32,6 +38,7 @@ impl ProgressBarTrait for ProgressBar {
     }
 }
 
+/// a mock-progressbar to avoid showing a progressbar
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub struct MockProgressBar();
 impl ProgressBarTrait for MockProgressBar {

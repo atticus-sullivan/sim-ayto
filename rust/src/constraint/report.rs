@@ -45,6 +45,7 @@ impl Constraint {
         Ok(true)
     }
 
+    /// calculate the distance between the two constraints if possible
     pub(crate) fn distance(&self, other: &Constraint) -> Option<usize> {
         if !self.show_past_dist() || !other.show_past_dist() {
             return None;
@@ -69,10 +70,12 @@ impl Constraint {
         )
     }
 
+    /// whether to show a table presenting the remaining possibilities for the 1:1 matchings
     pub(crate) fn show_rem_table(&self) -> bool {
         !self.result_unknown
     }
 
+    /// get a heading which can be used in the markdown output for this constraint
     pub(crate) fn md_heading(&self) -> String {
         match &self.r#type {
             ConstraintType::Night { num, comment, .. } => format!(

@@ -22,8 +22,14 @@ use comfy_table::{Cell, Color, Table};
 use crate::Rem;
 use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};
 
+/// An intermediate representation of the table showing the remaining probabilities for 1:1
+/// matches.
+///
+/// Can be displayed in the process of reporting.
 pub(super) struct RemTable {
+    /// the comfy_table to be printed
     tab: Table,
+    /// a footer to print below the table
     footer: String,
 }
 
@@ -108,16 +114,19 @@ where
         .collect::<Vec<_>>()
 }
 
-// Small helper to find the maximum (potentially multiple ones) as well as the associated
-// index/indices
+/// Small helper to find the maximum (potentially multiple ones) as well as the associated
+/// index/indices
 #[derive(Debug, Clone, Default, PartialEq)]
 struct TabMax<T: PartialOrd> {
     // multiple indices might contain the same maximum -> use a vector
+    /// the indices where the currently recorded maximum was found
     idxs: Vec<usize>,
+    /// the maximum which was found
     max: T,
 }
 
 impl<T: PartialOrd> TabMax<T> {
+    /// update finding the maximum with a new `val` found at `idx`
     fn update(mut self, idx: usize, val: T) -> Self {
         if self.max < val {
             self.idxs.clear();
@@ -130,17 +139,16 @@ impl<T: PartialOrd> TabMax<T> {
     }
 }
 
-// collects maximas in different directions to make the code more readable (no tuple indexing,
-// descriptive words instead)
+/// collects maxima in different directions to make the code more readable
 #[derive(Debug, PartialEq)]
 struct TabFullMaxima<T: PartialOrd> {
-    // (rowIdx -> maxima)
+    /// (rowIdx -> maxima)
     hor: Vec<TabMax<T>>,
-    // (colIdx -> maxima)
+    /// (colIdx -> maxima)
     vert: Vec<TabMax<T>>,
 }
 
-/// returns a mappings: row/col idx to TabMax
+/// computes the maxima in both directions (hor+vert) for every col/row
 fn find_maxima(matrix: &[(&String, Vec<Option<f64>>)]) -> TabFullMaxima<f64> {
     // mapping of y-coord to indices with maximum
     let hor_max = matrix
@@ -179,8 +187,8 @@ fn find_maxima(matrix: &[(&String, Vec<Option<f64>>)]) -> TabFullMaxima<f64> {
     }
 }
 
-// turn a matrix of percentages to a comfy table.
-// Style values according to their value and the hor/vert maxima
+/// turn a matrix of percentages to a comfy table.
+/// Style values according to their value and the hor/vert maxima
 fn render_table(
     max: &TabFullMaxima<f64>,
     map_hor: &[String],

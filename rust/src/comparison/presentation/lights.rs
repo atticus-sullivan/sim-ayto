@@ -15,10 +15,11 @@ use crate::comparison::data::CmpData;
 use crate::comparison::theme::lut_theme;
 use crate::constraint::compare::EvalEvent;
 
-/// Build plots about "lights" (lighting related evaluation metrics).
+/// Build plots about "lights"
 ///
-/// Accepts the comparison dataset and a `theme` index. Returns
-/// pairs `(tab label, plot HTML)` to be embedded in the generated pages.
+/// Accepts the comparison dataset and a `theme` index.
+///
+/// Returns pairs `(tab label, plot HTML)` to be embedded in the generated pages.
 pub(crate) fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);

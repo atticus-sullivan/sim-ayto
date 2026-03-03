@@ -23,21 +23,22 @@ use crate::comparison::presentation::lights;
 use crate::comparison::presentation::ruleset;
 use crate::comparison::presentation::summary;
 
-/// Configuration for producing one page (path + filtering).
-///
-/// - `link_title` is the human/title used on the index page.
-/// - `base_path` is the path (file *without extension*) where the MD will be written.
-/// - `ruleset_filter` selects which ruleset directories from `./data` should be included.
+/// Configuration for producing one comparison markdown page.
 struct PageConfig<'a> {
+    /// the human/title used on the index page.
     link_title: &'a str,
+    /// the path (file *without extension*) where the MD will be written.
     base_path: PathBuf,
+    /// selects which ruleset directories from `./data` should be included.
     ruleset_filter: fn(&str) -> bool,
 }
 
 /// Language selector used when rendering localized strings in the markdown output.
 #[derive(Copy, Clone)]
 pub(super) enum Language {
+    /// german language
     De,
+    /// english language
     En,
 }
 
@@ -62,7 +63,7 @@ impl Language {
         }
     }
 
-    /// Return the number formatting `Locale` used for formatting monetary amounts / numbers.
+    /// Return a number formatting `Locale` used for formatting monetary amounts / numbers.
     pub(crate) fn number_formatting(&self) -> num_format::Locale {
         match self {
             Language::De => num_format::Locale::de,
@@ -75,10 +76,9 @@ impl Language {
 ///
 /// `html_path_de` and `html_path_us` point to the base filenames where the
 /// generated markdown will be written (file extension is added by `write_page`).
+///
 /// `theme_light` and `theme_dark` select the catppuccin palette numbers used for
 /// light and dark versions of the Plotly plots.
-///
-/// This is the high-level entrypoint used by your site generator.
 pub fn write_pages(
     html_path_de: &Path,
     html_path_us: &Path,

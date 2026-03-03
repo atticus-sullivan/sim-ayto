@@ -7,16 +7,30 @@
 use crate::ruleset::RuleSet;
 use serde::Deserialize;
 
+/// An enum defining all the different rulesets which can be applied to the game.
+/// This enum is only for parsing such a ruleset from file
 #[derive(Deserialize, Debug)]
 pub(crate) enum RuleSetParse {
-    SomeoneIsTrip,
+    /// A ruleset where X duplicates exist. One of the two individuals forming the dup might be
+    /// known (`Some(name)`) or not (`None`).
+    /// The dups have to exist on the set_b side.
     XTimesDup(Vec<Option<String>>),
-    NToN,
+    /// A ruleset where exactly one triple exists. None of the individuals of the triple is known.
+    /// The triple has to exist on the set_b side.
+    SomeoneIsTrip,
+    /// A ruleset where exactly one triple exists. One of three individuals of the triple is known
+    /// The triple has to exist on the set_b side.
     FixedTrip(String),
+    /// A ruleset where essentially N:N players play. But there are not really fixed sets a and b.
+    /// Instead everyone can match everyone, but it is still a strict 1:1 matching
+    NToN,
+    /// A ruleset where N:N players play so each individual from set_a matches exactly one
+    /// individual from set_b
     Eq,
 }
 
 impl RuleSetParse {
+    /// finalizes the parsing by consuming the `RuleSetParse` and producing the final `RuleSet`
     pub(crate) fn finalize_parsing(self) -> RuleSet {
         match self {
             RuleSetParse::SomeoneIsTrip => RuleSet::SomeoneIsTrip,

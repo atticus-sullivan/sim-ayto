@@ -11,9 +11,12 @@ use smallvec::SmallVec;
 
 use crate::matching_repr::{bitset::Bitset, IdBase, MaskedMatching, Word, MATCH_MAX_LEN};
 
+/// Error type for when the conversion fails
 #[derive(Debug, Clone, PartialEq)]
 pub enum ConversionError {
+    /// a type used during the conversion was too small
     UniverseTooLarge(usize, usize),
+    /// the slot required in rhe conversion was not found
     RequiredSlotsNotFound,
 }
 
@@ -37,7 +40,7 @@ impl fmt::Display for ConversionError {
 impl std::error::Error for ConversionError {}
 
 impl MaskedMatching {
-    /// Consume self and return the owned `Vec<Bitset>` masks.
+    /// Consume self and return the owned `SmallVec<Bitset>` masks.
     /// Use for zero-copy handoff: move the internal vector out, then re-use it.
     #[inline]
     pub fn into_masks(self) -> SmallVec<[Bitset; MATCH_MAX_LEN]> {
@@ -59,7 +62,7 @@ impl MaskedMatching {
         std::mem::swap(&mut self.masks, other)
     }
 
-    /// Create empty with `slots`.
+    /// Create empty with `slots` amount of space.
     #[inline]
     pub fn with_slots(slots: usize) -> Self {
         MaskedMatching {
@@ -74,6 +77,8 @@ impl MaskedMatching {
     /// heap allocations if the internal Vec capacity >= slice.len().
     #[inline]
     pub fn set_masks_from_slice(&mut self, slice: &[Bitset]) {
+        // TODO: does this still make sense now with SmallVec?
+
         // If capacity is insufficient, reserve once (might allocate once).
         if self.masks.capacity() < slice.len() {
             self.masks.reserve(slice.len() - self.masks.capacity());
@@ -85,7 +90,7 @@ impl MaskedMatching {
         self.masks.extend_from_slice(slice);
     }
 
-    /// The `m` is expected to be a `Vec` of slots; each slot is a `Vec<IdBase>`
+    /// The `m` is expected to be a slice of slots; each slot is a `Vec<IdBase>`
     /// listing value indices.
     ///
     /// # Examples
@@ -154,7 +159,6 @@ impl TryFrom<HashMap<IdBase, IdBase>> for MaskedMatching {
     }
 }
 
-/// TryFrom back to Vec<Vec<IdBase>> (errors if universe > IdBase::MAX+1)
 impl TryFrom<&MaskedMatching> for Vec<Vec<IdBase>> {
     type Error = ConversionError;
     fn try_from(masked: &MaskedMatching) -> Result<Self, Self::Error> {

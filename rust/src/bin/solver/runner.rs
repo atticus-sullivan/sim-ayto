@@ -20,7 +20,8 @@ use crate::strategies::StrategyBundle;
 use crate::writer::{spawn_writer_thread, WriterMsg};
 
 /// Run many simulations in parallel, collect results, and append JSON lines to `out_path`.
-/// `num_sims` - how many independent simulations to run
+///
+/// - `num_sims` - how many independent simulations to run
 pub(super) fn run_many_and_write<S: StrategyBundle>(
     num_sims: usize,
     out_path: &Path,

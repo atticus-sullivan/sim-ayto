@@ -20,24 +20,36 @@ use crate::matching_repr::bitset::Bitset;
 use crate::ruleset_data::RuleSetData;
 use crate::{LightCnt, Lut, MapS, Rename};
 
-// this struct is only used when parsing the yaml file.
-// The function `finalize_parsing` is intended to convert this to a regular constraint.
+/// this struct is only used when parsing the yaml file.
+/// The function `finalize_parsing` is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
 pub(crate) struct ConstraintParse {
+    /// of what type this constraint is (e.g. MB/MN)
     pub(super) r#type: ConstraintType,
+    /// the string+hashmap representation of the matching related to the constraint
     #[serde(rename = "map")]
     pub(super) map_s: MapS,
+    /// how the constraint needs to be checked (e.g. via lights)
     pub(super) check: CheckType,
+    /// whether this constraint shall be hidden in the report/output
     #[serde(default)]
     pub(super) hidden: bool,
+    /// an option to disable the exluce functionality. Usually required when it is proven that
+    /// a matches b0, but a also matches b1 which is left open and/or is specified in another
+    /// constraint
     #[serde(default, rename = "noExclude")]
     pub(super) no_exclude: bool,
+    /// a string representation to manually exclude matchings where
+    /// individual from set_a matches with any of the individuals from set_b specified here
     #[serde(rename = "exclude")]
     pub(super) exclude_s: Option<(String, Vec<String>)>,
+    /// whether the result of this is still unknown (despite how check is set)
     #[serde(default, rename = "resultUnknown")]
     pub(super) result_unknown: bool,
+    /// whether to build a .dot-tree for this constraint/event
     #[serde(default, rename = "buildTree")]
     pub(super) build_tree: bool,
+    /// whether to hide the ruleset_data for this constraint
     #[serde(default, rename = "hideRulesetData")]
     pub(super) hide_ruleset_data: bool,
 }
@@ -158,9 +170,9 @@ impl ConstraintParse {
     ///
     /// # Arguments
     ///
-    /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be
-    ///   drawn. The function will create a new exclusion vector by removing any elements from
-    ///   `map_b` that match the current value in `self.map_s`.
+    /// - `map_b`: A slice of strings from which exclusions will be drawn. The function will create
+    ///   a new exclusion vector by removing any elements from `map_b` that match the current value
+    ///   in `self.map_s`.
     fn add_exclude(&self, map_b: &[String]) -> Option<(String, Vec<String>)> {
         if self.no_exclude {
             return None;
@@ -175,6 +187,7 @@ impl ConstraintParse {
             }
             if let ConstraintType::Box { .. } = self.r#type {
                 // if the constraint is a box constraint the map contains only one item anyhow
+                // -> next() gets us this single element
                 if let Some((a, v)) = self.map_s.iter().next() {
                     let bs: Vec<String> = map_b
                         .iter()
@@ -189,6 +202,8 @@ impl ConstraintParse {
     }
 
     /// Build the optional exclude bitset based on `exclude_s` and the LUTs.
+    ///
+    /// Converts an exclusion list based on strings (`exclude_s`) to an exclusion list based on ids
     fn build_exclude_if_any(
         exclude_s: &Option<(String, Vec<String>)>,
         lut_a: &Lut,

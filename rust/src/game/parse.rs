@@ -22,10 +22,13 @@ use crate::ignore_ops::IgnoreOps;
 use crate::ruleset::parse::RuleSetParse;
 use crate::{Lut, MatchingS, Rename};
 
+/// query individuals from set_a/set_b which 1:1 matchings are still possible and how often
 #[derive(Deserialize, Debug, Default)]
 pub(super) struct QueryPair {
+    /// the individualy from set_a which are querried
     #[serde(rename = "setA", default)]
     pub(super) map_a: Vec<String>,
+    /// the individualy from set_b which are querried
     #[serde(rename = "setB", default)]
     pub(super) map_b: Vec<String>,
 }
@@ -36,43 +39,58 @@ fn mk_true() -> bool {
     true
 }
 
-// this struct is only used for parsing the yaml file
+/// this struct is only used for parsing the yaml file
 #[derive(Deserialize, Debug)]
 pub struct GameParse {
+    /// whether offers are noted in this game
     #[serde(default)]
     no_offerings_noted: bool,
+    /// whether this game is already solved
     #[serde(rename = "solved", default = "mk_true")]
     solved: bool,
+    /// the constraints in this game
     #[serde(rename = "constraints")]
     constraints_orig: Vec<ConstraintParse>,
+    /// the ruleset which is to be applied to this game
     rule_set: RuleSetParse,
+    /// frontmatter to set in the generated markdown output
     frontmatter: serde_yaml::Value,
+    /// query these full matchings and when the were eliminated in the process (if so)
     #[serde(rename = "queryMatchings", default)]
     query_matchings_s: Vec<MatchingS>,
+    /// query individuals from set_a/set_b which 1:1 matchings are still possible and how often
     #[serde(rename = "queryPair", default)]
     query_pair_s: QueryPair,
 
+    /// the set of individuals in set_a (also maps idx_a to name_a)
     #[serde(rename = "setA")]
     map_a: Vec<String>,
+    /// the set of individuals in set_b (also maps idx_b to name_b)
     #[serde(rename = "setB")]
     map_b: Vec<String>,
 
+    /// rename/translate the names of set_a in the outpus
     #[serde(rename = "renameA", default)]
     rename_a: Rename,
+    /// rename/translate the names of set_b in the outpus
     #[serde(rename = "renameB", default)]
     rename_b: Rename,
 
     // TODO: eventually move this to the constraint, maybe keep here as default
+    /// whether to generate a cache in the end - might get overwritten by CLI arguments
     #[serde(rename = "gen_cache", default)]
     pub gen_cache: bool,
 
+    /// whether to use a cache and which - might get overwritten by CLI arguments
     #[serde(rename = "useCache", default)]
     pub use_cache: Option<CacheMode>,
+    /// whether to use a fallback and which if the specified cache was not found - might get overwritten by CLI arguments
     #[serde(rename = "cacheFallback", default)]
     pub cache_fallback: Option<CacheModeFallback>,
 }
 
 impl GameParse {
+    /// create a `GameParse` from a yaml config. This struct can then be finalized to a `Game`
     pub fn new_from_yaml(yaml_path: &Path) -> Result<GameParse> {
         let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
         Ok(gp)

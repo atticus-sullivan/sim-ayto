@@ -20,12 +20,16 @@ use crate::utils::calc_entropy;
 /// Entropy (over left_poss) MN optimizer that picks the candidate maximizing entropy.
 pub(crate) struct EntropyLeftMnOptimizer {
     /// sampling threshold for performance
-    // in case there are many possibilities left, don't use them all. Instead sample them randomly
-    // down to a threshold
+    /// in case there are many possibilities left, don't use them all. Instead sample them randomly
+    /// down to a threshold
     pub sample_threshold: usize,
 }
 
 impl EntropyLeftMnOptimizer {
+    /// Create a new optimizer
+    ///
+    /// - if the amount of left possibilities exceeds `sample_threshold`, the list of left
+    ///   possibilities will be sampled randomly (with `sample_threshold` as size of the sample)
     pub(crate) fn new(sample_threshold: usize) -> Self {
         Self { sample_threshold }
     }

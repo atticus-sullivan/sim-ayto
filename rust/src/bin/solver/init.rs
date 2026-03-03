@@ -49,6 +49,8 @@ pub(super) fn build_initial_constraint(
     // TODO: does not work in general. matching might contain empty slots -> len is not what we
     // expect here.
     // Not an issue with the current initial values used
+    // TODO: becomes obsolete anyhow when strategy.inital() returns a full constraint insteaf of a
+    // matching
     let constraint_type = if matching.len() == 1 {
         ConstraintType::Box {
             num: dec![1.0],
@@ -84,7 +86,7 @@ pub(super) fn build_initial_constraint(
 /// - `constraint` - The initial constraint of the simulation
 ///
 /// # Returns
-/// A fully initialized `IterState`.
+/// An initialized (but not executed) `IterState`.
 pub(super) fn create_iteration_state(
     constraint: &Constraint,
 ) -> Result<IterState<MockProgressBar, Constraint>> {

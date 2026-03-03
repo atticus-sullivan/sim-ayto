@@ -39,28 +39,44 @@ use crate::progressbar::ProgressBarTrait;
 use crate::ruleset::RuleSet;
 use crate::Lut;
 
+/// a struct to represent a complete game.
 #[derive(Debug)]
 pub struct Game {
+    /// whether offers are noted in this game
     no_offerings_noted: bool,
+    /// whether this game is already solved
     solved: bool,
+    /// the constraints originally parsed from file (these will stay constant and won't be
+    /// mutated during the simulation)
     constraints_orig: Vec<Constraint>,
+    /// the ruleset which is to be applied to this game
     rule_set: RuleSet,
+    /// frontmatter to set in the generated markdown output
     frontmatter: serde_yaml::Value,
 
-    // maps u8/usize to string
+    /// map IdBase from set_a to names
     map_a: Vec<String>,
+    /// map IdBase from set_b to names
     map_b: Vec<String>,
 
-    // maps string to usize
+    /// map names from set_a to IdBase
     lut_a: Lut,
+    /// map names from set_b to IdBase
     lut_b: Lut,
 
+    /// where to place output files (.json, .dot, .md)
     dir: PathBuf,
+    /// the stem for the output file-names (.json, .dot, .md)
     stem: String,
+    /// query these full matchings and when the were eliminated in the process (if so)
     query_matchings: Vec<MaskedMatching>,
+    /// query these individuals from set_a and set_b regarding how often they occur with which
+    /// other individuals from the other set
     query_pair: (HashSet<IdBase>, HashSet<IdBase>),
 
+    /// *read* the cache from this file if set
     cache_file: Option<PathBuf>,
+    /// *write* cache to this path if set
     cache_to: Option<PathBuf>,
 }
 
@@ -87,7 +103,6 @@ impl Default for Game {
 }
 
 impl Game {
-    // returns (translationKeyForExplanation, shortcode)
     /// Return a (translation-key, short-code) describing the ruleset.
     pub(super) fn ruleset_str(&self) -> (String, String) {
         match &self.rule_set {
@@ -102,14 +117,16 @@ impl Game {
         }
     }
 
-    /// Return a formatted players string "A/B".
+    /// Return a formatted number-of-players string "A/B".
     pub(super) fn players_str(&self) -> String {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
     /// Run the simulation (populate an `IterState` by iterating ruleset permutations).
     ///
-    /// `dump_mode` controls if permutations are collected
+    /// by setting `dump_mode` the permutations which survived all constraints are stored for later
+    /// evaluation/dumping
+    ///
     /// Returns the final `IterState`.
     pub fn sim<T: ProgressBarTrait>(
         &mut self,

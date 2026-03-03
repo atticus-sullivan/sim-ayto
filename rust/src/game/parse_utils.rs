@@ -13,14 +13,13 @@ use crate::ignore_ops::IgnoreOps;
 use crate::ruleset::RuleSet;
 use crate::{LightCnt, Lut, Rename};
 
-/// Build lookup tables (`Lut`) for the left-hand side (`setA`) and right-hand
-/// side (`setB`).  Each unique name is mapped to its index in the original
+/// Build lookup tables (`Lut`) for the left-hand side (`set_a`) and right-hand
+/// side (`set_b`).  Each unique name is mapped to its index in the original
 /// vector.
 ///
 /// # Errors
 /// Returns an error if a duplicate name is found in either input slice,
 /// indicating which set (`setA` or `setB`) contained the clash.
-/// ```
 pub(super) fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut)> {
     let mut lut_a = Lut::default();
     let mut lut_b = Lut::default();
@@ -91,13 +90,12 @@ pub(super) fn process_constraints(
     Ok((out, known_lights))
 }
 
-/// Apply rename mappings to the left‑hand (`map_a`) and right‑hand (`map_b`)
+/// Apply rename mappings to the left-hand (`map_a`) and right-hand (`map_b`)
 /// name vectors.  For each entry, the corresponding `Rename` table is consulted;
 /// if a mapping exists the name is replaced, otherwise it stays unchanged.
 ///
 /// This function mutates the supplied slices in place and does not allocate
 /// new vectors.
-/// ```
 pub(super) fn apply_renames(
     map_a: &mut [String],
     map_b: &mut [String],

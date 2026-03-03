@@ -26,11 +26,18 @@ impl MaskedMatching {
         }
     }
 
+    /// Helper function for producing an iterator for the unwrapped matchings
+    ///
+    /// Builds an bitset-iterator for every slot
     fn build_bit_iters(&self) -> Vec<BitIter> {
         self.masks.iter().map(|b| b.iter()).collect()
     }
 
+    /// Helper function for producing an iterator for the unwrapped matchings
+    ///
+    /// Advances all the bitset-iterators and collects the next value
     fn prime_iters(iters: &mut [BitIter]) -> Vec<Option<IdBase>> {
+        // TODO: use SmallVec instead of a normal vector?
         iters.iter_mut().map(|it| it.next()).collect()
     }
 
@@ -53,10 +60,14 @@ impl MaskedMatching {
 /// Iterator over pairs (slot, value).
 ///
 /// PairsIter yields `(slot_index, value_index)` for every set bit in each slot.
+///
 /// The iteration order is: increasing slot index; within a slot increasing value index.
 pub struct PairsIter<'a> {
+    /// the base over which the iterator iterates over
     masks: &'a [Bitset],
-    idx: (usize, usize), // (slot_index, bit-search-start)
+    /// the current index/position of the iterator
+    /// (slot_index, bit-search-start)
+    idx: (usize, usize),
 }
 
 impl<'a> Iterator for PairsIter<'a> {
@@ -110,7 +121,9 @@ impl<'a> Iterator for PairsIter<'a> {
 
 /// Slots iterator: returns `Bitset` per slot (so iterating a MaskedMatching yields Bitset).
 pub struct SlotsIter<'a> {
+    /// the base over which the iterator iterates over
     masks: &'a [Bitset],
+    /// the current index/position of the iterator
     idx: usize,
 }
 impl<'a> Iterator for SlotsIter<'a> {
@@ -130,6 +143,7 @@ impl<'a> Iterator for SlotsIter<'a> {
 /// Cartesian-product iterator: pick exactly one value per slot.
 /// If any slot is empty the product is empty (iterator yields None immediately).
 pub struct UnwrappedIter<'a> {
+    /// the stored MaskedMatching which the iterator iterates over
     mm: &'a MaskedMatching,
     /// Current iterators for each slot
     iters: Vec<BitIter>,
@@ -155,6 +169,7 @@ impl<'a> Iterator for UnwrappedIter<'a> {
 }
 
 impl UnwrappedIter<'_> {
+    /// build a MaskedMatching from the current iterator-state
     fn build_current_masked(&self) -> MaskedMatching {
         // Build single-bit mask slots from current selection
         let slots = self
@@ -165,6 +180,7 @@ impl UnwrappedIter<'_> {
         MaskedMatching::from_masks(slots)
     }
 
+    /// advances the iterator to the next element. Returns whether a next element was found
     fn advance(&mut self) -> bool {
         // Advance to next combination: try to advance from the rightmost slot.
         // When we reset iterators to the right, we must advance the *real*

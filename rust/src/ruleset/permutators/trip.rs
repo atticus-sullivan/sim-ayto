@@ -14,21 +14,25 @@
 
 use crate::matching_repr::{IdBase, bitset::Bitset};
 
-/// In-place version of the "add trip" generator.
+/// In-place "add trip" generator. Here one of the three items building the triplet is fixed.
 ///
 /// Layout:
 /// - `buf` is a mutable slice where the last element (`buf[len-1]`) is the singleton
 ///   that will be moved/combined into one of the earlier slots to form a triple candidate.
 /// - For each index `idx` in 0..len-1 this function checks:
-///     * both `buf[idx]` and `buf[last]` are singletons (prevents triples),
+///     * both `buf[idx]` and `buf[last]` are singletons (prevents quartets),
 ///     * ordering constraint `single_idx(idx) >= single_idx(last)` to avoid double counting.
 ///
-/// If checks pass, it temporarily ORs `buf[last]` and `add` into `buf[idx]`, and emits
-/// `&mut buf[..last]` (the effective permutation has last item removed).
+/// If checks pass, it temporarily addes (set-union) the elements from `buf[last]` and `add`
+/// (converted to a bitset) to `buf[idx]`.
+/// Then, it emits `&mut buf[..last]` (the effective permutation has last item removed).
 ///
 /// Guarantees:
 /// - `buf` is restored to its original state after return.
 /// - No per-emission heap allocations.
+///
+/// Notes:
+/// - Does not support adding multiple triples (yet)
 #[inline]
 pub(crate) fn add_trip_inplace<F>(buf: &mut [Bitset], add: IdBase, mut emit: F) -> anyhow::Result<()>
 where
@@ -70,13 +74,16 @@ where
     Ok(())
 }
 
-/// In-place 'someone has a triplet' generator.
+/// In-place 'someone has a triplet' generator. Here none of the three items building the tiplet is fixed.
 ///
-/// Buffer layout:
+/// Layout:
 /// - Last two elements `buf[len-2]`, `buf[len-1]` are the trip candidate singletons.
-/// - For each index `idx` in 0..len-2, if `buf[idx]`, `buf[len-2]`, `buf[len-1]` are singletons and
-///   `single_idx(idx) < single_idx(len-1) < single_idx(len-2)` holds, the function ORs the two last
-///   singletons into `buf[idx]`, emits `&mut buf[..len-2]` (effective length reduced by 2), and undoes.
+/// - For each index `idx` in 0..len-2:
+///   * if `buf[idx]`, `buf[len-2]`, `buf[len-1]` are singletons and
+///   * `single_idx(idx) < single_idx(len-1) < single_idx(len-2)` holds
+/// - The two last singletons are added (set-union) into `buf[idx]`
+/// - The function then emits `&mut buf[..len-2]` (effective length reduced by 2)
+/// - Undo the changes
 ///
 /// Guarantees:
 /// - No allocations per emission.

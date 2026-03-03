@@ -11,6 +11,7 @@ use crate::ruleset_data::{dummy::DummyData, dup::DupData, dup_x::DupXData, RuleS
 use crate::Lut;
 
 impl RuleSet {
+    /// get the corresponding ruleset_data for this ruleset
     pub fn init_data(&self) -> Result<Box<dyn RuleSetData>> {
         Ok(match &self {
             RuleSet::SomeoneIsTrip => Box::new(DupData::default()),
@@ -23,6 +24,7 @@ impl RuleSet {
         })
     }
 
+    /// whether on a found match an exclusion must be formed
     pub fn must_add_exclude(&self) -> bool {
         match &self {
             RuleSet::XTimesDup(_) | RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => true,
@@ -30,6 +32,7 @@ impl RuleSet {
         }
     }
 
+    /// the length a matching-night constraint needs to have
     pub fn constr_map_len(&self, a: usize, _b: usize) -> usize {
         match &self {
             RuleSet::XTimesDup(_)
@@ -40,6 +43,7 @@ impl RuleSet {
         }
     }
 
+    /// whether the constraints need to be sorted
     pub fn must_sort_constraint(&self) -> bool {
         match &self {
             RuleSet::XTimesDup(_)
@@ -50,6 +54,7 @@ impl RuleSet {
         }
     }
 
+    /// check lookup-tables `lut_a` and `lut_b` with the RuleSet
     pub fn validate_lut(&self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
         match self {
             RuleSet::XTimesDup((unkown_cnt, fixed)) => {
@@ -114,6 +119,7 @@ impl RuleSet {
         Ok(())
     }
 
+    /// ignore specific pairings based on the ruleset to avoid duplicates
     pub fn ignore_pairing(&self, a: usize, b: usize) -> bool {
         match self {
             RuleSet::Eq

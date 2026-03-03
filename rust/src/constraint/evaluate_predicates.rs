@@ -9,19 +9,32 @@
 use crate::constraint::{CheckType, Constraint, ConstraintType, Offer};
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 
+/// a trait which collect all functionalities to evaluate a constraint
+///
+/// -> can be used as generic to not have to pull in the whole constraint functionality
 pub trait ConstraintEval {
+    /// whether this constraint is a blackout
     fn is_blackout(&self) -> bool;
+    /// whether a match was found with this constraint
     fn is_match_found(&self) -> bool;
+    /// whether this constraint is a match-box
     fn is_mb(&self) -> bool;
+    /// whether this constraint is a matching-night
     fn is_mn(&self) -> bool;
+    /// whether this constraint was sold -> no information gain
     fn is_sold(&self) -> bool;
+    /// whether this is a match-box and the match is definitive in the solution
     fn is_mb_hit(&self, sols: Option<&Vec<MaskedMatching>>) -> bool;
+    /// get the offer if there has been one for this constraint
     fn try_get_offer(&self) -> Option<Offer>;
+    /// whether this constraint might win the game
     fn might_won(&self) -> bool;
+    /// whether the game was won with thie constraint
     fn won(&self, rl: usize) -> bool;
 }
 
 impl Constraint {
+    /// whether this constraint uses lights as check-type
     pub fn is_lights(&self) -> bool {
         matches!(self.r#check, CheckType::Lights { .. })
     }

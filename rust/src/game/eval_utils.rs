@@ -8,6 +8,8 @@ use anyhow::Result;
 
 use crate::constraint::evaluate::ConstraintMerge;
 
+/// merges the slice of constraints like they specify they need to be merged into a new vector of
+/// new constraints
 pub(super) fn merge_constraints<T: ConstraintMerge + Clone>(constraints: &[T]) -> Result<Vec<T>> {
     let mut merged = vec![];
     let mut needs_merging = vec![];

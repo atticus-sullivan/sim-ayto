@@ -23,9 +23,6 @@ pub(super) mod trip;
 /// Notes:
 /// - `f` may be called many times (n! times). Keep `f` cheap and allocation-free
 ///   where possible.
-/// - `a` is left in some permutation state when the function returns (Heap's algorithm
-///   does not guarantee restoring the original ordering). If you need the original
-///   order afterwards, clone `a` before calling or restore it yourself.
 #[inline]
 pub(super) fn heaps_permute<T, F>(a: &mut [T], mut f: F) -> anyhow::Result<()>
 where

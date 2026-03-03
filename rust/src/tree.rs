@@ -14,11 +14,18 @@ use anyhow::{Context, Result};
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::{IdBase, MaskedMatching};
 
-/// This is the testable, generic helper. `data` are the possible partial solutions
-/// (one `MaskedMatching` per leaf path). `ordering` controls which `A` indices are
-/// serialized in which order (pairs of `(index, something)` - only the index is used).
+/// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
+/// calculated beforehand.
+/// 
+/// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
+/// afterwards.
 ///
-/// `title` is placed in the graph label. `map_a`/`map_b` are used to render readable labels.
+/// Arguments:
+/// - `writer` is where the `.dot` file is written to
+/// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
+/// - `ordering` controls the order of the layers/levels
+/// - `title` is placed in the graph label
+/// - `map_a`/`map_b` are used to render readable labels.
 pub(crate) fn dot_tree<W: Write>(
     writer: &mut W,
     data: &[MaskedMatching],
@@ -46,14 +53,22 @@ pub(crate) fn dot_tree<W: Write>(
     Ok(())
 }
 
+/// A generic builder for .dot files in this context
 struct DotBuilder<'a, W: Write> {
+    /// the writer to which to write the .dot file to
     writer: &'a mut W,
+    /// stores which nodes have already been seen (only draw nodes once)
     seen: HashSet<String>,
+    /// convert idx_a to name
     map_a: &'a [String],
+    /// convert idx_b to name
     map_b: &'a [String],
 }
 
 impl<'a, W: Write> DotBuilder<'a, W> {
+    /// Create a new `DotBuilder` which writes to `W`
+    ///
+    /// - `map_a`/`map_b` the maps to convert indices to names
     fn new(writer: &'a mut W, map_a: &'a [String], map_b: &'a [String]) -> Self {
         Self {
             writer,
@@ -64,8 +79,9 @@ impl<'a, W: Write> DotBuilder<'a, W> {
     }
 
     /// Ensure a node exists and return its identifier.
-    /// The method also records the edge from `parent` -> `node`
-    /// **but does not write the edge yet** - it just stores it.
+    /// 
+    /// If the node does not exist yet, this function creates the node in the `.dot` output (with
+    /// the correct id and label).
     fn ensure_node(&mut self, parent: &str, idx: usize, mask: &Bitset) -> Result<String> {
         let mut node = parent.to_string();
         node.push('/');
@@ -92,13 +108,14 @@ impl<'a, W: Write> DotBuilder<'a, W> {
         Ok(node)
     }
 
-    /// Flush a single edge after we know both ends.
+    /// Write an edge from `parent` to `child` in the `.dot` output.
     fn write_edge(&mut self, parent: &str, child: &str) -> Result<()> {
         writeln!(self.writer, "\"{parent}\" -> \"{child}\";")?;
         Ok(())
     }
 }
 
+/// Write the header for the .dot file to `W`
 fn write_header<W: Write>(writer: &mut W, title: &str) -> Result<()> {
     writeln!(
         writer,
@@ -108,15 +125,18 @@ fn write_header<W: Write>(writer: &mut W, title: &str) -> Result<()> {
     Ok(())
 }
 
+/// Write the footer for the .dot file to `W`
 fn write_footer<W: Write>(writer: &mut W) -> Result<()> {
     writeln!(writer, "}}")?;
     Ok(())
 }
 
-/// Tells to how many different masks (i.1) someone from set_a (i.0) is mapped to.
-/// The returned vector is sorted by the amount (i.1) ascending.
+/// Calculate an ordering for the layers/levels of the tree
 ///
-/// This is used to decide a sensible ordering for the tree layers.
+/// A layer is identified by the id in `set_a`.
+/// The layers are ordered so the amount of outgoing edges of a (complete) layer is minimized.
+///
+/// Returns a sorted list of layers to be drawn: [(id in set_a, num outgoing edges)]
 pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(IdBase, usize)> {
     // tab maps people from set_a -> possible matches (set -> no duplicates)
     let mut tab = vec![HashSet::new(); map_a.len()];

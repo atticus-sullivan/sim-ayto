@@ -12,6 +12,7 @@ use comfy_table::{presets::UTF8_FULL_CONDENSED, Cell, Row, Table};
 
 use crate::{Lut, game::parse::QueryPair, iterstate::QueryPairData, matching_repr::IdBase};
 
+/// translate query-pairs as parsed from config to ids used during simulation and later reporting
 pub(super) fn translate_query_pairs(
     pair: &QueryPair,
     lut_a: &Lut,
@@ -35,12 +36,18 @@ pub(super) fn translate_query_pairs(
     Ok((left, right))
 }
 
+/// represents the report immediately before displaying it
+///
+/// might be displayed later in the process of reporting
 #[derive(Debug, PartialEq)]
 pub(super) struct QueryPairReport {
+    /// the sections to be shown in this report
     sections: Vec<QueryPairSection>,
 }
 
 impl QueryPairReport {
+    /// evaluate the query-pair-data and produce a report.
+    /// This report can the be displayed later in the process of reporting
     pub(super) fn new(
         query_pair: &QueryPairData,
         map_a: &[String],
@@ -103,10 +110,15 @@ impl fmt::Display for QueryPairReport {
     }
 }
 
+/// Represents the query-pair section in the report
 #[derive(Debug, PartialEq)]
 struct QueryPairSection {
+    /// the header to be printed before this section
     header: String,
-    rows: Vec<(u64, Vec<String>)>, // (count, mapped names)
+    /// the rows to be printed in the report
+    /// 0. count
+    /// 1. mapped names
+    rows: Vec<(u64, Vec<String>)>,
 }
 
 impl fmt::Display for QueryPairSection {

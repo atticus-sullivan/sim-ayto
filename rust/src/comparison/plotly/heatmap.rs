@@ -21,24 +21,25 @@ use crate::comparison::theme::plotly_colorscale;
 
 /// Single input datum used to construct heatmap entries.
 ///
-/// `num` - a numeric key used for bucketing (we call `.floor()` on it).
-/// `val` - the numeric value used for the heatmap cell (None => empty cell).
-/// `hover` - optional hover string for this datum.
+/// - `num` - a numeric key used for bucketing (we call `.floor()` on it).
+/// - `val` - the numeric value used for the heatmap cell (None => empty cell).
+/// - `hover` - optional hover string for this datum.
 #[derive(Clone, Debug)]
 pub(crate) struct EntryDatum {
-    pub(crate) num: Decimal, // the value you bucket by (we call .floor() on it)
-    pub(crate) val: Option<f64>, // the value to render in the heatmap cell (None => empty)
-    pub(crate) hover: Option<String>, // comment/additional data shown on hover
+    /// the value you bucket by (we call .floor() on it)
+    pub(crate) num: Decimal,
+    /// the value to render in the heatmap cell (None => empty)
+    pub(crate) val: Option<f64>,
+    /// comment/additional data shown on hover
+    pub(crate) hover: Option<String>,
 }
 
 /// Render a heatmap (inline Plotly HTML) from a pre-built matrix representation.
 ///
-/// `x_edges` are the x-axis bucket boundaries (columns). `y_labels` are the row labels
-/// (one per row of `z`). `z` is a matrix of `Option<f64>` values where `None` represents
-/// an empty cell. `texts` is a parallel structure (same shape as `z`) of hover strings.
-///
-/// This function is generic over the element type `T` used for `x_edges` so tests can
-/// pass `f64` while production code can continue to pass `Decimal`.
+/// - `x_edges` are the x-axis bucket boundaries (columns)
+/// - `y_labels` are the row labels (one per row of `z`)
+/// - `z` is a matrix of `Option<f64>` values where `None` represents an empty cell
+/// - `texts` is a parallel structure (same shape as `z`) of hover strings
 #[allow(clippy::too_many_arguments)]
 fn heatmap_from_matrix<T>(
     x_edges: Vec<T>,
@@ -85,6 +86,10 @@ where
 /// Generic heatmap builder. `entries_fn` must produce a `Vec<EntryDatum>` for a given data item.
 ///
 /// Accepts `cmp_data` as `Vec<(label, data)>` where `data` will be passed to `entries_fn`.
+///
+/// `entries_fn` shall be a closure/function which extracts from/converts the data relevant for the
+/// heatmap generation to EntryDatum 
+///
 /// Returns inline plot HTML.
 pub(crate) fn build_heatmap_plot<F>(
     cmp_data: &Vec<(String, CmpData)>,

@@ -11,16 +11,24 @@ use crate::{constraint::Constraint, Rem};
 
 use anyhow::{bail, ensure, Result};
 
+/// This trait collects functionality to check whether after the constraint the game is solvable.
+///
+/// Avoids having to pull in all constraint functionality where only this is required.
 pub(crate) trait ConstraintSolvable {
+    /// whether the state after this constraint is 100% solvable (meaning the game can be won, not
+    /// solved in every aspect)
+    ///
+    /// The constraint might not be able to tell this, so it can also return `None`
     fn is_solvable_after(&self) -> Result<Option<bool>>;
 }
 
 impl ConstraintSolvable for Constraint {
-    /// Return whether the game was solvable *before* applying this constraint.
+    /// Return whether the game was solvable *after* applying this constraint.
     ///
-    /// - Returns Ok(Some(true)) if definitely solvable,
-    /// - Ok(Some(false)) if definitely unsolvable,
-    /// - Ok(None) if the constraint does not express solvability information.
+    /// # Return-value
+    /// - Ok(Some(true)) if definitely solvable
+    /// - Ok(Some(false)) if definitely unsolvable
+    /// - Ok(None) if the constraint does not express solvability information
     fn is_solvable_after(&self) -> Result<Option<bool>> {
         // not all constraints capture the remaining possibilities
         if self.left_poss.is_empty() {
@@ -45,8 +53,12 @@ impl ConstraintSolvable for Constraint {
     }
 }
 
+/// This trait collects functions regarding merging constraints so if a component requires this
+/// aspect of the constraint's functionality not everything needs to be pulled in.
 pub(crate) trait ConstraintMerge {
+    /// whether this constraint should be merged
     fn should_merge(&self) -> bool;
+    /// merge the `other` constraint into this one
     fn merge(&mut self, other: &Self) -> Result<()>;
 }
 
@@ -81,6 +93,10 @@ impl ConstraintMerge for Constraint {
 }
 
 impl Constraint {
+    /// apply this constraint to the 2d-Matrix of the left possibilities for a 1:1 match
+    ///
+    /// Calculates stats for this constraint
+    /// and returns the adjusted `Rem`.
     pub fn apply_to_rem(&mut self, mut rem: Rem) -> Option<Rem> {
         rem.1 -= self.eliminated;
 

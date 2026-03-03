@@ -13,9 +13,13 @@ use comfy_table::{presets::NOTHING, Row, Table};
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
 use crate::{LightCnt, MapS};
 
+/// a renderer for the check type associated with the constraint
 struct CheckTypeRender<'a> {
+    /// the check-type which is to be rendered
     check: &'a CheckType,
+    /// the distribution of the information gain over the possible outcomes/lights
     i: Option<Vec<(LightCnt, f64)>>,
+    /// the expeced value of the information
     e: Option<f64>,
 }
 
@@ -46,9 +50,13 @@ impl fmt::Display for CheckTypeRender<'_> {
     }
 }
 
+/// a renderer for the map associated with the constraint
 struct MapSRender<'a> {
+    /// the map which shall be rendered here
     map: &'a MapS,
+    /// the past constraints
     past_constraints: &'a [Constraint],
+    /// whether to show how many this 1:1 matching was seen in the past
     show_past_cnt: bool,
 }
 
@@ -88,10 +96,17 @@ impl fmt::Display for MapSRender<'_> {
     }
 }
 
+/// An intermediate representation produced by evaluating the constraint.
+///
+/// Can be displayed in the process of reporting.
 pub(crate) struct ReportData<'a> {
+    /// a header printed above the report
     hdr: String,
+    /// the map associated with the constraint
     map_s: MapSRender<'a>,
+    /// data on the check-type involved
     check_type: CheckTypeRender<'a>,
+    /// a footer to be printed at the end of the the report
     footer: String,
 }
 
@@ -108,6 +123,9 @@ impl<'a> fmt::Display for ReportData<'a> {
 }
 
 impl Constraint {
+    /// generate an intermediate representation for the header describing this constraint.
+    ///
+    /// The result can then be displayed/printed in the process of reporting
     pub(crate) fn generate_hdr_report<'a>(
         &'a self,
         past_constraints: &'a [Constraint],

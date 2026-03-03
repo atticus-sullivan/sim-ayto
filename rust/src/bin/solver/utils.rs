@@ -42,6 +42,8 @@ fn format_time(ms: u128) -> String {
     dt.format("%H:%M:%S").to_string()
 }
 
+/// Calculate the indicator which represents all currently running workers and sets this indicator
+/// on the progressbar
 pub(super) fn set_pb_msg(pb: &ProgressBar, active: &HashMap<usize, u128>) {
     pb.set_message(format!(
         "active:{} {}",

@@ -24,6 +24,7 @@ use crate::Lut;
 /// Implementors of `RuleSetData` should derive/impl `Clone` and `RuleSetDataClone`
 /// will provide a boxed clone via `clone_box`.
 pub trait RuleSetDataClone {
+    /// clone the boxed RulesetData
     fn clone_box(&self) -> Box<dyn RuleSetData>;
 }
 
@@ -41,10 +42,10 @@ where
 /// Implementations may collect statistics (e.g. duplicate/trip counts) while
 /// the simulation runs, then render human-readable output via `print`.
 pub trait RuleSetData: std::fmt::Debug + RuleSetDataClone {
-    /// Called for each solution matching encountered (append/accumulate).
+    /// Called for each solution matching encountered
     fn push(&mut self, m: &MaskedMatching) -> Result<()>;
 
-    /// Print or otherwise render collected statistics.
+    /// Print collected statistics.
     ///
     /// `full` indicates whether to emit the full report or a short "top-k" summary.
     fn print(

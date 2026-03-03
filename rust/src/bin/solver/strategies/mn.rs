@@ -11,5 +11,6 @@ use rand::Rng;
 
 /// Chooses an MN
 pub(crate) trait MnOptimizer: Send + Sync {
+    /// Come up with a full-matching for a matching-night according to the strategy
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 }

@@ -25,19 +25,36 @@ use std::path::PathBuf;
 use crate::iterstate::IterStateTrait;
 use crate::Lut;
 
+/// data associated with the generic specification of a dupX ruleset
 pub type RuleSetDupX = (usize, Vec<String>);
 
+/// An enum defining all the different rulesets which can be applied to the game.
 #[derive(Debug, Clone, Default, PartialEq)]
 pub enum RuleSet {
+    /// A ruleset where X duplicates exist. One of the two individuals forming the dup might be
+    /// known (`Some(name)`) or not (`None`).
+    /// The dups have to exist on the set_b side.
     XTimesDup(RuleSetDupX),
+    /// A ruleset where exactly one triple exists. None of the individuals of the triple is known.
+    /// The triple has to exist on the set_b side.
     SomeoneIsTrip,
-    NToN,
+    /// A ruleset where exactly one triple exists. One of three individuals of the triple is known
+    /// The triple has to exist on the set_b side.
     FixedTrip(String),
+    /// A ruleset where essentially N:N players play. But there are not really fixed sets a and b.
+    /// Instead everyone can match everyone, but it is still a strict 1:1 matching
+    NToN,
+    /// A ruleset where N:N players play so each individual from set_a matches exactly one
+    /// individual from set_b
     #[default]
     Eq,
 }
 
 impl RuleSet {
+    /// iterate over all permutations derived from the ruleset and perform the simulation with the
+    /// help of iterstate `is`
+    ///
+    /// optionally a `cache` might be used as source for the permutations
     pub fn iter_perms<T: IterStateTrait>(
         &self,
         lut_a: &Lut,
@@ -190,6 +207,7 @@ impl RuleSet {
         Ok(())
     }
 
+    /// get the amount of permutations which is to be expected with this ruleset
     pub fn get_perms_amount(
         &self,
         size_map_a: usize,
@@ -249,17 +267,21 @@ impl RuleSet {
 
 /// Copy `slice` into the provided `MaskedMatching` and forward it to the iterator-state.
 ///
+/// When re-using the same MaskedMatching over and over again this avoids having to allocate a
+/// MaskedMatching over and over again.
+///
 /// # Parameters
 /// - `idx`: index (position) of this emitted matching within the global enumeration.
 /// - `slice`: slice of `Bitset` masks for each slot to be placed into `mm`.
 /// - `mm`: a preallocated `MaskedMatching` that will be *overwritten* with `slice`.
 /// - `is`: mutable reference to an `IterStateTrait` which will receive the `MaskedMatching`.
-/// - `output`: whether this emission should be treated as an output (debug / verbose semantics).
 ///
 /// # Preconditions / Performance
 /// - `mm` MUST be preallocated with capacity >= `slice.len()`. Use `MaskedMatching::with_slots`.
 /// - `set_masks_from_slice` is expected to perform a single `copy_from_slice` style operation
 ///   (cheap, u64-sized copies) and must not re-allocate in the common case.
+///
+/// # Notes:
 /// - This function is on the hot path; keep it `#[inline]`, allocation-free and minimal.
 /// - Do **not** add logging, allocation, or extra cloning here - those would slow hot loops.
 ///

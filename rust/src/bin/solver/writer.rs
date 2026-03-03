@@ -18,9 +18,19 @@ use indicatif::{ProgressBar, ProgressStyle};
 
 use crate::{result::SimulationResult, utils::set_pb_msg};
 
+/// A type for the communication *worker* -> *writer* thread
 pub(super) enum WriterMsg {
-    Started { sim_id: usize, start_ms: u128 },
+    /// Signals the worker started running the simulation
+    Started {
+        /// the id of the worker which started for tracking the running threads
+        sim_id: usize,
+        /// the time when the worker started
+        start_ms: u128
+    },
+    /// Signals the worker finished the simulation, contains the result so the writer can append it
+    /// to the output
     Finished(SimulationResult),
+    /// Signals the worker crashed with an error
     Failed(usize, String),
 }
 
@@ -60,7 +70,9 @@ pub(super) fn spawn_writer_thread(
     Ok((tx, std::thread::spawn(move || writer_loop(pb, file, rx))))
 }
 
-/// The writer terminates once all Sender instances are dropped.
+/// This is the "event-loop" of the writer
+///
+/// It terminates once all Sender instances are dropped.
 fn writer_loop(
     pb: ProgressBar,
     mut file: File,

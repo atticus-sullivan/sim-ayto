@@ -13,14 +13,23 @@ use crate::game::report_utils::print_rem_generic;
 use crate::game::Game;
 use crate::Rem;
 
+/// event prepared for reporting
 pub(super) struct ReportEvent<'a> {
+    /// the amount of 1:1 matches left after this event
     rem: Rem,
+    /// the report prepared from the constraint
     constr_report: ReportData<'a>,
+    /// the constraint on which this reports on
     constraint: &'a Constraint,
 }
 
+/// descibres the trail which is reported later on
+/// it consists of
+/// 0. the remaining amounts for the 1:1 matches
+/// 1. a sequence of events which are prepared for reporting
 pub(super) type Trail<'a> = (Rem, Vec<ReportEvent<'a>>);
 
+/// generate the data which then can be reported later
 pub(super) fn gen_report_data<'a>(
     constraints: &'a mut [Constraint],
     mut rem: Rem,
@@ -55,14 +64,28 @@ pub(super) fn gen_report_data<'a>(
     ))
 }
 
+/// describes a table in the output which is converted to an image which then is to be referenced
+/// in the .md page.
 pub(super) struct MdTable {
+    /// the name of this event which is even shown before expanding the details block
     pub(super) name: String,
+    /// the index where to find the table
     pub(super) idx: usize,
+    /// whether a tree is attached to this table
     pub(super) tree: bool,
+    /// whether the table shall be wrapped in a detail block (makes the table collapsible)
     pub(super) detail: bool,
 }
 
 impl Game {
+    /// generate a report for this game based on the `data`
+    ///
+    /// - `print_transposed` whether to transpose the tables in the report
+    /// - `full` whether to print the full ruleset_data
+    /// - `no_tree_output` allows to avoid generating .dot files
+    /// - `tab_idx` the index to start with when refering to the generated tables in the output
+    /// - `md_tables` output argument, where the tables which shall be refered to in the .md output
+    ///   are collected
     pub(super) fn gen_report(
         &self,
         data: &Trail,

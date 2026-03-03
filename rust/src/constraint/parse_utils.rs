@@ -16,8 +16,7 @@ use crate::matching_repr::IdBase;
 use crate::{LightCnt, Lut, Map, MapS};
 
 impl ConstraintParse {
-    /// How many known lights this constraint *adds* when converting a box constraint with
-    /// lights==1 to a new effective constraint.
+    /// How many known lights this constraint *adds*
     pub(crate) fn added_known_lights(&self) -> LightCnt {
         if self.hidden {
             return 0;
@@ -31,6 +30,7 @@ impl ConstraintParse {
         0
     }
 
+    /// whether this constraint shall be ignored, depending on the ignore setting `ops`
     pub(crate) fn ignore_on(&self, ops: &IgnoreOps) -> bool {
         match ops {
             IgnoreOps::Boxes => {
@@ -41,9 +41,10 @@ impl ConstraintParse {
         }
     }
 
-    // convert the string map_s into numeric ids using LUTs.
     /// Convert `self.map_s` (names) into numeric id map and return `(c_map, c_map_s)`.
-    /// `c_map` is `HashMap<u8,u8>` and `c_map_s` is the original string map (not renamed).
+    ///
+    /// `c_map` is `HashMap<u8,u8>` and `c_map_s` is the original string map
+    ///
     /// This function returns an error if a name is not present in the given LUT.
     pub(crate) fn convert_map_s_to_ids(
         &self,

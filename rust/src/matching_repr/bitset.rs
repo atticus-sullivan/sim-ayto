@@ -173,9 +173,10 @@ impl BitOrAssign for Bitset {
     }
 }
 
-/// Iterator over set bits (yields indices). Holds a Bitset and is Clone.
+/// Iterator over set bits (yields indices). Holds a Bitset.
 #[derive(Clone, Copy)]
 pub struct BitIter {
+    /// the base for the iterator
     pub(super) w: Bitset,
 }
 

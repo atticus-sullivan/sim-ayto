@@ -11,7 +11,10 @@ use rand::Rng;
 use ayto::matching_repr::MaskedMatching;
 
 /// Chooses an MB.
-/// `data` has the structure you provided earlier (Vec<Vec<u128>>).
+///
+/// `data` is the table with how many remaining solutions are with this 1:1 match. Together with
+/// `total` this can be converted to percentages.
 pub(crate) trait MbOptimizer: Send + Sync {
+    /// Come up with a matching for a match-box according to the respective strategy
     fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching;
 }

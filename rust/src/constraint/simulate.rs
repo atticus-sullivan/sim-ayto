@@ -38,10 +38,6 @@ impl ConstraintSim for Constraint {
 
 impl Constraint {
     /// Internal predicate: whether `m` would satisfy the constraint's `check`.
-    ///
-    /// This function is intentionally small and pure except for reading `self` state.
-    /// It is used by `process()` (which handles side effects like elimination and
-    /// pushing to `ruleset_data`).
     fn fits(&mut self, m: &MaskedMatching) -> bool {
         // first step is to check if the constraint filters out this matching
         match &mut self.check {
@@ -60,13 +56,14 @@ impl Constraint {
                 let f = self
                     .exclude
                     .as_ref()
-                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| !m.contains_any(ex.1)));
+                    .and_then(|ex| m.slot_mask(ex.0 as usize).map(|m| !ex.1.contains_any(*m)));
 
                 // use calculated lights to collect stats on based on the matching possible until
                 // here, how many lights are calculated how often for this map
                 *light_count.entry(l).or_insert(0) += 1;
 
                 if let Some(f) = f {
+                    // TODO: logic error? previously (e.g. 28886869a64f273ae6de42523a5e4cafad17d73a) no Some(true) was able to be produced by exclude
                     f
                 } else {
                     l == *lights
@@ -79,6 +76,8 @@ impl Constraint {
     pub(super) fn test_eliminate(&mut self, m: &MaskedMatching) {
         self.eliminate(m)
     }
+
+    /// aggregate stats about matching `m` which was eliminated by this constraint
     fn eliminate(&mut self, m: &MaskedMatching) {
         for (k, v) in m.iter_pairs() {
             self.eliminated_tab[k as usize][v as usize] += 1;

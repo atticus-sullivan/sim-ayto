@@ -7,8 +7,7 @@
 use catppuccin::Flavor;
 use plotly::{common::Title, Layout, Plot};
 
-/// Create a new Plotly `Plot` with default configuration used across the site
-/// (responsive, no plotly logo, scroll zoom enabled).
+/// Create a new Plotly `Plot` with default configuration we came up with
 pub(super) fn plotly_new_plot() -> Plot {
     let mut plot = Plot::new();
     plot.set_configuration(

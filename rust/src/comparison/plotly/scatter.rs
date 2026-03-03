@@ -39,6 +39,22 @@ where
     plot.to_inline_html(None)
 }
 
+/// generic function to build a scatter plot with plotly
+///
+/// # Arguments
+/// - `cmp_data` a slice which maps a season identifier with data associated with this season
+/// - `layout` the plotly layout to be used for this plot
+/// - `palette` the color palette to be used in this plot
+/// - `title` the title of the plot
+/// - `x_title` the title of the x-axis
+/// - `y_title` the title of the y-axis
+/// - `mode` the mode for the scatter dots in the scatter plot
+/// - `x_fn` a function with maps the season data to the x-values
+/// - `y_fn` a function with maps the season data to the y-values
+/// - `text_fn` a function with maps the season data to the hover-text values
+///
+/// # Return
+/// a string with inline-html which shows the scatter plot
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn build_scatter_plot<X, Y, FX, FY, FString>(
     cmp_data: &[(String, CmpData)],

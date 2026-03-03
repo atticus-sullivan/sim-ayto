@@ -9,8 +9,9 @@ use crate::comparison::data::CmpData;
 
 /// Render ruleset metadata as a Markdown table.
 ///
-/// `cmp_data` is the comparison data per ruleset; the returned string is a
-/// Markdown table (pipe-separated) ready for insertion into the site content.
+/// `cmp_data` is the comparison data per ruleset
+///
+/// Returns a full Markdown table (long multiline string), ready to be rendered.
 pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>) -> String {
     let mut tab_lines = vec![
         r#"| {{< i18n "season" >}} | {{< i18n "players" >}} | {{< i18n "rulesetShort" >}} | {{< i18n "rulesetDesc" >}} |"#.to_owned(),

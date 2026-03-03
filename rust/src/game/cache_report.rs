@@ -18,16 +18,25 @@ use comfy_table::{Cell, Color, Table};
 
 use crate::game::cache::{CachableSpec, CacheSpec};
 
+/// represents all stats collected for a cache
 struct CacheStatus<'a> {
+    /// the name which is to be attached to this cache
     name: &'a str,
+    /// the path to this cache
     path: &'a PathBuf,
+    /// whether this cache exists
     exists: bool,
+    /// the amount of lines (aka left possible solutions) in the cache
+    /// (if the cache does not exist, this obviously can't be set)
     line_count: Option<usize>,
+    /// the size of this cache on disk in megabytes if set
+    /// (if the cache does not exist, this obviously can't be set)
     size_mb: Option<u64>,
     // eta: Option<String>,
 }
 
 impl<'a> CacheStatus<'a> {
+    /// collect stats on the `value` which is a cache so this can be displayed later
     fn new<S: CachableSpec>(value: &'a S) -> Result<Self> {
         let exists = value.exists();
 
@@ -52,6 +61,7 @@ impl<'a> CacheStatus<'a> {
     }
 }
 
+/// represents the collection of all cache-statuses which can be displayed
 struct CacheStatusAll<'a>(Vec<CacheStatus<'a>>);
 
 impl<'a> Display for CacheStatusAll<'a> {

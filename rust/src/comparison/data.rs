@@ -20,15 +20,14 @@ use crate::game::parse::GameParse;
 use crate::game::Game;
 use crate::ignore_ops::IgnoreOps;
 
-/// Compact comparison data for a ruleset / season used by the comparison pages.
-///
-/// - `eval_data` contains the chronological evaluation events (MB/MN/Initial).
-/// - `cnts` contains aggregated counts and summary metrics for the season.
-/// - `game` holds the parsed ruleset/game specification.
+/// Compact comparison data for a game used by the comparison pages.
 #[derive(Debug)]
 pub(crate) struct CmpData {
+    /// chronological evaluation events (MB/MN/Initial).
     pub(crate) eval_data: Vec<EvalEvent>,
+    /// aggregated counts and summary metrics for the season.
     pub(crate) cnts: SumCounts,
+    /// the specification of the game which is compared here
     pub(crate) game: Game,
 }
 
@@ -46,7 +45,7 @@ fn read_json_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Op
     Ok(Some(dat))
 }
 
-/// Parse the ruleset/game YAML file located at `fn_path` (without extension).
+/// Parse the game YAML file located at `fn_path` (without extension).
 ///
 /// The function expects `<fn_path>.yaml` to exist and uses the game's parsing
 /// facilities (`GameParse`) to produce a `Game`. This helper will panic on parse
@@ -60,12 +59,12 @@ fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
 /// Scan `./data` and parse comparison files for the selected directories.
 ///
 /// `filter_dirs` is a callback used to select which subdirectories of `./data`
-/// should be included (e.g. `|s| s.starts_with("de")`). For each accepted
-/// directory the function reads the YAML spec and the `stats.json` produced by
-/// the data pipeline and returns a sorted `Vec<(ruleset_name, CmpData)>`.
+/// should be included (e.g. `|s| s.starts_with("de")`).
 ///
-/// This function walks the real filesystem and is integration-y; see
-/// `gather_cmp_data_from` (test-friendly wrapper) in the suggestions section.
+/// For each accepted
+/// directory the function reads the specification of the game and the stats collected and stored
+/// for comparison.
+/// It returns a sorted `Vec<(season_name, CmpData)>`
 pub(crate) fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(String, CmpData)>> {
     let mut ret = vec![];
 

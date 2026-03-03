@@ -30,16 +30,30 @@ use crate::NUM_PLAYERS_SET_A;
 /// 2. Applies constraints iteratively according to a strategy
 /// 3. Terminates once only one possibility remains
 pub struct Simulation<S: StrategyBundle> {
+    /// an identifier which can be used to track this simulation
     sim_id: usize,
-    seed: u64,
+    /// the strategy used for playing this game
     strategy: Arc<S>,
+    /// seed usefd for reproducible randomness/simulation
+    seed: u64,
+    /// provides randomness for the optimizers and the game too
     rng: StdRng,
+    /// when this simulation started
     start: Instant,
+    /// the ruleset used for playing this game
     ruleset: RuleSet,
 
+    /////////////////////////////////////////////////////
+    // fields which are modified during the simulation //
+    /////////////////////////////////////////////////////
+
+    /// accumulated list of constraints used to solve this game
     constraints: Vec<Constraint>,
+    /// list of all remaining possible solutions
     possibilities: Vec<MaskedMatching>,
+    /// a table tracking the remaining possibilities per 1:1 matching
     rem: Rem,
+    /// The amount of lights which are already *known* (proven in a MB decision) up to this point
     lights_known_before: usize,
 }
 
@@ -138,7 +152,7 @@ impl<S: StrategyBundle> Simulation<S> {
     }
 
     /// Generates and constructs the next constraint
-    /// according to the selected strategy and iteration number.
+    /// according to the selected strategy and iteration number/index.
     fn next_step(&mut self, solution: &MaskedMatching, iteration: usize) -> Result<Constraint> {
         let (m, ct) = if iteration.is_multiple_of(2) {
             // this is a match-box decision

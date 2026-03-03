@@ -18,10 +18,10 @@ use crate::strategies::{mb::MbOptimizer, mn::MnOptimizer};
 /// - `choose_mb`: choose a (u8,u8) MB pair
 /// - `choose_mn`: choose a Vec<u8> MN matching
 /// - `initial_value`: produce an initial HashMap
-///
-/// The `usize` value is a practical default; change the return type if you want another payload.
 pub(super) trait StrategyBundle: Send + Sync {
+    /// come up with a matching for a match-box
     fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching;
+    /// come up with a full-matching for a matching night
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 
     /// Produce an initial value for the first constraint. Up to this point no information is known
@@ -30,7 +30,9 @@ pub(super) trait StrategyBundle: Send + Sync {
 
 /// Combines the different strategies needed.
 pub(super) struct Strategy<S: MbOptimizer, T: MnOptimizer> {
+    /// The match-box solver
     pub(super) mb: S,
+    /// The matching-night solver
     pub(super) mn: T,
 }
 

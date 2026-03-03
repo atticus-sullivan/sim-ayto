@@ -15,16 +15,24 @@ use serde::Deserialize;
 use crate::constraint::{ConstraintGetters, ConstraintImpact};
 use crate::game::Game;
 
+/// generic way of specifying something which can be used as cache
 pub trait CachableSpec {
+    /// create a new cache-specification
     fn new(event_name: String, path: PathBuf) -> Self;
+    /// the path which backs this cache
     fn path(&self) -> &PathBuf;
+    /// the name of the event this cache is associated with
     fn event_name(&self) -> &str;
+    /// determines whether the cache exists (is available to choose)
     fn exists(&self) -> bool;
 }
 
+/// specifies one cache
 #[derive(Clone)]
 pub struct CacheSpec {
+    /// the event this cache is associated with
     event_name: String,
+    /// a path to the cache stored on disk
     path: PathBuf,
 }
 
@@ -48,8 +56,8 @@ impl CachableSpec for CacheSpec {
 
 /// Compute cache file candidates (path + label) for the current `GameParse`.
 ///
-/// This function **does not** access the filesystem: it deterministically
-/// computes a set of hashed cache file paths (useful for `select_cache` and tests).
+/// This function only *theoretically* computes what valid identifiers for caches would be. It does
+/// not check if these files exist.
 #[must_use]
 pub(super) fn get_caches<T, S>(initial_hash: u64, constraints: &[T]) -> Vec<S>
 where
@@ -79,23 +87,34 @@ where
     input_hashes
 }
 
+/// argument specification for `CacheMode` so this can be used with clap
 #[derive(Debug, Clone, clap::ValueEnum)]
 pub enum CacheModeArg {
+    /// select the most recent available cache
     MostRecent,
+    /// select no cache
     None,
+    /// select a cache based on its path
     SpecificCache,
+    /// select a cache based on the event-name
     SpecificEvent,
 }
 
+/// specifies the strategy to choose a cache
 #[derive(Deserialize, Debug, Clone)]
 pub enum CacheMode {
+    /// select the most recent available cache
     MostRecent,
+    /// select no cache
     None,
+    /// select a cache based on its path
     SpecificCache(PathBuf),
+    /// select a cache based on the event-name
     SpecificEvent(String),
 }
 
 impl CacheModeArg {
+    /// convert the cachemode parsed to a full `CacheMode`
     pub fn finalize(&self, cache: &Option<PathBuf>, event: &Option<String>) -> Result<CacheMode> {
         match &self {
             CacheModeArg::MostRecent => Ok(CacheMode::MostRecent),
@@ -116,13 +135,19 @@ impl CacheModeArg {
     }
 }
 
+/// specifies the strategy used as fallback if the cache could not be found
 #[derive(Debug, Clone, clap::ValueEnum, Deserialize)]
 pub enum CacheModeFallback {
+    /// select the most recent available cache
     MostRecent,
+    /// no cache should be selected
     None,
 }
 
 impl CacheModeFallback {
+    /// select a cache as fallback according to the specification
+    ///
+    /// The selectable caches need to be gathered in advance and provided as `caches`.
     #[must_use]
     fn select_cache<'a, S: CachableSpec>(&self, caches: &'a [S]) -> Option<&'a S> {
         match &self {
@@ -142,6 +167,10 @@ impl CacheModeFallback {
 }
 
 impl CacheMode {
+    /// select a cache according to the specification if the this doesn't work a fallback can be
+    /// provided.
+    ///
+    /// The selectable caches need to be gathered in advance and provided as `caches`.
     pub(crate) fn select_cache<'a, S: CachableSpec>(
         &self,
         fallback: &Option<CacheModeFallback>,
@@ -171,6 +200,7 @@ impl CacheMode {
 }
 
 impl Game {
+    /// obtain the cache-candidates for this game
     #[must_use]
     pub fn get_cache_candidates<S: CachableSpec>(&mut self) -> Vec<S> {
         let initial_hash = {
@@ -182,6 +212,12 @@ impl Game {
         get_caches(initial_hash, &self.constraints_orig)
     }
 
+    /// select a cache according to the specified strategy/strategies
+    ///
+    /// Needs to be provided `caches`, the list of cache-candidates
+    ///
+    /// With `output` it can be decided whether this should print whether and which cache shall be
+    /// used
     pub fn select_cache<S: CachableSpec + Clone>(
         &mut self,
         caches: &[S],
@@ -200,6 +236,10 @@ impl Game {
         Ok(())
     }
 
+    /// set whether a cache should be generated in the end
+    ///
+    /// With `output` it can be decided whether this should print whether and which cache shall be
+    /// used
     pub fn set_gen_cache<S: CachableSpec>(&mut self, caches: &[S], output: bool) -> Result<()> {
         self.cache_to = caches.last().map(|x| x.path().clone());
         if output {

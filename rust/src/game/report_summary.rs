@@ -15,6 +15,7 @@ use crate::constraint::Constraint;
 use crate::game::Game;
 
 impl Game {
+    /// output the summary table of this game including a summary for all events we encountered
     pub(super) fn summary_table(
         &self,
         transpose: bool,
@@ -66,7 +67,9 @@ impl Game {
     }
 }
 
-// maps the constraints to the data which is printed later in the summary table
+/// Prepare the constraints for reporting the summary
+///
+/// maps the constraints to the data which is printed later in the summary table
 fn generate_data(
     constraints: &[Constraint],
     transpose: bool,

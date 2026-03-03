@@ -17,15 +17,17 @@ use crate::ruleset_data::utils::{
 };
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use crate::{matching_repr::bitset::Bitset, matching_repr::MaskedMatching, ruleset::RuleSet};
+use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::MaskedMatching;
+use crate::ruleset::RuleSet;
 
 /// Collect statistics about "dup" (or "trip") events.
-///
-/// Internally keeps a map from `(index_in_set_a, bitset_of_b_indices)` -> count.
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct DupData {
-    // key: (index_in_set_a, bitset_of_b_indices)
-    // value: count
+    /// the counts aggregated during the simulation
+    ///
+    /// key: (index_in_set_a, bitset_of_b_indices)
+    /// value: count
     cnt: HashMap<(usize, Bitset), usize>,
 }
 
@@ -63,14 +65,21 @@ impl RuleSetData for DupData {
     }
 }
 
+/// A struct collecting the results after the evaluation step
+/// Can be printed/displayed via `fmt`
 struct DupStats {
+    /// stats/counts grouped by the matches (regarding the dups)
     full_matches: Vec<((usize, Bitset), usize)>,
+    /// stats/counts grouped by the combination of individuals from set_b
     by_bitset: Vec<(Bitset, usize)>,
+    /// stats/counts grouped by the individual in set_b
     by_individual: Vec<(IdBase, usize)>,
+    /// stats/counts grouped by the individual in set_a
     by_a: Vec<(usize, usize)>,
 }
 
 impl DupStats {
+    /// Create a new DupXStats from DupXData `data` - performs already the evaluation step
     fn new(data: &DupData) -> Self {
         let mut full_matches = data.cnt.clone().into_iter().collect::<Vec<_>>();
         full_matches.sort_by(|(a, a_cnt), (b, b_cnt)| b_cnt.cmp(a_cnt).then_with(|| a.cmp(b)));
@@ -89,6 +98,14 @@ impl DupStats {
         }
     }
 
+    /// Writer inspired by the Display trait but with additional perameters
+    ///
+    /// Writes the evaluated stats to `f`
+    ///
+    /// - `full` whether to truncate the lists to x elements
+    /// - `map_a`/`map_b` maps idx_a/idx_b to names
+    /// - `total` total amount of possible solutions left
+    /// - `word` something like an identifier of what type of information is printed here
     fn fmt<W: Write>(
         self,
         mut f: &mut W,

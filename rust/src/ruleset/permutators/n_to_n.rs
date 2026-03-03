@@ -14,14 +14,15 @@ use crate::matching_repr::{IdBase, bitset::Bitset};
 /// Semantics:
 /// - `slots` must be even, `k = slots / 2`.
 /// - For every choice `ks` of `k` slot indices (combination) select a permutation of the remaining
-///   `k` values `vs` and place `vs[i]` as the singleton at slot `ks[i]`.
+///   values `vs` and map it to the chosen `ks`
 /// - This emitter produces `&[Bitset]` buffers where only the `ks` positions are singletons; other
-///   positions are empty `Bitset::empty()`.
+///   positions are unset/empty `Bitset::empty()`.
 ///
 /// Notes:
 /// - To avoid allocations, permutations of `vs` are generated in-place using `heaps_permute`.
 /// - The function uses a reusable `c` output buffer which is overwritten for each emission.
-/// - Reject assignments where the slot index is less than or equal to the value index, because such a pairing would be symmetric with another generated permutation
+/// - Reject assignments where the slot index is less than or equal to the value index, because
+///   such a pairing would be symmetric with another generated permutation
 #[inline]
 pub(crate) fn n_to_n_inplace<F>(slots: usize, mut emit: F) -> anyhow::Result<()>
 where

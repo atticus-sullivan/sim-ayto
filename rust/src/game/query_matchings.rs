@@ -55,13 +55,18 @@ pub(super) fn translate_query_matchings(
     Ok(out)
 }
 
+/// represents the complete report which is later to be displayed in the reporting process
 #[derive(Debug, PartialEq)]
 pub(super) struct MatchingReport {
+    /// tne entries in this report
     entries: Vec<MatchingEntry>,
 }
 
 impl MatchingReport {
-    /// Only call when query_matchings actually contains data
+    /// Creates a new Report
+    ///
+    /// # Notes:
+    /// - Only call when query_matchings actually contains data
     pub(super) fn new(
         query_matchings: &[(MaskedMatching, Option<String>)],
         map_a: &[String],
@@ -79,6 +84,7 @@ impl MatchingReport {
         Ok(Some(MatchingReport { entries }))
     }
 
+    /// the amount of tables this report generates
     pub(super) fn tab_cnt(&self) -> usize {
         self.entries.len()
     }
@@ -99,13 +105,20 @@ impl fmt::Display for MatchingReport {
     }
 }
 
+/// represents the report for an eliminated and queried matching
+///
+/// might be displayed later in the process of reporting
 #[derive(Debug, PartialEq)]
 struct MatchingEntry {
+    /// the string representation of the matching which was eliminated
     rows: Vec<(String, Vec<String>)>,
+    /// in which event this matching was eliminated
     eliminated_in: String,
 }
 
 impl MatchingEntry {
+    /// the matching `q` was eliminated in event `q` -> prepare a report which can later be
+    /// displayed
     fn new(q: &MaskedMatching, id: &str, map_a: &[String], map_b: &[String]) -> Result<Self> {
         let mut rows = Vec::with_capacity(q.len());
         for (a, b) in q.iter().enumerate() {

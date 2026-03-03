@@ -14,17 +14,28 @@ use crate::constraint::evaluate_predicates::ConstraintEval;
 use crate::constraint::{CheckType, Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
 
+/// A struct representing a row in the summary table. The idea is this is produced by the
+/// evaluation. Then this can be displayed in the process of reporting.
 #[derive(Clone, Debug)]
 pub(crate) struct SummaryRow {
+    /// a label for this row
     label: String,
+    /// lights produced by the constraint, value attached with meaning
     light_status: (LightCell, LightSemantic),
+    /// "entries"/names in this constraint (the other side is the header in the row) attached with
+    /// meaning
     entries: Vec<(EntryCell, EntrySemantic)>,
+    /// the information gain by this constraint
     info: Option<f64>,
+    /// how many new 1:1 matchings in this constraint
     new_count: Option<usize>,
+    /// to which other constraint the distance is at its minimum (distance + label of the
+    /// constraint)
     min_dist: Option<(String, usize)>,
 }
 
 impl SummaryRow {
+    /// render the `SummaryRow` to a row so it can be used by comfy_table
     pub(crate) fn render<F>(&self, style: F) -> Vec<Cell>
     where
         F: Fn(Cell) -> Cell,
@@ -70,15 +81,21 @@ impl SummaryRow {
     }
 }
 
+/// attach a meaning to the amount of lights so we can style based on meaning, not on value
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum LightSemantic {
+    /// we know this was a match
     Match,   // green
+    /// we know this was not a match
     NoMatch, // red
+    /// we don't gain information by this
     NoGain,  // yellow
+    /// we did gain information, but nothing certain
     Neutral,
 }
 
 impl LightSemantic {
+    /// style the cell `c` based on the `LightSemantic`
     fn style(&self, c: Cell) -> Cell {
         match self {
             LightSemantic::Match => c.fg(comfy_table::Color::Green),
@@ -89,10 +106,15 @@ impl LightSemantic {
     }
 }
 
+/// a cell with a name in the summary row describing the amount of lights achieved by this
+/// constraint
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum LightCell {
+    /// we don't know how many lights were produced by this constraint
     Unknown,
+    /// this constraint did not produce lights, it has Eq check-type
     Equal,
+    /// this constraint produced `LightCnt` new lights
     Value(LightCnt),
 }
 
@@ -106,14 +128,19 @@ impl fmt::Display for LightCell {
     }
 }
 
+/// attach a meaning to entries/cells so we can style based on meaning, not on value
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum EntrySemantic {
+    /// this entry produced a new known match
     Match,
+    /// this entry produced a new known no-match
     NoMatch,
+    /// we don't know anything about the outcome produced by this entry
     Unknown,
 }
 
 impl EntrySemantic {
+    /// style the cell `c` based on the `EntrySemantic`
     fn style(&self, c: Cell) -> Cell {
         match self {
             EntrySemantic::Match => c.fg(comfy_table::Color::Green),
@@ -123,10 +150,14 @@ impl EntrySemantic {
     }
 }
 
+/// a cell with a name in the summary row describing this constraint
 #[derive(Clone, Debug, PartialEq, Eq)]
 struct EntryCell {
+    /// the name to be placed in this cell
     value: String,
+    /// whether this is 1:1 match
     is_new: bool,
+    /// whether the 1:1 match should be shown
     show_new: bool,
 }
 
@@ -141,6 +172,7 @@ impl fmt::Display for EntryCell {
 }
 
 impl Constraint {
+    /// evaluate and produce summary data regarding this constraint
     pub(crate) fn summary_row_data(
         &self,
         transpose: bool,
@@ -245,6 +277,7 @@ impl Constraint {
         }
     }
 
+    /// how many 1:1 matches are new in this constraint
     fn new_matches(&self, past: &[Constraint]) -> Option<usize> {
         if self.result_unknown {
             None

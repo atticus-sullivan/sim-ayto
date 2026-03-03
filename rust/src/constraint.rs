@@ -48,35 +48,53 @@ use crate::ruleset_data::dummy::DummyData;
 use crate::ruleset_data::RuleSetData;
 use crate::{LightCnt, MapS};
 
-/// An offer attached to a box event. The enum mirrors the YAML structure and
-/// contains optional amounts and actors.
+/// An offer attached to an event. There are various ways in which offers can be made which is
+/// represented in this enum.
 #[derive(Deserialize, Debug, Clone, PartialEq)]
 pub enum Offer {
+    /// an offer where a single person wins the money
     Single {
+        /// the amount of money which was offered
         amount: Option<u128>,
+        /// the individual which accepted this offer
         by: String,
         #[serde(rename = "reducedPot")]
+        /// whether this offer reduces the pot pot for the group
         reduced_pot: bool,
+        /// whether it is save the money is won
         save: bool,
     },
+    /// an offer where the a pair was offered money only for them
     SinglePair {
+        /// the amount of money which was offered
         amount: Option<u128>,
+        /// the individual from set_b to which this offer was made
         #[serde(rename = "byA")]
         by_a: String,
+        /// the individual from set_b to which this offer was made
         #[serde(rename = "byB")]
         by_b: String,
         #[serde(rename = "reducedPot")]
+        /// whether this offer reduces the pot pot for the group
         reduced_pot: bool,
+        /// whether it is save the money is won
         save: bool,
     },
+    /// an offer where the group was offered money for the whole group
     Group {
+        /// the amount of money which was offered
         amount: Option<u128>,
+        /// the individual which accepted this offer
         by: String,
     },
+    /// an offer where a pair was offered money for the whole group
     GroupPair {
+        /// the amount of money which was offered
         amount: Option<u128>,
+        /// the individual from set_b to which this offer was made
         #[serde(rename = "byA")]
         by_a: String,
+        /// the individual from set_b to which this offer was made
         #[serde(rename = "byB")]
         by_b: String,
     },
@@ -94,16 +112,25 @@ impl Offer {
     }
 }
 
+/// collects the different types a constraint can have (MB/MN)
 #[derive(Deserialize, Debug, Clone, PartialEq)]
 pub enum ConstraintType {
+    /// a matching-night constraint
     Night {
+        /// the number of this event, mostly used when ordering the events in the comparison
         num: Decimal,
+        /// comment for this event
         comment: String,
+        /// offer made for this constraint if set
         offer: Option<Offer>,
     },
+    /// a match-box constraint
     Box {
+        /// the number of this event, mostly used when ordering the events in the comparison
         num: Decimal,
+        /// comment for this event
         comment: String,
+        /// offer made for this constraint if set
         offer: Option<Offer>,
     },
 }
@@ -186,25 +213,46 @@ impl Hash for Offer {
     }
 }
 
+/// A struct describing a complete constraint
 #[derive(Debug, Clone)]
 pub struct Constraint {
+    /// of what type this constraint is (e.g. MB/MN)
     r#type: ConstraintType,
+    /// how the constraint needs to be checked (e.g. via lights)
     pub check: CheckType,
+    /// whether this constraint shall be hidden in the output - the constraint will be merged to
+    /// the next constraint in this case
     hidden: bool,
+    /// whether the result of this is still unknown (despite how check is set)
     result_unknown: bool,
+    /// whether to build a .dot-tree for this constraint/event
     build_tree: bool,
 
+    /// the MaskedMatching representation of the matching related to the constraint
     map: MaskedMatching,
+    /// the string+hashmap representation of the matching related to the constraint
     map_s: MapS,
+    /// matchings with the individual `.0` in set_a which overlaps with `.1` from set_b (at least partially) are also
+    /// eliminated by this constraint
+    /// => individual `.0` is not allowed to match any individual contained in `.1`
     exclude: Option<(u8, Bitset)>,
+    /// how many possibilitied were eliminated by this constraint
     eliminated: u128,
+    /// how often a 1:1 matching was eliminated by this constraint. Can eventually be used to build
+    /// the table of how large the share of a 1:1 matching on all remaining solutions is
     eliminated_tab: Vec<Vec<u128>>,
 
+    /// the information gained with this constraint
     information: Option<f64>,
+    /// the amount of solutions left after applying this constraint `left_poss.len()` (if the
+    /// vector is filled)
     left_after: Option<u128>,
+    /// all solutions left after applying this constraint (might not be filled)
     left_poss: Vec<MaskedMatching>,
 
+    /// ruleset-specific data where ruleset-specific stats can be collected
     pub(crate) ruleset_data: Option<Box<dyn RuleSetData>>,
+    /// how many lights are definitely known (via MB decisions) prior applying this constraint
     known_lights: LightCnt,
 }
 
@@ -254,7 +302,14 @@ impl Default for Constraint {
     }
 }
 
+
+/// collects the functionalities used during the simulation needed from the constraint
+///
+/// Avoids having to pull in the whole constraint functionality when using generics
 pub trait ConstraintSim {
+    /// process the matching `m` with this constraint
+    /// - gather stats on the way
+    /// - returns whether `m` fits with this constraint (`false` -> `m` is eliminated)
     fn process(&mut self, m: &MaskedMatching) -> Result<bool>;
 }
 
@@ -282,8 +337,8 @@ impl Constraint {
         }
     }
 
-    /// How many known lights this constraint *adds*
-    /// TODO: tests missing
+    // TODO: tests missing
+    /// Tells how many known lights this constraint *adds*
     pub fn added_known_lights(&self) -> LightCnt {
         if self.hidden {
             return 0;
@@ -298,15 +353,20 @@ impl Constraint {
     }
 }
 
+/// collects raw getters for the constraint
+///
+/// Avoids having to pull in the whole constraint functionality when using generics
 pub trait ConstraintGetters {
+    /// Return user-supplied comment
     fn comment(&self) -> &str;
+    /// Textual representation of the constraint type (used in summary tables).
     fn type_str(&self) -> String;
+    /// The numeric index associated with this constraint (MB or MN index).
     fn num(&self) -> Decimal;
 }
 
 // getter functions
 impl ConstraintGetters for Constraint {
-    /// Return user-supplied comment from the underlying `ConstraintType`.
     fn comment(&self) -> &str {
         match &self.r#type {
             ConstraintType::Night { comment, .. } => comment,
@@ -314,7 +374,6 @@ impl ConstraintGetters for Constraint {
         }
     }
 
-    /// Textual representation of the constraint type (used in summary tables).
     fn type_str(&self) -> String {
         match &self.r#type {
             ConstraintType::Night { num, .. } => format!("MN#{}", num),
@@ -322,7 +381,6 @@ impl ConstraintGetters for Constraint {
         }
     }
 
-    /// The numeric index associated with this constraint (MB or MN index).
     fn num(&self) -> Decimal {
         match &self.r#type {
             ConstraintType::Night { num, .. } => *num,
@@ -331,12 +389,16 @@ impl ConstraintGetters for Constraint {
     }
 }
 
+/// A constraint can either have an impact on the remaining possibilities or not.
+/// This trait can be required when it is necessary to interrogate the constraint in this regard.
 pub(super) trait ConstraintImpact {
+    /// whether the constraint is a no-op for the remaining possibilities or whether it has an
+    /// impact.
     fn has_impact(&self) -> bool;
 }
 
 impl ConstraintImpact for Constraint {
-    /// Whether this constraint actually restricts the solution set (not a no-op).
+    /// Whether this constraint actually restricts the solution set (-> is not a no-op).
     fn has_impact(&self) -> bool {
         if self.result_unknown {
             return false;

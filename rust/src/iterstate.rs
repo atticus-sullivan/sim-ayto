@@ -20,6 +20,12 @@ use crate::matching_repr::IdBase;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::progressbar::ProgressBarTrait;
 
+/// A type to query which individual matches to who else and how often
+///
+/// - `.0` maps individual from set_a to a set of individuals from set_b and how often this
+///   combination was observed in the remaining solutions
+/// - `.1` maps individual from set_b to individual from set_a and how often this combination was
+///   observed in the remaining solutions
 pub(super) type QueryPairData = (
     HashMap<IdBase, HashMap<Bitset, u64>>,
     HashMap<IdBase, HashMap<IdBase, u64>>,
@@ -28,8 +34,12 @@ pub(super) type QueryPairData = (
 /// Trait describing a consumer of emitted matchings during iteration.
 ///
 /// Implementers receive lifecycle calls (`start`, `finish`) and `step` calls for
-/// each emitted partial/complete matching. Implement `step` to process or collect
-/// results - keep implementations allocation-aware if used in hot paths.
+/// each emitted matching. Implement `step` to process or collect
+/// results.
+///
+/// # Notes
+/// - `step` is part of the hot-path, so try to avoid allocations and costly operations in general
+///   when implementing it.
 pub trait IterStateTrait {
     /// Called at the start of iteration.
     fn start(&mut self);
@@ -40,32 +50,51 @@ pub trait IterStateTrait {
     ///
     /// - `i`: the global sequential index of the emitted matching.
     /// - `p`: the `MaskedMatching` describing the matching.
-    /// - `output`: whether this should be treated as an output (verbose/reporting).
     fn step(&mut self, i: usize, p: &MaskedMatching) -> Result<()>;
 }
 
+/// A struct to perform the iteration over all permutations which collect stats along the way.
+///
+/// The generics used allow to plug other implementations of Constraints and Progressbar.
+/// In particular the Progressbar can be replaced with the `MockProgressbar` which is already
+/// available. This way the progressbar can be deactivated.
 #[derive(Debug)]
 pub struct IterState<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> {
+    /// the list of constraints which shall be applied. These constraints will be mutate during the
+    /// iteration to collect stats.
     pub constraints: Vec<S>,
+    /// whether to collect the possible solutions left
     pub keep_rem: bool,
+    /// how often each 1:1 matching was observed. Collected to calculate back the amount of 1:1
+    /// matchings left after a constraint. This is required to build these probability tables.
     pub each: Vec<Vec<u128>>,
+    /// total amount of permutations observed
     pub total: u128,
+    /// the amount of possible solutions left (`left_poss.len()`)
     pub survivors: u128,
+    /// all possible solutions left
     pub left_poss: Vec<MaskedMatching>,
-    // allows to query when a Matching was eliminated (by which "comment")
+    /// allows to query when a Matching was eliminated (by which "comment")
     pub query_matchings: Vec<(MaskedMatching, Option<String>)>,
+    /// allows to query in which combinations and how often an individual is matched
     #[allow(clippy::type_complexity)]
     pub query_pair: QueryPairData,
 
     // progressbar related
+    /// after how many permutations to step/update the progressbar
     cnt_update: usize,
+    /// the progressbar for displaying progress
     progress: T,
 
+    /// whether and if so, where to write the cache with all the possible solutions left
     cache_file: Option<BufWriter<File>>,
 }
 
-/// does not take the constraints into consideration
 impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> PartialEq for IterState<T, S> {
+    /// Check two IterStates for equality.
+    ///
+    /// # Notes:
+    /// - this implementation does not check the constraints or the progressbar
     fn eq(&self, other: &Self) -> bool {
         self.keep_rem == other.keep_rem
             && self.each == other.each
@@ -114,7 +143,6 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterStateTrait f
     /// Process a single permutation step.
     ///
     /// Updates internal statistics and progress for permutation `p` at index `i`.
-    /// If `output` is true the progress bar may be advanced.
     fn step(&mut self, i: usize, p: &MaskedMatching) -> Result<()> {
         if i.is_multiple_of(self.cnt_update) {
             self.progress.inc(2);
@@ -151,6 +179,8 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
     /// - `constraints`: list of constraints to apply during iteration.
     /// - `query_matchings`: optional matchings to query/track during iteration.
     /// - `query_pair`: optional pair queries mapping left/right indices to counts.
+    /// - `cache_file`: optional file to read/deserialize the permutations from
+    /// - `map_lens`: the lengths of the two maps/sets (`set_a` and `set_b`)
     pub fn new(
         keep_rem: bool,
         perm_amount: usize,
@@ -199,7 +229,7 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
         Ok(is)
     }
 
-    /// Update per-pair counts for statistics from a raw `MaskedMatching`.
+    /// Update per-pair counts for statistics from a raw `MaskedMatching`
     fn step_counting_all(&mut self, p: &MaskedMatching) {
         // count how often each pairing occurs without filtering
         // - necessary to be able to work with caching
@@ -216,7 +246,7 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
         self.total += 1;
     }
 
-    /// Run all constraints for a given permutation.
+    /// Run all constraints for a given permutation
     ///
     /// Returns `Ok(true)` if the permutation survives all constraints, or `Ok(false)`
     /// if eliminated by any constraint.
@@ -236,7 +266,7 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
         Ok(true)
     }
 
-    /// Update query-pair statistics for permutation `p`.
+    /// Update query-pair statistics for permutation `p`
     ///
     /// If a `query_pair` is set, this method increments counters that track how often particular
     /// left/right indices co-occur with specific values.

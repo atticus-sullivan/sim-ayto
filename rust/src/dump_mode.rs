@@ -7,15 +7,24 @@
 use crate::matching_repr::MaskedMatching;
 use std::io;
 
+/// select how the remaining possible solutions should be dumped
 #[derive(clap::ValueEnum, Clone, Debug)]
 pub enum DumpMode {
+    /// all full-matches (a -> bs) should be shown as ids
     Full,
+    /// all full-matches (a -> bs) should be shown with the ids translated to names
     FullNames,
+    /// all *winning* matchings (a -> b) should be shown as ids
     Winning,
+    /// all *winning* matchings (a -> b) should be shown with the ids translated to names
     WinningNames,
 }
 
 impl DumpMode {
+    /// dump the `left_poss` to `W` according to this DumpMode.
+    ///
+    /// Depending on the DumpMode, ids need to be translated to names, `map_a`/`map_b` will be used
+    /// in this case.
     pub(super) fn dump<W: io::Write>(
         &self,
         mut out: W,

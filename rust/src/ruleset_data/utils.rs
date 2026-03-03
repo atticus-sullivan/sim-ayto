@@ -9,7 +9,11 @@ use std::{collections::HashMap, io::Write, ops::AddAssign};
 use crate::matching_repr::{IdBase, bitset::Bitset};
 
 /// Helper that aggregates a `(usize, Bitset)` map by the Bitset itself.
-/// cnt: (a, bs) -> increase count by v
+///
+/// Bascically a sum(groupby(bitset))
+///
+/// - `cnt`: (a, bs) -> increase count by v
+///
 /// returns a sorted vector
 pub(super) fn aggregate_by_bitset<T>(cnt: &HashMap<(usize, Bitset), T>) -> Vec<(Bitset, T)>
 where
@@ -25,7 +29,11 @@ where
 }
 
 /// Helper that aggregates by each individual index inside the Bitset.
-/// cnt: (a, bs) -> increase count by v
+///
+/// Bascically a sum(groupby(idx_b))
+/// 
+/// - `cnt`: (a, bs) -> increase count by v
+///
 /// returns a sorted vector
 pub(super) fn aggregate_by_individual_b<T>(cnt: &HashMap<(usize, Bitset), T>) -> Vec<(IdBase, T)>
 where
@@ -44,7 +52,11 @@ where
 }
 
 /// Helper that aggregates by each individual index inside the Matching.
-/// cnt: (a, bs) -> increase count by v
+///
+/// Bascically a sum(groupby(idx_a))
+///
+/// - `cnt`: (a, bs) -> increase count by v
+///
 /// returns a sorted vector
 pub(super) fn aggregate_by_individual_a<T>(cnt: &HashMap<(usize, Bitset), T>) -> Vec<(usize, T)>
 where
@@ -59,7 +71,12 @@ where
     vec
 }
 
-/// Generic printer used by both modules.
+/// Generic printer for aggregated data (prints/writes to `W`)
+///
+/// Prints `entries` (optionally truncated to `top_n` if `full=false`) as formatted by `fmt_key`
+///
+/// `entries` provides data and a count. The count will be converted to percentage values by the
+/// use of `total.`
 pub(super) fn print_stats<T, W>(
     mut f: W,
     title: &str,

@@ -15,19 +15,19 @@ use crate::matching_repr::{IdBase, bitset::Bitset};
 ///
 /// Semantics:
 /// - `buf` is a mutable slice of `Bitset` representing buckets. Each `Bitset` in `buf` is
-///   typically a singleton at call-site (but the implementation tolerates other values).
-/// - `add` is a slice of values (bit indices) that must be applied in order. For each `add[i]`
-///   the algorithm chooses a target bucket index `j` (0..buf.len()) such that that bucket
-///   is currently a singleton; it inserts `add[i]` into that bucket (becoming a 2-element bitset),
-///   recurses to the next `add`, and then undoes the mutation (backtracks).
+///   typically a singleton
+/// - `add` is a slice of values (bit indices) that must be applied in order
+/// - For each `add[i]` the algorithm chooses a target bucket index `j` (0..buf.len()) such that
+///   bucket `j` is currently a singleton
+/// - it inserts `add[i]` into that bucket (becoming a 2-element bitset aka duplicate),
+/// - then it recurses to the next `add` and so on
 /// - For `add.len() == 0`, `emit` is called exactly once with the original `buf`.
+/// - Unwinding the stack, the mutations are undone again
 ///
 /// Performance & invariants:
 /// - No heap allocations per emission. The function uses stack recursion of depth `add.len()`.
-/// - `Bitset` is copied/assigned (cheap u64 copy) to save/restore buckets; the caller's `buf`
-///   is guaranteed to be exactly restored when the function returns.
-/// - Ordering of emitted permutations follows a depth-first order (targets tried in index
-///   order at each depth). Do not rely on a particular global ordering unless documented.
+/// - `Bitset` is copied/assigned to save/restore buckets
+/// - the caller's `buf` is guaranteed to be exactly restored when the function returns.
 /// - Caller must ensure `add` values are valid bit indices for `Bitset`.
 #[inline]
 pub(crate) fn add_x_dups_inplace<F>(
@@ -94,7 +94,7 @@ where
 /// For every combination of `cnt` recipient indices (chosen in increasing order), the function:
 /// - checks that each chosen recipient is a singleton,
 /// - enforces the ordering constraint existing_min <= dup_min for each pair (to avoid double counting),
-/// - ORs the corresponding duplicate words into the chosen recipients,
+/// - Adds (set-union) the corresponding duplicate words to the chosen recipients,
 /// - emits `&mut buf[..split]`,
 /// - and then restores `buf`.
 ///

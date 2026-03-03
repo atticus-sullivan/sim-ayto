@@ -46,7 +46,7 @@ impl Game {
         Ok(())
     }
 
-    /// This does all the reporting based on the Trail => Generates the report for the trail of the
+    /// This does all the reporting based on the trail => Generates the report for the trail of the
     /// constraints
     /// (other parts of the report are split off, so they can borrow the constraints again)
     fn report<T: ProgressBarTrait>(

@@ -14,16 +14,34 @@ use smallvec::SmallVec;
 
 use crate::matching_repr::bitset::Bitset;
 
+/// The type used to store the bitset - a variable so the amount of available bits can easily be
+/// increased
 pub type Word = u64;
+/// The type used to store elements in the index representation
 pub type IdBase = u8;
+/// the amount of bits available in the currently used `Word`
 const WORD_BITS: usize = 64;
 // const WORD_BITS_LOG: usize = 6; // log2(64)
 
-/// Public type used by hot code.
+/// typical maximum length of matchings relevant for using smallvec
+/// don't use 10 to leave space in case the permutation generation code needs space for more (e.g.
+/// the dups/trips in the initial permutation)
 pub const MATCH_MAX_LEN: usize = 15;
 
+/// This is a way of representing a full matching. For each element it stores a `Bitset` so multple
+/// items from *set_b* can match to the element (from *set_a*).
+///
+/// This is much cheaper than storing Vec<Vec<IdBase>>. This way it becomes a simple Vec<Bitset>.
+/// Usually a matching will not have more than `MATCH_MAX_LEN` (~10) slots. Thus, internally we use
+/// a `SmallVec` instead of a `Vec`. When storing a list of matchings (Vec<MaskedMatching>), this
+/// saves us from pointer chasing and leads to this list of matching being stored consecutive in
+/// memory (not lots of tiny allocations).
+/// Still `SmallVec` can also store larger vectors. In such a case it resorts back to doing a heap
+/// allocation. It also supports storing vectors/arrays with do not take up the full length.
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct MaskedMatching {
+    /// mapping idx_a to a set of idxs_b where the idxs_b are stored efficiently in a
+    /// bitmask/bitset
     masks: SmallVec<[Bitset; MATCH_MAX_LEN]>,
 }
 
@@ -46,20 +64,22 @@ impl MaskedMatching {
         self.masks.get(slot).map(|b| b.is_empty()).unwrap_or(true)
     }
 
-    /// Return the bitset for `slot`.
+    /// Return the bitset for `slot` if it exists.
+    /// If the slot does not exist, `None` is returned.
     pub fn slot_mask(&self, slot: usize) -> Option<&Bitset> {
         self.masks.get(slot)
     }
 
-    /// Prepare a `Vec<Vec<IdBase>>` representation for human-friendly debugging.
+    /// Prepare a `Vec<Vec<IdBase>>` representation for human-friendly printing.
     ///
     /// Each slot becomes a `Vec<IdBase>` of the element indices present in that slot.
+    /// The idea is that this can be printed via the Debug trait.
     pub fn prepare_debug_print(&self) -> Vec<Vec<IdBase>> {
         self.masks.iter().map(|b| b.iter().collect()).collect()
     }
 
-    /// Prepare a name-pair list for debugging: looks up the first element in
-    /// each slot (if any) in `map_b` and pairs it with `map_a[a]`.
+    /// Prepare a name-pair list for human-friendly printing, just like `prepare_debug_print`. The
+    /// difference is that this function resolves the indices to the strings/names.
     ///
     /// # Note
     /// This function assumes `map_a` and `map_b` are large enough to cover the
@@ -94,6 +114,9 @@ impl MaskedMatching {
     ///
     /// This method compares the calling `MaskedMatching` to `sol` and returns
     /// how many slots have a non-zero intersection.
+    ///
+    /// Note: In the context of the game this is also known as how many lights the calling Matching
+    /// gets with `sol` as the solution.
     pub fn calculate_lights(&self, sol: &MaskedMatching) -> IdBase {
         let mut l: IdBase = 0;
         let a: &[Bitset] = &self.masks;
@@ -105,7 +128,7 @@ impl MaskedMatching {
         l
     }
 
-    /// Number of slots.
+    /// Number of slots available (doesn't check if the slots are empty or not).
     pub fn len(&self) -> usize {
         self.masks.len()
     }
@@ -222,7 +245,6 @@ mod tests {
 
     #[test]
     fn calculate_lights_none() {
-        // TODO 1 should overlap with 3
         let mm1 = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8]]);
         let mm2 = MaskedMatching::from_matching_ref(&[vec![2u8], vec![3u8]]);
         assert_eq!(mm1.calculate_lights(&mm2), 0u8);
