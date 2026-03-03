@@ -21,7 +21,7 @@ use crate::matching_repr::{IdBase, Word, WORD_BITS};
 /// directly work with `u64` everywhere. This makes it easier to later
 /// replace the implementation with a multi-word bitset if necessary.
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize, PartialOrd, Ord)]
-pub struct Bitset(pub Word);
+pub struct Bitset(pub(super) Word);
 
 impl Binary for Bitset {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -180,7 +180,7 @@ impl BitOrAssign for Bitset {
 /// Iterator over set bits (yields indices). Holds a Bitset and is Clone.
 #[derive(Clone)]
 pub struct BitIter {
-    pub w: Bitset,
+    pub(super) w: Bitset,
 }
 
 impl Iterator for BitIter {

@@ -190,7 +190,7 @@ impl ConstraintParse {
     }
 
     /// Build the optional exclude bitset based on `exclude_s` and the LUTs.
-    pub(crate) fn build_exclude_if_any(
+    fn build_exclude_if_any(
         exclude_s: &Option<(String, Vec<String>)>,
         lut_a: &Lut,
         lut_b: &Lut,

@@ -122,7 +122,7 @@ pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(u
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {
         for (i, js) in p.iter().enumerate() {
-            tab[i].insert(js.0);
+            tab[i].insert(js.as_word());
         }
     }
 

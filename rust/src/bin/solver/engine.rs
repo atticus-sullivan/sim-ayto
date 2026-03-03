@@ -29,7 +29,7 @@ use crate::NUM_PLAYERS_SET_A;
 /// 1. Generates a solution
 /// 2. Applies constraints iteratively according to a strategy
 /// 3. Terminates once only one possibility remains
-pub(super) struct Simulation<S: StrategyBundle> {
+pub struct Simulation<S: StrategyBundle> {
     sim_id: usize,
     seed: u64,
     strategy: Arc<S>,
@@ -45,7 +45,7 @@ pub(super) struct Simulation<S: StrategyBundle> {
 
 impl<S: StrategyBundle> Simulation<S> {
     /// Lightweight constructor.
-    pub(super) fn new(sim_id: usize, seed: u64, strategy: Arc<S>) -> Self {
+    pub fn new(sim_id: usize, seed: u64, strategy: Arc<S>) -> Self {
         Self {
             ruleset: RuleSet::Eq,
             sim_id,
@@ -116,7 +116,7 @@ impl<S: StrategyBundle> Simulation<S> {
     }
 
     /// Full simulation execution.
-    pub(super) fn run(mut self) -> Result<SimulationResult> {
+    pub fn run(mut self) -> Result<SimulationResult> {
         let solution = self.init()?;
         self.run_loop(&solution)?;
         self.try_into()

@@ -61,7 +61,7 @@ pub(super) fn spawn_writer_thread(
 }
 
 /// The writer terminates once all Sender instances are dropped.
-pub(super) fn writer_loop(
+fn writer_loop(
     pb: ProgressBar,
     mut file: File,
     rx: mpsc::Receiver<WriterMsg>,
