@@ -123,11 +123,7 @@ impl Bitset {
     /// Otherwise return None.
     #[inline(always)]
     pub fn single_idx(self) -> Option<IdBase> {
-        if self.is_singleton() {
-            Some(self.trailing_zeros() as IdBase)
-        } else {
-            None
-        }
+        self.is_singleton().then(|| self.trailing_zeros() as IdBase)
     }
 
     /// Bitwise AND. => intersection
