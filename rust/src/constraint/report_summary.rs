@@ -346,6 +346,7 @@ mod tests {
         assert_eq!(LightCell::Unknown.to_string(), "?");
         assert_eq!(LightCell::Value(10).to_string(), "10");
         assert_eq!(LightCell::Equal.to_string(), "E");
+        assert_eq!(LightCell::Xcnt.to_string(), "X");
     }
 
     #[test]

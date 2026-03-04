@@ -257,6 +257,42 @@ mod tests {
     }
 
     #[test]
+    fn validate_constraint_hint_cnt_match_ok() {
+        let cp = ConstraintParse {
+            check: CheckType::HintCntMatch(2),
+            r#type: ConstraintType::Box {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("A", "b")]
+                .into_iter()
+                .map(|(k, v)| (k.to_string(), v.to_string()))
+                .collect::<HashMap<_, _>>(),
+            ..Default::default()
+        };
+        assert!(cp.validate_constraint(10).is_ok());
+    }
+
+    #[test]
+    fn validate_constraint_hint_cnt_match_err() {
+        let cp = ConstraintParse {
+            check: CheckType::HintCntMatch(2),
+            r#type: ConstraintType::Box {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("A", "b"), ("B", "c")]
+                .into_iter()
+                .map(|(k, v)| (k.to_string(), v.to_string()))
+                .collect::<HashMap<_, _>>(),
+            ..Default::default()
+        };
+        assert!(cp.validate_constraint(10).is_err());
+    }
+
+    #[test]
     fn validate_constraint_simple() {
         let cp = ConstraintParse {
             check: CheckType::Lights(1, BTreeMap::default()),

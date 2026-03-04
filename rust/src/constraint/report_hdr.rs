@@ -181,6 +181,13 @@ mod tests {
         assert_eq!(ctr.to_string(), "Eq ");
 
         let ctr = CheckTypeRender {
+            check: &CheckType::HintCntMatch(2),
+            i: Some(vec![(0, 0.0)]),
+            e: Some(0.0),
+        };
+        assert_eq!(ctr.to_string(), "Xcnt ");
+
+        let ctr = CheckTypeRender {
             check: &CheckType::Sold {},
             i: Some(vec![(0, 1.0)]),
             e: Some(0.0),

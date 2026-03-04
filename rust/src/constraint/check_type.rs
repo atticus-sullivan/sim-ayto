@@ -134,6 +134,10 @@ mod tests {
         let ct = CheckType::Sold;
         let x = ct.calc_information_gain();
         assert_eq!(x, None);
+
+        let ct = CheckType::HintCntMatch(2);
+        let x = ct.calc_information_gain();
+        assert_eq!(x, None);
     }
 
     #[test]
@@ -163,6 +167,10 @@ mod tests {
         assert_eq!(x, None);
 
         let ct = CheckType::Sold;
+        let x = ct.calc_expected_value();
+        assert_eq!(x, None);
+
+        let ct = CheckType::HintCntMatch(2);
         let x = ct.calc_expected_value();
         assert_eq!(x, None);
     }

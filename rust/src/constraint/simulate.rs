@@ -425,4 +425,36 @@ mod tests {
             assert_eq!(c.fits(m), *f);
         }
     }
+
+    #[test]
+    fn fits_hint_cnt_match() {
+        let mut c = Constraint {
+            check: CheckType::HintCntMatch(2),
+            map: MaskedMatching::from_matching_ref(&[vec![], vec![1]]),
+            // b:1 needs always be in a match of size 2
+            ..Default::default()
+        };
+        let ms = vec![
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![1, 3], vec![0], vec![2]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![3], vec![1, 2]]),
+            ),
+        ];
+
+        for (f, m) in &ms {
+            assert_eq!(c.fits(m), *f);
+        }
+    }
 }
