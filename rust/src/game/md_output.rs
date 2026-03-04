@@ -125,19 +125,19 @@ title: abc
             MdTable {
                 name: "a".to_string(),
                 idx: 1,
-                tree: true,
+                trees: vec!["".to_string()],
                 detail: true,
             },
             MdTable {
                 name: "z".to_string(),
                 idx: 10,
-                tree: false,
+                trees: vec!["abc".to_string()],
                 detail: false,
             },
             MdTable {
                 name: "x".to_string(),
                 idx: 23,
-                tree: false,
+                trees: vec![],
                 detail: true,
             },
         ];
@@ -161,11 +161,12 @@ title: abc
 
 {{% details title="a" closed="true" %}}
 {{% img src="/stem/stem_1.png" %}}
-{{% img src="/stem/stem_1_tree.png" %}}
+{{% img src="/stem/stem_1_tree_.png" %}}
 {{% /details %}}
 
 {{% translatedDetails "z" %}}
 {{% img src="/stem/stem_10.png" %}}
+{{% img src="/stem/stem_10_tree_abc.png" %}}
 {{% /translatedDetails %}}
 
 {{% details title="x" closed="true" %}}

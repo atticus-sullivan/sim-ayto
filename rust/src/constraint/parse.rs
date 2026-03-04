@@ -259,7 +259,7 @@ mod tests {
             no_exclude: false,
             result_unknown: false,
             exclude_s: None,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 
@@ -309,7 +309,7 @@ mod tests {
             result_unknown: false,
             exclude_s: Some(("A".to_string(), vec!["C".to_string(), "D".to_string()])),
             no_exclude: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 
@@ -361,7 +361,7 @@ mod tests {
             result_unknown: false,
             exclude_s: None,
             no_exclude: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 
@@ -411,7 +411,7 @@ mod tests {
             exclude_s: None,
             no_exclude: false,
             result_unknown: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 

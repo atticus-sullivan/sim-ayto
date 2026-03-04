@@ -420,4 +420,21 @@ mod tests {
         vec.sort();
         assert_eq!(vec, vec![a, b]);
     }
+
+    #[test]
+    fn clear_bit_simple() {
+        let mut a = Bitset::from_word(0b1010);
+
+        a.clear_bit(0);
+        assert_eq!(a.0, 0b1010);
+
+        a.clear_bit(2);
+        assert_eq!(a.0, 0b1010);
+
+        a.clear_bit(1);
+        assert_eq!(a.0, 0b1000);
+
+        a.clear_bit(3);
+        assert_eq!(a.0, 0b0000);
+    }
 }

@@ -62,7 +62,7 @@ impl TreeConfigParse {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub(crate) struct TreeConfig {
     id: String,
     title: String,
@@ -396,31 +396,140 @@ mod tests {
         assert_eq!(ordering, vec![(0, 1), (1, 2)]);
     }
 
+    // TODO: finalize
+    #[test]
+    fn finalize_ok() -> Result<()> {
+        let cfg_p = TreeConfigParse{
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec!["a".to_string(), "c".to_string()],
+            move_up_a: vec!["A".to_string(), "C".to_string(), "B".to_string()],
+        };
+        let lut_a = Lut::from_iter([
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+        ]);
+        let lut_b = Lut::from_iter([
+            ("a".to_string(), 0),
+            ("b".to_string(), 1),
+            ("c".to_string(), 2),
+        ]);
+
+        let cfg = cfg_p.finalize(&lut_a, &lut_b)?;
+
+        let expected = TreeConfig{
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec![0, 2],
+            move_up_a: vec![0, 2, 1],
+        };
+
+        assert_eq!(cfg, expected);
+        Ok(())
+    }
+
+    #[test]
+    fn finalize_err() -> Result<()> {
+        let lut_a = Lut::from_iter([
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+        ]);
+        let lut_b = Lut::from_iter([
+            ("a".to_string(), 0),
+            ("b".to_string(), 1),
+            ("c".to_string(), 2),
+        ]);
+
+        let cfg_p = TreeConfigParse{
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec!["a".to_string(), "d".to_string()],
+            move_up_a: vec!["A".to_string(), "C".to_string(), "B".to_string()],
+        };
+        assert!(cfg_p.finalize(&lut_a, &lut_b).is_err());
+
+        let cfg_p = TreeConfigParse{
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec!["a".to_string(), "c".to_string()],
+            move_up_a: vec!["A".to_string(), "D".to_string(), "B".to_string()],
+        };
+        assert!(cfg_p.finalize(&lut_a, &lut_b).is_err());
+
+        Ok(())
+    }
+
     #[test]
     fn dot_tree_produces_complete_dot_output() -> Result<()> {
-        let (data, map_a, map_b) = fixture_data();
+        let data = vec![
+            MaskedMatching::from_matching_ref(&[vec![3], vec![0,1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![2], vec![0,1]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![4], vec![0,1]]),
+        ];
+
+        let map_a = vec!["A", "B", "C"].into_iter().map(|x| x.to_string()).collect::<Vec<_>>();
+        let map_b = vec!["a", "b", "c", "d", "e"].into_iter().map(|x| x.to_string()).collect::<Vec<_>>();
+
         let ordering = tree_ordering(&data, &map_a);
 
+        println!("{:?}", ordering);
+
+        let cfg = TreeConfig{
+            id: "abcI".to_string(),
+            title: "abcT".to_string(),
+            ignore_b: vec![1],
+            move_up_a: vec![1],
+        };
+
         let mut buf = Vec::new();
-        dot_tree(&mut buf, &data, &ordering, "FULL_GRAPH", &map_a, &map_b)?;
+        cfg.dot_tree(&mut buf, &data, &ordering, "FULL_GRAPH", &map_a, &map_b)?;
 
         let got = String::from_utf8(buf)?;
 
         // Build the exact expected DOT representation.
-        //
-        // Header
-        let expected = r#"digraph D { labelloc="b"; label="Stand: FULL_GRAPH"; ranksep=0.8;
-"root/1"[label="A\na"]
-"root" -> "root/1";
-"root/1/10"[label="B\nb"]
-"root/1" -> "root/1/10";
-"root/1/11"[label="B\na\nb"]
-"root/1" -> "root/1/11";
+        let expected = r#"digraph D { labelloc="b"; label="Stand: FULL_GRAPH | abcT"; ranksep=0.8;
+"root/1000"[label="A\nd"]
+"root" -> "root/1000";
+"root/1000/1"[label="B\na"]
+"root/1000" -> "root/1000/1";
+"root/1000/1/100"[label="C\nc"]
+"root/1000/1" -> "root/1000/1/100";
+"root/1000/100"[label="B\nc"]
+"root/1000" -> "root/1000/100";
+"root/1000/100/1"[label="C\na"]
+"root/1000/100" -> "root/1000/100/1";
+"root/1000/10000"[label="B\ne"]
+"root/1000" -> "root/1000/10000";
+"root/1000/10000/1"[label="C\na"]
+"root/1000/10000" -> "root/1000/10000/1";
 }
 "#;
 
         assert_eq!(got, expected);
 
         Ok(())
+    }
+
+    #[test]
+    fn ordering_move_simple() {
+        let ordering = vec![(10, 1), (5, 1), (11, 1), (1, 5), (3, 10), (2, 11), (4, 15)];
+
+        // 99 does not exist -> ignored
+        // 10 already inserted before -> ignore
+        let o = ordering_move(&ordering, &[2, 3, 99, 10]);
+
+        let expected = vec![
+            (10, 1),
+            (5, 1),
+            (11, 1),
+            (2, 11),
+            (3, 10),
+            (1, 5),
+            (4, 15)
+        ];
+
+        assert_eq!(o, expected)
     }
 }
