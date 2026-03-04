@@ -457,4 +457,36 @@ mod tests {
             assert_eq!(c.fits(m), *f);
         }
     }
+
+    #[test]
+    fn fits_eq() {
+        let mut c = Constraint {
+            check: CheckType::Eq,
+            map: MaskedMatching::from_matching_ref(&[vec![2], vec![1]]),
+            // b:2 must be in the same match as b:1
+            ..Default::default()
+        };
+        let ms = vec![
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1, 3], vec![0], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![1, 2], vec![3], vec![0]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![3], vec![1, 2]]),
+            ),
+        ];
+
+        for (f, m) in &ms {
+            assert_eq!(c.fits(m), *f);
+        }
+    }
 }
