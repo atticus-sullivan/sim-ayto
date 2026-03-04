@@ -214,7 +214,6 @@ impl<S: StrategyBundle> Simulation<S> {
             } else {
                 // does not retain order!
                 self.possibilities.swap_remove(i);
-                pb.tick();
             }
         }
 
@@ -223,6 +222,7 @@ impl<S: StrategyBundle> Simulation<S> {
             .context("Apply to rem failed")?;
         self.constraints.push(constraint);
         pb.set_message(format!("{:2} C:{:2}", self.sim_id, self.constraints.len()));
+        pb.set_position(self.possibilities.len() as u64);
 
         Ok(())
     }
