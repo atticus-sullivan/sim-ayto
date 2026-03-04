@@ -1,5 +1,9 @@
-// TODO: more initial_value(s) -> conditionally -- the possible outcomes of the first constraint
-// are usually limited, so we can hardcode the (optimal) responses for the second step as well
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module is the binary module for running the solver. It only provides a CLI interface for
+//! the solver.
 
 mod engine;
 mod init;
@@ -15,15 +19,15 @@ use std::path::PathBuf;
 use anyhow::Result;
 use clap::Parser;
 
-use crate::{
-    runner::run_many_and_write,
-    strategies::{mb, mn, Strategy},
-};
+use crate::runner::run_many_and_write;
+use crate::strategies::{mb, mn, Strategy};
 
+/// The amount of players currently expected -> variable so it can be changed more easily later
 const NUM_PLAYERS_SET_A: usize = 10;
 
 #[derive(Parser, Debug)]
 #[command(name = "sim_ayto")]
+/// A struct for parsing the CLI arguments
 struct Args {
     /// Number of simulations to run
     #[arg(short = 'n', long = "num", default_value_t = 16)]

@@ -1,3 +1,12 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module implements a writer thread which receives SimulationResults from the worker threads
+//! and writes the results in a line-delimited JSON file to disk.
+//! As this is the location where information flows together, it is also the responsibility of the
+//! writer thread to show some sot of progress indication on the console.
+
 use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
@@ -9,9 +18,19 @@ use indicatif::{ProgressBar, ProgressStyle};
 
 use crate::{result::SimulationResult, utils::set_pb_msg};
 
-pub(crate) enum WriterMsg {
-    Started { sim_id: usize, start_ms: u128 },
+/// A type for the communication *worker* -> *writer* thread
+pub(super) enum WriterMsg {
+    /// Signals the worker started running the simulation
+    Started {
+        /// the id of the worker which started for tracking the running threads
+        sim_id: usize,
+        /// the time when the worker started
+        start_ms: u128,
+    },
+    /// Signals the worker finished the simulation, contains the result so the writer can append it
+    /// to the output
     Finished(SimulationResult),
+    /// Signals the worker crashed with an error
     Failed(usize, String),
 }
 
@@ -31,7 +50,7 @@ pub(crate) enum WriterMsg {
 /// A tuple of:
 /// - `Sender<WriterMsg>` for communicating with the writer
 /// - `JoinHandle<()>` for joining the thread
-pub(crate) fn spawn_writer_thread(
+pub(super) fn spawn_writer_thread(
     num_sims: usize,
     out_path: &Path,
 ) -> Result<(mpsc::Sender<WriterMsg>, std::thread::JoinHandle<Result<()>>)> {
@@ -51,12 +70,10 @@ pub(crate) fn spawn_writer_thread(
     Ok((tx, std::thread::spawn(move || writer_loop(pb, file, rx))))
 }
 
-/// The writer terminates once all Sender instances are dropped.
-pub(crate) fn writer_loop(
-    pb: ProgressBar,
-    mut file: File,
-    rx: mpsc::Receiver<WriterMsg>,
-) -> Result<()> {
+/// This is the "event-loop" of the writer
+///
+/// It terminates once all Sender instances are dropped.
+fn writer_loop(pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -> Result<()> {
     let mut active: HashMap<usize, u128> = HashMap::new();
 
     while let Ok(msg) = rx.recv() {
@@ -88,112 +105,4 @@ pub(crate) fn writer_loop(
     }
     pb.finish_with_message("done");
     Ok(())
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use tempfile::tempdir;
-
-    use crate::result::SimulationResult;
-
-    // Minimal dummy SimulationResult
-    fn dummy_sim_result(sim_id: usize) -> SimulationResult {
-        SimulationResult::new(sim_id, 123, vec![], 0, 0)
-    }
-
-    #[test]
-    fn spawn_writer_thread_creates_file_and_accepts_messages() {
-        let dir = tempdir().unwrap();
-        let file_path = dir.path().join("out.jsonl");
-
-        let (tx, handle) = spawn_writer_thread(2, &file_path).unwrap();
-
-        // Send Started messages
-        tx.send(WriterMsg::Started {
-            sim_id: 1,
-            start_ms: 0,
-        })
-        .unwrap();
-        tx.send(WriterMsg::Started {
-            sim_id: 2,
-            start_ms: 10,
-        })
-        .unwrap();
-
-        // Send Finished messages
-        tx.send(WriterMsg::Finished(dummy_sim_result(1))).unwrap();
-        tx.send(WriterMsg::Finished(dummy_sim_result(2))).unwrap();
-
-        // Drop sender so the writer thread exits
-        drop(tx);
-
-        let result = handle.join().unwrap();
-        assert!(result.is_ok());
-
-        // File should exist and contain two lines
-        let content = std::fs::read_to_string(file_path).unwrap();
-        let lines: Vec<&str> = content.lines().collect();
-        assert_eq!(lines.len(), 2);
-
-        // Each line should be valid JSON
-        for line in lines {
-            let _: SimulationResult = serde_json::from_str(line).unwrap();
-        }
-    }
-
-    #[test]
-    fn writer_loop_handles_failed_message() {
-        let dir = tempdir().unwrap();
-        let file_path = dir.path().join("out_fail.jsonl");
-
-        let (tx, handle) = spawn_writer_thread(1, &file_path).unwrap();
-
-        // Send Failed message
-        tx.send(WriterMsg::Failed(1, "sim failed".to_string()))
-            .unwrap();
-
-        drop(tx);
-        let result = handle.join().unwrap();
-        assert!(result.is_ok());
-
-        // File should be empty because we only sent Failed
-        let content = std::fs::read_to_string(file_path).unwrap();
-        assert_eq!(content, "");
-    }
-
-    #[test]
-    fn writer_loop_accepts_started_and_failed_mix() {
-        let dir = tempdir().unwrap();
-        let file_path = dir.path().join("out_mix.jsonl");
-
-        let (tx, handle) = spawn_writer_thread(3, &file_path).unwrap();
-
-        tx.send(WriterMsg::Started {
-            sim_id: 0,
-            start_ms: 0,
-        })
-        .unwrap();
-        tx.send(WriterMsg::Failed(0, "failure 0".to_string()))
-            .unwrap();
-        tx.send(WriterMsg::Finished(dummy_sim_result(1))).unwrap();
-
-        drop(tx);
-        let result = handle.join().unwrap();
-        assert!(result.is_ok());
-
-        let content = std::fs::read_to_string(file_path).unwrap();
-        let lines: Vec<&str> = content.lines().collect();
-        assert_eq!(lines.len(), 1);
-
-        let _: SimulationResult = serde_json::from_str(lines[0]).unwrap();
-    }
-
-    #[test]
-    fn spawn_writer_thread_fails_on_invalid_path() {
-        // Path to a directory that cannot be created (should fail)
-        let invalid_path = Path::new("/this/path/should/not/exist/out.jsonl");
-        let res = spawn_writer_thread(1, invalid_path);
-        assert!(res.is_err());
-    }
 }

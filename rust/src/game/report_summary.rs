@@ -1,0 +1,83 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module offers printing a summary table for a collection of constraints.
+
+use comfy_table::modifiers::UTF8_ROUND_CORNERS;
+use comfy_table::presets::UTF8_FULL_CONDENSED;
+use comfy_table::{Cell, Table};
+
+use anyhow::Result;
+
+use crate::constraint::report_summary::SummaryRow;
+use crate::constraint::Constraint;
+use crate::game::Game;
+
+impl Game {
+    /// output the summary table of this game including a summary for all events we encountered
+    pub(super) fn summary_table(
+        &self,
+        transpose: bool,
+        merged_constraints: &[Constraint],
+    ) -> Result<Table> {
+        // let map_vert;
+        let map_hor = if !transpose {
+            &self.map_a
+            // map_vert = &self.map_b;
+        } else {
+            &self.map_b
+            // map_vert = &self.map_a;
+        };
+
+        let mut hdr = vec![
+            Cell::new(""),
+            Cell::new("L").set_alignment(comfy_table::CellAlignment::Center),
+        ];
+        hdr.extend(
+            map_hor
+                .iter()
+                .map(|x| Cell::new(x).set_alignment(comfy_table::CellAlignment::Center)),
+        );
+        hdr.push(Cell::new("").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("I").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("#new").set_alignment(comfy_table::CellAlignment::Center));
+        hdr.push(Cell::new("min dist").set_alignment(comfy_table::CellAlignment::Center));
+
+        let mut table = Table::new();
+        table
+            .force_no_tty()
+            .enforce_styling()
+            .load_preset(UTF8_FULL_CONDENSED)
+            .apply_modifier(UTF8_ROUND_CORNERS)
+            .set_header(hdr);
+
+        for (i, row) in generate_data(merged_constraints, transpose, map_hor)
+            .iter()
+            .enumerate()
+        {
+            let style = if i % 2 == 0 {
+                |cell: Cell| cell.bg(crate::COLOR_ALT_BG)
+            } else {
+                |cell: Cell| cell
+            };
+            table.add_row(row.render(style));
+        }
+        Ok(table)
+    }
+}
+
+/// Prepare the constraints for reporting the summary
+///
+/// maps the constraints to the data which is printed later in the summary table
+fn generate_data(
+    constraints: &[Constraint],
+    transpose: bool,
+    map_hor: &[String],
+) -> Vec<SummaryRow> {
+    constraints
+        .iter()
+        .enumerate()
+        .map(|(i, c)| c.summary_row_data(transpose, map_hor, &constraints[0..i]))
+        .collect()
+}

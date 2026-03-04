@@ -1,23 +1,41 @@
-/// This module renders one row for a comfy_table table showing a summary of this constraint (type,
-/// map, information, etc)
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module renders one row for a comfy_table table showing a summary of this constraint (type,
+//! map, information, etc)
+
 use core::fmt;
 
 use comfy_table::Cell;
 
-use crate::constraint::{CheckType, Constraint, ConstraintType};
+use crate::constraint::evaluate_predicates::ConstraintEval;
+use crate::constraint::{CheckType, Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
+use crate::LightCnt;
 
+/// A struct representing a row in the summary table. The idea is this is produced by the
+/// evaluation. Then this can be displayed in the process of reporting.
 #[derive(Clone, Debug)]
 pub(crate) struct SummaryRow {
+    /// a label for this row
     label: String,
+    /// lights produced by the constraint, value attached with meaning
     light_status: (LightCell, LightSemantic),
+    /// "entries"/names in this constraint (the other side is the header in the row) attached with
+    /// meaning
     entries: Vec<(EntryCell, EntrySemantic)>,
+    /// the information gain by this constraint
     info: Option<f64>,
+    /// how many new 1:1 matchings in this constraint
     new_count: Option<usize>,
+    /// to which other constraint the distance is at its minimum (distance + label of the
+    /// constraint)
     min_dist: Option<(String, usize)>,
 }
 
 impl SummaryRow {
+    /// render the `SummaryRow` to a row so it can be used by comfy_table
     pub(crate) fn render<F>(&self, style: F) -> Vec<Cell>
     where
         F: Fn(Cell) -> Cell,
@@ -63,15 +81,21 @@ impl SummaryRow {
     }
 }
 
+/// attach a meaning to the amount of lights so we can style based on meaning, not on value
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum LightSemantic {
-    Match,   // green
+    /// we know this was a match
+    Match, // green
+    /// we know this was not a match
     NoMatch, // red
-    NoGain,  // yellow
+    /// we don't gain information by this
+    NoGain, // yellow
+    /// we did gain information, but nothing certain
     Neutral,
 }
 
 impl LightSemantic {
+    /// style the cell `c` based on the `LightSemantic`
     fn style(&self, c: Cell) -> Cell {
         match self {
             LightSemantic::Match => c.fg(comfy_table::Color::Green),
@@ -82,11 +106,16 @@ impl LightSemantic {
     }
 }
 
+/// a cell with a name in the summary row describing the amount of lights achieved by this
+/// constraint
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum LightCell {
+    /// we don't know how many lights were produced by this constraint
     Unknown,
+    /// this constraint did not produce lights, it has Eq check-type
     Equal,
-    Value(u8),
+    /// this constraint produced `LightCnt` new lights
+    Value(LightCnt),
 }
 
 impl fmt::Display for LightCell {
@@ -99,14 +128,19 @@ impl fmt::Display for LightCell {
     }
 }
 
+/// attach a meaning to entries/cells so we can style based on meaning, not on value
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum EntrySemantic {
+    /// this entry produced a new known match
     Match,
+    /// this entry produced a new known no-match
     NoMatch,
+    /// we don't know anything about the outcome produced by this entry
     Unknown,
 }
 
 impl EntrySemantic {
+    /// style the cell `c` based on the `EntrySemantic`
     fn style(&self, c: Cell) -> Cell {
         match self {
             EntrySemantic::Match => c.fg(comfy_table::Color::Green),
@@ -116,10 +150,14 @@ impl EntrySemantic {
     }
 }
 
+/// a cell with a name in the summary row describing this constraint
 #[derive(Clone, Debug, PartialEq, Eq)]
 struct EntryCell {
+    /// the name to be placed in this cell
     value: String,
+    /// whether this is 1:1 match
     is_new: bool,
+    /// whether the 1:1 match should be shown
     show_new: bool,
 }
 
@@ -134,11 +172,12 @@ impl fmt::Display for EntryCell {
 }
 
 impl Constraint {
+    /// evaluate and produce summary data regarding this constraint
     pub(crate) fn summary_row_data(
         &self,
         transpose: bool,
         map_hor: &[String],
-        past: &[&Constraint],
+        past: &[Constraint],
     ) -> SummaryRow {
         let map_s = if transpose {
             &self
@@ -189,7 +228,7 @@ impl Constraint {
                         (
                             EntryCell {
                                 value: v2.to_string(),
-                                is_new: !past.iter().any(|&c| {
+                                is_new: !past.iter().any(|c| {
                                     c.adds_new() && c.map_s.get(a).is_some_and(|v2| v2 == b)
                                 }),
                                 show_new: self.show_new(),
@@ -222,7 +261,7 @@ impl Constraint {
         let min_dist = if self.show_past_dist() {
             past.iter()
                 .filter(|&c| c.show_past_dist())
-                .map(|&c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX)))
+                .map(|c| (c.type_str(), self.distance(c).unwrap_or(usize::MAX)))
                 .min_by_key(|i| i.1)
         } else {
             None
@@ -238,7 +277,8 @@ impl Constraint {
         }
     }
 
-    fn new_matches(&self, past: &[&Constraint]) -> Option<usize> {
+    /// how many 1:1 matches are new in this constraint
+    fn new_matches(&self, past: &[Constraint]) -> Option<usize> {
         if self.result_unknown {
             None
         } else if let ConstraintType::Night { .. } = self.r#type {
@@ -248,12 +288,12 @@ impl Constraint {
                 .enumerate()
                 .filter(|&(k, v)| {
                     !v.is_empty()
-                        && !past.iter().any(|&c| {
+                        && !past.iter().any(|c| {
                             c.adds_new()
                                 && c.map
                                     .slot_mask(k)
                                     .unwrap_or(&Bitset::empty())
-                                    .contains_any(&v)
+                                    .contains_any(v)
                         })
                 })
                 .count();
@@ -269,6 +309,7 @@ impl Constraint {
 mod tests {
     use std::collections::HashMap;
 
+    use pretty_assertions::assert_eq;
     use rust_decimal::dec;
 
     use crate::matching_repr::MaskedMatching;
@@ -348,52 +389,58 @@ mod tests {
 
     #[test]
     fn row_data_simple() {
-        let mut c1 = Constraint::default();
-        c1.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c1.r#type = ConstraintType::Night {
-            num: dec![2.5],
-            comment: "abc".to_string(),
-            offer: None,
+        let c1 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            map_s: vec![("a", "A"), ("b", "B"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![2.5],
+                comment: "abc".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(3, Default::default()),
+            result_unknown: false,
+            information: Some(1.5),
+            ..Default::default()
         };
-        c1.check = CheckType::Lights(3, Default::default());
-        c1.result_unknown = false;
-        c1.information = Some(1.5);
         assert!(c1.adds_new());
 
-        let mut c2 = Constraint::default();
-        c2.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
-        c2.map_s = vec![("a", "A"), ("b", "B")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c2.r#type = ConstraintType::Night {
-            num: dec![0.5],
-            comment: "ihg".to_string(),
-            offer: None,
+        let c2 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1]]),
+            map_s: vec![("a", "A"), ("b", "B")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![0.5],
+                comment: "ihg".to_string(),
+                offer: None,
+            },
+            check: CheckType::Eq,
+            result_unknown: true,
+            information: Some(1.5),
+            ..Default::default()
         };
-        c2.check = CheckType::Eq;
-        c2.result_unknown = true;
-        c2.information = Some(1.5);
         assert!(!c2.adds_new());
 
-        let mut c3 = Constraint::default();
-        c3.map = MaskedMatching::from_matching_ref(&[vec![], vec![1]]);
-        c3.map_s = vec![("b", "B")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c3.r#type = ConstraintType::Box {
-            num: dec![10],
-            comment: "xyz".to_string(),
-            offer: None,
+        let c3 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![], vec![1]]),
+            map_s: vec![("b", "B")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Box {
+                num: dec![10],
+                comment: "xyz".to_string(),
+                offer: None,
+            },
+            check: CheckType::Lights(1, Default::default()),
+            result_unknown: false,
+            information: None,
+            ..Default::default()
         };
-        c3.check = CheckType::Lights(1, Default::default());
-        c3.result_unknown = false;
-        c3.information = None;
         assert!(c3.adds_new());
 
         let sr = c1.summary_row_data(
@@ -402,7 +449,7 @@ mod tests {
                 .iter()
                 .map(|i| i.to_string())
                 .collect::<Vec<_>>(),
-            &[&c2, &c3],
+            &[c2.clone(), c3.clone()],
         );
         let ref_sr = SummaryRow {
             label: "MN#2.5".to_string(),
@@ -450,7 +497,7 @@ mod tests {
                 .iter()
                 .map(|i| i.to_string())
                 .collect::<Vec<_>>(),
-            &[&c1, &c3],
+            &[c1.clone(), c3.clone()],
         );
         let ref_sr = SummaryRow {
             label: "MN#0.5".to_string(),
@@ -498,7 +545,7 @@ mod tests {
                 .iter()
                 .map(|i| i.to_string())
                 .collect::<Vec<_>>(),
-            &[&c1, &c2],
+            &[c1, c2],
         );
         let ref_sr = SummaryRow {
             label: "MB#10".to_string(),
@@ -543,43 +590,49 @@ mod tests {
 
     #[test]
     fn new_matches_simple() {
-        let mut c1 = Constraint::default();
-        c1.map = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]);
-        c1.map_s = vec![("a", "A"), ("b", "B"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c1.r#type = ConstraintType::Night {
-            num: dec![2.5],
-            comment: "abc".to_string(),
-            offer: None,
+        let c1 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+            map_s: vec![("a", "A"), ("b", "B"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![2.5],
+                comment: "abc".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
 
-        let mut c2 = Constraint::default();
-        c2.map = MaskedMatching::from_matching_ref(&[vec![1], vec![0], vec![2]]);
-        c2.map_s = vec![("a", "B"), ("b", "A"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c2.r#type = ConstraintType::Night {
-            num: dec![0.5],
-            comment: "xyz".to_string(),
-            offer: None,
+        let c2 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![0], vec![2]]),
+            map_s: vec![("a", "B"), ("b", "A"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![0.5],
+                comment: "xyz".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
 
-        let mut c3 = Constraint::default();
-        c3.map = MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]);
-        c3.map_s = vec![("a", "C"), ("b", "B"), ("c", "A")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<HashMap<_, _>>();
-        c3.r#type = ConstraintType::Night {
-            num: dec![10.5],
-            comment: "jkl".to_string(),
-            offer: None,
+        let c3 = Constraint {
+            map: MaskedMatching::from_matching_ref(&[vec![2], vec![1], vec![0]]),
+            map_s: vec![("a", "C"), ("b", "B"), ("c", "A")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<HashMap<_, _>>(),
+            r#type: ConstraintType::Night {
+                num: dec![10.5],
+                comment: "jkl".to_string(),
+                offer: None,
+            },
+            ..Default::default()
         };
 
-        let n = c1.new_matches(&[&c2, &c2]);
-        assert_eq!(n, Some(2));
+        let n = c1.new_matches(&[c2.clone(), c3.clone()]);
+        assert_eq!(n, Some(1));
     }
 }

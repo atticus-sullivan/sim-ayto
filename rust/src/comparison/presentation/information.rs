@@ -1,5 +1,10 @@
-/// This renders the plots which show information regarding the amount of information/uncertainty
-/// left or the amount of information gained over the course of time
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This renders the plots which show information regarding the amount of information/uncertainty
+//! left or the amount of information gained over the course of time
+
 use plotly::common::Mode;
 
 use crate::comparison::data::CmpData;
@@ -7,9 +12,10 @@ use crate::comparison::plotly::layout::plotly_gen_layout;
 use crate::comparison::plotly::scatter::build_scatter_plot;
 use crate::comparison::theme::lut_theme;
 
-/// Build the set of plots (scatter/heatmap) regarding information theory (knowledge (change) in bits) for the site.
+/// Build the set of plots (scatter/heatmap) regarding information theory (knowledge (change) in bits)
 ///
 /// `cmp_data` is expected to be a vector of `(ruleset_name, CmpData)` pairs.
+///
 /// Returns a vector of `(tab_title, inline_html_string)` ready to be embedded.
 pub(crate) fn plots(cmp_data: &[(String, CmpData)], theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);

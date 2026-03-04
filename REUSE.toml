@@ -1,0 +1,31 @@
+version = 1
+
+[[annotations]]
+path = "img/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Lukas Heindl"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "gh-pages/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Lukas Heindl"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "data/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Lukas Heindl"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "rust/templates/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Lukas Heindl"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+
+[[annotations]]
+path = "README.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Lukas Heindl"
+SPDX-License-Identifier = "GPL-3.0-or-later"

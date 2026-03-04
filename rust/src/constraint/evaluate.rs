@@ -1,21 +1,35 @@
-/// This module contains functions to be used when evaluating after the simulation completed.
-///
-/// Note: There is also evaluate_predicates which contains functions serving as predicates during
-/// the evaluation.
-use crate::{
-    constraint::{Constraint, ConstraintType, Offer},
-    Rem,
-};
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module contains functions to be used when evaluating after the simulation completed.
+//!
+//! Note: There is also evaluate_predicates which contains functions serving as predicates during
+//! the evaluation.
+
+use crate::{constraint::Constraint, Rem};
 
 use anyhow::{bail, ensure, Result};
 
-impl Constraint {
-    /// Return whether the game was solvable *before* applying this constraint.
+/// This trait collects functionality to check whether after the constraint the game is solvable.
+///
+/// Avoids having to pull in all constraint functionality where only this is required.
+pub(crate) trait ConstraintSolvable {
+    /// whether the state after this constraint is 100% solvable (meaning the game can be won, not
+    /// solved in every aspect)
     ///
-    /// - Returns Ok(Some(true)) if definitely solvable,
-    /// - Ok(Some(false)) if definitely unsolvable,
-    /// - Ok(None) if the constraint does not express solvability information.
-    pub fn is_solvable_after(&self) -> Result<Option<bool>> {
+    /// The constraint might not be able to tell this, so it can also return `None`
+    fn is_solvable_after(&self) -> Result<Option<bool>>;
+}
+
+impl ConstraintSolvable for Constraint {
+    /// Return whether the game was solvable *after* applying this constraint.
+    ///
+    /// # Return-value
+    /// - Ok(Some(true)) if definitely solvable
+    /// - Ok(Some(false)) if definitely unsolvable
+    /// - Ok(None) if the constraint does not express solvability information
+    fn is_solvable_after(&self) -> Result<Option<bool>> {
         // not all constraints capture the remaining possibilities
         if self.left_poss.is_empty() {
             return Ok(None);
@@ -37,12 +51,23 @@ impl Constraint {
         }
         Ok(Some(true))
     }
+}
 
-    pub fn should_merge(&self) -> bool {
+/// This trait collects functions regarding merging constraints so if a component requires this
+/// aspect of the constraint's functionality not everything needs to be pulled in.
+pub(crate) trait ConstraintMerge {
+    /// whether this constraint should be merged
+    fn should_merge(&self) -> bool;
+    /// merge the `other` constraint into this one
+    fn merge(&mut self, other: &Self) -> Result<()>;
+}
+
+impl ConstraintMerge for Constraint {
+    fn should_merge(&self) -> bool {
         self.hidden
     }
 
-    pub fn merge(&mut self, other: &Self) -> Result<()> {
+    fn merge(&mut self, other: &Self) -> Result<()> {
         self.eliminated += other.eliminated;
         ensure!(
             self.eliminated_tab.len() == other.eliminated_tab.len(),
@@ -65,7 +90,13 @@ impl Constraint {
         self.left_after = None;
         Ok(())
     }
+}
 
+impl Constraint {
+    /// apply this constraint to the 2d-Matrix of the left possibilities for a 1:1 match
+    ///
+    /// Calculates stats for this constraint
+    /// and returns the adjusted `Rem`.
     pub fn apply_to_rem(&mut self, mut rem: Rem) -> Option<Rem> {
         rem.1 -= self.eliminated;
 
@@ -88,19 +119,13 @@ impl Constraint {
 
         Some(rem)
     }
-
-    pub fn try_get_offer(&self) -> Option<Offer> {
-        match &self.r#type {
-            ConstraintType::Night { offer, .. } => offer.clone(),
-            ConstraintType::Box { offer, .. } => offer.clone(),
-        }
-    }
 }
 
 #[cfg(test)]
 #[allow(clippy::field_reassign_with_default)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     use std::collections::BTreeMap;
 
@@ -110,16 +135,18 @@ mod tests {
     #[test]
     #[allow(clippy::identity_op)]
     fn apply_to_rem_simple() {
-        let mut c = Constraint::default();
-        c.eliminated_tab = vec![
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-            vec![0, 0, 0, 0, 0],
-        ];
-        c.map = MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]);
-        c.check = CheckType::Lights(2, BTreeMap::new());
-        c.eliminated = 0;
+        let mut c = Constraint {
+            eliminated_tab: vec![
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+                vec![0, 0, 0, 0, 0],
+            ],
+            map: MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0], vec![3]]),
+            check: CheckType::Lights(2, BTreeMap::new()),
+            eliminated: 0,
+            ..Default::default()
+        };
 
         let m = MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2], vec![3, 4]]);
 
@@ -143,27 +170,31 @@ mod tests {
 
     #[test]
     fn merge_simple() {
-        let mut c_a = Constraint::default();
-        c_a.eliminated_tab = vec![
-            vec![1, 0, 0, 0, 0],
-            vec![0, 1, 0, 3, 0],
-            vec![0, 0, 2, 0, 3],
-            vec![0, 6, 0, 5, 0],
-        ];
-        c_a.eliminated = 200;
-        c_a.information = Some(4.5);
-        c_a.left_after = Some(10);
+        let mut c_a = Constraint {
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            eliminated: 200,
+            information: Some(4.5),
+            left_after: Some(10),
+            ..Default::default()
+        };
 
-        let mut c_b = Constraint::default();
-        c_b.eliminated_tab = vec![
-            vec![1, 0, 0, 0, 0],
-            vec![0, 1, 0, 3, 0],
-            vec![0, 0, 2, 0, 3],
-            vec![0, 6, 0, 5, 0],
-        ];
-        c_b.eliminated = 100;
-        c_b.information = Some(3.5);
-        c_b.left_after = None;
+        let c_b = Constraint {
+            eliminated_tab: vec![
+                vec![1, 0, 0, 0, 0],
+                vec![0, 1, 0, 3, 0],
+                vec![0, 0, 2, 0, 3],
+                vec![0, 6, 0, 5, 0],
+            ],
+            eliminated: 100,
+            information: Some(3.5),
+            left_after: None,
+            ..Default::default()
+        };
 
         c_a.merge(&c_b).unwrap();
 
@@ -186,36 +217,44 @@ mod tests {
     #[test]
     fn is_solvable_after_simple() {
         // left possibilities not captured -> cannot tell => none
-        let mut c = Constraint::default();
-        c.left_poss = vec![];
+        let c = Constraint {
+            left_poss: vec![],
+            ..Default::default()
+        };
         assert!(c.is_solvable_after().unwrap().is_none());
 
         // only one possibility left => definitely solvable
-        let mut c = Constraint::default();
-        c.left_poss = vec![MaskedMatching::from_matching_ref(&[
-            vec![0],
-            vec![1],
-            vec![2],
-        ])];
+        let c = Constraint {
+            left_poss: vec![MaskedMatching::from_matching_ref(&[
+                vec![0],
+                vec![1],
+                vec![2],
+            ])],
+            ..Default::default()
+        };
         assert!(c.is_solvable_after().unwrap().unwrap());
 
         // multiple total solutions left, but there is one unambiguous partial working solution which applies to
         // all solutions left
-        let mut c = Constraint::default();
-        c.left_poss = vec![
-            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
-        ];
+        let c = Constraint {
+            left_poss: vec![
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ],
+            ..Default::default()
+        };
         assert!(c.is_solvable_after().unwrap().unwrap());
 
         // multiple total solutions left, also not one unambiguous partial solution existing
-        let mut c = Constraint::default();
-        c.left_poss = vec![
-            MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![3], vec![1], vec![2, 0]]),
-        ];
+        let c = Constraint {
+            left_poss: vec![
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![0, 3], vec![1], vec![2]]),
+                MaskedMatching::from_matching_ref(&[vec![3], vec![1], vec![2, 0]]),
+            ],
+            ..Default::default()
+        };
         assert!(!c.is_solvable_after().unwrap().unwrap());
     }
 }

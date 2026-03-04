@@ -1,17 +1,25 @@
-/// This module provides all functionality to display the constraint in detail. Usually this is
-/// used as a header to the table showing the matching possibilities left in all possible
-/// solutions.
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module provides all functionality to display the constraint in detail. Usually this is
+//! used as a header to the table showing the matching possibilities left in all possible
+//! solutions.
+
 use core::fmt;
 
-use anyhow::Result;
 use comfy_table::{presets::NOTHING, Row, Table};
 
-use crate::constraint::{CheckType, Constraint};
-use crate::MapS;
+use crate::constraint::{CheckType, Constraint, ConstraintGetters};
+use crate::{LightCnt, MapS};
 
+/// a renderer for the check type associated with the constraint
 struct CheckTypeRender<'a> {
+    /// the check-type which is to be rendered
     check: &'a CheckType,
-    i: Option<Vec<(u8, f64)>>,
+    /// the distribution of the information gain over the possible outcomes/lights
+    i: Option<Vec<(LightCnt, f64)>>,
+    /// the expeced value of the information
     e: Option<f64>,
 }
 
@@ -42,13 +50,17 @@ impl fmt::Display for CheckTypeRender<'_> {
     }
 }
 
-struct MapSRender<'a, 'b> {
+/// a renderer for the map associated with the constraint
+struct MapSRender<'a> {
+    /// the map which shall be rendered here
     map: &'a MapS,
-    past_constraints: &'b [&'b Constraint],
+    /// the past constraints
+    past_constraints: &'a [Constraint],
+    /// whether to show how many this 1:1 matching was seen in the past
     show_past_cnt: bool,
 }
 
-impl fmt::Display for MapSRender<'_, '_> {
+impl fmt::Display for MapSRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut tab = Table::new();
         tab
@@ -84,24 +96,48 @@ impl fmt::Display for MapSRender<'_, '_> {
     }
 }
 
-impl Constraint {
-    pub fn print_hdr(&self, past_constraints: &[&Constraint]) -> Result<()> {
-        println!("{} {}", self.type_str(), self.comment());
+/// An intermediate representation produced by evaluating the constraint.
+///
+/// Can be displayed in the process of reporting.
+pub(crate) struct ReportData<'a> {
+    /// a header printed above the report
+    hdr: String,
+    /// the map associated with the constraint
+    map_s: MapSRender<'a>,
+    /// data on the check-type involved
+    check_type: CheckTypeRender<'a>,
+    /// a footer to be printed at the end of the the report
+    footer: String,
+}
 
-        println!(
-            "{}",
-            MapSRender {
+impl<'a> fmt::Display for ReportData<'a> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "{}", self.hdr)?;
+        writeln!(f, "{}", self.map_s)?;
+        writeln!(f, "---")?;
+
+        write!(f, "{}", self.check_type)?;
+        write!(f, "{}", self.footer)?;
+        Ok(())
+    }
+}
+
+impl Constraint {
+    /// generate an intermediate representation for the header describing this constraint.
+    ///
+    /// The result can then be displayed/printed in the process of reporting
+    pub(crate) fn generate_hdr_report<'a>(
+        &'a self,
+        past_constraints: &'a [Constraint],
+    ) -> ReportData<'a> {
+        ReportData {
+            hdr: format!("{} {}", self.type_str(), self.comment()),
+            map_s: MapSRender {
                 map: &self.map_s,
                 show_past_cnt: self.show_past_cnt(),
                 past_constraints,
-            }
-        );
-
-        println!("---");
-
-        print!(
-            "{}",
-            CheckTypeRender {
+            },
+            check_type: CheckTypeRender {
                 check: &self.check,
                 i: if self.show_lights_information() {
                     self.check.calc_information_gain()
@@ -113,21 +149,21 @@ impl Constraint {
                 } else {
                     None
                 },
-            }
-        );
-        println!(
-            "=> I = {} bits",
-            format!("{:.4}", self.information.unwrap_or(f64::INFINITY))
-                .trim_end_matches('0')
-                .trim_end_matches('.')
-        );
-        Ok(())
+            },
+            footer: format!(
+                "=> I = {} bits",
+                format!("{:.4}", self.information.unwrap_or(f64::INFINITY))
+                    .trim_end_matches('0')
+                    .trim_end_matches('.')
+            ),
+        }
     }
 }
 
 #[cfg(test)]
 #[allow(clippy::field_reassign_with_default)]
 mod tests {
+    use pretty_assertions::assert_eq;
     use rust_decimal::dec;
 
     use crate::constraint::ConstraintType;
@@ -221,40 +257,46 @@ c   → C "#
 0x c   → C "#
         );
 
-        let mut c1 = Constraint::default();
-        c1.r#type = ConstraintType::Box {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c1 = Constraint {
+            r#type: ConstraintType::Box {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("a", "A")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            ..Default::default()
         };
-        c1.map_s = vec![("a", "A")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<MapS>();
         assert!(!c1.show_past_cnt());
 
-        let mut c2 = Constraint::default();
-        c2.r#type = ConstraintType::Night {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c2 = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("a", "A"), ("b", "C"), ("c", "B")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            ..Default::default()
         };
-        c2.map_s = vec![("a", "A"), ("b", "C"), ("c", "B")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<MapS>();
         assert!(c2.show_past_cnt());
 
-        let mut c3 = Constraint::default();
-        c3.r#type = ConstraintType::Night {
-            num: dec![1],
-            comment: "".to_string(),
-            offer: None,
+        let c3 = Constraint {
+            r#type: ConstraintType::Night {
+                num: dec![1],
+                comment: "".to_string(),
+                offer: None,
+            },
+            map_s: vec![("a", "A"), ("b", "D"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            ..Default::default()
         };
-        c3.map_s = vec![("a", "A"), ("b", "D"), ("c", "C")]
-            .into_iter()
-            .map(|(i, j)| (i.to_string(), j.to_string()))
-            .collect::<MapS>();
         assert!(c3.show_past_cnt());
 
         let msr = MapSRender {
@@ -262,7 +304,7 @@ c   → C "#
                 .into_iter()
                 .map(|(i, j)| (i.to_string(), j.to_string()))
                 .collect::<MapS>(),
-            past_constraints: &[&c1, &c2, &c3],
+            past_constraints: &[c1, c2, c3],
             show_past_cnt: true,
         };
         assert_eq!(

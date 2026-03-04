@@ -1,20 +1,48 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module implements a representation for storing a full matching.
+
 pub mod bitset;
 mod conversions;
 mod iter;
 
+use anyhow::Result;
 use serde::{Deserialize, Serialize};
+use smallvec::SmallVec;
 
 use crate::matching_repr::bitset::Bitset;
 
+/// The type used to store the bitset - a variable so the amount of available bits can easily be
+/// increased
 pub type Word = u64;
+/// The type used to store elements in the index representation
 pub type IdBase = u8;
+/// the amount of bits available in the currently used `Word`
 const WORD_BITS: usize = 64;
 // const WORD_BITS_LOG: usize = 6; // log2(64)
 
-/// Public type used by hot code.
+/// typical maximum length of matchings relevant for using smallvec
+/// don't use 10 to leave space in case the permutation generation code needs space for more (e.g.
+/// the dups/trips in the initial permutation)
+pub const MATCH_MAX_LEN: usize = 12;
+
+/// This is a way of representing a full matching. For each element it stores a `Bitset` so multple
+/// items from *set_b* can match to the element (from *set_a*).
+///
+/// This is much cheaper than storing Vec<Vec<IdBase>>. This way it becomes a simple Vec<Bitset>.
+/// Usually a matching will not have more than `MATCH_MAX_LEN` (~10) slots. Thus, internally we use
+/// a `SmallVec` instead of a `Vec`. When storing a list of matchings (Vec<MaskedMatching>), this
+/// saves us from pointer chasing and leads to this list of matching being stored consecutive in
+/// memory (not lots of tiny allocations).
+/// Still `SmallVec` can also store larger vectors. In such a case it resorts back to doing a heap
+/// allocation. It also supports storing vectors/arrays with do not take up the full length.
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct MaskedMatching {
-    masks: Vec<Bitset>,
+    /// mapping idx_a to a set of idxs_b where the idxs_b are stored efficiently in a
+    /// bitmask/bitset
+    masks: SmallVec<[Bitset; MATCH_MAX_LEN]>,
 }
 
 impl MaskedMatching {
@@ -27,7 +55,7 @@ impl MaskedMatching {
     ///
     /// ```
     /// # use ayto::matching_repr::MaskedMatching;
-    /// let m = MaskedMatching::from(&vec![vec![0], vec![]]);
+    /// let m = MaskedMatching::from_matching_ref(&vec![vec![0], vec![]]);
     /// assert!(!m.slot_empty(0));
     /// assert!(m.slot_empty(1));
     /// assert!(m.slot_empty(2)); // out-of-range -> empty
@@ -36,20 +64,22 @@ impl MaskedMatching {
         self.masks.get(slot).map(|b| b.is_empty()).unwrap_or(true)
     }
 
-    /// Return the bitset for `slot`.
+    /// Return the bitset for `slot` if it exists.
+    /// If the slot does not exist, `None` is returned.
     pub fn slot_mask(&self, slot: usize) -> Option<&Bitset> {
         self.masks.get(slot)
     }
 
-    /// Prepare a `Vec<Vec<IdBase>>` representation for human-friendly debugging.
+    /// Prepare a `Vec<Vec<IdBase>>` representation for human-friendly printing.
     ///
     /// Each slot becomes a `Vec<IdBase>` of the element indices present in that slot.
+    /// The idea is that this can be printed via the Debug trait.
     pub fn prepare_debug_print(&self) -> Vec<Vec<IdBase>> {
         self.masks.iter().map(|b| b.iter().collect()).collect()
     }
 
-    /// Prepare a name-pair list for debugging: looks up the first element in
-    /// each slot (if any) in `map_b` and pairs it with `map_a[a]`.
+    /// Prepare a name-pair list for human-friendly printing, just like `prepare_debug_print`. The
+    /// difference is that this function resolves the indices to the strings/names.
     ///
     /// # Note
     /// This function assumes `map_a` and `map_b` are large enough to cover the
@@ -58,14 +88,14 @@ impl MaskedMatching {
         &self,
         map_a: &[String],
         map_b: &[String],
-    ) -> Vec<(String, String)> {
+    ) -> Result<Vec<(String, Vec<String>)>> {
         self.masks
             .iter()
             .enumerate()
             .map(|(a, b)| {
                 let i = map_a[a].clone();
-                let j = map_b[b.iter().next().unwrap() as usize].clone();
-                (i, j)
+                let j = b.iter().map(|b| map_b[b as usize].clone()).collect();
+                Ok((i, j))
             })
             .collect()
     }
@@ -79,20 +109,21 @@ impl MaskedMatching {
     ///
     /// This method compares the calling `MaskedMatching` to `sol` and returns
     /// how many slots have a non-zero intersection.
+    ///
+    /// Note: In the context of the game this is also known as how many lights the calling Matching
+    /// gets with `sol` as the solution.
     pub fn calculate_lights(&self, sol: &MaskedMatching) -> IdBase {
         let mut l: IdBase = 0;
-        for (i, j) in self.masks.iter().enumerate() {
-            if j.is_empty() {
-                continue;
-            }
-            if !((sol.masks[i] & *j).is_empty()) {
-                l += 1;
-            }
+        let a: &[Bitset] = &self.masks;
+        let b: &[Bitset] = &sol.masks;
+        for i in 0..a.len() {
+            // try to help the comiler using vector instructions here
+            l += a[i].contains_any(b[i]) as IdBase;
         }
         l
     }
 
-    /// Number of slots.
+    /// Number of slots available (doesn't check if the slots are empty or not).
     pub fn len(&self) -> usize {
         self.masks.len()
     }
@@ -135,60 +166,118 @@ impl<'a> std::ops::BitAnd<&'a MaskedMatching> for MaskedMatching {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
+    use pretty_assertions::assert_eq;
 
     use super::*;
 
     #[test]
-    fn test_contains_mask_and_slot_contains_any() {
-        let legacy = vec![vec![4u8], vec![2u8]];
-        let mm = MaskedMatching::from(&legacy);
+    fn contains_mask_simple() {
+        let mm = MaskedMatching::from_matching_ref(&[vec![4u8], vec![2u8]]);
         let m = Bitset::from_idxs(&[4u8]);
         assert!(mm.contains_mask(m));
-        let mut set = HashSet::new();
-        set.insert(3u8);
-        set.insert(4u8);
-        assert!(mm.slot_mask(0).unwrap().contains_any_idx(&set));
+        let m = Bitset::from_idxs(&[3u8]);
+        assert!(!mm.contains_mask(m));
     }
 
     #[test]
-    fn test_prepare_debug_print() {
-        let legacy = vec![vec![3u8, 5u8], vec![0u8]];
-        let mm = MaskedMatching::from(&legacy);
+    fn prepare_debug_print_simple() {
+        let m = vec![vec![3u8, 5u8], vec![0u8]];
+        let mm = MaskedMatching::from_matching_ref(&m);
         let dbg = mm.prepare_debug_print();
-        assert_eq!(dbg, legacy);
+        assert_eq!(dbg, m);
     }
 
     #[test]
-    fn test_count_matches_singles_and_calculate_lights() {
-        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![2u8]]);
-        let singles: Vec<IdBase> = vec![0u8, 3u8, 2u8];
-        // count_matches_singles equivalent:
-        let match_count = mm
-            .iter()
-            .enumerate()
-            .map(|(i, slot)| {
-                let first = singles.get(i).copied().unwrap_or(0);
-                if slot.contains(first) {
-                    1
-                } else {
-                    0
-                }
-            })
-            .sum::<usize>() as IdBase;
-        assert_eq!(match_count, 2);
-
-        // calculate_lights: compare mm with solution mm2
-        let mm2 = MaskedMatching::from(&vec![vec![0u8], vec![1u8], vec![63u8]]);
-        assert_eq!(mm.calculate_lights(&mm2), 2u8);
+    fn calculate_lights_simple() {
+        let mm1 = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8], vec![2u8]]);
+        let mm2 = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8], vec![63u8]]);
+        assert_eq!(mm1.calculate_lights(&mm2), 2u8);
     }
 
-    // Keep this broad: ensure nothing panics for typical scenarios
     #[test]
-    fn smoke_test_various_calls() {
-        let mm = MaskedMatching::from(&vec![vec![0u8], vec![1u8, 2u8]]);
-        let _ = mm.len();
-        let _ = mm.computed_universe();
-        let _ = mm.prepare_debug_print();
+    fn slot_empty_simple() {
+        let mm = MaskedMatching::from_matching_ref(&[vec![0u8], vec![]]);
+        assert!(!mm.slot_empty(0));
+        assert!(mm.slot_empty(1));
+        assert!(mm.slot_empty(2));
+    }
+
+    #[test]
+    fn slot_mask_simple() {
+        let mm = MaskedMatching::from_matching_ref(&[vec![], vec![1u8]]);
+        assert!(mm.slot_mask(0).is_some());
+        assert!(mm.slot_mask(1).is_some());
+        assert!(mm.slot_mask(2).is_none());
+    }
+
+    #[test]
+    fn prepare_debug_print_names_non_empty() {
+        let mm = MaskedMatching::from_matching_ref(&[vec![2u8], vec![0u8, 1u8]]);
+        let map_a = vec!["A".into(), "B".into()];
+        let map_b = vec!["a".into(), "b".into(), "c".into()];
+        let names = mm.prepare_debug_print_names(&map_a, &map_b).unwrap();
+        assert_eq!(
+            names,
+            vec![
+                ("A".into(), vec!["c".into()]),
+                ("B".into(), vec!["a".into(), "b".into()])
+            ]
+        );
+    }
+
+    #[test]
+    fn calculate_lights_all() {
+        let mm1 = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8]]);
+        let mm2 = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8]]);
+        assert_eq!(mm1.calculate_lights(&mm2), 2u8);
+    }
+
+    #[test]
+    fn calculate_lights_none() {
+        let mm1 = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8]]);
+        let mm2 = MaskedMatching::from_matching_ref(&[vec![2u8], vec![3u8]]);
+        assert_eq!(mm1.calculate_lights(&mm2), 0u8);
+    }
+
+    #[test]
+    fn len_simple() {
+        let mm = MaskedMatching::from_matching_ref(&[vec![0u8], vec![1u8]]);
+        assert_eq!(mm.len(), 2);
+        let mm = MaskedMatching::from_matching_ref(&[]);
+        assert_eq!(mm.len(), 0);
+    }
+
+    #[test]
+    fn is_empty_simple() {
+        let mm_empty = MaskedMatching::from_matching_ref(&[]);
+        let mm_non = MaskedMatching::from_matching_ref(&[vec![0u8]]);
+        assert!(mm_empty.is_empty());
+        assert!(!mm_non.is_empty());
+    }
+
+    #[test]
+    fn computed_universe_simple() {
+        let mm = MaskedMatching::from_matching_ref(&[]);
+        assert_eq!(mm.computed_universe(), 0);
+        let mm = MaskedMatching::from_matching_ref(&[vec![0u8, 5u8]]);
+        assert_eq!(mm.computed_universe(), 6);
+    }
+
+    #[test]
+    fn bit_and_simple() {
+        let left = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b101),
+            Bitset::from_word(0b110),
+        ]));
+        let right = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b011),
+            Bitset::from_word(0b100),
+        ]));
+        let expected = MaskedMatching::from_masks(SmallVec::from_slice(&[
+            Bitset::from_word(0b001),
+            Bitset::from_word(0b100),
+        ]));
+        let result = left & &right;
+        assert_eq!(result, expected);
     }
 }

@@ -1,4 +1,9 @@
-/// This module renders overviews over complete seasons.
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module renders overviews over complete seasons.
+
 use num_format::ToFormattedString;
 
 use crate::comparison::data::CmpData;
@@ -7,27 +12,29 @@ use crate::constraint::compare::{SumCounts, SumOffersMB, SumOffersMN};
 
 /// Build a summary Markdown tab for all rulesets.
 ///
-/// `cmp_data` is pairs of `(ruleset_name, CmpData)`. `lang` controls the i18n
-/// labels (e.g. `Language::De` / `Language::En`). Returns a Markdown table string.
+/// - `cmp_data` is pairs of `(ruleset_name, CmpData)`
+/// - `lang` controls the i18n labels (e.g. `Language::De` / `Language::En`).
+///
+/// Returns a (long) Markdown table string (multiline).
 pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {
     let mut total_counts = SumCounts {
         solvable_in: None,
         blackouts: 0,
         matches_found: 0,
-        won: false,
+        won_in: None,
         offers_mb: SumOffersMB {
             sold_cnt: 0,
             sold_but_match: 0,
             sold_but_match_active: true,
             offers_noted: true,
             offer_and_match: 0,
-            offers: 0,
+            offers_cnt: 0,
             offered_money: 0,
         },
         offers_mn: SumOffersMN {
             sold_cnt: 0,
             offers_noted: true,
-            offers: 0,
+            offers_cnt: 0,
             offered_money: 0,
         },
     };
@@ -42,8 +49,13 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} / {} | {} | | {} | {} | {} / {} |",
             name,
 
-            lang.format_bool_yes_no(cd.cnts.won),
-            if cd.cnts.won { "green" } else { "red" },
+            if let Some(won) = &cd.cnts.won_in {
+                won.1.clone()
+            } else { lang.format_bool_yes_no(false).to_string() },
+            if let Some(won) = &cd.cnts.won_in {
+                if won.0 { "green" } else { "red" }
+            } else { "red" },
+
             if let Some(solv) = &cd.cnts.solvable_in {
                 solv.1.clone()
             } else { lang.format_bool_yes_no(false).to_string() },
@@ -63,7 +75,7 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             },
 
             if cd.cnts.offers_mb.offers_noted {
-                cd.cnts.offers_mb.offers.to_string()
+                cd.cnts.offers_mb.offers_cnt.to_string()
             } else {
                 "".to_string()
             },
@@ -101,7 +113,7 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             "".to_string()
         },
         if total_counts.offers_mb.offers_noted {
-            total_counts.offers_mb.offers.to_string()
+            total_counts.offers_mb.offers_cnt.to_string()
         } else {
             "".to_string()
         },

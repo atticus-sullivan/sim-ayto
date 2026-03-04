@@ -1,5 +1,11 @@
-pub mod mb;
-pub mod mn;
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module-tree implements different strategies to play the game.
+
+pub(super) mod mb;
+pub(super) mod mn;
 
 use ayto::matching_repr::{bitset::Bitset, MaskedMatching};
 use rand::Rng;
@@ -12,10 +18,10 @@ use crate::strategies::{mb::MbOptimizer, mn::MnOptimizer};
 /// - `choose_mb`: choose a (u8,u8) MB pair
 /// - `choose_mn`: choose a Vec<u8> MN matching
 /// - `initial_value`: produce an initial HashMap
-///
-/// The `usize` value is a practical default; change the return type if you want another payload.
-pub trait StrategyBundle: Send + Sync {
+pub(super) trait StrategyBundle: Send + Sync {
+    /// come up with a matching for a match-box
     fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching;
+    /// come up with a full-matching for a matching night
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching;
 
     /// Produce an initial value for the first constraint. Up to this point no information is known
@@ -23,9 +29,11 @@ pub trait StrategyBundle: Send + Sync {
 }
 
 /// Combines the different strategies needed.
-pub struct Strategy<S: MbOptimizer, T: MnOptimizer> {
-    pub mb: S,
-    pub mn: T,
+pub(super) struct Strategy<S: MbOptimizer, T: MnOptimizer> {
+    /// The match-box solver
+    pub(super) mb: S,
+    /// The matching-night solver
+    pub(super) mn: T,
 }
 
 impl<S, T> StrategyBundle for Strategy<S, T>
@@ -34,12 +42,12 @@ where
     T: MnOptimizer,
 {
     fn choose_mb(&self, data: &[Vec<u128>], total: u128, rng: &mut dyn Rng) -> MaskedMatching {
-        // delegate to your previous implementation
+        // delegate to the real implementation
         self.mb.choose_mb(data, total, rng)
     }
 
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching {
-        // delegate to your previous implementation
+        // delegate to the real implementation
         self.mn.choose_mn(left_poss, rng)
     }
 
@@ -52,18 +60,4 @@ where
                 .collect(),
         )
     }
-    // let mns:Vec<Vec<(u8, u8)>> = vec![
-    //     // vec![
-    //     //     (0u8,0u8),
-    //     //     (1u8,1u8),
-    //     //     (2u8,2u8),
-    //     //     (3u8,3u8),
-    //     //     (4u8,4u8),
-    //     //     (5u8,5u8),
-    //     //     (6u8,6u8),
-    //     //     (7u8,7u8),
-    //     //     (8u8,8u8),
-    //     //     (9u8,9u8)
-    //     // ],
-    // ];
 }

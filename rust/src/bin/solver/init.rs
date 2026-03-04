@@ -1,20 +1,28 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module contains some helper functions used when initializing the simulation.
+
 use std::collections::HashSet;
 
 use anyhow::Result;
+use ayto::progressbar::MockProgressBar;
+use ayto::LightCnt;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
 use rust_decimal::dec;
 
 use ayto::constraint::{check_type::CheckType, Constraint, ConstraintType};
 use ayto::iterstate::IterState;
-use ayto::matching_repr::MaskedMatching;
+use ayto::matching_repr::{IdBase, MaskedMatching};
 use ayto::ruleset::RuleSet;
 
 use crate::NUM_PLAYERS_SET_A;
 
 /// Generates a random solution and converts it into `MaskedMatching`.
-pub(crate) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
-    let mut solution: Vec<u8> = (0..NUM_PLAYERS_SET_A).map(|x| x as u8).collect();
+pub(super) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
+    let mut solution: Vec<IdBase> = (0..NUM_PLAYERS_SET_A).map(|x| x as IdBase).collect();
     solution.shuffle(rng);
     (*solution).into()
 }
@@ -32,12 +40,17 @@ pub(crate) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
 ///
 /// # Returns
 /// A fully initialized `Constraint`.
-pub(crate) fn build_initial_constraint(
+pub(super) fn build_initial_constraint(
     matching: MaskedMatching,
     lights: usize,
     ruleset: &RuleSet,
     lights_known_before: usize,
 ) -> Result<Constraint> {
+    // TODO:(later) does not work in general. matching might contain empty slots -> len is not what we
+    // expect here.
+    // Not an issue with the current initial values used
+    // TODO:(later) becomes obsolete anyhow when strategy.inital() returns a full constraint insteaf of a
+    // matching
     let constraint_type = if matching.len() == 1 {
         ConstraintType::Box {
             num: dec![1.0],
@@ -54,12 +67,12 @@ pub(crate) fn build_initial_constraint(
 
     Ok(Constraint::new_with_defaults(
         constraint_type,
-        CheckType::Lights(lights as u8, Default::default()),
+        CheckType::Lights(lights as LightCnt, Default::default()),
         matching,
         ruleset.init_data()?,
         NUM_PLAYERS_SET_A,
         NUM_PLAYERS_SET_A,
-        lights_known_before as u8,
+        lights_known_before as LightCnt,
     ))
 }
 
@@ -73,8 +86,10 @@ pub(crate) fn build_initial_constraint(
 /// - `constraint` - The initial constraint of the simulation
 ///
 /// # Returns
-/// A fully initialized `IterState`.
-pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterState> {
+/// An initialized (but not executed) `IterState`.
+pub(super) fn create_iteration_state(
+    constraint: &Constraint,
+) -> Result<IterState<MockProgressBar, Constraint>> {
     IterState::new(
         true,
         NUM_PLAYERS_SET_A,
@@ -89,13 +104,11 @@ pub(crate) fn create_iteration_state(constraint: &Constraint) -> Result<IterStat
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ayto::constraint::evaluate_predicates::ConstraintEval;
     use ayto::matching_repr::bitset::Bitset;
+    use pretty_assertions::assert_eq;
     use rand::rngs::StdRng;
     use rand::SeedableRng;
-
-    // ------------------------------------------------------------
-    // generate_solution
-    // ------------------------------------------------------------
 
     #[test]
     fn generate_solution_has_correct_length() {
@@ -110,13 +123,10 @@ mod tests {
         let mut rng = StdRng::seed_from_u64(42);
         let solution = generate_solution(&mut rng);
 
-        let mut seen = std::collections::HashSet::new();
+        // all values are set
         for i in 0..NUM_PLAYERS_SET_A as u8 {
             assert!(solution.contains_mask(Bitset::from_idxs(&[i])));
-            seen.insert(i);
         }
-
-        assert_eq!(seen.len(), NUM_PLAYERS_SET_A);
     }
 
     #[test]
@@ -130,20 +140,17 @@ mod tests {
         assert_eq!(s1, s2);
     }
 
-    // ------------------------------------------------------------
-    // build_initial_constraint
-    // ------------------------------------------------------------
-
     #[test]
     fn build_initial_constraint_box_if_len_one() {
         let ruleset = RuleSet::Eq;
 
         // Matching of length 1 triggers Box constraint
-        let matching = MaskedMatching::from(&[0u8][..]);
+        let matching = MaskedMatching::from_matching_ref(&[vec![0u8]]);
 
         let constraint = build_initial_constraint(matching, 1, &ruleset, 0).unwrap();
 
         assert!(constraint.is_mb());
+        assert_eq!(constraint.check.as_lights(), Some(1));
     }
 
     #[test]
@@ -151,32 +158,20 @@ mod tests {
         let ruleset = RuleSet::Eq;
 
         let matching =
-            MaskedMatching::from(&vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
+            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
         let constraint = build_initial_constraint(matching, 2, &ruleset, 0).unwrap();
 
         assert!(constraint.is_mb());
+        assert_eq!(constraint.check.as_lights(), Some(2));
     }
-
-    #[test]
-    fn build_initial_constraint_sets_lights_correctly() {
-        let ruleset = RuleSet::Eq;
-        let matching = MaskedMatching::from(vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
-
-        let constraint = build_initial_constraint(matching, 3, &ruleset, 0).unwrap();
-
-        assert_eq!(constraint.check.as_lights(), Some(3));
-    }
-
-    // ------------------------------------------------------------
-    // create_iteration_state
-    // ------------------------------------------------------------
 
     #[test]
     fn create_iteration_state_initializes_properly() {
         let ruleset = RuleSet::Eq;
 
-        let matching = MaskedMatching::from(vec![(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
+        let matching =
+            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
 
         let constraint = build_initial_constraint(matching, 0, &ruleset, 0).unwrap();
 
@@ -186,7 +181,6 @@ mod tests {
 
         let state = iter_state.unwrap();
 
-        // initial constraint should be present
         assert_eq!(state.constraints.len(), 1);
     }
 }

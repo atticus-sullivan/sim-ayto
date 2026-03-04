@@ -1,27 +1,34 @@
-/// This module provides a mean to represent how a constraint is checked (e.g. Lights, Sold, ...).
-/// Along with the representation it also already contains means for the evaluation
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module provides a mean to represent how a constraint is checked (e.g. Lights, Sold, ...).
+//! Along with the representation it also already contains means for the evaluation
+
 use std::collections::BTreeMap;
 
 use serde::Deserialize;
 
+use crate::{matching_repr::IdBase, LightCnt};
+
 /// Type used to decide how to check a matching against a constraint.
-///
-/// - `Eq` checks that two entries are equal (used for "box" equality constraints).
-/// - `Nothing` no-op check.
-/// - `Sold` special check for sold events.
-/// - `Lights(n, stats)` checks exact number of lights; `stats` is a mutable bucket
-///   map used while processing to accumulate frequencies (kept in the Constraint).
-#[derive(Deserialize, Debug, Clone, Hash)]
+#[derive(Deserialize, Debug, Clone, Hash, PartialEq)]
 pub enum CheckType {
+    /// `Eq` ensures that the *values* of the provided maps map to the same key in all remaining
+    /// solutions. The keys given in the constraints don't matter at all
     Eq,
+    /// this is the dummy check-type doing nothing
     Nothing,
+    /// the outcome was sold, so this does not really constrain the amount of possibilities
     Sold,
-    Lights(u8, #[serde(skip)] BTreeMap<u8, u128>),
+    /// tells how many 1:1 matchings of the matching are correct
+    /// `.1` is for collecting stats over the simulation and is not to be serialized
+    Lights(LightCnt, #[serde(skip)] BTreeMap<IdBase, u128>),
 }
 
 impl CheckType {
     /// Return the lights-count if this `CheckType` is `Lights`.
-    pub fn as_lights(&self) -> Option<u8> {
+    pub fn as_lights(&self) -> Option<LightCnt> {
         if let CheckType::Lights(l, _) = *self {
             Some(l)
         } else {
@@ -29,7 +36,8 @@ impl CheckType {
         }
     }
 
-    pub(super) fn calc_information_gain(&self) -> Option<Vec<(u8, f64)>> {
+    /// calculate the information-gain over the different outcomes (aka amount of lights)
+    pub(super) fn calc_information_gain(&self) -> Option<Vec<(LightCnt, f64)>> {
         match self {
             CheckType::Lights(_, ls) => {
                 let total = ls.values().sum::<u128>() as f64;
@@ -50,6 +58,9 @@ impl CheckType {
         }
     }
 
+    /// calculate the expected value of the information-gain
+    ///
+    /// Depending on the check-type this might not be applicable -> `None`
     pub(super) fn calc_expected_value(&self) -> Option<f64> {
         match self {
             CheckType::Lights(_, ls) => {
@@ -71,6 +82,7 @@ impl CheckType {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     fn round2(x: f64) -> f64 {
         (x * 100.0).round() / 100.0

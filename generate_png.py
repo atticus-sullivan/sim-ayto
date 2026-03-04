@@ -1,5 +1,9 @@
 #!/bin/python3
 
+# SPDX-FileCopyrightText: 2026 Lukas Heindl
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 import os.path
 import argparse
 

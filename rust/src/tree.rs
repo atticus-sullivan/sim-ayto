@@ -1,78 +1,155 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module offers the functionality to generate a tree of a collection of matchings. For every
+//! pairing it adds a node. The ordering of the levels so pairings with high probability are placed
+//! higher and pairings with lower probability are placed lower.
+
 use std::collections::HashSet;
 use std::io::Write;
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 
-use crate::matching_repr::MaskedMatching;
+use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::{IdBase, MaskedMatching};
 
-// TODO: writer -> don't use io writer, use the fmt::writer like in the fmt::Display trait ->
-// "implements" to_string this way => can test more easily
-/// Write a Graphviz DOT representation of the tree to any `Write`.
+/// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
+/// calculated beforehand.
 ///
-/// This is the testable, generic helper. `data` are the possible partial solutions
-/// (one `MaskedMatching` per leaf path). `ordering` controls which `A` indices are
-/// serialized in which order (pairs of `(index, something)` — only the index is used).
+/// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
+/// afterwards.
 ///
-/// `title` is placed in the graph label. `map_a`/`map_b` are used to render readable labels.
-pub fn dot_tree<W: Write>(
-    data: &Vec<MaskedMatching>,
-    ordering: &Vec<(usize, usize)>,
-    title: &str,
+/// Arguments:
+/// - `writer` is where the `.dot` file is written to
+/// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
+/// - `ordering` controls the order of the layers/levels
+/// - `title` is placed in the graph label
+/// - `map_a`/`map_b` are used to render readable labels.
+pub(crate) fn dot_tree<W: Write>(
     writer: &mut W,
+    data: &[MaskedMatching],
+    ordering: &[(IdBase, usize)],
+    title: &str,
     map_a: &[String],
     map_b: &[String],
 ) -> Result<()> {
-    let mut nodes: HashSet<String> = HashSet::new();
+    write_header(writer, title)?;
+
+    let mut builder = DotBuilder::new(writer, map_a, map_b);
+
+    for p in data {
+        let mut parent = "root".to_owned();
+        for &(i, _) in ordering {
+            let mask = p
+                .slot_mask(i as usize)
+                .with_context(|| format!("slot {i} missing in matching"))?;
+            let node = builder.ensure_node(&parent, i as usize, mask)?;
+            if node.0 {
+                builder.write_edge(&parent, &node.1)?;
+            }
+            parent = node.1;
+        }
+    }
+    write_footer(writer)?;
+    Ok(())
+}
+
+/// A generic builder for .dot files in this context
+struct DotBuilder<'a, W: Write> {
+    /// the writer to which to write the .dot file to
+    writer: &'a mut W,
+    /// stores which nodes have already been seen (only draw nodes once)
+    seen: HashSet<String>,
+    /// convert idx_a to name
+    map_a: &'a [String],
+    /// convert idx_b to name
+    map_b: &'a [String],
+}
+
+impl<'a, W: Write> DotBuilder<'a, W> {
+    /// Create a new `DotBuilder` which writes to `W`
+    ///
+    /// - `map_a`/`map_b` the maps to convert indices to names
+    fn new(writer: &'a mut W, map_a: &'a [String], map_b: &'a [String]) -> Self {
+        Self {
+            writer,
+            seen: HashSet::new(),
+            map_a,
+            map_b,
+        }
+    }
+
+    /// Ensure a node exists and return its identifier.
+    ///
+    /// If the node does not exist yet, this function creates the node in the `.dot` output (with
+    /// the correct id and label).
+    /// If the node did already exists this is indicated with the first value in the tuple
+    ///
+    /// Returns Ok((new:bool, nodeId/nodeName: String)) on success
+    fn ensure_node(&mut self, parent: &str, idx: usize, mask: &Bitset) -> Result<(bool, String)> {
+        let mut node = parent.to_string();
+        node.push('/');
+        node.push_str(&format!("{:b}", mask));
+
+        let new = self.seen.insert(node.clone());
+
+        if new {
+            // if node is new -- write node label or empty label
+            if mask.count() == 0 {
+                writeln!(self.writer, "\"{node}\"[label=\"\"]")?;
+            } else {
+                writeln!(
+                    self.writer,
+                    "\"{node}\"[label=\"{}\"]",
+                    self.map_a[idx].clone()
+                        + "\\n"
+                        + &mask
+                            .iter()
+                            .map(|b| self.map_b[b as usize].clone())
+                            .collect::<Vec<_>>()
+                            .join("\\n")
+                )?;
+            }
+        }
+        Ok((new, node))
+    }
+
+    /// Write an edge from `parent` to `child` in the `.dot` output.
+    fn write_edge(&mut self, parent: &str, child: &str) -> Result<()> {
+        writeln!(self.writer, "\"{parent}\" -> \"{child}\";")?;
+        Ok(())
+    }
+}
+
+/// Write the header for the .dot file to `W`
+fn write_header<W: Write>(writer: &mut W, title: &str) -> Result<()> {
     writeln!(
         writer,
         "digraph D {{ labelloc=\"b\"; label=\"Stand: {}\"; ranksep=0.8;",
         title
     )?;
-    for p in data {
-        let mut parent = String::from("root");
-        for (i, _) in ordering {
-            let mut node = parent.clone();
-            node.push('/');
-            node.push_str(&format!("{:b}", p.slot_mask(*i).unwrap()));
+    Ok(())
+}
 
-            if nodes.insert(node.clone()) {
-                // if node is new -- write node label or empty label
-                if p.slot_mask(*i).unwrap().count() == 0 {
-                    writeln!(writer, "\"{node}\"[label=\"\"]")?;
-                } else {
-                    writeln!(
-                        writer,
-                        "\"{node}\"[label=\"{}\"]",
-                        map_a[*i].clone()
-                            + "\\n"
-                            + &p.slot_mask(*i)
-                                .unwrap()
-                                .iter()
-                                .map(|b| map_b[b as usize].clone())
-                                .collect::<Vec<_>>()
-                                .join("\\n")
-                    )?;
-                }
-                writeln!(writer, "\"{parent}\" -> \"{node}\";")?;
-            }
-
-            parent = node;
-        }
-    }
+/// Write the footer for the .dot file to `W`
+fn write_footer<W: Write>(writer: &mut W) -> Result<()> {
     writeln!(writer, "}}")?;
     Ok(())
 }
 
-/// Tells to how many different masks (i.1) someone from set_a (i.0) is mapped to.
-/// The returned vector is sorted by the amount (i.1) ascending.
+/// Calculate an ordering for the layers/levels of the tree
 ///
-/// This is used to decide a sensible ordering for the tree layers.
-pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, usize)> {
+/// A layer is identified by the id in `set_a`.
+/// The layers are ordered so the amount of outgoing edges of a (complete) layer is minimized.
+///
+/// Returns a sorted list of layers to be drawn: [(id in set_a, num outgoing edges)]
+pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(IdBase, usize)> {
     // tab maps people from set_a -> possible matches (set -> no duplicates)
     let mut tab = vec![HashSet::new(); map_a.len()];
     for p in data {
         for (i, js) in p.iter().enumerate() {
-            tab[i].insert(js.0);
+            tab[i].insert(js.as_word());
         }
     }
 
@@ -84,7 +161,7 @@ pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, u
             if x.is_empty() {
                 None
             } else {
-                Some((i, x.len()))
+                Some((i as IdBase, x.len()))
             }
         })
         .collect();
@@ -96,41 +173,150 @@ pub fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(usize, u
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::matching_repr::bitset::Bitset;
-    use crate::matching_repr::MaskedMatching;
-    use std::io::Cursor;
 
-    #[test]
-    fn tree_ordering_detects_variable_slots() {
-        // build two masked matchings such that index 0 has same mask, index 1 differs
-        let p1 = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(2)]);
-        let p2 = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(3)]);
-        let data = vec![p1, p2];
-        let map_a = vec!["A".to_string(), "B".to_string()];
-        let ordering = tree_ordering(&data, &map_a);
-        // only index 1 should appear since it has 2 different masks
-        assert_eq!(ordering.len(), 2);
+    use crate::matching_repr::MaskedMatching;
+
+    use pretty_assertions::assert_eq;
+
+    fn fixture_data() -> (
+        Vec<MaskedMatching>, // data
+        Vec<String>,         // map_a
+        Vec<String>,         // map_b
+    ) {
+        let p1 = MaskedMatching::from_matching_ref(&[vec![0], vec![1]]);
+        let p2 = MaskedMatching::from_matching_ref(&[vec![0], vec![0, 1]]);
+
+        (
+            vec![p1, p2],
+            vec!["A", "B"]
+                .into_iter()
+                .map(|x| x.to_string())
+                .collect::<Vec<_>>(),
+            vec!["a", "b", "c", "d"]
+                .into_iter()
+                .map(|x| x.to_string())
+                .collect::<Vec<_>>(),
+        )
     }
 
     #[test]
-    fn dot_tree_writer_emits_dot() {
-        let p1 = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(2)]);
-        let p2 = MaskedMatching::from_masks(vec![Bitset::from_word(1), Bitset::from_word(3)]);
-        let data = vec![p1, p2];
-        let map_a = vec!["A".to_string(), "B".to_string()];
-        let map_b = vec![
-            "b0".to_string(),
-            "b1".to_string(),
-            "b2".to_string(),
-            "b3".to_string(),
-        ];
+    fn write_header_produces_exact_output() -> Result<()> {
+        let mut buf = Vec::new();
+        write_header(&mut buf, "MyTitle")?;
+        let got = String::from_utf8(buf)?;
+
+        let expected = r#"digraph D { labelloc="b"; label="Stand: MyTitle"; ranksep=0.8;"#;
+
+        assert_eq!(got, format!("{expected}\n"));
+
+        Ok(())
+    }
+
+    #[test]
+    fn write_footer_produces_exact_output() -> Result<()> {
+        let mut buf = Vec::new();
+        write_footer(&mut buf)?;
+        let got = String::from_utf8(buf)?;
+
+        assert_eq!(got, "}\n");
+
+        Ok(())
+    }
+
+    #[test]
+    fn ensure_node_writes_new_node_with_label() -> Result<()> {
+        let (data, map_a, map_b) = fixture_data();
+        let mask = data[0].slot_mask(1).context("mask missing")?;
+        let mut buf = Vec::new();
+        let mut builder = DotBuilder::new(&mut buf, &map_a, &map_b);
+
+        let node_id = builder.ensure_node("root", 1, mask)?;
+        let got = String::from_utf8(buf)?;
+
+        let expected = "\"root/10\"[label=\"B\\nb\"]\n";
+
+        assert_eq!(node_id.1, "root/10");
+        assert!(node_id.0);
+        assert_eq!(got, expected);
+
+        Ok(())
+    }
+
+    #[test]
+    fn ensure_node_does_not_duplicate_existing_node() -> Result<()> {
+        let (data, map_a, map_b) = fixture_data();
+        let mask = data[0].slot_mask(1).context("mask missing")?;
+
+        let mut buf = Vec::new();
+        let mut builder = DotBuilder::new(&mut buf, &map_a, &map_b);
+
+        let node_id = builder.ensure_node("root", 1, mask)?;
+        assert_eq!(node_id.1, "root/10");
+        assert!(node_id.0);
+
+        let node_id = builder.ensure_node("root", 1, mask)?;
+        assert_eq!(node_id.1, "root/10");
+        assert!(!node_id.0);
+
+        let got = String::from_utf8(buf)?;
+
+        let expected = "\"root/10\"[label=\"B\\nb\"]\n";
+
+        assert_eq!(got, expected);
+        Ok(())
+    }
+
+    #[test]
+    fn write_edge_outputs_correct_arrow() -> Result<()> {
+        let mut buf = Vec::new();
+        let mut builder = DotBuilder::new(&mut buf, &[], &[]);
+
+        builder.write_edge("root", "root/10")?;
+        let got = String::from_utf8(buf)?;
+
+        let expected = "\"root\" -> \"root/10\";\n";
+
+        assert_eq!(got, expected);
+
+        Ok(())
+    }
+
+    #[test]
+    fn tree_ordering_returns_expected_pairs() {
+        let (data, map_a, _) = fixture_data();
+
         let ordering = tree_ordering(&data, &map_a);
-        let mut buf = Cursor::new(Vec::<u8>::new());
-        dot_tree(&data, &ordering, "TITLE", &mut buf, &map_a, &map_b).unwrap();
-        let s = String::from_utf8(buf.into_inner()).unwrap();
-        assert!(s.contains("digraph"));
-        assert!(s.contains("TITLE"));
-        // expect at least one arrow edge
-        assert!(s.contains("->"));
+
+        // node-id 0 has one instance
+        // node-id 1 has two instances
+        assert_eq!(ordering, vec![(0, 1), (1, 2)]);
+    }
+
+    #[test]
+    fn dot_tree_produces_complete_dot_output() -> Result<()> {
+        let (data, map_a, map_b) = fixture_data();
+        let ordering = tree_ordering(&data, &map_a);
+
+        let mut buf = Vec::new();
+        dot_tree(&mut buf, &data, &ordering, "FULL_GRAPH", &map_a, &map_b)?;
+
+        let got = String::from_utf8(buf)?;
+
+        // Build the exact expected DOT representation.
+        //
+        // Header
+        let expected = r#"digraph D { labelloc="b"; label="Stand: FULL_GRAPH"; ranksep=0.8;
+"root/1"[label="A\na"]
+"root" -> "root/1";
+"root/1/10"[label="B\nb"]
+"root/1" -> "root/1/10";
+"root/1/11"[label="B\na\nb"]
+"root/1" -> "root/1/11";
+}
+"#;
+
+        assert_eq!(got, expected);
+
+        Ok(())
     }
 }

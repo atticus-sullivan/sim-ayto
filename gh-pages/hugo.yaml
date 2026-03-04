@@ -24,6 +24,9 @@ menu:
 params:
   page:
     width: full
+    contextMenu:
+      enable: false
+    displayPagination: false
 
 markup:
   goldmark:

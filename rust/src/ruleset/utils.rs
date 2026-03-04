@@ -1,3 +1,9 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module implements various helper functions to be used when working with the rulesets.
+
 use anyhow::{ensure, Result};
 
 use crate::ruleset::RuleSet;
@@ -5,6 +11,7 @@ use crate::ruleset_data::{dummy::DummyData, dup::DupData, dup_x::DupXData, RuleS
 use crate::Lut;
 
 impl RuleSet {
+    /// get the corresponding ruleset_data for this ruleset
     pub fn init_data(&self) -> Result<Box<dyn RuleSetData>> {
         Ok(match &self {
             RuleSet::SomeoneIsTrip => Box::new(DupData::default()),
@@ -17,6 +24,7 @@ impl RuleSet {
         })
     }
 
+    /// whether on a found match an exclusion must be formed
     pub fn must_add_exclude(&self) -> bool {
         match &self {
             RuleSet::XTimesDup(_) | RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => true,
@@ -24,6 +32,7 @@ impl RuleSet {
         }
     }
 
+    /// the length a matching-night constraint needs to have
     pub fn constr_map_len(&self, a: usize, _b: usize) -> usize {
         match &self {
             RuleSet::XTimesDup(_)
@@ -34,6 +43,7 @@ impl RuleSet {
         }
     }
 
+    /// whether the constraints need to be sorted
     pub fn must_sort_constraint(&self) -> bool {
         match &self {
             RuleSet::XTimesDup(_)
@@ -44,6 +54,7 @@ impl RuleSet {
         }
     }
 
+    /// check lookup-tables `lut_a` and `lut_b` with the RuleSet
     pub fn validate_lut(&self, lut_a: &Lut, lut_b: &Lut) -> Result<()> {
         match self {
             RuleSet::XTimesDup((unkown_cnt, fixed)) => {
@@ -108,6 +119,7 @@ impl RuleSet {
         Ok(())
     }
 
+    /// ignore specific pairings based on the ruleset to avoid duplicates
     pub fn ignore_pairing(&self, a: usize, b: usize) -> bool {
         match self {
             RuleSet::Eq
@@ -122,105 +134,177 @@ impl RuleSet {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashMap;
 
-    #[test]
-    fn test_validate_lut_nn() {
-        let nn_rule = RuleSet::NToN;
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        nn_rule.validate_lut(&lut_a, &lut_b).unwrap();
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("A", 0)].map(|(k, v)| (k.to_string(), v)));
-        assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-        assert!(nn_rule.validate_lut(&lut_a, &lut_b).is_err());
+    fn dummy_lut(keys: &[&str]) -> Lut {
+        keys.iter()
+            .enumerate()
+            .map(|(i, k)| (k.to_string(), i))
+            .collect()
     }
 
     #[test]
-    fn test_validate_lut_eq() {
-        let eq_rule = RuleSet::Eq;
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-        eq_rule.validate_lut(&lut_a, &lut_b).unwrap();
+    fn init_data_simple() {
+        let rs = RuleSet::Eq;
+        assert!(rs.init_data().is_ok());
 
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0)].map(|(k, v)| (k.to_string(), v)));
-        assert!(eq_rule.validate_lut(&lut_a, &lut_b).is_err());
+        let rs = RuleSet::NToN;
+        assert!(rs.init_data().is_ok());
+
+        let rs = RuleSet::SomeoneIsTrip;
+        assert!(rs.init_data().is_ok());
+
+        let rs = RuleSet::FixedTrip("x".to_string());
+        assert!(rs.init_data().is_ok());
+
+        let rs = RuleSet::XTimesDup((0, vec!["a".to_string()]));
+        assert!(rs.init_data().is_ok());
     }
 
     #[test]
-    fn test_validate_lut_fixed_dup() {
-        let dup_rule = RuleSet::XTimesDup((0, vec!["x".to_string()]));
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
-        dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-        assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-        assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
+    fn must_add_exclude_true_cases() {
+        assert!(RuleSet::XTimesDup((0, vec![])).must_add_exclude());
+        assert!(RuleSet::SomeoneIsTrip.must_add_exclude());
+        assert!(RuleSet::FixedTrip("x".to_string()).must_add_exclude());
     }
 
     #[test]
-    fn test_validate_lut_fixed_trip() {
-        let trip_rule = RuleSet::FixedTrip("x".to_string());
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
-        );
-        trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-        assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
-        );
-        assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
+    fn must_add_exclude_false_cases() {
+        assert!(!RuleSet::Eq.must_add_exclude());
+        assert!(!RuleSet::NToN.must_add_exclude());
     }
 
     #[test]
-    fn test_validate_lut_someone_is_dup() {
-        let dup_rule = RuleSet::XTimesDup((1, vec![]));
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1), ("x", 3)].map(|(k, v)| (k.to_string(), v)));
-        dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-        assert!(dup_rule.validate_lut(&lut_a, &lut_b).is_err());
-
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-        dup_rule.validate_lut(&lut_a, &lut_b).unwrap();
+    fn constr_map_len_simple() {
+        let a = 5usize;
+        for rs in [
+            RuleSet::Eq,
+            RuleSet::SomeoneIsTrip,
+            RuleSet::FixedTrip("".to_string()),
+            RuleSet::XTimesDup((0, vec![])),
+        ] {
+            assert_eq!(rs.constr_map_len(a, 0), a);
+        }
     }
 
     #[test]
-    fn test_validate_lut_soneone_is_trip() {
-        let trip_rule = RuleSet::SomeoneIsTrip;
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("x", 3)].map(|(k, v)| (k.to_string(), v)),
-        );
-        trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
+    fn constr_map_len_half() {
+        let a = 8usize;
+        let rs = RuleSet::NToN;
+        assert_eq!(rs.constr_map_len(a, 0), a / 2);
+    }
 
-        let lut_a = HashMap::from([("A", 0), ("B", 1), ("c", 2)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from([("a", 0), ("b", 1)].map(|(k, v)| (k.to_string(), v)));
-        assert!(trip_rule.validate_lut(&lut_a, &lut_b).is_err());
+    #[test]
+    fn must_sort_constraint_true_case() {
+        assert!(RuleSet::NToN.must_sort_constraint());
+    }
 
-        let lut_a = HashMap::from([("A", 0), ("B", 1)].map(|(k, v)| (k.to_string(), v)));
-        let lut_b = HashMap::from(
-            [("a", 0), ("b", 1), ("c", 2), ("d", 3)].map(|(k, v)| (k.to_string(), v)),
-        );
-        trip_rule.validate_lut(&lut_a, &lut_b).unwrap();
+    #[test]
+    fn must_sort_constraint_false_cases() {
+        assert!(!RuleSet::Eq.must_sort_constraint());
+        assert!(!RuleSet::XTimesDup((0, vec![])).must_sort_constraint());
+        assert!(!RuleSet::SomeoneIsTrip.must_sort_constraint());
+        assert!(!RuleSet::FixedTrip("x".to_string()).must_sort_constraint());
+    }
+
+    #[test]
+    fn ignore_pairing_n_to_n() {
+        let rs = RuleSet::NToN;
+        assert!(rs.ignore_pairing(2, 5));
+        assert!(rs.ignore_pairing(3, 3));
+        assert!(!rs.ignore_pairing(5, 2));
+    }
+
+    #[test]
+    fn ignore_pairing_other_rules_always_false() {
+        let other = [
+            RuleSet::Eq,
+            RuleSet::XTimesDup((0, vec![])),
+            RuleSet::SomeoneIsTrip,
+            RuleSet::FixedTrip("x".to_string()),
+        ];
+        for rs in other.iter() {
+            assert!(!rs.ignore_pairing(0, 0));
+            assert!(!rs.ignore_pairing(1, 2));
+        }
+    }
+
+    #[test]
+    fn validate_lut_eq_success() {
+        let rule = RuleSet::Eq;
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["a", "b"]);
+        assert!(rule.validate_lut(&a, &b).is_ok());
+    }
+
+    #[test]
+    fn validate_lut_eq_failure_length_mismatch() {
+        let rule = RuleSet::Eq;
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["a"]);
+        assert!(rule.validate_lut(&a, &b).is_err());
+    }
+
+    #[test]
+    fn validate_lut_n_to_n_success() {
+        let rule = RuleSet::NToN;
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["A", "B"]);
+        assert!(rule.validate_lut(&a, &b).is_ok());
+    }
+
+    #[test]
+    fn validate_lut_n_to_n_failure_not_identical() {
+        let rule = RuleSet::NToN;
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["a", "b"]);
+        assert!(rule.validate_lut(&a, &b).is_err());
+    }
+
+    #[test]
+    fn validate_lut_fixed_trip_success() {
+        let rule = RuleSet::FixedTrip("x".to_string());
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["a", "b", "c", "x"]);
+        assert!(rule.validate_lut(&a, &b).is_ok());
+    }
+
+    #[test]
+    fn validate_lut_fixed_trip_missing_key() {
+        let rule = RuleSet::FixedTrip("x".to_string());
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["a", "b", "c", "d"]);
+        assert!(rule.validate_lut(&a, &b).is_err());
+    }
+
+    #[test]
+    fn validate_lut_someone_is_trip_success() {
+        let rule = RuleSet::SomeoneIsTrip;
+        let a = dummy_lut(&["A", "B"]);
+        let b = dummy_lut(&["a", "b", "c", "d"]);
+        assert!(rule.validate_lut(&a, &b).is_ok());
+    }
+
+    #[test]
+    fn validate_lut_someone_is_trip_failure_length() {
+        let rule = RuleSet::SomeoneIsTrip;
+        let a = dummy_lut(&["A"]);
+        let b = dummy_lut(&["a", "b"]);
+        assert!(rule.validate_lut(&a, &b).is_err());
+    }
+
+    #[test]
+    fn validate_lut_x_times_dup_success() {
+        let rule = RuleSet::XTimesDup((1, vec!["x".to_string()]));
+        let a = dummy_lut(&["A"]);
+        let b = dummy_lut(&["a", "b", "x"]);
+        assert!(rule.validate_lut(&a, &b).is_ok());
+    }
+
+    #[test]
+    fn validate_lut_x_times_dup_missing_fixed() {
+        let rule = RuleSet::XTimesDup((0, vec!["x".to_string()]));
+        let a = dummy_lut(&["A"]);
+        let b = dummy_lut(&["a", "b"]);
+        assert!(rule.validate_lut(&a, &b).is_err());
     }
 }

@@ -1,39 +1,55 @@
-use std::collections::BTreeMap;
-/// This module is typically used to
-/// 1. deserialize into `ConstraintParse`
-/// 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
-///
-/// Some helpers were soutsourced to parse_utils
-use std::hash::{Hash, Hasher};
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module is typically used to
+//! 1. deserialize into `ConstraintParse`
+//! 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
+//!
+//! Some helpers were soutsourced to parse_utils
 
 use anyhow::{Context, Result};
+use std::collections::BTreeMap;
 
 use rust_decimal::dec;
 use serde::Deserialize;
 
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
+use crate::matching_repr::IdBase;
 use crate::ruleset_data::RuleSetData;
-use crate::{Lut, MapS, Rename};
+use crate::{LightCnt, Lut, MapS, Rename};
 
-// this struct is only used when parsing the yaml file.
-// The function `finalize_parsing` is intended to convert this to a regular constraint.
+/// this struct is only used when parsing the yaml file.
+/// The function `finalize_parsing` is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
-pub struct ConstraintParse {
+pub(crate) struct ConstraintParse {
+    /// of what type this constraint is (e.g. MB/MN)
     pub(super) r#type: ConstraintType,
+    /// the string+hashmap representation of the matching related to the constraint
     #[serde(rename = "map")]
     pub(super) map_s: MapS,
+    /// how the constraint needs to be checked (e.g. via lights)
     pub(super) check: CheckType,
+    /// whether this constraint shall be hidden in the report/output
     #[serde(default)]
     pub(super) hidden: bool,
+    /// an option to disable the exluce functionality. Usually required when it is proven that
+    /// a matches b0, but a also matches b1 which is left open and/or is specified in another
+    /// constraint
     #[serde(default, rename = "noExclude")]
     pub(super) no_exclude: bool,
+    /// a string representation to manually exclude matchings where
+    /// individual from set_a matches with any of the individuals from set_b specified here
     #[serde(rename = "exclude")]
     pub(super) exclude_s: Option<(String, Vec<String>)>,
+    /// whether the result of this is still unknown (despite how check is set)
     #[serde(default, rename = "resultUnknown")]
     pub(super) result_unknown: bool,
+    /// whether to build a .dot-tree for this constraint/event
     #[serde(default, rename = "buildTree")]
     pub(super) build_tree: bool,
+    /// whether to hide the ruleset_data for this constraint
     #[serde(default, rename = "hideRulesetData")]
     pub(super) hide_ruleset_data: bool,
 }
@@ -55,26 +71,6 @@ impl Default for ConstraintParse {
             build_tree: false,
             hide_ruleset_data: true,
         }
-    }
-}
-
-impl Hash for ConstraintParse {
-    fn hash<H: Hasher>(&self, state: &mut H) {
-        // Hash the r#type field
-        self.r#type.hash(state);
-
-        // Sort the map_s entries by key to ensure stable hashing
-        let mut sorted_entries: Vec<_> = self.map_s.iter().collect();
-        sorted_entries.sort_by(|(key_a, _), (key_b, _)| key_a.cmp(key_b)); // Sort by key lexicographically
-
-        // Hash each sorted entry
-        for (key, value) in sorted_entries {
-            key.hash(state);
-            value.hash(state);
-        }
-
-        // Hash the check field
-        self.check.hash(state);
     }
 }
 
@@ -100,7 +96,7 @@ impl ConstraintParse {
     /// # Returns
     /// `Result<Constraint>` on success.
     #[allow(clippy::too_many_arguments)]
-    pub fn finalize_parsing(
+    pub(crate) fn finalize_parsing(
         self,
         lut_a: &Lut,
         lut_b: &Lut,
@@ -110,7 +106,7 @@ impl ConstraintParse {
         sort_constraint: bool,
         rename: (&Rename, &Rename),
         ruleset_data: Box<dyn RuleSetData>,
-        known_lights: u8,
+        known_lights: LightCnt,
     ) -> Result<Constraint> {
         // If add_exclude requested prefer computed add_exclude result, fallback to explicit exclude in YAML
         let exclude_s_final = if add_exclude {
@@ -148,8 +144,7 @@ impl ConstraintParse {
             information: None,
             left_after: None,
             left_poss: Default::default(),
-            ruleset_data,
-            hide_ruleset_data: self.hide_ruleset_data,
+            ruleset_data: (!self.hidden && !self.hide_ruleset_data).then_some(ruleset_data),
             known_lights,
         };
 
@@ -175,9 +170,9 @@ impl ConstraintParse {
     ///
     /// # Arguments
     ///
-    /// - `map_b`: A reference to a vector of strings (`Vec<String>`) from which exclusions will be
-    ///   drawn. The function will create a new exclusion vector by removing any elements from
-    ///   `map_b` that match the current value in `self.map_s`.
+    /// - `map_b`: A slice of strings from which exclusions will be drawn. The function will create
+    ///   a new exclusion vector by removing any elements from `map_b` that match the current value
+    ///   in `self.map_s`.
     fn add_exclude(&self, map_b: &[String]) -> Option<(String, Vec<String>)> {
         if self.no_exclude {
             return None;
@@ -192,6 +187,7 @@ impl ConstraintParse {
             }
             if let ConstraintType::Box { .. } = self.r#type {
                 // if the constraint is a box constraint the map contains only one item anyhow
+                // -> next() gets us this single element
                 if let Some((a, v)) = self.map_s.iter().next() {
                     let bs: Vec<String> = map_b
                         .iter()
@@ -206,22 +202,25 @@ impl ConstraintParse {
     }
 
     /// Build the optional exclude bitset based on `exclude_s` and the LUTs.
-    pub(crate) fn build_exclude_if_any(
+    ///
+    /// Converts an exclusion list based on strings (`exclude_s`) to an exclusion list based on ids
+    fn build_exclude_if_any(
         exclude_s: &Option<(String, Vec<String>)>,
         lut_a: &Lut,
         lut_b: &Lut,
-    ) -> Result<Option<(u8, Bitset)>> {
+    ) -> Result<Option<(IdBase, Bitset)>> {
         if let Some(ex) = exclude_s {
             let (ex_a, ex_b) = ex;
             let mut bs = Bitset::empty();
             let a = *lut_a
                 .get(ex_a)
-                .with_context(|| format!("Invalid Key {}", ex_a))? as u8;
+                .with_context(|| format!("Invalid Key {}", ex_a))? as IdBase;
             for x in ex_b {
                 bs.insert(
                     *lut_b
                         .get(x)
-                        .with_context(|| format!("Invalid Value {}", x))? as u8,
+                        .with_context(|| format!("Invalid Value {}", x))?
+                        as IdBase,
                 );
             }
             Ok(Some((a, bs)))
@@ -233,6 +232,7 @@ impl ConstraintParse {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
     use rust_decimal::dec;
 
     use super::*;

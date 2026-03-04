@@ -1,3 +1,10 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module offers the functionality to run a single simulation. It is so to speak the engine
+//! which drives the benchmarking.
+
 use std::sync::Arc;
 use std::{collections::HashMap, time::Instant};
 
@@ -5,10 +12,10 @@ use anyhow::{bail, Context, Result};
 use rand::rngs::StdRng;
 use rust_decimal::{dec, Decimal};
 
-use ayto::constraint::{check_type::CheckType, Constraint, ConstraintType};
+use ayto::constraint::{check_type::CheckType, Constraint, ConstraintSim, ConstraintType};
 use ayto::matching_repr::MaskedMatching;
 use ayto::ruleset::RuleSet;
-use ayto::Rem;
+use ayto::{LightCnt, Rem};
 
 use crate::init::{build_initial_constraint, create_iteration_state, generate_solution};
 use crate::result::SimulationResult;
@@ -22,23 +29,36 @@ use crate::NUM_PLAYERS_SET_A;
 /// 1. Generates a solution
 /// 2. Applies constraints iteratively according to a strategy
 /// 3. Terminates once only one possibility remains
-pub(crate) struct Simulation<S: StrategyBundle> {
+pub struct Simulation<S: StrategyBundle> {
+    /// an identifier which can be used to track this simulation
     sim_id: usize,
-    seed: u64,
+    /// the strategy used for playing this game
     strategy: Arc<S>,
+    /// seed usefd for reproducible randomness/simulation
+    seed: u64,
+    /// provides randomness for the optimizers and the game too
     rng: StdRng,
+    /// when this simulation started
     start: Instant,
+    /// the ruleset used for playing this game
     ruleset: RuleSet,
 
+    /////////////////////////////////////////////////////
+    // fields which are modified during the simulation //
+    /////////////////////////////////////////////////////
+    /// accumulated list of constraints used to solve this game
     constraints: Vec<Constraint>,
+    /// list of all remaining possible solutions
     possibilities: Vec<MaskedMatching>,
+    /// a table tracking the remaining possibilities per 1:1 matching
     rem: Rem,
+    /// The amount of lights which are already *known* (proven in a MB decision) up to this point
     lights_known_before: usize,
 }
 
 impl<S: StrategyBundle> Simulation<S> {
     /// Lightweight constructor.
-    pub(crate) fn new(sim_id: usize, seed: u64, strategy: Arc<S>) -> Self {
+    pub fn new(sim_id: usize, seed: u64, strategy: Arc<S>) -> Self {
         Self {
             ruleset: RuleSet::Eq,
             sim_id,
@@ -91,7 +111,7 @@ impl<S: StrategyBundle> Simulation<S> {
 
         // use the ruleset for the first constraint
         self.ruleset
-            .iter_perms(&lut, &HashMap::new(), &mut iter_state, false, &None)?;
+            .iter_perms(&lut, &HashMap::new(), &mut iter_state, &None)?;
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
         rem = iter_state
@@ -109,7 +129,7 @@ impl<S: StrategyBundle> Simulation<S> {
     }
 
     /// Full simulation execution.
-    pub(crate) fn run(mut self) -> Result<SimulationResult> {
+    pub fn run(mut self) -> Result<SimulationResult> {
         let solution = self.init()?;
         self.run_loop(&solution)?;
         self.try_into()
@@ -131,14 +151,13 @@ impl<S: StrategyBundle> Simulation<S> {
     }
 
     /// Generates and constructs the next constraint
-    /// according to the selected strategy and iteration number.
+    /// according to the selected strategy and iteration number/index.
     fn next_step(&mut self, solution: &MaskedMatching, iteration: usize) -> Result<Constraint> {
-        let (m, l, ct, lkn) = if iteration.is_multiple_of(2) {
+        let (m, ct) = if iteration.is_multiple_of(2) {
             // this is a match-box decision
             let m = self
                 .strategy
                 .choose_mb(&self.rem.0, self.rem.1, &mut self.rng);
-            let l = m.calculate_lights(solution);
 
             let ct = ConstraintType::Box {
                 num: (Decimal::from(iteration) / dec![2]).floor(),
@@ -146,16 +165,10 @@ impl<S: StrategyBundle> Simulation<S> {
                 offer: None,
             };
 
-            let old = self.lights_known_before;
-            if l == 1 {
-                self.lights_known_before += 1;
-            }
-
-            (m, l, ct, old)
+            (m, ct)
         } else {
             // this is a matching-night
             let m = self.strategy.choose_mn(&self.possibilities, &mut self.rng);
-            let l = m.calculate_lights(solution);
 
             let ct = ConstraintType::Night {
                 num: (Decimal::from(iteration) / dec![2]).floor(),
@@ -163,18 +176,21 @@ impl<S: StrategyBundle> Simulation<S> {
                 offer: None,
             };
 
-            (m, l, ct, self.lights_known_before)
+            (m, ct)
         };
 
-        Ok(Constraint::new_with_defaults(
+        let l = m.calculate_lights(solution);
+        let c = Constraint::new_with_defaults(
             ct,
             CheckType::Lights(l, Default::default()),
             m,
             self.ruleset.init_data()?,
             NUM_PLAYERS_SET_A,
             NUM_PLAYERS_SET_A,
-            lkn as u8,
-        ))
+            self.lights_known_before as LightCnt,
+        );
+        self.lights_known_before += c.added_known_lights() as usize;
+        Ok(c)
     }
 
     /// Applies a new constraint to:
@@ -227,6 +243,8 @@ impl<S: StrategyBundle> TryInto<SimulationResult> for Simulation<S> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ayto::{constraint::ConstraintGetters, matching_repr::IdBase};
+    use pretty_assertions::assert_eq;
     use rand::Rng;
 
     /// Deterministic test strategy.
@@ -237,8 +255,7 @@ mod tests {
     impl StrategyBundle for DeterministicStrategy {
         fn initial_value(&self) -> MaskedMatching {
             // Single deterministic matching
-            // Assumes NUM_PLAYERS_SET_A <= 64
-            let ids: Vec<u8> = (0..NUM_PLAYERS_SET_A as u8).collect();
+            let ids: Vec<IdBase> = (0..NUM_PLAYERS_SET_A as IdBase).collect();
             MaskedMatching::from(ids.as_slice())
         }
 
@@ -260,10 +277,6 @@ mod tests {
         Simulation::new(1, seed, Arc::new(DeterministicStrategy))
     }
 
-    // ------------------------------------------------------------
-    // Constructor
-    // ------------------------------------------------------------
-
     #[test]
     fn new_initializes_empty_state() {
         let sim = build_sim(42);
@@ -274,10 +287,6 @@ mod tests {
         assert!(sim.possibilities.is_empty());
         assert_eq!(sim.lights_known_before, 0);
     }
-
-    // ------------------------------------------------------------
-    // init()
-    // ------------------------------------------------------------
 
     #[test]
     fn init_populates_state() {
@@ -290,12 +299,11 @@ mod tests {
         assert!(sim.rem.1 > 0);
 
         // solution must be a valid masked matching
-        assert!(solution.clone().calculate_lights(&solution) > 0);
+        assert_eq!(
+            solution.clone().calculate_lights(&solution) as usize,
+            NUM_PLAYERS_SET_A
+        );
     }
-
-    // ------------------------------------------------------------
-    // next_step()
-    // ------------------------------------------------------------
 
     #[test]
     fn next_step_generates_constraint() {
@@ -315,12 +323,8 @@ mod tests {
         let even = sim.next_step(&solution, 4).unwrap();
 
         // They should not both be identical constraint types
-        assert_ne!(format!("{:?}", odd), format!("{:?}", even));
+        assert_ne!(odd.type_str(), even.type_str());
     }
-
-    // ------------------------------------------------------------
-    // apply_constraint()
-    // ------------------------------------------------------------
 
     #[test]
     fn apply_constraint_reduces_or_keeps_possibilities() {
@@ -336,10 +340,6 @@ mod tests {
         assert!(!sim.constraints.is_empty());
     }
 
-    // ------------------------------------------------------------
-    // run_loop()
-    // ------------------------------------------------------------
-
     #[test]
     fn run_loop_terminates_when_one_possibility_left() {
         let mut sim = build_sim(42);
@@ -351,10 +351,6 @@ mod tests {
         assert!(sim.possibilities.len() <= 1);
     }
 
-    // ------------------------------------------------------------
-    // run()
-    // ------------------------------------------------------------
-
     #[test]
     fn run_produces_simulation_result() {
         let sim = build_sim(42);
@@ -365,10 +361,6 @@ mod tests {
         let res = result.unwrap();
         assert_eq!(res.identifier(), 1);
     }
-
-    // ------------------------------------------------------------
-    // determinism check
-    // ------------------------------------------------------------
 
     #[test]
     fn same_seed_produces_same_iteration_count() {

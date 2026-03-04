@@ -1,34 +1,47 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module contains getters / evaluations which is used to pre-process the gathered data for a
+//! comparison with other simulations.
+//! The root is `EvalData` (which is at some point serialized/stored so the comparison can take
+//! place later)
+
 use anyhow::{Context, Result};
-/// This module contains getters / evaluations which is used to pre-process the gathered data for a
-/// comparison with other simulations.
-/// The root is `EvalData` (which is at some point serialized/stored so the comparison can take
-/// place later)
 use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
 
-use crate::constraint::{Constraint, ConstraintType};
+use crate::{
+    constraint::{Constraint, ConstraintGetters, ConstraintType},
+    LightCnt,
+};
 
 /// Container of evaluation output used for plotting and summaries.
 ///
 /// - `events` are the chronological evaluation events (MB/MN/Initial).
 /// - `cnts` are aggregated counters and summary data.
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct EvalData {
-    pub events: Vec<EvalEvent>,
-    pub cnts: SumCounts,
+pub(crate) struct ComparisonData {
+    /// stats for the trail of events which happened in the season
+    pub(crate) events: Vec<EvalEvent>,
+    /// summary stats for the whole season
+    pub(crate) cnts: SumCounts,
 }
 
-/// One recorded evaluation event (MB/MN/Initial).
-///
-/// These are intended to be serialized as JSON for the site and to drive plots.
+/// One recorded event (MB/MN/Initial).
 #[derive(Serialize, Deserialize, Clone, Debug)]
 #[serde(tag = "type")]
 pub enum EvalEvent {
+    /// an evaluated match-box event
     MB(EvalMB),
+    /// an evaluated matching-night event
     MN(EvalMN),
+    /// the initial configuration
     Initial(EvalInitial),
 }
 
+/// a macro to generate generalized getters for trails of `EvalEvent`s to "unwrap"/filter the enum
+/// based on the encapsulated data. Usually this is used in combination with `filter_map()`
 macro_rules! eval_event_query_data {
     (
         $data_name:ident,
@@ -80,7 +93,6 @@ macro_rules! eval_event_query_data {
     };
 }
 
-/// Return the 'num' value for the event depending on the caller's filter.
 impl EvalEvent {
     eval_event_query_data!(
         num,
@@ -130,7 +142,7 @@ impl EvalEvent {
     eval_event_query_data!(
         lights_total,
         " (if available/set)",
-        u8,
+        LightCnt,
         MN(eval_mn) => Some(eval_mn.lights_total?),
         MB(eval_mb) => Some(eval_mb.lights_total?),
         Initial(ini) => None
@@ -139,7 +151,7 @@ impl EvalEvent {
     eval_event_query_data!(
         lights_known_before,
         "",
-        u8,
+        LightCnt,
         MN(eval_mn) => Some(eval_mn.lights_known_before),
         MB(eval_mb) => Some(eval_mb.lights_known_before),
         Initial(ini) => None
@@ -148,113 +160,183 @@ impl EvalEvent {
     eval_event_query_data!(
         new_lights,
         " (lights_total - lights_known_before)",
-        u8,
+        LightCnt,
         MN(eval_mn) => Some(eval_mn.lights_total? - eval_mn.lights_known_before),
         MB(eval_mb) => Some(eval_mb.lights_total? - eval_mb.lights_known_before),
         Initial(ini) => None
     );
 }
 
+/// a collection of stats for the initial configuration to be used in a comparison with other seasons
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct EvalInitial {
+    /// how many bits of uncertainty are left after this constrait
     pub bits_left_after: f64,
+    /// the comment for this event
     pub comment: String,
 }
 
+/// a collection of stats for a match-box to be used in a comparison with other seasons
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct EvalMB {
+    /// the number of this event
     #[serde(with = "rust_decimal::serde::float")]
     pub num: Decimal,
+    /// how many bits of uncertainty are left after this constrait
     pub bits_left_after: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
+    /// how many lights there were in total in this constraint, if applicable
+    pub lights_total: Option<LightCnt>,
+    /// how many lights were known prior to this constraint
+    pub lights_known_before: LightCnt,
+    /// how much information was gained by this event
     pub bits_gained: f64,
+    /// the comment for this event
     pub comment: String,
+    /// whether there was an offer for this event
     pub offer: bool,
 }
 
+/// a collection of stats for a matching-night to be used in a comparison with other seasons
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct EvalMN {
+    /// the number of this event
     #[serde(with = "rust_decimal::serde::float")]
     pub num: Decimal,
+    /// how many bits of uncertainty are left after this constrait
     pub bits_left_after: f64,
-    pub lights_total: Option<u8>,
-    pub lights_known_before: u8,
+    /// how many lights there were in total in this constraint, if applicable
+    pub lights_total: Option<LightCnt>,
+    /// how many lights were known prior to this constraint
+    pub lights_known_before: LightCnt,
+    /// how much information was gained by this event
     pub bits_gained: f64,
+    /// the comment for this event
     pub comment: String,
+    /// whether there was an offer for this event
     pub offer: bool,
 }
 
 /// Aggregated counts and summary metrics for a run / ruleset.
-///
-/// Provide small helper methods to update and combine counts.
-/// Keep `add(&mut self, other: &SumCounts)` as a pure & cheap aggregator.
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct SumCounts {
-    pub blackouts: u8,
-    pub won: bool,
-    pub matches_found: u8,
-    pub solvable_in: Option<(bool, String)>,
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub(crate) struct SumCounts {
+    /// how many blackouts in thei season
+    pub(crate) blackouts: u8,
+    /// with which event the season was won and whether this was in time to win the game really
+    pub(crate) won_in: Option<(bool, String)>,
+    /// how many correct matches were proved
+    pub(crate) matches_found: u8,
+    /// beginning when this season was solvable, if it is/was solvable at all
+    /// `None` -> we don't know
+    /// `Some((true, x))` -> solvable in `x` and this is in-time to win the game
+    /// `Some((false, x))` -> solvable in `x` but not in time to win the game
+    pub(crate) solvable_in: Option<(bool, String)>,
 
-    pub offers_mn: SumOffersMN,
-    pub offers_mb: SumOffersMB,
+    /// stats on the offers regarding matching-nights
+    pub(crate) offers_mn: SumOffersMN,
+    /// stats on the offers regarding match-boxes
+    pub(crate) offers_mb: SumOffersMB,
+}
+
+#[allow(clippy::derivable_impls)]
+impl Default for SumCounts {
+    fn default() -> Self {
+        Self {
+            blackouts: 0,
+            won_in: None,
+            matches_found: 0,
+            solvable_in: None,
+            offers_mn: Default::default(),
+            offers_mb: Default::default(),
+        }
+    }
 }
 
 /// Collect sums regarding offers made for MBs
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct SumOffersMB {
-    pub sold_but_match_active: bool,
-    pub sold_cnt: u8,
-    pub sold_but_match: u8,
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub(crate) struct SumOffersMB {
+    /// whether `sold_but_match` is active (for this the solution must be known)
+    pub(crate) sold_but_match_active: bool,
+    /// how many offers were accepted -> sold
+    pub(crate) sold_cnt: u8,
+    /// how often an offer was accepted (-> sold) when it was a correct match
+    pub(crate) sold_but_match: u8,
 
-    pub offers_noted: bool,
-    pub offers: u64,
-    pub offer_and_match: u64,
-    pub offered_money: u128,
+    /// whether offers are even noted in this season
+    pub(crate) offers_noted: bool,
+    /// how many offers were made
+    pub(crate) offers_cnt: u64,
+    /// how often an offer was made when it was a correct match
+    pub(crate) offer_and_match: u64,
+    /// how much money was offered in total
+    pub(crate) offered_money: u128,
 }
 /// Collect sums regarding offers made for MNs
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct SumOffersMN {
-    pub sold_cnt: u8,
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub(crate) struct SumOffersMN {
+    /// how many offers were accepted -> sold
+    pub(crate) sold_cnt: u8,
 
-    pub offers_noted: bool,
-    pub offers: u64,
-    pub offered_money: u128,
+    /// whether offers are even noted in this season
+    pub(crate) offers_noted: bool,
+    /// how many offers were made
+    pub(crate) offers_cnt: u64,
+    /// how much money was offered in total
+    pub(crate) offered_money: u128,
+}
+
+#[allow(clippy::derivable_impls)]
+impl Default for SumOffersMB {
+    fn default() -> Self {
+        Self {
+            sold_but_match_active: false,
+            sold_cnt: 0,
+            sold_but_match: 0,
+            offers_noted: false,
+            offers_cnt: 0,
+            offer_and_match: 0,
+            offered_money: 0,
+        }
+    }
+}
+#[allow(clippy::derivable_impls)]
+impl Default for SumOffersMN {
+    fn default() -> Self {
+        Self {
+            sold_cnt: 0,
+            offers_noted: false,
+            offers_cnt: 0,
+            offered_money: 0,
+        }
+    }
 }
 
 impl SumOffersMB {
-    /// Increment this `SumOffersMB` with values found in `other`.
-    ///
-    /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
+    /// Increment this `SumOffersMB` with values found in `other`. Works in-place
+    pub(crate) fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
         self.sold_but_match += other.sold_but_match;
         self.sold_but_match_active |= other.sold_but_match_active;
 
-        self.offers += other.offers;
+        self.offers_cnt += other.offers_cnt;
         self.offered_money += other.offered_money;
         self.offer_and_match += other.offer_and_match;
         self.offers_noted |= other.offers_noted;
     }
 }
 impl SumOffersMN {
-    /// Increment this `SumOffersMB` with values found in `other`.
-    ///
-    /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
+    /// Increment this `SumOffersMB` with values found in `other`. Works in-place
+    pub(crate) fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
 
-        self.offers += other.offers;
+        self.offers_cnt += other.offers_cnt;
         self.offered_money += other.offered_money;
         self.offers_noted |= other.offers_noted;
     }
 }
 
 impl SumCounts {
-    /// Increment this `SumCounts` with values found in `other`.
-    ///
-    /// This is an in-place, allocation-free aggregator used while building a summary.
-    pub fn add(&mut self, other: &Self) {
+    /// Increment this `SumCounts` with values found in `other`. Works in-place
+    pub(crate) fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
 
         self.offers_mn.add(&other.offers_mn);
@@ -263,6 +345,8 @@ impl SumCounts {
 }
 
 impl Constraint {
+    /// get the evaluated statistics for this constraint which can be used in the comparison with
+    /// other seasons
     pub fn get_stats(&self) -> Result<Option<EvalEvent>> {
         if self.hidden {
             return Ok(None);
@@ -300,6 +384,7 @@ impl Constraint {
 
 #[cfg(test)]
 mod tests {
+    use pretty_assertions::assert_eq;
     use std::collections::{BTreeMap, HashMap};
 
     use crate::{
@@ -328,8 +413,7 @@ mod tests {
             },
             build_tree: false,
             left_poss: vec![],
-            hide_ruleset_data: false,
-            ruleset_data: Box::new(DummyData::default()),
+            ruleset_data: Some(Box::new(DummyData::default())),
             known_lights: 0,
         };
 
@@ -354,16 +438,16 @@ mod tests {
                 offers_noted: false,
                 offer_and_match: 0,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             offers_mn: SumOffersMN {
                 sold_cnt: 2,
                 offers_noted: false,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             matches_found: 1,
-            won: false,
+            won_in: None,
             solvable_in: Some((true, "".to_string())),
         };
         let b = SumCounts {
@@ -375,16 +459,16 @@ mod tests {
                 offers_noted: false,
                 offer_and_match: 0,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             offers_mn: SumOffersMN {
                 sold_cnt: 2,
                 offers_noted: false,
                 offered_money: 0,
-                offers: 0,
+                offers_cnt: 0,
             },
             matches_found: 0,
-            won: true,
+            won_in: Some((true, "MN#1".to_string())),
             solvable_in: Some((false, "".to_string())),
         };
         a.add(&b);

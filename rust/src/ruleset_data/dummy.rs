@@ -1,12 +1,20 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This ruleset_data can be used if no specific data should be collected. The functions which need
+//! to be implemented are simple no-ops.
+
+use anyhow::Result;
+
 use crate::matching_repr::MaskedMatching;
 use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
-use anyhow::Result;
 
 /// Dummy implementation of `RuleSetData` used when the ruleset does not need
-/// per-solution statistics. Methods are intentionally no-ops.
-#[derive(Debug, Clone, Default)]
+/// per-solution statistics => no-op
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct DummyData {}
 
 impl RuleSetData for DummyData {

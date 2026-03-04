@@ -1,7 +1,13 @@
-/// This module contains some helpers which help theming the outputs.
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module contains some helpers which help theming the outputs.
+
 use catppuccin::{ColorName, Flavor, PALETTE};
 use plotly::common::{ColorScale, ColorScaleElement};
 
+/// lookup the color palette which is to be used with this theme id
 pub(super) fn lut_theme(theme: u8) -> Flavor {
     match theme {
         1 => PALETTE.latte,
@@ -13,6 +19,7 @@ pub(super) fn lut_theme(theme: u8) -> Flavor {
     }
 }
 
+/// get a colorscale which can be used with plotly in the specific theme
 pub(super) fn plotly_colorscale(_palette: &Flavor) -> ColorScale {
     let palette = PALETTE.latte;
     ColorScale::Vector(vec![

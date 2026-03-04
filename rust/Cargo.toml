@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 Lukas Heindl
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # cargo-features = ["profile-rustflags"]
 
 [package]
@@ -12,7 +16,9 @@ license = "GPL-3.0-or-later"
 [profile.release]
 codegen-units = 1
 lto = true
-# rustflags = ["-C", "target-cpu=skylake"]
+
+# rustflags = ["-C", "target-cpu=native"]
+# RUSTFLAGS=-Wmissing_docs
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
@@ -31,6 +37,11 @@ num-format = "0.4.4"
 rand = "0.10.0"
 rayon = "1.11.0"
 chrono = "0.4.43"
+smallvec = {version = "1.15.1", features = ["serde"] }
 
 [dev-dependencies]
 tempfile = "3.25.0"
+pretty_assertions = "1.4.1"
+
+[lints.clippy]
+missing_docs_in_private_items = "warn"

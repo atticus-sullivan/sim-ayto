@@ -1,8 +1,13 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This module collects some functions to generate uniformly styled plotly figures.
+
 use catppuccin::Flavor;
 use plotly::{common::Title, Layout, Plot};
 
-/// Create a new Plotly `Plot` with default configuration used across the site
-/// (responsive, no plotly logo, scroll zoom enabled).
+/// Create a new Plotly `Plot` with default configuration we came up with
 pub(super) fn plotly_new_plot() -> Plot {
     let mut plot = Plot::new();
     plot.set_configuration(

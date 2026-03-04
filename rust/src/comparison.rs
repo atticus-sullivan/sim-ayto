@@ -1,9 +1,14 @@
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This complete module contains the functionality to
+//! 1. collect stored data about seasons from disk
+//! 2. render them in plots (plotly) and tables (markdown using hextra/hugo additions)
+//!
+//! This module is the only one needed to the outside (`write_pages`). Everything is plugged together here.
+
 mod data;
-/// This complete module contains the functionality to
-/// 1. collect stored data about seasons from disk
-/// 2. render them in plots (plotly) and tables (markdown using hextra/hugo additions)
-///
-/// This module is the only one needed to the outside (`write_pages`). Everything is plugged together here.
 mod plotly;
 mod presentation;
 mod theme;
@@ -18,27 +23,28 @@ use crate::comparison::presentation::lights;
 use crate::comparison::presentation::ruleset;
 use crate::comparison::presentation::summary;
 
-/// Configuration for producing one page (path + filtering).
-///
-/// - `link_title` is the human/title used on the index page.
-/// - `base_path` is the path (file *without extension*) where the MD will be written.
-/// - `ruleset_filter` selects which ruleset directories from `./data` should be included.
+/// Configuration for producing one comparison markdown page.
 struct PageConfig<'a> {
+    /// the human/title used on the index page.
     link_title: &'a str,
+    /// the path (file *without extension*) where the MD will be written.
     base_path: PathBuf,
+    /// selects which ruleset directories from `./data` should be included.
     ruleset_filter: fn(&str) -> bool,
 }
 
 /// Language selector used when rendering localized strings in the markdown output.
 #[derive(Copy, Clone)]
 pub(super) enum Language {
+    /// german language
     De,
+    /// english language
     En,
 }
 
 impl Language {
     /// Format a boolean as a localized "Yes/No" string.
-    pub fn format_bool_yes_no(&self, val: bool) -> &str {
+    pub(crate) fn format_bool_yes_no(&self, val: bool) -> &str {
         match self {
             Language::De => {
                 if val {
@@ -57,8 +63,8 @@ impl Language {
         }
     }
 
-    /// Return the number formatting `Locale` used for formatting monetary amounts / numbers.
-    pub fn number_formatting(&self) -> num_format::Locale {
+    /// Return a number formatting `Locale` used for formatting monetary amounts / numbers.
+    pub(crate) fn number_formatting(&self) -> num_format::Locale {
         match self {
             Language::De => num_format::Locale::de,
             Language::En => num_format::Locale::en,
@@ -70,10 +76,9 @@ impl Language {
 ///
 /// `html_path_de` and `html_path_us` point to the base filenames where the
 /// generated markdown will be written (file extension is added by `write_page`).
+///
 /// `theme_light` and `theme_dark` select the catppuccin palette numbers used for
 /// light and dark versions of the Plotly plots.
-///
-/// This is the high-level entrypoint used by your site generator.
 pub fn write_pages(
     html_path_de: &Path,
     html_path_us: &Path,

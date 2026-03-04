@@ -1,5 +1,10 @@
-/// This renders the plots which show information regarding the amount of lights over the course of
-/// time
+// SPDX-FileCopyrightText: 2026 Lukas Heindl
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+//! This renders the plots which show information regarding the amount of lights over the course of
+//! time
+
 use plotly::common::Mode;
 
 use crate::comparison::plotly::heatmap::{build_heatmap_plot, EntryDatum};
@@ -10,11 +15,12 @@ use crate::comparison::data::CmpData;
 use crate::comparison::theme::lut_theme;
 use crate::constraint::compare::EvalEvent;
 
-/// Build plots about "lights" (lighting related evaluation metrics).
+/// Build plots about "lights"
 ///
-/// Accepts the comparison dataset and a `theme` index. Returns
-/// pairs `(tab label, plot HTML)` to be embedded in the generated pages.
-pub fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
+/// Accepts the comparison dataset and a `theme` index.
+///
+/// Returns pairs `(tab label, plot HTML)` to be embedded in the generated pages.
+pub(crate) fn plots(cmp_data: &Vec<(String, CmpData)>, theme: u8) -> Vec<(String, String)> {
     let palette = lut_theme(theme);
     let layout = plotly_gen_layout(palette);
 
