@@ -26,7 +26,7 @@ const WORD_BITS: usize = 64;
 /// typical maximum length of matchings relevant for using smallvec
 /// don't use 10 to leave space in case the permutation generation code needs space for more (e.g.
 /// the dups/trips in the initial permutation)
-pub const MATCH_MAX_LEN: usize = 15;
+pub const MATCH_MAX_LEN: usize = 12;
 
 /// This is a way of representing a full matching. For each element it stores a `Bitset` so multple
 /// items from *set_b* can match to the element (from *set_a*).
