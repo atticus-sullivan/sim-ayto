@@ -8,8 +8,6 @@ frontmatter:
   identifier: us-season3
   weight: 1
 
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup 
 rule_set: !Eq
 # blackout rule is new here
 
@@ -48,7 +46,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E01"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Chuck: Hannah
       Tyler: Rashida
@@ -70,7 +67,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E02 -- blackout -250.000$"}
     check: !Lights [0]
-    # resultUnknown: true
     map:
       Hunter: Stacey
       Austin: Kiki
@@ -92,7 +88,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E03"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Connor: Chelsey
       Chuck: Kiki
@@ -113,7 +108,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E04"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Alec: Amanda
       Tyler: Melanie
@@ -134,7 +128,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E05"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Connor: Chelsey
       Hunter: Melanie
@@ -155,7 +148,6 @@ constraints:
 
   - type: !Night {num: 6, comment: "E06"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Connor: Chelsey
       Chuck: Amanda
@@ -176,8 +168,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [3]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Connor: Chelsey
       Alec: Rashida
@@ -192,7 +184,8 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Hunter: Amanda
       Nelson: Kiki
@@ -200,8 +193,8 @@ constraints:
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [3]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Connor: Chelsey
       Mike: Melanie
@@ -216,7 +209,8 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Zak: Hannah
       # Hunter: Britni
@@ -224,8 +218,8 @@ constraints:
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [2]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Connor: Chelsey
       Hunter: Kayla
@@ -240,7 +234,8 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Zak: Kayla
       # Devin: Rashida
@@ -248,8 +243,8 @@ constraints:
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Connor: Chelsey
       Zak: Kayla

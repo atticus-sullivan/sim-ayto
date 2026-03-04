@@ -8,8 +8,6 @@ frontmatter:
   identifier: us-season7
   weight: 1
 
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup 
 rule_set: !Eq
 
 setA:
@@ -50,7 +48,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E02"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Bria: Zak
       Kenya: Tevin
@@ -75,7 +72,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E03"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Kenya: Tevin
       Kayla: Cam
@@ -100,7 +96,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E04"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Maria: Shamoy
       Asia: Lewis
@@ -125,7 +120,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E06"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Maria: Shamoy
       Kayla: Brett
@@ -150,7 +144,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E08"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Maria: Shamoy
       Kenya: Tevin
@@ -172,7 +165,6 @@ constraints:
 
   - type: !Night {num: 6, comment: "E09"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Maria: Shamoy
       Lauren: Andrew
@@ -195,8 +187,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E11"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Maria: Shamoy
       Nutsa: Brett
@@ -212,7 +204,8 @@ constraints:
 
   - type: !Box {num: 8, comment: "E12"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Kenya: Tevin
       # Tevin
@@ -222,8 +215,8 @@ constraints:
 
   - type: !Night {num: 8, comment: "E12"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Maria: Shamoy
       Kenya: Tevin
@@ -239,7 +232,8 @@ constraints:
 
   - type: !Box {num: 9, comment: "E12"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Samantha: Cam
       # Cam
@@ -249,8 +243,8 @@ constraints:
 
   - type: !Night {num: 9, comment: "E13"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Maria: Shamoy
       Kenya: Tevin
@@ -266,7 +260,8 @@ constraints:
 
   - type: !Box {num: 10, comment: "E14"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Nutsa: Brett
       # Moe
@@ -276,8 +271,8 @@ constraints:
 
   - type: !Night {num: 10, comment: "E14"}
     check: !Lights [11]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Maria: Shamoy
       Kenya: Tevin

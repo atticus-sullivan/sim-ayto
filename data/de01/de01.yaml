@@ -10,8 +10,6 @@ frontmatter:
 
 rule_set: !XTimesDup [Edin]
 
-# rule_set: !Eq
-
 setA:
   - Aline
   - Ivana
@@ -143,7 +141,8 @@ constraints:
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aline: Mo
       Melissa: Laurin
@@ -159,13 +158,15 @@ constraints:
 
   - type: !Box {num: 7, comment: "E14"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Ivana: Edin
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aline: Mo
       Melissa: Laurin
@@ -181,13 +182,15 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Sabrina: Axel
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [6]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aline: Mo
       Melissa: Laurin
@@ -203,13 +206,15 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Luisa: Ferhat
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [7]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aline: Mo
       Melissa: Laurin
@@ -225,13 +230,15 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Kathi: Kevin
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aline: Mo
       Melissa: Laurin

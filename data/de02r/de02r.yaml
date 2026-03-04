@@ -6,7 +6,6 @@ frontmatter:
   identifier: deR-season2
   weight: 1
 
-# rule_set: !SomeoneIsDup
 rule_set: !XTimesDup [Felix]
 
 setA:
@@ -155,14 +154,16 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Cecilia: Amadu
       # Gina: Fabio
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Anna: Micha
       Cecilia: Amadu
@@ -178,14 +179,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Anna: Micha
       # Ricarda: Pharrell
 
   - type: !Night {num: 8, comment: "E18"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Anna: Micha
       Cecilia: Amadu
@@ -201,14 +204,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19", offer: !Group {by: "Maurice", amount: 5000}}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Ricarda: Pharrell
       # Gina: Fabio
 
   - type: !Night {num: 9, comment: "E20"}
     check: !Lights [7]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Anna: Micha
       Cecilia: Amadu
@@ -224,14 +229,16 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Franzi: Max
       # Karina: Martin
 
   - type: !Night {num: 10, comment: "E21"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Anna: Micha
       Cecilia: Amadu
