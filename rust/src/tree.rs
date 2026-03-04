@@ -12,48 +12,58 @@ use std::io::Write;
 use anyhow::{Context, Result};
 use serde::Deserialize;
 
-use crate::Lut;
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::{IdBase, MaskedMatching};
+use crate::Lut;
 
+/// Parsing struct for `TreeConfig`, can be converted to this via the `finalize` function
 #[derive(Clone, Deserialize, Debug)]
 pub(crate) struct TreeConfigParse {
+    /// an id which can be used as a component in the filename
     id: String,
+    /// something which can be shown as part of the title in the image
     #[serde(default)]
     title: String,
+    /// these individuals from set_b will be ignored when drawing this tree
     #[serde(default, rename = "ignoreB")]
     ignore_b: Vec<String>,
+    /// the layers associated with these individuals from set_a will be moved up right below the
+    /// layers where the PM has already been found. The order specified here will be the order in
+    /// the output.
+    /// Especially useful when using ignore_b as tree_ordering is determined on the unfiltered
+    /// matchings
     #[serde(default, rename = "moveUpA")]
     move_up_a: Vec<String>,
 }
 
 impl TreeConfigParse {
-    pub(crate) fn finalize(
-        self,
-        lut_a: &Lut,
-        lut_b: &Lut,
-    ) -> Result<TreeConfig> {
-        let ignore_b  = self
+    /// convert the parsing struct to the real thing. Consumes itself.
+    ///
+    /// Needs the luts to convert the names to indices
+    pub(crate) fn finalize(self, lut_a: &Lut, lut_b: &Lut) -> Result<TreeConfig> {
+        let ignore_b = self
             .ignore_b
             .iter()
-            .map(|b| lut_b
-                .get(b)
-                .with_context(|| format!("{b} not found in lut_b for TreeConfig {}", self.id))
-                .map(|i| *i as IdBase)
-            )
+            .map(|b| {
+                lut_b
+                    .get(b)
+                    .with_context(|| format!("{b} not found in lut_b for TreeConfig {}", self.id))
+                    .map(|i| *i as IdBase)
+            })
             .collect::<Result<Vec<_>>>()?;
 
         let move_up_a = self
             .move_up_a
             .iter()
-            .map(|a| lut_a
-                .get(a)
-                .with_context(|| format!("{a} not found in lut_a for TreeConfig {}", self.id))
-                .map(|i| *i as IdBase)
-            )
+            .map(|a| {
+                lut_a
+                    .get(a)
+                    .with_context(|| format!("{a} not found in lut_a for TreeConfig {}", self.id))
+                    .map(|i| *i as IdBase)
+            })
             .collect::<Result<Vec<_>>>()?;
 
-        Ok(TreeConfig{
+        Ok(TreeConfig {
             id: self.id,
             title: self.title,
             ignore_b,
@@ -62,15 +72,25 @@ impl TreeConfigParse {
     }
 }
 
+/// A configuration for drawing a tree
 #[derive(Clone, Debug, PartialEq)]
 pub(crate) struct TreeConfig {
+    /// an id which can be used as a component in the filename
     id: String,
+    /// something which can be shown as part of the title in the image
     title: String,
+    /// these individuals from set_b will be ignored when drawing this tree
     ignore_b: Vec<IdBase>,
+    /// the layers associated with these individuals from set_a will be moved up right below the
+    /// layers where the PM has already been found. The order specified here will be the order in
+    /// the output.
+    /// Especially useful when using ignore_b as tree_ordering is determined on the unfiltered
+    /// matchings
     move_up_a: Vec<IdBase>,
 }
 
 impl TreeConfig {
+    /// getter for the id of this config. Can be used as part of a filename/path
     pub(crate) fn id(&self) -> &str {
         &self.id
     }
@@ -109,10 +129,9 @@ impl TreeConfig {
         for p in data {
             let mut parent = "root".to_owned();
             for &(i, _) in ordering.iter() {
-                let mut mask = p
+                let mut mask = *p
                     .slot_mask(i as usize)
-                    .with_context(|| format!("slot {i} missing in matching"))?
-                    .clone();
+                    .with_context(|| format!("slot {i} missing in matching"))?;
                 for c in &self.ignore_b {
                     mask.clear_bit(*c);
                 }
@@ -243,6 +262,12 @@ pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(I
     ordering
 }
 
+/// adjust the ordering so the ids are moved up.
+///
+/// The resulting orering will be as follows:
+/// 1. perfect matches (only one possibility left for this 1:1 match
+/// 2. ids in the order from `ids`
+/// 3. the remaining ones in the order from `ordering`
 pub(crate) fn ordering_move(ordering: &[(IdBase, usize)], ids: &[IdBase]) -> Vec<(IdBase, usize)> {
     let mut ret = Vec::with_capacity(ordering.len());
 
@@ -256,7 +281,7 @@ pub(crate) fn ordering_move(ordering: &[(IdBase, usize)], ids: &[IdBase]) -> Vec
     // insert the layers specified
     for id in ids {
         // obtain the item from ordering with the specified id
-        if let Some(&(oid, cnt)) = ordering.iter().find(|(j,_)| j == id) {
+        if let Some(&(oid, cnt)) = ordering.iter().find(|(j, _)| j == id) {
             // ensure ret does not already contain this id
             if !ret.iter().any(|(r_id, _)| r_id == &oid) {
                 ret.push((oid, cnt))
@@ -399,7 +424,7 @@ mod tests {
     // TODO: finalize
     #[test]
     fn finalize_ok() -> Result<()> {
-        let cfg_p = TreeConfigParse{
+        let cfg_p = TreeConfigParse {
             id: "abc".to_string(),
             title: "def".to_string(),
             ignore_b: vec!["a".to_string(), "c".to_string()],
@@ -418,7 +443,7 @@ mod tests {
 
         let cfg = cfg_p.finalize(&lut_a, &lut_b)?;
 
-        let expected = TreeConfig{
+        let expected = TreeConfig {
             id: "abc".to_string(),
             title: "def".to_string(),
             ignore_b: vec![0, 2],
@@ -442,7 +467,7 @@ mod tests {
             ("c".to_string(), 2),
         ]);
 
-        let cfg_p = TreeConfigParse{
+        let cfg_p = TreeConfigParse {
             id: "abc".to_string(),
             title: "def".to_string(),
             ignore_b: vec!["a".to_string(), "d".to_string()],
@@ -450,7 +475,7 @@ mod tests {
         };
         assert!(cfg_p.finalize(&lut_a, &lut_b).is_err());
 
-        let cfg_p = TreeConfigParse{
+        let cfg_p = TreeConfigParse {
             id: "abc".to_string(),
             title: "def".to_string(),
             ignore_b: vec!["a".to_string(), "c".to_string()],
@@ -464,19 +489,25 @@ mod tests {
     #[test]
     fn dot_tree_produces_complete_dot_output() -> Result<()> {
         let data = vec![
-            MaskedMatching::from_matching_ref(&[vec![3], vec![0,1], vec![2]]),
-            MaskedMatching::from_matching_ref(&[vec![3], vec![2], vec![0,1]]),
-            MaskedMatching::from_matching_ref(&[vec![3], vec![4], vec![0,1]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![0, 1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![2], vec![0, 1]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![4], vec![0, 1]]),
         ];
 
-        let map_a = vec!["A", "B", "C"].into_iter().map(|x| x.to_string()).collect::<Vec<_>>();
-        let map_b = vec!["a", "b", "c", "d", "e"].into_iter().map(|x| x.to_string()).collect::<Vec<_>>();
+        let map_a = vec!["A", "B", "C"]
+            .into_iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>();
+        let map_b = vec!["a", "b", "c", "d", "e"]
+            .into_iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>();
 
         let ordering = tree_ordering(&data, &map_a);
 
         println!("{:?}", ordering);
 
-        let cfg = TreeConfig{
+        let cfg = TreeConfig {
             id: "abcI".to_string(),
             title: "abcT".to_string(),
             ignore_b: vec![1],
@@ -520,15 +551,7 @@ mod tests {
         // 10 already inserted before -> ignore
         let o = ordering_move(&ordering, &[2, 3, 99, 10]);
 
-        let expected = vec![
-            (10, 1),
-            (5, 1),
-            (11, 1),
-            (2, 11),
-            (3, 10),
-            (1, 5),
-            (4, 15)
-        ];
+        let expected = vec![(10, 1), (5, 1), (11, 1), (2, 11), (3, 10), (1, 5), (4, 15)];
 
         assert_eq!(o, expected)
     }

@@ -130,7 +130,11 @@ impl ConstraintParse {
         // validate shape invariants
         self.validate_constraint(map_len)?;
 
-        let tree_cfg = self.tree_cfg.into_iter().map(|c| c.finalize(lut_a, lut_b)).collect::<Result<Vec<_>>>()?;
+        let tree_cfg = self
+            .tree_cfg
+            .into_iter()
+            .map(|c| c.finalize(lut_a, lut_b))
+            .collect::<Result<Vec<_>>>()?;
 
         // create the base Constraint (eliminated_tab sized using LUT lengths)
         let mut c = Constraint {
@@ -148,7 +152,7 @@ impl ConstraintParse {
             left_poss: Default::default(),
             ruleset_data: (!self.hidden && !self.hide_ruleset_data).then_some(ruleset_data),
             known_lights,
-            build_tree: tree_cfg.len() > 0,
+            build_tree: !tree_cfg.is_empty(),
             tree_cfg,
         };
 

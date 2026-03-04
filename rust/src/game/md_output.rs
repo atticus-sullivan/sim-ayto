@@ -52,8 +52,7 @@ impl Game {
                 writeln!(
                     out,
                     "{{{{% img src=\"/{stem}/{stem}_{}_tree_{}.png\" %}}}}",
-                    tab.idx,
-                    t
+                    tab.idx, t
                 )?;
             }
 

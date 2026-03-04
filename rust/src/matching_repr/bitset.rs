@@ -75,7 +75,6 @@ impl Bitset {
     }
 
     /// Clear a specific bit (mutates).
-    /// TODO: tests
     #[inline(always)]
     pub fn clear_bit(&mut self, idx: IdBase) {
         self.0 &= !(1 << idx);

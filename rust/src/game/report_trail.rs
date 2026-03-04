@@ -129,9 +129,11 @@ impl Game {
             }
             let trees = if !no_tree_output {
                 event.constraint.build_tree(
-                    |id| self.dir
-                        .join(format!("{}_{}_tree_{}", self.stem, tab_idx, id))
-                        .with_extension("dot"),
+                    |id| {
+                        self.dir
+                            .join(format!("{}_{}_tree_{}", self.stem, tab_idx, id))
+                            .with_extension("dot")
+                    },
                     &self.map_a,
                     &self.map_b,
                 )?
