@@ -8,8 +8,6 @@ frontmatter:
   identifier: us-season5
   weight: 1
 
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup 
 rule_set: !Eq
 # one couple more
 # erste staffel mit verkaufsangeboten für MBs
@@ -51,7 +49,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E01"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Edward: Kam
       Tyler: Taylor
@@ -74,7 +71,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E02 -- blackout -500,000$"}
     check: !Lights [0]
-    # resultUnknown: true
     map:
       Osvaldo: Kari
       Ozzy: Kathryn
@@ -97,7 +93,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E03"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Joey: Kathryn
       Osvaldo: Tyranny
@@ -119,7 +114,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E04"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Mike: Kam
       Ozzy: Hannah
@@ -141,7 +135,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E05"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Edward: Kam
       Ozzy: Hannah
@@ -163,7 +156,6 @@ constraints:
 
   - type: !Night {num: 6, comment: "E06"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Edward: Kam
       Joey: Kathryn
@@ -185,8 +177,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Edward: Kam
       Andre: Casandra
@@ -202,15 +194,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Hayden: Carolina
       # Michael: Kathryn
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [5]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Edward: Kam
       Hayden: Carolina
@@ -226,15 +219,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09 -- sold for +150,000$"}
     check: !Sold
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Mike: Casandra
       Derrick: Tyranny
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [9]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Edward: Kam
       Hayden: Carolina
@@ -250,15 +244,16 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10 -- sold +150,000$"}
     check: !Sold
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Joey: Casandra
       # Derrick: Tyranny
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [8]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Edward: Kam
       Hayden: Carolina

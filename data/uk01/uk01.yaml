@@ -8,8 +8,6 @@ frontmatter:
   identifier: uk-season1
   weight: 1
 
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup 
 rule_set: !Eq
 
 setA:
@@ -46,7 +44,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E01"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Shae: Jack
       Robyn: Jordan
@@ -67,7 +64,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E02"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Vic: Jacob
       Taofiqah: Cach
@@ -88,7 +84,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E03"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Olivia: Ismail
       Therese: Josh
@@ -114,7 +109,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E04"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Therese: Josh
       Shae: Cach
@@ -135,7 +129,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E05"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Olivia: Ismail
       Robyn: Joshy
@@ -156,8 +149,8 @@ constraints:
 
   - type: !Night {num: 6, comment: "E06"}
     check: !Lights [2]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Olivia: Ismail
       Libby: Charlie
@@ -172,15 +165,16 @@ constraints:
 
   - type: !Box {num: 7, comment: "E07"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Sapphia: Cach
       Thea: Charlie
 
   - type: !Night {num: 7, comment: "E07 -- Blackout"}
     check: !Lights [1]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Olivia: Ismail
       Vic: Joshy
@@ -195,15 +189,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Vic: Jacob
       # Thea: Jordan
 
   - type: !Night {num: 8, comment: "E08"}
     check: !Lights [6]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Olivia: Ismail
       Vic: Theo
@@ -218,15 +213,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Therese: Cach
       Libby: Joshy
 
   - type: !Night {num: 9, comment: "E10"}
     check: !Lights [6]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Olivia: Ismail
       Libby: Joshy
@@ -241,14 +237,15 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Tasha: Charlie
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Olivia: Ismail
       Libby: Joshy

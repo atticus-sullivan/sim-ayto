@@ -2,7 +2,6 @@
 # 0wvedwvep0wPj
 
 solved: false
-# gen_cache: true
 
 frontmatter:
   linkTitle: 'DE Staffel 7'
@@ -10,8 +9,6 @@ frontmatter:
 
 
 rule_set: !XTimesDup [null]
-# rule_set: !FixedDup Aurora
-# rule_set: !Eq
 
 setA:
 - Chris
@@ -47,9 +44,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [3]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       Julian: Aurora
       JulianM: Adrianna
@@ -71,9 +65,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [2]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       Chris: Tonia
       Jeronymo: Tiziana
@@ -95,9 +86,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [2]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       Luke: Marla
       Julian: Alicia
@@ -119,9 +107,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E10", offer: !Group {by: "Chris", amount: 55000}}
     check: !Sold
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       JulianM: Marla
       Chris: Aurora
@@ -143,9 +128,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [5]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       JulianM: Marla
       Meji: Ella

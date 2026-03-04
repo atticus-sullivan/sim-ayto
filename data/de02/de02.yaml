@@ -8,7 +8,6 @@ frontmatter:
   identifier: de-season2
   weight: 1
 
-# rule_set: !SomeoneIsDup
 rule_set: !XTimesDup [VanessaM]
 
 setA:
@@ -158,7 +157,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aaron: Melissa
       Dario: Sabrina
@@ -173,13 +173,15 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Marko: Sabrina
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aaron: Vanessa
       Dario: Victoria
@@ -194,13 +196,15 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aaron: Melissa
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [3]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aaron: Melissa
       Dario: Kathleen
@@ -215,13 +219,15 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Marc: Mirjam
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Aaron: Melissa
       Dario: Sabrina

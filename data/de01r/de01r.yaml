@@ -6,7 +6,6 @@ frontmatter:
   identifier: deR-season1
   weight: 1
 
-# rule_set: !SomeoneIsDup
 rule_set: !XTimesDup [Vanessa]
 
 setA:
@@ -159,7 +158,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [2]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Alexander: Jacqueline
       Danilo: Aurelia
@@ -175,14 +175,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16", offer: !Group {by: "Finja", amount: 25000}}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Eugen: Stefanie
       # Alexander: Kathleen
 
   - type: !Night {num: 8, comment: "E16 -- blackout"} # -50k
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Alexander: Melina
       Danilo: Aurelia
@@ -198,20 +200,23 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18", offer: !Group {by: "Melina", amount: 25000}}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Josua: Sarah
       # Eugen: Vanessa
 
   - type: !Box {num: 9.1, comment: "E18/15 -- 'geschenkte' Matchbox"} # kostet aber 200_000 -> entscheidet Diogo
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Tommy: Melina
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Alexander: Sarah
       Danilo: Jill
@@ -227,7 +232,8 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Josua: Aurelia
       # Jamy: Melina
@@ -235,7 +241,8 @@ constraints:
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [7]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Alexander: Vanessa
       Danilo: Sarah

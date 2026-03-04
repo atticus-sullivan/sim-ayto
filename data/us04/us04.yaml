@@ -8,8 +8,6 @@ frontmatter:
   identifier: us-season4
   weight: 1
 
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Christina
 rule_set: !Eq
 # blackout -> -250.000$
 
@@ -124,15 +122,16 @@ constraints:
 
   - type: !Box {num: 5, comment: "E05"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Nicole: Prosper
       Kaylen: Gio
 
   - type: !Night {num: 5, comment: "E05"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Mikala: Cameron
       Emma: Cam
@@ -147,15 +146,16 @@ constraints:
 
   - type: !Box {num: 6, comment: "E06"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Emma: John
       Alyssa: Sam
 
   - type: !Night {num: 6, comment: "E06"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Mikala: Cameron
       Alyssa: Sam
@@ -170,15 +170,16 @@ constraints:
 
   - type: !Box {num: 7, comment: "E07"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Tori: Morgan
       Victoria: Cam
 
   - type: !Night {num: 7, comment: "E07"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Mikala: Cameron
       Alyssa: Sam
@@ -193,15 +194,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E08"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Kaylen: John
       Julia: Gio
 
   - type: !Night {num: 8, comment: "E08 -- blackout -250.000$"}
     check: !Lights [2]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Mikala: Cameron
       Alyssa: Sam
@@ -216,15 +218,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E09"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Emma: Prosper
       # Francesca: Asaf
 
   - type: !Night {num: 9, comment: "E09"}
     check: !Lights [6]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Mikala: Cameron
       Alyssa: Sam
@@ -239,14 +242,16 @@ constraints:
 
   - type: !Box {num: 10, comment: "E10"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Julia: Cam
       # Nicole: John
 
   - type: !Night {num: 10, comment: "E10"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Mikala: Cameron
       Alyssa: Sam

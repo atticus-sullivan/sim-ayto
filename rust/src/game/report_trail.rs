@@ -72,7 +72,7 @@ pub(super) struct MdTable {
     /// the index where to find the table
     pub(super) idx: usize,
     /// whether a tree is attached to this table
-    pub(super) tree: bool,
+    pub(super) trees: Vec<String>,
     /// whether the table shall be wrapped in a detail block (makes the table collapsible)
     pub(super) detail: bool,
 }
@@ -115,7 +115,7 @@ impl Game {
         md_tables.push(MdTable {
             name: "tab-start".to_owned(),
             idx: tab_idx,
-            tree: false,
+            trees: vec![],
             detail: false,
         });
         tab_idx += 1;
@@ -127,16 +127,18 @@ impl Game {
                 println!();
                 continue;
             }
-            let tree = if !no_tree_output {
+            let trees = if !no_tree_output {
                 event.constraint.build_tree(
-                    self.dir
-                        .join(format!("{}_{}_tree", self.stem, tab_idx))
-                        .with_extension("dot"),
+                    |id| {
+                        self.dir
+                            .join(format!("{}_{}_tree_{}", self.stem, tab_idx, id))
+                            .with_extension("dot")
+                    },
                     &self.map_a,
                     &self.map_b,
                 )?
             } else {
-                false
+                vec![]
             };
 
             println!(
@@ -157,7 +159,7 @@ impl Game {
             md_tables.push(MdTable {
                 name: event.constraint.md_heading(),
                 idx: tab_idx,
-                tree,
+                trees,
                 detail: true,
             });
             tab_idx += 1;

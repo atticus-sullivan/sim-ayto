@@ -6,10 +6,7 @@ frontmatter:
   identifier: de-season5
   weight: 1
 
-# rule_set: !SomeoneIsTrip
 rule_set: !FixedTrip Melanie
-# rule_set: !FixedDup Max
-# rule_set: !FixedDup 
 
 setA:
   - Eti
@@ -152,7 +149,8 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -169,14 +167,16 @@ constraints:
 
   - type: !Box {num: 6, comment: "E13", offer: !Group {by: "Martin", amount: 30000}}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Paulo: Maja
       Sandro: Sina
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -193,14 +193,16 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Sandro: Afra
       Paulo: Julia
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -217,14 +219,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16 -- verkauft", offer: !Single {by: "Lina", amount: 20000, save: true, reducedPot: false}}
     check: !Sold
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Eti: Maja
       # Paddy: Edda
 
   - type: !Night {num: 8, comment: "E17"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -241,14 +245,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"} # Sophia frag Lina nach nem Freundschaftspreis -> macht keinen
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Sidar: Julia
       Sandro: Afra
 
   - type: !Night {num: 9, comment: "E19"}
     check: !Lights [6]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -265,14 +271,16 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Kevin: Lina
       # Sidar: Sina
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [7]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly
@@ -289,7 +297,8 @@ constraints:
 
   - type: !Night {num: 11, comment: "E21 -- Reunion"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Gerrit: Tais
       Wilson: Shelly

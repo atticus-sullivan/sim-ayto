@@ -38,7 +38,7 @@ setB:
   - JimiBlue
 
 constraints:
-  - type: !Box {num: 1, comment: "E03 -- verkauft > 20€ > Joanna", offer: !Single {by: "Joanna", amount: 20, reducedPot: true, save: true}}
+  - type: !Box {num: 1, comment: "E03 -- verkauft", offer: !Single {by: "Joanna", amount: 20, reducedPot: true, save: true}}
     check: !Sold
     map:
       Sandra: Kevin
@@ -67,8 +67,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E06 -- -50k Kamera verdeckt (Kevin+Ariel)"}
     check: !Lights [2]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Joanna: CalvinBlond
@@ -90,8 +88,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E08 -- +20€ aus Grosszuegigkeit :)"}
     check: !Lights [2]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Joanna: CalvinBlond
@@ -113,8 +109,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E10"}
     check: !Lights [3]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Joanna: CalvinBlond
@@ -143,8 +137,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Antonia: Olli
@@ -167,8 +159,6 @@ constraints:
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [4]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Sandra: Lennert
@@ -196,8 +186,6 @@ constraints:
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [5]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Sandra: Lennert
@@ -219,8 +207,6 @@ constraints:
 
   - type: !Night {num: 8, comment: "E18"}
     check: !Lights [4]
-    # buildTree: true
-    # resultUnknown: true
     map:
       Elli: Xander
       Sandra: Lennert
@@ -242,8 +228,8 @@ constraints:
 
   - type: !Night {num: 9, comment: "E19"}
     check: !Lights [4]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Elli: Xander
       Sandra: Lennert
@@ -259,20 +245,22 @@ constraints:
 
   - type: !Box {num: 9.6, comment: "E20 -- Geschenk: MN Überprüfung -40k => 115k"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Nelly: CalvinHot
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Joanna: CalvinBlond
 
   - type: !Night {num: 10, comment: "E21"}
     check: !Lights [7]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Elli: Xander
       Sandra: Lennert
@@ -288,8 +276,8 @@ constraints:
 
   - type: !Night {num: 11, comment: "E22 (Wiedersehen)"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Elli: Xander
       Sandra: Lennert
@@ -306,8 +294,8 @@ constraints:
 
   - type: !Night {num: 11, comment: "E22 (Wiedersehen)"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Elli: Xander
       Sandra: Lennert
@@ -323,8 +311,8 @@ constraints:
       # Joanna: Jonny
   - type: !Night {num: 11.2, comment: "E22 (Wiedersehen-2)"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Elli: Xander
       Sandra: Lennert
