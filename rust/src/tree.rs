@@ -45,8 +45,10 @@ pub(crate) fn dot_tree<W: Write>(
                 .slot_mask(i as usize)
                 .with_context(|| format!("slot {i} missing in matching"))?;
             let node = builder.ensure_node(&parent, i as usize, mask)?;
-            builder.write_edge(&parent, &node)?;
-            parent = node;
+            if node.0 {
+                builder.write_edge(&parent, &node.1)?;
+            }
+            parent = node.1;
         }
     }
     write_footer(writer)?;
@@ -82,12 +84,17 @@ impl<'a, W: Write> DotBuilder<'a, W> {
     ///
     /// If the node does not exist yet, this function creates the node in the `.dot` output (with
     /// the correct id and label).
-    fn ensure_node(&mut self, parent: &str, idx: usize, mask: &Bitset) -> Result<String> {
+    /// If the node did already exists this is indicated with the first value in the tuple
+    ///
+    /// Returns Ok((new:bool, nodeId/nodeName: String)) on success
+    fn ensure_node(&mut self, parent: &str, idx: usize, mask: &Bitset) -> Result<(bool, String)> {
         let mut node = parent.to_string();
         node.push('/');
         node.push_str(&format!("{:b}", mask));
 
-        if self.seen.insert(node.clone()) {
+        let new = self.seen.insert(node.clone());
+
+        if new {
             // if node is new -- write node label or empty label
             if mask.count() == 0 {
                 writeln!(self.writer, "\"{node}\"[label=\"\"]")?;
@@ -105,7 +112,7 @@ impl<'a, W: Write> DotBuilder<'a, W> {
                 )?;
             }
         }
-        Ok(node)
+        Ok((new,node))
     }
 
     /// Write an edge from `parent` to `child` in the `.dot` output.
@@ -228,7 +235,8 @@ mod tests {
 
         let expected = "\"root/10\"[label=\"B\\nb\"]\n";
 
-        assert_eq!(node_id, "root/10");
+        assert_eq!(node_id.1, "root/10");
+        assert!(node_id.0);
         assert_eq!(got, expected);
 
         Ok(())
@@ -243,10 +251,12 @@ mod tests {
         let mut builder = DotBuilder::new(&mut buf, &map_a, &map_b);
 
         let node_id = builder.ensure_node("root", 1, mask)?;
-        assert_eq!(node_id, "root/10");
+        assert_eq!(node_id.1, "root/10");
+        assert!(node_id.0);
 
         let node_id = builder.ensure_node("root", 1, mask)?;
-        assert_eq!(node_id, "root/10");
+        assert_eq!(node_id.1, "root/10");
+        assert!(!node_id.0);
 
         let got = String::from_utf8(buf)?;
 
@@ -300,7 +310,6 @@ mod tests {
 "root" -> "root/1";
 "root/1/10"[label="B\nb"]
 "root/1" -> "root/1/10";
-"root" -> "root/1";
 "root/1/11"[label="B\na\nb"]
 "root/1" -> "root/1/11";
 }
