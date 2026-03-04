@@ -112,7 +112,7 @@ impl<'a, W: Write> DotBuilder<'a, W> {
                 )?;
             }
         }
-        Ok((new,node))
+        Ok((new, node))
     }
 
     /// Write an edge from `parent` to `child` in the `.dot` output.

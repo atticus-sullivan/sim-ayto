@@ -115,9 +115,7 @@ impl Game {
 
         println!(
             "Total permutations: {}  Permutations left: {}  Initial combinations for each pair: {}",
-            is.total,
-            is.survivors,
-            is.each[0][0]
+            is.total, is.survivors, is.each[0][0]
         );
 
         Ok(())
