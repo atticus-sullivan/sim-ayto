@@ -99,7 +99,7 @@ jobs:
 
       - name: Upload the executable
         id: upload-artifact
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ayto
           path: rust/target/release/ayto
@@ -138,7 +138,7 @@ jobs:
 
       - name: Download the built tool artifact
         if: ${{ matrix.sim != '' }}
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: ayto
 
@@ -166,7 +166,7 @@ jobs:
 
       - name: Upload simulation results
         if: ${{ matrix.sim != '' }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: sim-results-${{ env.SAFENAME }}
           path: |
@@ -197,7 +197,7 @@ jobs:
           git push
 
       - name: Download simulation results
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: sim-results-*  # Download all the artifacts from the matrix jobs
           path: ./data
@@ -295,7 +295,7 @@ jobs:
           fi
 
       - name: Upload generated pictures as artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: pictures-${{ matrix.sim }}
           path: |
@@ -333,14 +333,14 @@ jobs:
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
 
       - name: Download picture assets
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: pictures-*  # Download all the artifacts from the matrix jobs
           path: ./gh-pages/static/
           merge-multiple: true
 
       - name: Download the built tool artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: ayto
 
