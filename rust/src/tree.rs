@@ -421,7 +421,6 @@ mod tests {
         assert_eq!(ordering, vec![(0, 1), (1, 2)]);
     }
 
-    // TODO: finalize
     #[test]
     fn finalize_ok() -> Result<()> {
         let cfg_p = TreeConfigParse {

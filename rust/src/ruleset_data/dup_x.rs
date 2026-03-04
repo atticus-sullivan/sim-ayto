@@ -199,7 +199,6 @@ impl<'a> DupXStats<'a> {
         let by_bitset = aggregate_by_bitset(&filtered);
 
         let by_individual = aggregate_by_individual_b(&filtered);
-        // println!("   / 200 %"); // TODO: dup_**X** => not always 200
 
         let by_a = aggregate_by_individual_a(&filtered);
 
