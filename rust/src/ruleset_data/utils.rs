@@ -77,6 +77,7 @@ where
 ///
 /// `entries` provides data and a count. The count will be converted to percentage values by the
 /// use of `total.`
+#[allow(clippy::too_many_arguments)]
 pub(super) fn print_stats<T, W>(
     mut f: W,
     title: &str,
