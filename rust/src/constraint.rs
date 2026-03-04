@@ -46,6 +46,7 @@ use crate::constraint::check_type::CheckType;
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
 use crate::ruleset_data::dummy::DummyData;
 use crate::ruleset_data::RuleSetData;
+use crate::tree::TreeConfig;
 use crate::{LightCnt, MapS};
 
 /// An offer attached to an event. There are various ways in which offers can be made which is
@@ -254,6 +255,9 @@ pub struct Constraint {
     pub(crate) ruleset_data: Option<Box<dyn RuleSetData>>,
     /// how many lights are definitely known (via MB decisions) prior applying this constraint
     known_lights: LightCnt,
+
+    /// configuration for building trees
+    tree_cfg: Vec<TreeConfig>,
 }
 
 impl Hash for Constraint {
@@ -298,6 +302,7 @@ impl Default for Constraint {
             left_poss: vec![],
             ruleset_data: Some(Box::new(DummyData::default())),
             known_lights: 0,
+            tree_cfg: vec![],
         }
     }
 }

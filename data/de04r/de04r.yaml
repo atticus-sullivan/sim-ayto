@@ -36,18 +36,6 @@ setB:
 renameB:
   LauraL: "LauraL/blond"
 
-# queryMatchings:
-#   - Kaan: [Tara]
-#     MarcRobin: [LauraM]
-#     Nikola: [LauraL]
-#     Lukas: [Nadja]
-#     Alex: [Gabriela]
-#     Tim: [Linda]
-#     Antonino: [Jenny,Dana]
-#     Lars: [Asena]
-#     Chris: [Emmy]
-#     Ozan: [Anastasia]
-
 constraints:
   - type: !Box {num: 1, comment: "E03"}
     check: !Lights [0]
@@ -145,7 +133,8 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Chris: Emmy
       Ozan: Dana
@@ -161,15 +150,16 @@ constraints:
 
   - type: !Box {num: 6, comment: "E13"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # MarcRobin: LauraM
       Ozan: Anastasia
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [6]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Chris: Emmy
       Ozan: Anastasia
@@ -185,15 +175,16 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15", offer: !GroupPair {amount: 50000, byA: "Lukas", byB: "Jenny"}}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Lukas: Jenny
       #Lars: Linda
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [6]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Chris: Emmy
       Ozan: Anastasia
@@ -209,14 +200,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     noExclude: true
     hidden: true
     map:
       Tim: Dana
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     noExclude: true
     map:
       Tim: Linda
@@ -224,8 +217,8 @@ constraints:
 
   - type: !Night {num: 8, comment: "E18"}
     check: !Lights [7]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Chris: Emmy
       Ozan: Anastasia
@@ -240,15 +233,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Lars: LauraL
       # Nikola: LauraM
 
   - type: !Night {num: 9, comment: "E20"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Chris: Emmy
       Ozan: Anastasia

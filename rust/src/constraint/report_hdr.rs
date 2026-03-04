@@ -27,6 +27,7 @@ impl fmt::Display for CheckTypeRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.check {
             CheckType::Eq => write!(f, "Eq ")?,
+            CheckType::HintCntMatch(x) => write!(f, "Xcnt({x}) ")?,
             CheckType::Nothing | CheckType::Sold => write!(f, "Nothing ")?,
             CheckType::Lights(l, _) => {
                 // information theory
@@ -178,6 +179,13 @@ mod tests {
             e: Some(0.0),
         };
         assert_eq!(ctr.to_string(), "Eq ");
+
+        let ctr = CheckTypeRender {
+            check: &CheckType::HintCntMatch(2),
+            i: Some(vec![(0, 0.0)]),
+            e: Some(0.0),
+        };
+        assert_eq!(ctr.to_string(), "Xcnt(2) ");
 
         let ctr = CheckTypeRender {
             check: &CheckType::Sold {},

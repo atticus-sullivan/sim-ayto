@@ -6,7 +6,6 @@ frontmatter:
   identifier: de-season3
   weight: 1
 
-# rule_set: !SomeoneIsDup
 rule_set: !XTimesDup [Desiree]
 
 setA:
@@ -139,7 +138,8 @@ constraints:
 
   - type: !Night {num: 6, comment: "E12"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Antonino: Dana
       Jordi: Desiree
@@ -154,13 +154,15 @@ constraints:
 
   - type: !Box {num: 7, comment: "E14 -- -50k Regelverstoß d. Antonino+Monami"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Marius: Zaira
 
   - type: !Night {num: 7, comment: "E14"}
     check: !Lights [6]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Antonino: Dana
       Andre: Desiree
@@ -175,13 +177,15 @@ constraints:
 
   - type: !Box {num: 8, comment: "E16"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Jordi: Raphaela
 
   - type: !Night {num: 8, comment: "E16"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Antonino: Dana
       Mike: Estelle
@@ -196,13 +200,15 @@ constraints:
 
   - type: !Box {num: 9, comment: "E18"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Max: Kerstin
 
   - type: !Night {num: 9, comment: "E18"}
     check: !Lights [2]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Dustin: Dana
       Andre: Desiree
@@ -217,13 +223,15 @@ constraints:
 
   - type: !Box {num: 10, comment: "E20"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Dustin: Isabelle
 
   - type: !Night {num: 10, comment: "E20"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Antonino: Dana
       Jordi: Estelle
@@ -238,7 +246,8 @@ constraints:
 
   - type: !Night {num: 11, comment: "Reunion"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Antonino: Dana
       Jordi: Estelle

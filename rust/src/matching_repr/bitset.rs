@@ -74,6 +74,12 @@ impl Bitset {
         self.0 &= self.0 - 1;
     }
 
+    /// Clear a specific bit (mutates).
+    #[inline(always)]
+    pub fn clear_bit(&mut self, idx: IdBase) {
+        self.0 &= !(1 << idx);
+    }
+
     /// Return number of trailing zeros (for lowest set bit).
     #[inline(always)]
     pub fn trailing_zeros(self) -> u32 {
@@ -412,5 +418,22 @@ mod tests {
         let mut vec = vec![b, a];
         vec.sort();
         assert_eq!(vec, vec![a, b]);
+    }
+
+    #[test]
+    fn clear_bit_simple() {
+        let mut a = Bitset::from_word(0b1010);
+
+        a.clear_bit(0);
+        assert_eq!(a.0, 0b1010);
+
+        a.clear_bit(2);
+        assert_eq!(a.0, 0b1010);
+
+        a.clear_bit(1);
+        assert_eq!(a.0, 0b1000);
+
+        a.clear_bit(3);
+        assert_eq!(a.0, 0b0000);
     }
 }

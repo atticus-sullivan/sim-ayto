@@ -7,8 +7,6 @@ frontmatter:
   weight: 1
 
 rule_set: !XTimesDup [null]
-# rule_set: !FixedDup Tori
-# rule_set: !Eq
 
 setA:
   - Danish
@@ -50,8 +48,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [2]
-    # resultUnknown: true
-    # noExclude: true
     map:
       Dino: Deisy
       Sinan: Ina
@@ -73,8 +69,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [3]
-    # resultUnknown: true
-    # noExclude: true
     map:
       Josh: Nadja
       Kaan: Anna
@@ -96,8 +90,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [4]
-    # resultUnknown: true
-    # noExclude: true
     map:
       Joshua: Joanna
       Dion: Chiara
@@ -119,8 +111,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E10"}
     check: !Lights [4]
-    # resultUnknown: true
-    # noExclude: true
     map:
       Danish: Nadja
       Enes: Selina
@@ -142,7 +132,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
-    # noExclude: true
     map:
       Danish: Nadja
       Dino: Deisy
@@ -164,7 +153,8 @@ constraints:
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Danish: Nadja
       Dino: Deisy
@@ -186,8 +176,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [6]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Danish: Nadja
       Dino: Deisy
@@ -209,8 +199,8 @@ constraints:
 
   - type: !Night {num: 8, comment: "E18"}
     check: !Lights [5]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Danish: Nadja
       Dino: Deisy
@@ -232,8 +222,8 @@ constraints:
 
   - type: !Night {num: 9, comment: "E20"}
     check: !Lights [7]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Danish: Nadja
       Dino: Deisy
@@ -249,15 +239,16 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Tano: Joanna
       Josh: Camelia
 
   - type: !Night {num: 10, comment: "E21"}
     check: !Lights [10]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Danish: Nadja
       Dino: Deisy

@@ -138,7 +138,8 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [4]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Steffi: Chris
       Caro: Ken
@@ -154,14 +155,16 @@ constraints:
 
   - type: !Box {num: 6, comment: "E13"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Dorna: Burim
         # Larissa: Marwin
 
   - type: !Night {num: 6, comment: "E14"}
     check: !Lights [3]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Steffi: Chris
       Caro: Ken
@@ -177,14 +180,16 @@ constraints:
 
   - type: !Box {num: 7, comment: "E15", offer: !Group {by: "Barkin", amount: 100000}}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Juliette: Joel
      # Vanessa: Marwin
 
   - type: !Night {num: 7, comment: "E16 -- Blackout"}
     check: !Lights [2]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
      Steffi: Chris
      Caro: Ken
@@ -200,14 +205,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E17"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Dorna: Marwin
       # Valeria: Burim
 
   - type: !Night {num: 8, comment: "E18 -- Blackout"}
     check: !Lights [2]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Steffi: Chris
       Caro: Ken
@@ -223,14 +230,16 @@ constraints:
 
   - type: !Box {num: 9, comment: "E19"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Carina: Pascal
       # Burim: Aurelia
 
   - type: !Night {num: 9, comment: "E20 -- finale"}
     check: !Lights [10]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Steffi: Chris
       Caro: Ken

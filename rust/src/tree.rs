@@ -10,49 +10,141 @@ use std::collections::HashSet;
 use std::io::Write;
 
 use anyhow::{Context, Result};
+use serde::Deserialize;
 
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::{IdBase, MaskedMatching};
+use crate::Lut;
 
-/// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
-/// calculated beforehand.
-///
-/// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
-/// afterwards.
-///
-/// Arguments:
-/// - `writer` is where the `.dot` file is written to
-/// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
-/// - `ordering` controls the order of the layers/levels
-/// - `title` is placed in the graph label
-/// - `map_a`/`map_b` are used to render readable labels.
-pub(crate) fn dot_tree<W: Write>(
-    writer: &mut W,
-    data: &[MaskedMatching],
-    ordering: &[(IdBase, usize)],
-    title: &str,
-    map_a: &[String],
-    map_b: &[String],
-) -> Result<()> {
-    write_header(writer, title)?;
+/// Parsing struct for `TreeConfig`, can be converted to this via the `finalize` function
+#[derive(Clone, Deserialize, Debug)]
+pub(crate) struct TreeConfigParse {
+    /// an id which can be used as a component in the filename
+    id: String,
+    /// something which can be shown as part of the title in the image
+    #[serde(default)]
+    title: String,
+    /// these individuals from set_b will be ignored when drawing this tree
+    #[serde(default, rename = "ignoreB")]
+    ignore_b: Vec<String>,
+    /// the layers associated with these individuals from set_a will be moved up right below the
+    /// layers where the PM has already been found. The order specified here will be the order in
+    /// the output.
+    /// Especially useful when using ignore_b as tree_ordering is determined on the unfiltered
+    /// matchings
+    #[serde(default, rename = "moveUpA")]
+    move_up_a: Vec<String>,
+}
 
-    let mut builder = DotBuilder::new(writer, map_a, map_b);
+impl TreeConfigParse {
+    /// convert the parsing struct to the real thing. Consumes itself.
+    ///
+    /// Needs the luts to convert the names to indices
+    pub(crate) fn finalize(self, lut_a: &Lut, lut_b: &Lut) -> Result<TreeConfig> {
+        let ignore_b = self
+            .ignore_b
+            .iter()
+            .map(|b| {
+                lut_b
+                    .get(b)
+                    .with_context(|| format!("{b} not found in lut_b for TreeConfig {}", self.id))
+                    .map(|i| *i as IdBase)
+            })
+            .collect::<Result<Vec<_>>>()?;
 
-    for p in data {
-        let mut parent = "root".to_owned();
-        for &(i, _) in ordering {
-            let mask = p
-                .slot_mask(i as usize)
-                .with_context(|| format!("slot {i} missing in matching"))?;
-            let node = builder.ensure_node(&parent, i as usize, mask)?;
-            if node.0 {
-                builder.write_edge(&parent, &node.1)?;
-            }
-            parent = node.1;
-        }
+        let move_up_a = self
+            .move_up_a
+            .iter()
+            .map(|a| {
+                lut_a
+                    .get(a)
+                    .with_context(|| format!("{a} not found in lut_a for TreeConfig {}", self.id))
+                    .map(|i| *i as IdBase)
+            })
+            .collect::<Result<Vec<_>>>()?;
+
+        Ok(TreeConfig {
+            id: self.id,
+            title: self.title,
+            ignore_b,
+            move_up_a,
+        })
     }
-    write_footer(writer)?;
-    Ok(())
+}
+
+/// A configuration for drawing a tree
+#[derive(Clone, Debug, PartialEq)]
+pub(crate) struct TreeConfig {
+    /// an id which can be used as a component in the filename
+    id: String,
+    /// something which can be shown as part of the title in the image
+    title: String,
+    /// these individuals from set_b will be ignored when drawing this tree
+    ignore_b: Vec<IdBase>,
+    /// the layers associated with these individuals from set_a will be moved up right below the
+    /// layers where the PM has already been found. The order specified here will be the order in
+    /// the output.
+    /// Especially useful when using ignore_b as tree_ordering is determined on the unfiltered
+    /// matchings
+    move_up_a: Vec<IdBase>,
+}
+
+impl TreeConfig {
+    /// getter for the id of this config. Can be used as part of a filename/path
+    pub(crate) fn id(&self) -> &str {
+        &self.id
+    }
+
+    /// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
+    /// calculated beforehand.
+    ///
+    /// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
+    /// afterwards.
+    ///
+    /// Arguments:
+    /// - `writer` is where the `.dot` file is written to
+    /// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
+    /// - `ordering` controls the order of the layers/levels
+    /// - `title` is placed in the graph label
+    /// - `map_a`/`map_b` are used to render readable labels.
+    pub(crate) fn dot_tree<W: Write>(
+        &self,
+        writer: &mut W,
+        data: &[MaskedMatching],
+        ordering: &[(IdBase, usize)],
+        title: &str,
+        map_a: &[String],
+        map_b: &[String],
+    ) -> Result<()> {
+        if self.title.is_empty() {
+            write_header(writer, title)?;
+        } else {
+            write_header(writer, &format!("{} | {}", title, self.title))?;
+        }
+
+        let ordering = ordering_move(ordering, &self.move_up_a);
+
+        let mut builder = DotBuilder::new(writer, map_a, map_b);
+
+        for p in data {
+            let mut parent = "root".to_owned();
+            for &(i, _) in ordering.iter() {
+                let mut mask = *p
+                    .slot_mask(i as usize)
+                    .with_context(|| format!("slot {i} missing in matching"))?;
+                for c in &self.ignore_b {
+                    mask.clear_bit(*c);
+                }
+                let node = builder.ensure_node(&parent, i as usize, &mask)?;
+                if node.0 {
+                    builder.write_edge(&parent, &node.1)?;
+                }
+                parent = node.1;
+            }
+        }
+        write_footer(writer)?;
+        Ok(())
+    }
 }
 
 /// A generic builder for .dot files in this context
@@ -168,6 +260,43 @@ pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(I
 
     ordering.sort_unstable_by_key(|(_, x)| *x);
     ordering
+}
+
+/// adjust the ordering so the ids are moved up.
+///
+/// The resulting orering will be as follows:
+/// 1. perfect matches (only one possibility left for this 1:1 match
+/// 2. ids in the order from `ids`
+/// 3. the remaining ones in the order from `ordering`
+pub(crate) fn ordering_move(ordering: &[(IdBase, usize)], ids: &[IdBase]) -> Vec<(IdBase, usize)> {
+    let mut ret = Vec::with_capacity(ordering.len());
+
+    // insert the layers with just one outgoing edge
+    for &(id, cnt) in ordering {
+        if cnt <= 1 {
+            ret.push((id, cnt));
+        }
+    }
+
+    // insert the layers specified
+    for id in ids {
+        // obtain the item from ordering with the specified id
+        if let Some(&(oid, cnt)) = ordering.iter().find(|(j, _)| j == id) {
+            // ensure ret does not already contain this id
+            if !ret.iter().any(|(r_id, _)| r_id == &oid) {
+                ret.push((oid, cnt))
+            }
+        }
+    }
+    // insert the remaining elements
+    for &(id, cnt) in ordering {
+        // ensure ret does not already contain this id
+        if !ret.iter().any(|(r_id, _)| r_id == &id) {
+            ret.push((id, cnt));
+        }
+    }
+
+    ret
 }
 
 #[cfg(test)]
@@ -293,30 +422,136 @@ mod tests {
     }
 
     #[test]
+    fn finalize_ok() -> Result<()> {
+        let cfg_p = TreeConfigParse {
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec!["a".to_string(), "c".to_string()],
+            move_up_a: vec!["A".to_string(), "C".to_string(), "B".to_string()],
+        };
+        let lut_a = Lut::from_iter([
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+        ]);
+        let lut_b = Lut::from_iter([
+            ("a".to_string(), 0),
+            ("b".to_string(), 1),
+            ("c".to_string(), 2),
+        ]);
+
+        let cfg = cfg_p.finalize(&lut_a, &lut_b)?;
+
+        let expected = TreeConfig {
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec![0, 2],
+            move_up_a: vec![0, 2, 1],
+        };
+
+        assert_eq!(cfg, expected);
+        Ok(())
+    }
+
+    #[test]
+    fn finalize_err() -> Result<()> {
+        let lut_a = Lut::from_iter([
+            ("A".to_string(), 0),
+            ("B".to_string(), 1),
+            ("C".to_string(), 2),
+        ]);
+        let lut_b = Lut::from_iter([
+            ("a".to_string(), 0),
+            ("b".to_string(), 1),
+            ("c".to_string(), 2),
+        ]);
+
+        let cfg_p = TreeConfigParse {
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec!["a".to_string(), "d".to_string()],
+            move_up_a: vec!["A".to_string(), "C".to_string(), "B".to_string()],
+        };
+        assert!(cfg_p.finalize(&lut_a, &lut_b).is_err());
+
+        let cfg_p = TreeConfigParse {
+            id: "abc".to_string(),
+            title: "def".to_string(),
+            ignore_b: vec!["a".to_string(), "c".to_string()],
+            move_up_a: vec!["A".to_string(), "D".to_string(), "B".to_string()],
+        };
+        assert!(cfg_p.finalize(&lut_a, &lut_b).is_err());
+
+        Ok(())
+    }
+
+    #[test]
     fn dot_tree_produces_complete_dot_output() -> Result<()> {
-        let (data, map_a, map_b) = fixture_data();
+        let data = vec![
+            MaskedMatching::from_matching_ref(&[vec![3], vec![0, 1], vec![2]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![2], vec![0, 1]]),
+            MaskedMatching::from_matching_ref(&[vec![3], vec![4], vec![0, 1]]),
+        ];
+
+        let map_a = vec!["A", "B", "C"]
+            .into_iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>();
+        let map_b = vec!["a", "b", "c", "d", "e"]
+            .into_iter()
+            .map(|x| x.to_string())
+            .collect::<Vec<_>>();
+
         let ordering = tree_ordering(&data, &map_a);
 
+        println!("{:?}", ordering);
+
+        let cfg = TreeConfig {
+            id: "abcI".to_string(),
+            title: "abcT".to_string(),
+            ignore_b: vec![1],
+            move_up_a: vec![1],
+        };
+
         let mut buf = Vec::new();
-        dot_tree(&mut buf, &data, &ordering, "FULL_GRAPH", &map_a, &map_b)?;
+        cfg.dot_tree(&mut buf, &data, &ordering, "FULL_GRAPH", &map_a, &map_b)?;
 
         let got = String::from_utf8(buf)?;
 
         // Build the exact expected DOT representation.
-        //
-        // Header
-        let expected = r#"digraph D { labelloc="b"; label="Stand: FULL_GRAPH"; ranksep=0.8;
-"root/1"[label="A\na"]
-"root" -> "root/1";
-"root/1/10"[label="B\nb"]
-"root/1" -> "root/1/10";
-"root/1/11"[label="B\na\nb"]
-"root/1" -> "root/1/11";
+        let expected = r#"digraph D { labelloc="b"; label="Stand: FULL_GRAPH | abcT"; ranksep=0.8;
+"root/1000"[label="A\nd"]
+"root" -> "root/1000";
+"root/1000/1"[label="B\na"]
+"root/1000" -> "root/1000/1";
+"root/1000/1/100"[label="C\nc"]
+"root/1000/1" -> "root/1000/1/100";
+"root/1000/100"[label="B\nc"]
+"root/1000" -> "root/1000/100";
+"root/1000/100/1"[label="C\na"]
+"root/1000/100" -> "root/1000/100/1";
+"root/1000/10000"[label="B\ne"]
+"root/1000" -> "root/1000/10000";
+"root/1000/10000/1"[label="C\na"]
+"root/1000/10000" -> "root/1000/10000/1";
 }
 "#;
 
         assert_eq!(got, expected);
 
         Ok(())
+    }
+
+    #[test]
+    fn ordering_move_simple() {
+        let ordering = vec![(10, 1), (5, 1), (11, 1), (1, 5), (3, 10), (2, 11), (4, 15)];
+
+        // 99 does not exist -> ignored
+        // 10 already inserted before -> ignore
+        let o = ordering_move(&ordering, &[2, 3, 99, 10]);
+
+        let expected = vec![(10, 1), (5, 1), (11, 1), (2, 11), (3, 10), (1, 5), (4, 15)];
+
+        assert_eq!(o, expected)
     }
 }

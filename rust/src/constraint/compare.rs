@@ -412,6 +412,7 @@ mod tests {
                 offer: None,
             },
             build_tree: false,
+            tree_cfg: vec![],
             left_poss: vec![],
             ruleset_data: Some(Box::new(DummyData::default())),
             known_lights: 0,

@@ -18,6 +18,7 @@ use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::IdBase;
 use crate::ruleset_data::RuleSetData;
+use crate::tree::TreeConfigParse;
 use crate::{LightCnt, Lut, MapS, Rename};
 
 /// this struct is only used when parsing the yaml file.
@@ -46,12 +47,12 @@ pub(crate) struct ConstraintParse {
     /// whether the result of this is still unknown (despite how check is set)
     #[serde(default, rename = "resultUnknown")]
     pub(super) result_unknown: bool,
-    /// whether to build a .dot-tree for this constraint/event
-    #[serde(default, rename = "buildTree")]
-    pub(super) build_tree: bool,
     /// whether to hide the ruleset_data for this constraint
     #[serde(default, rename = "hideRulesetData")]
     pub(super) hide_ruleset_data: bool,
+    /// how to build .dot-tree(s) for this constraint,  leave empty to not built a tree at all
+    #[serde(default, rename = "treeCfg")]
+    pub(super) tree_cfg: Vec<TreeConfigParse>,
 }
 
 impl Default for ConstraintParse {
@@ -68,7 +69,7 @@ impl Default for ConstraintParse {
             no_exclude: false,
             exclude_s: None,
             result_unknown: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: true,
         }
     }
@@ -129,13 +130,18 @@ impl ConstraintParse {
         // validate shape invariants
         self.validate_constraint(map_len)?;
 
+        let tree_cfg = self
+            .tree_cfg
+            .into_iter()
+            .map(|c| c.finalize(lut_a, lut_b))
+            .collect::<Result<Vec<_>>>()?;
+
         // create the base Constraint (eliminated_tab sized using LUT lengths)
         let mut c = Constraint {
             r#type: self.r#type,
             check: self.check,
             hidden: self.hidden,
             result_unknown: self.result_unknown,
-            build_tree: self.build_tree,
             map_s: c_map_s,
             map: c_map.try_into()?,
             exclude: None,
@@ -146,6 +152,8 @@ impl ConstraintParse {
             left_poss: Default::default(),
             ruleset_data: (!self.hidden && !self.hide_ruleset_data).then_some(ruleset_data),
             known_lights,
+            build_tree: !tree_cfg.is_empty(),
+            tree_cfg,
         };
 
         // rename keys in map_s for user-facing output
@@ -255,7 +263,7 @@ mod tests {
             no_exclude: false,
             result_unknown: false,
             exclude_s: None,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 
@@ -305,7 +313,7 @@ mod tests {
             result_unknown: false,
             exclude_s: Some(("A".to_string(), vec!["C".to_string(), "D".to_string()])),
             no_exclude: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 
@@ -357,7 +365,7 @@ mod tests {
             result_unknown: false,
             exclude_s: None,
             no_exclude: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 
@@ -407,7 +415,7 @@ mod tests {
             exclude_s: None,
             no_exclude: false,
             result_unknown: false,
-            build_tree: false,
+            tree_cfg: vec![],
             hide_ruleset_data: false,
         };
 

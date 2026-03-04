@@ -154,7 +154,7 @@ jobs:
 
           chmod +x ./ayto
 
-          ./ayto sim -c -o "${STEM}" "${STEM}.yaml" > "${STEM}.col.out"
+          ./ayto sim -o "${STEM}" "${STEM}.yaml" > "${STEM}.col.out"
 
           # Use $GITHUB_ENV to share variables across steps
           echo "STEM=${STEM}" >> $GITHUB_ENV

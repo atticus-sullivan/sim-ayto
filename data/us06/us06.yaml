@@ -8,8 +8,6 @@ frontmatter:
   identifier: us-season6
   weight: 1
 
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup 
 rule_set: !Eq
 
 setA:
@@ -70,7 +68,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E03"}
     check: !Lights [1]
-    # resultUnknown: true
     map:
       Keith: Alexis
       Clinton: Uche
@@ -93,7 +90,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E05"}
     check: !Lights [2]
-    # resultUnknown: true
     map:
       Malcolm: Geles
       Michael: Audrey
@@ -116,7 +112,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E05"}
     check: !Lights [3]
-    # resultUnknown: true
     map:
       Dimitri: Alexis
       Kareem: Diandra
@@ -139,7 +134,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E06"}
     check: !Lights [1]
-    # resultUnknown: true
     map:
       Anthony: Nicole
       Malcolm: Diandra
@@ -161,7 +155,6 @@ constraints:
 
   - type: !Night {num: 6, comment: "E07"}
     check: !Lights [4]
-    # resultUnknown: true
     map:
       Anthony: Keyana
       Joe: Alexis
@@ -183,8 +176,8 @@ constraints:
 
   - type: !Night {num: 7, comment: "E09"}
     check: !Lights [5]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Kareem: Nurys
       Anthony: Keyana
@@ -200,15 +193,16 @@ constraints:
 
   - type: !Box {num: 8, comment: "E10"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Michael: Audrey
       # Joe: Alivia
 
   - type: !Night {num: 8, comment: "E09"}
     check: !Lights [3]
-    buildTree: true
-    # resultUnknown: true
+    treeCfg:
+      - id: ""
     map:
       Dimitri: Diandra
       Clinton: Geles
@@ -224,7 +218,8 @@ constraints:
 
   - type: !Box {num: 9, comment: "E11"}
     check: !Lights [1]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Keith: Diandra
       Tyler: Nicole
@@ -232,7 +227,8 @@ constraints:
 
   - type: !Night {num: 9, comment: "E11"}
     check: !Lights [5]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Tyler: Nicole
       Anthony: Uche
@@ -248,14 +244,16 @@ constraints:
 
   - type: !Box {num: 10, comment: "E12"}
     check: !Lights [0]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       # Malcolm: Keyana
       Dimitri: Jada
 
   - type: !Night {num: 10, comment: "E12"}
     check: !Lights [11]
-    buildTree: true
+    treeCfg:
+      - id: ""
     map:
       Tyler: Nicole
       Clinton: Geles

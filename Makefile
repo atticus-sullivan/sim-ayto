@@ -23,7 +23,7 @@ MOALIAS := $(patsubst %.yaml,mon_%,$(notdir $(DAT_RUST)))
 
 .PHONY: all clean check $(ALIAS) $(CLALIAS) $(CHALIAS) $(CAALIAS) $(CEALIAS) $(MOALIAS) comparison hugo cache
 
-GENARGS ?= --transpose -c
+GENARGS ?= --transpose
 
 -include Makefile.conf
 # eg in case ansitoimg is installed in a venv which needs to be sourced before
@@ -39,7 +39,7 @@ CAT ?= cat
 
 # is executed after the output file was generated (in cat_* targets). Usually
 # used to play/display some sort of notification
-NOTIF ?= 
+NOTIF ?= :
 
 # should only be defined if the tree pdf shall be displayed (in case it was
 # generated) when running cat_* target

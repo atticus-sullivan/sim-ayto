@@ -92,7 +92,7 @@ impl ConstraintEval for Constraint {
     fn won(&self, required_lights: usize) -> bool {
         if let ConstraintType::Night { .. } = self.r#type {
             match self.check {
-                CheckType::Eq => false,
+                CheckType::Eq | CheckType::HintCntMatch(..) => false,
                 CheckType::Nothing | CheckType::Sold => false,
                 CheckType::Lights(l, _) => l as usize == required_lights,
             }

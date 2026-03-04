@@ -18,7 +18,7 @@ impl Constraint {
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
-            CheckType::Eq => false,
+            CheckType::Eq | CheckType::HintCntMatch(..) => false,
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
@@ -31,7 +31,7 @@ impl Constraint {
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
-            CheckType::Eq => false,
+            CheckType::Eq | CheckType::HintCntMatch(..) => false,
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
@@ -44,7 +44,7 @@ impl Constraint {
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
-            CheckType::Eq => false,
+            CheckType::Eq | CheckType::HintCntMatch(..) => false,
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
@@ -57,7 +57,7 @@ impl Constraint {
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
-            CheckType::Eq => false,
+            CheckType::Eq | CheckType::HintCntMatch(..) => false,
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
@@ -70,7 +70,7 @@ impl Constraint {
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
-            CheckType::Eq => false,
+            CheckType::Eq | CheckType::HintCntMatch(..) => false,
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
@@ -85,7 +85,7 @@ impl Constraint {
         };
         r && match &self.check {
             CheckType::Lights { .. } => true,
-            CheckType::Eq => false,
+            CheckType::Eq | CheckType::HintCntMatch(..) => false,
             CheckType::Nothing | CheckType::Sold => false,
         }
     }

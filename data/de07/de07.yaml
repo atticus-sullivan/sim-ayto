@@ -1,8 +1,7 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-solved: false
-# gen_cache: true
+solved: true
 
 frontmatter:
   linkTitle: 'DE Staffel 7'
@@ -10,8 +9,6 @@ frontmatter:
 
 
 rule_set: !XTimesDup [null]
-# rule_set: !FixedDup Aurora
-# rule_set: !Eq
 
 setA:
 - Chris
@@ -47,9 +44,6 @@ constraints:
 
   - type: !Night {num: 1, comment: "E04"}
     check: !Lights [3]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       Julian: Aurora
       JulianM: Adrianna
@@ -71,9 +65,6 @@ constraints:
 
   - type: !Night {num: 2, comment: "E06"}
     check: !Lights [2]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       Chris: Tonia
       Jeronymo: Tiziana
@@ -95,9 +86,6 @@ constraints:
 
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [2]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       Luke: Marla
       Julian: Alicia
@@ -119,9 +107,6 @@ constraints:
 
   - type: !Night {num: 4, comment: "E10", offer: !Group {by: "Chris", amount: 55000}}
     check: !Sold
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       JulianM: Marla
       Chris: Aurora
@@ -143,9 +128,6 @@ constraints:
 
   - type: !Night {num: 5, comment: "E12"}
     check: !Lights [5]
-    # resultUnknown: true
-    # noExclude: true
-    # buildTree: true
     map:
       JulianM: Marla
       Meji: Ella
@@ -159,22 +141,42 @@ constraints:
       Chris: Linda
       # Alicia
 
-  # - type: !Box {num: 6, comment: "E13"}
-  #   check: !Lights [0]
-  #   map:
-  #     # Meji: Laura
-  #     Jerry: Elena
+  - type: !Box {num: 6, comment: "E13", offer: !Single {by: "Tonia", amount: 20000, reducedPot: true, save: true}}
+    check: !Sold
+    map:
+      # Meji: Laura
+      Jerry: Elena
 
-  # - type: !Night {num: 6, comment: "E14"}
-  #   check: !Lights [3]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
+  - type: !Box {num: 6.1, comment: "E13 -- Alicia scheidet aus wg Krankheit"}
+    check: !HintCntMatch 2
+    map:
+      Chris: Alicia
+
+  - type: !Night {num: 6, comment: "E14"}
+    check: !Lights [4]
+    treeCfg:
+      - id: ""
+      - id: "wo_alicia"
+        title: "ohne Alicia"
+        ignoreB: ["Alicia"]
+        moveUpA: ["Jerry", "Noel", "Julian", "Ema"]
+    map:
+      JulianM: Marla
+      Noel: Tonia
+      Julian: Tiziana
+      Ema: Michelle
+      Luke: Adrianna
+      Evi: Linda
+      Jeronymo: Laura
+      Meji: Aurora
+      Jerry: Elena
+      Chris: Ella
 
   # - type: !Box {num: 7, comment: "E15"}
   #   check: !Lights [0]
   #   map:
+  #     Noel: Tonia
+  #     # Jeronymo: Elena
 
   # - type: !Night {num: 7, comment: "E16"}
   #   check: !Lights [3]

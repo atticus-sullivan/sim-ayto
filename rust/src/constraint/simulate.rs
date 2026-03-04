@@ -49,6 +49,31 @@ impl Constraint {
                     .fold(Bitset::empty(), |acc, i| i | acc);
                 m.contains_mask(mask)
             }
+            CheckType::HintCntMatch(cnt) => {
+                // iterator over all the singletons in the map of this constraint
+                let mut singles = self.map.iter().filter(|x| x.is_singleton());
+
+                // obtain the one singleton which has to exist
+                let individual_b = singles
+                    .next()
+                    .expect("HintCntMatch's map contains less than a single entry (should have been already checked on parse)");
+                // check there are not more singletons (violates the constraint-type)
+                assert!(
+                    singles.next().is_none(),
+                    "HintCntMatch's map contains more than a single entry (should have already been checked on parse)"
+                );
+
+                // search for the Bitset which contains the found singleton on which the constraint
+                // acts on
+                let b = m
+                    .iter()
+                    .find(|b| b.contains_any(individual_b))
+                    .expect("Permutation does not contain the individual from set_b -- something is wrong here");
+
+                // at it's core the constraint checks whether the given singleton only is seen in
+                // sets which size equals the given cnt
+                b.count() == *cnt
+            }
             CheckType::Nothing | CheckType::Sold => true,
             CheckType::Lights(ref lights, ref mut light_count) => {
                 let l = self.map.calculate_lights(m);
@@ -393,6 +418,70 @@ mod tests {
             (
                 false, // passes the exclude check, but 1->1 does not hold anymore => 0 lights expected
                 MaskedMatching::from_matching_ref(&[vec![1], vec![2], vec![0, 3]]),
+            ),
+        ];
+
+        for (f, m) in &ms {
+            assert_eq!(c.fits(m), *f);
+        }
+    }
+
+    #[test]
+    fn fits_hint_cnt_match() {
+        let mut c = Constraint {
+            check: CheckType::HintCntMatch(2),
+            map: MaskedMatching::from_matching_ref(&[vec![], vec![1]]),
+            // b:1 needs always be in a match of size 2
+            ..Default::default()
+        };
+        let ms = vec![
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![1, 3], vec![0], vec![2]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1], vec![0, 3], vec![2]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![3], vec![1, 2]]),
+            ),
+        ];
+
+        for (f, m) in &ms {
+            assert_eq!(c.fits(m), *f);
+        }
+    }
+
+    #[test]
+    fn fits_eq() {
+        let mut c = Constraint {
+            check: CheckType::Eq,
+            map: MaskedMatching::from_matching_ref(&[vec![2], vec![1]]),
+            // b:2 must be in the same match as b:1
+            ..Default::default()
+        };
+        let ms = vec![
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![1, 3], vec![0], vec![2]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![1, 2], vec![3], vec![0]]),
+            ),
+            (
+                false,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![1], vec![2, 3]]),
+            ),
+            (
+                true,
+                MaskedMatching::from_matching_ref(&[vec![0], vec![3], vec![1, 2]]),
             ),
         ];
 
