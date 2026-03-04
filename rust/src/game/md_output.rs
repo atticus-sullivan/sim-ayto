@@ -48,11 +48,12 @@ impl Game {
                 "{{{{% img src=\"/{stem}/{stem}_{}.png\" %}}}}",
                 tab.idx
             )?;
-            if tab.tree {
+            for t in &tab.trees {
                 writeln!(
                     out,
-                    "{{{{% img src=\"/{stem}/{stem}_{}_tree.png\" %}}}}",
-                    tab.idx
+                    "{{{{% img src=\"/{stem}/{stem}_{}_tree_{}.png\" %}}}}",
+                    tab.idx,
+                    t
                 )?;
             }
 

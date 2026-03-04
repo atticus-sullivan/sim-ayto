@@ -19,35 +19,40 @@ use anyhow::Result;
 
 use crate::constraint::{Constraint, ConstraintGetters, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
-use crate::tree::{dot_tree, tree_ordering};
+use crate::tree::tree_ordering;
 
 impl Constraint {
     /// Write a `.dot` file for the tree of remaining possibilities in case this has been
     /// requested. If no tree is requested for this constraint, this function is a no-op.
     ///
     /// Returns whether a tree has been generated/drawn
-    pub(crate) fn build_tree(
+    pub(crate) fn build_tree<F: Fn(&str) -> PathBuf>(
         &self,
-        path: PathBuf,
+        path: F,
         map_a: &[String],
         map_b: &[String],
-    ) -> Result<bool> {
+    ) -> Result<Vec<String>> {
         if !self.build_tree {
-            return Ok(false);
+            return Ok(vec![]);
         }
+
+        let mut ret = Vec::with_capacity(self.tree_cfg.len());
 
         // calculate the order in which the layers shall be shown
         let ordering = tree_ordering(&self.left_poss, map_a);
         // delegate drawing the tree to a dedicated module
-        dot_tree(
-            &mut File::create(path)?,
-            &self.left_poss,
-            &ordering,
-            &(self.type_str() + " / " + self.comment()),
-            map_a,
-            map_b,
-        )?;
-        Ok(true)
+        for c in &self.tree_cfg {
+            c.dot_tree(
+                &mut File::create(path(c.id()))?,
+                &self.left_poss,
+                &ordering,
+                &(self.type_str() + " / " + self.comment()),
+                map_a,
+                map_b,
+            )?;
+            ret.push(c.id().to_string());
+        }
+        Ok(ret)
     }
 
     /// calculate the distance between the two constraints if possible

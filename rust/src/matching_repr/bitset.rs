@@ -74,6 +74,13 @@ impl Bitset {
         self.0 &= self.0 - 1;
     }
 
+    /// Clear a specific bit (mutates).
+    /// TODO: tests
+    #[inline(always)]
+    pub fn clear_bit(&mut self, idx: IdBase) {
+        self.0 &= !(1 << idx);
+    }
+
     /// Return number of trailing zeros (for lowest set bit).
     #[inline(always)]
     pub fn trailing_zeros(self) -> u32 {

@@ -10,49 +10,122 @@ use std::collections::HashSet;
 use std::io::Write;
 
 use anyhow::{Context, Result};
+use serde::Deserialize;
 
+use crate::Lut;
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::{IdBase, MaskedMatching};
 
-/// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
-/// calculated beforehand.
-///
-/// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
-/// afterwards.
-///
-/// Arguments:
-/// - `writer` is where the `.dot` file is written to
-/// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
-/// - `ordering` controls the order of the layers/levels
-/// - `title` is placed in the graph label
-/// - `map_a`/`map_b` are used to render readable labels.
-pub(crate) fn dot_tree<W: Write>(
-    writer: &mut W,
-    data: &[MaskedMatching],
-    ordering: &[(IdBase, usize)],
-    title: &str,
-    map_a: &[String],
-    map_b: &[String],
-) -> Result<()> {
-    write_header(writer, title)?;
+#[derive(Clone, Deserialize, Debug)]
+pub(crate) struct TreeConfigParse {
+    id: String,
+    #[serde(default)]
+    title: String,
+    #[serde(default, rename = "ignoreB")]
+    ignore_b: Vec<String>,
+    #[serde(default, rename = "moveUpA")]
+    move_up_a: Vec<String>,
+}
 
-    let mut builder = DotBuilder::new(writer, map_a, map_b);
+impl TreeConfigParse {
+    pub(crate) fn finalize(
+        self,
+        lut_a: &Lut,
+        lut_b: &Lut,
+    ) -> Result<TreeConfig> {
+        let ignore_b  = self
+            .ignore_b
+            .iter()
+            .map(|b| lut_b
+                .get(b)
+                .with_context(|| format!("{b} not found in lut_b for TreeConfig {}", self.id))
+                .map(|i| *i as IdBase)
+            )
+            .collect::<Result<Vec<_>>>()?;
 
-    for p in data {
-        let mut parent = "root".to_owned();
-        for &(i, _) in ordering {
-            let mask = p
-                .slot_mask(i as usize)
-                .with_context(|| format!("slot {i} missing in matching"))?;
-            let node = builder.ensure_node(&parent, i as usize, mask)?;
-            if node.0 {
-                builder.write_edge(&parent, &node.1)?;
-            }
-            parent = node.1;
-        }
+        let move_up_a = self
+            .move_up_a
+            .iter()
+            .map(|a| lut_a
+                .get(a)
+                .with_context(|| format!("{a} not found in lut_a for TreeConfig {}", self.id))
+                .map(|i| *i as IdBase)
+            )
+            .collect::<Result<Vec<_>>>()?;
+
+        Ok(TreeConfig{
+            id: self.id,
+            title: self.title,
+            ignore_b,
+            move_up_a,
+        })
     }
-    write_footer(writer)?;
-    Ok(())
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct TreeConfig {
+    id: String,
+    title: String,
+    ignore_b: Vec<IdBase>,
+    move_up_a: Vec<IdBase>,
+}
+
+impl TreeConfig {
+    pub(crate) fn id(&self) -> &str {
+        &self.id
+    }
+
+    /// Visualize a list of MaskedMatchings as a tree. The ordering of the layers needs to be
+    /// calculated beforehand.
+    ///
+    /// This only writes a `.dot` file. The file needs to be rendered to e.g. `pdf`/`png` manually
+    /// afterwards.
+    ///
+    /// Arguments:
+    /// - `writer` is where the `.dot` file is written to
+    /// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
+    /// - `ordering` controls the order of the layers/levels
+    /// - `title` is placed in the graph label
+    /// - `map_a`/`map_b` are used to render readable labels.
+    pub(crate) fn dot_tree<W: Write>(
+        &self,
+        writer: &mut W,
+        data: &[MaskedMatching],
+        ordering: &[(IdBase, usize)],
+        title: &str,
+        map_a: &[String],
+        map_b: &[String],
+    ) -> Result<()> {
+        if self.title.is_empty() {
+            write_header(writer, title)?;
+        } else {
+            write_header(writer, &format!("{} | {}", title, self.title))?;
+        }
+
+        let ordering = ordering_move(ordering, &self.move_up_a);
+
+        let mut builder = DotBuilder::new(writer, map_a, map_b);
+
+        for p in data {
+            let mut parent = "root".to_owned();
+            for &(i, _) in ordering.iter() {
+                let mut mask = p
+                    .slot_mask(i as usize)
+                    .with_context(|| format!("slot {i} missing in matching"))?
+                    .clone();
+                for c in &self.ignore_b {
+                    mask.clear_bit(*c);
+                }
+                let node = builder.ensure_node(&parent, i as usize, &mask)?;
+                if node.0 {
+                    builder.write_edge(&parent, &node.1)?;
+                }
+                parent = node.1;
+            }
+        }
+        write_footer(writer)?;
+        Ok(())
+    }
 }
 
 /// A generic builder for .dot files in this context
@@ -168,6 +241,37 @@ pub(crate) fn tree_ordering(data: &[MaskedMatching], map_a: &[String]) -> Vec<(I
 
     ordering.sort_unstable_by_key(|(_, x)| *x);
     ordering
+}
+
+pub(crate) fn ordering_move(ordering: &[(IdBase, usize)], ids: &[IdBase]) -> Vec<(IdBase, usize)> {
+    let mut ret = Vec::with_capacity(ordering.len());
+
+    // insert the layers with just one outgoing edge
+    for &(id, cnt) in ordering {
+        if cnt <= 1 {
+            ret.push((id, cnt));
+        }
+    }
+
+    // insert the layers specified
+    for id in ids {
+        // obtain the item from ordering with the specified id
+        if let Some(&(oid, cnt)) = ordering.iter().find(|(j,_)| j == id) {
+            // ensure ret does not already contain this id
+            if !ret.iter().any(|(r_id, _)| r_id == &oid) {
+                ret.push((oid, cnt))
+            }
+        }
+    }
+    // insert the remaining elements
+    for &(id, cnt) in ordering {
+        // ensure ret does not already contain this id
+        if !ret.iter().any(|(r_id, _)| r_id == &id) {
+            ret.push((id, cnt));
+        }
+    }
+
+    ret
 }
 
 #[cfg(test)]
