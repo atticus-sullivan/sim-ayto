@@ -8,11 +8,10 @@
 
 use std::path::Path;
 use std::sync::{mpsc, Arc};
+use std::time::Instant;
 
 use anyhow::{anyhow, Result};
-use indicatif::{ProgressBar, ProgressDrawTarget};
 use ayto::ruleset::RuleSet;
-use indicatif::ProgressStyle;
 use rand::Rng;
 use rayon::prelude::*;
 
@@ -64,20 +63,14 @@ fn execute_parallel_simulations<S: StrategyBundle>(
         .for_each_with(tx.clone(), |tx, (sim_id, seed)| {
 
             let rs = RuleSet::Eq;
-            let pb = ProgressBar::with_draw_target(Some(rs.get_perms_amount(10, 10, &None).unwrap() as u64), ProgressDrawTarget::hidden());
-            pb.set_style(ProgressStyle::with_template(
-                "{msg} [{elapsed_precise}] [{wide_bar}] {pos:>3}/{len:3} (ETA: {eta})",
-            ).unwrap())
-            ;
-            pb.set_message(format!("{:2} C:{:2}", sim_id, 0));
 
-
-            let _ = tx.send(WriterMsg::Started { sim_id, pb: pb.clone() });
+            let _ = tx.send(WriterMsg::Started { sim_id });
+            let start = Instant::now();
             let sim = Simulation::new(sim_id, seed, strategy.clone(), rs);
 
-            match sim.run(&pb) {
+            match sim.run() {
                 Ok(res) => {
-                    let _ = tx.send(WriterMsg::Finished(res));
+                    let _ = tx.send(WriterMsg::Finished(res, start.elapsed()));
                 }
                 Err(e) => {
                     let _ = tx.send(WriterMsg::Failed(sim_id, format!("{:?}", e)));

@@ -9,7 +9,6 @@ use std::sync::Arc;
 use std::{collections::HashMap, time::Instant};
 
 use anyhow::{bail, Context, Result};
-use indicatif::ProgressBar;
 use rand::rngs::StdRng;
 use rust_decimal::{dec, Decimal};
 
@@ -77,8 +76,7 @@ impl<S: StrategyBundle> Simulation<S> {
     /// Initializes the simulation state and computes the initial possibility space.
     ///
     /// Returns the solution
-    fn init(&mut self, pb: &ProgressBar) -> Result<MaskedMatching> {
-        pb.inc(0);
+    fn init(&mut self) -> Result<MaskedMatching> {
         let solution = generate_solution(&mut self.rng);
         let initial_matching = self.strategy.initial_value();
         let lights = initial_matching.calculate_lights(&solution);
@@ -126,27 +124,25 @@ impl<S: StrategyBundle> Simulation<S> {
         self.constraints = iter_state.constraints;
         self.possibilities = iter_state.left_poss;
         self.rem = rem;
-        pb.set_position(iter_state.total as u64 - self.possibilities.len() as u64);
 
         Ok(solution)
     }
 
     /// Full simulation execution.
-    pub fn run(mut self, pb: &ProgressBar) -> Result<SimulationResult> {
-        let solution = self.init(pb)?;
-        self.run_loop(&solution, &pb)?;
+    pub fn run(mut self) -> Result<SimulationResult> {
+        let solution = self.init()?;
+        self.run_loop(&solution)?;
         self.try_into()
     }
 
     /// Executes simulation loop.
-    fn run_loop(&mut self, solution: &MaskedMatching, pb: &ProgressBar) -> Result<()> {
+    fn run_loop(&mut self, solution: &MaskedMatching) -> Result<()> {
         for i in 3usize.. {
-            let constraint = self.next_step(solution, i, pb)?;
+            let constraint = self.next_step(solution, i)?;
 
-            self.apply_constraint(constraint, pb)?;
+            self.apply_constraint(constraint)?;
 
             if self.possibilities.len() <= 1 {
-                pb.finish_with_message("done");
                 return Ok(());
             }
         }
@@ -156,9 +152,7 @@ impl<S: StrategyBundle> Simulation<S> {
 
     /// Generates and constructs the next constraint
     /// according to the selected strategy and iteration number/index.
-    fn next_step(&mut self, solution: &MaskedMatching, iteration: usize, pb: &ProgressBar) -> Result<Constraint> {
-        pb.set_message(format!("{:2} -:{:2}", self.sim_id, self.constraints.len()));
-
+    fn next_step(&mut self, solution: &MaskedMatching, iteration: usize) -> Result<Constraint> {
         let (m, ct) = if iteration.is_multiple_of(2) {
             // this is a match-box decision
             let m = self
@@ -182,8 +176,6 @@ impl<S: StrategyBundle> Simulation<S> {
                 offer: None,
             };
 
-            pb.set_message(format!("{:2} c:{:2}+1", self.sim_id, self.constraints.len()));
-
             (m, ct)
         };
 
@@ -205,7 +197,7 @@ impl<S: StrategyBundle> Simulation<S> {
     /// - Possibility space (without new allocations) -- Order is not preserved
     /// - Remaining counts
     /// - Constraint list
-    fn apply_constraint(&mut self, mut constraint: Constraint, pb: &ProgressBar) -> Result<()> {
+    fn apply_constraint(&mut self, mut constraint: Constraint) -> Result<()> {
         let mut i = 0;
 
         while i < self.possibilities.len() {
@@ -221,8 +213,6 @@ impl<S: StrategyBundle> Simulation<S> {
             .apply_to_rem(self.rem.clone())
             .context("Apply to rem failed")?;
         self.constraints.push(constraint);
-        pb.set_message(format!("{:2} C:{:2}", self.sim_id, self.constraints.len()));
-        pb.set_position(self.possibilities.len() as u64);
 
         Ok(())
     }

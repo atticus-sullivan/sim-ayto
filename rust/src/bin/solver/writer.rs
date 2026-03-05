@@ -7,13 +7,15 @@
 //! As this is the location where information flows together, it is also the responsibility of the
 //! writer thread to show some sot of progress indication on the console.
 
+use std::fmt;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
 use std::path::Path;
 use std::sync::mpsc;
+use std::time::Duration;
 
 use anyhow::Result;
-use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
+use indicatif::{ProgressBar, ProgressStyle};
 
 use crate::{result::SimulationResult};
 
@@ -23,12 +25,10 @@ pub(super) enum WriterMsg {
     Started {
         /// the id of the worker which started for tracking the running threads
         sim_id: usize,
-        /// the progressbar where this simulation tracks its progress
-        pb: ProgressBar,
     },
     /// Signals the worker finished the simulation, contains the result so the writer can append it
     /// to the output
-    Finished(SimulationResult),
+    Finished(SimulationResult, Duration),
     /// Signals the worker crashed with an error
     Failed(usize, String),
 }
@@ -57,7 +57,7 @@ pub(super) fn spawn_writer_thread(
 
     let pb = ProgressBar::new(num_sims as u64);
     pb.set_style(ProgressStyle::with_template(
-        "{msg}: [{elapsed_precise}] [{wide_bar}] {pos:>3}/{len:3} (ETA: {eta})",
+        " [{wide_bar}] {pos:>3}/{len:3} | {percent:3}% | {msg} ",
     )?);
 
     let file = OpenOptions::new()
@@ -77,23 +77,24 @@ fn writer_loop(
     mut file: File,
     rx: mpsc::Receiver<WriterMsg>
 ) -> Result<()> {
-    let multi_pb = MultiProgress::new();
-    let main_pb = multi_pb.add(main_pb);
-    main_pb.set_message("main");
+    let mut stats = RuntimeStats::default();
+    main_pb.set_position(0);
+    main_pb.set_message(stats.to_string());
 
     while let Ok(msg) = rx.recv() {
         match msg {
-            WriterMsg::Started { sim_id: _sim_id, pb } => {
-                multi_pb.insert(0, pb);
+            WriterMsg::Started { sim_id: _sim_id } => {
             }
 
-            WriterMsg::Finished(sim_res) => {
+            WriterMsg::Finished(sim_res, dur) => {
                 let line = serde_json::to_string(&sim_res)?;
 
                 file.write_all(line.as_bytes())?;
                 file.write_all(b"\n")?;
 
                 main_pb.inc(1);
+                stats.update(dur);
+                main_pb.set_message(stats.to_string());
                 file.flush()?;
             }
 
@@ -103,6 +104,72 @@ fn writer_loop(
             }
         }
     }
-    main_pb.finish_with_message("done");
+    main_pb.finish();
     Ok(())
+}
+
+#[derive(Debug, Clone)]
+struct RuntimeStats {
+    min: Duration,
+    max: Duration,
+    count: usize,
+    total: Duration,
+}
+
+impl Default for RuntimeStats {
+    fn default() -> Self {
+        Self {
+            min: Duration::MAX,
+            max: Duration::ZERO,
+            count: 0,
+            total: Duration::ZERO,
+        }
+    }
+}
+
+impl RuntimeStats {
+    fn update(&mut self, d: Duration) {
+        self.count +=1;
+        self.total += d;
+        self.min = self.min.min(d);
+        self.max = self.max.max(d);
+    }
+
+    fn avg(&self) -> Duration {
+        if self.count == 0 {
+            Duration::ZERO
+        } else {
+            self.total / self.count as u32
+        }
+    }
+}
+
+fn fmt_duration(d: Duration) -> String {
+    let s = d.as_secs_f64();
+
+    if s >= 60.0 {
+        format!("{:.2}m", s / 60.0)
+    } else if s >= 1.0 {
+        format!("{:.2}s", s)
+    } else if s >= 0.001 {
+        format!("{:.2}ms", s * 1000.0)
+    } else {
+        format!("{:.0}\u{00B5}s", s * 1_000_000.0)
+    }
+}
+
+impl fmt::Display for RuntimeStats {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.count == 0 {
+            write!(f, "no samples")
+        } else {
+            write!(
+                f,
+                "min={} avg={} max={}",
+                fmt_duration(self.min),
+                fmt_duration(self.avg()),
+                fmt_duration(self.max),
+            )
+        }
+    }
 }
