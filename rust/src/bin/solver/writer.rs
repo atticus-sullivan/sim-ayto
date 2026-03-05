@@ -7,7 +7,6 @@
 //! As this is the location where information flows together, it is also the responsibility of the
 //! writer thread to show some sot of progress indication on the console.
 
-use std::fmt;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
 use std::path::Path;
@@ -17,6 +16,7 @@ use std::time::Duration;
 use anyhow::Result;
 use indicatif::{ProgressBar, ProgressStyle};
 
+use crate::utils::RuntimeStats;
 use crate::{result::SimulationResult};
 
 /// A type for the communication *worker* -> *writer* thread
@@ -106,70 +106,4 @@ fn writer_loop(
     }
     main_pb.finish();
     Ok(())
-}
-
-#[derive(Debug, Clone)]
-struct RuntimeStats {
-    min: Duration,
-    max: Duration,
-    count: usize,
-    total: Duration,
-}
-
-impl Default for RuntimeStats {
-    fn default() -> Self {
-        Self {
-            min: Duration::MAX,
-            max: Duration::ZERO,
-            count: 0,
-            total: Duration::ZERO,
-        }
-    }
-}
-
-impl RuntimeStats {
-    fn update(&mut self, d: Duration) {
-        self.count +=1;
-        self.total += d;
-        self.min = self.min.min(d);
-        self.max = self.max.max(d);
-    }
-
-    fn avg(&self) -> Duration {
-        if self.count == 0 {
-            Duration::ZERO
-        } else {
-            self.total / self.count as u32
-        }
-    }
-}
-
-fn fmt_duration(d: Duration) -> String {
-    let s = d.as_secs_f64();
-
-    if s >= 60.0 {
-        format!("{:.2}m", s / 60.0)
-    } else if s >= 1.0 {
-        format!("{:.2}s", s)
-    } else if s >= 0.001 {
-        format!("{:.2}ms", s * 1000.0)
-    } else {
-        format!("{:.0}\u{00B5}s", s * 1_000_000.0)
-    }
-}
-
-impl fmt::Display for RuntimeStats {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if self.count == 0 {
-            write!(f, "no samples")
-        } else {
-            write!(
-                f,
-                "min={} avg={} max={}",
-                fmt_duration(self.min),
-                fmt_duration(self.avg()),
-                fmt_duration(self.max),
-            )
-        }
-    }
 }
