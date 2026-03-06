@@ -4,11 +4,9 @@
 
 //! This module contains some utils for the whole solver module
 
-use std::collections::HashMap;
+use std::{fmt, time::Duration};
 
 use ayto::matching_repr::MaskedMatching;
-use chrono::{DateTime, TimeZone, Utc};
-use indicatif::ProgressBar;
 
 /// Entropy calculation for a candidate `m` across `left_poss`.
 pub(super) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
@@ -33,27 +31,95 @@ pub(super) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> 
         .sum()
 }
 
-/// Format a millisecond timestamp into HH:MM:SS for the progress display.
-fn format_time(ms: u128) -> String {
-    let secs = (ms / 1000) as i64;
-    let nsecs = ((ms % 1000) * 1_000_000) as u32;
-
-    let dt: DateTime<Utc> = Utc.timestamp_opt(secs, nsecs).unwrap();
-    dt.format("%H:%M:%S").to_string()
+/// Collects simple runtime statistics for a sequence of duration samples.
+///
+/// Tracks:
+/// - minimum observed runtime
+/// - maximum observed runtime
+/// - total accumulated runtime
+/// - number of samples
+#[derive(Debug, Clone)]
+pub(super) struct RuntimeStats {
+    /// the minimum observed duration
+    min: Duration,
+    /// the maximum observed duration
+    max: Duration,
+    /// amount of samples in the calculation
+    count: usize,
+    /// the total observed duration
+    total: Duration,
 }
 
-/// Calculate the indicator which represents all currently running workers and sets this indicator
-/// on the progressbar
-pub(super) fn set_pb_msg(pb: &ProgressBar, active: &HashMap<usize, u128>) {
-    pb.set_message(format!(
-        "active:{} {}",
-        active.len(),
-        active
-            .iter()
-            .map(|(id, start)| format!("#{}@{}", id, format_time(*start)))
-            .collect::<Vec<_>>()
-            .join(", ")
-    ));
+impl Default for RuntimeStats {
+    fn default() -> Self {
+        Self {
+            min: Duration::MAX,
+            max: Duration::ZERO,
+            count: 0,
+            total: Duration::ZERO,
+        }
+    }
+}
+
+impl RuntimeStats {
+    /// Adds a new duration sample to the statistics.
+    pub(super) fn update(&mut self, d: Duration) {
+        self.count += 1;
+        self.total += d;
+        self.min = self.min.min(d);
+        self.max = self.max.max(d);
+    }
+
+    /// Returns the average runtime of all samples.
+    ///
+    /// If no samples have been recorded, `Duration::ZERO` is returned.
+    fn avg(&self) -> Duration {
+        if self.count == 0 {
+            Duration::ZERO
+        } else {
+            self.total / self.count as u32
+        }
+    }
+}
+
+/// Formats a [`Duration`] into a compact human-readable representation.
+///
+/// Units are chosen dynamically:
+///
+/// |  Range | Unit |
+/// |--------|------|
+/// | >= 60s | minutes |
+/// | >= 1s  | seconds |
+/// | >= 1ms | milliseconds |
+/// | <  1ms | microseconds |
+fn fmt_duration(d: Duration) -> String {
+    let s = d.as_secs_f64();
+
+    if s >= 60.0 {
+        format!("{:.2}m", s / 60.0)
+    } else if s >= 1.0 {
+        format!("{:.2}s", s)
+    } else if s >= 0.001 {
+        format!("{:.2}ms", s * 1000.0)
+    } else {
+        format!("{:.0}\u{00B5}s", s * 1_000_000.0)
+    }
+}
+
+impl fmt::Display for RuntimeStats {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.count == 0 {
+            write!(f, "no samples")
+        } else {
+            write!(
+                f,
+                "min={} avg={} max={}",
+                fmt_duration(self.min),
+                fmt_duration(self.avg()),
+                fmt_duration(self.max),
+            )
+        }
+    }
 }
 
 #[cfg(test)]
@@ -65,6 +131,91 @@ mod tests {
 
     use pretty_assertions::assert_eq;
     use smallvec::SmallVec;
+
+    #[test]
+    fn default_has_no_samples() {
+        let stats = RuntimeStats::default();
+
+        assert_eq!(stats.count, 0);
+        assert_eq!(stats.total, Duration::ZERO);
+        assert_eq!(stats.min, Duration::MAX);
+        assert_eq!(stats.max, Duration::ZERO);
+        assert_eq!(stats.avg(), Duration::ZERO);
+    }
+
+    #[test]
+    fn single_update_sets_all_fields() {
+        let mut stats = RuntimeStats::default();
+        let d = Duration::from_millis(42);
+
+        stats.update(d);
+
+        assert_eq!(stats.count, 1);
+        assert_eq!(stats.total, d);
+        assert_eq!(stats.min, d);
+        assert_eq!(stats.max, d);
+        assert_eq!(stats.avg(), d);
+    }
+
+    #[test]
+    fn multiple_updates_compute_correct_stats() {
+        let mut stats = RuntimeStats::default();
+
+        stats.update(Duration::from_millis(10));
+        stats.update(Duration::from_millis(30));
+        stats.update(Duration::from_millis(20));
+
+        assert_eq!(stats.count, 3);
+        assert_eq!(stats.total, Duration::from_millis(60));
+        assert_eq!(stats.min, Duration::from_millis(10));
+        assert_eq!(stats.max, Duration::from_millis(30));
+        assert_eq!(stats.avg(), Duration::from_millis(20));
+    }
+
+    #[test]
+    fn fmt_duration_formats_microseconds() {
+        let d = Duration::from_micros(500);
+        assert_eq!(fmt_duration(d), "500\u{00B5}s");
+    }
+
+    #[test]
+    fn fmt_duration_formats_milliseconds() {
+        let d = Duration::from_micros(1500);
+        assert_eq!(fmt_duration(d), "1.50ms");
+    }
+
+    #[test]
+    fn fmt_duration_formats_seconds() {
+        let d = Duration::from_millis(1500);
+        assert_eq!(fmt_duration(d), "1.50s");
+    }
+
+    #[test]
+    fn fmt_duration_formats_minutes() {
+        let d = Duration::from_secs(120);
+        assert_eq!(fmt_duration(d), "2.00m");
+    }
+
+    #[test]
+    fn display_no_samples() {
+        let stats = RuntimeStats::default();
+        assert_eq!(stats.to_string(), "no samples");
+    }
+
+    #[test]
+    fn display_with_samples() {
+        let mut stats = RuntimeStats::default();
+
+        stats.update(Duration::from_millis(10));
+        stats.update(Duration::from_millis(20));
+        stats.update(Duration::from_millis(30));
+
+        let s = stats.to_string();
+
+        assert!(s.contains("min="));
+        assert!(s.contains("avg="));
+        assert!(s.contains("max="));
+    }
 
     #[test]
     fn calc_entropy_small_case() {
@@ -122,14 +273,5 @@ mod tests {
         let left = vec![p1, p2];
         let h = calc_entropy(&m, &left);
         assert_eq!(h, 1.0);
-    }
-
-    #[test]
-    fn format_time_known_values() {
-        assert_eq!(format_time(0), "00:00:00");
-        assert_eq!(format_time(1_000), "00:00:01");
-        assert_eq!(format_time(61_000), "00:01:01");
-        assert_eq!(format_time(3_600_000), "01:00:00");
-        assert_eq!(format_time(3_661_000), "01:01:01");
     }
 }

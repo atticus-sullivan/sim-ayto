@@ -8,9 +8,10 @@
 
 use std::path::Path;
 use std::sync::{mpsc, Arc};
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::time::Instant;
 
 use anyhow::{anyhow, Result};
+use ayto::ruleset::RuleSet;
 use rand::Rng;
 use rayon::prelude::*;
 
@@ -60,17 +61,15 @@ fn execute_parallel_simulations<S: StrategyBundle>(
         .into_par_iter()
         .enumerate()
         .for_each_with(tx.clone(), |tx, (sim_id, seed)| {
-            let start_ms = SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .unwrap()
-                .as_millis();
+            let rs = RuleSet::Eq;
 
-            let _ = tx.send(WriterMsg::Started { sim_id, start_ms });
-            let sim = Simulation::new(sim_id, seed, strategy.clone());
+            let _ = tx.send(WriterMsg::Started { sim_id });
+            let start = Instant::now();
+            let sim = Simulation::new(sim_id, seed, strategy.clone(), rs);
 
             match sim.run() {
                 Ok(res) => {
-                    let _ = tx.send(WriterMsg::Finished(res));
+                    let _ = tx.send(WriterMsg::Finished(res, start.elapsed()));
                 }
                 Err(e) => {
                     let _ = tx.send(WriterMsg::Failed(sim_id, format!("{:?}", e)));
