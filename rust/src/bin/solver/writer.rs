@@ -16,8 +16,8 @@ use std::time::Duration;
 use anyhow::Result;
 use indicatif::{ProgressBar, ProgressStyle};
 
+use crate::result::SimulationResult;
 use crate::utils::RuntimeStats;
-use crate::{result::SimulationResult};
 
 /// A type for the communication *worker* -> *writer* thread
 pub(super) enum WriterMsg {
@@ -72,19 +72,14 @@ pub(super) fn spawn_writer_thread(
 /// This is the "event-loop" of the writer
 ///
 /// It terminates once all Sender instances are dropped.
-fn writer_loop(
-    main_pb: ProgressBar,
-    mut file: File,
-    rx: mpsc::Receiver<WriterMsg>
-) -> Result<()> {
+fn writer_loop(main_pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -> Result<()> {
     let mut stats = RuntimeStats::default();
     main_pb.set_position(0);
     main_pb.set_message(stats.to_string());
 
     while let Ok(msg) = rx.recv() {
         match msg {
-            WriterMsg::Started { sim_id: _sim_id } => {
-            }
+            WriterMsg::Started { sim_id: _sim_id } => {}
 
             WriterMsg::Finished(sim_res, dur) => {
                 let line = serde_json::to_string(&sim_res)?;

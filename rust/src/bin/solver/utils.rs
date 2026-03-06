@@ -64,7 +64,7 @@ impl Default for RuntimeStats {
 impl RuntimeStats {
     /// Adds a new duration sample to the statistics.
     pub(super) fn update(&mut self, d: Duration) {
-        self.count +=1;
+        self.count += 1;
         self.total += d;
         self.min = self.min.min(d);
         self.max = self.max.max(d);
@@ -121,7 +121,6 @@ impl fmt::Display for RuntimeStats {
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {

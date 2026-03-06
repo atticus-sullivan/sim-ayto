@@ -61,7 +61,6 @@ fn execute_parallel_simulations<S: StrategyBundle>(
         .into_par_iter()
         .enumerate()
         .for_each_with(tx.clone(), |tx, (sim_id, seed)| {
-
             let rs = RuleSet::Eq;
 
             let _ = tx.send(WriterMsg::Started { sim_id });
