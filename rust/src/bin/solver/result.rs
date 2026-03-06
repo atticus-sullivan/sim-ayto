@@ -34,7 +34,7 @@ impl SimulationResult {
         stats: Vec<EvalEvent>,
         iterations_count: usize,
         duration_ms: u128,
-        solution: MaskedMatching
+        solution: MaskedMatching,
     ) -> Self {
         Self {
             sim_id,

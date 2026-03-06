@@ -5,6 +5,7 @@
 use std::sync::Arc;
 use std::{fs::File, path::Path};
 
+use anyhow::{bail, ensure, Result};
 use ayto::constraint::parse_utils::convert_map_s_to_ids;
 use ayto::constraint::ConstraintGetters;
 use ayto::game::parse_utils::{build_luts, process_constraints};
@@ -14,12 +15,10 @@ use ayto::ruleset::RuleSet;
 use ayto::MapS;
 use ayto::{constraint::parse::ConstraintParse, ruleset::parse::RuleSetParse};
 use serde::Deserialize;
-use anyhow::{bail, ensure, Result};
 
 use crate::engine::Simulation;
 use crate::strategies::StrategyBundle;
 use crate::NUM_PLAYERS_SET_A;
-
 
 /// this struct is only used for parsing the yaml file
 #[derive(Deserialize, Debug)]
@@ -44,7 +43,6 @@ pub struct CfgParse {
     /// left after applying the [`constraints_orig`] given in the config.
     #[serde(default, rename = "try_entropy")]
     try_entropy: Option<MapS>,
-
 }
 
 impl CfgParse {
@@ -60,7 +58,12 @@ impl CfgParse {
     /// 1. the configured solution
     /// 2. a matching for which the entropy should be calculated after the configured constraints
     ///    have been applied. This might not be set if no matching was configured here.
-    pub fn finalize_parsing<S: StrategyBundle>(self, sim_id: usize, seed: u64, strategy: Arc<S>) -> Result<(MaskedMatching,Option<MaskedMatching>,Simulation<S>)> {
+    pub fn finalize_parsing<S: StrategyBundle>(
+        self,
+        sim_id: usize,
+        seed: u64,
+        strategy: Arc<S>,
+    ) -> Result<(MaskedMatching, Option<MaskedMatching>, Simulation<S>)> {
         ensure!(self.map_a.len() == NUM_PLAYERS_SET_A);
         ensure!(self.map_b.len() == NUM_PLAYERS_SET_A);
 
@@ -86,10 +89,13 @@ impl CfgParse {
         let (solution, _) = convert_map_s_to_ids(&self.solution, &lut_a, &lut_b)?;
         let solution = solution.try_into()?;
 
-        let try_entropy = self.try_entropy.map(|t| -> Result<MaskedMatching> {
-            let (map, _) = convert_map_s_to_ids(&t, &lut_a, &lut_b)?;
-            Ok(map.try_into()?)
-        }).transpose()?;
+        let try_entropy = self
+            .try_entropy
+            .map(|t| -> Result<MaskedMatching> {
+                let (map, _) = convert_map_s_to_ids(&t, &lut_a, &lut_b)?;
+                Ok(map.try_into()?)
+            })
+            .transpose()?;
 
         for c in &constraints {
             let l = c.matching().calculate_lights(&solution);
@@ -112,7 +118,7 @@ impl CfgParse {
                 lights,
                 lut_a,
                 Some(1),
-            )?
+            )?,
         ))
     }
 }

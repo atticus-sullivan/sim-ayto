@@ -132,8 +132,7 @@ pub fn convert_map_s_to_ids(
             let k_id = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as IdBase;
             let v_id = *lut_b
                 .get(v)
-                .with_context(|| format!("Invalid Value {}", v))?
-                as IdBase;
+                .with_context(|| format!("Invalid Value {}", v))? as IdBase;
             Ok((k_id, v_id))
         })
         .collect::<Result<HashMap<IdBase, IdBase>>>()?;

@@ -12,7 +12,9 @@ use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    constraint::{Constraint, ConstraintGetters, ConstraintType}, matching_repr::MaskedMatching, LightCnt
+    constraint::{Constraint, ConstraintGetters, ConstraintType},
+    matching_repr::MaskedMatching,
+    LightCnt,
 };
 
 /// Container of evaluation output used for plotting and summaries.

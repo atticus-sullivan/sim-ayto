@@ -10,11 +10,11 @@ mod init;
 mod result;
 mod rng;
 mod runner;
+mod step;
 mod strategies;
+mod trail;
 mod utils;
 mod writer;
-mod step;
-mod trail;
 
 use std::path::PathBuf;
 
@@ -56,8 +56,7 @@ enum Commands {
         seed: Option<u64>,
     },
     /// Calculate the next step for a given configuration based on a specific solver
-    Step {
-    }
+    Step {},
 }
 
 fn main() -> Result<()> {
@@ -69,10 +68,12 @@ fn main() -> Result<()> {
     };
 
     match args.cmd {
-        Commands::Bench { num_sims, out_path, seed } => {
-            run_many_and_write(num_sims, &out_path, seed, strategy.into())
-        },
-        Commands::Step {  } => {
+        Commands::Bench {
+            num_sims,
+            out_path,
+            seed,
+        } => run_many_and_write(num_sims, &out_path, seed, strategy.into()),
+        Commands::Step {} => {
             let p = PathBuf::from("./cfg.yml");
             let cfg_p = CfgParse::new_from_yaml(&p).expect("Parsing failed");
             let (sol, t, mut sim) = cfg_p
@@ -93,9 +94,7 @@ fn main() -> Result<()> {
             println!("{}| {:?}", h, m);
             println!("{}| {:?}", h, m.prepare_debug_print());
 
-
             Ok(())
-        },
+        }
     }
-
 }

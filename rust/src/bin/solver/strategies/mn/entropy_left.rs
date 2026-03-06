@@ -84,7 +84,9 @@ mod tests {
         // Entropy calculation
         let (h, chosen) = optimizer.choose_mn(&left_poss, &mut rng);
         assert_eq!(chosen, m3);
-        let expected = 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2();
+        let expected = 1.0 / 3.0 * (1.0 / 3.0_f64).log2()
+            + 1.0 / 3.0 * (1.0 / 3.0_f64).log2()
+            + 1.0 / 3.0 * (1.0 / 3.0_f64).log2();
         assert_eq!(h, -expected);
     }
 
@@ -103,7 +105,9 @@ mod tests {
 
         // chosen must be one of the left_poss
         assert_eq!(chosen, m3);
-        let expected = 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2();
+        let expected = 1.0 / 3.0 * (1.0 / 3.0_f64).log2()
+            + 1.0 / 3.0 * (1.0 / 3.0_f64).log2()
+            + 1.0 / 3.0 * (1.0 / 3.0_f64).log2();
         assert_eq!(h, -expected);
     }
 

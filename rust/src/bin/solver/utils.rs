@@ -14,7 +14,7 @@ use crate::NUM_PLAYERS_SET_A;
 pub(super) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
     let total = left_poss.len() as f64;
 
-    let mut lights = [0u32; NUM_PLAYERS_SET_A+1];
+    let mut lights = [0u32; NUM_PLAYERS_SET_A + 1];
     for p in left_poss {
         // assume:
         // - p is the solution

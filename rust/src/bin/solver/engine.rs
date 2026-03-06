@@ -84,8 +84,18 @@ impl<S: StrategyBundle> Simulation<S> {
     /// - iter_perms
     /// - initialize some internal fields
     #[allow(clippy::too_many_arguments)]
-    pub fn new_user_initialized(sim_id: usize, seed: u64, strategy: Arc<S>, ruleset: RuleSet, constraints: Vec<Constraint>, lights_known: LightCnt, lut_a: Lut, max: Option<usize>) -> Result<Self> {
-        let (constraints, possibilities, rem) = Self::perform_initial_permutations(constraints, &lut_a, &ruleset)?;
+    pub fn new_user_initialized(
+        sim_id: usize,
+        seed: u64,
+        strategy: Arc<S>,
+        ruleset: RuleSet,
+        constraints: Vec<Constraint>,
+        lights_known: LightCnt,
+        lut_a: Lut,
+        max: Option<usize>,
+    ) -> Result<Self> {
+        let (constraints, possibilities, rem) =
+            Self::perform_initial_permutations(constraints, &lut_a, &ruleset)?;
 
         Ok(Self {
             ruleset,
@@ -103,7 +113,11 @@ impl<S: StrategyBundle> Simulation<S> {
     }
 
     /// Based on the initial constraints and the ruleset, compute all possible solutions
-    fn perform_initial_permutations(constraints: Vec<Constraint>, lut: &Lut, rs: &RuleSet) -> Result<(Vec<Constraint>, Vec<MaskedMatching>, Rem)> {
+    fn perform_initial_permutations(
+        constraints: Vec<Constraint>,
+        lut: &Lut,
+        rs: &RuleSet,
+    ) -> Result<(Vec<Constraint>, Vec<MaskedMatching>, Rem)> {
         let mut iter_state = create_iteration_state(constraints)?;
 
         // use the ruleset for the first constraint
@@ -111,16 +125,10 @@ impl<S: StrategyBundle> Simulation<S> {
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
         for c in iter_state.constraints.iter_mut() {
-            rem = c
-                .apply_to_rem(rem)
-                .context("Apply to rem failed")?;
+            rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
         }
 
-        Ok((
-            iter_state.constraints,
-            iter_state.left_poss,
-            rem,
-        ))
+        Ok((iter_state.constraints, iter_state.left_poss, rem))
     }
 
     /// Initializes the simulation state and computes the initial possibility space.
@@ -162,11 +170,8 @@ impl<S: StrategyBundle> Simulation<S> {
         .map(|(i, j)| (i.to_string(), j))
         .collect();
 
-        (
-            self.constraints,
-            self.possibilities,
-            self.rem,
-        ) = Self::perform_initial_permutations(constraints, &lut, &self.ruleset)?;
+        (self.constraints, self.possibilities, self.rem) =
+            Self::perform_initial_permutations(constraints, &lut, &self.ruleset)?;
 
         Ok(solution)
     }
@@ -183,7 +188,7 @@ impl<S: StrategyBundle> Simulation<S> {
         for i in 0.. {
             if let Some(limit) = max {
                 if i >= limit {
-                    break
+                    break;
                 }
             }
 
@@ -221,7 +226,7 @@ impl<S: StrategyBundle> Simulation<S> {
                 };
 
                 ((0.0, m), ct)
-            },
+            }
             CT::Night => {
                 // this is a matching-night
                 let m = self.strategy.choose_mn(&self.possibilities, &mut self.rng);
@@ -233,7 +238,7 @@ impl<S: StrategyBundle> Simulation<S> {
                 };
 
                 (m, ct)
-            },
+            }
         };
 
         let l = m.calculate_lights(solution);
@@ -309,7 +314,10 @@ mod tests {
     struct DeterministicStrategy;
 
     impl StrategyBundle for DeterministicStrategy {
-        fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<(MaskedMatching, ConstraintType)>> {
+        fn initial_value(
+            &self,
+            constraints: &[Constraint],
+        ) -> Result<Option<(MaskedMatching, ConstraintType)>> {
             if !constraints.is_empty() {
                 return Ok(None);
             }
@@ -317,7 +325,11 @@ mod tests {
             let ids: Vec<IdBase> = (0..NUM_PLAYERS_SET_A as IdBase).collect();
             Ok(Some((
                 MaskedMatching::from(ids.as_slice()),
-                ConstraintType::Box{num: dec![0], offer: None, comment: "gg".to_string()},
+                ConstraintType::Box {
+                    num: dec![0],
+                    offer: None,
+                    comment: "gg".to_string(),
+                },
             )))
         }
 
@@ -330,8 +342,15 @@ mod tests {
             self.initial_value(&[]).unwrap().unwrap().0
         }
 
-        fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> (f64, MaskedMatching) {
-            (1.0, left_poss.first().cloned().expect("no possibilities left"))
+        fn choose_mn(
+            &self,
+            left_poss: &[MaskedMatching],
+            _rng: &mut dyn Rng,
+        ) -> (f64, MaskedMatching) {
+            (
+                1.0,
+                left_poss.first().cloned().expect("no possibilities left"),
+            )
         }
     }
 
@@ -454,14 +473,23 @@ mod tests {
 
         let rs = RuleSet::default();
 
-        let (returned_constraints, possibilities, rem) = Simulation::<DeterministicStrategy>::perform_initial_permutations(constraints, &lut, &rs).unwrap();
+        let (returned_constraints, possibilities, rem) =
+            Simulation::<DeterministicStrategy>::perform_initial_permutations(
+                constraints,
+                &lut,
+                &rs,
+            )
+            .unwrap();
 
         // no constraints should remain none
         assert!(returned_constraints.is_empty());
 
         // remaining possibilities should match total permutations observed
         assert_eq!(possibilities.len() as u128, rem.1);
-        assert_eq!(possibilities.len(), rs.get_perms_amount(lut.len(), lut.len(), &None).unwrap());
+        assert_eq!(
+            possibilities.len(),
+            rs.get_perms_amount(lut.len(), lut.len(), &None).unwrap()
+        );
 
         // rem table should exist and not be empty
         assert!(!rem.0.is_empty());
