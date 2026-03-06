@@ -12,8 +12,7 @@ use rust_decimal::{dec, Decimal};
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    constraint::{Constraint, ConstraintGetters, ConstraintType},
-    LightCnt,
+    constraint::{Constraint, ConstraintGetters, ConstraintType}, matching_repr::MaskedMatching, LightCnt
 };
 
 /// Container of evaluation output used for plotting and summaries.
@@ -194,6 +193,8 @@ pub struct EvalMB {
     pub comment: String,
     /// whether there was an offer for this event
     pub offer: bool,
+    /// the matching in this event (if the check-type is lights)
+    pub matching: Option<MaskedMatching>,
 }
 
 /// a collection of stats for a matching-night to be used in a comparison with other seasons
@@ -214,6 +215,8 @@ pub struct EvalMN {
     pub comment: String,
     /// whether there was an offer for this event
     pub offer: bool,
+    /// the matching in this event (if the check-type is lights)
+    pub matching: Option<MaskedMatching>,
 }
 
 /// Aggregated counts and summary metrics for a run / ruleset.
@@ -362,6 +365,7 @@ impl Constraint {
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
                 bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
                 comment: meta_b,
+                matching: self.is_lights().then(|| self.map.clone()),
             }))),
             ConstraintType::Box { num, .. } => Ok(Some(EvalEvent::MB(EvalMB {
                 offer: {
@@ -377,6 +381,7 @@ impl Constraint {
                 bits_gained: self.information.unwrap_or(f64::INFINITY),
                 bits_left_after: (self.left_after.context("total_left unset")? as f64).log2(),
                 comment: meta_b,
+                matching: self.is_lights().then(|| self.map.clone()),
             }))),
         }
     }
