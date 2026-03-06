@@ -31,7 +31,10 @@ run:
 	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo run
 
 check:
-	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo check
+	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo check --all-targets
+
+clippy:
+	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo clippy --all-targets
 
 contCheck:
 	luamon -l rust -e rs -w . -t -x make -- check
