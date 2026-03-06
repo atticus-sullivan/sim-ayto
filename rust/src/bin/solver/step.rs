@@ -1,3 +1,7 @@
+//! This module implements the functionality which is needed to create a simulation based on a
+//! configuration. This means the initial data for the simulation will be filled from a
+//! configuration file.
+
 use std::sync::Arc;
 use std::{fs::File, path::Path};
 
@@ -33,8 +37,11 @@ pub struct CfgParse {
     #[serde(rename = "setB")]
     map_b: Vec<String>,
 
+    /// The solution to this game
     solution: MapS,
 
+    /// If specified the entropy for this matching will be calculated based on the permutations
+    /// left after applying the [`constraints_orig`] given in the config.
     #[serde(default, rename = "try_entropy")]
     try_entropy: Option<MapS>,
 

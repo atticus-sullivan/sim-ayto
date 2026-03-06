@@ -122,12 +122,19 @@ where
     }
 }
 
+/// A struct for determine only whether a constraint-type should be a box or a night. This avoids
+/// having to fill all the fields usually needed when creating a ConstraintType
 #[derive(PartialEq)]
 enum CT {
+    /// the shortform for [`ConstraintType::Box`]
     Box,
+    /// the shortform for [`ConstraintType::Night`]
     Night,
 }
 
+/// a function which determines when which constraint type is generated
+///
+/// Idea is to make this configurable later on
 fn type_order(i: usize) -> CT {
     if i.is_multiple_of(2) {
         CT::Box

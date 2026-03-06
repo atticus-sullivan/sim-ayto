@@ -40,6 +40,7 @@ struct Args {
 /// Specifies the subcommands available on the CLI
 #[derive(Subcommand, Debug)]
 enum Commands {
+    /// Benchmark a specific solver
     Bench {
         /// Number of simulations to run
         #[arg(short = 'n', long = "num", default_value_t = 16)]
@@ -53,6 +54,7 @@ enum Commands {
         #[arg(short = 's', long = "seed")]
         seed: Option<u64>,
     },
+    /// Calculate the next step for a given configuration based on a specific solver
     Step {
     }
 }

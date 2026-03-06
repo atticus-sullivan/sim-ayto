@@ -82,6 +82,7 @@ impl<S: StrategyBundle> Simulation<S> {
     /// - create_iteration_state
     /// - iter_perms
     /// - initialize some internal fields
+    #[allow(clippy::too_many_arguments)]
     pub fn new_user_initialized(sim_id: usize, seed: u64, strategy: Arc<S>, ruleset: RuleSet, constraints: Vec<Constraint>, lights_known: LightCnt, lut_a: Lut, max: Option<usize>) -> Result<Self> {
         let (constraints, possibilities, rem) = Self::perform_initial_permutations(constraints, &lut_a, &ruleset)?;
 
@@ -105,7 +106,7 @@ impl<S: StrategyBundle> Simulation<S> {
         let mut iter_state = create_iteration_state(constraints)?;
 
         // use the ruleset for the first constraint
-        rs.iter_perms(&lut, &HashMap::new(), &mut iter_state, &None)?;
+        rs.iter_perms(lut, &HashMap::new(), &mut iter_state, &None)?;
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
         for c in iter_state.constraints.iter_mut() {
@@ -265,6 +266,8 @@ impl<S: StrategyBundle> Simulation<S> {
         Ok(())
     }
 
+    /// convert the finished simulation to a simulation-result which can be serialized and stored
+    /// on disk
     fn try_to_result(self, solution: MaskedMatching) -> Result<SimulationResult> {
         let iterations_count = self.constraints.len();
 
