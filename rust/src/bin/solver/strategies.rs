@@ -66,7 +66,9 @@ where
             1 => {
                 let last = constraints.first().unwrap();
                 ensure!(last.is_mb(), "First event should be a match-box");
+
                 if last.is_match_found() {
+                    // best to use one which does contain the known match (0,0)
                     Some(MaskedMatching::from_masks(
                         vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                             .into_iter()
@@ -74,7 +76,7 @@ where
                             .collect(),
                     ))
                 } else {
-                    // best to use one which does not contain (0,0)
+                    // best to use one which does not contain the known no-match (0,0)
                     Some(MaskedMatching::from_masks(
                         vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
                             .into_iter()
