@@ -242,7 +242,7 @@ mod tests {
             .map(|(k, v)| (k.to_string(), v))
             .collect::<HashMap<_, _>>();
 
-        let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
+        let (c_map, c_map_s) = convert_map_s_to_ids(&cp.map_s, &lut_a, &lut_b).unwrap();
 
         let c_ref = vec![(0, 2), (5, 20)].into_iter().collect::<HashMap<_, _>>();
 

@@ -82,8 +82,10 @@ mod tests {
         let left_poss = vec![m1.clone(), m2.clone(), m3.clone()];
 
         // Entropy calculation
-        let chosen = optimizer.choose_mn(&left_poss, &mut rng);
+        let (h, chosen) = optimizer.choose_mn(&left_poss, &mut rng);
         assert_eq!(chosen, m3);
+        let expected = 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2();
+        assert_eq!(h, -expected);
     }
 
     #[test]
@@ -97,10 +99,12 @@ mod tests {
         let m3 = make_masked_matching(&[0, 1, 0]);
         let left_poss = vec![m1.clone(), m2.clone(), m3.clone()];
 
-        let chosen = optimizer.choose_mn(&left_poss, &mut rng);
+        let (h, chosen) = optimizer.choose_mn(&left_poss, &mut rng);
 
         // chosen must be one of the left_poss
         assert_eq!(chosen, m3);
+        let expected = 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2() + 1.0/3.0 * (1.0/3.0_f64).log2();
+        assert_eq!(h, -expected);
     }
 
     #[test]
@@ -111,7 +115,8 @@ mod tests {
         let m1 = make_masked_matching(&[0, 0, 1]);
         let left_poss = vec![m1.clone()];
 
-        let chosen = optimizer.choose_mn(&left_poss, &mut rng);
+        let (h, chosen) = optimizer.choose_mn(&left_poss, &mut rng);
         assert_eq!(chosen, m1);
+        assert_eq!(h, -0.0);
     }
 }

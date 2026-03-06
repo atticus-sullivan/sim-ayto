@@ -38,7 +38,7 @@ pub const MATCH_MAX_LEN: usize = 12;
 /// memory (not lots of tiny allocations).
 /// Still `SmallVec` can also store larger vectors. In such a case it resorts back to doing a heap
 /// allocation. It also supports storing vectors/arrays with do not take up the full length.
-#[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize, Default)]
 pub struct MaskedMatching {
     /// mapping idx_a to a set of idxs_b where the idxs_b are stored efficiently in a
     /// bitmask/bitset

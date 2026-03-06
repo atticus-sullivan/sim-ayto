@@ -312,6 +312,7 @@ mod tests {
         comment: String,
         type_str: String,
         num: Decimal,
+        map: MaskedMatching,
     }
 
     impl ConstraintSim for MockConstraint {
@@ -331,6 +332,9 @@ mod tests {
 
         fn num(&self) -> rust_decimal::Decimal {
             self.num
+        }
+        fn matching(&self) -> &MaskedMatching {
+            &self.map
         }
     }
 

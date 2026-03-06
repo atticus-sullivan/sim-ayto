@@ -52,7 +52,6 @@ pub(super) fn create_iteration_state(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ayto::constraint::evaluate_predicates::ConstraintEval;
     use ayto::matching_repr::bitset::Bitset;
     use pretty_assertions::assert_eq;
     use rand::rngs::StdRng;
@@ -86,49 +85,5 @@ mod tests {
         let s2 = generate_solution(&mut rng2);
 
         assert_eq!(s1, s2);
-    }
-
-    #[test]
-    fn build_initial_constraint_box_if_len_one() {
-        let ruleset = RuleSet::Eq;
-
-        // Matching of length 1 triggers Box constraint
-        let matching = MaskedMatching::from_matching_ref(&[vec![0u8]]);
-
-        let constraint = build_initial_constraint(matching, 1, &ruleset, 0).unwrap();
-
-        assert!(constraint.is_mb());
-        assert_eq!(constraint.check.as_lights(), Some(1));
-    }
-
-    #[test]
-    fn build_initial_constraint_night_if_len_gt_one() {
-        let ruleset = RuleSet::Eq;
-
-        let matching =
-            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
-
-        let constraint = build_initial_constraint(matching, 2, &ruleset, 0).unwrap();
-
-        assert!(constraint.is_mb());
-        assert_eq!(constraint.check.as_lights(), Some(2));
-    }
-
-    #[test]
-    fn create_iteration_state_initializes_properly() {
-        let ruleset = RuleSet::Eq;
-
-        let matching =
-            MaskedMatching::from_matching_ref(&[(0..NUM_PLAYERS_SET_A as u8).collect::<Vec<_>>()]);
-
-        let constraint = build_initial_constraint(matching, 0, &ruleset, 0).unwrap();
-
-        let iter_state = create_iteration_state(&constraint);
-
-        assert!(iter_state.is_ok());
-
-        let state = iter_state.unwrap();
-
-        assert_eq!(state.constraints.len(), 1);
     }
 }

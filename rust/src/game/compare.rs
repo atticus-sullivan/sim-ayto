@@ -190,6 +190,7 @@ mod tests {
         num: Decimal,
         type_str: String,
         comment: String,
+        map: MaskedMatching,
     }
 
     impl Default for ConstraintMock {
@@ -208,6 +209,7 @@ mod tests {
                 num: dec![1],
                 type_str: "".to_string(),
                 comment: "".to_string(),
+                map: Default::default(),
             }
         }
     }
@@ -223,6 +225,9 @@ mod tests {
 
         fn num(&self) -> Decimal {
             self.num
+        }
+        fn matching(&self) -> &MaskedMatching {
+            &self.map
         }
     }
     impl ConstraintEval for ConstraintMock {

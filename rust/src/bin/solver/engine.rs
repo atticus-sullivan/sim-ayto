@@ -83,7 +83,9 @@ impl<S: StrategyBundle> Simulation<S> {
     /// - iter_perms
     /// - initialize some internal fields
     pub fn new_user_initialized(sim_id: usize, seed: u64, strategy: Arc<S>, ruleset: RuleSet, constraints: Vec<Constraint>, lights_known: LightCnt, lut_a: Lut, max: Option<usize>) -> Result<Self> {
-        let mut ret = Self {
+        let (constraints, possibilities, rem) = Self::perform_initial_permutations(constraints, &lut_a, &ruleset)?;
+
+        Ok(Self {
             ruleset,
             sim_id,
             seed,
@@ -91,17 +93,18 @@ impl<S: StrategyBundle> Simulation<S> {
             rng: create_rng(seed),
             start: Instant::now(),
             constraints,
-            possibilities: Vec::new(),
-            rem: (vec![], 0),
+            possibilities,
+            rem,
             lights_known_before: lights_known,
             max,
-        };
+        })
+    }
 
-        let mut iter_state = create_iteration_state(ret.constraints)?;
+    fn perform_initial_permutations(constraints: Vec<Constraint>, lut: &Lut, rs: &RuleSet) -> Result<(Vec<Constraint>, Vec<MaskedMatching>, Rem)> {
+        let mut iter_state = create_iteration_state(constraints)?;
 
         // use the ruleset for the first constraint
-        ret.ruleset
-            .iter_perms(&lut_a, &HashMap::new(), &mut iter_state, &None)?;
+        rs.iter_perms(&lut, &HashMap::new(), &mut iter_state, &None)?;
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
         for c in iter_state.constraints.iter_mut() {
@@ -110,11 +113,11 @@ impl<S: StrategyBundle> Simulation<S> {
                 .context("Apply to rem failed")?;
         }
 
-        ret.constraints = iter_state.constraints;
-        ret.possibilities = iter_state.left_poss;
-        ret.rem = rem;
-
-        Ok(ret)
+        Ok((
+            iter_state.constraints,
+            iter_state.left_poss,
+            rem,
+        ))
     }
 
     /// Initializes the simulation state and computes the initial possibility space.
@@ -147,8 +150,6 @@ impl<S: StrategyBundle> Simulation<S> {
             ));
         }
 
-        let mut iter_state = create_iteration_state(constraints)?;
-
         let lut = vec![
             ("a", 0),
             ("b", 1),
@@ -165,20 +166,11 @@ impl<S: StrategyBundle> Simulation<S> {
         .map(|(i, j)| (i.to_string(), j))
         .collect();
 
-        // use the ruleset for the first constraint
-        self.ruleset
-            .iter_perms(&lut, &HashMap::new(), &mut iter_state, &None)?;
-
-        let mut rem: Rem = (iter_state.each, iter_state.total);
-        for c in iter_state.constraints.iter_mut() {
-            rem = c
-                .apply_to_rem(rem)
-                .context("Apply to rem failed")?;
-        }
-
-        self.constraints = iter_state.constraints;
-        self.possibilities = iter_state.left_poss;
-        self.rem = rem;
+        (
+            self.constraints,
+            self.possibilities,
+            self.rem,
+        ) = Self::perform_initial_permutations(constraints, &lut, &self.ruleset)?;
 
         Ok(solution)
     }
@@ -330,8 +322,8 @@ mod tests {
             self.initial_value(&[]).unwrap().unwrap()
         }
 
-        fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> MaskedMatching {
-            left_poss.first().cloned().expect("no possibilities left")
+        fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> (f64, MaskedMatching) {
+            (1.0, left_poss.first().cloned().expect("no possibilities left"))
         }
     }
 
@@ -372,8 +364,8 @@ mod tests {
         let mut sim = build_sim(42);
         let solution = sim.init().unwrap();
 
-        let constraint = sim.next_step(&solution, 3);
-        assert!(constraint.is_ok());
+        let x = sim.next_step(&solution);
+        assert!(x.is_ok());
     }
 
     #[test]
@@ -381,11 +373,19 @@ mod tests {
         let mut sim = build_sim(42);
         let solution = sim.init().unwrap();
 
-        let odd = sim.next_step(&solution, 3).unwrap();
-        let even = sim.next_step(&solution, 4).unwrap();
+        // in order to generate the 3rd and 4th one later
+        sim.constraints.push(Constraint::default());
+        sim.constraints.push(Constraint::default());
+
+        let odd = sim.next_step(&solution).unwrap();
+        let odd_t = odd.1.type_str();
+
+        sim.constraints.push(odd.1);
+
+        let even = sim.next_step(&solution).unwrap();
 
         // They should not both be identical constraint types
-        assert_ne!(odd.type_str(), even.type_str());
+        assert_ne!(odd_t, even.1.type_str());
     }
 
     #[test]
@@ -395,8 +395,11 @@ mod tests {
 
         let initial_len = sim.possibilities.len();
 
-        let constraint = sim.next_step(&solution, 3).unwrap();
-        sim.apply_constraint(constraint).unwrap();
+        // in order to generate the 3rd constraint
+        sim.constraints.push(Constraint::default());
+        sim.constraints.push(Constraint::default());
+        let constraint = sim.next_step(&solution).unwrap();
+        sim.apply_constraint(constraint.1).unwrap();
 
         assert!(sim.possibilities.len() <= initial_len);
         assert!(!sim.constraints.is_empty());
@@ -407,7 +410,7 @@ mod tests {
         let mut sim = build_sim(42);
         let solution = sim.init().unwrap();
 
-        let result = sim.run_loop(&solution);
+        let result = sim.run_loop(&solution, None);
 
         assert!(result.is_ok());
         assert!(sim.possibilities.len() <= 1);

@@ -496,6 +496,7 @@ mod tests {
             bits_gained: 2.5,
             comment: "mb".to_string(),
             offer: true,
+            matching: Default::default(),
         };
         let ev_mb = EvalEvent::MB(mb.clone());
 
@@ -508,6 +509,7 @@ mod tests {
             bits_gained: 3.5,
             comment: "mn".to_string(),
             offer: false,
+            matching: Default::default(),
         };
         let ev_mn = EvalEvent::MN(mn.clone());
 
