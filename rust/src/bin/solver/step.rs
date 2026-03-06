@@ -47,6 +47,12 @@ impl CfgParse {
         Ok(gp)
     }
 
+    /// Create a [`Simulation`] from the parsed config.
+    ///
+    /// In addition to the [`Simulation`], this returns
+    /// 1. the configured solution
+    /// 2. a matching for which the entropy should be calculated after the configured constraints
+    ///    have been applied. This might not be set if no matching was configured here.
     pub fn finalize_parsing<S: StrategyBundle>(self, sim_id: usize, seed: u64, strategy: Arc<S>) -> Result<(MaskedMatching,Option<MaskedMatching>,Simulation<S>)> {
         ensure!(self.map_a.len() == NUM_PLAYERS_SET_A);
         ensure!(self.map_b.len() == NUM_PLAYERS_SET_A);
