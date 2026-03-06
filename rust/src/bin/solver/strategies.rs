@@ -7,9 +7,10 @@
 pub(super) mod mb;
 pub(super) mod mn;
 
-use anyhow::{ensure, Result};
-use ayto::{constraint::{evaluate_predicates::ConstraintEval, Constraint}, matching_repr::{bitset::Bitset, MaskedMatching}};
+use anyhow::Result;
+use ayto::{constraint::{check_type::CheckType, evaluate_predicates::ConstraintEval, Constraint, ConstraintGetters, ConstraintType}, matching_repr::{bitset::Bitset, MaskedMatching}};
 use rand::Rng;
+use rust_decimal::{dec, Decimal};
 
 use crate::strategies::{mb::MbOptimizer, mn::MnOptimizer};
 
@@ -25,8 +26,13 @@ pub(super) trait StrategyBundle: Send + Sync {
     /// come up with a full-matching for a matching night, also return the H
     fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> (f64, MaskedMatching);
 
-    /// Produce an initial value for the first constraint. Up to this point no information is known
-    fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<MaskedMatching>>;
+    /// Produce the next constraint in the sequence of initial constraints. In particular, this
+    /// sequence is generated without having extended information about the remaining permutations.
+    /// The decision is only based on knowledge about the past (already generated) constraints and
+    /// how many lights they produced.
+    ///
+    /// Like an iterator, this returns None if no more initial constraints can be generated
+    fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<(MaskedMatching, ConstraintType)>>;
 }
 
 /// Combines the different strategies needed.
@@ -52,40 +58,80 @@ where
         self.mn.choose_mn(left_poss, rng)
     }
 
-    fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<MaskedMatching>> {
-        Ok(match constraints.len() {
-            0 => {
-                // match (0,0)
-                Some(MaskedMatching::from_masks(
-                    vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                        .into_iter()
-                        .map(Bitset::from_word)
-                        .collect(),
-                ))
-            },
-            1 => {
-                let last = constraints.first().unwrap();
-                ensure!(last.is_mb(), "First event should be a match-box");
+    fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<(MaskedMatching, ConstraintType)>> {
+        let i = constraints.len();
+        let num = (Decimal::from(i)/ dec![2]).floor() + dec![1];
+        let comment = "".to_string();
+        let offer = None;
 
-                if last.is_match_found() {
-                    // best to use one which does contain the known match (0,0)
-                    Some(MaskedMatching::from_masks(
+        let match00 = MaskedMatching::from_masks(
+            vec![1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                .into_iter()
+                .map(Bitset::from_word)
+                .collect(),
+        );
+
+        let next_ct = type_order(i);
+
+        Ok(
+            match constraints {
+                [] if next_ct == CT::Box => {
+                    // match (0,0)
+                    Some((
+                        match00,
+                        ConstraintType::Box { num, comment, offer },
+                    ))
+                },
+                [c] if next_ct == CT::Night
+                && c.is_mb()
+                && matches!(c.check, CheckType::Lights(..))
+                && c.is_match_found()
+                && c.matching() == &match00 => {
+                     // best to use one which does contain the known match (0,0)
+                    let m = MaskedMatching::from_masks(
                         vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                             .into_iter()
                             .map(|i| Bitset::from_word(1 << i))
                             .collect(),
+                    );
+                    Some((
+                        m,
+                        ConstraintType::Night {num, comment, offer}
                     ))
-                } else {
+                },
+                [c] if next_ct == CT::Night
+                && c.is_mb()
+                && matches!(c.check, CheckType::Lights(..))
+                && !c.is_match_found()
+                && c.matching() == &match00 => {
                     // best to use one which does not contain the known no-match (0,0)
-                    Some(MaskedMatching::from_masks(
+                    let m = MaskedMatching::from_masks(
                         vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
                             .into_iter()
                             .map(|i| Bitset::from_word(1 << i))
                             .collect(),
+                    );
+                    Some((
+                        m,
+                        ConstraintType::Night {num, comment, offer}
                     ))
-                }
-            },
-            _ => None,
-        })
+                },
+                _ => None,
+            }
+        )
+    }
+}
+
+#[derive(PartialEq)]
+enum CT {
+    Box,
+    Night,
+}
+
+fn type_order(i: usize) -> CT {
+    if i.is_multiple_of(2) {
+        CT::Box
+    } else {
+        CT::Night
     }
 }

@@ -100,6 +100,7 @@ impl<S: StrategyBundle> Simulation<S> {
         })
     }
 
+    /// Based on the initial constraints and the ruleset, compute all possible solutions
     fn perform_initial_permutations(constraints: Vec<Constraint>, lut: &Lut, rs: &RuleSet) -> Result<(Vec<Constraint>, Vec<MaskedMatching>, Rem)> {
         let mut iter_state = create_iteration_state(constraints)?;
 
@@ -126,20 +127,11 @@ impl<S: StrategyBundle> Simulation<S> {
     fn init(&mut self) -> Result<MaskedMatching> {
         let solution = generate_solution(&mut self.rng);
         let mut constraints = vec![];
-        for i in 0usize.. {
-            let Some(m) = self.strategy.initial_value(&constraints)? else {break};
 
+        while let Some((m, ct)) = self.strategy.initial_value(&constraints)? {
             let lights = m.calculate_lights(&solution);
 
-            let ct = if i.is_multiple_of(2) {
-                // a new light might be known after the constraint -> update
-                self.lights_known_before += lights;
-                ConstraintType::Box { num: (Decimal::from(i)/ dec![2]).floor() + dec![1], comment: "".to_string(), offer: None }
-            } else {
-                ConstraintType::Night { num: (Decimal::from(i)/ dec![2]).floor() + dec![1], comment: "".to_string(), offer: None }
-            };
-
-            constraints.push(Constraint::new_with_defaults(
+            let c = Constraint::new_with_defaults(
                 ct,
                 CheckType::Lights(lights, Default::default()),
                 m,
@@ -147,7 +139,9 @@ impl<S: StrategyBundle> Simulation<S> {
                 NUM_PLAYERS_SET_A,
                 NUM_PLAYERS_SET_A,
                 self.lights_known_before as LightCnt,
-            ));
+            );
+            self.lights_known_before += c.added_known_lights();
+            constraints.push(c);
         }
 
         let lut = vec![
@@ -304,13 +298,16 @@ mod tests {
     struct DeterministicStrategy;
 
     impl StrategyBundle for DeterministicStrategy {
-        fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<MaskedMatching>> {
+        fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<(MaskedMatching, ConstraintType)>> {
             if !constraints.is_empty() {
                 return Ok(None);
             }
             // Single deterministic matching
             let ids: Vec<IdBase> = (0..NUM_PLAYERS_SET_A as IdBase).collect();
-            Ok(Some(MaskedMatching::from(ids.as_slice())))
+            Ok(Some((
+                MaskedMatching::from(ids.as_slice()),
+                ConstraintType::Box{num: dec![0], offer: None, comment: "gg".to_string()},
+            )))
         }
 
         fn choose_mb(
@@ -319,7 +316,7 @@ mod tests {
             _total: u128,
             _rng: &mut dyn Rng,
         ) -> MaskedMatching {
-            self.initial_value(&[]).unwrap().unwrap()
+            self.initial_value(&[]).unwrap().unwrap().0
         }
 
         fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> (f64, MaskedMatching) {
@@ -433,5 +430,32 @@ mod tests {
 
         let _r1 = sim1.run().unwrap();
         let _r2 = sim2.run().unwrap();
+    }
+
+    #[test]
+    fn perform_initial_permutations_without_constraints() {
+        let constraints = vec![];
+        let lut: Lut = (0..NUM_PLAYERS_SET_A)
+            .map(|i| ((b'a' + i as u8) as char).to_string())
+            .enumerate()
+            .map(|(i, s)| (s, i))
+            .collect();
+
+        let rs = RuleSet::default();
+
+        let (returned_constraints, possibilities, rem) = Simulation::<DeterministicStrategy>::perform_initial_permutations(constraints, &lut, &rs).unwrap();
+
+        // no constraints should remain none
+        assert!(returned_constraints.is_empty());
+
+        // remaining possibilities should match total permutations observed
+        assert_eq!(possibilities.len() as u128, rem.1);
+        assert_eq!(possibilities.len(), rs.get_perms_amount(lut.len(), lut.len(), &None).unwrap());
+
+        // rem table should exist and not be empty
+        assert!(!rem.0.is_empty());
+
+        // total permutations should be > 0
+        assert!(rem.1 > 0);
     }
 }
