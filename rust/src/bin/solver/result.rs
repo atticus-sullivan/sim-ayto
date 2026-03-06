@@ -7,7 +7,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use ayto::constraint::compare::EvalEvent;
+use ayto::{constraint::compare::EvalEvent, matching_repr::MaskedMatching};
 
 /// Collects the results of one entire simulation (playing the game once)
 #[derive(Serialize, Deserialize)]
@@ -22,6 +22,8 @@ pub(super) struct SimulationResult {
     iterations_count: usize,
     /// How long the simulation ran in miliseconds
     duration_ms: u128,
+    /// the solution chosen for this simulation
+    solution: MaskedMatching,
 }
 
 impl SimulationResult {
@@ -32,6 +34,7 @@ impl SimulationResult {
         stats: Vec<EvalEvent>,
         iterations_count: usize,
         duration_ms: u128,
+        solution: MaskedMatching
     ) -> Self {
         Self {
             sim_id,
@@ -39,6 +42,7 @@ impl SimulationResult {
             stats,
             iterations_count,
             duration_ms,
+            solution,
         }
     }
 }

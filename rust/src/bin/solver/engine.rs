@@ -187,7 +187,7 @@ impl<S: StrategyBundle> Simulation<S> {
     pub fn run(mut self) -> Result<SimulationResult> {
         let solution = self.init()?;
         self.run_loop(&solution, self.max)?;
-        self.try_into()
+        self.try_to_result(solution)
     }
 
     /// Executes simulation loop.
@@ -278,12 +278,8 @@ impl<S: StrategyBundle> Simulation<S> {
 
         Ok(())
     }
-}
 
-/// Convert finished Simulation into SimulationResult.
-impl<S: StrategyBundle> TryInto<SimulationResult> for Simulation<S> {
-    type Error = anyhow::Error;
-    fn try_into(self) -> Result<SimulationResult, Self::Error> {
+    fn try_to_result(self, solution: MaskedMatching) -> Result<SimulationResult> {
         let iterations_count = self.constraints.len();
 
         let stats = self
@@ -298,6 +294,7 @@ impl<S: StrategyBundle> TryInto<SimulationResult> for Simulation<S> {
             stats,
             iterations_count,
             self.start.elapsed().as_millis(),
+            solution,
         ))
     }
 }
