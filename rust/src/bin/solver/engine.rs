@@ -21,6 +21,7 @@ use crate::init::{create_iteration_state, generate_solution};
 use crate::result::SimulationResult;
 use crate::rng::create_rng;
 use crate::strategies::StrategyBundle;
+use crate::trail::{constraint_type_order, CT};
 use crate::NUM_PLAYERS_SET_A;
 
 /// Encapsulates the full state and lifecycle of a single simulation run.
@@ -202,30 +203,37 @@ impl<S: StrategyBundle> Simulation<S> {
     /// according to the selected strategy and iteration number/index.
     pub(super) fn next_step(&mut self, solution: &MaskedMatching) -> Result<(f64, Constraint)> {
         let iteration = self.constraints.len();
-        let ((h, m), ct) = if iteration.is_multiple_of(2) {
-            // this is a match-box decision
-            let m = self
-                .strategy
-                .choose_mb(&self.rem.0, self.rem.1, &mut self.rng);
+        let num = (Decimal::from(iteration) / dec![2]).floor();
+        let comment = String::new();
+        let offer = None;
 
-            let ct = ConstraintType::Box {
-                num: (Decimal::from(iteration) / dec![2]).floor(),
-                comment: String::new(),
-                offer: None,
-            };
+        let ((h, m), ct) = match constraint_type_order(iteration) {
+            CT::Box => {
+                // this is a match-box decision
+                let m = self
+                    .strategy
+                    .choose_mb(&self.rem.0, self.rem.1, &mut self.rng);
 
-            ((0.0, m), ct)
-        } else {
-            // this is a matching-night
-            let m = self.strategy.choose_mn(&self.possibilities, &mut self.rng);
+                let ct = ConstraintType::Box {
+                    num,
+                    comment,
+                    offer,
+                };
 
-            let ct = ConstraintType::Night {
-                num: (Decimal::from(iteration) / dec![2]).floor(),
-                comment: String::new(),
-                offer: None,
-            };
+                ((0.0, m), ct)
+            },
+            CT::Night => {
+                // this is a matching-night
+                let m = self.strategy.choose_mn(&self.possibilities, &mut self.rng);
 
-            (m, ct)
+                let ct = ConstraintType::Night {
+                    num,
+                    comment,
+                    offer,
+                };
+
+                (m, ct)
+            },
         };
 
         let l = m.calculate_lights(solution);

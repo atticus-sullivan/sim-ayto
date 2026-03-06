@@ -14,6 +14,7 @@ mod strategies;
 mod utils;
 mod writer;
 mod step;
+mod trail;
 
 use std::path::PathBuf;
 
