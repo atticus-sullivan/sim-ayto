@@ -25,10 +25,10 @@
 pub mod check_type;
 pub mod compare;
 pub mod evaluate_predicates;
+pub mod parse;
+pub mod parse_utils;
 
 pub(super) mod evaluate;
-pub(super) mod parse;
-pub(super) mod parse_utils;
 pub(super) mod report;
 pub(super) mod report_hdr;
 pub(super) mod report_summary;
@@ -366,6 +366,8 @@ pub trait ConstraintGetters {
     fn type_str(&self) -> String;
     /// The numeric index associated with this constraint (MB or MN index).
     fn num(&self) -> Decimal;
+    /// The matching used in this constraint
+    fn matching(&self) -> &MaskedMatching;
 }
 
 // getter functions
@@ -389,6 +391,10 @@ impl ConstraintGetters for Constraint {
             ConstraintType::Night { num, .. } => *num,
             ConstraintType::Box { num, .. } => *num,
         }
+    }
+
+    fn matching(&self) -> &MaskedMatching {
+        &self.map
     }
 }
 

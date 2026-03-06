@@ -8,16 +8,16 @@
 use std::sync::Arc;
 use std::{collections::HashMap, time::Instant};
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result};
 use rand::rngs::StdRng;
 use rust_decimal::{dec, Decimal};
 
 use ayto::constraint::{check_type::CheckType, Constraint, ConstraintSim, ConstraintType};
 use ayto::matching_repr::MaskedMatching;
 use ayto::ruleset::RuleSet;
-use ayto::{LightCnt, Rem};
+use ayto::{LightCnt, Lut, Rem};
 
-use crate::init::{build_initial_constraint, create_iteration_state, generate_solution};
+use crate::init::{create_iteration_state, generate_solution};
 use crate::result::SimulationResult;
 use crate::rng::create_rng;
 use crate::strategies::StrategyBundle;
@@ -42,6 +42,8 @@ pub struct Simulation<S: StrategyBundle> {
     start: Instant,
     /// the ruleset used for playing this game
     ruleset: RuleSet,
+    /// maximum number of iterations
+    max: Option<usize>,
 
     /////////////////////////////////////////////////////
     // fields which are modified during the simulation //
@@ -49,11 +51,11 @@ pub struct Simulation<S: StrategyBundle> {
     /// accumulated list of constraints used to solve this game
     constraints: Vec<Constraint>,
     /// list of all remaining possible solutions
-    possibilities: Vec<MaskedMatching>,
+    pub possibilities: Vec<MaskedMatching>,
     /// a table tracking the remaining possibilities per 1:1 matching
     rem: Rem,
     /// The amount of lights which are already *known* (proven in a MB decision) up to this point
-    lights_known_before: usize,
+    lights_known_before: LightCnt,
 }
 
 impl<S: StrategyBundle> Simulation<S> {
@@ -70,7 +72,50 @@ impl<S: StrategyBundle> Simulation<S> {
             possibilities: Vec::new(),
             rem: (vec![], 0),
             lights_known_before: 0,
+            max: None,
         }
+    }
+
+    /// Constructor which already initialites the simulation with user supplied information
+    ///
+    /// Basically new + init but init only with
+    /// - create_iteration_state
+    /// - iter_perms
+    /// - initialize some internal fields
+    pub fn new_user_initialized(sim_id: usize, seed: u64, strategy: Arc<S>, ruleset: RuleSet, constraints: Vec<Constraint>, lights_known: LightCnt, lut_a: Lut, max: Option<usize>) -> Result<Self> {
+        let mut ret = Self {
+            ruleset,
+            sim_id,
+            seed,
+            strategy,
+            rng: create_rng(seed),
+            start: Instant::now(),
+            constraints,
+            possibilities: Vec::new(),
+            rem: (vec![], 0),
+            lights_known_before: lights_known,
+            max,
+        };
+
+        let mut iter_state = create_iteration_state(ret.constraints)?;
+
+        // use the ruleset for the first constraint
+        ret.ruleset
+            .iter_perms(&lut_a, &HashMap::new(), &mut iter_state, &None)?;
+
+        let mut rem: Rem = (iter_state.each, iter_state.total);
+        rem = iter_state
+            .constraints
+            .last_mut() // TODO: now it can be multiple ones
+            .unwrap() // I know there is exactly one constraint in that vector
+            .apply_to_rem(rem)
+            .context("Apply to rem failed")?;
+
+        ret.constraints = iter_state.constraints;
+        ret.possibilities = iter_state.left_poss;
+        ret.rem = rem;
+
+        Ok(ret)
     }
 
     /// Initializes the simulation state and computes the initial possibility space.
@@ -78,20 +123,32 @@ impl<S: StrategyBundle> Simulation<S> {
     /// Returns the solution
     fn init(&mut self) -> Result<MaskedMatching> {
         let solution = generate_solution(&mut self.rng);
-        let initial_matching = self.strategy.initial_value();
-        let lights = initial_matching.calculate_lights(&solution);
+        let mut constraints = vec![];
+        for i in 0usize.. {
+            let Some(m) = self.strategy.initial_value(&constraints)? else {break};
 
-        let constraint = build_initial_constraint(
-            initial_matching,
-            lights as usize,
-            &self.ruleset,
-            self.lights_known_before,
-        )?;
+            let lights = m.calculate_lights(&solution);
 
-        // a new light might be known after the constraint -> update
-        self.lights_known_before = lights as usize;
+            let ct = if i.is_multiple_of(2) {
+                // a new light might be known after the constraint -> update
+                self.lights_known_before += lights;
+                ConstraintType::Box { num: (Decimal::from(i)/ dec![2]).floor() + dec![1], comment: "".to_string(), offer: None }
+            } else {
+                ConstraintType::Night { num: (Decimal::from(i)/ dec![2]).floor() + dec![1], comment: "".to_string(), offer: None }
+            };
 
-        let mut iter_state = create_iteration_state(&constraint)?;
+            constraints.push(Constraint::new_with_defaults(
+                ct,
+                CheckType::Lights(lights, Default::default()),
+                m,
+                self.ruleset.init_data()?,
+                NUM_PLAYERS_SET_A,
+                NUM_PLAYERS_SET_A,
+                self.lights_known_before as LightCnt,
+            ));
+        }
+
+        let mut iter_state = create_iteration_state(constraints)?;
 
         let lut = vec![
             ("a", 0),
@@ -116,7 +173,7 @@ impl<S: StrategyBundle> Simulation<S> {
         let mut rem: Rem = (iter_state.each, iter_state.total);
         rem = iter_state
             .constraints
-            .last_mut()
+            .last_mut() // TODO: now it can be multiple ones
             .unwrap() // I know there is exactly one constraint in that vector
             .apply_to_rem(rem)
             .context("Apply to rem failed")?;
@@ -131,14 +188,20 @@ impl<S: StrategyBundle> Simulation<S> {
     /// Full simulation execution.
     pub fn run(mut self) -> Result<SimulationResult> {
         let solution = self.init()?;
-        self.run_loop(&solution)?;
+        self.run_loop(&solution, self.max)?;
         self.try_into()
     }
 
     /// Executes simulation loop.
-    fn run_loop(&mut self, solution: &MaskedMatching) -> Result<()> {
-        for i in 3usize.. {
-            let constraint = self.next_step(solution, i)?;
+    fn run_loop(&mut self, solution: &MaskedMatching, max: Option<usize>) -> Result<()> {
+        for i in 0.. {
+            if let Some(limit) = max {
+                if i >= limit {
+                    break
+                }
+            }
+
+            let constraint = self.next_step(solution)?.1;
 
             self.apply_constraint(constraint)?;
 
@@ -147,13 +210,14 @@ impl<S: StrategyBundle> Simulation<S> {
             }
         }
 
-        bail!("Unexpected termination")
+        Ok(())
     }
 
     /// Generates and constructs the next constraint
     /// according to the selected strategy and iteration number/index.
-    fn next_step(&mut self, solution: &MaskedMatching, iteration: usize) -> Result<Constraint> {
-        let (m, ct) = if iteration.is_multiple_of(2) {
+    pub(super) fn next_step(&mut self, solution: &MaskedMatching) -> Result<(f64, Constraint)> {
+        let iteration = self.constraints.len();
+        let ((h, m), ct) = if iteration.is_multiple_of(2) {
             // this is a match-box decision
             let m = self
                 .strategy
@@ -165,7 +229,7 @@ impl<S: StrategyBundle> Simulation<S> {
                 offer: None,
             };
 
-            (m, ct)
+            ((0.0, m), ct)
         } else {
             // this is a matching-night
             let m = self.strategy.choose_mn(&self.possibilities, &mut self.rng);
@@ -189,8 +253,8 @@ impl<S: StrategyBundle> Simulation<S> {
             NUM_PLAYERS_SET_A,
             self.lights_known_before as LightCnt,
         );
-        self.lights_known_before += c.added_known_lights() as usize;
-        Ok(c)
+        self.lights_known_before += c.added_known_lights();
+        Ok((h, c))
     }
 
     /// Applies a new constraint to:
@@ -253,10 +317,13 @@ mod tests {
     struct DeterministicStrategy;
 
     impl StrategyBundle for DeterministicStrategy {
-        fn initial_value(&self) -> MaskedMatching {
+        fn initial_value(&self, constraints: &[Constraint]) -> Result<Option<MaskedMatching>> {
+            if !constraints.is_empty() {
+                return Ok(None);
+            }
             // Single deterministic matching
             let ids: Vec<IdBase> = (0..NUM_PLAYERS_SET_A as IdBase).collect();
-            MaskedMatching::from(ids.as_slice())
+            Ok(Some(MaskedMatching::from(ids.as_slice())))
         }
 
         fn choose_mb(
@@ -265,7 +332,7 @@ mod tests {
             _total: u128,
             _rng: &mut dyn Rng,
         ) -> MaskedMatching {
-            self.initial_value()
+            self.initial_value(&[]).unwrap().unwrap()
         }
 
         fn choose_mn(&self, left_poss: &[MaskedMatching], _rng: &mut dyn Rng) -> MaskedMatching {

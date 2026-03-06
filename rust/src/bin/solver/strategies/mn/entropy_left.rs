@@ -36,7 +36,7 @@ impl EntropyLeftMnOptimizer {
 }
 
 impl MnOptimizer for EntropyLeftMnOptimizer {
-    fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> MaskedMatching {
+    fn choose_mn(&self, left_poss: &[MaskedMatching], rng: &mut dyn Rng) -> (f64, MaskedMatching) {
         // using all of the perms results in too long computations
         // => only use left_poss they have a better chance for a good result anyhow
 
@@ -45,17 +45,15 @@ impl MnOptimizer for EntropyLeftMnOptimizer {
                 .sample(rng, self.sample_threshold)
                 .map(|m| (calc_entropy(m, left_poss), m))
                 .max_by(|(e1, _), (e2, _)| e1.partial_cmp(e2).unwrap())
-                .map(|(_, m)| m)
+                .map(|(h, m)| (h, m.clone()))
                 .unwrap()
-                .clone()
         } else {
             left_poss
                 .iter()
                 .map(|m| (calc_entropy(m, left_poss), m))
                 .max_by(|(e1, _), (e2, _)| e1.partial_cmp(e2).unwrap())
-                .map(|(_, m)| m)
+                .map(|(h, m)| (h, m.clone()))
                 .unwrap()
-                .clone()
         }
     }
 }

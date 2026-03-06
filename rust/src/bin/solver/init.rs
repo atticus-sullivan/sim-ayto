@@ -8,15 +8,12 @@ use std::collections::HashSet;
 
 use anyhow::Result;
 use ayto::progressbar::MockProgressBar;
-use ayto::LightCnt;
 use rand::rngs::StdRng;
 use rand::seq::SliceRandom;
-use rust_decimal::dec;
 
-use ayto::constraint::{check_type::CheckType, Constraint, ConstraintType};
+use ayto::constraint::Constraint;
 use ayto::iterstate::IterState;
 use ayto::matching_repr::{IdBase, MaskedMatching};
-use ayto::ruleset::RuleSet;
 
 use crate::NUM_PLAYERS_SET_A;
 
@@ -25,55 +22,6 @@ pub(super) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
     let mut solution: Vec<IdBase> = (0..NUM_PLAYERS_SET_A).map(|x| x as IdBase).collect();
     solution.shuffle(rng);
     (*solution).into()
-}
-
-/// Builds the very first constraint of a simulation.
-///
-/// This determines whether the first constraint is a `Box` or `Night`
-/// constraint depending on the length of the initial matching.
-///
-/// # Arguments
-/// - `matching` - The initial matching selected by the strategy
-/// - `lights` - The number of lights calculated for the solution
-/// - `ruleset` - The active rule set
-/// - `lights_known_before` - Number of already known lights before this step
-///
-/// # Returns
-/// A fully initialized `Constraint`.
-pub(super) fn build_initial_constraint(
-    matching: MaskedMatching,
-    lights: usize,
-    ruleset: &RuleSet,
-    lights_known_before: usize,
-) -> Result<Constraint> {
-    // TODO:(later) does not work in general. matching might contain empty slots -> len is not what we
-    // expect here.
-    // Not an issue with the current initial values used
-    // TODO:(later) becomes obsolete anyhow when strategy.inital() returns a full constraint insteaf of a
-    // matching
-    let constraint_type = if matching.len() == 1 {
-        ConstraintType::Box {
-            num: dec![1.0],
-            comment: String::new(),
-            offer: None,
-        }
-    } else {
-        ConstraintType::Night {
-            num: dec![1.0],
-            comment: String::new(),
-            offer: None,
-        }
-    };
-
-    Ok(Constraint::new_with_defaults(
-        constraint_type,
-        CheckType::Lights(lights as LightCnt, Default::default()),
-        matching,
-        ruleset.init_data()?,
-        NUM_PLAYERS_SET_A,
-        NUM_PLAYERS_SET_A,
-        lights_known_before as LightCnt,
-    ))
 }
 
 /// Creates the initial `IterState` for a simulation based on
@@ -88,12 +36,12 @@ pub(super) fn build_initial_constraint(
 /// # Returns
 /// An initialized (but not executed) `IterState`.
 pub(super) fn create_iteration_state(
-    constraint: &Constraint,
+    constraints: Vec<Constraint>,
 ) -> Result<IterState<MockProgressBar, Constraint>> {
     IterState::new(
         true,
         NUM_PLAYERS_SET_A,
-        vec![constraint.clone()],
+        constraints,
         &[],
         &(HashSet::new(), HashSet::new()),
         &None,

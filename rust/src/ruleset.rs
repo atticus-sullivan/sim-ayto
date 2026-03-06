@@ -7,6 +7,7 @@
 //! simulation.
 
 pub mod parse;
+
 mod permutators;
 mod utils;
 
