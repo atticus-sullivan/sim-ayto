@@ -2,6 +2,7 @@ use std::sync::Arc;
 use std::{fs::File, path::Path};
 
 use ayto::constraint::parse_utils::convert_map_s_to_ids;
+use ayto::constraint::ConstraintGetters;
 use ayto::game::parse_utils::{build_luts, process_constraints};
 use ayto::ignore_ops::IgnoreOps;
 use ayto::matching_repr::MaskedMatching;
@@ -9,7 +10,7 @@ use ayto::ruleset::RuleSet;
 use ayto::MapS;
 use ayto::{constraint::parse::ConstraintParse, ruleset::parse::RuleSetParse};
 use serde::Deserialize;
-use anyhow::{ensure, Result};
+use anyhow::{bail, ensure, Result};
 
 use crate::engine::Simulation;
 use crate::strategies::StrategyBundle;
@@ -34,8 +35,8 @@ pub struct CfgParse {
 
     solution: MapS,
 
-    #[serde(default, rename = "try")]
-    try_s: Option<MapS>,
+    #[serde(default, rename = "try_entropy")]
+    try_entropy: Option<MapS>,
 
 }
 
@@ -70,17 +71,25 @@ impl CfgParse {
         )?;
 
         let (solution, _) = convert_map_s_to_ids(&self.solution, &lut_a, &lut_b)?;
-        let r#try:Option<MaskedMatching> = self.try_s.map(|t| -> Result<MaskedMatching> {
+        let solution = solution.try_into()?;
+
+        let try_entropy = self.try_entropy.map(|t| -> Result<MaskedMatching> {
             let (map, _) = convert_map_s_to_ids(&t, &lut_a, &lut_b)?;
             Ok(map.try_into()?)
         }).transpose()?;
 
-        // TODO: check that lights fit to solution
-        // TODO: only light check is supported
+        for c in &constraints {
+            let l = c.matching().calculate_lights(&solution);
+            if let Some(l_prime) = c.check.as_lights() {
+                ensure!(l == l_prime);
+            } else {
+                bail!("Only constraints with light-check are supported");
+            }
+        }
 
         Ok((
-            solution.try_into()?,
-            r#try,
+            solution,
+            try_entropy,
             Simulation::new_user_initialized(
                 sim_id,
                 seed,
