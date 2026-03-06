@@ -104,12 +104,11 @@ impl<S: StrategyBundle> Simulation<S> {
             .iter_perms(&lut_a, &HashMap::new(), &mut iter_state, &None)?;
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
-        rem = iter_state
-            .constraints
-            .last_mut() // TODO: now it can be multiple ones
-            .unwrap() // I know there is exactly one constraint in that vector
-            .apply_to_rem(rem)
-            .context("Apply to rem failed")?;
+        for c in iter_state.constraints.iter_mut() {
+            rem = c
+                .apply_to_rem(rem)
+                .context("Apply to rem failed")?;
+        }
 
         ret.constraints = iter_state.constraints;
         ret.possibilities = iter_state.left_poss;
@@ -171,12 +170,11 @@ impl<S: StrategyBundle> Simulation<S> {
             .iter_perms(&lut, &HashMap::new(), &mut iter_state, &None)?;
 
         let mut rem: Rem = (iter_state.each, iter_state.total);
-        rem = iter_state
-            .constraints
-            .last_mut() // TODO: now it can be multiple ones
-            .unwrap() // I know there is exactly one constraint in that vector
-            .apply_to_rem(rem)
-            .context("Apply to rem failed")?;
+        for c in iter_state.constraints.iter_mut() {
+            rem = c
+                .apply_to_rem(rem)
+                .context("Apply to rem failed")?;
+        }
 
         self.constraints = iter_state.constraints;
         self.possibilities = iter_state.left_poss;
