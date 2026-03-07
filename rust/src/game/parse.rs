@@ -45,9 +45,9 @@ pub struct GameParse {
     /// whether offers are noted in this game
     #[serde(default)]
     no_offerings_noted: bool,
-    /// whether this game is already solved
-    #[serde(rename = "solved", default = "mk_true")]
-    solved: bool,
+    /// whether the remaining possible solutions should be stored
+    #[serde(rename = "keepRemaining", default = "mk_true")]
+    keep_rem: bool,
     /// the constraints in this game
     #[serde(rename = "constraints")]
     constraints_orig: Vec<ConstraintParse>,
@@ -120,7 +120,7 @@ impl GameParse {
     pub fn finalize_parsing(self, stem: &Path, ignore: &IgnoreOps) -> Result<Game> {
         let mut g = Game {
             no_offerings_noted: self.no_offerings_noted,
-            solved: self.solved,
+            keep_rem: self.keep_rem,
             map_a: self.map_a,
             map_b: self.map_b,
             constraints_orig: Vec::default(),
