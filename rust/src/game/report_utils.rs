@@ -233,7 +233,7 @@ fn render_table(
                 // format according to value (sets the foreground)
                 .map(|(idx, val)| {
                     let cell = match val {
-                        Some(val) => prob_comfy_cell(*val),
+                        Some(val) => prob_comfy_cell(*val, false),
                         None => Cell::new(""),
                     };
                     // format according to row and maxima (uses background)

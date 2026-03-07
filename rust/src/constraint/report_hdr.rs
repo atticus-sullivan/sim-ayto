@@ -163,12 +163,12 @@ impl fmt::Display for MapSRender<'_> {
                         // no danger due to unwrap, ProbBefore is only set if it is some
                         rows[i]
                             .1
-                            .add_cell(prob_comfy_cell(self.probs.as_ref().unwrap()[k].0));
+                            .add_cell(prob_comfy_cell(self.probs.as_ref().unwrap()[k].0, true));
                     }
                     TabCol::ProbAfter => {
                         // no danger due to unwrap, ProbAfter is only set if it is some
                         if let Some(x) = self.probs.as_ref().unwrap()[k].1 {
-                            rows[i].1.add_cell(prob_comfy_cell(x.1));
+                            rows[i].1.add_cell(prob_comfy_cell(x.1, true));
                         }
                     }
                     TabCol::PArrow => {

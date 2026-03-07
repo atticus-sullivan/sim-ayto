@@ -73,23 +73,28 @@ pub const COLOR_ALT_BG: Color = Color::Rgb {
 
 /// formats a probability as a string
 macro_rules! prob_fmt {
-    ($v:expr) => {
-        format!("{:6.3}", $v)
+    ($v:expr, $p:expr) => {
+        format!("{:6.3}{}", $v, $p)
     };
 }
 
 /// formats a probability as a comfy cell (includes color coding)
-pub fn prob_comfy_cell(val: f64) -> Cell {
+pub fn prob_comfy_cell(val: f64, percent: bool) -> Cell {
+    let p = if percent {
+        "%"
+    } else {
+        ""
+    };
     if 79.0 < val && val < 101.0 {
-        Cell::new(prob_fmt!(val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Green)
+        Cell::new(prob_fmt!(val, p).trim_end_matches('0').trim_end_matches('.')).fg(Color::Green)
     } else if 55.0 <= val {
-        Cell::new(prob_fmt!(val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Cyan)
+        Cell::new(prob_fmt!(val, p).trim_end_matches('0').trim_end_matches('.')).fg(Color::Cyan)
     } else if 45.0 < val {
-        Cell::new(prob_fmt!(val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Yellow)
+        Cell::new(prob_fmt!(val, p).trim_end_matches('0').trim_end_matches('.')).fg(Color::Yellow)
     } else if 1.0 < val {
-        Cell::new(prob_fmt!(val).trim_end_matches('0').trim_end_matches('.'))
+        Cell::new(prob_fmt!(val, p).trim_end_matches('0').trim_end_matches('.'))
     } else if -1.0 < val {
-        Cell::new(prob_fmt!(val).trim_end_matches('0').trim_end_matches('.')).fg(Color::Red)
+        Cell::new(prob_fmt!(val, p).trim_end_matches('0').trim_end_matches('.')).fg(Color::Red)
     } else {
         Cell::new("")
     }
