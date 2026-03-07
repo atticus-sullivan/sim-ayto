@@ -180,9 +180,9 @@ impl fmt::Display for MapSRender<'_> {
         rows.sort_by_key(|i| i.0);
         tab.add_rows(rows.into_iter().map(|i| i.1).collect::<Vec<_>>());
         for (i, c) in cols.iter().enumerate() {
-            tab.column_mut(i)
-                .ok_or(fmt::Error)?
-                .set_padding(c.padding());
+            if let Some(col) = tab.column_mut(i) {
+                col.set_padding(c.padding());
+            }
         }
         write!(f, "{tab}")
     }
