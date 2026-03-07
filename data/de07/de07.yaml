@@ -141,6 +141,7 @@ constraints:
       Chris: Linda
       # Alicia
 
+
   - type: !Box {num: 6, comment: "E13", offer: !Single {by: "Tonia", amount: 20000, reducedPot: true, save: true}}
     check: !Sold
     map:
