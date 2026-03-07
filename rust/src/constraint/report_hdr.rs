@@ -360,6 +360,7 @@ mod tests {
             show_past_cnt: false,
             show_keys: true,
             show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
@@ -380,6 +381,7 @@ c   → C"#
             show_past_cnt: false,
             show_keys: false,
             show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
@@ -400,6 +402,7 @@ C"#
             show_past_cnt: true,
             show_keys: true,
             show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
@@ -462,12 +465,72 @@ C"#
             show_past_cnt: true,
             show_keys: true,
             show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
             r#"2x a → A
 0x b → B
 1x c → C"#
+        );
+    }
+
+    #[test]
+    fn map_s_render_no_values() {
+        let msr = MapSRender {
+            map: &vec![("bbb", "B"), ("a", "A"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            past_constraints: &[],
+            show_past_cnt: false,
+            show_keys: true,
+            show_values: false,
+            probs: None,
+        };
+
+        assert_eq!(
+            msr.to_string(),
+            r#"a  
+bbb
+c  "#
+        );
+    }
+
+    #[test]
+    fn map_s_render_probs() {
+        use std::collections::HashMap;
+
+        let map = vec![("a", "A"), ("b", "B"), ("c", "C")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<MapS>();
+
+        let names = [
+            "a".to_string(),
+            "b".to_string(),
+            "c".to_string(),
+        ];
+
+        let mut probs = HashMap::new();
+        probs.insert(&names[0], (10.0, None));
+        probs.insert(&names[1], (20.0, Some(25.0)));
+        probs.insert(&names[2], (30.0, None));
+
+        let msr = MapSRender {
+            map: &map,
+            past_constraints: &[],
+            show_past_cnt: false,
+            show_keys: true,
+            show_values: true,
+            probs: Some(probs),
+        };
+
+        assert_eq!(
+            msr.to_string(),
+            r#"a → A    10     
+b → B    20 → 25
+c → C    30     "#
         );
     }
 }
