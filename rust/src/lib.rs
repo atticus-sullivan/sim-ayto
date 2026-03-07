@@ -19,7 +19,7 @@ pub mod tree;
 
 use std::collections::HashMap;
 
-use comfy_table::Color;
+use comfy_table::{Cell, Color};
 
 use crate::matching_repr::IdBase;
 
@@ -70,3 +70,51 @@ pub const COLOR_ALT_BG: Color = Color::Rgb {
     g: 44,
     b: 60,
 };
+
+/// formats a probability as a string
+macro_rules! prob_fmt {
+    ($v:expr) => {
+        format!("{:6.3}", $v)
+    };
+}
+
+/// formats a probability as a comfy cell (includes color coding)
+pub fn prob_comfy_cell(val: f64) -> Cell {
+    if 79.0 < val && val < 101.0 {
+        Cell::new(
+            prob_fmt!(val)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+            .fg(Color::Green)
+    } else if 55.0 <= val {
+        Cell::new(
+            prob_fmt!(val)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+            .fg(Color::Cyan)
+    } else if 45.0 < val {
+        Cell::new(
+            prob_fmt!(val)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+            .fg(Color::Yellow)
+    } else if 1.0 < val {
+        Cell::new(
+            prob_fmt!(val)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+    } else if -1.0 < val {
+        Cell::new(
+            prob_fmt!(val)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+            .fg(Color::Red)
+    } else {
+        Cell::new("")
+    }
+}

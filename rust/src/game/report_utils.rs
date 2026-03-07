@@ -19,7 +19,7 @@ use comfy_table::modifiers::UTF8_ROUND_CORNERS;
 use comfy_table::presets::UTF8_FULL_CONDENSED;
 use comfy_table::{Cell, Color, Table};
 
-use crate::Rem;
+use crate::{prob_comfy_cell, Rem};
 use crate::{COLOR_ALT_BG, COLOR_BOTH_MAX, COLOR_COL_MAX, COLOR_ROW_MAX};
 
 /// An intermediate representation of the table showing the remaining probabilities for 1:1
@@ -233,46 +233,7 @@ fn render_table(
                 // format according to value (sets the foreground)
                 .map(|(idx, val)| {
                     let cell = match val {
-                        Some(val) => {
-                            let val = *val;
-                            if 79.0 < val && val < 101.0 {
-                                Cell::new(
-                                    format!("{:6.3}", val)
-                                        .trim_end_matches('0')
-                                        .trim_end_matches('.'),
-                                )
-                                .fg(Color::Green)
-                            } else if 55.0 <= val {
-                                Cell::new(
-                                    format!("{:6.3}", val)
-                                        .trim_end_matches('0')
-                                        .trim_end_matches('.'),
-                                )
-                                .fg(Color::Cyan)
-                            } else if 45.0 < val {
-                                Cell::new(
-                                    format!("{:6.3}", val)
-                                        .trim_end_matches('0')
-                                        .trim_end_matches('.'),
-                                )
-                                .fg(Color::Yellow)
-                            } else if 1.0 < val {
-                                Cell::new(
-                                    format!("{:6.3}", val)
-                                        .trim_end_matches('0')
-                                        .trim_end_matches('.'),
-                                )
-                            } else if -1.0 < val {
-                                Cell::new(
-                                    format!("{:6.3}", val)
-                                        .trim_end_matches('0')
-                                        .trim_end_matches('.'),
-                                )
-                                .fg(Color::Red)
-                            } else {
-                                Cell::new("")
-                            }
-                        }
+                        Some(val) => prob_comfy_cell(*val),
                         None => Cell::new(""),
                     };
                     // format according to row and maxima (uses background)

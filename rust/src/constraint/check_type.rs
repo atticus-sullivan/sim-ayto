@@ -58,6 +58,16 @@ impl CheckType {
         }
     }
 
+    /// whether this checktype should show probabilities
+    #[allow(clippy::match_like_matches_macro)]
+    pub fn show_probs(&self) -> bool {
+        match self {
+            CheckType::Eq => false,
+            CheckType::HintCntMatch(_) => false,
+            _ => true,
+        }
+    }
+
     /// calculate the information-gain over the different outcomes (aka amount of lights)
     pub(super) fn calc_information_gain(&self) -> Option<Vec<(LightCnt, f64)>> {
         match self {
