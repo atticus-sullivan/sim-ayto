@@ -157,15 +157,6 @@ Notes:
 - exact
 - fast for n < 2000
 
-TODO: how does this compare to ChatGPTs answer?
-
-# Lookahead
-TODO
-
-# Initials
-TODO
-
-
 # Full decision tree
 - maybe in the late-game
 - yes can be done but is quite complex
