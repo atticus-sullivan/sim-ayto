@@ -100,6 +100,23 @@ where
                     },
                 ))
             }
+            [] if next_ct == CT::Night => {
+                // all options are equally good
+                let m = MaskedMatching::from_masks(
+                    vec![0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+                        .into_iter()
+                        .map(|i| Bitset::from_word(1 << i))
+                        .collect(),
+                );
+                Some((
+                    m,
+                    ConstraintType::Night {
+                        num,
+                        comment,
+                        offer,
+                    },
+                ))
+            }
             [c] if next_ct == CT::Night
                 && c.is_mb()
                 && matches!(c.check, CheckType::Lights(..))
