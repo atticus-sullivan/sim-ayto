@@ -59,40 +59,97 @@ struct MapSRender<'a> {
     past_constraints: &'a [Constraint],
     /// whether to show how many this 1:1 matching was seen in the past
     show_past_cnt: bool,
+    /// whether to show the keys of the map
+    show_keys: bool,
+    /// whether to show the values of the map
+    show_values: bool,
+}
+
+/// a small internal enum for the columns used in the hdr table
+enum TabCol {
+    /// this column shows how often this matching was observed in the past
+    PastCounts,
+    /// this column shows the key of the map
+    Keys,
+    /// this column shows an arrow for pretty-printing the map
+    Arrow,
+    /// this column shows the value of the map
+    Values,
+    /// this column shows the x signaling "times"
+    Times,
+}
+
+impl TabCol {
+    /// determine the padding for a certain column
+    fn padding(&self) -> (u16, u16) {
+        match self {
+            TabCol::PastCounts => (0, 0),
+            TabCol::Keys => (0, 0),
+            TabCol::Arrow => (1, 1),
+            TabCol::Values => (0, 0),
+            TabCol::Times => (0, 1),
+        }
+    }
 }
 
 impl fmt::Display for MapSRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut tab = Table::new();
-        tab
-            .force_no_tty()
-            .enforce_styling()
-            .load_preset(NOTHING)
-            .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
-        ;
+        tab.force_no_tty().enforce_styling().load_preset(NOTHING);
+
         let mut rows = vec![("", Row::new()); self.map.len()];
+
+        let cols: Vec<_> = [
+            self.show_past_cnt.then_some(TabCol::PastCounts),
+            self.show_past_cnt.then_some(TabCol::Times),
+            self.show_keys.then_some(TabCol::Keys),
+            (self.show_keys && self.show_values).then_some(TabCol::Arrow),
+            self.show_values.then_some(TabCol::Values),
+        ]
+        .into_iter()
+        .flatten()
+        .collect();
+
         for (i, (k, v)) in self.map.iter().enumerate() {
-            if self.show_past_cnt {
-                let cnt = self
-                    .past_constraints
-                    .iter()
-                    .filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v))
-                    .count();
-                rows[i].0 = k;
-                rows[i].1.add_cell(format!("{}x {}", cnt, k).into());
-                rows[i].1.add_cell(v.into());
-            } else {
-                rows[i].0 = k;
-                rows[i].1.add_cell(k.into());
-                rows[i].1.add_cell(v.into());
+            rows[i].0 = k;
+            for c in &cols {
+                match c {
+                    TabCol::PastCounts => {
+                        let cnt = self
+                            .past_constraints
+                            .iter()
+                            .filter(|&c| {
+                                c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v)
+                            })
+                            .count();
+                        rows[i].1.add_cell(cnt.into());
+                    }
+                    TabCol::Keys => {
+                        rows[i].1.add_cell(k.into());
+                    }
+                    TabCol::Arrow => {
+                        rows[i].1.add_cell('\u{2192}'.into());
+                        // '\u{2192}'
+                        // '\u{21D2}'
+                        // '\u{21E8}'
+                        // '\u{21FE}'
+                    }
+                    TabCol::Values => {
+                        rows[i].1.add_cell(v.into());
+                    }
+                    TabCol::Times => {
+                        rows[i].1.add_cell('x'.into());
+                    }
+                }
             }
         }
         rows.sort_by_key(|i| i.0);
         tab.add_rows(rows.into_iter().map(|i| i.1).collect::<Vec<_>>());
-        tab.column_mut(0).ok_or(fmt::Error)?.set_padding((0, 1));
+        for (i, c) in cols.iter().enumerate() {
+            tab.column_mut(i)
+                .ok_or(fmt::Error)?
+                .set_padding(c.padding());
+        }
         write!(f, "{tab}")
     }
 }
@@ -137,6 +194,8 @@ impl Constraint {
                 map: &self.map_s,
                 show_past_cnt: self.show_past_cnt(),
                 past_constraints,
+                show_keys: self.check.is_relevant_map_keys(),
+                show_values: self.check.is_relevant_map_values(),
             },
             check_type: CheckTypeRender {
                 check: &self.check,
@@ -242,14 +301,39 @@ mod tests {
                 .collect::<MapS>(),
             past_constraints: &[],
             show_past_cnt: false,
+            show_keys: true,
+            show_values: true,
         };
         assert_eq!(
             msr.to_string(),
-            r#"a   → A 
-bbb → B 
-c   → C "#
+            r#"a   → A
+bbb → B
+c   → C"#
         );
+    }
 
+    #[test]
+    fn map_s_render_no_keys() {
+        let msr = MapSRender {
+            map: &vec![("bbb", "B"), ("a", "A"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            past_constraints: &[],
+            show_past_cnt: false,
+            show_keys: false,
+            show_values: true,
+        };
+        assert_eq!(
+            msr.to_string(),
+            r#"A
+B
+C"#
+        );
+    }
+
+    #[test]
+    fn map_s_render_show_past() {
         let msr = MapSRender {
             map: &vec![("bbb", "B"), ("a", "A"), ("c", "C")]
                 .into_iter()
@@ -257,14 +341,19 @@ c   → C "#
                 .collect::<MapS>(),
             past_constraints: &[],
             show_past_cnt: true,
+            show_keys: true,
+            show_values: true,
         };
         assert_eq!(
             msr.to_string(),
-            r#"0x a   → A 
-0x bbb → B 
-0x c   → C "#
+            r#"0x a   → A
+0x bbb → B
+0x c   → C"#
         );
+    }
 
+    #[test]
+    fn map_s_render_roundtrip() {
         let c1 = Constraint {
             r#type: ConstraintType::Box {
                 num: dec![1],
@@ -314,12 +403,14 @@ c   → C "#
                 .collect::<MapS>(),
             past_constraints: &[c1, c2, c3],
             show_past_cnt: true,
+            show_keys: true,
+            show_values: true,
         };
         assert_eq!(
             msr.to_string(),
-            r#"2x a → A 
-0x b → B 
-1x c → C "#
+            r#"2x a → A
+0x b → B
+1x c → C"#
         );
     }
 }
