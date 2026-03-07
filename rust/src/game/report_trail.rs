@@ -46,10 +46,16 @@ pub(super) fn gen_report_data<'a>(
         rems.push(rem.clone());
     }
     for (i, c) in constraints.iter().enumerate() {
+        let rems_before = if i == 0 {
+            &initial
+        } else {
+            &rems[i-1]
+        };
+
         cs.push((
             c,
             // .. is a half-opened range => upper bound is not included
-            c.generate_hdr_report(&constraints[0..i], rems.get(i-1).unwrap_or(&initial), &rems[i], lut_a, lut_b),
+            c.generate_hdr_report(&constraints[0..i], rems_before, &rems[i], lut_a, lut_b),
         ));
     }
 
