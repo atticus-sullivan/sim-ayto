@@ -89,4 +89,9 @@ impl Constraint {
             CheckType::Nothing | CheckType::Sold => false,
         }
     }
+
+    /// whether to show probabilities on the map
+    pub(super) fn show_probs(&self) -> bool {
+        !self.result_unknown && self.check.show_probs()
+    }
 }

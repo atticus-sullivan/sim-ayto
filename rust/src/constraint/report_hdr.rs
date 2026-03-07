@@ -7,11 +7,13 @@
 //! solutions.
 
 use core::fmt;
+use std::cmp::Ordering;
+use std::collections::HashMap;
 
 use comfy_table::{presets::NOTHING, Row, Table};
 
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
-use crate::{LightCnt, MapS};
+use crate::{prob_comfy_cell, LightCnt, Lut, MapS, Rem};
 
 /// a renderer for the check type associated with the constraint
 struct CheckTypeRender<'a> {
@@ -59,40 +61,137 @@ struct MapSRender<'a> {
     past_constraints: &'a [Constraint],
     /// whether to show how many this 1:1 matching was seen in the past
     show_past_cnt: bool,
+    /// whether to show the keys of the map
+    show_keys: bool,
+    /// whether to show the values of the map
+    show_values: bool,
+    /// the probabilities of the matching before and optionally also after the constraint was
+    /// applied
+    /// after:None if the probability did not change
+    #[allow(clippy::type_complexity)]
+    probs: Option<HashMap<&'a String, (f64, Option<(Ordering, f64)>)>>,
+}
+
+/// a small internal enum for the columns used in the hdr table
+enum TabCol {
+    /// this column shows how often this matching was observed in the past
+    PastCounts,
+    /// this column shows the key of the map
+    Keys,
+    /// this column shows an arrow for pretty-printing the map
+    Arrow,
+    /// this column shows the value of the map
+    Values,
+    /// this column shows the x signaling "times"
+    Times,
+    /// this column shows the probabiliy of the 1:1 matching before the constraint
+    ProbBefore,
+    /// this column shows the probabiliy of the 1:1 matching after the constraint
+    ProbAfter,
+    /// this column conditionally shows an arrow for the probabilities
+    PArrow,
+}
+
+impl TabCol {
+    /// determine the padding for a certain column
+    fn padding(&self) -> (u16, u16) {
+        match self {
+            TabCol::PastCounts => (0, 0),
+            TabCol::Keys => (0, 0),
+            TabCol::Arrow => (1, 1),
+            TabCol::PArrow => (1, 1),
+            TabCol::Values => (0, 0),
+            TabCol::Times => (0, 1),
+            TabCol::ProbBefore => (4, 0),
+            TabCol::ProbAfter => (0, 0),
+        }
+    }
 }
 
 impl fmt::Display for MapSRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut tab = Table::new();
-        tab
-            .force_no_tty()
-            .enforce_styling()
-            .load_preset(NOTHING)
-            .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
-        ;
+        tab.force_no_tty().enforce_styling().load_preset(NOTHING);
+
         let mut rows = vec![("", Row::new()); self.map.len()];
+
+        let cols: Vec<_> = [
+            self.show_past_cnt.then_some(TabCol::PastCounts),
+            self.show_past_cnt.then_some(TabCol::Times),
+            self.show_keys.then_some(TabCol::Keys),
+            (self.show_keys && self.show_values).then_some(TabCol::Arrow),
+            self.show_values.then_some(TabCol::Values),
+            self.probs.as_ref().map(|_| TabCol::ProbBefore),
+            self.probs.as_ref().map(|_| TabCol::PArrow),
+            self.probs.as_ref().map(|_| TabCol::ProbAfter),
+        ]
+        .into_iter()
+        .flatten()
+        .collect();
+
         for (i, (k, v)) in self.map.iter().enumerate() {
-            if self.show_past_cnt {
-                let cnt = self
-                    .past_constraints
-                    .iter()
-                    .filter(|&c| c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v))
-                    .count();
-                rows[i].0 = k;
-                rows[i].1.add_cell(format!("{}x {}", cnt, k).into());
-                rows[i].1.add_cell(v.into());
-            } else {
-                rows[i].0 = k;
-                rows[i].1.add_cell(k.into());
-                rows[i].1.add_cell(v.into());
+            rows[i].0 = k;
+            for c in &cols {
+                match c {
+                    TabCol::PastCounts => {
+                        let cnt = self
+                            .past_constraints
+                            .iter()
+                            .filter(|&c| {
+                                c.show_past_cnt() && c.map_s.get(k).is_some_and(|v2| v2 == v)
+                            })
+                            .count();
+                        rows[i].1.add_cell(cnt.into());
+                    }
+                    TabCol::Keys => {
+                        rows[i].1.add_cell(k.into());
+                    }
+                    TabCol::Arrow => {
+                        rows[i].1.add_cell('\u{2192}'.into());
+                        // '\u{2192}'
+                        // '\u{21D2}'
+                        // '\u{21E8}'
+                        // '\u{21FE}'
+                    }
+                    TabCol::Values => {
+                        rows[i].1.add_cell(v.into());
+                    }
+                    TabCol::Times => {
+                        rows[i].1.add_cell('x'.into());
+                    }
+                    TabCol::ProbBefore => {
+                        // no danger due to unwrap, ProbBefore is only set if it is some
+                        rows[i]
+                            .1
+                            .add_cell(prob_comfy_cell(self.probs.as_ref().unwrap()[k].0, true));
+                    }
+                    TabCol::ProbAfter => {
+                        // no danger due to unwrap, ProbAfter is only set if it is some
+                        if let Some(x) = self.probs.as_ref().unwrap()[k].1 {
+                            rows[i].1.add_cell(prob_comfy_cell(x.1, true));
+                        }
+                    }
+                    TabCol::PArrow => {
+                        // only show the arrow if it actually points to something
+                        // no danger due to unwrap, PArrow is only set if it is some
+                        if let Some(x) = self.probs.as_ref().unwrap()[k].1 {
+                            if x.0.is_gt() {
+                                rows[i].1.add_cell('\u{2197}'.into());
+                            } else {
+                                rows[i].1.add_cell('\u{2198}'.into());
+                            }
+                        }
+                    }
+                }
             }
         }
         rows.sort_by_key(|i| i.0);
         tab.add_rows(rows.into_iter().map(|i| i.1).collect::<Vec<_>>());
-        tab.column_mut(0).ok_or(fmt::Error)?.set_padding((0, 1));
+        for (i, c) in cols.iter().enumerate() {
+            if let Some(col) = tab.column_mut(i) {
+                col.set_padding(c.padding());
+            }
+        }
         write!(f, "{tab}")
     }
 }
@@ -130,13 +229,67 @@ impl Constraint {
     pub(crate) fn generate_hdr_report<'a>(
         &'a self,
         past_constraints: &'a [Constraint],
+        rem_before: &Rem,
+        rem_after: &Rem,
+        lut_a: &Lut,
+        lut_b: &Lut,
     ) -> ReportData<'a> {
+        let probs = self.show_probs().then(|| {
+            let probs_before = self
+                .map_s
+                .iter()
+                .map(|(k, v)| {
+                    (
+                        k,
+                        rem_before.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0
+                            / rem_before.1 as f64,
+                    )
+                })
+                .collect::<Vec<_>>();
+
+            let probs_after = self
+                .map_s
+                .iter()
+                .map(|(k, v)| {
+                    (
+                        k,
+                        rem_after.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0
+                            / rem_after.1 as f64,
+                    )
+                })
+                .collect::<Vec<_>>();
+
+            probs_before
+                .iter()
+                .zip(probs_after)
+                .map(|(before, after)| {
+                    (
+                        before.0,
+                        (
+                            before.1,
+                            (before.1 != after.1).then_some((
+                                if before.1 < after.1 {
+                                    Ordering::Greater
+                                } else {
+                                    Ordering::Less
+                                },
+                                after.1,
+                            )),
+                        ),
+                    )
+                })
+                .collect::<HashMap<_, _>>()
+        });
+
         ReportData {
             hdr: format!("{} {}", self.type_str(), self.comment()),
             map_s: MapSRender {
                 map: &self.map_s,
                 show_past_cnt: self.show_past_cnt(),
                 past_constraints,
+                show_keys: self.check.is_relevant_map_keys(),
+                show_values: self.check.is_relevant_map_values(),
+                probs,
             },
             check_type: CheckTypeRender {
                 check: &self.check,
@@ -242,14 +395,41 @@ mod tests {
                 .collect::<MapS>(),
             past_constraints: &[],
             show_past_cnt: false,
+            show_keys: true,
+            show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
-            r#"a   → A 
-bbb → B 
-c   → C "#
+            r#"a   → A
+bbb → B
+c   → C"#
         );
+    }
 
+    #[test]
+    fn map_s_render_no_keys() {
+        let msr = MapSRender {
+            map: &vec![("bbb", "B"), ("a", "A"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            past_constraints: &[],
+            show_past_cnt: false,
+            show_keys: false,
+            show_values: true,
+            probs: None,
+        };
+        assert_eq!(
+            msr.to_string(),
+            r#"A
+B
+C"#
+        );
+    }
+
+    #[test]
+    fn map_s_render_show_past() {
         let msr = MapSRender {
             map: &vec![("bbb", "B"), ("a", "A"), ("c", "C")]
                 .into_iter()
@@ -257,14 +437,20 @@ c   → C "#
                 .collect::<MapS>(),
             past_constraints: &[],
             show_past_cnt: true,
+            show_keys: true,
+            show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
-            r#"0x a   → A 
-0x bbb → B 
-0x c   → C "#
+            r#"0x a   → A
+0x bbb → B
+0x c   → C"#
         );
+    }
 
+    #[test]
+    fn map_s_render_roundtrip() {
         let c1 = Constraint {
             r#type: ConstraintType::Box {
                 num: dec![1],
@@ -314,12 +500,70 @@ c   → C "#
                 .collect::<MapS>(),
             past_constraints: &[c1, c2, c3],
             show_past_cnt: true,
+            show_keys: true,
+            show_values: true,
+            probs: None,
         };
         assert_eq!(
             msr.to_string(),
-            r#"2x a → A 
-0x b → B 
-1x c → C "#
+            r#"2x a → A
+0x b → B
+1x c → C"#
+        );
+    }
+
+    #[test]
+    fn map_s_render_no_values() {
+        let msr = MapSRender {
+            map: &vec![("bbb", "B"), ("a", "A"), ("c", "C")]
+                .into_iter()
+                .map(|(i, j)| (i.to_string(), j.to_string()))
+                .collect::<MapS>(),
+            past_constraints: &[],
+            show_past_cnt: false,
+            show_keys: true,
+            show_values: false,
+            probs: None,
+        };
+
+        assert_eq!(
+            msr.to_string(),
+            r#"a  
+bbb
+c  "#
+        );
+    }
+
+    #[test]
+    fn map_s_render_probs() {
+        use std::collections::HashMap;
+
+        let map = vec![("a", "A"), ("b", "B"), ("c", "C")]
+            .into_iter()
+            .map(|(i, j)| (i.to_string(), j.to_string()))
+            .collect::<MapS>();
+
+        let names = ["a".to_string(), "b".to_string(), "c".to_string()];
+
+        let mut probs = HashMap::new();
+        probs.insert(&names[0], (10.0, None));
+        probs.insert(&names[1], (20.0, Some((Ordering::Greater, 25.0))));
+        probs.insert(&names[2], (30.0, None));
+
+        let msr = MapSRender {
+            map: &map,
+            past_constraints: &[],
+            show_past_cnt: false,
+            show_keys: true,
+            show_values: true,
+            probs: Some(probs),
+        };
+
+        assert_eq!(
+            msr.to_string(),
+            r#"a → A    10     
+b → B    20 ↗ 25
+c → C    30     "#
         );
     }
 }

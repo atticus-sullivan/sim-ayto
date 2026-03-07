@@ -11,7 +11,7 @@ use anyhow::{Context, Result};
 use crate::constraint::{report_hdr::ReportData, Constraint};
 use crate::game::report_utils::print_rem_generic;
 use crate::game::Game;
-use crate::Rem;
+use crate::{Lut, Rem};
 
 /// event prepared for reporting
 pub(super) struct ReportEvent<'a> {
@@ -33,28 +33,32 @@ pub(super) type Trail<'a> = (Rem, Vec<ReportEvent<'a>>);
 pub(super) fn gen_report_data<'a>(
     constraints: &'a mut [Constraint],
     mut rem: Rem,
+    lut_a: &Lut,
+    lut_b: &Lut,
 ) -> Result<Trail<'a>> {
     let initial = rem.clone();
 
-    let mut report_data = (vec![], vec![]);
+    let mut rems = vec![];
+    let mut cs = vec![];
+
     for c in constraints.iter_mut() {
         rem = c.apply_to_rem(rem).context("Apply to rem failed")?;
-        report_data.0.push(rem.clone());
+        rems.push(rem.clone());
     }
     for (i, c) in constraints.iter().enumerate() {
-        report_data.1.push((
+        let rems_before = if i == 0 { &initial } else { &rems[i - 1] };
+
+        cs.push((
             c,
             // .. is a half-opened range => upper bound is not included
-            c.generate_hdr_report(&constraints[0..i]),
+            c.generate_hdr_report(&constraints[0..i], rems_before, &rems[i], lut_a, lut_b),
         ));
     }
 
     Ok((
         initial,
-        report_data
-            .0
-            .into_iter()
-            .zip(report_data.1)
+        rems.into_iter()
+            .zip(cs)
             .map(|(r, (c, cd))| ReportEvent {
                 rem: r,
                 constr_report: cd,
