@@ -7,6 +7,7 @@
 //! solutions.
 
 use core::fmt;
+use std::cmp::Ordering;
 use std::collections::HashMap;
 
 use comfy_table::{presets::NOTHING, Row, Table};
@@ -67,7 +68,8 @@ struct MapSRender<'a> {
     /// the probabilities of the matching before and optionally also after the constraint was
     /// applied
     /// after:None if the probability did not change
-    probs: Option<HashMap<&'a String, (f64, Option<f64>)>>,
+    #[allow(clippy::type_complexity)]
+    probs: Option<HashMap<&'a String, (f64, Option<(Ordering, f64)>)>>,
 }
 
 /// a small internal enum for the columns used in the hdr table
@@ -166,14 +168,18 @@ impl fmt::Display for MapSRender<'_> {
                     TabCol::ProbAfter => {
                         // no danger due to unwrap, ProbAfter is only set if it is some
                         if let Some(x) = self.probs.as_ref().unwrap()[k].1 {
-                            rows[i].1.add_cell(prob_comfy_cell(x));
+                            rows[i].1.add_cell(prob_comfy_cell(x.1));
                         }
                     }
                     TabCol::PArrow => {
                         // only show the arrow if it actually points to something
                         // no danger due to unwrap, PArrow is only set if it is some
-                        if self.probs.as_ref().unwrap()[k].1.is_some() {
-                            rows[i].1.add_cell('\u{2192}'.into());
+                        if let Some(x) = self.probs.as_ref().unwrap()[k].1 {
+                            if x.0.is_gt() {
+                                rows[i].1.add_cell('\u{2197}'.into());
+                            } else {
+                                rows[i].1.add_cell('\u{2198}'.into());
+                            }
                         }
                     }
                 }
@@ -259,7 +265,17 @@ impl Constraint {
                 .map(|(before, after)| {
                     (
                         before.0,
-                        (before.1, (before.1 != after.1).then_some(after.1)),
+                        (
+                            before.1,
+                            (before.1 != after.1).then_some((
+                                if before.1 < after.1 {
+                                    Ordering::Greater
+                                } else {
+                                    Ordering::Less
+                                },
+                                after.1,
+                            )),
+                        ),
                     )
                 })
                 .collect::<HashMap<_, _>>()
@@ -531,7 +547,7 @@ c  "#
 
         let mut probs = HashMap::new();
         probs.insert(&names[0], (10.0, None));
-        probs.insert(&names[1], (20.0, Some(25.0)));
+        probs.insert(&names[1], (20.0, Some((Ordering::Greater, 25.0))));
         probs.insert(&names[2], (30.0, None));
 
         let msr = MapSRender {
@@ -546,7 +562,7 @@ c  "#
         assert_eq!(
             msr.to_string(),
             r#"a → A    10     
-b → B    20 → 25
+b → B    20 ↗ 25
 c → C    30     "#
         );
     }
