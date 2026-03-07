@@ -43,8 +43,8 @@ use crate::Lut;
 pub struct Game {
     /// whether offers are noted in this game
     no_offerings_noted: bool,
-    /// whether this game is already solved
-    solved: bool,
+    /// whether the remaining possible solutions should be collected
+    keep_rem: bool,
     /// the constraints originally parsed from file (these will stay constant and won't be
     /// mutated during the simulation)
     pub constraints_orig: Vec<Constraint>,
@@ -83,7 +83,7 @@ impl Default for Game {
     fn default() -> Self {
         Self {
             no_offerings_noted: false,
-            solved: false,
+            keep_rem: false,
             constraints_orig: vec![],
             rule_set: RuleSet::Eq,
             frontmatter: Default::default(),
@@ -141,7 +141,7 @@ impl Game {
 
             IterState::new(
                 // whether to store the permutations which are valid solutions
-                dump_mode.is_some() || self.solved,
+                dump_mode.is_some() || self.keep_rem,
                 perm_amount,
                 self.constraints_orig.clone(),
                 // query which constraint eliminated a matching
