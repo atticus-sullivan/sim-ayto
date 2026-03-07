@@ -41,7 +41,7 @@ impl CheckType {
 
     /// whether this checktype caries valuable data in the *keys* of the map
     #[allow(clippy::match_like_matches_macro)]
-    pub fn is_relevant_map_keys(&self) -> bool {
+    pub(super) fn is_relevant_map_keys(&self) -> bool {
         match self {
             CheckType::Eq => false,
             CheckType::HintCntMatch(_) => false,
@@ -50,7 +50,7 @@ impl CheckType {
     }
 
     /// whether this checktype caries valuable data in the *values* of the map
-    pub fn is_relevant_map_values(&self) -> bool {
+    pub(super) fn is_relevant_map_values(&self) -> bool {
         match self {
             CheckType::Eq => true,
             CheckType::HintCntMatch(_) => true,
@@ -60,7 +60,7 @@ impl CheckType {
 
     /// whether this checktype should show probabilities
     #[allow(clippy::match_like_matches_macro)]
-    pub fn show_probs(&self) -> bool {
+    pub(super) fn show_probs(&self) -> bool {
         match self {
             CheckType::Eq => false,
             CheckType::HintCntMatch(_) => false,

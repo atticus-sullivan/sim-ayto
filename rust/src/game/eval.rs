@@ -32,7 +32,7 @@ impl Game {
         // preprocess the constraints for printing
         let mut constraints = merge_constraints(&is.constraints)?;
         // process the constraints and derive the tables with how often each matching occurs
-        let report_data = gen_report_data(&mut constraints, (is.each.clone(), is.total))?;
+        let report_data = gen_report_data(&mut constraints, (is.each.clone(), is.total), &self.lut_a, &self.lut_b)?;
 
         // REPORT
         self.report(print_transposed, full, is, no_tree_output, report_data)?;

@@ -7,11 +7,12 @@
 //! solutions.
 
 use core::fmt;
+use std::collections::HashMap;
 
 use comfy_table::{presets::NOTHING, Row, Table};
 
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
-use crate::{LightCnt, MapS};
+use crate::{prob_comfy_cell, LightCnt, Lut, MapS, Rem};
 
 /// a renderer for the check type associated with the constraint
 struct CheckTypeRender<'a> {
@@ -63,6 +64,10 @@ struct MapSRender<'a> {
     show_keys: bool,
     /// whether to show the values of the map
     show_values: bool,
+    /// the probabilities of the matching before and optionally also after the constraint was
+    /// applied
+    /// after:None if the probability did not change
+    probs: Option<HashMap<&'a String, (f64, Option<f64>)>>,
 }
 
 /// a small internal enum for the columns used in the hdr table
@@ -77,6 +82,12 @@ enum TabCol {
     Values,
     /// this column shows the x signaling "times"
     Times,
+    /// this column shows the probabiliy of the 1:1 matching before the constraint
+    ProbBefore,
+    /// this column shows the probabiliy of the 1:1 matching after the constraint
+    ProbAfter,
+    /// this column conditionally shows an arrow for the probabilities
+    PArrow,
 }
 
 impl TabCol {
@@ -86,8 +97,11 @@ impl TabCol {
             TabCol::PastCounts => (0, 0),
             TabCol::Keys => (0, 0),
             TabCol::Arrow => (1, 1),
+            TabCol::PArrow => (1, 1),
             TabCol::Values => (0, 0),
             TabCol::Times => (0, 1),
+            TabCol::ProbBefore => (4, 0),
+            TabCol::ProbAfter => (0, 0),
         }
     }
 }
@@ -105,6 +119,9 @@ impl fmt::Display for MapSRender<'_> {
             self.show_keys.then_some(TabCol::Keys),
             (self.show_keys && self.show_values).then_some(TabCol::Arrow),
             self.show_values.then_some(TabCol::Values),
+            self.probs.as_ref().map(|_| TabCol::ProbBefore),
+            self.probs.as_ref().map(|_| TabCol::PArrow),
+            self.probs.as_ref().map(|_| TabCol::ProbAfter),
         ]
         .into_iter()
         .flatten()
@@ -139,6 +156,23 @@ impl fmt::Display for MapSRender<'_> {
                     }
                     TabCol::Times => {
                         rows[i].1.add_cell('x'.into());
+                    }
+                    TabCol::ProbBefore => {
+                        // no danger due to unwrap, ProbBefore is only set if it is some
+                        rows[i].1.add_cell(prob_comfy_cell(self.probs.as_ref().unwrap()[k].0));
+                    }
+                    TabCol::ProbAfter => {
+                        // no danger due to unwrap, ProbAfter is only set if it is some
+                        if let Some(x) = self.probs.as_ref().unwrap()[k].1 {
+                            rows[i].1.add_cell(prob_comfy_cell(x));
+                        }
+                    }
+                    TabCol::PArrow => {
+                        // only show the arrow if it actually points to something
+                        // no danger due to unwrap, PArrow is only set if it is some
+                        if self.probs.as_ref().unwrap()[k].1.is_some() {
+                            rows[i].1.add_cell('\u{2192}'.into());
+                        }
                     }
                 }
             }
@@ -187,7 +221,29 @@ impl Constraint {
     pub(crate) fn generate_hdr_report<'a>(
         &'a self,
         past_constraints: &'a [Constraint],
+        rem_before: &Rem,
+        rem_after: &Rem,
+        lut_a: &Lut,
+        lut_b: &Lut,
     ) -> ReportData<'a> {
+        let probs = self.show_probs().then(|| {
+            let probs_before = self.map_s.iter().map(|(k,v)| {
+                (k, rem_before.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0 / rem_before.1 as f64)
+            }).collect::<Vec<_>>();
+
+            let probs_after = self.map_s.iter().map(|(k,v)| {
+                (k, rem_after.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0 / rem_after.1 as f64)
+            }).collect::<Vec<_>>();
+
+            probs_before
+                .iter()
+                .zip(probs_after)
+                .map(|(before, after)| {
+                    (before.0, (before.1, (before.1 != after.1).then_some(after.1)))
+                })
+                .collect::<HashMap<_,_>>()
+        });
+
         ReportData {
             hdr: format!("{} {}", self.type_str(), self.comment()),
             map_s: MapSRender {
@@ -196,6 +252,7 @@ impl Constraint {
                 past_constraints,
                 show_keys: self.check.is_relevant_map_keys(),
                 show_values: self.check.is_relevant_map_values(),
+                probs,
             },
             check_type: CheckTypeRender {
                 check: &self.check,
