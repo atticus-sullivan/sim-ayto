@@ -27,12 +27,12 @@ use crate::matching_repr::IdBase;
 type MatchingS = HashMap<String, Vec<String>>;
 
 /// A type for storing matchings how they are deserialized from yaml with strings
-type MapS = HashMap<String, String>;
+pub type MapS = HashMap<String, String>;
 /// Store a matching with ids already, but still as hashmap so the access to the raw ids is easier
 pub type Map = HashMap<IdBase, IdBase>;
 
 /// A type for lookup tables (name -> id), for the other way round a simple vector is sufficient
-type Lut = HashMap<String, usize>;
+pub type Lut = HashMap<String, usize>;
 
 /// A type to store rename mappings (old-name to new-name)
 type Rename = HashMap<String, String>;

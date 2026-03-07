@@ -20,7 +20,7 @@ use crate::{LightCnt, Lut, Rename};
 /// # Errors
 /// Returns an error if a duplicate name is found in either input slice,
 /// indicating which set (`setA` or `setB`) contained the clash.
-pub(super) fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut)> {
+pub fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut)> {
     let mut lut_a = Lut::default();
     let mut lut_b = Lut::default();
 
@@ -54,7 +54,7 @@ pub(super) fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut
 /// Propagates any error from `ConstraintParse::finalize_parsing` or from the
 /// rule-set initialisation.
 #[allow(clippy::too_many_arguments)]
-pub(super) fn process_constraints(
+pub fn process_constraints(
     raw: Vec<ConstraintParse>,
     ignore: &IgnoreOps,
     lut_a: &Lut,

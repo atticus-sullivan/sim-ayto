@@ -41,35 +41,6 @@ impl ConstraintParse {
         }
     }
 
-    /// Convert `self.map_s` (names) into numeric id map and return `(c_map, c_map_s)`.
-    ///
-    /// `c_map` is `HashMap<u8,u8>` and `c_map_s` is the original string map
-    ///
-    /// This function returns an error if a name is not present in the given LUT.
-    pub(crate) fn convert_map_s_to_ids(
-        &self,
-        lut_a: &Lut,
-        lut_b: &Lut,
-    ) -> Result<(HashMap<IdBase, IdBase>, MapS)> {
-        let c_map = self
-            .map_s
-            .iter()
-            .map(&|(k, v)| {
-                let k_id = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as IdBase;
-                let v_id = *lut_b
-                    .get(v)
-                    .with_context(|| format!("Invalid Value {}", v))?
-                    as IdBase;
-                Ok((k_id, v_id))
-            })
-            .collect::<Result<HashMap<IdBase, IdBase>>>()?;
-
-        // c_map_s will be owned copy of map_s so caller can mutate it (sort/rename later)
-        let c_map_s = self.map_s.clone();
-
-        Ok((c_map, c_map_s))
-    }
-
     /// Check cardinality / shape invariants for the parsed constraint.
     pub(crate) fn validate_constraint(&self, map_len: usize) -> Result<()> {
         match self.r#type {
@@ -143,6 +114,33 @@ impl ConstraintParse {
         *c_map = c_map2;
         *c_map_s = c_map_s2;
     }
+}
+
+/// Convert `self.map_s` (names) into numeric id map and return `(c_map, c_map_s)`.
+///
+/// `c_map` is `HashMap<u8,u8>` and `c_map_s` is the original string map
+///
+/// This function returns an error if a name is not present in the given LUT.
+pub fn convert_map_s_to_ids(
+    map_s: &MapS,
+    lut_a: &Lut,
+    lut_b: &Lut,
+) -> Result<(HashMap<IdBase, IdBase>, MapS)> {
+    let c_map = map_s
+        .iter()
+        .map(&|(k, v)| {
+            let k_id = *lut_a.get(k).with_context(|| format!("Invalid Key {}", k))? as IdBase;
+            let v_id = *lut_b
+                .get(v)
+                .with_context(|| format!("Invalid Value {}", v))? as IdBase;
+            Ok((k_id, v_id))
+        })
+        .collect::<Result<HashMap<IdBase, IdBase>>>()?;
+
+    // c_map_s will be owned copy of map_s so caller can mutate it (sort/rename later)
+    let c_map_s = map_s.clone();
+
+    Ok((c_map, c_map_s))
 }
 
 #[cfg(test)]
@@ -243,7 +241,7 @@ mod tests {
             .map(|(k, v)| (k.to_string(), v))
             .collect::<HashMap<_, _>>();
 
-        let (c_map, c_map_s) = cp.convert_map_s_to_ids(&lut_a, &lut_b).unwrap();
+        let (c_map, c_map_s) = convert_map_s_to_ids(&cp.map_s, &lut_a, &lut_b).unwrap();
 
         let c_ref = vec![(0, 2), (5, 20)].into_iter().collect::<HashMap<_, _>>();
 

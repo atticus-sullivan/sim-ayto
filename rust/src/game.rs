@@ -13,8 +13,7 @@
 pub mod cache;
 pub mod cache_report;
 pub mod parse;
-
-pub(super) mod parse_utils;
+pub mod parse_utils;
 
 mod compare;
 mod eval;
@@ -48,9 +47,9 @@ pub struct Game {
     solved: bool,
     /// the constraints originally parsed from file (these will stay constant and won't be
     /// mutated during the simulation)
-    constraints_orig: Vec<Constraint>,
+    pub constraints_orig: Vec<Constraint>,
     /// the ruleset which is to be applied to this game
-    rule_set: RuleSet,
+    pub rule_set: RuleSet,
     /// frontmatter to set in the generated markdown output
     frontmatter: serde_yaml::Value,
 

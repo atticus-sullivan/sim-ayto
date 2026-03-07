@@ -254,6 +254,8 @@ mod tests {
     use pretty_assertions::assert_eq;
     use rust_decimal::Decimal;
 
+    use crate::matching_repr::MaskedMatching;
+
     use super::*;
 
     #[derive(Debug, Default)]
@@ -262,6 +264,7 @@ mod tests {
         impact: bool,
         comment: String,
         num: Decimal,
+        map: MaskedMatching,
     }
     impl ConstraintImpact for MockConstraint {
         fn has_impact(&self) -> bool {
@@ -277,6 +280,9 @@ mod tests {
         }
         fn comment(&self) -> &str {
             &self.comment
+        }
+        fn matching(&self) -> &MaskedMatching {
+            &self.map
         }
     }
     impl Hash for MockConstraint {

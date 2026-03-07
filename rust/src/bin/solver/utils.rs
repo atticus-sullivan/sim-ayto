@@ -8,11 +8,13 @@ use std::{fmt, time::Duration};
 
 use ayto::matching_repr::MaskedMatching;
 
+use crate::NUM_PLAYERS_SET_A;
+
 /// Entropy calculation for a candidate `m` across `left_poss`.
 pub(super) fn calc_entropy(m: &MaskedMatching, left_poss: &[MaskedMatching]) -> f64 {
     let total = left_poss.len() as f64;
 
-    let mut lights = [0u32; 11];
+    let mut lights = [0u32; NUM_PLAYERS_SET_A + 1];
     for p in left_poss {
         // assume:
         // - p is the solution

@@ -14,6 +14,7 @@ use std::collections::BTreeMap;
 use rust_decimal::dec;
 use serde::Deserialize;
 
+use crate::constraint::parse_utils::convert_map_s_to_ids;
 use crate::constraint::{CheckType, Constraint, ConstraintType};
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::IdBase;
@@ -24,7 +25,7 @@ use crate::{LightCnt, Lut, MapS, Rename};
 /// this struct is only used when parsing the yaml file.
 /// The function `finalize_parsing` is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
-pub(crate) struct ConstraintParse {
+pub struct ConstraintParse {
     /// of what type this constraint is (e.g. MB/MN)
     pub(super) r#type: ConstraintType,
     /// the string+hashmap representation of the matching related to the constraint
@@ -97,7 +98,7 @@ impl ConstraintParse {
     /// # Returns
     /// `Result<Constraint>` on success.
     #[allow(clippy::too_many_arguments)]
-    pub(crate) fn finalize_parsing(
+    pub fn finalize_parsing(
         self,
         lut_a: &Lut,
         lut_b: &Lut,
@@ -120,7 +121,7 @@ impl ConstraintParse {
         };
 
         // convert map_s names -> numeric ids
-        let (mut c_map, mut c_map_s) = self.convert_map_s_to_ids(lut_a, lut_b)?;
+        let (mut c_map, mut c_map_s) = convert_map_s_to_ids(&self.map_s, lut_a, lut_b)?;
 
         // optional sorting based on LUT comparators
         if sort_constraint {

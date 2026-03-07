@@ -10,7 +10,7 @@ use serde::Deserialize;
 /// An enum defining all the different rulesets which can be applied to the game.
 /// This enum is only for parsing such a ruleset from file
 #[derive(Deserialize, Debug)]
-pub(crate) enum RuleSetParse {
+pub enum RuleSetParse {
     /// A ruleset where X duplicates exist. One of the two individuals forming the dup might be
     /// known (`Some(name)`) or not (`None`).
     /// The dups have to exist on the set_b side.
@@ -31,7 +31,7 @@ pub(crate) enum RuleSetParse {
 
 impl RuleSetParse {
     /// finalizes the parsing by consuming the `RuleSetParse` and producing the final `RuleSet`
-    pub(crate) fn finalize_parsing(self) -> RuleSet {
+    pub fn finalize_parsing(self) -> RuleSet {
         match self {
             RuleSetParse::SomeoneIsTrip => RuleSet::SomeoneIsTrip,
             RuleSetParse::NToN => RuleSet::NToN,
