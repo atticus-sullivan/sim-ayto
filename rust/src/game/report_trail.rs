@@ -46,11 +46,7 @@ pub(super) fn gen_report_data<'a>(
         rems.push(rem.clone());
     }
     for (i, c) in constraints.iter().enumerate() {
-        let rems_before = if i == 0 {
-            &initial
-        } else {
-            &rems[i-1]
-        };
+        let rems_before = if i == 0 { &initial } else { &rems[i - 1] };
 
         cs.push((
             c,
@@ -61,8 +57,7 @@ pub(super) fn gen_report_data<'a>(
 
     Ok((
         initial,
-        rems
-            .into_iter()
+        rems.into_iter()
             .zip(cs)
             .map(|(r, (c, cd))| ReportEvent {
                 rem: r,

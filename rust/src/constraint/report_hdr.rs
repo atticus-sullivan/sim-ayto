@@ -159,7 +159,9 @@ impl fmt::Display for MapSRender<'_> {
                     }
                     TabCol::ProbBefore => {
                         // no danger due to unwrap, ProbBefore is only set if it is some
-                        rows[i].1.add_cell(prob_comfy_cell(self.probs.as_ref().unwrap()[k].0));
+                        rows[i]
+                            .1
+                            .add_cell(prob_comfy_cell(self.probs.as_ref().unwrap()[k].0));
                     }
                     TabCol::ProbAfter => {
                         // no danger due to unwrap, ProbAfter is only set if it is some
@@ -227,21 +229,40 @@ impl Constraint {
         lut_b: &Lut,
     ) -> ReportData<'a> {
         let probs = self.show_probs().then(|| {
-            let probs_before = self.map_s.iter().map(|(k,v)| {
-                (k, rem_before.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0 / rem_before.1 as f64)
-            }).collect::<Vec<_>>();
+            let probs_before = self
+                .map_s
+                .iter()
+                .map(|(k, v)| {
+                    (
+                        k,
+                        rem_before.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0
+                            / rem_before.1 as f64,
+                    )
+                })
+                .collect::<Vec<_>>();
 
-            let probs_after = self.map_s.iter().map(|(k,v)| {
-                (k, rem_after.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0 / rem_after.1 as f64)
-            }).collect::<Vec<_>>();
+            let probs_after = self
+                .map_s
+                .iter()
+                .map(|(k, v)| {
+                    (
+                        k,
+                        rem_after.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0
+                            / rem_after.1 as f64,
+                    )
+                })
+                .collect::<Vec<_>>();
 
             probs_before
                 .iter()
                 .zip(probs_after)
                 .map(|(before, after)| {
-                    (before.0, (before.1, (before.1 != after.1).then_some(after.1)))
+                    (
+                        before.0,
+                        (before.1, (before.1 != after.1).then_some(after.1)),
+                    )
                 })
-                .collect::<HashMap<_,_>>()
+                .collect::<HashMap<_, _>>()
         });
 
         ReportData {
@@ -506,11 +527,7 @@ c  "#
             .map(|(i, j)| (i.to_string(), j.to_string()))
             .collect::<MapS>();
 
-        let names = [
-            "a".to_string(),
-            "b".to_string(),
-            "c".to_string(),
-        ];
+        let names = ["a".to_string(), "b".to_string(), "c".to_string()];
 
         let mut probs = HashMap::new();
         probs.insert(&names[0], (10.0, None));
