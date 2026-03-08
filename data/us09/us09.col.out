@@ -16,7 +16,7 @@
 39916800 left -> 25.2505 bits left
 
 MB#1 E02
-Taylor → Nathan 
+Taylor → Nathan     9.091% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.14, 1: 3.46}
 -> E[I]/bits: 0.44 = H
@@ -39,17 +39,17 @@ Taylor → Nathan
 36288000 left -> 25.113 bits left
 
 MN#1 E02 -- blackout -250.000$
-0x Anissa    → Ollie   
-0x Brooke    → Leo     
-0x CC        → Brendan 
-0x Courtney  → Aquel   
-0x Danielle  → Mikey   
-0x Dew       → Clay    
-0x Jordanne  → Will    
-0x JuliaRuth → Samuel  
-0x Mijntje   → Nathan  
-0x Roz       → Eduardo 
-0x Taylor    → Hamudi  
+0x Anissa    → Ollie       9.000% ↘ [38;5;9m 0.000%[39m
+0x Brooke    → Leo         9.000% ↘ [38;5;9m 0.000%[39m
+0x CC        → Brendan     9.000% ↘ [38;5;9m 0.000%[39m
+0x Courtney  → Aquel       9.000% ↘ [38;5;9m 0.000%[39m
+0x Danielle  → Mikey       9.000% ↘ [38;5;9m 0.000%[39m
+0x Dew       → Clay        9.000% ↘ [38;5;9m 0.000%[39m
+0x Jordanne  → Will        9.000% ↘ [38;5;9m 0.000%[39m
+0x JuliaRuth → Samuel      9.000% ↘ [38;5;9m 0.000%[39m
+0x Mijntje   → Nathan     10.000% ↘ [38;5;9m 0.000%[39m
+0x Roz       → Eduardo     9.000% ↘ [38;5;9m 0.000%[39m
+0x Taylor    → Hamudi     10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
 -> E[I]/bits: 1.89 = H
@@ -72,7 +72,7 @@ MN#1 E02 -- blackout -250.000$
 13216113 left -> 23.6558 bits left
 
 MB#2 E03
-Anissa → Hamudi 
+Anissa → Hamudi     9.989% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -95,17 +95,17 @@ Anissa → Hamudi
 11895985 left -> 23.504 bits left
 
 MN#2 E03
-0x Anissa    → Aquel   
-0x Brooke    → Ollie   
-0x CC        → Clay    
-0x Courtney  → Leo     
-0x Danielle  → Eduardo 
-0x Dew       → Samuel  
-0x Jordanne  → Brendan 
-0x JuliaRuth → Nathan  
-0x Mijntje   → Hamudi  
-0x Roz       → Mikey   
-0x Taylor    → Will    
+0x Anissa    → Aquel      10.957% ↗ 19.506%
+0x Brooke    → Ollie       9.850% ↗ 17.511%
+0x CC        → Clay        9.728% ↗ 17.288%
+0x Courtney  → Leo         9.728% ↗ 17.291%
+0x Danielle  → Eduardo     9.728% ↗ 17.290%
+0x Dew       → Samuel      9.728% ↗ 17.289%
+0x Jordanne  → Brendan     9.728% ↗ 17.289%
+0x JuliaRuth → Nathan     10.957% ↗ 19.505%
+0x Mijntje   → Hamudi     11.222% ↗ 19.983%
+0x Roz       → Mikey       9.728% ↗ 17.290%
+0x Taylor    → Will       11.097% ↗ 19.758%
 ---
 -> I[l]/bits: {0: 1.62, 1: 1.45, 2: 2.28, 3: 3.70, 4: 5.53, 5: 7.68, 6: 10.09, 7: 12.69, 8: 15.69, 9: 18.08, 11: 23.50}
 -> E[I]/bits: 1.98 = H
@@ -128,7 +128,7 @@ MN#2 E03
 2441740 left -> 21.2195 bits left
 
 MB#3 E04
-Taylor → Will 
+Taylor → Will    19.758% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.32, 1: 2.34}
 -> E[I]/bits: 0.72 = H
@@ -151,17 +151,17 @@ Taylor → Will
 1959300 left -> 20.9019 bits left
 
 MN#3 E04
-1x Anissa    → Aquel   
-1x Brooke    → Ollie   
-1x CC        → Clay    
-0x Courtney  → Will    
-0x Danielle  → Hamudi  
-0x Dew       → Nathan  
-0x Jordanne  → Eduardo 
-0x JuliaRuth → Brendan 
-0x Mijntje   → Mikey   
-0x Roz       → Samuel  
-0x Taylor    → Leo     
+1x Anissa    → Aquel      21.501% ↗ [38;5;11m48.999%[39m
+1x Brooke    → Ollie      19.332% ↗ 44.750%
+1x CC        → Clay       19.106% ↗ 44.908%
+0x Courtney  → Will       10.983% ↗ 34.285%
+0x Danielle  → Hamudi      9.687% ↗ 33.451%
+0x Dew       → Nathan      9.631% ↗ 33.606%
+0x Jordanne  → Eduardo     8.704% ↗ 30.782%
+0x JuliaRuth → Brendan     8.266% ↗ 29.729%
+0x Mijntje   → Mikey       8.344% ↗ 30.528%
+0x Roz       → Samuel      8.430% ↗ 30.403%
+0x Taylor    → Leo        12.501% ↗ 38.559%
 ---
 -> I[l]/bits: {0: 2.02, 1: 1.49, 2: 2.03, 3: 3.22, 4: 4.85, 5: 6.81, 6: 9.05, 7: 11.45, 8: 14.24, 9: 16.65}
 -> E[I]/bits: 2.12 = H
@@ -184,7 +184,7 @@ MN#3 E04
 68042 left -> 16.0541 bits left
 
 MB#4 E05
-JuliaRuth → Brendan 
+JuliaRuth → Brendan    29.729% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.51, 1: 1.75}
 -> E[I]/bits: 0.88 = H
@@ -207,17 +207,17 @@ JuliaRuth → Brendan
 20228 left -> 14.3041 bits left
 
 MN#4 E05
-2x Anissa    → Aquel   
-0x Brooke    → Clay    
-0x CC        → Mikey   
-1x Courtney  → Will    
-0x Danielle  → Leo     
-0x Dew       → Ollie   
-1x Jordanne  → Eduardo 
-1x JuliaRuth → Brendan 
-1x Mijntje   → Hamudi  
-0x Roz       → Nathan  
-0x Taylor    → Samuel  
+2x Anissa    → Aquel  [38;5;11m    47.281% [39m ↘ 43.834%
+0x Brooke    → Clay        5.482%  ↘ [38;5;9m 0.059%[39m
+0x CC        → Mikey       7.218%  ↘  1.747%
+1x Courtney  → Will       26.982%  ↘ 19.598%
+0x Danielle  → Leo         8.750%  ↘  1.850%
+0x Dew       → Ollie       6.664%  ↘  1.820%
+1x Jordanne  → Eduardo    23.507%  ↘ 15.032%
+1x JuliaRuth → Brendan[38;5;10m    100.000%[39m          
+1x Mijntje   → Hamudi     16.003%  ↘  6.356%
+0x Roz       → Nathan     11.731%  ↘  4.786%
+0x Taylor    → Samuel     11.865%  ↘  4.918%
 ---
 -> I[l]/bits: {1: 2.60, 2: 1.57, 3: 1.83, 4: 2.81, 5: 4.23, 6: 5.92, 7: 7.84, 8: 10.30, 9: 11.72, 11: 14.30}
 -> E[I]/bits: 2.24 = H
@@ -240,7 +240,7 @@ MN#4 E05
 6812 left -> 12.7339 bits left
 
 MB#5 E06
-CC → Clay 
+CC → Clay    43.042% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.81, 1: 1.22}
 -> E[I]/bits: 0.99 = H
@@ -263,17 +263,17 @@ CC → Clay
 3880 left -> 11.9218 bits left
 
 MN#5 E06
-3x Anissa    → Aquel   
-2x Brooke    → Ollie   
-1x CC        → Mikey   
-2x Courtney  → Will    
-1x Danielle  → Leo     
-1x Dew       → Nathan  
-2x Jordanne  → Eduardo 
-2x JuliaRuth → Brendan 
-2x Mijntje   → Hamudi  
-0x Roz       → Clay    
-1x Taylor    → Samuel  
+3x Anissa    → Aquel  [38;5;11m    54.330% [39m ↗ [38;5;11m54.859%[39m
+2x Brooke    → Ollie  [38;5;14m    64.098% [39m ↗ [38;5;14m67.439%[39m
+1x CC        → Mikey       3.067%  ↘  2.225%
+2x Courtney  → Will       18.041%  ↗ 20.481%
+1x Danielle  → Leo    [38;5;9m     0.000% [39m          
+1x Dew       → Nathan     34.639%  ↘ 27.339%
+2x Jordanne  → Eduardo    13.737%  ↗ 16.803%
+2x JuliaRuth → Brendan[38;5;10m    100.000%[39m          
+2x Mijntje   → Hamudi      5.954%  ↘  5.086%
+0x Roz       → Clay       13.995%  ↘  5.223%
+1x Taylor    → Samuel      2.526%  ↘ [38;5;9m 0.545%[39m
 ---
 -> I[l]/bits: {2: 2.51, 3: 0.82, 4: 2.10, 5: 5.45}
 -> E[I]/bits: 1.52 = H
@@ -296,7 +296,7 @@ MN#5 E06
 2202 left -> 11.1046 bits left
 
 MB#6 E07
-Brooke → Ollie 
+Brooke → Ollie[38;5;14m    67.439%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.62, 1: 0.57}
 -> E[I]/bits: 0.91 = H
@@ -319,17 +319,17 @@ Brooke → Ollie
 1485 left -> 10.5362 bits left
 
 MN#6 E07
-0x Anissa    → Samuel  
-3x Brooke    → Ollie   
-2x CC        → Mikey   
-0x Courtney  → Nathan  
-0x Danielle  → Will    
-0x Dew       → Eduardo 
-0x Jordanne  → Leo     
-3x JuliaRuth → Brendan 
-0x Mijntje   → Aquel   
-0x Roz       → Hamudi  
-0x Taylor    → Clay    
+0x Anissa    → Samuel      7.273%  ↘  5.935%
+3x Brooke    → Ollie  [38;5;10m    100.000%[39m          
+2x CC        → Mikey       3.300%  ↗  3.597%
+0x Courtney  → Nathan     16.431%  ↘ 14.748%
+0x Danielle  → Will       11.919%  ↘  9.173%
+0x Dew       → Eduardo    14.141%  ↘ 12.050%
+0x Jordanne  → Leo         7.811%  ↘  5.576%
+3x JuliaRuth → Brendan[38;5;10m    100.000%[39m          
+0x Mijntje   → Aquel      10.236%  ↘  8.453%
+0x Roz       → Hamudi     15.219%  ↗ 16.187%
+0x Taylor    → Clay       25.253%  ↘ 24.281%
 ---
 -> I[l]/bits: {2: 1.68, 3: 1.42, 4: 2.18, 5: 3.69, 6: 6.29, 7: 8.54, 8: 10.54}
 -> E[I]/bits: 1.93 = H
@@ -352,7 +352,7 @@ MN#6 E07
 556 left -> 9.1189 bits left
 
 MB#7 E08
-Mijntje → Hamudi 
+Mijntje → Hamudi     6.655% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.10, 1: 3.91}
 -> E[I]/bits: 0.35 = H
@@ -375,7 +375,7 @@ Mijntje → Hamudi
 519 left -> 9.0196 bits left
 
 MB#7.1 E08 -- Sam left
-Mijntje → Samuel 
+Mijntje → Samuel    11.753% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.18, 1: 3.09}
 -> E[I]/bits: 0.52 = H
@@ -398,17 +398,17 @@ Mijntje → Samuel
 61 left -> 5.9307 bits left
 
 MN#7 E08
-4x Anissa    → Aquel   
-4x Brooke    → Ollie   
-3x CC        → Mikey   
-0x Courtney  → Hamudi  
-1x Danielle  → Will    
-1x Dew       → Eduardo 
-0x Jordanne  → Nathan  
-4x JuliaRuth → Brendan 
-0x Mijntje   → Samuel  
-0x Roz       → Leo     
-1x Taylor    → Clay    
+4x Anissa    → Aquel      42.623%  ↗ [38;5;10m100.000%[39m
+4x Brooke    → Ollie  [38;5;10m    100.000%[39m           
+3x CC        → Mikey  [38;5;9m     0.000% [39m           
+0x Courtney  → Hamudi      3.279%  ↗ 16.667% 
+1x Danielle  → Will        4.918%  ↘ [38;5;9m 0.000% [39m
+1x Dew       → Eduardo    27.869%  ↗ [38;5;11m50.000% [39m
+0x Jordanne  → Nathan     24.590%  ↗ [38;5;14m66.667% [39m
+4x JuliaRuth → Brendan[38;5;10m    100.000%[39m           
+0x Mijntje   → Samuel [38;5;10m    100.000%[39m           
+0x Roz       → Leo         9.836%  ↗ 16.667% 
+1x Taylor    → Clay       26.230%  ↗ [38;5;11m50.000% [39m
 ---
 -> I[l]/bits: {3: 2.47, 4: 1.18, 5: 2.12, 6: 3.35, 7: 4.35}
 -> E[I]/bits: 2.00 = H
@@ -431,7 +431,7 @@ MN#7 E08
 6 left -> 2.585 bits left
 
 MB#8 E09
-Taylor → Clay 
+Taylor → Clay[38;5;11m    50.000%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.00, 1: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -454,17 +454,17 @@ Taylor → Clay
 3 left -> 1.585 bits left
 
 MN#8 E09
-5x Anissa    → Aquel   
-5x Brooke    → Ollie   
-0x CC        → Will    
-1x Courtney  → Hamudi  
-0x Danielle  → Nathan  
-0x Dew       → Mikey   
-3x Jordanne  → Eduardo 
-5x JuliaRuth → Brendan 
-1x Mijntje   → Samuel  
-1x Roz       → Leo     
-2x Taylor    → Clay    
+5x Anissa    → Aquel  [38;5;10m    100.000%[39m          
+5x Brooke    → Ollie  [38;5;10m    100.000%[39m          
+0x CC        → Will   [38;5;9m     0.000% [39m          
+1x Courtney  → Hamudi [38;5;9m     0.000% [39m          
+0x Danielle  → Nathan [38;5;9m     0.000% [39m          
+0x Dew       → Mikey      33.333%  ↗ [38;5;11m50.000%[39m
+3x Jordanne  → Eduardo[38;5;9m     0.000% [39m          
+5x JuliaRuth → Brendan[38;5;10m    100.000%[39m          
+1x Mijntje   → Samuel [38;5;10m    100.000%[39m          
+1x Roz       → Leo        33.333%  ↗ [38;5;11m50.000%[39m
+2x Taylor    → Clay   [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {5: 1.58, 6: 0.58}
 -> E[I]/bits: 0.92 = H
@@ -487,7 +487,7 @@ MN#8 E09
 2 left -> 1 bits left
 
 MB#9 E10
-Roz → Mikey 
+Roz → Mikey[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -510,17 +510,17 @@ Roz → Mikey
 2 left -> 1 bits left
 
 MN#9 E10
-6x Anissa    → Aquel   
-6x Brooke    → Ollie   
-0x CC        → Nathan  
-0x Courtney  → Eduardo 
-1x Danielle  → Hamudi  
-0x Dew       → Will    
-0x Jordanne  → Mikey   
-6x JuliaRuth → Brendan 
-2x Mijntje   → Samuel  
-2x Roz       → Leo     
-3x Taylor    → Clay    
+6x Anissa    → Aquel  [38;5;10m    100.000%[39m           
+6x Brooke    → Ollie  [38;5;10m    100.000%[39m           
+0x CC        → Nathan [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Courtney  → Eduardo[38;5;10m    100.000%[39m           
+1x Danielle  → Hamudi [38;5;10m    100.000%[39m           
+0x Dew       → Will   [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Jordanne  → Mikey  [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+6x JuliaRuth → Brendan[38;5;10m    100.000%[39m           
+2x Mijntje   → Samuel [38;5;10m    100.000%[39m           
+2x Roz       → Leo    [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+3x Taylor    → Clay   [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {7: 1.00, 11: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -590,4 +590,4 @@ MN#9 E10
 ╰────────┴────┴───────────┴────────────┴─────────┴───────────┴───────────┴───────────┴───────────┴────────────┴─────────┴────────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 3.97s
+Ran in 3.85s

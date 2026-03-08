@@ -16,7 +16,7 @@
 39916800 left -> 25.2505 bits left
 
 MB#1 E01
-Maria → Tomas 
+Maria → Tomas     9.091% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.14, 1: 3.46}
 -> E[I]/bits: 0.44 = H
@@ -39,17 +39,17 @@ Maria → Tomas
 36288000 left -> 25.113 bits left
 
 MN#1 E02
-0x Asia     → Kwasi  
-0x Bria     → Zak    
-0x Cali     → Brett  
-0x Jasmine  → Moe    
-0x Kayla    → Cam    
-0x Kenya    → Tevin  
-0x Lauren   → Andrew 
-0x Maria    → Shamoy 
-0x Morgan   → Tomas  
-0x Nutsa    → Daniel 
-0x Samantha → Lewis  
+0x Asia     → Kwasi      9.000% ↗ 26.797%
+0x Bria     → Zak        9.000% ↗ 26.797%
+0x Cali     → Brett      9.000% ↗ 26.797%
+0x Jasmine  → Moe        9.000% ↗ 26.797%
+0x Kayla    → Cam        9.000% ↗ 26.797%
+0x Kenya    → Tevin      9.000% ↗ 26.797%
+0x Lauren   → Andrew     9.000% ↗ 26.797%
+0x Maria    → Shamoy    10.000% ↗ 29.412%
+0x Morgan   → Tomas     10.000% ↗ 29.412%
+0x Nutsa    → Daniel     9.000% ↗ 26.797%
+0x Samantha → Lewis      9.000% ↗ 26.797%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
 -> E[I]/bits: 1.89 = H
@@ -72,7 +72,7 @@ MN#1 E02
 2269449 left -> 21.1139 bits left
 
 MB#2 E03
-Asia → Andrew 
+Asia → Andrew     7.285% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.11, 1: 3.78}
 -> E[I]/bits: 0.38 = H
@@ -95,17 +95,17 @@ Asia → Andrew
 2104123 left -> 21.0048 bits left
 
 MN#2 E03
-0x Asia     → Brett  
-0x Bria     → Moe    
-0x Cali     → Tomas  
-0x Jasmine  → Lewis  
-1x Kayla    → Cam    
-1x Kenya    → Tevin  
-0x Lauren   → Kwasi  
-1x Maria    → Shamoy 
-0x Morgan   → Andrew 
-1x Nutsa    → Daniel 
-0x Samantha → Zak    
+0x Asia     → Brett      7.857% ↗ 18.349%
+0x Bria     → Moe        7.292% ↗ 16.850%
+0x Cali     → Tomas      7.857% ↗ 17.982%
+0x Jasmine  → Lewis      7.292% ↗ 16.850%
+1x Kayla    → Cam       26.341% ↗ 43.828%
+1x Kenya    → Tevin     26.341% ↗ 43.828%
+0x Lauren   → Kwasi      6.887% ↗ 16.039%
+1x Maria    → Shamoy    28.903% ↗ [38;5;11m47.586%[39m
+0x Morgan   → Andrew     7.637% ↗ 18.010%
+1x Nutsa    → Daniel    26.341% ↗ 43.828%
+0x Samantha → Zak        7.292% ↗ 16.850%
 ---
 -> I[l]/bits: {0: 2.65, 1: 1.49, 2: 1.80, 3: 2.87, 4: 4.45, 5: 6.41, 6: 8.68, 7: 11.18, 8: 13.97, 9: 16.25}
 -> E[I]/bits: 2.17 = H
@@ -128,7 +128,7 @@ MN#2 E03
 287580 left -> 18.1336 bits left
 
 MB#3 E04
-Maria → Shamoy 
+Maria → Shamoy[38;5;11m    47.586%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.93, 1: 1.07}
 -> E[I]/bits: 1.00 = H
@@ -151,17 +151,17 @@ Maria → Shamoy
 136848 left -> 17.0622 bits left
 
 MN#3 E04
-0x Asia     → Lewis  
-0x Bria     → Tomas  
-1x Cali     → Brett  
-0x Jasmine  → Kwasi  
-2x Kayla    → Cam    
-2x Kenya    → Tevin  
-1x Lauren   → Andrew 
-2x Maria    → Shamoy 
-0x Morgan   → Zak    
-0x Nutsa    → Moe    
-0x Samantha → Daniel 
+0x Asia     → Lewis     10.366%  ↗ 14.012%
+0x Bria     → Tomas      9.313%  ↗ 12.606%
+1x Cali     → Brett     14.282%  ↗ 19.766%
+0x Jasmine  → Kwasi      9.240%  ↗ 12.425%
+2x Kayla    → Cam       31.589%  ↗ 41.910%
+2x Kenya    → Tevin     31.589%  ↗ 41.910%
+1x Lauren   → Andrew    16.262%  ↗ 22.552%
+2x Maria    → Shamoy[38;5;10m    100.000%[39m          
+0x Morgan   → Zak        9.230%  ↗ 12.510%
+0x Nutsa    → Moe        7.764%  ↗ 11.170%
+0x Samantha → Daniel     7.764%  ↗ 11.138%
 ---
 -> I[l]/bits: {1: 2.47, 2: 1.39, 3: 1.86, 4: 3.07, 5: 4.84, 6: 7.07, 7: 9.64, 8: 13.16, 9: 17.06}
 -> E[I]/bits: 2.09 = H
@@ -184,7 +184,7 @@ MN#3 E04
 37681 left -> 15.2015 bits left
 
 MB#4 E06
-Kenya → Brett 
+Kenya → Brett     6.260% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.09, 1: 4.00}
 -> E[I]/bits: 0.34 = H
@@ -207,17 +207,17 @@ Kenya → Brett
 35322 left -> 15.1083 bits left
 
 MN#4 E06
-0x Asia     → Cam    
-0x Bria     → Kwasi  
-1x Cali     → Tomas  
-0x Jasmine  → Tevin  
-0x Kayla    → Brett  
-0x Kenya    → Lewis  
-0x Lauren   → Daniel 
-3x Maria    → Shamoy 
-1x Morgan   → Zak    
-0x Nutsa    → Andrew 
-0x Samantha → Moe    
+0x Asia     → Cam        8.080%  ↗  9.642%
+0x Bria     → Kwasi     10.132%  ↗ 11.431%
+1x Cali     → Tomas     11.930%  ↗ 11.960%
+0x Jasmine  → Tevin      6.452%  ↗  7.201%
+0x Kayla    → Brett      6.679%  ↗  7.457%
+0x Kenya    → Lewis      7.191%  ↗  8.367%
+0x Lauren   → Daniel     8.638%  ↗  9.743%
+3x Maria    → Shamoy[38;5;10m    100.000%[39m          
+1x Morgan   → Zak       12.242%  ↗ 12.434%
+0x Nutsa    → Andrew     9.651%  ↗ 10.575%
+0x Samantha → Moe        9.682%  ↗ 11.190%
 ---
 -> I[l]/bits: {1: 1.30, 2: 1.46, 3: 2.60, 4: 4.31, 5: 6.38, 6: 8.84, 7: 10.94, 8: 15.11, 9: 15.11}
 -> E[I]/bits: 1.81 = H
@@ -240,7 +240,7 @@ MN#4 E06
 12860 left -> 13.6506 bits left
 
 MB#5 E08
-Bria → Zak 
+Bria → Zak    10.093% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.31}
 -> E[I]/bits: 0.47 = H
@@ -263,17 +263,17 @@ Bria → Zak
 11562 left -> 13.4971 bits left
 
 MN#5 E08
-0x Asia     → Moe    
-0x Bria     → Daniel 
-2x Cali     → Tomas  
-1x Jasmine  → Kwasi  
-3x Kayla    → Cam    
-3x Kenya    → Tevin  
-0x Lauren   → Lewis  
-4x Maria    → Shamoy 
-2x Morgan   → Zak    
-0x Nutsa    → Brett  
-0x Samantha → Andrew 
+0x Asia     → Moe       11.425%  ↗ 29.953%
+0x Bria     → Daniel    10.163%  ↗ 24.528%
+2x Cali     → Tomas     10.327%  ↗ 22.465%
+1x Jasmine  → Kwasi     10.336%  ↗ 16.981%
+3x Kayla    → Cam       40.235%  ↗ [38;5;11m52.123%[39m
+3x Kenya    → Tevin [38;5;11m    45.087% [39m ↗ [38;5;14m59.257%[39m
+0x Lauren   → Lewis      8.736%  ↗ 21.757%
+4x Maria    → Shamoy[38;5;10m    100.000%[39m          
+2x Morgan   → Zak       13.830%  ↗ 28.184%
+0x Nutsa    → Brett      9.107%  ↗ 21.285%
+0x Samantha → Andrew     9.678%  ↗ 23.467%
 ---
 -> I[l]/bits: {1: 3.55, 2: 1.31, 3: 1.68, 4: 2.77, 5: 4.46, 6: 7.02, 7: 11.91}
 -> E[I]/bits: 2.02 = H
@@ -296,7 +296,7 @@ MN#5 E08
 1696 left -> 10.7279 bits left
 
 MB#6 E09
-Cali → Brett 
+Cali → Brett    10.142% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.30}
 -> E[I]/bits: 0.47 = H
@@ -319,17 +319,17 @@ Cali → Brett
 1524 left -> 10.5736 bits left
 
 MN#6 E09
-1x Asia     → Kwasi  
-0x Bria     → Lewis  
-3x Cali     → Tomas  
-1x Jasmine  → Moe    
-4x Kayla    → Cam    
-4x Kenya    → Tevin  
-2x Lauren   → Andrew 
-5x Maria    → Shamoy 
-3x Morgan   → Zak    
-1x Nutsa    → Brett  
-1x Samantha → Daniel 
+1x Asia     → Kwasi     15.617%  ↗ 25.436%
+0x Bria     → Lewis     15.289%  ↗ 15.854%
+3x Cali     → Tomas     25.000%  ↗ 29.791%
+1x Jasmine  → Moe       12.861%  ↗ 21.603%
+4x Kayla    → Cam   [38;5;11m    52.625% [39m ↘ [38;5;11m49.652%[39m
+4x Kenya    → Tevin [38;5;14m    61.089% [39m ↘ [38;5;14m57.317%[39m
+2x Lauren   → Andrew    15.814%  ↗ 23.693%
+5x Maria    → Shamoy[38;5;10m    100.000%[39m          
+3x Morgan   → Zak       30.446%  ↗ 43.728%
+1x Nutsa    → Brett     23.688%  ↗ 30.139%
+1x Samantha → Daniel     5.512%  ↘  2.787%
 ---
 -> I[l]/bits: {2: 2.75, 3: 1.63, 4: 1.41, 5: 3.16, 6: 5.05, 7: 6.77}
 -> E[I]/bits: 2.04 = H
@@ -352,7 +352,7 @@ MN#6 E09
 574 left -> 9.1649 bits left
 
 MB#7 E10
-Nutsa → Zak 
+Nutsa → Zak     6.272% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.09, 1: 3.99}
 -> E[I]/bits: 0.34 = H
@@ -375,17 +375,17 @@ Nutsa → Zak
 538 left -> 9.0715 bits left
 
 MN#7 E11
-2x Asia     → Kwasi  
-1x Bria     → Lewis  
-0x Cali     → Cam    
-2x Jasmine  → Moe    
-0x Kayla    → Tomas  
-5x Kenya    → Tevin  
-3x Lauren   → Andrew 
-6x Maria    → Shamoy 
-4x Morgan   → Zak    
-2x Nutsa    → Brett  
-2x Samantha → Daniel 
+2x Asia     → Kwasi     27.138%  ↘ 26.562% 
+1x Bria     → Lewis     15.799%  ↘ 14.062% 
+0x Cali     → Cam        6.320%  ↘ [38;5;9m 0.000% [39m
+2x Jasmine  → Moe       20.074%  ↗ 29.688% 
+0x Kayla    → Tomas      5.390%  ↘ [38;5;9m 0.000% [39m
+5x Kenya    → Tevin [38;5;14m    56.691% [39m ↗ [38;5;10m100.000%[39m
+3x Lauren   → Andrew    22.677%  ↘ 12.500% 
+6x Maria    → Shamoy[38;5;10m    100.000%[39m           
+4x Morgan   → Zak   [38;5;11m    46.654% [39m ↗ [38;5;14m70.312% [39m
+2x Nutsa    → Brett     32.156%  ↗ 42.188% 
+2x Samantha → Daniel     2.974%  ↗  4.688% 
 ---
 -> I[l]/bits: {2: 3.26, 3: 0.86, 4: 2.07, 5: 3.34, 6: 6.75}
 -> E[I]/bits: 1.70 = H
@@ -408,7 +408,7 @@ MN#7 E11
 128 left -> 7 bits left
 
 MB#8 E12
-Kenya → Tevin 
+Kenya → Tevin[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -431,17 +431,17 @@ Kenya → Tevin
 128 left -> 7 bits left
 
 MN#8 E12
-0x Asia     → Daniel 
-2x Bria     → Lewis  
-0x Cali     → Zak    
-2x Jasmine  → Kwasi  
-0x Kayla    → Moe    
-6x Kenya    → Tevin  
-0x Lauren   → Cam    
-7x Maria    → Shamoy 
-1x Morgan   → Tomas  
-3x Nutsa    → Brett  
-1x Samantha → Andrew 
+0x Asia     → Daniel     4.688%  ↗  8.824%
+2x Bria     → Lewis     14.062%  ↗ 14.706%
+0x Cali     → Zak        8.594%  ↗ 14.706%
+2x Jasmine  → Kwasi      1.562%  ↘ [38;5;9m 0.000%[39m
+0x Kayla    → Moe       13.281%  ↗ 23.529%
+6x Kenya    → Tevin [38;5;10m    100.000%[39m          
+0x Lauren   → Cam       20.312%  ↗ 35.294%
+7x Maria    → Shamoy[38;5;10m    100.000%[39m          
+1x Morgan   → Tomas      6.250%  ↗  8.824%
+3x Nutsa    → Brett     42.188%  ↗ [38;5;14m67.647%[39m
+1x Samantha → Andrew    23.438%  ↗ 26.471%
 ---
 -> I[l]/bits: {2: 2.25, 3: 1.33, 4: 1.91, 5: 3.54, 6: 4.68}
 -> E[I]/bits: 2.00 = H
@@ -464,7 +464,7 @@ MN#8 E12
 34 left -> 5.0875 bits left
 
 MB#9 E12
-Samantha → Cam 
+Samantha → Cam[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -487,17 +487,17 @@ Samantha → Cam
 34 left -> 5.0875 bits left
 
 MN#9 E13
-1x Asia     → Lewis  
-0x Bria     → Brett  
-0x Cali     → Andrew 
-0x Jasmine  → Tomas  
-1x Kayla    → Moe    
-7x Kenya    → Tevin  
-1x Lauren   → Daniel 
-8x Maria    → Shamoy 
-0x Morgan   → Cam    
-0x Nutsa    → Kwasi  
-1x Samantha → Zak    
+1x Asia     → Lewis [38;5;9m     0.000% [39m          
+0x Bria     → Brett      5.882%  ↗ 20.000%
+0x Cali     → Andrew    20.588%  ↗ [38;5;14m60.000%[39m
+0x Jasmine  → Tomas     14.706%  ↗ 20.000%
+1x Kayla    → Moe       23.529%  ↗ [38;5;14m60.000%[39m
+7x Kenya    → Tevin [38;5;10m    100.000%[39m          
+1x Lauren   → Daniel     2.941%  ↗ 20.000%
+8x Maria    → Shamoy[38;5;10m    100.000%[39m          
+0x Morgan   → Cam        8.824%  ↗ 20.000%
+0x Nutsa    → Kwasi [38;5;9m     0.000% [39m          
+1x Samantha → Zak        5.882%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {2: 1.18, 3: 1.50, 4: 2.77, 5: 4.09}
 -> E[I]/bits: 1.70 = H
@@ -520,7 +520,7 @@ MN#9 E13
 5 left -> 2.3219 bits left
 
 MB#10 E14
-Nutsa → Brett 
+Nutsa → Brett    40.000% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.74, 1: 1.32}
 -> E[I]/bits: 0.97 = H
@@ -543,17 +543,17 @@ Nutsa → Brett
 2 left -> 1 bits left
 
 MN#10 E14
-0x Asia     → Tomas  
-0x Bria     → Cam    
-1x Cali     → Andrew 
-0x Jasmine  → Daniel 
-2x Kayla    → Moe    
-8x Kenya    → Tevin  
-1x Lauren   → Kwasi  
-9x Maria    → Shamoy 
-5x Morgan   → Zak    
-4x Nutsa    → Brett  
-1x Samantha → Lewis  
+0x Asia     → Tomas [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Bria     → Cam   [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+1x Cali     → Andrew[38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Jasmine  → Daniel[38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+2x Kayla    → Moe   [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+8x Kenya    → Tevin [38;5;10m    100.000%[39m           
+1x Lauren   → Kwasi [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+9x Maria    → Shamoy[38;5;10m    100.000%[39m           
+5x Morgan   → Zak   [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+4x Nutsa    → Brett [38;5;10m    100.000%[39m           
+1x Samantha → Lewis [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {3: 1.00, 11: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -625,4 +625,4 @@ MN#10 E14
 ╰───────┴────┴───────────┴────────┴──────────┴───────────┴──────────┴───────────┴───────────┴────────┴──────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 3.54s
+Ran in 3.46s

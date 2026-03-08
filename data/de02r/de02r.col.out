@@ -15,7 +15,7 @@
 36288000 left -> 25.113 bits left
 
 MB#1 E03
-Zoe → Martin 
+Zoe → Martin    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 100.0%/32659200: Felix | 10.0%/3265920: Pharrell | 10.0%/3265920: 
 top5 Pr[Dup]: 10.0%/3265920: Anna | 10.0%/3265920: Cecilia | 10.0%/3265920: Celina | 10.0%/3265920: Franzi | 10.0%/3265920: Gina
 
 MN#1 E04
-0x Anna     → Micha    
-0x Cecilia  → Amadu    
-0x Celina   → Martin   
-0x Franzi   → Max      
-0x Gina     → Calvin   
-0x Isabelle → Lukas    
-0x Karina   → Pharrell 
-0x Luisa    → Fabio    
-0x Ricarda  → Maurice  
-0x Zoe      → Luca     
+0x Anna     → Micha        9.877% ↗ 29.367%
+0x Cecilia  → Amadu        9.877% ↗ 29.367%
+0x Celina   → Martin      11.111% ↗ 32.530%
+0x Franzi   → Max          9.877% ↗ 29.367%
+0x Gina     → Calvin       9.877% ↗ 29.367%
+0x Isabelle → Lukas        9.877% ↗ 29.367%
+0x Karina   → Pharrell     9.877% ↗ 29.367%
+0x Luisa    → Fabio        9.877% ↗ 29.367%
+0x Ricarda  → Maurice      9.877% ↗ 29.367%
+0x Zoe      → Luca        11.111% ↗ 32.530%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 100.0%/2051760: Felix | 10.0%/205176: Pharrell | 10.0%/205176: Mic
 top5 Pr[Dup]: 10.0%/205176: Anna | 10.0%/205176: Cecilia | 10.0%/205176: Celina | 10.0%/205176: Franzi | 10.0%/205176: Gina
 
 MB#2 E05
-Karina → Pharrell 
+Karina → Pharrell    29.367% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.50, 1: 1.77}
 -> E[I]/bits: 0.87 = H
@@ -105,16 +105,16 @@ top5 Pr[Dup]: 100.0%/1449210: Felix | 10.0%/144921: Pharrell | 10.0%/144921: Mic
 top5 Pr[Dup]: 10.0%/144921: Anna | 10.0%/144921: Cecilia | 10.0%/144921: Celina | 10.0%/144921: Franzi | 10.0%/144921: Gina
 
 MN#2 E06
-1x Anna     → Micha    
-0x Cecilia  → Pharrell 
-0x Celina   → Max      
-0x Franzi   → Luca     
-0x Gina     → Amadu    
-0x Isabelle → Martin   
-0x Karina   → Fabio    
-0x Luisa    → Calvin   
-1x Ricarda  → Maurice  
-0x Zoe      → Lukas    
+1x Anna     → Micha       32.623% ↗ [38;5;11m49.675%[39m
+0x Cecilia  → Pharrell    11.057% ↗ 17.268%
+0x Celina   → Max          6.731% ↗ 10.423%
+0x Franzi   → Luca         6.731% ↗ 10.423%
+0x Gina     → Amadu        7.021% ↗ 10.990%
+0x Isabelle → Martin       7.463% ↗ 11.643%
+0x Karina   → Fabio       11.057% ↗ 17.268%
+0x Luisa    → Calvin       7.021% ↗ 10.990%
+1x Ricarda  → Maurice     32.623% ↗ [38;5;11m49.675%[39m
+0x Zoe      → Lukas        7.463% ↗ 11.643%
 ---
 -> I[l]/bits: {0: 1.96, 1: 1.43, 2: 2.07, 3: 3.36, 4: 5.14, 5: 7.18, 6: 9.60, 7: 12.34, 8: 14.56}
 -> E[I]/bits: 2.07 = H
@@ -141,7 +141,7 @@ top5 Pr[Dup]: 100.0%/345950: Felix | 10.0%/34595: Pharrell | 10.0%/34595: Micha 
 top5 Pr[Dup]: 10.0%/34595: Anna | 10.0%/34595: Cecilia | 10.0%/34595: Celina | 10.0%/34595: Franzi | 10.0%/34595: Gina
 
 MB#3 E07
-Celina → Lukas 
+Celina → Lukas     7.559% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.11, 1: 3.73}
 -> E[I]/bits: 0.39 = H
@@ -168,16 +168,16 @@ top5 Pr[Dup]: 100.0%/319800: Felix | 10.0%/31980: Pharrell | 10.0%/31980: Micha 
 top5 Pr[Dup]: 10.0%/31980: Anna | 10.0%/31980: Cecilia | 10.0%/31980: Celina | 10.0%/31980: Franzi | 10.0%/31980: Gina
 
 MN#3 E08
-0x Anna     → Martin   
-1x Cecilia  → Amadu    
-0x Celina   → Fabio    
-0x Franzi   → Lukas    
-0x Gina     → Micha    
-0x Isabelle → Luca     
-0x Karina   → Calvin   
-0x Luisa    → Pharrell 
-2x Ricarda  → Maurice  
-0x Zoe      → Max      
+0x Anna     → Martin       5.876% ↗ 16.397%
+1x Cecilia  → Amadu       26.492% ↗ [38;5;11m53.653%[39m
+0x Celina   → Fabio        7.774% ↗ 19.409%
+0x Franzi   → Lukas        8.393% ↗ 21.110%
+0x Gina     → Micha        5.688% ↗ 14.780%
+0x Isabelle → Luca         7.455% ↗ 18.823%
+0x Karina   → Calvin      10.832% ↗ 25.209%
+0x Luisa    → Pharrell    10.901% ↗ 25.460%
+2x Ricarda  → Maurice [38;5;11m    48.984%[39m ↗ [38;5;10m83.882%[39m
+0x Zoe      → Max          8.474% ↗ 21.277%
 ---
 -> I[l]/bits: {0: 2.14, 1: 1.48, 2: 1.97, 3: 3.16, 4: 4.79, 5: 6.79, 6: 9.18, 7: 12.16, 8: 13.38}
 -> E[I]/bits: 2.13 = H
@@ -204,7 +204,7 @@ top5 Pr[Dup]: 100.0%/35860: Felix | 10.0%/3586: Pharrell | 10.0%/3586: Micha | 1
 top5 Pr[Dup]: 10.0%/3586: Anna | 10.0%/3586: Cecilia | 10.0%/3586: Celina | 10.0%/3586: Franzi | 10.0%/3586: Gina
 
 MB#4 E09 -- verkauft
-Isabelle → Amadu 
+Isabelle → Amadu     5.577%
 ---
 Nothing => I = 0 bits
 ╭──────────┬────────┬────────┬────────┬────────┬────────┬────────┬─────────┬────────┬────────┬──────────┬───────╮
@@ -229,7 +229,7 @@ top5 Pr[Dup]: 100.0%/35860: Felix | 10.0%/3586: Pharrell | 10.0%/3586: Micha | 1
 top5 Pr[Dup]: 10.0%/3586: Anna | 10.0%/3586: Cecilia | 10.0%/3586: Celina | 10.0%/3586: Franzi | 10.0%/3586: Gina
 
 MB#4.1 E09 -- Lukas will gehen
-Luisa → Lukas 
+Luisa → Lukas     8.366% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.13, 1: 3.58}
 -> E[I]/bits: 0.41 = H
@@ -256,7 +256,7 @@ top5 Pr[Dup]: 100.0%/2700: Felix | 11.1%/300: Pharrell | 11.1%/300: Micha | 11.1
 top5 Pr[Dup]: 11.1%/300: Anna | 11.1%/300: Cecilia | 11.1%/300: Celina | 11.1%/300: Franzi | 11.1%/300: Gina
 
 MB#5 E11
-Ricarda → Felix 
+Ricarda → Felix    11.111% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.17, 1: 3.17}
 -> E[I]/bits: 0.50 = H
@@ -283,16 +283,16 @@ top5 Pr[Dup]: 100.0%/2400: Felix | 12.5%/300: Micha | 12.5%/300: Amadu | 12.4%/2
 top5 Pr[Dup]: 12.5%/300: Anna | 12.5%/300: Cecilia | 12.5%/300: Celina | 12.5%/300: Franzi | 12.5%/300: Gina
 
 MN#5 E12
-0x Anna     → Pharrell 
-2x Cecilia  → Amadu    
-1x Celina   → Fabio    
-0x Franzi   → Micha    
-0x Gina     → Felix    
-0x Isabelle → Maurice  
-0x Karina   → Martin   
-0x Luisa    → Lukas    
-0x Ricarda  → Max      
-1x Zoe      → Luca     
+0x Anna     → Pharrell    13.333%  ↗ 16.129%
+2x Cecilia  → Amadu   [38;5;14m    68.667% [39m ↗ [38;5;10m80.149%[39m
+1x Celina   → Fabio       23.667%  ↗ 32.134%
+0x Franzi   → Micha        8.333%  ↘  7.072%
+0x Gina     → Felix       12.500%  ↗ 14.888%
+0x Isabelle → Maurice [38;5;9m     1.000% [39m ↗  1.737%
+0x Karina   → Martin      13.667%  ↗ 18.486%
+0x Luisa    → Lukas   [38;5;10m    100.000%[39m          
+0x Ricarda  → Max     [38;5;9m     0.667% [39m ↘ [38;5;9m 0.000%[39m
+1x Zoe      → Luca        25.333%  ↗ 29.404%
 ---
 -> I[l]/bits: {1: 3.25, 2: 1.45, 3: 1.57, 4: 2.78, 5: 4.50, 6: 7.91}
 -> E[I]/bits: 2.04 = H
@@ -319,7 +319,7 @@ top5 Pr[Dup]: 100.0%/806: Felix | 13.4%/108: Calvin | 13.2%/106: Micha | 12.9%/1
 top5 Pr[Dup]: 14.9%/120: Gina | 12.2%/98: Anna | 12.2%/98: Cecilia | 12.2%/98: Celina | 12.2%/98: Franzi
 
 MB#6 E13
-Isabelle → Pharrell 
+Isabelle → Pharrell    15.509% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.24, 1: 2.69}
 -> E[I]/bits: 0.62 = H
@@ -346,16 +346,16 @@ top5 Pr[Dup]: 100.0%/681: Felix | 13.5%/92: Calvin | 13.1%/89: Micha | 13.1%/89:
 top5 Pr[Dup]: 14.7%/100: Gina | 12.2%/83: Anna | 12.2%/83: Cecilia | 12.2%/83: Celina | 12.2%/83: Franzi
 
 MN#6 E14
-2x Anna     → Micha    
-0x Cecilia  → Maurice  
-2x Celina   → Fabio    
-1x Franzi   → Max      
-1x Gina     → Felix    
-1x Isabelle → Martin   
-1x Karina   → Calvin   
-1x Luisa    → Lukas    
-0x Ricarda  → Pharrell 
-2x Zoe      → Luca     
+2x Anna     → Micha       35.977%  ↗ [38;5;11m46.286%[39m
+0x Cecilia  → Maurice [38;5;9m     0.000% [39m          
+2x Celina   → Fabio       30.250%  ↗ [38;5;11m52.000%[39m
+1x Franzi   → Max         21.292%  ↘ 13.143%
+1x Gina     → Felix       14.684%  ↗ 20.000%
+1x Isabelle → Martin      26.579%  ↘ 25.714%
+1x Karina   → Calvin      27.166%  ↘ 14.857%
+1x Luisa    → Lukas   [38;5;10m    100.000%[39m          
+0x Ricarda  → Pharrell     3.524%  ↘ [38;5;9m 0.000%[39m
+2x Zoe      → Luca        28.341%  ↘ 28.000%
 ---
 -> I[l]/bits: {1: 2.80, 2: 1.68, 3: 1.96, 4: 2.74, 5: 3.46, 6: 4.83, 7: 6.60}
 -> E[I]/bits: 2.39 = H
@@ -382,7 +382,7 @@ top5 Pr[Dup]: 100.0%/175: Felix | 14.9%/26: Martin | 14.3%/25: Pharrell | 13.1%/
 top5 Pr[Dup]: 20.0%/35: Gina | 11.4%/20: Anna | 11.4%/20: Cecilia | 11.4%/20: Celina | 11.4%/20: Franzi
 
 MB#7 E15
-Cecilia → Amadu 
+Cecilia → Amadu[38;5;14m    74.286%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.96, 1: 0.43}
 -> E[I]/bits: 0.82 = H
@@ -409,16 +409,16 @@ top5 Pr[Dup]: 100.0%/116: Felix | 17.2%/20: Martin | 16.4%/19: Pharrell | 14.7%/
 top5 Pr[Dup]: 27.6%/32: Gina | 12.1%/14: Anna | 12.1%/14: Celina | 12.1%/14: Franzi | 12.1%/14: Isabelle
 
 MN#7 E16
-3x Anna     → Micha    
-3x Cecilia  → Amadu    
-3x Celina   → Fabio    
-2x Franzi   → Max      
-2x Gina     → Felix    
-2x Isabelle → Martin   
-2x Karina   → Calvin   
-2x Luisa    → Lukas    
-1x Ricarda  → Pharrell 
-3x Zoe      → Luca     
+3x Anna     → Micha       44.828% 
+3x Cecilia  → Amadu   [38;5;10m    100.000%[39m
+3x Celina   → Fabio       36.207% 
+2x Franzi   → Max         12.069% 
+2x Gina     → Felix       27.586% 
+2x Isabelle → Martin      33.621% 
+2x Karina   → Calvin      19.828% 
+2x Luisa    → Lukas   [38;5;10m    100.000%[39m
+1x Ricarda  → Pharrell[38;5;9m     0.000% [39m
+3x Zoe      → Luca        25.862% 
 ---
 -> I[l]/bits: {4: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -445,7 +445,7 @@ top5 Pr[Dup]: 100.0%/116: Felix | 17.2%/20: Martin | 16.4%/19: Pharrell | 14.7%/
 top5 Pr[Dup]: 27.6%/32: Gina | 12.1%/14: Anna | 12.1%/14: Celina | 12.1%/14: Franzi | 12.1%/14: Isabelle
 
 MB#8 E17
-Anna → Micha 
+Anna → Micha    44.828% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.86, 1: 1.16}
 -> E[I]/bits: 0.99 = H
@@ -472,16 +472,16 @@ top5 Pr[Dup]: 100.0%/46: Felix | 23.9%/11: Martin | 17.4%/8: Fabio | 17.4%/8: Ca
 top5 Pr[Dup]: 34.8%/16: Gina | 13.0%/6: Celina | 13.0%/6: Franzi | 13.0%/6: Isabelle | 13.0%/6: Karina
 
 MN#8 E18
-4x Anna     → Micha    
-4x Cecilia  → Amadu    
-0x Celina   → Luca     
-0x Franzi   → Calvin   
-0x Gina     → Fabio    
-0x Isabelle → Felix    
-1x Karina   → Martin   
-3x Luisa    → Lukas    
-2x Ricarda  → Pharrell 
-0x Zoe      → Maurice  
+4x Anna     → Micha   [38;5;10m    100.000%[39m           
+4x Cecilia  → Amadu   [38;5;10m    100.000%[39m           
+0x Celina   → Luca    [38;5;9m     0.000% [39m           
+0x Franzi   → Calvin      15.217%  ↗ [38;5;10m100.000%[39m
+0x Gina     → Fabio        6.522%  ↘ [38;5;9m 0.000% [39m
+0x Isabelle → Felix       13.043%  ↗ [38;5;10m100.000%[39m
+1x Karina   → Martin  [38;5;9m     0.000% [39m           
+3x Luisa    → Lukas   [38;5;10m    100.000%[39m           
+2x Ricarda  → Pharrell[38;5;9m     0.000% [39m           
+0x Zoe      → Maurice [38;5;9m     0.000% [39m           
 ---
 -> I[l]/bits: {3: 0.57, 4: 1.72, 5: 5.52}
 -> E[I]/bits: 1.03 = H
@@ -508,7 +508,7 @@ top5 Pr[Dup]: 100.0%/1: Felix | 100.0%/1: Max / 200 %
 top5 Pr[Dup]: 100.0%/1: Isabelle
 
 MB#9 E19
-Ricarda → Pharrell 
+Ricarda → Pharrell[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -535,16 +535,16 @@ top5 Pr[Dup]: 100.0%/1: Felix | 100.0%/1: Max / 200 %
 top5 Pr[Dup]: 100.0%/1: Isabelle
 
 MN#9 E20
-5x Anna     → Micha    
-5x Cecilia  → Amadu    
-4x Celina   → Fabio    
-3x Franzi   → Max      
-1x Gina     → Calvin   
-1x Isabelle → Felix    
-2x Karina   → Martin   
-4x Luisa    → Lukas    
-3x Ricarda  → Maurice  
-0x Zoe      → Pharrell 
+5x Anna     → Micha   [38;5;10m    100.000%[39m
+5x Cecilia  → Amadu   [38;5;10m    100.000%[39m
+4x Celina   → Fabio   [38;5;10m    100.000%[39m
+3x Franzi   → Max     [38;5;9m     0.000% [39m
+1x Gina     → Calvin  [38;5;9m     0.000% [39m
+1x Isabelle → Felix   [38;5;10m    100.000%[39m
+2x Karina   → Martin  [38;5;9m     0.000% [39m
+4x Luisa    → Lukas   [38;5;10m    100.000%[39m
+3x Ricarda  → Maurice [38;5;10m    100.000%[39m
+0x Zoe      → Pharrell[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -571,7 +571,7 @@ top5 Pr[Dup]: 100.0%/1: Felix | 100.0%/1: Max / 200 %
 top5 Pr[Dup]: 100.0%/1: Isabelle
 
 MB#10 E21
-Franzi → Max 
+Franzi → Max[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -598,16 +598,16 @@ top5 Pr[Dup]: 100.0%/1: Felix | 100.0%/1: Max / 200 %
 top5 Pr[Dup]: 100.0%/1: Isabelle
 
 MN#10 E21
-6x Anna     → Micha    
-6x Cecilia  → Amadu    
-5x Celina   → Fabio    
-1x Franzi   → Calvin   
-0x Gina     → Martin   
-2x Isabelle → Felix    
-0x Karina   → Luca     
-5x Luisa    → Lukas    
-4x Ricarda  → Maurice  
-1x Zoe      → Pharrell 
+6x Anna     → Micha   [38;5;10m    100.000%[39m
+6x Cecilia  → Amadu   [38;5;10m    100.000%[39m
+5x Celina   → Fabio   [38;5;10m    100.000%[39m
+1x Franzi   → Calvin  [38;5;10m    100.000%[39m
+0x Gina     → Martin  [38;5;10m    100.000%[39m
+2x Isabelle → Felix   [38;5;10m    100.000%[39m
+0x Karina   → Luca    [38;5;10m    100.000%[39m
+5x Luisa    → Lukas   [38;5;10m    100.000%[39m
+4x Ricarda  → Maurice [38;5;10m    100.000%[39m
+1x Zoe      → Pharrell[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -683,4 +683,4 @@ top5 Pr[Dup]: 100.0%/1: Isabelle
 ╰────────┴────┴──────────┴─────────┴─────────┴───────────┴───────────┴───────────┴───────────┴──────────┴─────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 3.85s
+Ran in 4.06s

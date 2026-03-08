@@ -15,7 +15,7 @@
 36288000 left -> 25.113 bits left
 
 MB#1 E01
-Brandon → Jess 
+Brandon → Jess    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 100.0%/32659200: Christina | 10.0%/3265920: Tyler | 10.0%/3265920:
 top5 Pr[Dup]: 10.0%/3265920: Alex | 10.0%/3265920: Anthony | 10.0%/3265920: Brandon | 10.0%/3265920: Curtis | 10.0%/3265920: Dario
 
 MN#1 E01
-0x Alex       → Ellie     
-0x Anthony    → Jess      
-0x Brandon    → Christina 
-0x Curtis     → Briana    
-0x Dario      → Ashley    
-0x Garland    → Alex      
-0x John       → Jasmine   
-0x Layton     → Jenni     
-0x Nathan     → Shelby    
-0x TylerPratt → Paris     
+0x Alex       → Ellie         9.877% ↗ 19.750%
+0x Anthony    → Jess         11.111% ↗ 22.222%
+0x Brandon    → Christina    10.000% ↗ 19.780%
+0x Curtis     → Briana        9.877% ↗ 19.750%
+0x Dario      → Ashley        9.877% ↗ 19.750%
+0x Garland    → Alex          9.877% ↗ 19.750%
+0x John       → Jasmine       9.877% ↗ 19.750%
+0x Layton     → Jenni         9.877% ↗ 19.750%
+0x Nathan     → Shelby        9.877% ↗ 19.750%
+0x TylerPratt → Paris         9.877% ↗ 19.750%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.10, 5: 8.51, 6: 11.23, 7: 14.20, 8: 17.53, 9: 20.87, 10: 24.96}
 -> E[I]/bits: 1.88 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 100.0%/6074065: Christina | 10.1%/615564: Shelby | 10.1%/615564: P
 top5 Pr[Dup]: 19.8%/1201465: Brandon | 8.9%/541400: Alex | 8.9%/541400: Anthony | 8.9%/541400: Curtis | 8.9%/541400: Dario
 
 MB#2 E02
-Brandon → Christina 
+Brandon → Christina    19.780% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.32, 1: 2.34}
 -> E[I]/bits: 0.72 = H
@@ -105,16 +105,16 @@ top5 Pr[Dup]: 100.0%/4872600: Christina | 11.1%/541400: Jess | 9.9%/482068: Shel
 top5 Pr[Dup]: 11.1%/541400: Alex | 11.1%/541400: Anthony | 11.1%/541400: Curtis | 11.1%/541400: Dario | 11.1%/541400: Garland
 
 MN#2 E02
-0x Alex       → Christina 
-0x Anthony    → Alex      
-0x Brandon    → Tyler     
-1x Curtis     → Briana    
-0x Dario      → Shelby    
-0x Garland    → Jasmine   
-0x John       → Ashley    
-0x Layton     → Jess      
-0x Nathan     → Jenni     
-1x TylerPratt → Paris     
+0x Alex       → Christina    11.111% ↗ 18.848%
+0x Anthony    → Alex          8.219% ↗ 13.890%
+0x Brandon    → Tyler        12.328% ↗ 20.714%
+1x Curtis     → Briana       21.918% ↗ 36.917%
+0x Dario      → Shelby        8.415% ↗ 14.175%
+0x Garland    → Jasmine       8.415% ↗ 14.158%
+0x John       → Ashley        8.415% ↗ 14.190%
+0x Layton     → Jess          9.418% ↗ 15.999%
+0x Nathan     → Jenni         8.415% ↗ 14.190%
+1x TylerPratt → Paris        21.918% ↗ 36.917%
 ---
 -> I[l]/bits: {0: 1.74, 1: 1.44, 2: 2.19, 3: 3.57, 4: 5.41, 5: 7.60, 6: 10.08, 7: 12.73, 8: 15.50, 9: 19.41}
 -> E[I]/bits: 2.01 = H
@@ -141,7 +141,7 @@ top5 Pr[Dup]: 100.0%/1068329: Christina | 11.0%/117634: Ellie | 10.9%/116797: Je
 top5 Pr[Dup]: 18.8%/201361: Alex | 10.1%/108371: Anthony | 10.1%/108371: Curtis | 10.1%/108371: Dario | 10.1%/108371: Garland
 
 MB#3 E03
-Brandon → Alex 
+Brandon → Alex    10.345% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.16, 1: 3.27}
 -> E[I]/bits: 0.48 = H
@@ -168,16 +168,16 @@ top5 Pr[Dup]: 100.0%/957806: Christina | 10.9%/104760: Jess | 10.9%/104760: Alex
 top5 Pr[Dup]: 18.7%/178702: Alex | 10.2%/97388: Anthony | 10.2%/97388: Curtis | 10.2%/97388: Dario | 10.2%/97388: Garland
 
 MN#3 E03
-0x Alex       → Jasmine   
-0x Anthony    → Jenni     
-0x Brandon    → Shelby    
-2x Curtis     → Briana    
-1x Dario      → Ashley    
-1x Garland    → Alex      
-0x John       → Christina 
-0x Layton     → Ellie     
-0x Nathan     → Jess      
-2x TylerPratt → Paris     
+0x Alex       → Jasmine       8.880% ↗ 20.787%
+0x Anthony    → Jenni         8.582% ↗ 21.332%
+0x Brandon    → Shelby       11.539% ↗ 26.849%
+2x Curtis     → Briana       36.058% ↗ [38;5;11m50.438%[39m
+1x Dario      → Ashley       17.365% ↗ 29.416%
+1x Garland    → Alex         19.341% ↗ 33.388%
+0x John       → Christina    10.168% ↗ 22.294%
+0x Layton     → Ellie         8.803% ↗ 21.350%
+0x Nathan     → Jess          9.838% ↗ 23.709%
+2x TylerPratt → Paris        36.058% ↗ [38;5;11m50.438%[39m
 ---
 -> I[l]/bits: {0: 3.14, 1: 1.42, 2: 1.67, 3: 2.81, 4: 4.51, 5: 6.67, 6: 9.40, 7: 12.96, 8: 17.87}
 -> E[I]/bits: 2.09 = H
@@ -204,7 +204,7 @@ top5 Pr[Dup]: 100.0%/137038: Christina | 11.5%/15734: Jasmine | 11.0%/15041: Jes
 top5 Pr[Dup]: 22.3%/30551: John | 13.8%/18854: Alex | 9.1%/12519: Anthony | 9.1%/12519: Curtis | 9.1%/12519: Dario
 
 MB#4 E04
-TylerPratt → Paris 
+TylerPratt → Paris[38;5;11m    50.438%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.01, 1: 0.99}
 -> E[I]/bits: 1.00 = H
@@ -231,16 +231,16 @@ top5 Pr[Dup]: 100.0%/62326: Christina | 12.5%/7793: Jess | 12.2%/7590: Alex | 11
 top5 Pr[Dup]: 22.8%/14234: John | 11.8%/7334: Alex | 10.9%/6793: Anthony | 10.9%/6793: Curtis | 10.9%/6793: Dario
 
 MN#4 E04 -- blackout
-0x Alex       → Tyler     
-1x Anthony    → Jenni     
-0x Brandon    → Ellie     
-3x Curtis     → Briana    
-1x Dario      → Shelby    
-1x Garland    → Jasmine   
-1x John       → Christina 
-1x Layton     → Jess      
-0x Nathan     → Alex      
-3x TylerPratt → Paris     
+0x Alex       → Tyler        11.151%  ↘ [38;5;9m 0.000%[39m
+1x Anthony    → Jenni        20.234%  ↘ [38;5;9m 0.000%[39m
+0x Brandon    → Ellie        12.454%  ↘ [38;5;9m 0.000%[39m
+3x Curtis     → Briana       19.042%  ↘ [38;5;9m 0.000%[39m
+1x Dario      → Shelby        7.974%  ↘ [38;5;9m 0.000%[39m
+1x Garland    → Jasmine       7.610%  ↘ [38;5;9m 0.000%[39m
+1x John       → Christina    22.838%  ↘ [38;5;9m 0.000%[39m
+1x Layton     → Jess         11.764%  ↘ [38;5;9m 0.000%[39m
+0x Nathan     → Alex         10.538%  ↘ [38;5;9m 0.000%[39m
+3x TylerPratt → Paris    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {1: 1.93, 2: 1.40, 3: 2.02, 4: 3.45, 5: 5.66, 6: 8.89, 7: 13.61}
 -> E[I]/bits: 1.98 = H
@@ -267,7 +267,7 @@ top5 Pr[Dup]: 100.0%/16321: Christina | 13.7%/2229: Alex | 12.8%/2085: Jenni | 1
 top5 Pr[Dup]: 24.1%/3937: Alex | 12.6%/2064: Anthony | 12.6%/2064: Curtis | 12.6%/2064: Dario | 12.6%/2064: Garland
 
 MB#5 E05
-Curtis → Shelby 
+Curtis → Shelby    11.188% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.17, 1: 3.16}
 -> E[I]/bits: 0.51 = H
@@ -294,16 +294,16 @@ top5 Pr[Dup]: 100.0%/1584: Christina | 15.8%/251: Alex | 13.4%/213: Jasmine | 13
 top5 Pr[Dup]: 23.6%/374: Alex | 15.3%/242: Anthony | 15.3%/242: Dario | 15.3%/242: Garland | 15.3%/242: Layton
 
 MN#5 E05
-1x Alex       → Christina 
-0x Anthony    → Ashley    
-0x Brandon    → Jasmine   
-0x Curtis     → Shelby    
-0x Dario      → Alex      
-0x Garland    → Tyler     
-0x John       → Jenni     
-0x Layton     → Briana    
-1x Nathan     → Jess      
-4x TylerPratt → Paris     
+1x Alex       → Christina    23.611%  ↘ 16.252%
+0x Anthony    → Ashley       12.942%  ↘  6.633%
+0x Brandon    → Jasmine      17.614%  ↘ 15.755%
+0x Curtis     → Shelby   [38;5;10m    100.000%[39m          
+0x Dario      → Alex          7.955%  ↘  4.146%
+0x Garland    → Tyler        10.290%  ↘  5.804%
+0x John       → Jenni        15.088%  ↘  9.950%
+0x Layton     → Briana       10.164%  ↘  8.292%
+1x Nathan     → Jess         39.457%  ↘ 33.167%
+4x TylerPratt → Paris    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {2: 2.22, 3: 1.39, 4: 1.93, 5: 3.17, 6: 5.42, 7: 7.17, 8: 10.63}
 -> E[I]/bits: 2.05 = H
@@ -330,7 +330,7 @@ top5 Pr[Dup]: 100.0%/603: Christina | 15.1%/91: Alex | 14.8%/89: Ellie | 14.3%/8
 top5 Pr[Dup]: 16.7%/101: Anthony | 16.7%/101: Dario | 16.7%/101: Garland | 16.7%/101: Layton | 16.7%/101: Nathan
 
 MB#6 E06
-John → Jasmine 
+John → Jasmine     5.804% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.09, 1: 4.11}
 -> E[I]/bits: 0.32 = H
@@ -357,16 +357,16 @@ top5 Pr[Dup]: 100.0%/568: Christina | 15.1%/86: Jasmine | 15.0%/85: Alex | 14.4%
 top5 Pr[Dup]: 17.3%/98: Alex | 16.5%/94: Anthony | 16.5%/94: Dario | 16.5%/94: Garland | 16.5%/94: Layton
 
 MN#6 E06 -- blackout
-0x Alex       → Jess    
-0x Anthony    → Ellie   
-0x Brandon    → Ashley  
-1x Curtis     → Shelby  
-0x Dario      → Briana  
-1x Garland    → Tyler   
-0x John       → Alex    
-1x Layton     → Jenni   
-0x Nathan     → Jasmine 
-5x TylerPratt → Paris   
+0x Alex       → Jess       11.972%  ↘ [38;5;9m 0.000%[39m
+0x Anthony    → Ellie      17.430%  ↘ [38;5;9m 0.000%[39m
+0x Brandon    → Ashley     12.500%  ↘ [38;5;9m 0.000%[39m
+1x Curtis     → Shelby [38;5;10m    100.000%[39m          
+0x Dario      → Briana      7.923%  ↘ [38;5;9m 0.000%[39m
+1x Garland    → Tyler       6.162%  ↘ [38;5;9m 0.000%[39m
+0x John       → Alex       11.092%  ↘ [38;5;9m 0.000%[39m
+1x Layton     → Jenni       7.042%  ↘ [38;5;9m 0.000%[39m
+0x Nathan     → Jasmine    11.444%  ↘ [38;5;9m 0.000%[39m
+5x TylerPratt → Paris  [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {2: 1.19, 3: 1.56, 4: 2.58, 5: 4.76, 6: 5.83}
 -> E[I]/bits: 1.76 = H
@@ -393,7 +393,7 @@ top5 Pr[Dup]: 100.0%/249: Christina | 16.9%/42: Alex | 14.5%/36: Jess | 14.5%/36
 top5 Pr[Dup]: 17.3%/43: Anthony | 17.3%/43: Dario | 17.3%/43: Garland | 17.3%/43: Layton | 17.3%/43: Nathan
 
 MB#7 E07
-John → Jenni 
+John → Jenni    12.048% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.19, 1: 3.05}
 -> E[I]/bits: 0.53 = H
@@ -420,16 +420,16 @@ top5 Pr[Dup]: 100.0%/30: Christina | 20.0%/6: Jess | 20.0%/6: Ellie | 16.7%/5: A
 top5 Pr[Dup]: 20.0%/6: Anthony | 20.0%/6: Dario | 20.0%/6: Garland | 20.0%/6: Layton | 20.0%/6: Nathan
 
 MN#7 E07
-1x Alex       → Jasmine   
-0x Anthony    → Briana    
-1x Brandon    → Tyler     
-2x Curtis     → Shelby    
-2x Dario      → Ashley    
-0x Garland    → Jess      
-1x John       → Jenni     
-1x Layton     → Ellie     
-0x Nathan     → Christina 
-6x TylerPratt → Paris     
+1x Alex       → Jasmine  [38;5;11m    50.000% [39m ↗ [38;5;10m80.000%[39m
+0x Anthony    → Briana       33.333%  ↗ 40.000%
+1x Brandon    → Tyler    [38;5;10m    83.333% [39m ↘ [38;5;14m60.000%[39m
+2x Curtis     → Shelby   [38;5;10m    100.000%[39m          
+2x Dario      → Ashley   [38;5;11m    50.000% [39m ↘ 40.000%
+0x Garland    → Jess     [38;5;11m    50.000% [39m ↘ 40.000%
+1x John       → Jenni    [38;5;10m    100.000%[39m          
+1x Layton     → Ellie    [38;5;11m    50.000% [39m ↘ 20.000%
+0x Nathan     → Christina    20.000%           
+6x TylerPratt → Paris    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {5: 1.91, 6: 1.58, 7: 2.32, 8: 2.58, 9: 4.91}
 -> E[I]/bits: 2.10 = H
@@ -456,7 +456,7 @@ top5 Pr[Dup]: 100.0%/10: Christina | 30.0%/3: Ashley | 20.0%/2: Jess | 20.0%/2: 
 top5 Pr[Dup]: 20.0%/2: Anthony | 20.0%/2: Dario | 20.0%/2: Garland | 20.0%/2: Layton | 20.0%/2: Nathan
 
 MB#8 E08
-Nathan → Christina 
+Nathan → Christina    20.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.32, 1: 2.32}
 -> E[I]/bits: 0.72 = H
@@ -483,16 +483,16 @@ top5 Pr[Dup]: 100.0%/8: Christina | 25.0%/2: Jess | 25.0%/2: Ashley | 25.0%/2: A
 top5 Pr[Dup]: 25.0%/2: Anthony | 25.0%/2: Dario | 25.0%/2: Garland | 25.0%/2: Layton
 
 MN#8 E08
-2x Alex       → Jasmine 
-1x Anthony    → Jess    
-2x Brandon    → Tyler   
-3x Curtis     → Shelby  
-3x Dario      → Ashley  
-2x Garland    → Alex    
-2x John       → Jenni   
-2x Layton     → Ellie   
-0x Nathan     → Briana  
-7x TylerPratt → Paris   
+2x Alex       → Jasmine[38;5;10m    100.000%[39m           
+1x Anthony    → Jess   [38;5;9m     0.000% [39m           
+2x Brandon    → Tyler  [38;5;11m    50.000% [39m ↘ [38;5;9m 0.000% [39m
+3x Curtis     → Shelby [38;5;10m    100.000%[39m           
+3x Dario      → Ashley [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+2x Garland    → Alex   [38;5;11m    50.000% [39m ↘ [38;5;9m 0.000% [39m
+2x John       → Jenni  [38;5;10m    100.000%[39m           
+2x Layton     → Ellie  [38;5;9m     0.000% [39m           
+0x Nathan     → Briana [38;5;9m     0.000% [39m           
+7x TylerPratt → Paris  [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {5: 1.00, 6: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -519,7 +519,7 @@ top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Tyler | 25.0%/1: Jess | 25.0%/1: As
 top5 Pr[Dup]: 25.0%/1: Anthony | 25.0%/1: Dario | 25.0%/1: Garland | 25.0%/1: Layton
 
 MB#9 E09
-Alex → Jasmine 
+Alex → Jasmine[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -546,16 +546,16 @@ top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Tyler | 25.0%/1: Jess | 25.0%/1: As
 top5 Pr[Dup]: 25.0%/1: Anthony | 25.0%/1: Dario | 25.0%/1: Garland | 25.0%/1: Layton
 
 MN#9 E09
-3x Alex       → Jasmine 
-1x Anthony    → Alex    
-0x Brandon    → Briana  
-4x Curtis     → Shelby  
-0x Dario      → Tyler   
-1x Garland    → Jess    
-3x John       → Jenni   
-0x Layton     → Ashley  
-0x Nathan     → Ellie   
-8x TylerPratt → Paris   
+3x Alex       → Jasmine[38;5;10m    100.000%[39m
+1x Anthony    → Alex   [38;5;10m    100.000%[39m
+0x Brandon    → Briana [38;5;10m    100.000%[39m
+4x Curtis     → Shelby [38;5;10m    100.000%[39m
+0x Dario      → Tyler  [38;5;9m     0.000% [39m
+1x Garland    → Jess   [38;5;10m    100.000%[39m
+3x John       → Jenni  [38;5;10m    100.000%[39m
+0x Layton     → Ashley [38;5;9m     0.000% [39m
+0x Nathan     → Ellie  [38;5;10m    100.000%[39m
+8x TylerPratt → Paris  [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {8: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -582,7 +582,7 @@ top5 Pr[Dup]: 100.0%/4: Christina | 25.0%/1: Tyler | 25.0%/1: Jess | 25.0%/1: As
 top5 Pr[Dup]: 25.0%/1: Anthony | 25.0%/1: Dario | 25.0%/1: Garland | 25.0%/1: Layton
 
 MB#10 E10
-Dario → Ashley 
+Dario → Ashley[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -609,16 +609,16 @@ top5 Pr[Dup]: 100.0%/3: Christina | 33.3%/1: Tyler | 33.3%/1: Jess | 33.3%/1: Al
 top5 Pr[Dup]: 33.3%/1: Anthony | 33.3%/1: Garland | 33.3%/1: Layton
 
 MN#10 E10
-4x Alex       → Jasmine   
-2x Anthony    → Alex      
-1x Brandon    → Briana    
-5x Curtis     → Shelby    
-4x Dario      → Ashley    
-2x Garland    → Jess      
-4x John       → Jenni     
-0x Layton     → Christina 
-1x Nathan     → Ellie     
-9x TylerPratt → Paris     
+4x Alex       → Jasmine  [38;5;10m    100.000%[39m           
+2x Anthony    → Alex     [38;5;10m    100.000%[39m           
+1x Brandon    → Briana   [38;5;10m    100.000%[39m           
+5x Curtis     → Shelby   [38;5;10m    100.000%[39m           
+4x Dario      → Ashley   [38;5;10m    100.000%[39m           
+2x Garland    → Jess     [38;5;10m    100.000%[39m           
+4x John       → Jenni    [38;5;10m    100.000%[39m           
+0x Layton     → Christina    33.333%  ↗ [38;5;10m100.000%[39m
+1x Nathan     → Ellie    [38;5;10m    100.000%[39m           
+9x TylerPratt → Paris    [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {9: 0.58, 10: 1.58}
 -> E[I]/bits: 0.92 = H
@@ -694,4 +694,4 @@ top5 Pr[Dup]: 100.0%/1: Layton
 ╰───────┴────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 4.38s
+Ran in 4.25s

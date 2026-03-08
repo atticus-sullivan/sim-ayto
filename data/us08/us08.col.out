@@ -21,7 +21,7 @@
 2027025 left -> 20.9509 bits left
 
 MB#1 E02
-Nour → Justin 
+Nour → Justin     6.667% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.10, 1: 3.91}
 -> E[I]/bits: 0.35 = H
@@ -49,14 +49,14 @@ Nour → Justin
 1891890 left -> 20.8514 bits left
 
 MN#1 E02
-0x Jenna    → Jasmine 
-0x Jonathan → Basit   
-0x Kai      → Danny   
-0x Kylie    → Kari    
-0x Max      → Justin  
-0x Nour     → Amber   
-0x Paige    → Aasha   
-0x Remy     → Brandon 
+0x Jenna    → Jasmine     6.593% ↗ 24.528%
+0x Jonathan → Basit       6.593% ↗ 24.528%
+0x Kai      → Danny       6.593% ↗ 24.528%
+0x Kylie    → Kari        6.593% ↗ 24.528%
+0x Max      → Justin      7.143% ↗ 26.415%
+0x Nour     → Amber       7.143% ↗ 26.415%
+0x Paige    → Aasha       6.593% ↗ 24.528%
+0x Remy     → Brandon     6.593% ↗ 24.528%
 ---
 -> I[l]/bits: {0: 0.77, 1: 1.67, 2: 3.56, 3: 6.02, 4: 8.87, 5: 12.08, 6: 15.07, 8: 20.85}
 -> E[I]/bits: 1.39 = H
@@ -84,14 +84,14 @@ MN#1 E02
 160060 left -> 17.2883 bits left
 
 MN#2 E03
-0x Brandon  → Aasha   
-1x Jonathan → Basit   
-0x Justin   → Jasmine 
-0x Kai      → Jenna   
-1x Kylie    → Kari    
-1x Nour     → Amber   
-0x Paige    → Max     
-0x Remy     → Danny   
+0x Brandon  → Aasha       5.368% ↗ 13.260%
+1x Jonathan → Basit      24.528% ↗ 43.372%
+0x Justin   → Jasmine     5.660% ↗ 14.104%
+0x Kai      → Jenna       5.368% ↗ 13.253%
+1x Kylie    → Kari       24.528% ↗ 43.372%
+1x Nour     → Amber      26.415% ↗ [38;5;11m46.294%[39m
+0x Paige    → Max         5.236% ↗ 13.028%
+0x Remy     → Danny       5.368% ↗ 13.318%
 ---
 -> I[l]/bits: {0: 1.72, 1: 1.18, 2: 2.37, 3: 4.32, 4: 6.76, 5: 9.62, 6: 12.43}
 -> E[I]/bits: 1.79 = H
@@ -119,7 +119,7 @@ MN#2 E03
 31041 left -> 14.9219 bits left
 
 MB#3 E04
-Kai → Jenna 
+Kai → Jenna    13.253% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.21, 1: 2.92}
 -> E[I]/bits: 0.56 = H
@@ -147,14 +147,14 @@ Kai → Jenna
 26927 left -> 14.7168 bits left
 
 MN#3 E03
-0x Jonathan → Brandon 
-0x Justin   → Jenna   
-1x Kai      → Danny   
-2x Kylie    → Kari    
-0x Max      → Aasha   
-0x Nour     → Jasmine 
-0x Paige    → Amber   
-0x Remy     → Basit   
+0x Jonathan → Brandon     4.301% ↗ 12.395%
+0x Justin   → Jenna       7.621% ↗ 20.528%
+1x Kai      → Danny      15.286% ↗ 31.516%
+2x Kylie    → Kari   [38;5;11m    45.237%[39m ↗ [38;5;10m81.397%[39m
+0x Max      → Aasha       6.599% ↗ 17.456%
+0x Nour     → Jasmine     4.178% ↗ 12.481%
+0x Paige    → Amber       4.152% ↗ 11.767%
+0x Remy     → Basit       4.282% ↗ 12.459%
 ---
 -> I[l]/bits: {0: 1.48, 1: 1.24, 2: 2.54, 3: 4.67, 4: 7.23, 5: 10.32, 6: 13.13}
 -> E[I]/bits: 1.73 = H
@@ -182,7 +182,7 @@ MN#3 E03
 4623 left -> 12.1746 bits left
 
 MB#4 E05
-Jenna → Danny 
+Jenna → Danny     6.381% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.10, 1: 3.97}
 -> E[I]/bits: 0.34 = H
@@ -210,14 +210,14 @@ Jenna → Danny
 4328 left -> 12.0795 bits left
 
 MN#4 E05
-0x Danny   → Basit    
-0x Jasmine → Brandon  
-0x Kari    → Kai      
-0x Kylie   → Jonathan 
-1x Max     → Justin   
-2x Nour    → Amber    
-0x Paige   → Jenna    
-0x Remy    → Aasha    
+0x Danny   → Basit        4.274% ↘  3.761%
+0x Jasmine → Brandon      6.793% ↗  8.323%
+0x Kari    → Kai     [38;5;9m     0.762%[39m ↘ [38;5;9m 0.617%[39m
+0x Kylie   → Jonathan[38;5;9m     0.947%[39m ↘ [38;5;9m 0.062%[39m
+1x Max     → Justin       5.407% ↗ 10.912%
+2x Nour    → Amber       31.793% ↗ [38;5;14m56.658%[39m
+0x Paige   → Jenna        7.971% ↗  8.816%
+0x Remy    → Aasha        7.371% ↗ 10.851%
 ---
 -> I[l]/bits: {0: 1.01, 1: 1.42, 2: 3.17, 3: 5.93, 4: 9.27}
 -> E[I]/bits: 1.50 = H
@@ -245,7 +245,7 @@ MN#4 E05
 1622 left -> 10.6636 bits left
 
 MB#5 E06
-Kylie → Kari 
+Kylie → Kari[38;5;14m    75.031%[39m ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 2.00, 1: 0.41}
 -> E[I]/bits: 0.81 = H
@@ -273,14 +273,14 @@ Kylie → Kari
 405 left -> 8.6618 bits left
 
 MN#5 E06
-0x Justin → Jonathan 
-0x Kai    → Aasha    
-0x Kari   → Danny    
-0x Kylie  → Jenna    
-0x Max    → Brandon  
-3x Nour   → Amber    
-0x Paige  → Jasmine  
-1x Remy   → Basit    
+0x Justin → Jonathan     2.963% ↘ [38;5;9m 0.000%[39m
+0x Kai    → Aasha   [38;5;9m     0.988%[39m ↘ [38;5;9m 0.000%[39m
+0x Kari   → Danny        3.951% ↘ [38;5;9m 0.000%[39m
+0x Kylie  → Jenna       10.864% ↘ [38;5;9m 0.000%[39m
+0x Max    → Brandon      2.469% ↘ [38;5;9m 0.000%[39m
+3x Nour   → Amber   [38;5;10m    81.728%[39m ↘ [38;5;9m 0.000%[39m
+0x Paige  → Jasmine      4.444% ↘ [38;5;9m 0.000%[39m
+1x Remy   → Basit       23.704% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 2.78, 1: 0.93, 2: 2.15, 3: 3.62, 4: 5.66, 5: 8.66}
 -> E[I]/bits: 1.80 = H
@@ -308,7 +308,7 @@ MN#5 E06
 59 left -> 5.8826 bits left
 
 MB#6 E07
-Brandon → Aasha 
+Brandon → Aasha    18.644% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.30, 1: 2.42}
 -> E[I]/bits: 0.69 = H
@@ -336,14 +336,14 @@ Brandon → Aasha
 11 left -> 3.4594 bits left
 
 MN#6 E07
-1x Brandon  → Aasha   
-0x Jenna    → Amber   
-2x Jonathan → Basit   
-2x Kai      → Danny   
-0x Kylie    → Jasmine 
-2x Max      → Justin  
-0x Paige    → Kari    
-0x Remy     → Nour    
+1x Brandon  → Aasha  [38;5;10m    100.000%[39m
+0x Jenna    → Amber  [38;5;9m     0.000% [39m
+2x Jonathan → Basit  [38;5;10m    100.000%[39m
+2x Kai      → Danny  [38;5;10m    90.909% [39m
+0x Kylie    → Jasmine[38;5;9m     0.000% [39m
+2x Max      → Justin      9.091% 
+0x Paige    → Kari   [38;5;9m     0.000% [39m
+0x Remy     → Nour   [38;5;9m     0.000% [39m
 ---
 -> I[l]/bits: {3: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -371,7 +371,7 @@ MN#6 E07
 11 left -> 3.4594 bits left
 
 MB#7 E08
-Jenna → Jasmine 
+Jenna → Jasmine[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -399,14 +399,14 @@ Jenna → Jasmine
 11 left -> 3.4594 bits left
 
 MN#7 E08
-2x Brandon  → Aasha   
-0x Danny    → Amber   
-3x Jonathan → Basit   
-0x Kai      → Jasmine 
-3x Max      → Justin  
-0x Nour     → Kylie   
-1x Paige    → Jenna   
-0x Remy     → Kari    
+2x Brandon  → Aasha  [38;5;10m    100.000%[39m          
+0x Danny    → Amber  [38;5;9m     0.000% [39m          
+3x Jonathan → Basit  [38;5;10m    100.000%[39m          
+0x Kai      → Jasmine[38;5;9m     0.000% [39m          
+3x Max      → Justin      9.091%  ↗ 11.111%
+0x Nour     → Kylie  [38;5;9m     0.000% [39m          
+1x Paige    → Jenna  [38;5;10m    90.909% [39m ↘ [38;5;10m88.889%[39m
+0x Remy     → Kari       18.182%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {3: 0.29, 4: 2.46}
 -> E[I]/bits: 0.68 = H
@@ -434,7 +434,7 @@ MN#7 E08
 9 left -> 3.1699 bits left
 
 MB#8 E09
-Remy → Paige 
+Remy → Paige[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -462,14 +462,14 @@ Remy → Paige
 9 left -> 3.1699 bits left
 
 MN#8 E11
-3x Brandon  → Aasha   
-4x Jonathan → Basit   
-0x Kari     → Jenna   
-0x Kylie    → Danny   
-4x Max      → Justin  
-1x Nour     → Jasmine 
-1x Paige    → Amber   
-0x Remy     → Kai     
+3x Brandon  → Aasha  [38;5;10m    100.000%[39m          
+4x Jonathan → Basit  [38;5;10m    100.000%[39m          
+0x Kari     → Jenna      11.111%  ↘ [38;5;9m 0.000%[39m
+0x Kylie    → Danny      11.111%  ↘ [38;5;9m 0.000%[39m
+4x Max      → Justin     11.111%  ↘ [38;5;9m 0.000%[39m
+1x Nour     → Jasmine[38;5;10m    100.000%[39m          
+1x Paige    → Amber      11.111%  ↘ [38;5;9m 0.000%[39m
+0x Remy     → Kai        11.111%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {3: 0.17, 8: 3.17}
 -> E[I]/bits: 0.50 = H
@@ -497,7 +497,7 @@ MN#8 E11
 8 left -> 3 bits left
 
 MB#9 E11
-Max → Amber 
+Max → Amber    12.500% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.19, 1: 3.00}
 -> E[I]/bits: 0.54 = H
@@ -525,14 +525,14 @@ Max → Amber
 7 left -> 2.8074 bits left
 
 MN#9 E11
-4x Brandon  → Aasha   
-5x Jonathan → Basit   
-3x Kai      → Danny   
-0x Kylie    → Amber   
-0x Max      → Kari    
-2x Nour     → Jasmine 
-2x Paige    → Jenna   
-0x Remy     → Justin  
+4x Brandon  → Aasha  [38;5;10m    100.000%[39m          
+5x Jonathan → Basit  [38;5;10m    100.000%[39m          
+3x Kai      → Danny  [38;5;10m    100.000%[39m          
+0x Kylie    → Amber      28.571%  ↘ 25.000%
+0x Max      → Kari       42.857%  ↗ [38;5;11m50.000%[39m
+2x Nour     → Jasmine[38;5;10m    100.000%[39m          
+2x Paige    → Jenna  [38;5;10m    100.000%[39m          
+0x Remy     → Justin     28.571%  ↘ 25.000%
 ---
 -> I[l]/bits: {5: 1.81, 6: 0.81, 8: 2.81}
 -> E[I]/bits: 1.38 = H
@@ -560,7 +560,7 @@ MN#9 E11
 4 left -> 2 bits left
 
 MB#10 E12
-Kylie → Amber 
+Kylie → Amber    25.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.42, 1: 2.00}
 -> E[I]/bits: 0.81 = H
@@ -588,14 +588,14 @@ Kylie → Amber
 3 left -> 1.585 bits left
 
 MN#10 E12
-5x Brandon  → Aasha   
-6x Jonathan → Basit   
-4x Kai      → Danny   
-0x Kylie    → Justin  
-1x Max      → Kari    
-3x Nour     → Jasmine 
-3x Paige    → Jenna   
-0x Remy     → Amber   
+5x Brandon  → Aasha  [38;5;10m    100.000%[39m           
+6x Jonathan → Basit  [38;5;10m    100.000%[39m           
+4x Kai      → Danny  [38;5;10m    100.000%[39m           
+0x Kylie    → Justin     33.333%  ↗ [38;5;10m100.000%[39m
+1x Max      → Kari   [38;5;14m    66.667% [39m ↗ [38;5;10m100.000%[39m
+3x Nour     → Jasmine[38;5;10m    100.000%[39m           
+3x Paige    → Jenna  [38;5;10m    100.000%[39m           
+0x Remy     → Amber      33.333%  ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {5: 1.58, 6: 1.58, 8: 1.58}
 -> E[I]/bits: 1.58 = H
@@ -670,4 +670,4 @@ MN#10 E12
 ╰───────┴───┴──────────┴────────┴───────────┴───────────┴────────┴─────────┴─────────┴──────────┴────────┴───────┴────────┴───────┴────────┴───────┴───────┴──────┴───┴────────┴──────┴──────────╯
 Total permutations: 2027025  Permutations left: 1  Initial combinations for each pair: 0
 
-Ran in 10.55s
+Ran in 10.67s

@@ -15,7 +15,7 @@
 36288000 left -> 25.113 bits left
 
 MB#1 E02
-Maximilian → Jill 
+Maximilian → Jill    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 100.0%/32659200: VanessaM | 10.0%/3265920: Victoria | 10.0%/326592
 top5 Pr[Dup]: 10.0%/3265920: Aaron | 10.0%/3265920: Dario | 10.0%/3265920: Dominic | 10.0%/3265920: Germain | 10.0%/3265920: Marc
 
 MN#1 E02
-0x Aaron      → Kathleen 
-0x Dario      → Victoria 
-0x Dominic    → Melissa  
-0x Germain    → Leonie   
-0x Marc       → Mirjam   
-0x Marcel     → Laura    
-0x Marko      → Sabrina  
-0x Marvin     → Jill     
-0x Maximilian → Christin 
-0x Sascha     → Vanessa  
+0x Aaron      → Kathleen     9.877% ↗ 19.512%
+0x Dario      → Victoria     9.877% ↗ 19.512%
+0x Dominic    → Melissa      9.877% ↗ 19.512%
+0x Germain    → Leonie       9.877% ↗ 19.512%
+0x Marc       → Mirjam       9.877% ↗ 19.512%
+0x Marcel     → Laura        9.877% ↗ 19.512%
+0x Marko      → Sabrina      9.877% ↗ 19.512%
+0x Marvin     → Jill        11.111% ↗ 21.951%
+0x Maximilian → Christin    11.111% ↗ 21.951%
+0x Sascha     → Vanessa      9.877% ↗ 19.512%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 100.0%/6081530: VanessaM | 10.0%/608153: Victoria | 10.0%/608153: 
 top5 Pr[Dup]: 10.0%/608153: Aaron | 10.0%/608153: Dario | 10.0%/608153: Dominic | 10.0%/608153: Germain | 10.0%/608153: Marc
 
 MB#2 E04 -- verkauft?
-Germain → Victoria 
+Germain → Victoria     8.863%
 ---
 Nothing => I = 0 bits
 ╭────────────┬──────────┬────────┬──────────┬────────┬────────┬─────────┬────────┬─────────┬─────────┬──────────┬──────────╮
@@ -103,16 +103,16 @@ top5 Pr[Dup]: 100.0%/6081530: VanessaM | 10.0%/608153: Victoria | 10.0%/608153: 
 top5 Pr[Dup]: 10.0%/608153: Aaron | 10.0%/608153: Dario | 10.0%/608153: Dominic | 10.0%/608153: Germain | 10.0%/608153: Marc
 
 MN#2 E04
-1x Aaron      → Kathleen 
-0x Dario      → Laura    
-1x Dominic    → Melissa  
-0x Germain    → Victoria 
-1x Marc       → Mirjam   
-0x Marcel     → Leonie   
-1x Marko      → Sabrina  
-0x Marvin     → Vanessa  
-1x Maximilian → Christin 
-0x Sascha     → Jill     
+1x Aaron      → Kathleen    19.512% ↗ 26.695%
+0x Dario      → Laura        8.863% ↗ 12.317%
+1x Dominic    → Melissa     19.512% ↗ 26.695%
+0x Germain    → Victoria     8.863% ↗ 12.317%
+1x Marc       → Mirjam      19.512% ↗ 26.695%
+0x Marcel     → Leonie       8.863% ↗ 12.317%
+1x Marko      → Sabrina     19.512% ↗ 26.695%
+0x Marvin     → Vanessa      8.689% ↗ 12.306%
+1x Maximilian → Christin    21.951% ↗ 29.936%
+0x Sascha     → Jill         9.756% ↗ 14.027%
 ---
 -> I[l]/bits: {0: 2.50, 1: 1.35, 2: 1.83, 3: 3.15, 4: 5.01, 5: 7.39, 6: 10.46, 7: 14.89}
 -> E[I]/bits: 2.05 = H
@@ -139,7 +139,7 @@ top5 Pr[Dup]: 100.0%/1708860: VanessaM | 10.0%/170886: Victoria | 10.0%/170886: 
 top5 Pr[Dup]: 10.0%/170886: Aaron | 10.0%/170886: Dario | 10.0%/170886: Dominic | 10.0%/170886: Germain | 10.0%/170886: Marc
 
 MB#3 E06
-Aaron → Kathleen 
+Aaron → Kathleen    26.695% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.45, 1: 1.91}
 -> E[I]/bits: 0.84 = H
@@ -166,16 +166,16 @@ top5 Pr[Dup]: 100.0%/1252680: VanessaM | 10.0%/125268: Victoria | 10.0%/125268: 
 top5 Pr[Dup]: 10.0%/125268: Aaron | 10.0%/125268: Dario | 10.0%/125268: Dominic | 10.0%/125268: Germain | 10.0%/125268: Marc
 
 MN#3 E06
-0x Aaron      → Melissa  
-1x Dario      → Victoria 
-0x Dominic    → Vanessa  
-0x Germain    → Christin 
-0x Marc       → Leonie   
-1x Marcel     → Laura    
-0x Marko      → Mirjam   
-0x Marvin     → Kathleen 
-0x Maximilian → Jill     
-0x Sascha     → Sabrina  
+0x Aaron      → Melissa     10.133% ↗ 37.033%
+1x Dario      → Victoria    13.613% ↗ 40.677%
+0x Dominic    → Vanessa      7.680% ↗ 28.209%
+0x Germain    → Christin     7.537% ↗ 30.189%
+0x Marc       → Leonie       7.903% ↗ 32.797%
+1x Marcel     → Laura       13.613% ↗ 40.492%
+0x Marko      → Mirjam       6.340% ↗ 25.398%
+0x Marvin     → Kathleen    11.503% ↗ 37.921%
+0x Maximilian → Jill    [38;5;9m     0.000%[39m          
+0x Sascha     → Sabrina      7.577% ↗ 27.284%
 ---
 -> I[l]/bits: {0: 1.27, 1: 1.43, 2: 2.65, 3: 4.53, 4: 6.96, 5: 9.83, 6: 13.35, 7: 16.93}
 -> E[I]/bits: 1.74 = H
@@ -202,7 +202,7 @@ top5 Pr[Dup]: 100.0%/54060: VanessaM | 10.0%/5406: Victoria | 10.0%/5406: Vaness
 top5 Pr[Dup]: 10.0%/5406: Aaron | 10.0%/5406: Dario | 10.0%/5406: Dominic | 10.0%/5406: Germain | 10.0%/5406: Marc
 
 MB#4 E08
-Marcel → Laura 
+Marcel → Laura    40.492% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.75, 1: 1.30}
 -> E[I]/bits: 0.97 = H
@@ -229,16 +229,16 @@ top5 Pr[Dup]: 100.0%/32170: VanessaM | 10.0%/3217: Victoria | 10.0%/3217: Vaness
 top5 Pr[Dup]: 10.0%/3217: Aaron | 10.0%/3217: Dario | 10.0%/3217: Dominic | 10.0%/3217: Germain | 10.0%/3217: Marc
 
 MN#4 E08
-1x Aaron      → Melissa  
-0x Dario      → Kathleen 
-0x Dominic    → Laura    
-1x Germain    → Victoria 
-2x Marc       → Mirjam   
-1x Marcel     → Leonie   
-2x Marko      → Sabrina  
-0x Marvin     → Christin 
-1x Maximilian → Jill     
-1x Sascha     → Vanessa  
+1x Aaron      → Melissa     39.882% ↗ [38;5;10m90.026%[39m
+0x Dario      → Kathleen     2.829% ↗  8.661%
+0x Dominic    → Laura        9.698% ↗ 27.822%
+1x Germain    → Victoria     4.010% ↗ 12.598%
+2x Marc       → Mirjam      24.029% ↗ [38;5;11m47.244%[39m
+1x Marcel     → Leonie      25.925% ↗ 43.045%
+2x Marko      → Sabrina     24.837% ↗ 44.882%
+0x Marvin     → Christin     3.295% ↗  8.399%
+1x Maximilian → Jill    [38;5;9m     0.000%[39m          
+1x Sascha     → Vanessa      6.155% ↗ 17.323%
 ---
 -> I[l]/bits: {0: 2.13, 1: 1.61, 2: 1.78, 3: 3.08, 4: 5.04, 5: 7.95}
 -> E[I]/bits: 2.08 = H
@@ -265,7 +265,7 @@ top5 Pr[Dup]: 100.0%/3810: VanessaM | 10.0%/381: Victoria | 10.0%/381: Vanessa |
 top5 Pr[Dup]: 10.0%/381: Aaron | 10.0%/381: Dario | 10.0%/381: Dominic | 10.0%/381: Germain | 10.0%/381: Marc
 
 MB#5 E10
-Marcel → Leonie 
+Marcel → Leonie    43.045% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.81, 1: 1.22}
 -> E[I]/bits: 0.99 = H
@@ -292,16 +292,16 @@ top5 Pr[Dup]: 100.0%/1476: VanessaM | 11.1%/164: Victoria | 11.1%/164: Vanessa |
 top5 Pr[Dup]: 11.1%/164: Aaron | 11.1%/164: Dario | 11.1%/164: Dominic | 11.1%/164: Germain | 11.1%/164: Marc
 
 MN#5 E10
-0x Aaron      → Mirjam   
-2x Dario      → Victoria 
-1x Dominic    → Vanessa  
-1x Germain    → Christin 
-0x Marc       → Melissa  
-2x Marcel     → Leonie   
-0x Marko      → VanessaM 
-1x Marvin     → Kathleen 
-0x Maximilian → Laura    
-1x Sascha     → Jill     
+0x Aaron      → Mirjam  [38;5;9m     0.610% [39m ↘ [38;5;9m 0.000%[39m
+2x Dario      → Victoria[38;5;14m    73.171% [39m ↗ [38;5;10m82.484%[39m
+1x Dominic    → Vanessa     34.146%  ↗ 37.647%
+1x Germain    → Christin    33.537%  ↘ 33.464%
+0x Marc       → Melissa [38;5;9m     0.610% [39m ↘ [38;5;9m 0.000%[39m
+2x Marcel     → Leonie  [38;5;10m    100.000%[39m          
+0x Marko      → VanessaM    11.111%  ↘  4.837%
+1x Marvin     → Kathleen    36.585%  ↗ 38.431%
+0x Maximilian → Laura       16.463%  ↘  3.137%
+1x Sascha     → Jill    [38;5;9m     0.000% [39m          
 ---
 -> I[l]/bits: {1: 5.94, 2: 2.30, 3: 0.95, 4: 2.12, 5: 4.97, 6: 9.53}
 -> E[I]/bits: 1.71 = H
@@ -328,7 +328,7 @@ top5 Pr[Dup]: 100.0%/765: VanessaM | 14.1%/108: Mirjam | 11.6%/89: Victoria | 11
 top5 Pr[Dup]: 11.9%/91: Aaron | 11.9%/91: Dario | 11.9%/91: Dominic | 11.9%/91: Germain | 11.9%/91: Marc
 
 MB#6 E12 -- verkauft
-Marc → Mirjam 
+Marc → Mirjam[38;5;14m    55.948%[39m
 ---
 Nothing => I = 0 bits
 ╭────────────┬──────────┬────────┬──────────┬────────┬────────┬─────────┬────────┬─────────┬─────────┬──────────┬──────────╮
@@ -353,16 +353,16 @@ top5 Pr[Dup]: 100.0%/765: VanessaM | 14.1%/108: Mirjam | 11.6%/89: Victoria | 11
 top5 Pr[Dup]: 11.9%/91: Aaron | 11.9%/91: Dario | 11.9%/91: Dominic | 11.9%/91: Germain | 11.9%/91: Marc
 
 MN#6 E12
-2x Aaron      → Melissa  
-0x Dario      → VanessaM 
-2x Dominic    → Vanessa  
-2x Germain    → Victoria 
-3x Marc       → Mirjam   
-3x Marcel     → Leonie   
-3x Marko      → Sabrina  
-0x Marvin     → Laura    
-2x Maximilian → Christin 
-2x Sascha     → Jill     
+2x Aaron      → Melissa [38;5;14m    78.039% [39m ↗ [38;5;10m94.977%[39m
+0x Dario      → VanessaM    11.895%  ↗ 22.831%
+2x Dominic    → Vanessa     37.647%  ↗ [38;5;14m56.621%[39m
+2x Germain    → Victoria[38;5;9m     0.000% [39m          
+3x Marc       → Mirjam  [38;5;14m    55.948% [39m ↘ [38;5;11m49.315%[39m
+3x Marcel     → Leonie  [38;5;10m    100.000%[39m          
+3x Marko      → Sabrina     36.601%  ↗ [38;5;11m46.575%[39m
+0x Marvin     → Laura       17.647%  ↗ 25.571%
+2x Maximilian → Christin     6.667%  ↘  4.110%
+2x Sascha     → Jill    [38;5;9m     0.000% [39m          
 ---
 -> I[l]/bits: {2: 3.33, 3: 1.02, 4: 1.80, 5: 3.17, 6: 6.41}
 -> E[I]/bits: 1.78 = H
@@ -389,7 +389,7 @@ top5 Pr[Dup]: 100.0%/219: VanessaM | 24.7%/54: Victoria | 11.9%/26: Kathleen | 1
 top5 Pr[Dup]: 22.8%/50: Dario | 10.0%/22: Aaron | 10.0%/22: Dominic | 10.0%/22: Germain | 10.0%/22: Marc
 
 MB#7 E14
-Dario → Laura 
+Dario → Laura[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -416,16 +416,16 @@ top5 Pr[Dup]: 100.0%/219: VanessaM | 24.7%/54: Victoria | 11.9%/26: Kathleen | 1
 top5 Pr[Dup]: 22.8%/50: Dario | 10.0%/22: Aaron | 10.0%/22: Dominic | 10.0%/22: Germain | 10.0%/22: Marc
 
 MN#7 E14
-3x Aaron      → Melissa  
-0x Dario      → Sabrina  
-1x Dominic    → Laura    
-0x Germain    → VanessaM 
-4x Marc       → Mirjam   
-4x Marcel     → Leonie   
-0x Marko      → Victoria 
-2x Marvin     → Kathleen 
-3x Maximilian → Christin 
-3x Sascha     → Jill     
+3x Aaron      → Melissa [38;5;10m    94.977% [39m ↗ [38;5;10m100.000%[39m
+0x Dario      → Sabrina     12.785%  ↗ 41.860% 
+1x Dominic    → Laura        1.826%  ↘ [38;5;9m 0.000% [39m
+0x Germain    → VanessaM    10.046%  ↗ 11.628% 
+4x Marc       → Mirjam  [38;5;11m    49.315% [39m ↗ [38;5;10m97.674% [39m
+4x Marcel     → Leonie  [38;5;10m    100.000%[39m           
+0x Marko      → Victoria     8.219%  ↗ 20.930% 
+2x Marvin     → Kathleen    13.242%  ↗ 25.581% 
+3x Maximilian → Christin     4.110%  ↘  2.326% 
+3x Sascha     → Jill    [38;5;9m     0.000% [39m           
 ---
 -> I[l]/bits: {2: 1.35, 3: 1.55, 4: 2.35, 5: 3.97, 6: 7.77}
 -> E[I]/bits: 1.81 = H
@@ -452,7 +452,7 @@ top5 Pr[Dup]: 100.0%/43: VanessaM | 37.2%/16: Victoria | 14.0%/6: Jill | 11.6%/5
 top5 Pr[Dup]: 27.9%/12: Dario | 11.6%/5: Germain | 9.3%/4: Aaron | 9.3%/4: Dominic | 9.3%/4: Marc
 
 MB#8 E16
-Marko → Sabrina 
+Marko → Sabrina[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -479,16 +479,16 @@ top5 Pr[Dup]: 100.0%/43: VanessaM | 37.2%/16: Victoria | 14.0%/6: Jill | 11.6%/5
 top5 Pr[Dup]: 27.9%/12: Dario | 11.6%/5: Germain | 9.3%/4: Aaron | 9.3%/4: Dominic | 9.3%/4: Marc
 
 MN#8 E16
-0x Aaron      → Vanessa  
-3x Dario      → Victoria 
-2x Dominic    → Melissa  
-0x Germain    → Jill     
-0x Marc       → VanessaM 
-5x Marcel     → Leonie   
-0x Marko      → Laura    
-3x Marvin     → Kathleen 
-0x Maximilian → Mirjam   
-1x Sascha     → Sabrina  
+0x Aaron      → Vanessa [38;5;9m     0.000% [39m          
+3x Dario      → Victoria    37.209%  ↘ [38;5;9m 0.000%[39m
+2x Dominic    → Melissa [38;5;9m     0.000% [39m          
+0x Germain    → Jill        11.628%  ↘ [38;5;9m 0.000%[39m
+0x Marc       → VanessaM     9.302%  ↘ [38;5;9m 0.000%[39m
+5x Marcel     → Leonie  [38;5;10m    100.000%[39m          
+0x Marko      → Laura       37.209%  ↘ [38;5;9m 0.000%[39m
+3x Marvin     → Kathleen    25.581%  ↘ [38;5;9m 0.000%[39m
+0x Maximilian → Mirjam  [38;5;9m     0.000% [39m          
+1x Sascha     → Sabrina     20.930%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {1: 3.10, 2: 0.97, 3: 2.10, 4: 3.10, 5: 5.43}
 -> E[I]/bits: 1.83 = H
@@ -515,7 +515,7 @@ top5 Pr[Dup]: 100.0%/5: VanessaM | 20.0%/1: Victoria | 20.0%/1: Vanessa | 20.0%/
 top5 Pr[Dup]: 20.0%/1: Aaron | 20.0%/1: Dominic | 20.0%/1: Marvin | 20.0%/1: Maximilian | 20.0%/1: Sascha
 
 MB#9 E18
-Aaron → Melissa 
+Aaron → Melissa[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -542,16 +542,16 @@ top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Victoria | 25.0%/1: Vanessa | 25.0%/
 top5 Pr[Dup]: 25.0%/1: Dominic | 25.0%/1: Marvin | 25.0%/1: Maximilian | 25.0%/1: Sascha
 
 MN#9 E18
-4x Aaron      → Melissa  
-1x Dario      → Kathleen 
-0x Dominic    → Sabrina  
-0x Germain    → Laura    
-5x Marc       → Mirjam   
-6x Marcel     → Leonie   
-1x Marko      → Victoria 
-1x Marvin     → Vanessa  
-4x Maximilian → Christin 
-4x Sascha     → Jill     
+4x Aaron      → Melissa [38;5;10m    100.000%[39m
+1x Dario      → Kathleen[38;5;9m     0.000% [39m
+0x Dominic    → Sabrina [38;5;9m     0.000% [39m
+0x Germain    → Laura   [38;5;9m     0.000% [39m
+5x Marc       → Mirjam  [38;5;10m    100.000%[39m
+6x Marcel     → Leonie  [38;5;10m    100.000%[39m
+1x Marko      → Victoria[38;5;9m     0.000% [39m
+1x Marvin     → Vanessa [38;5;9m     0.000% [39m
+4x Maximilian → Christin[38;5;9m     0.000% [39m
+4x Sascha     → Jill    [38;5;9m     0.000% [39m
 ---
 -> I[l]/bits: {3: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -578,7 +578,7 @@ top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Victoria | 25.0%/1: Vanessa | 25.0%/
 top5 Pr[Dup]: 25.0%/1: Dominic | 25.0%/1: Marvin | 25.0%/1: Maximilian | 25.0%/1: Sascha
 
 MB#10 E20
-Marc → Mirjam 
+Marc → Mirjam[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -605,16 +605,16 @@ top5 Pr[Dup]: 100.0%/4: VanessaM | 25.0%/1: Victoria | 25.0%/1: Vanessa | 25.0%/
 top5 Pr[Dup]: 25.0%/1: Dominic | 25.0%/1: Marvin | 25.0%/1: Maximilian | 25.0%/1: Sascha
 
 MN#10 E20
-5x Aaron      → Melissa  
-1x Dario      → Sabrina  
-3x Dominic    → Vanessa  
-2x Germain    → Christin 
-6x Marc       → Mirjam   
-7x Marcel     → Leonie   
-0x Marko      → Kathleen 
-1x Marvin     → Jill     
-0x Maximilian → Victoria 
-0x Sascha     → Laura    
+5x Aaron      → Melissa [38;5;10m    100.000%[39m
+1x Dario      → Sabrina [38;5;10m    100.000%[39m
+3x Dominic    → Vanessa [38;5;10m    100.000%[39m
+2x Germain    → Christin[38;5;10m    100.000%[39m
+6x Marc       → Mirjam  [38;5;10m    100.000%[39m
+7x Marcel     → Leonie  [38;5;10m    100.000%[39m
+0x Marko      → Kathleen[38;5;10m    100.000%[39m
+1x Marvin     → Jill    [38;5;10m    100.000%[39m
+0x Maximilian → Victoria[38;5;10m    100.000%[39m
+0x Sascha     → Laura   [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -690,4 +690,4 @@ top5 Pr[Dup]: 25.0%/1: Dominic | 25.0%/1: Marvin | 25.0%/1: Maximilian | 25.0%/1
 ╰───────┴────┴─────────────┴────────────┴──────────┴─────────────┴──────────┴──────────┴─────────────┴──────────┴──────────┴─────────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 4  Initial combinations for each pair: 3628800
 
-Ran in 4.47s
+Ran in 4.56s

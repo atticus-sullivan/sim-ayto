@@ -15,7 +15,7 @@
 36288000 left -> 25.113 bits left
 
 MB#1 E02
-Danilo → Finnja 
+Danilo → Finnja    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 100.0%/32659200: Vanessa | 10.0%/3265920: Jules | 10.0%/3265920: W
 top5 Pr[Dup]: 10.0%/3265920: Alexander | 10.0%/3265920: Danilo | 10.0%/3265920: Diogo | 10.0%/3265920: Eugen | 10.0%/3265920: Josua
 
 MN#1 E02
-0x Alexander → Jules      
-0x Danilo    → Stefanie   
-0x Diogo     → Aurelia    
-0x Eugen     → Walentina  
-0x Francesco → Finnja     
-0x Jamy      → Jill       
-0x Josua     → Sarah      
-0x Manuel    → Kathleen   
-0x Salvatore → Jacqueline 
-0x Tommy     → Melina     
+0x Alexander → Jules          9.877% ↗ 29.367%
+0x Danilo    → Stefanie      11.111% ↗ 32.530%
+0x Diogo     → Aurelia        9.877% ↗ 29.367%
+0x Eugen     → Walentina      9.877% ↗ 29.367%
+0x Francesco → Finnja        11.111% ↗ 32.530%
+0x Jamy      → Jill           9.877% ↗ 29.367%
+0x Josua     → Sarah          9.877% ↗ 29.367%
+0x Manuel    → Kathleen       9.877% ↗ 29.367%
+0x Salvatore → Jacqueline     9.877% ↗ 29.367%
+0x Tommy     → Melina         9.877% ↗ 29.367%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 100.0%/2051760: Vanessa | 10.0%/205176: Jules | 10.0%/205176: Wale
 top5 Pr[Dup]: 10.0%/205176: Alexander | 10.0%/205176: Danilo | 10.0%/205176: Diogo | 10.0%/205176: Eugen | 10.0%/205176: Josua
 
 MB#2 E03 -- Francesco muss ausziehen
-Francesco → Jules 
+Francesco → Jules     7.530% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.11, 1: 3.73}
 -> E[I]/bits: 0.39 = H
@@ -105,7 +105,7 @@ top5 Pr[Dup]: 100.0%/139041: Vanessa | 11.1%/15449: Walentina | 11.1%/15449: Ste
 top5 Pr[Dup]: 11.1%/15449: Alexander | 11.1%/15449: Danilo | 11.1%/15449: Diogo | 11.1%/15449: Eugen | 11.1%/15449: Josua
 
 MB#3 E06
-Tommy → Walentina 
+Tommy → Walentina     7.379% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.11, 1: 3.76}
 -> E[I]/bits: 0.38 = H
@@ -132,16 +132,16 @@ top5 Pr[Dup]: 100.0%/128781: Vanessa | 11.1%/14309: Walentina | 11.1%/14309: Ste
 top5 Pr[Dup]: 11.1%/14309: Alexander | 11.1%/14309: Danilo | 11.1%/14309: Diogo | 11.1%/14309: Eugen | 11.1%/14309: Josua
 
 MN#3 E06
-0x Alexander → Finnja     
-0x Danilo    → Sarah      
-1x Diogo     → Aurelia    
-0x Eugen     → Stefanie   
-0x Francesco → Jules      
-1x Jamy      → Jill       
-0x Josua     → Walentina  
-1x Manuel    → Kathleen   
-1x Salvatore → Jacqueline 
-1x Tommy     → Melina     
+0x Alexander → Finnja        15.682%  ↘ 11.155%
+0x Danilo    → Sarah          8.442%  ↘ [38;5;9m 0.000%[39m
+1x Diogo     → Aurelia       35.907%  ↗ 36.816%
+0x Eugen     → Stefanie       6.639%  ↘ [38;5;9m 0.000%[39m
+0x Francesco → Jules     [38;5;10m    100.000%[39m          
+1x Jamy      → Jill          35.907%  ↗ 36.816%
+0x Josua     → Walentina      7.967%  ↘ [38;5;9m 0.000%[39m
+1x Manuel    → Kathleen      35.907%  ↗ 36.816%
+1x Salvatore → Jacqueline    35.907%  ↗ 36.816%
+1x Tommy     → Melina        39.793%  ↗ 41.579%
 ---
 -> I[l]/bits: {1: 5.75, 2: 2.01, 3: 1.37, 4: 2.12, 5: 3.55, 6: 5.20, 7: 7.56, 8: 10.48}
 -> E[I]/bits: 2.11 = H
@@ -168,7 +168,7 @@ top5 Pr[Dup]: 100.0%/49698: Vanessa | 11.1%/5522: Walentina | 11.1%/5522: Stefan
 top5 Pr[Dup]: 11.1%/5522: Alexander | 11.1%/5522: Danilo | 11.1%/5522: Diogo | 11.1%/5522: Eugen | 11.1%/5522: Josua
 
 MB#4 E08 -- verkauft
-Diogo → Aurelia 
+Diogo → Aurelia    36.816%
 ---
 Nothing => I = 0 bits
 ╭───────────┬─────────┬────────┬────────────┬────────┬──────────┬────────┬────────┬──────────┬───────────┬───────┬─────────╮
@@ -193,16 +193,16 @@ top5 Pr[Dup]: 100.0%/49698: Vanessa | 11.1%/5522: Walentina | 11.1%/5522: Stefan
 top5 Pr[Dup]: 11.1%/5522: Alexander | 11.1%/5522: Danilo | 11.1%/5522: Diogo | 11.1%/5522: Eugen | 11.1%/5522: Josua
 
 MN#4 E08
-0x Alexander → Stefanie  
-0x Danilo    → Melina    
-2x Diogo     → Aurelia   
-0x Eugen     → Finnja    
-1x Francesco → Jules     
-0x Jamy      → Vanessa   
-1x Josua     → Sarah     
-2x Manuel    → Kathleen  
-0x Salvatore → Walentina 
-0x Tommy     → Jill      
+0x Alexander → Stefanie     12.749%  ↗ 24.744%
+0x Danilo    → Melina       10.141%  ↗ 20.641%
+2x Diogo     → Aurelia      36.816%  ↗ [38;5;11m54.758%[39m
+0x Eugen     → Finnja       14.813%  ↗ 30.741%
+1x Francesco → Jules    [38;5;10m    100.000%[39m          
+0x Jamy      → Vanessa      11.111%  ↗ 20.239%
+1x Josua     → Sarah        34.589%  ↗ [38;5;14m62.391%[39m
+2x Manuel    → Kathleen     36.816%  ↗ [38;5;11m54.758%[39m
+0x Salvatore → Walentina     9.924%  ↗ 17.928%
+0x Tommy     → Jill          6.845%  ↗ 13.800%
 ---
 -> I[l]/bits: {1: 2.81, 2: 1.60, 3: 1.79, 4: 2.69, 5: 4.08, 6: 5.76, 7: 7.84, 8: 10.24, 9: 12.14, 10: 15.60}
 -> E[I]/bits: 2.26 = H
@@ -229,7 +229,7 @@ top5 Pr[Dup]: 100.0%/7703: Vanessa | 14.2%/1094: Jill | 11.3%/871: Finnja | 11.0
 top5 Pr[Dup]: 20.2%/1559: Jamy | 10.0%/768: Alexander | 10.0%/768: Danilo | 10.0%/768: Diogo | 10.0%/768: Eugen
 
 MB#5 E10 -- verkauft
-Tommy → Melina 
+Tommy → Melina    27.470%
 ---
 Nothing => I = 0 bits
 ╭───────────┬─────────┬────────┬────────────┬────────┬──────────┬────────┬────────┬──────────┬───────────┬───────┬─────────╮
@@ -254,16 +254,16 @@ top5 Pr[Dup]: 100.0%/7703: Vanessa | 14.2%/1094: Jill | 11.3%/871: Finnja | 11.0
 top5 Pr[Dup]: 20.2%/1559: Jamy | 10.0%/768: Alexander | 10.0%/768: Danilo | 10.0%/768: Diogo | 10.0%/768: Eugen
 
 MN#5 E10
-0x Alexander → Sarah     
-0x Danilo    → Aurelia   
-0x Diogo     → Vanessa   
-1x Eugen     → Finnja    
-2x Francesco → Jules     
-0x Jamy      → Stefanie  
-1x Josua     → Walentina 
-0x Manuel    → Jill      
-0x Salvatore → Kathleen  
-2x Tommy     → Melina    
+0x Alexander → Sarah         7.880%  ↗ 14.626%
+0x Danilo    → Aurelia       7.854%  ↗ 15.013%
+0x Diogo     → Vanessa       9.970%  ↗ 17.075%
+1x Eugen     → Finnja       30.741%  ↗ [38;5;14m59.987%[39m
+2x Francesco → Jules    [38;5;10m    100.000%[39m          
+0x Jamy      → Stefanie     11.100%  ↗ 18.750%
+1x Josua     → Walentina[38;5;9m     0.000% [39m          
+0x Manuel    → Jill          5.751%  ↗  8.247%
+0x Salvatore → Kathleen      5.647%  ↗  8.698%
+2x Tommy     → Melina       27.470%  ↗ [38;5;14m57.603%[39m
 ---
 -> I[l]/bits: {1: 1.50, 2: 1.51, 3: 2.31, 4: 3.81, 5: 5.74, 6: 8.05, 7: 11.91}
 -> E[I]/bits: 1.94 = H
@@ -290,7 +290,7 @@ top5 Pr[Dup]: 100.0%/1552: Vanessa | 15.3%/238: Aurelia | 11.7%/182: Finnja | 11
 top5 Pr[Dup]: 18.0%/279: Jamy | 17.1%/265: Diogo | 9.3%/144: Alexander | 9.3%/144: Danilo | 9.3%/144: Eugen
 
 MB#6 E12
-Salvatore → Finnja 
+Salvatore → Finnja     7.732% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.12, 1: 3.69}
 -> E[I]/bits: 0.39 = H
@@ -317,16 +317,16 @@ top5 Pr[Dup]: 100.0%/1432: Vanessa | 15.3%/219: Aurelia | 12.1%/173: Finnja | 11
 top5 Pr[Dup]: 17.2%/247: Jamy | 16.8%/240: Diogo | 9.4%/135: Alexander | 9.4%/135: Danilo | 9.4%/135: Eugen
 
 MN#6 E12
-1x Alexander → Stefanie   
-0x Danilo    → Jill       
-3x Diogo     → Aurelia    
-2x Eugen     → Finnja     
-3x Francesco → Jules      
-0x Jamy      → Sarah      
-2x Josua     → Walentina  
-3x Manuel    → Kathleen   
-2x Salvatore → Jacqueline 
-3x Tommy     → Melina     
+1x Alexander → Stefanie      17.249%  ↘  7.663%
+0x Danilo    → Jill          13.757%  ↘ [38;5;9m 0.192%[39m
+3x Diogo     → Aurelia       44.553%  ↗ [38;5;11m45.211%[39m
+2x Eugen     → Finnja    [38;5;14m    65.014% [39m ↘ [38;5;11m47.510%[39m
+3x Francesco → Jules     [38;5;10m    100.000%[39m          
+0x Jamy      → Sarah          5.028%  ↘ [38;5;9m 0.000%[39m
+2x Josua     → Walentina [38;5;9m     0.000% [39m          
+3x Manuel    → Kathleen      44.413%  ↘ 43.295%
+2x Salvatore → Jacqueline    27.025%  ↘ 17.241%
+3x Tommy     → Melina    [38;5;14m    55.796% [39m ↘ 38.889%
 ---
 -> I[l]/bits: {2: 4.38, 3: 1.46, 4: 1.27, 5: 2.67, 6: 5.96}
 -> E[I]/bits: 1.78 = H
@@ -353,7 +353,7 @@ top5 Pr[Dup]: 100.0%/522: Vanessa | 19.2%/100: Aurelia | 12.8%/67: Jill | 12.1%/
 top5 Pr[Dup]: 23.9%/125: Diogo | 23.8%/124: Jamy | 7.5%/39: Alexander | 7.5%/39: Danilo | 7.5%/39: Eugen
 
 MB#7 E14
-Eugen → Finnja 
+Eugen → Finnja[38;5;11m    47.510%[39m ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.93, 1: 1.07}
 -> E[I]/bits: 1.00 = H
@@ -380,16 +380,16 @@ top5 Pr[Dup]: 100.0%/274: Vanessa | 23.4%/64: Aurelia | 15.3%/42: Finnja | 13.1%
 top5 Pr[Dup]: 28.5%/78: Jamy | 25.5%/70: Diogo | 6.6%/18: Alexander | 6.6%/18: Danilo | 6.6%/18: Eugen
 
 MN#7 E14
-0x Alexander → Jacqueline 
-1x Danilo    → Aurelia    
-1x Diogo     → Vanessa    
-0x Eugen     → Jill       
-4x Francesco → Jules      
-0x Jamy      → Finnja     
-2x Josua     → Sarah      
-4x Manuel    → Kathleen   
-1x Salvatore → Walentina  
-4x Tommy     → Melina     
+0x Alexander → Jacqueline    10.219%  ↘ [38;5;9m 0.000%[39m
+1x Danilo    → Aurelia       22.263%  ↘ [38;5;9m 0.000%[39m
+1x Diogo     → Vanessa       25.547%  ↘ 13.208%
+0x Eugen     → Jill          21.533%  ↘ [38;5;9m 0.000%[39m
+4x Francesco → Jules     [38;5;10m    100.000%[39m          
+0x Jamy      → Finnja        20.073%  ↘  3.774%
+2x Josua     → Sarah     [38;5;14m    60.219% [39m ↘ 20.755%
+4x Manuel    → Kathleen  [38;5;11m    52.555% [39m ↗ [38;5;14m62.264%[39m
+1x Salvatore → Walentina     42.701%  ↘ [38;5;9m 0.000%[39m
+4x Tommy     → Melina    [38;5;11m    51.095% [39m ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {1: 4.40, 2: 2.37, 3: 3.01, 4: 2.12, 5: 2.10, 6: 3.40, 7: 4.64, 8: 6.51, 9: 5.29}
 -> E[I]/bits: 2.73 = H
@@ -416,7 +416,7 @@ top5 Pr[Dup]: 100.0%/53: Vanessa | 17.0%/9: Stefanie | 15.1%/8: Aurelia | 11.3%/
 top5 Pr[Dup]: 20.8%/11: Jamy | 13.2%/7: Diogo | 9.4%/5: Alexander | 9.4%/5: Danilo | 9.4%/5: Eugen
 
 MB#8 E16
-Eugen → Stefanie 
+Eugen → Stefanie[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -443,16 +443,16 @@ top5 Pr[Dup]: 100.0%/53: Vanessa | 17.0%/9: Stefanie | 15.1%/8: Aurelia | 11.3%/
 top5 Pr[Dup]: 20.8%/11: Jamy | 13.2%/7: Diogo | 9.4%/5: Alexander | 9.4%/5: Danilo | 9.4%/5: Eugen
 
 MN#8 E16 -- blackout
-0x Alexander → Melina     
-2x Danilo    → Aurelia    
-2x Diogo     → Vanessa    
-0x Eugen     → Jacqueline 
-5x Francesco → Jules      
-1x Jamy      → Sarah      
-3x Josua     → Walentina  
-0x Manuel    → Finnja     
-0x Salvatore → Jill       
-0x Tommy     → Stefanie   
+0x Alexander → Melina         1.887%  ↘ [38;5;9m 0.000%[39m
+2x Danilo    → Aurelia   [38;5;9m     0.000% [39m          
+2x Diogo     → Vanessa       13.208%  ↘ [38;5;9m 0.000%[39m
+0x Eugen     → Jacqueline[38;5;9m     0.000% [39m          
+5x Francesco → Jules     [38;5;10m    100.000%[39m          
+1x Jamy      → Sarah     [38;5;9m     0.000% [39m          
+3x Josua     → Walentina [38;5;9m     0.000% [39m          
+0x Manuel    → Finnja         3.774%  ↘ [38;5;9m 0.000%[39m
+0x Salvatore → Jill          28.302%  ↘ [38;5;9m 0.000%[39m
+0x Tommy     → Stefanie       1.887%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {1: 0.87, 2: 1.27, 3: 4.73}
 -> E[I]/bits: 1.18 = H
@@ -479,7 +479,7 @@ top5 Pr[Dup]: 100.0%/29: Vanessa | 24.1%/7: Stefanie | 10.3%/3: Walentina | 10.3
 top5 Pr[Dup]: 27.6%/8: Jamy | 10.3%/3: Alexander | 10.3%/3: Danilo | 10.3%/3: Eugen | 10.3%/3: Josua
 
 MB#9 E18
-Josua → Sarah 
+Josua → Sarah    34.483% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.61, 1: 1.54}
 -> E[I]/bits: 0.93 = H
@@ -506,7 +506,7 @@ top5 Pr[Dup]: 100.0%/19: Vanessa | 21.1%/4: Stefanie | 10.5%/2: Walentina | 10.5
 top5 Pr[Dup]: 26.3%/5: Jamy | 10.5%/2: Alexander | 10.5%/2: Danilo | 10.5%/2: Eugen | 10.5%/2: Josua
 
 MB#9.1 E18/15 -- 'geschenkte' Matchbox
-Tommy → Melina 
+Tommy → Melina[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -533,16 +533,16 @@ top5 Pr[Dup]: 100.0%/19: Vanessa | 21.1%/4: Stefanie | 10.5%/2: Walentina | 10.5
 top5 Pr[Dup]: 26.3%/5: Jamy | 10.5%/2: Alexander | 10.5%/2: Danilo | 10.5%/2: Eugen | 10.5%/2: Josua
 
 MN#9 E18
-1x Alexander → Sarah     
-1x Danilo    → Jill      
-4x Diogo     → Aurelia   
-0x Eugen     → Melina    
-6x Francesco → Jules     
-1x Jamy      → Stefanie  
-0x Josua     → Vanessa   
-5x Manuel    → Kathleen  
-2x Salvatore → Walentina 
-0x Tommy     → Finnja    
+1x Alexander → Sarah    [38;5;10m    100.000%[39m           
+1x Danilo    → Jill     [38;5;9m     0.000% [39m           
+4x Diogo     → Aurelia  [38;5;11m    47.368% [39m ↘ [38;5;9m 0.000% [39m
+0x Eugen     → Melina   [38;5;9m     0.000% [39m           
+6x Francesco → Jules    [38;5;10m    100.000%[39m           
+1x Jamy      → Stefanie [38;5;10m    94.737% [39m ↗ [38;5;10m100.000%[39m
+0x Josua     → Vanessa      10.526%  ↘ [38;5;9m 0.000% [39m
+5x Manuel    → Kathleen [38;5;10m    94.737% [39m ↗ [38;5;10m100.000%[39m
+2x Salvatore → Walentina[38;5;9m     0.000% [39m           
+0x Tommy     → Finnja       10.526%  ↘ [38;5;9m 0.000% [39m
 ---
 -> I[l]/bits: {3: 4.25, 4: 1.25, 5: 1.25, 6: 3.25}
 -> E[I]/bits: 1.62 = H
@@ -569,7 +569,7 @@ top5 Pr[Dup]: 100.0%/8: Vanessa | 25.0%/2: Stefanie | 12.5%/1: Walentina | 12.5%
 top5 Pr[Dup]: 25.0%/2: Jamy | 12.5%/1: Alexander | 12.5%/1: Danilo | 12.5%/1: Eugen | 12.5%/1: Manuel
 
 MB#10 E20
-Josua → Aurelia 
+Josua → Aurelia[38;5;14m    75.000%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 2.00, 1: 0.42}
 -> E[I]/bits: 0.81 = H
@@ -596,16 +596,16 @@ top5 Pr[Dup]: 100.0%/6: Vanessa | 16.7%/1: Walentina | 16.7%/1: Sarah | 16.7%/1:
 top5 Pr[Dup]: 16.7%/1: Alexander | 16.7%/1: Danilo | 16.7%/1: Eugen | 16.7%/1: Manuel | 16.7%/1: Salvatore
 
 MN#10 E20
-0x Alexander → Vanessa    
-1x Danilo    → Sarah      
-0x Diogo     → Jill       
-1x Eugen     → Walentina  
-7x Francesco → Jules      
-2x Jamy      → Stefanie   
-0x Josua     → Aurelia    
-6x Manuel    → Kathleen   
-3x Salvatore → Jacqueline 
-1x Tommy     → Finnja     
+0x Alexander → Vanessa       16.667%  ↗ [38;5;10m100.000%[39m
+1x Danilo    → Sarah     [38;5;9m     0.000% [39m           
+0x Diogo     → Jill      [38;5;9m     0.000% [39m           
+1x Eugen     → Walentina [38;5;10m    100.000%[39m           
+7x Francesco → Jules     [38;5;10m    100.000%[39m           
+2x Jamy      → Stefanie  [38;5;10m    100.000%[39m           
+0x Josua     → Aurelia   [38;5;10m    100.000%[39m           
+6x Manuel    → Kathleen  [38;5;10m    100.000%[39m           
+3x Salvatore → Jacqueline[38;5;10m    100.000%[39m           
+1x Tommy     → Finnja    [38;5;9m     0.000% [39m           
 ---
 -> I[l]/bits: {6: 0.26, 7: 2.58}
 -> E[I]/bits: 0.65 = H
@@ -681,4 +681,4 @@ top5 Pr[Dup]: 100.0%/1: Alexander
 ╰────────┴───┴─────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴────────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 3.86s
+Ran in 3.82s

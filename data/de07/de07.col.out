@@ -15,7 +15,7 @@
 199584000 left -> 27.5724 bits left
 
 MB#1 E03
-Evi → Tiziana 
+Evi → Tiziana    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 18.2%/32659200: Aurora | 18.2%/32659200: Tonia | 18.2%/32659200: T
 top5 Pr[Dup]: 10.1%/18144000: Chris | 10.1%/18144000: Ema | 10.1%/18144000: Jeronymo | 10.1%/18144000: Jerry | 10.1%/18144000: JulianM
 
 MN#1 E04
-0x Chris    → Linda    
-0x Ema      → Michelle 
-0x Evi      → Laura    
-0x Jeronymo → Tiziana  
-0x Jerry    → Elena    
-0x Julian   → Aurora   
-0x JulianM  → Adrianna 
-0x Luke     → Marla    
-0x Meji     → Ella     
-0x Noel     → Tonia    
+0x Chris    → Linda        9.899% ↗ 29.434%
+0x Ema      → Michelle     9.899% ↗ 29.434%
+0x Evi      → Laura       10.909% ↗ 32.000%
+0x Jeronymo → Tiziana     11.111% ↗ 32.530%
+0x Jerry    → Elena        9.899% ↗ 29.434%
+0x Julian   → Aurora       9.899% ↗ 29.434%
+0x JulianM  → Adrianna     9.899% ↗ 29.434%
+0x Luke     → Marla        9.899% ↗ 29.434%
+0x Meji     → Ella         9.899% ↗ 29.434%
+0x Noel     → Tonia        9.899% ↗ 29.434%
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 18.3%/2051760: Alicia | 18.2%/2037678: Aurora | 18.2%/2037678: Ton
 top5 Pr[Dup]: 10.2%/1144604: Jeronymo | 10.1%/1125445: Chris | 10.1%/1125445: Ema | 10.1%/1125445: Jerry | 10.1%/1125445: JulianM
 
 MB#2 E05
-Evi → Laura 
+Evi → Laura    32.000%
 ---
 Nothing => I = 0 bits
 ╭──────────┬──────────┬────────┬────────┬────────┬────────┬────────┬────────┬──────────┬─────────┬────────┬────────╮
@@ -103,16 +103,16 @@ top5 Pr[Dup]: 18.3%/2051760: Alicia | 18.2%/2037678: Aurora | 18.2%/2037678: Ton
 top5 Pr[Dup]: 10.2%/1144604: Jeronymo | 10.1%/1125445: Chris | 10.1%/1125445: Ema | 10.1%/1125445: Jerry | 10.1%/1125445: JulianM
 
 MN#2 E06
-0x Chris    → Tonia    
-0x Ema      → Ella     
-1x Evi      → Laura    
-1x Jeronymo → Tiziana  
-0x Jerry    → Michelle 
-0x Julian   → Adrianna 
-0x JulianM  → Alicia   
-1x Luke     → Marla    
-0x Meji     → Elena    
-0x Noel     → Linda    
+0x Chris    → Tonia        7.809% ↗ 10.215%
+0x Ema      → Ella         7.809% ↗ 10.138%
+1x Evi      → Laura       32.000% ↗ 42.686%
+1x Jeronymo → Tiziana     32.530% ↗ 43.381%
+0x Jerry    → Michelle     7.809% ↗ 10.138%
+0x Julian   → Adrianna     7.809% ↗ 10.405%
+0x JulianM  → Alicia       9.951% ↗ 13.372%
+1x Luke     → Marla       29.434% ↗ 39.313%
+0x Meji     → Elena        7.809% ↗ 10.138%
+0x Noel     → Linda        7.809% ↗ 10.215%
 ---
 -> I[l]/bits: {0: 2.47, 1: 1.44, 2: 1.85, 3: 3.02, 4: 4.70, 5: 6.76, 6: 9.17, 7: 11.87, 8: 14.66, 9: 17.80, 10: 20.24}
 -> E[I]/bits: 2.12 = H
@@ -139,7 +139,7 @@ top5 Pr[Dup]: 18.5%/572973: Michelle | 18.5%/572973: Ella | 18.5%/572973: Elena 
 top5 Pr[Dup]: 11.1%/343308: Jeronymo | 10.8%/334839: Luke | 10.1%/313913: Evi | 9.8%/305396: JulianM | 9.8%/303523: Julian
 
 MB#3 E07
-Julian → Linda 
+Julian → Linda     8.551% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.13, 1: 3.55}
 -> E[I]/bits: 0.42 = H
@@ -166,16 +166,16 @@ top5 Pr[Dup]: 18.5%/524879: Tonia | 18.5%/524409: Linda | 18.5%/523931: Michelle
 top5 Pr[Dup]: 11.1%/315533: Jeronymo | 10.8%/307700: Luke | 10.2%/288556: Evi | 9.9%/281077: Chris | 9.9%/281011: JulianM
 
 MN#3 E08
-1x Chris    → Linda    
-1x Ema      → Michelle 
-2x Evi      → Laura    
-2x Jeronymo → Tiziana  
-0x Jerry    → Aurora   
-0x Julian   → Alicia   
-1x JulianM  → Adrianna 
-2x Luke     → Marla    
-1x Meji     → Elena    
-1x Noel     → Tonia    
+1x Chris    → Linda       27.102% ↘ 21.162%
+1x Ema      → Michelle    24.373% ↘ 19.607%
+2x Evi      → Laura       42.027% ↘ 40.798%
+2x Jeronymo → Tiziana     42.718% ↘ 41.495%
+0x Jerry    → Aurora       8.392% ↘ [38;5;9m 0.164%[39m
+0x Julian   → Alicia      10.695% ↘  1.366%
+1x JulianM  → Adrianna    24.070% ↘ 18.634%
+2x Luke     → Marla       38.661% ↘ 37.271%
+1x Meji     → Elena       10.309% ↘ [38;5;9m 0.432%[39m
+1x Noel     → Tonia       24.332% ↘ 19.072%
 ---
 -> I[l]/bits: {0: 9.00, 1: 3.17, 2: 1.27, 3: 1.61, 4: 3.07, 5: 5.44, 6: 9.18}
 -> E[I]/bits: 1.93 = H
@@ -202,7 +202,7 @@ top5 Pr[Dup]: 18.9%/222609: Linda | 18.8%/221285: Tonia | 18.7%/220739: Alicia |
 top5 Pr[Dup]: 11.2%/131986: Jeronymo | 10.9%/128409: Luke | 10.2%/120679: Evi | 10.0%/117908: Jerry | 9.9%/116524: JulianM
 
 MB#4 E09
-JulianM → Marla 
+JulianM → Marla     7.184% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.11, 1: 3.80}
 -> E[I]/bits: 0.37 = H
@@ -229,16 +229,16 @@ top5 Pr[Dup]: 21.2%/14668: Tonia | 21.1%/14590: Linda | 20.8%/14438: Alicia | 20
 top5 Pr[Dup]: 13.4%/9286: Jeronymo | 12.3%/8534: Evi | 11.6%/8031: Ema | 11.3%/7819: Chris | 11.2%/7765: Noel
 
 MN#4 E10
-Chris    → Aurora   
-Ema      → Michelle 
-Evi      → Ella     
-Jeronymo → Linda    
-Jerry    → Elena    
-Julian   → Alicia   
-JulianM  → Marla    
-Luke     → Tonia    
-Meji     → Laura    
-Noel     → Adrianna 
+Chris    → Aurora       9.939% 
+Ema      → Michelle    27.471% 
+Evi      → Ella         5.933% 
+Jeronymo → Linda        6.340% 
+Jerry    → Elena       35.858% 
+Julian   → Alicia       2.955% 
+JulianM  → Marla   [38;5;10m    100.000%[39m
+Luke     → Tonia       11.284% 
+Meji     → Laura        6.883% 
+Noel     → Adrianna    10.236% 
 ---
 Nothing => I = 0 bits
 ╭──────────┬──────────┬────────┬────────┬────────┬────────┬────────┬───────┬──────────┬─────────┬────────┬────────╮
@@ -263,7 +263,7 @@ top5 Pr[Dup]: 21.2%/14668: Tonia | 21.1%/14590: Linda | 20.8%/14438: Alicia | 20
 top5 Pr[Dup]: 13.4%/9286: Jeronymo | 12.3%/8534: Evi | 11.6%/8031: Ema | 11.3%/7819: Chris | 11.2%/7765: Noel
 
 MB#5 E11
-Chris → Aurora 
+Chris → Aurora     9.939% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.33}
 -> E[I]/bits: 0.47 = H
@@ -290,16 +290,16 @@ top5 Pr[Dup]: 21.1%/13197: Tonia | 20.9%/13035: Elena | 20.7%/12938: Ella | 20.6
 top5 Pr[Dup]: 13.5%/8429: Jeronymo | 12.4%/7749: Evi | 11.7%/7316: Ema | 11.2%/6995: Noel | 11.0%/6842: Jerry
 
 MN#5 E12
-2x Chris    → Linda    
-2x Ema      → Michelle 
-0x Evi      → Aurora   
-3x Jeronymo → Tiziana  
-1x Jerry    → Elena    
-1x Julian   → Adrianna 
-0x JulianM  → Marla    
-0x Luke     → Laura    
-1x Meji     → Ella     
-2x Noel     → Tonia    
+2x Chris    → Linda       31.561%  ↗ 42.101%
+2x Ema      → Michelle    26.542%  ↗ 30.179%
+0x Evi      → Aurora       8.051%  ↗ 29.761%
+3x Jeronymo → Tiziana [38;5;14m    57.199% [39m ↗ [38;5;10m90.827%[39m
+1x Jerry    → Elena       34.016%  ↗ [38;5;14m57.393%[39m
+1x Julian   → Adrianna    22.861%  ↗ [38;5;14m61.282%[39m
+0x JulianM  → Marla   [38;5;10m    100.000%[39m          
+0x Luke     → Laura        7.115%  ↗ 12.657%
+1x Meji     → Ella        28.376%  ↗ [38;5;11m45.737%[39m
+2x Noel     → Tonia       24.406%  ↗ 30.065%
 ---
 -> I[l]/bits: {2: 2.10, 3: 1.47, 4: 2.12, 5: 2.98, 6: 4.50, 7: 7.72}
 -> E[I]/bits: 2.12 = H
@@ -326,7 +326,7 @@ top5 Pr[Dup]: 24.0%/1894: Laura | 23.3%/1839: Aurora | 21.3%/1682: Tonia | 20.4%
 top5 Pr[Dup]: 16.8%/1327: Jeronymo | 12.3%/968: Jerry | 11.4%/896: Noel | 11.2%/885: Ema | 11.0%/868: Meji
 
 MB#6 E13
-Jerry → Elena 
+Jerry → Elena[38;5;14m    57.393%[39m
 ---
 Nothing => I = 0 bits
 ╭──────────┬──────────┬────────┬────────┬────────┬────────┬────────┬───────┬──────────┬─────────┬────────┬────────╮
@@ -351,7 +351,7 @@ top5 Pr[Dup]: 24.0%/1894: Laura | 23.3%/1839: Aurora | 21.3%/1682: Tonia | 20.4%
 top5 Pr[Dup]: 16.8%/1327: Jeronymo | 12.3%/968: Jerry | 11.4%/896: Noel | 11.2%/885: Ema | 11.0%/868: Meji
 
 MB#6.1 E13 -- Alicia scheidet aus wg Krankheit
-Chris → Alicia 
+Alicia
 ---
 Xcnt(2) => I = 2.2926 bits
 ╭──────────┬──────────┬────────┬────────┬────────┬────────┬────────┬───────┬──────────┬─────────┬────────┬────────╮
@@ -376,16 +376,16 @@ top5 Pr[Dup]: 100.0%/1611: Alicia | 12.3%/198: Tiziana | 12.2%/196: Aurora | 12.
 top5 Pr[Dup]: 12.2%/196: Chris | 12.2%/196: Ema | 12.2%/196: Evi | 12.2%/196: Jeronymo | 12.2%/196: Jerry
 
 MN#6 E14
-0x Chris    → Ella     
-3x Ema      → Michelle 
-0x Evi      → Linda    
-0x Jeronymo → Laura    
-2x Jerry    → Elena    
-0x Julian   → Tiziana  
-1x JulianM  → Marla    
-0x Luke     → Adrianna 
-0x Meji     → Aurora   
-3x Noel     → Tonia    
+0x Chris    → Ella         8.442%  ↗ 25.668% 
+3x Ema      → Michelle    31.285%  ↗ [38;5;11m52.941% [39m
+0x Evi      → Linda       12.601%  ↗ 21.925% 
+0x Jeronymo → Laura        2.235%  ↗  4.813% 
+2x Jerry    → Elena   [38;5;14m    57.294% [39m ↗ [38;5;10m100.000%[39m
+0x Julian   → Tiziana [38;5;9m     0.124% [39m ↗ [38;5;9m 0.535% [39m
+1x JulianM  → Marla   [38;5;10m    100.000%[39m           
+0x Luke     → Adrianna    11.297%  ↗ 21.390% 
+0x Meji     → Aurora      12.415%  ↗ 25.668% 
+3x Noel     → Tonia       26.816%  ↗ [38;5;11m47.059% [39m
 ---
 -> I[l]/bits: {1: 2.65, 2: 1.53, 3: 1.75, 4: 3.11, 5: 3.82, 6: 6.57}
 -> E[I]/bits: 2.17 = H
@@ -447,4 +447,4 @@ top5 Pr[Dup]: 12.3%/23: Chris | 12.3%/23: Ema | 12.3%/23: Evi | 12.3%/23: Jerony
 ╰────────┴───┴──────────┴──────────┴────────┴────────┴───────────┴──────────┴─────────┴──────────┴───────────┴────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 187  Initial combinations for each pair: 19958400
 
-Ran in 30.74s
+Ran in 30.85s

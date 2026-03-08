@@ -16,7 +16,7 @@
 39916800 left -> 25.2505 bits left
 
 MB#1 E01
-Hayden → Gianna 
+Hayden → Gianna     9.091% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.14, 1: 3.46}
 -> E[I]/bits: 0.44 = H
@@ -39,17 +39,17 @@ Hayden → Gianna
 36288000 left -> 25.113 bits left
 
 MN#1 E01
-0x Andre   → Alicia   
-0x Derrick → Kathryn  
-0x Edward  → Kam      
-0x Hayden  → Shannon  
-0x Jaylan  → Casandra 
-0x Joey    → Carolina 
-0x Michael → Hannah   
-0x Mike    → Kari     
-0x Osvaldo → Tyranny  
-0x Ozzy    → Gianna   
-0x Tyler   → Taylor   
+0x Andre   → Alicia       9.000% ↗ 17.822%
+0x Derrick → Kathryn      9.000% ↗ 17.822%
+0x Edward  → Kam          9.000% ↗ 17.822%
+0x Hayden  → Shannon     10.000% ↗ 19.802%
+0x Jaylan  → Casandra     9.000% ↗ 17.822%
+0x Joey    → Carolina     9.000% ↗ 17.822%
+0x Michael → Hannah       9.000% ↗ 17.822%
+0x Mike    → Kari         9.000% ↗ 17.822%
+0x Osvaldo → Tyranny      9.000% ↗ 17.822%
+0x Ozzy    → Gianna      10.000% ↗ 19.802%
+0x Tyler   → Taylor       9.000% ↗ 17.822%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.43, 3: 4.00, 4: 5.99, 5: 8.29, 6: 10.87, 7: 13.63, 8: 16.79, 9: 19.36, 11: 25.11}
 -> E[I]/bits: 1.89 = H
@@ -72,7 +72,7 @@ MN#1 E01
 6741548 left -> 22.6846 bits left
 
 MB#2 E02
-Andre → Alicia 
+Andre → Alicia    17.822% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.28, 1: 2.49}
 -> E[I]/bits: 0.68 = H
@@ -95,17 +95,17 @@ Andre → Alicia
 5540084 left -> 22.4015 bits left
 
 MN#2 E02 -- blackout -500,000$
-0x Andre   → Hannah   
-0x Derrick → Alicia   
-0x Edward  → Shannon  
-0x Hayden  → Taylor   
-0x Jaylan  → Kam      
-1x Joey    → Carolina 
-0x Michael → Gianna   
-0x Mike    → Casandra 
-0x Osvaldo → Kari     
-0x Ozzy    → Kathryn  
-0x Tyler   → Tyranny  
+0x Andre   → Hannah       9.923% ↘ [38;5;9m 0.000%[39m
+0x Derrick → Alicia       9.923% ↘ [38;5;9m 0.000%[39m
+0x Edward  → Shannon      7.631% ↘ [38;5;9m 0.000%[39m
+0x Hayden  → Taylor       8.434% ↘ [38;5;9m 0.000%[39m
+0x Jaylan  → Kam          7.776% ↘ [38;5;9m 0.000%[39m
+1x Joey    → Carolina    19.578% ↘ [38;5;9m 0.000%[39m
+0x Michael → Gianna       8.434% ↘ [38;5;9m 0.000%[39m
+0x Mike    → Casandra     7.776% ↘ [38;5;9m 0.000%[39m
+0x Osvaldo → Kari         7.776% ↘ [38;5;9m 0.000%[39m
+0x Ozzy    → Kathryn      7.631% ↘ [38;5;9m 0.000%[39m
+0x Tyler   → Tyranny      7.776% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.45, 2: 2.41, 3: 3.94, 4: 5.87, 5: 8.12, 6: 10.65, 7: 13.39, 8: 16.70, 9: 19.23}
 -> E[I]/bits: 1.91 = H
@@ -128,7 +128,7 @@ MN#2 E02 -- blackout -500,000$
 1997186 left -> 20.9295 bits left
 
 MB#3 E03
-Ozzy → Carolina 
+Ozzy → Carolina     9.432% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.14, 1: 3.41}
 -> E[I]/bits: 0.45 = H
@@ -151,17 +151,17 @@ Ozzy → Carolina
 1808808 left -> 20.7866 bits left
 
 MN#3 E03
-0x Andre   → Kari     
-0x Derrick → Hannah   
-1x Edward  → Kam      
-0x Hayden  → Carolina 
-1x Jaylan  → Casandra 
-0x Joey    → Kathryn  
-0x Michael → Taylor   
-0x Mike    → Alicia   
-1x Osvaldo → Tyranny  
-1x Ozzy    → Gianna   
-0x Tyler   → Shannon  
+0x Andre   → Kari        10.715% ↗ 34.125%
+0x Derrick → Hannah       8.569% ↗ 31.829%
+1x Edward  → Kam         21.192% ↗ 40.506%
+0x Hayden  → Carolina    11.647% ↗ 37.167%
+1x Jaylan  → Casandra    21.210% ↗ 40.338%
+0x Joey    → Kathryn      9.705% ↗ 30.892%
+0x Michael → Taylor       8.162% ↗ 31.210%
+0x Mike    → Alicia      10.716% ↗ 34.091%
+1x Osvaldo → Tyranny     21.207% ↗ 40.559%
+1x Ozzy    → Gianna      26.634% ↗ [38;5;11m49.036%[39m
+0x Tyler   → Shannon      7.917% ↗ 30.247%
 ---
 -> I[l]/bits: {0: 2.57, 1: 1.49, 2: 1.82, 3: 2.89, 4: 4.48, 5: 6.49, 6: 8.86, 7: 11.57, 8: 14.98, 9: 18.46}
 -> E[I]/bits: 2.16 = H
@@ -184,7 +184,7 @@ MN#3 E03
 80795 left -> 16.302 bits left
 
 MB#4 E04
-Osvaldo → Tyranny 
+Osvaldo → Tyranny    40.559% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.75, 1: 1.30}
 -> E[I]/bits: 0.97 = H
@@ -207,17 +207,17 @@ Osvaldo → Tyranny
 48025 left -> 15.5515 bits left
 
 MN#4 E04
-0x Andre   → Casandra 
-0x Derrick → Gianna   
-0x Edward  → Alicia   
-1x Hayden  → Carolina 
-0x Jaylan  → Tyranny  
-1x Joey    → Kathryn  
-0x Michael → Kari     
-0x Mike    → Kam      
-0x Osvaldo → Taylor   
-0x Ozzy    → Hannah   
-1x Tyler   → Shannon  
+0x Andre   → Casandra     6.041% ↗ 25.738%
+0x Derrick → Gianna       5.049% ↗ 21.577%
+0x Edward  → Alicia       6.272% ↗ 25.351%
+1x Hayden  → Carolina    37.695% ↗ [38;5;14m70.827%[39m
+0x Jaylan  → Tyranny      9.014% ↗ 28.157%
+1x Joey    → Kathryn     32.200% ↗ [38;5;14m61.780%[39m
+0x Michael → Kari         7.598% ↗ 30.334%
+0x Mike    → Kam          4.691% ↗ 16.207%
+0x Osvaldo → Taylor      12.421% ↗ 38.655%
+0x Ozzy    → Hannah       5.126% ↗ 19.400%
+1x Tyler   → Shannon     32.069% ↗ [38;5;14m61.974%[39m
 ---
 -> I[l]/bits: {0: 2.70, 1: 1.45, 2: 1.77, 3: 2.91, 4: 4.54, 5: 6.71, 6: 9.44, 7: 12.55, 8: 14.55}
 -> E[I]/bits: 2.13 = H
@@ -240,7 +240,7 @@ MN#4 E04
 2067 left -> 11.0133 bits left
 
 MB#5 E05
-Edward → Kam 
+Edward → Kam[38;5;11m    46.009%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.89, 1: 1.12}
 -> E[I]/bits: 1.00 = H
@@ -263,17 +263,17 @@ Edward → Kam
 951 left -> 9.8933 bits left
 
 MN#5 E05
-0x Andre   → Taylor   
-0x Derrick → Tyranny  
-2x Edward  → Kam      
-2x Hayden  → Carolina 
-2x Jaylan  → Casandra 
-2x Joey    → Kathryn  
-1x Michael → Kari     
-1x Mike    → Alicia   
-0x Osvaldo → Gianna   
-1x Ozzy    → Hannah   
-2x Tyler   → Shannon  
+0x Andre   → Taylor       8.728%  ↘ [38;5;9m 0.000%[39m
+0x Derrick → Tyranny     12.408%  ↘  4.808%
+2x Edward  → Kam     [38;5;10m    100.000%[39m          
+2x Hayden  → Carolina[38;5;14m    68.139% [39m ↘ [38;5;14m66.987%[39m
+2x Jaylan  → Casandra    26.393%  ↘ 14.103%
+2x Joey    → Kathryn [38;5;14m    60.252% [39m ↗ [38;5;14m61.859%[39m
+1x Michael → Kari        39.012%  ↘ 33.013%
+1x Mike    → Alicia      25.657%  ↗ 33.654%
+0x Osvaldo → Gianna       7.992%  ↘  2.885%
+1x Ozzy    → Hannah      28.812%  ↘ 25.641%
+2x Tyler   → Shannon [38;5;14m    57.518% [39m ↘ [38;5;14m57.051%[39m
 ---
 -> I[l]/bits: {2: 5.89, 3: 2.00, 4: 1.61, 5: 2.00, 6: 3.28, 7: 4.72, 8: 6.43, 9: 8.31}
 -> E[I]/bits: 2.24 = H
@@ -296,7 +296,7 @@ MN#5 E05
 312 left -> 8.2854 bits left
 
 MB#6 E06
-Ozzy → Hannah 
+Ozzy → Hannah    25.641% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.43, 1: 1.96}
 -> E[I]/bits: 0.82 = H
@@ -319,17 +319,17 @@ Ozzy → Hannah
 232 left -> 7.858 bits left
 
 MN#6 E06
-1x Andre   → Taylor   
-1x Derrick → Tyranny  
-3x Edward  → Kam      
-3x Hayden  → Carolina 
-0x Jaylan  → Hannah   
-3x Joey    → Kathryn  
-2x Michael → Kari     
-2x Mike    → Alicia   
-1x Osvaldo → Gianna   
-0x Ozzy    → Casandra 
-3x Tyler   → Shannon  
+1x Andre   → Taylor  [38;5;9m     0.000% [39m          
+1x Derrick → Tyranny      6.466%  ↗  7.273%
+3x Edward  → Kam     [38;5;10m    100.000%[39m          
+3x Hayden  → Carolina[38;5;14m    68.103% [39m ↘ [38;5;14m67.879%[39m
+0x Jaylan  → Hannah      10.345%  ↘ [38;5;9m 0.000%[39m
+3x Joey    → Kathryn [38;5;14m    67.672% [39m ↘ [38;5;14m66.061%[39m
+2x Michael → Kari        44.397%  ↗ [38;5;11m50.909%[39m
+2x Mike    → Alicia      37.500%  ↗ 43.030%
+1x Osvaldo → Gianna       3.879%  ↗  5.455%
+0x Ozzy    → Casandra     8.190%  ↘ [38;5;9m 0.000%[39m
+3x Tyler   → Shannon [38;5;14m    61.638% [39m ↘ [38;5;14m59.394%[39m
 ---
 -> I[l]/bits: {3: 3.27, 4: 0.49, 5: 2.43}
 -> E[I]/bits: 1.14 = H
@@ -352,7 +352,7 @@ MN#6 E06
 165 left -> 7.3663 bits left
 
 MB#7 E07
-Andre → Taylor 
+Andre → Taylor[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -375,17 +375,17 @@ Andre → Taylor
 165 left -> 7.3663 bits left
 
 MN#7 E07
-1x Andre   → Casandra 
-0x Derrick → Kari     
-4x Edward  → Kam      
-4x Hayden  → Carolina 
-1x Jaylan  → Tyranny  
-4x Joey    → Kathryn  
-1x Michael → Hannah   
-0x Mike    → Gianna   
-1x Osvaldo → Taylor   
-0x Ozzy    → Alicia   
-4x Tyler   → Shannon  
+1x Andre   → Casandra[38;5;14m    56.970% [39m ↘ [38;5;11m52.381%[39m
+0x Derrick → Kari         5.455%  ↘ [38;5;9m 0.000%[39m
+4x Edward  → Kam     [38;5;10m    100.000%[39m          
+4x Hayden  → Carolina[38;5;14m    67.879% [39m ↘ [38;5;11m54.762%[39m
+1x Jaylan  → Tyranny     40.606%  ↗ 44.048%
+4x Joey    → Kathryn [38;5;14m    66.061% [39m ↘ [38;5;14m59.524%[39m
+1x Michael → Hannah      29.091%  ↘ [38;5;9m 0.000%[39m
+0x Mike    → Gianna       4.242%  ↘ [38;5;9m 0.000%[39m
+1x Osvaldo → Taylor      41.818%  ↘ 38.095%
+0x Ozzy    → Alicia       8.485%  ↘ [38;5;9m 0.000%[39m
+4x Tyler   → Shannon [38;5;14m    59.394% [39m ↘ [38;5;11m51.190%[39m
 ---
 -> I[l]/bits: {4: 0.97, 5: 1.84, 6: 2.91, 7: 4.04, 8: 5.78}
 -> E[I]/bits: 1.75 = H
@@ -408,7 +408,7 @@ MN#7 E07
 84 left -> 6.3923 bits left
 
 MB#8 E08
-Hayden → Carolina 
+Hayden → Carolina[38;5;11m    54.762%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.14, 1: 0.87}
 -> E[I]/bits: 0.99 = H
@@ -431,17 +431,17 @@ Hayden → Carolina
 46 left -> 5.5236 bits left
 
 MN#8 E08
-0x Andre   → Gianna   
-0x Derrick → Shannon  
-5x Edward  → Kam      
-5x Hayden  → Carolina 
-2x Jaylan  → Tyranny  
-0x Joey    → Casandra 
-0x Michael → Kathryn  
-1x Mike    → Kari     
-2x Osvaldo → Taylor   
-1x Ozzy    → Alicia   
-0x Tyler   → Hannah   
+0x Andre   → Gianna  [38;5;9m     0.000% [39m          
+0x Derrick → Shannon     17.391%  ↗ [38;5;14m75.000%[39m
+5x Edward  → Kam     [38;5;10m    100.000%[39m          
+5x Hayden  → Carolina[38;5;10m    100.000%[39m          
+2x Jaylan  → Tyranny     43.478%  ↗ [38;5;14m75.000%[39m
+0x Joey    → Casandra     4.348%  ↘ [38;5;9m 0.000%[39m
+0x Michael → Kathryn [38;5;9m     0.000% [39m          
+1x Mike    → Kari         2.174%  ↘ [38;5;9m 0.000%[39m
+2x Osvaldo → Taylor      28.261%  ↗ [38;5;14m75.000%[39m
+1x Ozzy    → Alicia  [38;5;9m     0.000% [39m          
+0x Tyler   → Hannah      23.913%  ↗ [38;5;14m75.000%[39m
 ---
 -> I[l]/bits: {2: 1.94, 3: 1.20, 4: 2.35, 5: 3.52, 7: 5.52}
 -> E[I]/bits: 1.92 = H
@@ -464,7 +464,7 @@ MN#8 E08
 4 left -> 2 bits left
 
 MB#9 E09 -- sold for +150,000$
-Derrick → Tyranny 
+Derrick → Tyranny[38;5;9m     0.000%[39m
 ---
 Nothing => I = 0 bits
 ╭─────────┬────────┬──────────┬──────────┬────────┬────────┬─────┬──────┬─────────┬─────────┬────────┬─────────╮
@@ -485,17 +485,17 @@ Nothing => I = 0 bits
 4 left -> 2 bits left
 
 MN#9 E09
-0x Andre   → Kathryn  
-0x Derrick → Casandra 
-6x Edward  → Kam      
-6x Hayden  → Carolina 
-3x Jaylan  → Tyranny  
-0x Joey    → Hannah   
-3x Michael → Kari     
-3x Mike    → Alicia   
-3x Osvaldo → Taylor   
-2x Ozzy    → Gianna   
-5x Tyler   → Shannon  
+0x Andre   → Kathryn [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Derrick → Casandra    25.000%  ↗ [38;5;11m50.000% [39m
+6x Edward  → Kam     [38;5;10m    100.000%[39m           
+6x Hayden  → Carolina[38;5;10m    100.000%[39m           
+3x Jaylan  → Tyranny [38;5;14m    75.000% [39m ↗ [38;5;10m100.000%[39m
+0x Joey    → Hannah      25.000%  ↗ [38;5;11m50.000% [39m
+3x Michael → Kari    [38;5;10m    100.000%[39m           
+3x Mike    → Alicia  [38;5;10m    100.000%[39m           
+3x Osvaldo → Taylor  [38;5;14m    75.000% [39m ↗ [38;5;10m100.000%[39m
+2x Ozzy    → Gianna  [38;5;10m    100.000%[39m           
+5x Tyler   → Shannon [38;5;9m     0.000% [39m           
 ---
 -> I[l]/bits: {6: 1.00, 9: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -518,7 +518,7 @@ MN#9 E09
 2 left -> 1 bits left
 
 MB#10 E10 -- sold +150,000$
-Joey → Casandra 
+Joey → Casandra[38;5;9m     0.000%[39m
 ---
 Nothing => I = 0 bits
 ╭─────────┬────────┬──────────┬──────────┬────────┬────────┬─────┬──────┬─────────┬─────────┬────────┬─────────╮
@@ -539,17 +539,17 @@ Nothing => I = 0 bits
 2 left -> 1 bits left
 
 MN#10 E10
-1x Andre   → Kathryn  
-1x Derrick → Shannon  
-7x Edward  → Kam      
-7x Hayden  → Carolina 
-4x Jaylan  → Tyranny  
-1x Joey    → Hannah   
-4x Michael → Kari     
-4x Mike    → Alicia   
-4x Osvaldo → Taylor   
-3x Ozzy    → Gianna   
-0x Tyler   → Casandra 
+1x Andre   → Kathryn [38;5;10m    100.000%[39m          
+1x Derrick → Shannon [38;5;11m    50.000% [39m ↘ [38;5;9m 0.000%[39m
+7x Edward  → Kam     [38;5;10m    100.000%[39m          
+7x Hayden  → Carolina[38;5;10m    100.000%[39m          
+4x Jaylan  → Tyranny [38;5;10m    100.000%[39m          
+1x Joey    → Hannah  [38;5;11m    50.000% [39m ↘ [38;5;9m 0.000%[39m
+4x Michael → Kari    [38;5;10m    100.000%[39m          
+4x Mike    → Alicia  [38;5;10m    100.000%[39m          
+4x Osvaldo → Taylor  [38;5;10m    100.000%[39m          
+3x Ozzy    → Gianna  [38;5;10m    100.000%[39m          
+0x Tyler   → Casandra[38;5;11m    50.000% [39m ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {8: 1.00, 11: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -621,4 +621,4 @@ MN#10 E10
 ╰───────┴───┴──────────┴──────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 39916800  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 3.45s
+Ran in 3.62s

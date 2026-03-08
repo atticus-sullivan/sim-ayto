@@ -15,7 +15,7 @@
 36288000 left -> 25.113 bits left
 
 MB#1 E02
-Ivana → Mo 
+Ivana → Mo    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 100.0%/32659200: Edin | 10.0%/3265920: Rene | 10.0%/3265920: Mo | 
 top5 Pr[Dup]: 10.0%/3265920: Aline | 10.0%/3265920: Ivana | 10.0%/3265920: Kathi | 10.0%/3265920: Laura | 10.0%/3265920: Luisa
 
 MN#1 E03
-0x Aline    → Kevin   
-0x Ivana    → Juliano 
-0x Kathi    → Rene    
-0x Laura    → Ferhat  
-0x Luisa    → Axel    
-0x Madleine → Laurin  
-0x Melissa  → Dominic 
-0x Michelle → Mo      
-0x Nadine   → Elisha  
-0x Sabrina  → Aleks   
+0x Aline    → Kevin       9.877% ↘  9.722%
+0x Ivana    → Juliano    11.111%          
+0x Kathi    → Rene        9.877% ↘  9.722%
+0x Laura    → Ferhat      9.877% ↘  9.722%
+0x Luisa    → Axel        9.877% ↘  9.722%
+0x Madleine → Laurin      9.877% ↘  9.722%
+0x Melissa  → Dominic     9.877% ↘  9.722%
+0x Michelle → Mo         11.111%          
+0x Nadine   → Elisha      9.877% ↘  9.722%
+0x Sabrina  → Aleks       9.877% ↘  9.722%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 100.0%/12014640: Edin | 10.0%/1201464: Rene | 10.0%/1201464: Mo | 
 top5 Pr[Dup]: 10.0%/1201464: Aline | 10.0%/1201464: Ivana | 10.0%/1201464: Kathi | 10.0%/1201464: Laura | 10.0%/1201464: Luisa
 
 MB#2 E04
-Melissa → Dominic 
+Melissa → Dominic     9.722% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.36}
 -> E[I]/bits: 0.46 = H
@@ -105,16 +105,16 @@ top5 Pr[Dup]: 100.0%/10846550: Edin | 10.0%/1084655: Rene | 10.0%/1084655: Mo | 
 top5 Pr[Dup]: 10.0%/1084655: Aline | 10.0%/1084655: Ivana | 10.0%/1084655: Kathi | 10.0%/1084655: Laura | 10.0%/1084655: Luisa
 
 MN#2 E04
-0x Aline    → Ferhat  
-0x Ivana    → Elisha  
-0x Kathi    → Kevin   
-0x Laura    → Juliano 
-0x Luisa    → Rene    
-0x Madleine → Axel    
-0x Melissa  → Laurin  
-1x Michelle → Mo      
-0x Nadine   → Aleks   
-0x Sabrina  → Dominic 
+0x Aline    → Ferhat      9.650% ↗ 18.747%
+0x Ivana    → Elisha     10.769% ↗ 20.961%
+0x Kathi    → Kevin       9.650% ↗ 18.745%
+0x Laura    → Juliano     9.597% ↗ 18.635%
+0x Luisa    → Rene        9.650% ↗ 18.744%
+0x Madleine → Axel        9.650% ↗ 18.733%
+0x Melissa  → Laurin     10.965% ↗ 21.348%
+1x Michelle → Mo         12.308% ↗ 24.006%
+0x Nadine   → Aleks       9.650% ↗ 18.729%
+0x Sabrina  → Dominic    10.965% ↗ 21.351%
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.45, 2: 2.42, 3: 3.94, 4: 5.85, 5: 8.04, 6: 10.40, 7: 13.13, 8: 15.29, 10: 20.05}
 -> E[I]/bits: 1.91 = H
@@ -141,7 +141,7 @@ top5 Pr[Dup]: 100.0%/2029330: Edin | 10.0%/202933: Rene | 10.0%/202933: Mo | 10.
 top5 Pr[Dup]: 10.0%/202933: Aline | 10.0%/202933: Ivana | 10.0%/202933: Kathi | 10.0%/202933: Laura | 10.0%/202933: Luisa
 
 MB#3 E06
-Aline → Mo 
+Aline → Mo     9.369% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.14, 1: 3.42}
 -> E[I]/bits: 0.45 = H
@@ -168,16 +168,16 @@ top5 Pr[Dup]: 100.0%/171108: Edin | 11.1%/19012: Rene | 11.1%/19012: Laurin | 11
 top5 Pr[Dup]: 11.1%/19012: Ivana | 11.1%/19012: Kathi | 11.1%/19012: Laura | 11.1%/19012: Luisa | 11.1%/19012: Madleine
 
 MN#3 E06
-0x Aline    → Mo      
-1x Ivana    → Elisha  
-1x Kathi    → Kevin   
-1x Laura    → Juliano 
-1x Luisa    → Rene    
-1x Madleine → Axel    
-1x Melissa  → Laurin  
-0x Michelle → Ferhat  
-1x Nadine   → Aleks   
-1x Sabrina  → Dominic 
+0x Aline    → Mo     [38;5;10m    100.000%[39m          
+1x Ivana    → Elisha     23.648%  ↗ 23.708%
+1x Kathi    → Kevin      24.853%  ↗ 24.871%
+1x Laura    → Juliano    23.753%  ↘ 23.618%
+1x Luisa    → Rene       23.664%  ↗ 23.726%
+1x Madleine → Axel       23.638%  ↗ 23.696%
+1x Melissa  → Laurin     28.361%  ↘ 28.294%
+0x Michelle → Ferhat     12.255%  ↘ [38;5;9m 0.000%[39m
+1x Nadine   → Aleks      23.659%  ↗ 23.720%
+1x Sabrina  → Dominic    28.424%  ↘ 28.366%
 ---
 -> I[l]/bits: {3: 0.19, 4: 3.03}
 -> E[I]/bits: 0.54 = H
@@ -204,7 +204,7 @@ top5 Pr[Dup]: 100.0%/150138: Edin | 11.1%/16682: Rene | 11.1%/16682: Laurin | 11
 top5 Pr[Dup]: 11.1%/16682: Ivana | 11.1%/16682: Kathi | 11.1%/16682: Laura | 11.1%/16682: Luisa | 11.1%/16682: Madleine
 
 MB#4 E08
-Melissa → Laurin 
+Melissa → Laurin    28.294% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.48, 1: 1.82}
 -> E[I]/bits: 0.86 = H
@@ -231,16 +231,16 @@ top5 Pr[Dup]: 100.0%/37760: Edin | 12.5%/4720: Rene | 12.5%/4720: Kevin | 12.5%/
 top5 Pr[Dup]: 12.5%/4720: Ivana | 12.5%/4720: Kathi | 12.5%/4720: Laura | 12.5%/4720: Luisa | 12.5%/4720: Madleine
 
 MN#4 E08 -- Blackout
-1x Aline    → Mo      
-0x Ivana    → Axel    
-0x Kathi    → Juliano 
-0x Laura    → Kevin   
-2x Luisa    → Rene    
-0x Madleine → Ferhat  
-2x Melissa  → Laurin  
-0x Michelle → Elisha  
-0x Nadine   → Dominic 
-1x Sabrina  → Aleks   
+1x Aline    → Mo     [38;5;10m    100.000%[39m          
+0x Ivana    → Axel       11.017%  ↘ [38;5;9m 0.000%[39m
+0x Kathi    → Juliano    11.038%  ↘ [38;5;9m 0.000%[39m
+0x Laura    → Kevin      11.780%  ↘ [38;5;9m 0.000%[39m
+2x Luisa    → Rene       14.237%  ↘ [38;5;9m 0.000%[39m
+0x Madleine → Ferhat     14.131%  ↘ [38;5;9m 0.000%[39m
+2x Melissa  → Laurin [38;5;10m    100.000%[39m          
+0x Michelle → Elisha     14.216%  ↘ [38;5;9m 0.000%[39m
+0x Nadine   → Dominic    11.801%  ↘ [38;5;9m 0.000%[39m
+1x Sabrina  → Aleks      16.165%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {2: 1.48, 3: 1.46, 4: 2.45, 5: 3.87, 6: 5.70, 7: 7.96, 8: 9.20, 10: 12.20}
 -> E[I]/bits: 1.93 = H
@@ -267,7 +267,7 @@ top5 Pr[Dup]: 100.0%/13568: Edin | 12.5%/1696: Rene | 12.5%/1696: Kevin | 12.5%/
 top5 Pr[Dup]: 12.5%/1696: Ivana | 12.5%/1696: Kathi | 12.5%/1696: Laura | 12.5%/1696: Luisa | 12.5%/1696: Madleine
 
 MB#5 E10
-Ivana → Elisha 
+Ivana → Elisha    15.566% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.24, 1: 2.68}
 -> E[I]/bits: 0.62 = H
@@ -294,16 +294,16 @@ top5 Pr[Dup]: 100.0%/11456: Edin | 12.5%/1432: Rene | 12.5%/1432: Kevin | 12.5%/
 top5 Pr[Dup]: 12.5%/1432: Ivana | 12.5%/1432: Kathi | 12.5%/1432: Laura | 12.5%/1432: Luisa | 12.5%/1432: Madleine
 
 MN#5 E10
-2x Aline    → Mo      
-0x Ivana    → Dominic 
-2x Kathi    → Kevin   
-2x Laura    → Juliano 
-0x Luisa    → Ferhat  
-0x Madleine → Aleks   
-3x Melissa  → Laurin  
-0x Michelle → Axel    
-0x Nadine   → Rene    
-0x Sabrina  → Elisha  
+2x Aline    → Mo     [38;5;10m    100.000%[39m          
+0x Ivana    → Dominic    15.223%  ↗ 40.278%
+2x Kathi    → Kevin      20.391%  ↗ [38;5;11m46.528%[39m
+2x Laura    → Juliano    18.156%  ↗ 39.583%
+0x Luisa    → Ferhat     16.131%  ↗ 36.111%
+0x Madleine → Aleks      12.221%  ↗ 36.111%
+3x Melissa  → Laurin [38;5;10m    100.000%[39m          
+0x Michelle → Axel       16.899%  ↗ 34.722%
+0x Nadine   → Rene       11.243%  ↗ 27.778%
+0x Sabrina  → Elisha     16.341%  ↗ 38.889%
 ---
 -> I[l]/bits: {2: 1.81, 3: 1.50, 4: 2.17, 5: 3.31, 6: 4.99, 7: 7.48, 8: 8.90}
 -> E[I]/bits: 2.08 = H
@@ -330,7 +330,7 @@ top5 Pr[Dup]: 100.0%/1152: Edin | 12.5%/144: Rene | 12.5%/144: Kevin | 12.5%/144
 top5 Pr[Dup]: 12.5%/144: Ivana | 12.5%/144: Kathi | 12.5%/144: Laura | 12.5%/144: Luisa | 12.5%/144: Madleine
 
 MB#6 E12
-Michelle → Rene 
+Michelle → Rene    13.889% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.22, 1: 2.85}
 -> E[I]/bits: 0.58 = H
@@ -357,16 +357,16 @@ top5 Pr[Dup]: 100.0%/140: Edin | 14.3%/20: Kevin | 14.3%/20: Juliano | 14.3%/20:
 top5 Pr[Dup]: 14.3%/20: Ivana | 14.3%/20: Kathi | 14.3%/20: Laura | 14.3%/20: Luisa | 14.3%/20: Madleine
 
 MN#6 E12
-3x Aline    → Mo      
-1x Ivana    → Juliano 
-3x Kathi    → Kevin   
-0x Laura    → Edin    
-1x Luisa    → Axel    
-1x Madleine → Aleks   
-4x Melissa  → Laurin  
-0x Michelle → Rene    
-1x Nadine   → Elisha  
-2x Sabrina  → Dominic 
+3x Aline    → Mo     [38;5;10m    100.000%[39m          
+1x Ivana    → Juliano    10.000%  ↘  8.000%
+3x Kathi    → Kevin  [38;5;14m    55.000% [39m ↘ 41.333%
+0x Laura    → Edin       14.286%  ↘  4.000%
+1x Luisa    → Axel       45.000%  ↘ 41.333%
+1x Madleine → Aleks  [38;5;14m    70.000% [39m ↗ [38;5;14m72.000%[39m
+4x Melissa  → Laurin [38;5;10m    100.000%[39m          
+0x Michelle → Rene   [38;5;10m    100.000%[39m          
+1x Nadine   → Elisha     30.000%  ↗ 33.333%
+2x Sabrina  → Dominic[38;5;9m     0.000% [39m          
 ---
 -> I[l]/bits: {4: 2.96, 5: 0.90, 6: 1.74, 7: 4.81}
 -> E[I]/bits: 1.56 = H
@@ -393,7 +393,7 @@ top5 Pr[Dup]: 100.0%/75: Edin | 16.0%/12: Kevin | 16.0%/12: Elisha | 16.0%/12: D
 top5 Pr[Dup]: 16.0%/12: Ivana | 16.0%/12: Kathi | 16.0%/12: Luisa | 16.0%/12: Madleine | 16.0%/12: Nadine
 
 MB#7 E14
-Ivana → Edin 
+Ivana → Edin    16.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.25, 1: 2.64}
 -> E[I]/bits: 0.63 = H
@@ -420,16 +420,16 @@ top5 Pr[Dup]: 100.0%/63: Edin | 19.0%/12: Elisha | 19.0%/12: Axel | 15.9%/10: Ke
 top5 Pr[Dup]: 19.0%/12: Kathi | 19.0%/12: Luisa | 19.0%/12: Madleine | 19.0%/12: Nadine | 19.0%/12: Sabrina
 
 MN#7 E14
-4x Aline    → Mo      
-0x Ivana    → Kevin   
-0x Kathi    → Elisha  
-3x Laura    → Juliano 
-2x Luisa    → Axel    
-2x Madleine → Aleks   
-5x Melissa  → Laurin  
-1x Michelle → Rene    
-0x Nadine   → Ferhat  
-3x Sabrina  → Dominic 
+4x Aline    → Mo     [38;5;10m    100.000%[39m          
+0x Ivana    → Kevin      15.873%  ↘ [38;5;9m 0.000%[39m
+0x Kathi    → Elisha     15.873%  ↘ [38;5;9m 0.000%[39m
+3x Laura    → Juliano[38;5;14m    58.730% [39m ↗ [38;5;14m66.667%[39m
+2x Luisa    → Axel       41.270%  ↘ 33.333%
+2x Madleine → Aleks  [38;5;14m    71.429% [39m ↘ [38;5;14m66.667%[39m
+5x Melissa  → Laurin [38;5;10m    100.000%[39m          
+1x Michelle → Rene   [38;5;10m    100.000%[39m          
+0x Nadine   → Ferhat     25.397%  ↗ 33.333%
+3x Sabrina  → Dominic[38;5;9m     0.000% [39m          
 ---
 -> I[l]/bits: {3: 2.52, 4: 2.52, 5: 2.07, 6: 2.52, 7: 3.66, 8: 2.66}
 -> E[I]/bits: 2.52 = H
@@ -456,7 +456,7 @@ top5 Pr[Dup]: 100.0%/15: Edin | 20.0%/3: Kevin | 20.0%/3: Ferhat | 20.0%/3: Elis
 top5 Pr[Dup]: 20.0%/3: Kathi | 20.0%/3: Luisa | 20.0%/3: Madleine | 20.0%/3: Nadine | 20.0%/3: Sabrina
 
 MB#8 E16
-Sabrina → Axel 
+Sabrina → Axel    33.333% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.58, 1: 1.58}
 -> E[I]/bits: 0.92 = H
@@ -483,16 +483,16 @@ top5 Pr[Dup]: 100.0%/10: Edin | 20.0%/2: Kevin | 20.0%/2: Ferhat | 20.0%/2: Elis
 top5 Pr[Dup]: 20.0%/2: Kathi | 20.0%/2: Luisa | 20.0%/2: Madleine | 20.0%/2: Nadine | 20.0%/2: Sabrina
 
 MN#8 E16
-5x Aline    → Mo      
-1x Ivana    → Kevin   
-0x Kathi    → Aleks   
-4x Laura    → Juliano 
-3x Luisa    → Axel    
-0x Madleine → Edin    
-6x Melissa  → Laurin  
-2x Michelle → Rene    
-1x Nadine   → Ferhat  
-4x Sabrina  → Dominic 
+5x Aline    → Mo     [38;5;10m    100.000%[39m           
+1x Ivana    → Kevin  [38;5;9m     0.000% [39m           
+0x Kathi    → Aleks  [38;5;9m     0.000% [39m           
+4x Laura    → Juliano[38;5;11m    50.000% [39m ↘ [38;5;9m 0.000% [39m
+3x Luisa    → Axel   [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Madleine → Edin       20.000%  ↗ [38;5;10m100.000%[39m
+6x Melissa  → Laurin [38;5;10m    100.000%[39m           
+2x Michelle → Rene   [38;5;10m    100.000%[39m           
+1x Nadine   → Ferhat [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+4x Sabrina  → Dominic[38;5;9m     0.000% [39m           
 ---
 -> I[l]/bits: {4: 1.32, 5: 1.00, 6: 3.32}
 -> E[I]/bits: 1.36 = H
@@ -519,7 +519,7 @@ top5 Pr[Dup]: 100.0%/1: Edin | 100.0%/1: Juliano / 200 %
 top5 Pr[Dup]: 100.0%/1: Madleine
 
 MB#9 E18
-Luisa → Ferhat 
+Luisa → Ferhat[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -546,16 +546,16 @@ top5 Pr[Dup]: 100.0%/1: Edin | 100.0%/1: Juliano / 200 %
 top5 Pr[Dup]: 100.0%/1: Madleine
 
 MN#9 E18
-6x Aline    → Mo      
-1x Ivana    → Dominic 
-1x Kathi    → Aleks   
-5x Laura    → Juliano 
-4x Luisa    → Axel    
-0x Madleine → Kevin   
-7x Melissa  → Laurin  
-3x Michelle → Rene    
-2x Nadine   → Ferhat  
-1x Sabrina  → Elisha  
+6x Aline    → Mo     [38;5;10m    100.000%[39m
+1x Ivana    → Dominic[38;5;10m    100.000%[39m
+1x Kathi    → Aleks  [38;5;9m     0.000% [39m
+5x Laura    → Juliano[38;5;9m     0.000% [39m
+4x Luisa    → Axel   [38;5;10m    100.000%[39m
+0x Madleine → Kevin  [38;5;9m     0.000% [39m
+7x Melissa  → Laurin [38;5;10m    100.000%[39m
+3x Michelle → Rene   [38;5;10m    100.000%[39m
+2x Nadine   → Ferhat [38;5;10m    100.000%[39m
+1x Sabrina  → Elisha [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -582,7 +582,7 @@ top5 Pr[Dup]: 100.0%/1: Edin | 100.0%/1: Juliano / 200 %
 top5 Pr[Dup]: 100.0%/1: Madleine
 
 MB#10 E20
-Kathi → Kevin 
+Kathi → Kevin[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -609,16 +609,16 @@ top5 Pr[Dup]: 100.0%/1: Edin | 100.0%/1: Juliano / 200 %
 top5 Pr[Dup]: 100.0%/1: Madleine
 
 MN#10 E20
-7x Aline    → Mo      
-2x Ivana    → Dominic 
-4x Kathi    → Kevin   
-0x Laura    → Aleks   
-5x Luisa    → Axel    
-1x Madleine → Edin    
-8x Melissa  → Laurin  
-4x Michelle → Rene    
-3x Nadine   → Ferhat  
-2x Sabrina  → Elisha  
+7x Aline    → Mo     [38;5;10m    100.000%[39m
+2x Ivana    → Dominic[38;5;10m    100.000%[39m
+4x Kathi    → Kevin  [38;5;10m    100.000%[39m
+0x Laura    → Aleks  [38;5;10m    100.000%[39m
+5x Luisa    → Axel   [38;5;10m    100.000%[39m
+1x Madleine → Edin   [38;5;10m    100.000%[39m
+8x Melissa  → Laurin [38;5;10m    100.000%[39m
+4x Michelle → Rene   [38;5;10m    100.000%[39m
+3x Nadine   → Ferhat [38;5;10m    100.000%[39m
+2x Sabrina  → Elisha [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -694,4 +694,4 @@ top5 Pr[Dup]: 100.0%/1: Madleine
 ╰───────┴────┴───────────┴───────────┴──────────┴───────────┴───────────┴─────────┴───────────┴───────────┴───────────┴──────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 4.82s
+Ran in 4.90s

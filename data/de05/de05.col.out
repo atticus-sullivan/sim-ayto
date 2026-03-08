@@ -15,7 +15,7 @@
 199584000 left -> 27.5724 bits left
 
 MB#1 E03
-Paulo → Jana 
+Paulo → Jana    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -41,16 +41,16 @@ top5 Pr[Trip]: 100.0%/179625600: Melanie | 18.2%/32659200: Lina | 18.2%/32659200
 top5 Pr[Trip]: 10.1%/18144000: Eti | 10.1%/18144000: Gerrit | 10.1%/18144000: Kevin | 10.1%/18144000: Martin | 10.1%/18144000: Paddy
 
 MN#1 E04
-0x Eti    → Lisa-Marie 
-0x Gerrit → Pia        
-0x Kevin  → Sina       
-0x Martin → Julia      
-0x Paddy  → Maja       
-0x Paulo  → Tais       
-0x Ryan   → Lina       
-0x Sandro → Edda       
-0x Sidar  → Jana       
-0x Wilson → Shelly     
+0x Eti    → Lisa-Marie     9.899% ↗ 19.562%
+0x Gerrit → Pia            9.899% ↗ 19.562%
+0x Kevin  → Sina           9.899% ↗ 19.562%
+0x Martin → Julia          9.899% ↗ 19.562%
+0x Paddy  → Maja           9.899% ↗ 19.562%
+0x Paulo  → Tais          10.909% ↗ 21.556%
+0x Ryan   → Lina           9.899% ↗ 19.562%
+0x Sandro → Edda           9.899% ↗ 19.562%
+0x Sidar  → Jana          11.111% ↗ 21.951%
+0x Wilson → Shelly         9.899% ↗ 19.562%
 ---
 -> I[l]/bits: {0: 1.47, 1: 1.43, 2: 2.41, 3: 4.01, 4: 6.04, 5: 8.43, 6: 11.12, 7: 14.09, 8: 17.26, 9: 20.94, 10: 24.10}
 -> E[I]/bits: 1.89 = H
@@ -76,7 +76,7 @@ top5 Pr[Trip]: 100.0%/33752266: Melanie | 18.2%/6151015: Lina | 18.2%/6151015: M
 top5 Pr[Trip]: 10.2%/3441233: Sidar | 10.1%/3400906: Eti | 10.1%/3400906: Gerrit | 10.1%/3400906: Kevin | 10.1%/3400906: Martin
 
 MB#2 E05
-Ryan → Lina 
+Ryan → Lina    19.562% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.31, 1: 2.35}
 -> E[I]/bits: 0.71 = H
@@ -102,16 +102,16 @@ top5 Pr[Trip]: 100.0%/27149771: Melanie | 18.2%/4951140: Maja | 18.2%/4951140: E
 top5 Pr[Trip]: 10.4%/2832157: Sidar | 10.3%/2793949: Eti | 10.3%/2793949: Gerrit | 10.3%/2793949: Kevin | 10.3%/2793949: Martin
 
 MN#2 E06
-0x Eti    → Afra       
-0x Gerrit → Tais       
-1x Kevin  → Sina       
-0x Martin → Lina       
-0x Paddy  → Shelly     
-0x Paulo  → Lisa-Marie 
-0x Ryan   → Pia        
-1x Sandro → Edda       
-1x Sidar  → Jana       
-0x Wilson → Maja       
+0x Eti    → Afra           9.719% ↗ 14.768%
+0x Gerrit → Tais           8.239% ↗ 12.518%
+1x Kevin  → Sina          21.702% ↗ 32.195%
+0x Martin → Lina          11.029% ↗ 16.834%
+0x Paddy  → Shelly         8.407% ↗ 12.789%
+0x Paulo  → Lisa-Marie     9.024% ↗ 13.748%
+0x Ryan   → Pia           10.591% ↗ 16.199%
+1x Sandro → Edda          21.702% ↗ 32.195%
+1x Sidar  → Jana          24.257% ↗ 35.966%
+0x Wilson → Maja           8.407% ↗ 12.789%
 ---
 -> I[l]/bits: {0: 2.07, 1: 1.42, 2: 2.01, 3: 3.31, 4: 5.11, 5: 7.29, 6: 9.80, 7: 12.64, 8: 15.83, 9: 19.99}
 -> E[I]/bits: 2.07 = H
@@ -137,7 +137,7 @@ top5 Pr[Trip]: 100.0%/6755599: Melanie | 18.3%/1239108: Maja | 18.3%/1239108: Sh
 top5 Pr[Trip]: 11.2%/756248: Sidar | 10.9%/738990: Kevin | 10.9%/738990: Sandro | 10.1%/684568: Martin | 9.9%/671388: Eti
 
 MB#3 E06
-Kevin → Maja 
+Kevin → Maja     7.894% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.12, 1: 3.66}
 -> E[I]/bits: 0.40 = H
@@ -163,7 +163,7 @@ top5 Pr[Trip]: 100.0%/6222309: Melanie | 18.4%/1147932: Shelly | 18.4%/1141872: 
 top5 Pr[Trip]: 11.2%/699521: Sidar | 11.0%/684108: Sandro | 10.2%/635092: Martin | 10.1%/630560: Kevin | 10.0%/623393: Eti
 
 MB#3.1 E07 -- wegen Triple-Match
-Eti → Melanie 
+Eti → Melanie    10.019% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -189,16 +189,16 @@ top5 Pr[Trip]: 100.0%/5598916: Melanie | 18.7%/1047912: Edda | 18.7%/1047050: Sh
 top5 Pr[Trip]: 12.5%/699521: Sidar | 12.2%/684108: Sandro | 11.3%/635092: Martin | 11.3%/630560: Kevin | 11.1%/622674: Paddy
 
 MN#3 E08
-0x Eti    → Maja       
-1x Gerrit → Tais       
-0x Kevin  → Melanie    
-0x Martin → Lisa-Marie 
-0x Paddy  → Julia      
-0x Paulo  → Edda       
-0x Ryan   → Jana       
-0x Sandro → Sina       
-0x Sidar  → Afra       
-1x Wilson → Shelly     
+0x Eti    → Maja           8.983% ↗ 36.306%
+1x Gerrit → Tais          12.508% ↗ [38;5;14m60.714%[39m
+0x Kevin  → Melanie       11.262% ↗ 30.122%
+0x Martin → Lisa-Marie     8.963% ↗ 34.456%
+0x Paddy  → Julia          9.282% ↗ 35.116%
+0x Paulo  → Edda           8.258% ↗ 35.117%
+0x Ryan   → Jana           9.823% ↗ 38.324%
+0x Sandro → Sina           6.368% ↗ 23.779%
+0x Sidar  → Afra           8.408% ↗ 33.975%
+1x Wilson → Shelly        16.008% ↗ [38;5;14m72.091%[39m
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.42, 2: 2.44, 3: 4.05, 4: 6.07, 5: 8.40, 6: 11.03, 7: 14.01, 8: 17.51, 9: 21.42}
 -> E[I]/bits: 1.88 = H
@@ -224,7 +224,7 @@ top5 Pr[Trip]: 100.0%/83141: Melanie | 27.1%/22525: Sina | 19.8%/16458: Pia | 19
 top5 Pr[Trip]: 30.1%/25044: Kevin | 10.7%/8924: Wilson | 10.5%/8692: Gerrit | 9.2%/7650: Sidar | 8.7%/7196: Sandro
 
 MB#4 E09
-Wilson → Shelly 
+Wilson → Shelly[38;5;14m    72.091%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.84, 1: 0.47}
 -> E[I]/bits: 0.85 = H
@@ -250,16 +250,16 @@ top5 Pr[Trip]: 100.0%/51701: Melanie | 25.7%/13277: Sina | 21.1%/10914: Lisa-Mar
 top5 Pr[Trip]: 28.0%/14451: Kevin | 12.4%/6392: Gerrit | 11.1%/5760: Sidar | 10.7%/5535: Sandro | 10.3%/5307: Martin
 
 MN#4 E10
-1x Eti    → Afra       
-2x Gerrit → Tais       
-2x Kevin  → Sina       
-1x Martin → Julia      
-0x Paddy  → Lina       
-1x Paulo  → Lisa-Marie 
-0x Ryan   → Edda       
-0x Sandro → Pia        
-2x Sidar  → Jana       
-2x Wilson → Shelly     
+1x Eti    → Afra          10.311%  ↗ 12.981%
+2x Gerrit → Tais      [38;5;14m    63.819% [39m ↗ [38;5;14m74.774%[39m
+2x Kevin  → Sina          32.852%  ↗ 42.909%
+1x Martin → Julia          6.416%  ↘  6.096%
+0x Paddy  → Lina          12.133%  ↘ 10.636%
+1x Paulo  → Lisa-Marie    12.640%  ↗ 13.598%
+0x Ryan   → Edda           8.013%  ↘  3.213%
+0x Sandro → Pia           10.127%  ↘  6.420%
+2x Sidar  → Jana          22.843%  ↗ 29.374%
+2x Wilson → Shelly    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {1: 4.29, 2: 1.45, 3: 1.43, 4: 2.54, 5: 4.74, 6: 8.01, 7: 12.66}
 -> E[I]/bits: 1.93 = H
@@ -285,7 +285,7 @@ top5 Pr[Trip]: 100.0%/19143: Melanie | 26.7%/5115: Sina | 21.6%/4144: Edda | 21.
 top5 Pr[Trip]: 29.3%/5608: Kevin | 13.7%/2621: Gerrit | 12.0%/2290: Sidar | 9.6%/1835: Paulo | 9.5%/1823: Martin
 
 MB#5 E10 -- Trippelmatch
-Gerrit → Tais 
+Gerrit → Tais[38;5;14m    74.774%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 3.96, 1: 0.10}
 -> E[I]/bits: 0.34 = H
@@ -311,16 +311,16 @@ top5 Pr[Trip]: 100.0%/291: Melanie | 100.0%/291: Pia | 100.0%/291: Tais
 top5 Pr[Trip]: 100.0%/291: Gerrit
 
 MN#5 E12
-1x Eti    → Maja       
-3x Gerrit → Tais       
-0x Kevin  → Julia      
-1x Martin → Lisa-Marie 
-1x Paddy  → Lina       
-1x Paulo  → Edda       
-1x Ryan   → Jana       
-1x Sandro → Sina       
-1x Sidar  → Afra       
-3x Wilson → Shelly     
+1x Eti    → Maja          24.399%  ↗ 34.783%
+3x Gerrit → Tais      [38;5;10m    100.000%[39m          
+0x Kevin  → Julia         15.808%  ↘ [38;5;9m 0.000%[39m
+1x Martin → Lisa-Marie    17.869%  ↗ 27.826%
+1x Paddy  → Lina      [38;5;9m     0.000% [39m          
+1x Paulo  → Edda          18.557%  ↗ 20.000%
+1x Ryan   → Jana          42.268%  ↗ [38;5;11m47.826%[39m
+1x Sandro → Sina          33.333%  ↗ [38;5;11m46.957%[39m
+1x Sidar  → Afra          18.900%  ↗ 22.609%
+3x Wilson → Shelly    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {3: 1.16, 4: 1.34, 5: 2.66}
 -> E[I]/bits: 1.47 = H
@@ -346,7 +346,7 @@ top5 Pr[Trip]: 100.0%/115: Melanie | 100.0%/115: Pia | 100.0%/115: Tais
 top5 Pr[Trip]: 100.0%/115: Gerrit
 
 MB#6 E13
-Sandro → Sina 
+Sandro → Sina[38;5;11m    46.957%[39m ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.91, 1: 1.09}
 -> E[I]/bits: 1.00 = H
@@ -372,16 +372,16 @@ top5 Pr[Trip]: 100.0%/61: Melanie | 100.0%/61: Pia | 100.0%/61: Tais
 top5 Pr[Trip]: 100.0%/61: Gerrit
 
 MN#6 E14
-2x Eti    → Maja       
-4x Gerrit → Tais       
-0x Kevin  → Lina       
-2x Martin → Lisa-Marie 
-0x Paddy  → Edda       
-0x Paulo  → Sina       
-2x Ryan   → Jana       
-0x Sandro → Afra       
-0x Sidar  → Julia      
-4x Wilson → Shelly     
+2x Eti    → Maja          42.623%  ↗ [38;5;11m47.368%[39m
+4x Gerrit → Tais      [38;5;10m    100.000%[39m          
+0x Kevin  → Lina      [38;5;11m    50.820% [39m ↗ [38;5;14m68.421%[39m
+2x Martin → Lisa-Marie    36.066%  ↘ 31.579%
+0x Paddy  → Edda          21.311%  ↗ 26.316%
+0x Paulo  → Sina           6.557%  ↘ [38;5;9m 0.000%[39m
+2x Ryan   → Jana      [38;5;14m    63.934% [39m ↗ [38;5;14m78.947%[39m
+0x Sandro → Afra           3.279%  ↘ [38;5;9m 0.000%[39m
+0x Sidar  → Julia         24.590%  ↗ [38;5;11m47.368%[39m
+4x Wilson → Shelly    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {3: 2.47, 4: 1.41, 5: 1.68, 6: 3.93, 7: 4.93, 8: 4.93}
 -> E[I]/bits: 2.08 = H
@@ -407,7 +407,7 @@ top5 Pr[Trip]: 100.0%/19: Melanie | 100.0%/19: Pia | 100.0%/19: Tais
 top5 Pr[Trip]: 100.0%/19: Gerrit
 
 MB#7 E15
-Paulo → Julia 
+Paulo → Julia     5.263% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.08, 1: 4.25}
 -> E[I]/bits: 0.30 = H
@@ -433,16 +433,16 @@ top5 Pr[Trip]: 100.0%/18: Melanie | 100.0%/18: Pia | 100.0%/18: Tais
 top5 Pr[Trip]: 100.0%/18: Gerrit
 
 MN#7 E16
-3x Eti    → Maja       
-5x Gerrit → Tais       
-1x Kevin  → Lina       
-0x Martin → Afra       
-0x Paddy  → Jana       
-1x Paulo  → Sina       
-1x Ryan   → Edda       
-0x Sandro → Julia      
-0x Sidar  → Lisa-Marie 
-5x Wilson → Shelly     
+3x Eti    → Maja      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+5x Gerrit → Tais      [38;5;10m    100.000%[39m           
+1x Kevin  → Lina      [38;5;14m    66.667% [39m ↗ [38;5;10m100.000%[39m
+0x Martin → Afra          11.111%  ↘ [38;5;9m 0.000% [39m
+0x Paddy  → Jana           5.556%  ↘ [38;5;9m 0.000% [39m
+1x Paulo  → Sina      [38;5;9m     0.000% [39m           
+1x Ryan   → Edda      [38;5;9m     0.000% [39m           
+0x Sandro → Julia         38.889%  ↗ [38;5;10m100.000%[39m
+0x Sidar  → Lisa-Marie[38;5;9m     0.000% [39m           
+5x Wilson → Shelly    [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {2: 3.17, 3: 1.58, 4: 1.58, 5: 2.58, 6: 4.17}
 -> E[I]/bits: 2.07 = H
@@ -468,7 +468,7 @@ top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#8 E16 -- verkauft
-Eti → Maja 
+Eti → Maja[38;5;10m    100.000%[39m
 ---
 Nothing => I = 0 bits
 ╭────────┬────────┬──────┬────────┬───────┬─────┬────────────┬────────┬────────┬────────┬──────┬──────┬─────────╮
@@ -492,16 +492,16 @@ top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#8 E17
-2x Eti    → Afra       
-6x Gerrit → Tais       
-2x Kevin  → Lina       
-3x Martin → Lisa-Marie 
-1x Paddy  → Jana       
-2x Paulo  → Sina       
-2x Ryan   → Edda       
-1x Sandro → Julia      
-0x Sidar  → Maja       
-6x Wilson → Shelly     
+2x Eti    → Afra      [38;5;9m     0.000% [39m
+6x Gerrit → Tais      [38;5;10m    100.000%[39m
+2x Kevin  → Lina      [38;5;10m    100.000%[39m
+3x Martin → Lisa-Marie[38;5;9m     0.000% [39m
+1x Paddy  → Jana      [38;5;9m     0.000% [39m
+2x Paulo  → Sina      [38;5;9m     0.000% [39m
+2x Ryan   → Edda      [38;5;9m     0.000% [39m
+1x Sandro → Julia     [38;5;10m    100.000%[39m
+0x Sidar  → Maja      [38;5;9m     0.000% [39m
+6x Wilson → Shelly    [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {4: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -527,7 +527,7 @@ top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#9 E18
-Sandro → Afra 
+Sandro → Afra[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -553,16 +553,16 @@ top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#9 E19
-4x Eti    → Maja       
-7x Gerrit → Tais       
-3x Kevin  → Lina       
-4x Martin → Lisa-Marie 
-0x Paddy  → Sina       
-2x Paulo  → Edda       
-3x Ryan   → Jana       
-2x Sandro → Julia      
-2x Sidar  → Afra       
-7x Wilson → Shelly     
+4x Eti    → Maja      [38;5;10m    100.000%[39m
+7x Gerrit → Tais      [38;5;10m    100.000%[39m
+3x Kevin  → Lina      [38;5;10m    100.000%[39m
+4x Martin → Lisa-Marie[38;5;9m     0.000% [39m
+0x Paddy  → Sina      [38;5;9m     0.000% [39m
+2x Paulo  → Edda      [38;5;9m     0.000% [39m
+3x Ryan   → Jana      [38;5;14m    66.667% [39m
+2x Sandro → Julia     [38;5;10m    100.000%[39m
+2x Sidar  → Afra          33.333% 
+7x Wilson → Shelly    [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {6: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -588,7 +588,7 @@ top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MB#10 E20
-Kevin → Lina 
+Kevin → Lina[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -614,16 +614,16 @@ top5 Pr[Trip]: 100.0%/3: Melanie | 100.0%/3: Pia | 100.0%/3: Tais
 top5 Pr[Trip]: 100.0%/3: Gerrit
 
 MN#10 E20
-5x Eti    → Maja       
-8x Gerrit → Tais       
-4x Kevin  → Lina       
-1x Martin → Afra       
-1x Paddy  → Edda       
-2x Paulo  → Lisa-Marie 
-4x Ryan   → Jana       
-3x Sandro → Julia      
-0x Sidar  → Sina       
-8x Wilson → Shelly     
+5x Eti    → Maja      [38;5;10m    100.000%[39m          
+8x Gerrit → Tais      [38;5;10m    100.000%[39m          
+4x Kevin  → Lina      [38;5;10m    100.000%[39m          
+1x Martin → Afra      [38;5;9m     0.000% [39m          
+1x Paddy  → Edda          33.333%  ↗ [38;5;11m50.000%[39m
+2x Paulo  → Lisa-Marie[38;5;10m    100.000%[39m          
+4x Ryan   → Jana      [38;5;14m    66.667% [39m ↘ [38;5;11m50.000%[39m
+3x Sandro → Julia     [38;5;10m    100.000%[39m          
+0x Sidar  → Sina          33.333%  ↘ [38;5;9m 0.000%[39m
+8x Wilson → Shelly    [38;5;10m    100.000%[39m          
 ---
 -> I[l]/bits: {7: 0.58, 8: 1.58}
 -> E[I]/bits: 0.92 = H
@@ -649,16 +649,16 @@ top5 Pr[Trip]: 100.0%/2: Melanie | 100.0%/2: Pia | 100.0%/2: Tais
 top5 Pr[Trip]: 100.0%/2: Gerrit
 
 MN#11 E21 -- Reunion
-6x Eti    → Maja       
-9x Gerrit → Tais       
-5x Kevin  → Lina       
-0x Martin → Sina       
-0x Paddy  → Afra       
-3x Paulo  → Lisa-Marie 
-5x Ryan   → Jana       
-4x Sandro → Julia      
-0x Sidar  → Edda       
-9x Wilson → Shelly     
+6x Eti    → Maja      [38;5;10m    100.000%[39m           
+9x Gerrit → Tais      [38;5;10m    100.000%[39m           
+5x Kevin  → Lina      [38;5;10m    100.000%[39m           
+0x Martin → Sina      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+0x Paddy  → Afra      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+3x Paulo  → Lisa-Marie[38;5;10m    100.000%[39m           
+5x Ryan   → Jana      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+4x Sandro → Julia     [38;5;10m    100.000%[39m           
+0x Sidar  → Edda      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+9x Wilson → Shelly    [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {6: 1.00, 10: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -737,4 +737,4 @@ top5 Pr[Trip]: 100.0%/1: Gerrit
 ╰────────┴────┴─────────┴─────────┴────────┴─────────┴─────────┴────────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴───┴────────┴──────┴──────────╯
 Total permutations: 199584000  Permutations left: 1  Initial combinations for each pair: 19958400
 
-Ran in 24.86s
+Ran in 23.83s

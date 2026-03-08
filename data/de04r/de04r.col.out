@@ -15,7 +15,7 @@
 36288000 left -> 25.113 bits left
 
 MB#1 E03
-MarcRobin → LauraL/blond 
+MarcRobin → LauraL/blond    10.000% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.15, 1: 3.32}
 -> E[I]/bits: 0.47 = H
@@ -42,16 +42,16 @@ top5 Pr[Dup]: 100.0%/32659200: Dana | 10.0%/3265920: Tara | 10.0%/3265920: Nadja
 top5 Pr[Dup]: 10.0%/3265920: Alex | 10.0%/3265920: Antonino | 10.0%/3265920: Chris | 10.0%/3265920: Kaan | 10.0%/3265920: Lars
 
 MN#1 E04
-0x Alex      → LauraL/blond 
-0x Antonino  → LauraM       
-0x Chris     → Emmy         
-0x Kaan      → Asena        
-0x Lars      → Nadja        
-0x Lukas     → Jenny        
-0x MarcRobin → Anastasia    
-0x Nikola    → Tara         
-0x Ozan      → Gabriela     
-0x Tim       → Linda        
+0x Alex      → LauraL/blond    11.111% ↗ 21.951%
+0x Antonino  → LauraM           9.877% ↗ 19.512%
+0x Chris     → Emmy             9.877% ↗ 19.512%
+0x Kaan      → Asena            9.877% ↗ 19.512%
+0x Lars      → Nadja            9.877% ↗ 19.512%
+0x Lukas     → Jenny            9.877% ↗ 19.512%
+0x MarcRobin → Anastasia       11.111% ↗ 21.951%
+0x Nikola    → Tara             9.877% ↗ 19.512%
+0x Ozan      → Gabriela         9.877% ↗ 19.512%
+0x Tim       → Linda            9.877% ↗ 19.512%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.44, 2: 2.42, 3: 3.99, 4: 5.97, 5: 8.28, 6: 10.82, 7: 13.78, 8: 16.18, 10: 21.64}
 -> E[I]/bits: 1.89 = H
@@ -78,7 +78,7 @@ top5 Pr[Dup]: 100.0%/6081530: Dana | 10.0%/608153: Tara | 10.0%/608153: Nadja | 
 top5 Pr[Dup]: 10.0%/608153: Alex | 10.0%/608153: Antonino | 10.0%/608153: Chris | 10.0%/608153: Kaan | 10.0%/608153: Lars
 
 MB#2 E05
-Chris → Emmy 
+Chris → Emmy    19.512% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.31, 1: 2.36}
 -> E[I]/bits: 0.71 = H
@@ -105,16 +105,16 @@ top5 Pr[Dup]: 100.0%/1067976: Dana | 11.1%/118664: Tara | 11.1%/118664: Nadja | 
 top5 Pr[Dup]: 11.1%/118664: Alex | 11.1%/118664: Antonino | 11.1%/118664: Kaan | 11.1%/118664: Lars | 11.1%/118664: Lukas
 
 MN#2 E06
-0x Alex      → Jenny        
-0x Antonino  → Dana         
-1x Chris     → Emmy         
-0x Kaan      → Nadja        
-0x Lars      → Anastasia    
-0x Lukas     → LauraM       
-0x MarcRobin → Asena        
-1x Nikola    → Tara         
-0x Ozan      → LauraL/blond 
-1x Tim       → Linda        
+0x Alex      → Jenny           10.938%  ↗ 21.395%
+0x Antonino  → Dana            11.111%  ↗ 21.615%
+1x Chris     → Emmy        [38;5;10m    100.000%[39m          
+0x Kaan      → Nadja           10.975%  ↗ 21.579%
+0x Lars      → Anastasia       10.938%  ↗ 21.529%
+0x Lukas     → LauraM          10.975%  ↗ 21.433%
+0x MarcRobin → Asena           12.500%  ↗ 24.687%
+1x Nikola    → Tara            10.714%  ↗ 21.610%
+0x Ozan      → LauraL/blond    12.500%  ↗ 24.541%
+1x Tim       → Linda           10.714%  ↗ 21.610%
 ---
 -> I[l]/bits: {1: 1.47, 2: 1.44, 3: 2.42, 4: 3.98, 5: 5.98, 6: 8.36, 7: 11.08, 8: 14.44, 9: 19.03}
 -> E[I]/bits: 1.89 = H
@@ -141,7 +141,7 @@ top5 Pr[Dup]: 100.0%/199733: Dana | 11.3%/22530: LauraM | 11.2%/22469: LauraL/bl
 top5 Pr[Dup]: 21.6%/43173: Antonino | 9.8%/19570: Alex | 9.8%/19570: Kaan | 9.8%/19570: Lars | 9.8%/19570: Lukas
 
 MB#3 E07 -- verkauft
-Alex → Anastasia 
+Alex → Anastasia    10.213%
 ---
 Nothing => I = 0 bits
 ╭───────────┬───────────┬────────┬──────┬──────────┬────────┬──────────────┬────────┬────────┬────────┬────────┬────────╮
@@ -166,16 +166,16 @@ top5 Pr[Dup]: 100.0%/199733: Dana | 11.3%/22530: LauraM | 11.2%/22469: LauraL/bl
 top5 Pr[Dup]: 21.6%/43173: Antonino | 9.8%/19570: Alex | 9.8%/19570: Kaan | 9.8%/19570: Lars | 9.8%/19570: Lukas
 
 MN#3 E08
-0x Alex      → Anastasia    
-0x Antonino  → Nadja        
-2x Chris     → Emmy         
-0x Kaan      → Jenny        
-0x Lars      → Gabriela     
-0x Lukas     → Linda        
-1x MarcRobin → Asena        
-0x Nikola    → LauraL/blond 
-0x Ozan      → LauraM       
-0x Tim       → Dana         
+0x Alex      → Anastasia       10.213%  ↗ 19.130%
+0x Antonino  → Nadja           11.059%  ↗ 20.692%
+2x Chris     → Emmy        [38;5;10m    100.000%[39m          
+0x Kaan      → Jenny            9.992%  ↗ 18.571%
+0x Lars      → Gabriela        11.146%  ↗ 20.758%
+0x Lukas     → Linda            9.472%  ↗ 17.802%
+1x MarcRobin → Asena           24.687%  ↗ [38;5;11m47.055%[39m
+0x Nikola    → LauraL/blond    10.563%  ↗ 19.661%
+0x Ozan      → LauraM           9.587%  ↗ 18.052%
+0x Tim       → Dana             9.798%  ↗ 18.280%
 ---
 -> I[l]/bits: {1: 1.55, 2: 1.44, 3: 2.34, 4: 3.85, 5: 5.83, 6: 8.16, 7: 10.95, 8: 13.29, 9: 16.61}
 -> E[I]/bits: 1.93 = H
@@ -202,7 +202,7 @@ top5 Pr[Dup]: 100.0%/39541: Dana | 12.3%/4859: Nadja | 11.9%/4713: Linda | 11.1%
 top5 Pr[Dup]: 18.4%/7274: Antonino | 18.3%/7228: Tim | 9.0%/3577: Alex | 9.0%/3577: Kaan | 9.0%/3577: Lars
 
 MB#4 E09
-MarcRobin → Asena 
+MarcRobin → Asena[38;5;11m    47.055%[39m ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.92, 1: 1.09}
 -> E[I]/bits: 1.00 = H
@@ -229,16 +229,16 @@ top5 Pr[Dup]: 100.0%/20935: Dana | 13.3%/2782: Nadja | 12.9%/2700: Linda | 11.4%
 top5 Pr[Dup]: 24.0%/5016: Antonino | 23.8%/4978: Tim | 7.5%/1563: Alex | 7.5%/1563: Kaan | 7.5%/1563: Lars
 
 MN#4 E10 -- blackout
-1x Alex      → Jenny        
-1x Antonino  → Nadja        
-3x Chris     → Emmy         
-1x Kaan      → Asena        
-0x Lars      → Tara         
-0x Lukas     → Gabriela     
-0x MarcRobin → Linda        
-0x Nikola    → Anastasia    
-1x Ozan      → LauraM       
-0x Tim       → LauraL/blond 
+1x Alex      → Jenny           23.052%  ↘ [38;5;9m 0.000%[39m
+1x Antonino  → Nadja           28.431%  ↘ [38;5;9m 0.000%[39m
+3x Chris     → Emmy        [38;5;10m    100.000%[39m          
+1x Kaan      → Asena            9.472%  ↘ [38;5;9m 0.000%[39m
+0x Lars      → Tara             7.476%  ↘ [38;5;9m 0.000%[39m
+0x Lukas     → Gabriela         8.135%  ↘ [38;5;9m 0.000%[39m
+0x MarcRobin → Linda           12.845%  ↘ [38;5;9m 0.000%[39m
+0x Nikola    → Anastasia        5.493%  ↘ [38;5;9m 0.000%[39m
+1x Ozan      → LauraM          22.794%  ↘ [38;5;9m 0.000%[39m
+0x Tim       → LauraL/blond     8.947%  ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {1: 1.82, 2: 1.48, 3: 2.17, 4: 3.41, 5: 5.01, 6: 6.93, 7: 8.89, 8: 12.03, 10: 14.35}
 -> E[I]/bits: 2.08 = H
@@ -265,7 +265,7 @@ top5 Pr[Dup]: 100.0%/5927: Dana | 15.3%/907: Linda | 12.4%/737: Asena | 11.3%/67
 top5 Pr[Dup]: 27.7%/1640: Tim | 22.8%/1354: Antonino | 7.1%/419: Alex | 7.1%/419: Kaan | 7.1%/419: Lars
 
 MB#5 E11 -- verkauft
-Nikola → LauraM 
+Nikola → LauraM     6.968%
 ---
 Nothing => I = 0 bits
 ╭───────────┬───────────┬────────┬──────┬──────────┬────────┬──────────────┬────────┬────────┬────────┬────────┬────────╮
@@ -290,16 +290,16 @@ top5 Pr[Dup]: 100.0%/5927: Dana | 15.3%/907: Linda | 12.4%/737: Asena | 11.3%/67
 top5 Pr[Dup]: 27.7%/1640: Tim | 22.8%/1354: Antonino | 7.1%/419: Alex | 7.1%/419: Kaan | 7.1%/419: Lars
 
 MN#5 E12
-0x Alex      → Gabriela     
-0x Antonino  → Asena        
-4x Chris     → Emmy         
-0x Kaan      → Tara         
-1x Lars      → Nadja        
-1x Lukas     → Jenny        
-1x MarcRobin → Anastasia    
-1x Nikola    → LauraL/blond 
-0x Ozan      → Dana         
-2x Tim       → Linda        
+0x Alex      → Gabriela         6.901%  ↗ [38;5;11m49.495%[39m
+0x Antonino  → Asena           19.369%  ↗ [38;5;10m80.808%[39m
+4x Chris     → Emmy        [38;5;10m    100.000%[39m          
+0x Kaan      → Tara             6.327%  ↗ 40.404%
+1x Lars      → Nadja            3.948%  ↘  3.030%
+1x Lukas     → Jenny            3.071%  ↘  2.020%
+1x MarcRobin → Anastasia       10.157%  ↗ 14.141%
+1x Nikola    → LauraL/blond    29.577%  ↗ [38;5;10m97.980%[39m
+0x Ozan      → Dana             7.069%  ↗ 31.313%
+2x Tim       → Linda           35.127%  ↗ [38;5;10m80.808%[39m
 ---
 -> I[l]/bits: {1: 1.84, 2: 1.49, 3: 1.96, 4: 3.45, 5: 5.90, 6: 9.95}
 -> E[I]/bits: 1.97 = H
@@ -326,7 +326,7 @@ top5 Pr[Dup]: 100.0%/99: Dana | 23.2%/23: Asena | 20.2%/20: Linda | 13.1%/13: Je
 top5 Pr[Dup]: 31.3%/31: Ozan | 24.2%/24: Tim | 20.2%/20: Antonino | 4.0%/4: Alex | 4.0%/4: Kaan
 
 MB#6 E13
-Ozan → Anastasia 
+Ozan → Anastasia    16.162% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.25, 1: 2.63}
 -> E[I]/bits: 0.64 = H
@@ -353,16 +353,16 @@ top5 Pr[Dup]: 100.0%/13: Dana | 30.8%/4: Linda | 23.1%/3: Asena | 7.7%/1: Tara |
 top5 Pr[Dup]: 30.8%/4: Tim | 23.1%/3: Antonino | 7.7%/1: Alex | 7.7%/1: Kaan | 7.7%/1: Lars
 
 MN#6 E14
-1x Alex      → Gabriela  
-1x Antonino  → Asena     
-5x Chris     → Emmy      
-1x Kaan      → Tara      
-0x Lars      → Dana      
-2x Lukas     → Jenny     
-0x MarcRobin → LauraM    
-0x Nikola    → Nadja     
-0x Ozan      → Anastasia 
-3x Tim       → Linda     
+1x Alex      → Gabriela     38.462%  ↗ [38;5;11m50.000% [39m
+1x Antonino  → Asena    [38;5;10m    92.308% [39m ↗ [38;5;10m100.000%[39m
+5x Chris     → Emmy     [38;5;10m    100.000%[39m           
+1x Kaan      → Tara     [38;5;14m    69.231% [39m ↘ [38;5;11m50.000% [39m
+0x Lars      → Dana          7.692%  ↗ [38;5;11m50.000% [39m
+2x Lukas     → Jenny    [38;5;9m     0.000% [39m           
+0x MarcRobin → LauraM        7.692%  ↗ [38;5;11m50.000% [39m
+0x Nikola    → Nadja    [38;5;9m     0.000% [39m           
+0x Ozan      → Anastasia[38;5;10m    100.000%[39m           
+3x Tim       → Linda    [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {5: 0.24, 6: 2.70}
 -> E[I]/bits: 0.62 = H
@@ -389,7 +389,7 @@ top5 Pr[Dup]: 100.0%/2: Dana | 50.0%/1: Linda | 50.0%/1: Gabriela / 200 %
 top5 Pr[Dup]: 50.0%/1: Lars | 50.0%/1: Tim
 
 MB#7 E15
-Lukas → Jenny 
+Lukas → Jenny[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -416,16 +416,16 @@ top5 Pr[Dup]: 100.0%/2: Dana | 50.0%/1: Linda | 50.0%/1: Gabriela / 200 %
 top5 Pr[Dup]: 50.0%/1: Lars | 50.0%/1: Tim
 
 MN#7 E16
-2x Alex      → Gabriela     
-2x Antonino  → Asena        
-6x Chris     → Emmy         
-2x Kaan      → Tara         
-0x Lars      → LauraL/blond 
-0x Lukas     → Dana         
-1x MarcRobin → LauraM       
-1x Nikola    → Nadja        
-1x Ozan      → Anastasia    
-4x Tim       → Linda        
+2x Alex      → Gabriela    [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+2x Antonino  → Asena       [38;5;10m    100.000%[39m           
+6x Chris     → Emmy        [38;5;10m    100.000%[39m           
+2x Kaan      → Tara        [38;5;11m    50.000% [39m ↘ [38;5;9m 0.000% [39m
+0x Lars      → LauraL/blond[38;5;9m     0.000% [39m           
+0x Lukas     → Dana        [38;5;9m     0.000% [39m           
+1x MarcRobin → LauraM      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+1x Nikola    → Nadja       [38;5;9m     0.000% [39m           
+1x Ozan      → Anastasia   [38;5;10m    100.000%[39m           
+4x Tim       → Linda       [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {5: 1.00, 6: 1.00}
 -> E[I]/bits: 1.00 = H
@@ -452,7 +452,7 @@ top5 Pr[Dup]: 100.0%/1: Dana | 100.0%/1: Linda / 200 %
 top5 Pr[Dup]: 100.0%/1: Tim
 
 MB#8 E17
-Tim → Linda 
+Tim → Linda[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -479,16 +479,16 @@ top5 Pr[Dup]: 100.0%/1: Dana | 100.0%/1: Linda / 200 %
 top5 Pr[Dup]: 100.0%/1: Tim
 
 MN#8 E18
-3x Alex      → Gabriela     
-3x Antonino  → Asena        
-7x Chris     → Emmy         
-1x Kaan      → Jenny        
-1x Lars      → LauraL/blond 
-0x Lukas     → Tara         
-2x MarcRobin → LauraM       
-2x Nikola    → Nadja        
-2x Ozan      → Anastasia    
-5x Tim       → Linda        
+3x Alex      → Gabriela    [38;5;10m    100.000%[39m
+3x Antonino  → Asena       [38;5;10m    100.000%[39m
+7x Chris     → Emmy        [38;5;10m    100.000%[39m
+1x Kaan      → Jenny       [38;5;9m     0.000% [39m
+1x Lars      → LauraL/blond[38;5;9m     0.000% [39m
+0x Lukas     → Tara        [38;5;10m    100.000%[39m
+2x MarcRobin → LauraM      [38;5;10m    100.000%[39m
+2x Nikola    → Nadja       [38;5;9m     0.000% [39m
+2x Ozan      → Anastasia   [38;5;10m    100.000%[39m
+5x Tim       → Linda       [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {7: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -515,7 +515,7 @@ top5 Pr[Dup]: 100.0%/1: Dana | 100.0%/1: Linda / 200 %
 top5 Pr[Dup]: 100.0%/1: Tim
 
 MB#9 E19
-Lars → LauraL/blond 
+Lars → LauraL/blond[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -542,16 +542,16 @@ top5 Pr[Dup]: 100.0%/1: Dana | 100.0%/1: Linda / 200 %
 top5 Pr[Dup]: 100.0%/1: Tim
 
 MN#9 E20
-4x Alex      → Gabriela     
-4x Antonino  → Asena        
-8x Chris     → Emmy         
-1x Kaan      → Nadja        
-0x Lars      → Jenny        
-1x Lukas     → Tara         
-3x MarcRobin → LauraM       
-2x Nikola    → LauraL/blond 
-3x Ozan      → Anastasia    
-6x Tim       → Linda        
+4x Alex      → Gabriela    [38;5;10m    100.000%[39m
+4x Antonino  → Asena       [38;5;10m    100.000%[39m
+8x Chris     → Emmy        [38;5;10m    100.000%[39m
+1x Kaan      → Nadja       [38;5;10m    100.000%[39m
+0x Lars      → Jenny       [38;5;10m    100.000%[39m
+1x Lukas     → Tara        [38;5;10m    100.000%[39m
+3x MarcRobin → LauraM      [38;5;10m    100.000%[39m
+2x Nikola    → LauraL/blond[38;5;10m    100.000%[39m
+3x Ozan      → Anastasia   [38;5;10m    100.000%[39m
+6x Tim       → Linda       [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -623,4 +623,4 @@ top5 Pr[Dup]: 100.0%/1: Tim
 ╰──────┴────┴────────────┴────────────┴────────┴──────────┴────────┴──────────────┴────────────┴────────────┴───────────┴─────────┴───────────┴───┴────────┴──────┴──────────╯
 Total permutations: 36288000  Permutations left: 1  Initial combinations for each pair: 3628800
 
-Ran in 3.89s
+Ran in 4.19s

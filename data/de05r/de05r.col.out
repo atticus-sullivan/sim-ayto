@@ -15,7 +15,7 @@
 1796256000 left -> 30.7423 bits left
 
 MB#1 E03 -- verkauft
-Sandra → Kevin 
+Sandra → Kevin    10.000%
 ---
 Nothing => I = 0 bits
 ╭─────────┬─────────────┬───────────┬───────┬───────┬─────────┬──────┬──────┬─────┬───────┬────────┬─────────┬──────────╮
@@ -46,16 +46,16 @@ top5 Pr[Dup]: 10.0%/179625600: Antonia | 10.0%/179625600: Ariel | 10.0%/17962560
 .
 
 MN#1 E04
-0x Antonia → Lennert     
-0x Ariel   → Nico        
-0x Beverly → CalvinBlond 
-0x Elli    → Xander      
-0x Hati    → CalvinHot   
-0x Henna   → Jonny       
-0x Joanna  → Rob         
-0x Nelly   → Sidar       
-0x Sandra  → Kevin       
-0x Viki    → Leandro     
+0x Antonia → Lennert        10.000% ↗ 20.000%
+0x Ariel   → Nico           10.000% ↗ 20.000%
+0x Beverly → CalvinBlond    10.000% ↗ 20.000%
+0x Elli    → Xander         10.000% ↗ 20.000%
+0x Hati    → CalvinHot      10.000% ↗ 20.000%
+0x Henna   → Jonny          10.000% ↗ 20.000%
+0x Joanna  → Rob            10.000% ↗ 20.000%
+0x Nelly   → Sidar          10.000% ↗ 20.000%
+0x Sandra  → Kevin          10.000% ↗ 20.000%
+0x Viki    → Leandro        10.000% ↗ 20.000%
 ---
 -> I[l]/bits: {0: 1.46, 1: 1.43, 2: 2.43, 3: 4.04, 4: 6.09, 5: 8.50, 6: 11.21, 7: 14.19, 8: 17.38, 9: 21.08, 10: 24.25}
 -> E[I]/bits: 1.88 = H
@@ -88,7 +88,7 @@ top5 Pr[Dup]: 10.0%/33340653: Antonia | 10.0%/33340653: Ariel | 10.0%/33340653: 
 .
 
 MB#2 E05
-Elli → Xander 
+Elli → Xander    20.000% ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 0.32, 1: 2.32}
 -> E[I]/bits: 0.72 = H
@@ -121,16 +121,16 @@ top5 Pr[Dup]: 11.1%/5399176: Antonia | 11.1%/5399176: Ariel | 11.1%/5399176: Bev
 .
 
 MN#2 E06 -- -50k Kamera verdeckt (Kevin+Ariel)
-0x Antonia → Jonny       
-1x Ariel   → Nico        
-0x Beverly → Sidar       
-1x Elli    → Xander      
-1x Hati    → CalvinHot   
-0x Henna   → Olli        
-0x Joanna  → CalvinBlond 
-0x Nelly   → Rob         
-1x Sandra  → Kevin       
-1x Viki    → Leandro     
+0x Antonia → Jonny          11.111%  ↘  8.902%
+1x Ariel   → Nico           11.111%  ↗ 13.929%
+0x Beverly → Sidar          11.111%  ↘  8.534%
+1x Elli    → Xander     [38;5;10m    100.000%[39m          
+1x Hati    → CalvinHot      11.111%  ↗ 13.929%
+0x Henna   → Olli           11.111%  ↘  9.777%
+0x Joanna  → CalvinBlond    11.111%  ↘  8.534%
+0x Nelly   → Rob            11.111%  ↘  8.534%
+1x Sandra  → Kevin          11.111%  ↗ 13.929%
+1x Viki    → Leandro        11.111%  ↗ 13.929%
 ---
 -> I[l]/bits: {1: 1.54, 2: 1.35, 3: 2.35, 4: 4.15, 5: 6.64, 6: 9.90, 7: 14.29}
 -> E[I]/bits: 1.83 = H
@@ -163,7 +163,7 @@ top5 Pr[Dup]: 11.6%/2211832: Ariel | 11.6%/2211832: Hati | 11.6%/2211832: Sandra
 .
 
 MB#3 E07
-Nelly → CalvinBlond 
+Nelly → CalvinBlond    12.783% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.20, 1: 2.97}
 -> E[I]/bits: 0.55 = H
@@ -196,16 +196,16 @@ top5 Pr[Dup]: 11.7%/1941520: Ariel | 11.7%/1941520: Hati | 11.7%/1941520: Sandra
 .
 
 MN#3 E08 -- +20€ aus Grosszuegigkeit :)
-0x Antonia → Olli        
-0x Ariel   → CalvinHot   
-0x Beverly → Nico        
-2x Elli    → Xander      
-0x Hati    → Rob         
-0x Henna   → Leandro     
-1x Joanna  → CalvinBlond 
-0x Nelly   → Lennert     
-2x Sandra  → Kevin       
-0x Viki    → Jonny       
+0x Antonia → Olli           10.854%  ↘ 10.639%
+0x Ariel   → CalvinHot      10.456%  ↘ 10.248%
+0x Beverly → Nico           11.039%  ↘ 10.619%
+2x Elli    → Xander     [38;5;10m    100.000%[39m          
+0x Hati    → Rob            11.221%  ↘ 10.831%
+0x Henna   → Leandro        10.497%  ↘ 10.177%
+1x Joanna  → CalvinBlond     9.785%  ↗ 10.654%
+0x Nelly   → Lennert        13.292%  ↗ 13.788%
+2x Sandra  → Kevin          13.167%  ↘ 12.723%
+0x Viki    → Jonny          10.579%  ↘ 10.321%
 ---
 -> I[l]/bits: {1: 1.47, 2: 1.43, 3: 2.42, 4: 4.01, 5: 6.05, 6: 8.48, 7: 11.25, 8: 14.43, 9: 18.40}
 -> E[I]/bits: 1.88 = H
@@ -238,7 +238,7 @@ top5 Pr[Dup]: 11.7%/718472: Ariel | 11.7%/718392: Sandra | 11.6%/717608: Viki | 
 .
 
 MB#4 E09
-Beverly → Jonny 
+Beverly → Jonny    12.437% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.19, 1: 3.01}
 -> E[I]/bits: 0.54 = H
@@ -271,16 +271,16 @@ top5 Pr[Dup]: 11.7%/633344: Ariel | 11.7%/633040: Viki | 11.7%/631784: Hati | 11
 .
 
 MN#4 E10
-1x Antonia → Olli        
-2x Ariel   → Nico        
-1x Beverly → Sidar       
-3x Elli    → Xander      
-1x Hati    → Rob         
-0x Henna   → Lennert     
-2x Joanna  → CalvinBlond 
-0x Nelly   → CalvinHot   
-0x Sandra  → Leandro     
-0x Viki    → Kevin       
+1x Antonia → Olli           10.418%  ↗ 21.593%
+2x Ariel   → Nico           12.566%  ↗ 25.465%
+1x Beverly → Sidar           9.518%  ↗ 19.392%
+3x Elli    → Xander     [38;5;10m    100.000%[39m          
+1x Hati    → Rob            10.421%  ↗ 22.204%
+0x Henna   → Lennert        10.528%  ↗ 20.378%
+2x Joanna  → CalvinBlond    10.536%  ↗ 19.162%
+0x Nelly   → CalvinHot      12.051%  ↗ 26.591%
+0x Sandra  → Leandro        10.561%  ↗ 22.638%
+0x Viki    → Kevin          10.557%  ↗ 22.576%
 ---
 -> I[l]/bits: {1: 1.45, 2: 1.39, 3: 2.42, 4: 4.19, 5: 6.49, 6: 9.39, 7: 13.32}
 -> E[I]/bits: 1.83 = H
@@ -313,7 +313,7 @@ top5 Pr[Dup]: 12.1%/121520: Ariel | 11.7%/118280: Antonia | 11.6%/117296: Hati |
 .
 
 MB#5 E10
-Sandra → Leandro 
+Sandra → Leandro    22.638% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.37, 1: 2.14}
 -> E[I]/bits: 0.77 = H
@@ -346,7 +346,7 @@ top5 Pr[Dup]: 12.6%/97936: Ariel | 12.1%/94256: Hati | 12.0%/93424: Antonia | 11
 .
 
 MB#5.2 E11 -- Geschenk wegen JimiBlue +10k €
-Nelly → JimiBlue 
+Nelly → JimiBlue    11.253% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.17, 1: 3.15}
 -> E[I]/bits: 0.51 = H
@@ -379,16 +379,16 @@ top5 Pr[Dup]: 12.4%/85694: Ariel | 11.9%/82474: Hati | 11.8%/81746: Antonia | 11
 .
 
 MN#5 E12
-2x Antonia → Olli        
-3x Ariel   → Nico        
-2x Beverly → Sidar       
-4x Elli    → Xander      
-2x Hati    → Rob         
-0x Henna   → JimiBlue    
-3x Joanna  → CalvinBlond 
-1x Nelly   → CalvinHot   
-0x Sandra  → Lennert     
-1x Viki    → Kevin       
+2x Antonia → Olli           24.303%  ↗ 27.493%
+3x Ariel   → Nico           28.990%  ↗ 35.512%
+2x Beverly → Sidar          20.969%  ↗ 23.597%
+4x Elli    → Xander     [38;5;10m    100.000%[39m          
+2x Hati    → Rob            25.456%  ↗ 29.731%
+0x Henna   → JimiBlue       12.448%  ↗ 43.410%
+3x Joanna  → CalvinBlond    17.979%  ↘ 17.637%
+1x Nelly   → CalvinHot      32.597%  ↗ 37.100%
+0x Sandra  → Lennert        12.305%  ↗ [38;5;14m56.590%[39m
+1x Viki    → Kevin          26.162%  ↗ 28.930%
 ---
 -> I[l]/bits: {2: 2.26, 3: 0.77, 4: 2.40, 5: 6.00}
 -> E[I]/bits: 1.47 = H
@@ -421,7 +421,7 @@ top5 Pr[Dup]: 13.0%/17112: Ariel | 12.2%/15991: Antonia | 12.1%/15930: Hati | 11
 .
 
 MB#6 E13
-Sandra → Lennert 
+Sandra → Lennert[38;5;14m    56.590%[39m ↗ [38;5;10m100.000%[39m
 ---
 -> I[l]/bits: {0: 1.20, 1: 0.82}
 -> E[I]/bits: 0.99 = H
@@ -454,16 +454,16 @@ top5 Pr[Dup]: 13.6%/7255: Ariel | 13.1%/6984: Henna | 13.0%/6936: Nelly | 12.8%/
 .
 
 MN#6 E14
-0x Antonia → CalvinBlond 
-0x Ariel   → Kevin       
-0x Beverly → Leandro     
-5x Elli    → Xander      
-0x Hati    → JimiBlue    
-1x Henna   → Olli        
-0x Joanna  → Sidar       
-2x Nelly   → CalvinHot   
-1x Sandra  → Lennert     
-1x Viki    → Jonny       
+0x Antonia → CalvinBlond    14.163%  ↗ 22.128%
+0x Ariel   → Kevin           9.070%  ↗ 15.010%
+0x Beverly → Leandro        15.913%  ↗ 25.185%
+5x Elli    → Xander     [38;5;10m    100.000%[39m          
+0x Hati    → JimiBlue       16.564%  ↗ 26.339%
+1x Henna   → Olli            5.146%  ↗  9.644%
+0x Joanna  → Sidar          12.822%  ↗ 20.932%
+2x Nelly   → CalvinHot      38.540%  ↗ [38;5;14m65.512%[39m
+1x Sandra  → Lennert    [38;5;10m    100.000%[39m          
+1x Viki    → Jonny           9.296%  ↗ 15.250%
 ---
 -> I[l]/bits: {2: 1.78, 3: 1.48, 4: 2.14, 5: 3.43, 6: 5.34, 7: 7.78, 8: 10.74, 9: 14.70}
 -> E[I]/bits: 2.03 = H
@@ -496,7 +496,7 @@ top5 Pr[Dup]: 15.8%/1901: Nelly | 13.7%/1648: Ariel | 12.8%/1540: Henna | 12.6%/
 .
 
 MB#7 E14
-Antonia → Olli 
+Antonia → Olli    19.022% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.30, 1: 2.39}
 -> E[I]/bits: 0.70 = H
@@ -529,7 +529,7 @@ top5 Pr[Dup]: 16.5%/1613: Nelly | 13.7%/1334: Ariel | 13.6%/1321: Henna | 13.1%/
 .
 
 MB#7.2 E15 -- JimiBlue Exit-MatchBox
-Hati → JimiBlue 
+Hati → JimiBlue    22.751% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.37, 1: 2.14}
 -> E[I]/bits: 0.77 = H
@@ -562,16 +562,16 @@ top5 Pr[Dup]: 16.8%/1265: Nelly | 15.3%/1155: Hati | 13.2%/995: Henna | 13.2%/99
 .
 
 MN#7 E16
-1x Antonia → CalvinBlond 
-0x Ariel   → Leandro     
-1x Beverly → Nico        
-6x Elli    → Xander      
-0x Hati    → Jonny       
-2x Henna   → Olli        
-1x Joanna  → Sidar       
-1x Nelly   → Rob         
-2x Sandra  → Lennert     
-2x Viki    → Kevin       
+1x Antonia → CalvinBlond    27.287%  ↗ 39.159%
+0x Ariel   → Leandro         9.799%  ↘  9.513%
+1x Beverly → Nico            5.205%  ↗ 38.717%
+6x Elli    → Xander     [38;5;10m    100.000%[39m          
+0x Hati    → Jonny           9.866%  ↗ 12.832%
+2x Henna   → Olli           14.009%  ↗ [38;5;14m67.478%[39m
+1x Joanna  → Sidar          16.465%  ↗ 42.257%
+1x Nelly   → Rob        [38;5;9m     0.531% [39m ↗  1.106%
+2x Sandra  → Lennert    [38;5;10m    100.000%[39m          
+2x Viki    → Kevin          14.407%  ↗ [38;5;10m88.938%[39m
 ---
 -> I[l]/bits: {2: 1.25, 3: 1.59, 4: 2.77, 5: 4.06, 6: 4.76, 7: 7.83}
 -> E[I]/bits: 1.91 = H
@@ -604,7 +604,7 @@ top5 Pr[Dup]: 19.9%/90: Henna | 16.8%/76: Viki | 16.6%/75: Hati | 12.2%/55: Nell
 .
 
 MB#8 E17
-Henna → Sidar 
+Henna → Sidar     2.876% ↘ [38;5;9m 0.000%[39m
 ---
 -> I[l]/bits: {0: 0.04, 1: 5.12}
 -> E[I]/bits: 0.19 = H
@@ -637,16 +637,16 @@ top5 Pr[Dup]: 19.4%/85: Henna | 17.1%/75: Hati | 16.4%/72: Viki | 12.5%/55: Nell
 .
 
 MN#8 E18
-2x Antonia → CalvinBlond 
-1x Ariel   → Kevin       
-2x Beverly → Nico        
-7x Elli    → Xander      
-1x Hati    → Jonny       
-3x Henna   → Olli        
-0x Joanna  → CalvinHot   
-2x Nelly   → Rob         
-3x Sandra  → Lennert     
-2x Viki    → Leandro     
+2x Antonia → CalvinBlond    38.497%  ↘ 35.338%
+1x Ariel   → Kevin      [38;5;9m     0.000% [39m          
+2x Beverly → Nico           36.902%  ↗ [38;5;11m53.383%[39m
+7x Elli    → Xander     [38;5;10m    100.000%[39m          
+1x Hati    → Jonny          13.212%  ↗ 18.421%
+3x Henna   → Olli       [38;5;14m    68.337% [39m ↗ [38;5;10m82.331%[39m
+0x Joanna  → CalvinHot       3.872%  ↗  4.511%
+2x Nelly   → Rob             1.139%  ↘ [38;5;9m 0.000%[39m
+3x Sandra  → Lennert    [38;5;10m    100.000%[39m          
+2x Viki    → Leandro         6.378%  ↘  6.015%
 ---
 -> I[l]/bits: {3: 1.49, 4: 0.72, 5: 4.69}
 -> E[I]/bits: 1.15 = H
@@ -679,7 +679,7 @@ top5 Pr[Dup]: 20.7%/55: Hati | 18.8%/50: Henna | 16.9%/45: Nelly | 12.0%/32: Joa
 .
 
 MB#9 E19 -- verkauft 5k Sidar
-Nelly → CalvinHot 
+Nelly → CalvinHot[38;5;14m    62.782%[39m
 ---
 Nothing => I = 0 bits
 ╭─────────┬─────────────┬───────────┬────────┬────────┬─────────┬────────┬────────┬────────┬────────┬────────┬─────────┬──────────╮
@@ -710,16 +710,16 @@ top5 Pr[Dup]: 20.7%/55: Hati | 18.8%/50: Henna | 16.9%/45: Nelly | 12.0%/32: Joa
 .
 
 MN#9 E19
-1x Antonia → Jonny       
-1x Ariel   → Leandro     
-3x Beverly → Sidar       
-8x Elli    → Xander      
-0x Hati    → Kevin       
-4x Henna   → Olli        
-4x Joanna  → CalvinBlond 
-3x Nelly   → CalvinHot   
-4x Sandra  → Lennert     
-0x Viki    → Rob         
+1x Antonia → Jonny      [38;5;9m     0.000% [39m           
+1x Ariel   → Leandro         8.647%  ↘ [38;5;9m 0.000% [39m
+3x Beverly → Sidar           4.511%  ↘ [38;5;9m 0.000% [39m
+8x Elli    → Xander     [38;5;10m    100.000%[39m           
+0x Hati    → Kevin           1.504%  ↘ [38;5;9m 0.000% [39m
+4x Henna   → Olli       [38;5;10m    82.331% [39m ↗ [38;5;10m100.000%[39m
+4x Joanna  → CalvinBlond[38;5;9m     0.000% [39m           
+3x Nelly   → CalvinHot  [38;5;14m    62.782% [39m ↗ [38;5;10m100.000%[39m
+4x Sandra  → Lennert    [38;5;10m    100.000%[39m           
+0x Viki    → Rob             3.008%  ↘ [38;5;9m 0.000% [39m
 ---
 -> I[l]/bits: {2: 3.10, 3: 1.89, 4: 0.93, 5: 4.15, 6: 6.06, 7: 6.06}
 -> E[I]/bits: 1.78 = H
@@ -752,7 +752,7 @@ top5 Pr[Dup]: 25.0%/35: Henna | 25.0%/35: Nelly | 11.4%/16: Beverly | 11.4%/16: 
 .
 
 MB#9.6 E20 -- Geschenk: MN Überprüfung -40k => 115k
-Nelly → CalvinHot 
+Nelly → CalvinHot[38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {1: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -785,7 +785,7 @@ top5 Pr[Dup]: 33.3%/35: Henna | 15.2%/16: Beverly | 15.2%/16: Joanna | 11.4%/12:
 .
 
 MB#10 E21
-Joanna → CalvinBlond 
+Joanna → CalvinBlond[38;5;9m     0.000%[39m
 ---
 -> I[l]/bits: {0: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -818,16 +818,16 @@ top5 Pr[Dup]: 33.3%/35: Henna | 15.2%/16: Beverly | 15.2%/16: Joanna | 11.4%/12:
 .
 
 MN#10 E21
-3x Antonia → CalvinBlond 
-0x Ariel   → Olli        
-3x Beverly → Nico        
-9x Elli    → Xander      
-0x Hati    → Sidar       
-1x Henna   → Leandro     
-1x Joanna  → Rob         
-4x Nelly   → CalvinHot   
-5x Sandra  → Lennert     
-3x Viki    → Kevin       
+3x Antonia → CalvinBlond[38;5;9m     0.000% [39m           
+0x Ariel   → Olli       [38;5;9m     0.000% [39m           
+3x Beverly → Nico       [38;5;10m    90.476% [39m ↗ [38;5;10m100.000%[39m
+9x Elli    → Xander     [38;5;10m    100.000%[39m           
+0x Hati    → Sidar          33.333%  ↗ [38;5;10m100.000%[39m
+1x Henna   → Leandro         9.524%  ↘ [38;5;9m 0.000% [39m
+1x Joanna  → Rob        [38;5;14m    60.952% [39m ↗ [38;5;10m100.000%[39m
+4x Nelly   → CalvinHot  [38;5;10m    100.000%[39m           
+5x Sandra  → Lennert    [38;5;10m    100.000%[39m           
+3x Viki    → Kevin      [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {5: 1.91, 6: 0.93, 7: 2.25}
 -> E[I]/bits: 1.47 = H
@@ -860,16 +860,16 @@ top5 Pr[Dup]: 22.7%/5: Hati | 22.7%/5: Henna | 18.2%/4: Ariel | 18.2%/4: Joanna 
 .
 
 MN#11 E22 (Wiedersehen)
-0x Antonia → Leandro     
-0x Ariel   → CalvinBlond 
-4x Beverly → Nico        
-10x Elli   → Xander      
-1x Hati    → Sidar       
-5x Henna   → Olli        
-2x Joanna  → Rob         
-5x Nelly   → CalvinHot   
-6x Sandra  → Lennert     
-4x Viki    → Kevin       
+0 x Antonia → Leandro    [38;5;10m    100.000%[39m           
+0 x Ariel   → CalvinBlond    36.364%  ↗ [38;5;10m100.000%[39m
+4 x Beverly → Nico       [38;5;10m    100.000%[39m           
+10x Elli    → Xander     [38;5;10m    100.000%[39m           
+1 x Hati    → Sidar      [38;5;10m    100.000%[39m           
+5 x Henna   → Olli       [38;5;10m    100.000%[39m           
+2 x Joanna  → Rob        [38;5;10m    100.000%[39m           
+5 x Nelly   → CalvinHot  [38;5;10m    100.000%[39m           
+6 x Sandra  → Lennert    [38;5;10m    100.000%[39m           
+4 x Viki    → Kevin      [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {9: 0.65, 10: 1.46}
 -> E[I]/bits: 0.95 = H
@@ -902,16 +902,16 @@ top5 Pr[Dup]: 50.0%/4: Ariel | 50.0%/4: Joanna
 .
 
 MN#11 E22 (Wiedersehen)
-1x Antonia → Leandro     
-1x Ariel   → CalvinBlond 
-5x Beverly → Nico        
-11x Elli   → Xander      
-2x Hati    → Sidar       
-6x Henna   → Olli        
-3x Joanna  → Rob         
-6x Nelly   → CalvinHot   
-7x Sandra  → Lennert     
-5x Viki    → Kevin       
+1 x Antonia → Leandro    [38;5;10m    100.000%[39m
+1 x Ariel   → CalvinBlond[38;5;10m    100.000%[39m
+5 x Beverly → Nico       [38;5;10m    100.000%[39m
+11x Elli    → Xander     [38;5;10m    100.000%[39m
+2 x Hati    → Sidar      [38;5;10m    100.000%[39m
+6 x Henna   → Olli       [38;5;10m    100.000%[39m
+3 x Joanna  → Rob        [38;5;10m    100.000%[39m
+6 x Nelly   → CalvinHot  [38;5;10m    100.000%[39m
+7 x Sandra  → Lennert    [38;5;10m    100.000%[39m
+5 x Viki    → Kevin      [38;5;10m    100.000%[39m
 ---
 -> I[l]/bits: {10: 0.00}
 -> E[I]/bits: 0.00 = H
@@ -944,16 +944,16 @@ top5 Pr[Dup]: 50.0%/4: Ariel | 50.0%/4: Joanna
 .
 
 MN#11.2 E22 (Wiedersehen-2)
-2x Antonia → Leandro     
-2x Ariel   → CalvinBlond 
-0x Beverly → JimiBlue    
-12x Elli   → Xander      
-3x Hati    → Sidar       
-7x Henna   → Olli        
-0x Joanna  → Jonny       
-7x Nelly   → CalvinHot   
-8x Sandra  → Lennert     
-6x Viki    → Kevin       
+2 x Antonia → Leandro    [38;5;10m    100.000%[39m           
+2 x Ariel   → CalvinBlond[38;5;10m    100.000%[39m           
+0 x Beverly → JimiBlue       25.000%  ↗ [38;5;10m100.000%[39m
+12x Elli    → Xander     [38;5;10m    100.000%[39m           
+3 x Hati    → Sidar      [38;5;10m    100.000%[39m           
+7 x Henna   → Olli       [38;5;10m    100.000%[39m           
+0 x Joanna  → Jonny      [38;5;11m    50.000% [39m ↗ [38;5;10m100.000%[39m
+7 x Nelly   → CalvinHot  [38;5;10m    100.000%[39m           
+8 x Sandra  → Lennert    [38;5;10m    100.000%[39m           
+6 x Viki    → Kevin      [38;5;10m    100.000%[39m           
 ---
 -> I[l]/bits: {8: 1.42, 9: 1.00, 10: 3.00}
 -> E[I]/bits: 1.41 = H
@@ -1047,4 +1047,4 @@ top5 Pr[Dup]: 100.0%/1: Joanna
 ╰─────────┴────┴─────────────┴───────────┴──────────┴─────────┴──────────┴──────────┴──────────┴─────────┴──────────┴────────┴──────────┴──────────┴───┴────────┴──────┴──────────╯
 Total permutations: 1796256000  Permutations left: 1  Initial combinations for each pair: 179625600
 
-Ran in 247.42s
+Ran in 262.58s
