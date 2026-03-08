@@ -40,7 +40,7 @@ pub struct CfgParse {
     solution: MapS,
 
     /// If specified the entropy for this matching will be calculated based on the permutations
-    /// left after applying the [`constraints_orig`] given in the config.
+    /// left after applying the `constraints_orig` given in the config.
     #[serde(default, rename = "try_entropy")]
     try_entropy: Option<MapS>,
 }
