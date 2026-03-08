@@ -163,21 +163,18 @@ fn write_page(
 /// Wrap the provided plot HTML fragments into a Hugo/shortcode tabbed container
 /// expected by the site (includes the Plotly JS CDN script tag).
 ///
+/// - `plots` list of tuples (tab-title, tab-content)
+///
 /// The output is the combined HTML string that is embedded in the page's markdown.
 fn build_graph_hextra_tabs(plots: &[(String, String)]) -> String {
     let dat = plots
         .iter()
-        .map(|(_, i)| "{{% tab %}}".to_string() + i + "{{% /tab %}}")
+        .map(|(name, i)| format!("{{{{% tab name=\"{}\" %}}}} {i} {{{{% /tab %}}}}", name))
         .fold(String::new(), |a, b| a + &b);
-    let tab_items = plots
-        .iter()
-        .map(|i| i.0.clone())
-        .collect::<Vec<_>>()
-        .join(",");
 
     format!(
         r#"<script src="https://cdn.plot.ly/plotly-3.3.1.min.js"></script>
-{{{{< tabs items="{tab_items}" >}}}}
+{{{{< tabs >}}}}
 {}
 {{{{< /tabs >}}}}"#,
         dat
