@@ -13,7 +13,7 @@ use std::collections::HashMap;
 use comfy_table::{presets::NOTHING, Row, Table};
 
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
-use crate::{prob_comfy_cell, LightCnt, Lut, MapS, Rem};
+use crate::{prob_comfy_cell, LightCnt, MapS, Rem};
 
 /// a renderer for the check type associated with the constraint
 struct CheckTypeRender<'a> {
@@ -69,7 +69,7 @@ struct MapSRender<'a> {
     /// applied
     /// after:None if the probability did not change
     #[allow(clippy::type_complexity)]
-    probs: Option<HashMap<&'a String, (f64, Option<(Ordering, f64)>)>>,
+    probs: Option<HashMap<String, (f64, Option<(Ordering, f64)>)>>,
 }
 
 /// a small internal enum for the columns used in the hdr table
@@ -231,36 +231,33 @@ impl Constraint {
         past_constraints: &'a [Constraint],
         rem_before: &Rem,
         rem_after: &Rem,
-        lut_a: &Lut,
-        lut_b: &Lut,
+        map_a: &[String],
     ) -> ReportData<'a> {
         let probs = self.show_probs().then(|| {
             let probs_before = self
-                .map_s
-                .iter()
+                .map
+                .iter_pairs()
                 .map(|(k, v)| {
                     (
-                        k,
-                        rem_before.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0
-                            / rem_before.1 as f64,
+                        map_a[k as usize].clone(),
+                        rem_before.0[k as usize][v as usize] as f64 * 100.0 / rem_before.1 as f64,
                     )
                 })
                 .collect::<Vec<_>>();
 
             let probs_after = self
-                .map_s
-                .iter()
+                .map
+                .iter_pairs()
                 .map(|(k, v)| {
                     (
-                        k,
-                        rem_after.0[*lut_a.get(k).unwrap()][*lut_b.get(v).unwrap()] as f64 * 100.0
-                            / rem_after.1 as f64,
+                        map_a[k as usize].clone(),
+                        rem_after.0[k as usize][v as usize] as f64 * 100.0 / rem_after.1 as f64,
                     )
                 })
                 .collect::<Vec<_>>();
 
             probs_before
-                .iter()
+                .into_iter()
                 .zip(probs_after)
                 .map(|(before, after)| {
                     (
@@ -543,12 +540,10 @@ c  "#
             .map(|(i, j)| (i.to_string(), j.to_string()))
             .collect::<MapS>();
 
-        let names = ["a".to_string(), "b".to_string(), "c".to_string()];
-
         let mut probs = HashMap::new();
-        probs.insert(&names[0], (10.0, None));
-        probs.insert(&names[1], (20.0, Some((Ordering::Greater, 25.0))));
-        probs.insert(&names[2], (30.0, None));
+        probs.insert("a".to_string(), (10.0, None));
+        probs.insert("b".to_string(), (20.0, Some((Ordering::Greater, 25.0))));
+        probs.insert("c".to_string(), (30.0, None));
 
         let msr = MapSRender {
             map: &map,
@@ -561,9 +556,9 @@ c  "#
 
         assert_eq!(
             msr.to_string(),
-            r#"a → A    10     
-b → B    20 ↗ 25
-c → C    30     "#
+            r#"a → A    10.000%          
+b → B    20.000% ↗ 25.000%
+c → C    30.000%          "#
         );
     }
 }
