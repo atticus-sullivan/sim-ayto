@@ -4,9 +4,9 @@
 /// having to fill all the fields usually needed when creating a ConstraintType
 #[derive(PartialEq)]
 pub(super) enum CT {
-    /// the shortform for [`ConstraintType::Box`]
+    /// the shortform for [`ayto::constraint::ConstraintType::Box`]
     Box,
-    /// the shortform for [`ConstraintType::Night`]
+    /// the shortform for [`ayto::constraint::ConstraintType::Night`]
     Night,
 }
 

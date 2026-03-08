@@ -27,7 +27,7 @@ use crate::{
 /// and provides an initial value for a set of perms.
 ///
 /// - `choose_mb`: choose a (u8,u8) MB pair
-/// - `choose_mn`: choose a Vec<u8> MN matching
+/// - `choose_mn`: choose a `Vec<u8>` MN matching
 /// - `initial_value`: produce an initial HashMap
 pub(super) trait StrategyBundle: Send + Sync {
     /// come up with a matching for a match-box
