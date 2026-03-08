@@ -11,7 +11,7 @@ use anyhow::{Context, Result};
 use crate::constraint::{report_hdr::ReportData, Constraint};
 use crate::game::report_utils::print_rem_generic;
 use crate::game::Game;
-use crate::{Lut, Rem};
+use crate::Rem;
 
 /// event prepared for reporting
 pub(super) struct ReportEvent<'a> {
@@ -33,8 +33,7 @@ pub(super) type Trail<'a> = (Rem, Vec<ReportEvent<'a>>);
 pub(super) fn gen_report_data<'a>(
     constraints: &'a mut [Constraint],
     mut rem: Rem,
-    lut_a: &Lut,
-    lut_b: &Lut,
+    map_a: &[String],
 ) -> Result<Trail<'a>> {
     let initial = rem.clone();
 
@@ -51,7 +50,7 @@ pub(super) fn gen_report_data<'a>(
         cs.push((
             c,
             // .. is a half-opened range => upper bound is not included
-            c.generate_hdr_report(&constraints[0..i], rems_before, &rems[i], lut_a, lut_b),
+            c.generate_hdr_report(&constraints[0..i], rems_before, &rems[i], map_a),
         ));
     }
 
