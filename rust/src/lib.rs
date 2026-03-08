@@ -19,7 +19,7 @@ pub mod tree;
 
 use std::collections::HashMap;
 
-use comfy_table::Color;
+use comfy_table::{Cell, Color};
 
 use crate::matching_repr::IdBase;
 
@@ -27,12 +27,12 @@ use crate::matching_repr::IdBase;
 type MatchingS = HashMap<String, Vec<String>>;
 
 /// A type for storing matchings how they are deserialized from yaml with strings
-type MapS = HashMap<String, String>;
+pub type MapS = HashMap<String, String>;
 /// Store a matching with ids already, but still as hashmap so the access to the raw ids is easier
 pub type Map = HashMap<IdBase, IdBase>;
 
 /// A type for lookup tables (name -> id), for the other way round a simple vector is sufficient
-type Lut = HashMap<String, usize>;
+pub type Lut = HashMap<String, usize>;
 
 /// A type to store rename mappings (old-name to new-name)
 type Rename = HashMap<String, String>;
@@ -70,3 +70,52 @@ pub const COLOR_ALT_BG: Color = Color::Rgb {
     g: 44,
     b: 60,
 };
+
+/// formats a probability as a string
+macro_rules! prob_fmt {
+    ($v:expr, $p:expr) => {
+        format!("{:6.3}{}", $v, $p)
+    };
+}
+
+/// formats a probability as a comfy cell (includes color coding)
+pub fn prob_comfy_cell(val: f64, percent: bool) -> Cell {
+    let p = if percent { "%" } else { "" };
+    if 79.0 < val && val < 101.0 {
+        Cell::new(
+            prob_fmt!(val, p)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+        .fg(Color::Green)
+    } else if 55.0 <= val {
+        Cell::new(
+            prob_fmt!(val, p)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+        .fg(Color::Cyan)
+    } else if 45.0 < val {
+        Cell::new(
+            prob_fmt!(val, p)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+        .fg(Color::Yellow)
+    } else if 1.0 < val {
+        Cell::new(
+            prob_fmt!(val, p)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+    } else if -1.0 < val {
+        Cell::new(
+            prob_fmt!(val, p)
+                .trim_end_matches('0')
+                .trim_end_matches('.'),
+        )
+        .fg(Color::Red)
+    } else {
+        Cell::new("")
+    }
+}

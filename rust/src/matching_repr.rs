@@ -31,14 +31,14 @@ pub const MATCH_MAX_LEN: usize = 12;
 /// This is a way of representing a full matching. For each element it stores a `Bitset` so multple
 /// items from *set_b* can match to the element (from *set_a*).
 ///
-/// This is much cheaper than storing Vec<Vec<IdBase>>. This way it becomes a simple Vec<Bitset>.
+/// This is much cheaper than storing `Vec<Vec<IdBase>>`. This way it becomes a simple `Vec<Bitset>`.
 /// Usually a matching will not have more than `MATCH_MAX_LEN` (~10) slots. Thus, internally we use
-/// a `SmallVec` instead of a `Vec`. When storing a list of matchings (Vec<MaskedMatching>), this
+/// a `SmallVec` instead of a `Vec`. When storing a list of matchings (`Vec<MaskedMatching>`), this
 /// saves us from pointer chasing and leads to this list of matching being stored consecutive in
 /// memory (not lots of tiny allocations).
 /// Still `SmallVec` can also store larger vectors. In such a case it resorts back to doing a heap
 /// allocation. It also supports storing vectors/arrays with do not take up the full length.
-#[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize, Default)]
 pub struct MaskedMatching {
     /// mapping idx_a to a set of idxs_b where the idxs_b are stored efficiently in a
     /// bitmask/bitset

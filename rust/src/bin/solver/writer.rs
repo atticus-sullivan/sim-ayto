@@ -7,16 +7,17 @@
 //! As this is the location where information flows together, it is also the responsibility of the
 //! writer thread to show some sot of progress indication on the console.
 
-use std::collections::HashMap;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
 use std::path::Path;
 use std::sync::mpsc;
+use std::time::Duration;
 
 use anyhow::Result;
 use indicatif::{ProgressBar, ProgressStyle};
 
-use crate::{result::SimulationResult, utils::set_pb_msg};
+use crate::result::SimulationResult;
+use crate::utils::RuntimeStats;
 
 /// A type for the communication *worker* -> *writer* thread
 pub(super) enum WriterMsg {
@@ -24,12 +25,10 @@ pub(super) enum WriterMsg {
     Started {
         /// the id of the worker which started for tracking the running threads
         sim_id: usize,
-        /// the time when the worker started
-        start_ms: u128,
     },
     /// Signals the worker finished the simulation, contains the result so the writer can append it
     /// to the output
-    Finished(SimulationResult),
+    Finished(SimulationResult, Duration),
     /// Signals the worker crashed with an error
     Failed(usize, String),
 }
@@ -58,7 +57,7 @@ pub(super) fn spawn_writer_thread(
 
     let pb = ProgressBar::new(num_sims as u64);
     pb.set_style(ProgressStyle::with_template(
-        "[{elapsed_precise}] [{wide_bar}] {pos:>3}/{len:3} (ETA: {eta}) {msg}",
+        " [{wide_bar}] {pos:>3}/{len:3} | {percent:3}% | {msg} ",
     )?);
 
     let file = OpenOptions::new()
@@ -73,36 +72,33 @@ pub(super) fn spawn_writer_thread(
 /// This is the "event-loop" of the writer
 ///
 /// It terminates once all Sender instances are dropped.
-fn writer_loop(pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -> Result<()> {
-    let mut active: HashMap<usize, u128> = HashMap::new();
+fn writer_loop(main_pb: ProgressBar, mut file: File, rx: mpsc::Receiver<WriterMsg>) -> Result<()> {
+    let mut stats = RuntimeStats::default();
+    main_pb.set_position(0);
+    main_pb.set_message(stats.to_string());
 
     while let Ok(msg) = rx.recv() {
         match msg {
-            WriterMsg::Started { sim_id, start_ms } => {
-                active.insert(sim_id, start_ms);
-                set_pb_msg(&pb, &active);
-            }
+            WriterMsg::Started { sim_id: _sim_id } => {}
 
-            WriterMsg::Finished(sim_res) => {
+            WriterMsg::Finished(sim_res, dur) => {
                 let line = serde_json::to_string(&sim_res)?;
 
                 file.write_all(line.as_bytes())?;
                 file.write_all(b"\n")?;
 
-                pb.inc(1);
-                active.remove(&sim_res.identifier());
-                set_pb_msg(&pb, &active);
+                main_pb.inc(1);
+                stats.update(dur);
+                main_pb.set_message(stats.to_string());
                 file.flush()?;
             }
 
-            WriterMsg::Failed(sim_id, err_msg) => {
-                pb.inc(1);
-                active.remove(&sim_id);
-                pb.println(err_msg);
-                set_pb_msg(&pb, &active);
+            WriterMsg::Failed(_sim_id, err_msg) => {
+                main_pb.inc(1);
+                main_pb.println(err_msg);
             }
         }
     }
-    pb.finish_with_message("done");
+    main_pb.finish();
     Ok(())
 }
