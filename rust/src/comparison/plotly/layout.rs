@@ -7,7 +7,7 @@
 use catppuccin::Flavor;
 use plotly::{common::Title, Layout, Plot};
 
-/// Create a new Plotly `Plot` with default configuration we came up with
+/// Create a new Plotly [`plotly::Plot`] with default configuration we came up with
 pub(super) fn plotly_new_plot() -> Plot {
     let mut plot = Plot::new();
     plot.set_configuration(
@@ -20,7 +20,7 @@ pub(super) fn plotly_new_plot() -> Plot {
     plot
 }
 
-/// Create the base `Layout` used for plots, filled with colors from the given `palette`.
+/// Create the base [`plotly::Layout`] used for plots, filled with colors from the given `palette`.
 pub(crate) fn plotly_gen_layout(palette: Flavor) -> Layout {
     Layout::new()
         .paper_background_color(palette.colors.base.hex.to_string())

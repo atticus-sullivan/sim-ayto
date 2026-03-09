@@ -16,7 +16,7 @@ use crate::comparison::plotly::heatmap::EntryDatum;
 /// Build the bucket edges and layout (bucket -> slot count) from entries produced by `entries_fn`.
 ///
 /// - `cmp_data` is a slice of `(label, data)` pairs. The function is generic over the data type `D`.
-/// - `entries_fn` should yield a vector of `EntryDatum` for each `D`.
+/// - `entries_fn` should yield a vector of [`crate::comparison::plotly::heatmap::EntryDatum`] for each `D`.
 ///
 /// Returns:
 /// 1. Series intended to be used for the x-axis

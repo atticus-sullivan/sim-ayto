@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! This module is concerned with parsing a game from a config stored as yaml on disk.
-//! Based on the data which is deserialized, it allows to construct a ready to use `Game` by using
-//! the `finalize_parsing` function.
+//! Based on the data which is deserialized, it allows to construct a ready to use [`super::Game`] by using
+//! the [`GameParse::finalize_parsing`] function.
 
 use std::fs::File;
 use std::path::Path;
@@ -90,21 +90,21 @@ pub struct GameParse {
 }
 
 impl GameParse {
-    /// create a `GameParse` from a yaml config. This struct can then be finalized to a `Game`
+    /// create a [`GameParse`] from a yaml config. This struct can then be finalized to a [`super::Game`]
     pub fn new_from_yaml(yaml_path: &Path) -> Result<GameParse> {
         let gp: GameParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
         Ok(gp)
     }
 
-    /// Consumes a `GameParse` and produces a fully-initialised `Game`.
+    /// Consumes a [`GameParse`] and produces a fully-initialised [`super::Game`].
     ///
     /// The function performs the following ordered steps:
     /// 1. Constructs lookup tables (`lut_a`, `lut_b`) from `setA`/`setB`.
     /// 2. Validates the lookup tables against the parsed rule set.
-    /// 3. Transforms raw `ConstraintParse` objects into concrete `Constraint`s,
+    /// 3. Transforms raw [`crate::constraint::parse::ConstraintParse`] objects into concrete [`crate::constraint::Constraint`s,
     ///    honouring the `ignore` flags and rename tables.
     /// 4. Converts the user-provided query matchings and query pairs into the
-    ///    internal `MaskedMatching` representation.
+    ///    internal [`crate::matching_repr::MaskedMatching`] representation.
     /// 5. Applies any rename mappings to `map_a`/`map_b` for output purposes.
     ///
     /// Errors from any step are propagated with context, making debugging easier.
@@ -112,11 +112,11 @@ impl GameParse {
     /// # Arguments
     /// * `stem` - Path to the YAML file (used to derive the game directory and
     ///   stem name).  
-    /// * `ignore` - Global `IgnoreOps` that dictate which constraints should be
+    /// * `ignore` - Global [`crate::ignore_ops::IgnoreOps`] that dictate which constraints should be
     ///   silently skipped.
     ///
     /// # Returns
-    /// A fully-populated `Game` ready for solving or caching.
+    /// A fully-populated [`super::Game`] ready for solving or caching.
     pub fn finalize_parsing(self, stem: &Path, ignore: &IgnoreOps) -> Result<Game> {
         let mut g = Game {
             no_offerings_noted: self.no_offerings_noted,

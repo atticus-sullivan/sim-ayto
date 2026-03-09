@@ -53,7 +53,7 @@ impl MaskedMatching {
         MaskedMatching { masks }
     }
 
-    /// Swap the internal `Vec<Bitset>` with `other`.
+    /// Swap the internal `Vec<[super::bitset::Bitset]>` with `other`.
     /// This provides zero-copy handoff of mask storage to/from the MaskedMatching.
     /// After calling `self.swap_masks(&mut buf)`, `self` will own the contents of
     /// `buf` and `buf` will own what `self` used to own.
@@ -105,7 +105,7 @@ impl MaskedMatching {
         }
     }
 
-    /// The `m` is expected to be a slice of slots; each slot is a `Vec<IdBase>`
+    /// The `m` is expected to be a slice of slots; each slot is a `Vec<[super::IdBase]>`
     /// listing value indices.
     ///
     /// # Examples

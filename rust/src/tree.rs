@@ -16,7 +16,7 @@ use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::{IdBase, MaskedMatching};
 use crate::Lut;
 
-/// Parsing struct for `TreeConfig`, can be converted to this via the `finalize` function
+/// Parsing struct for [`TreeConfig`], can be converted to this via the [`TreeConfigParse::finalize`] function
 #[derive(Clone, Deserialize, Debug)]
 pub(crate) struct TreeConfigParse {
     /// an id which can be used as a component in the filename
@@ -103,7 +103,7 @@ impl TreeConfig {
     ///
     /// Arguments:
     /// - `writer` is where the `.dot` file is written to
-    /// - `data` are the possible solutions (one `MaskedMatching` per leaf path)
+    /// - `data` are the possible solutions (one [`crate::matching_repr::MaskedMatching`] per leaf path)
     /// - `ordering` controls the order of the layers/levels
     /// - `title` is placed in the graph label
     /// - `map_a`/`map_b` are used to render readable labels.
@@ -160,7 +160,7 @@ struct DotBuilder<'a, W: Write> {
 }
 
 impl<'a, W: Write> DotBuilder<'a, W> {
-    /// Create a new `DotBuilder` which writes to `W`
+    /// Create a new [`DotBuilder`] which writes to `W`
     ///
     /// - `map_a`/`map_b` the maps to convert indices to names
     fn new(writer: &'a mut W, map_a: &'a [String], map_b: &'a [String]) -> Self {

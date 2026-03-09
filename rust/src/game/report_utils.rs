@@ -5,8 +5,8 @@
 //! This module provides all functionalities required for printing a table of the remaining
 //! probabilities of a match.
 //! For the outside the computation is split into two steps:
-//! 1. generate the data: `print_rem_generic`
-//! 2. print the data via the Display trait of the returned struct (`RemTable`)
+//! 1. generate the data: [`print_rem_generic`]
+//! 2. print the data via the Display trait of the returned struct ([`RemTable`])
 //!
 //! On the inside the computation is further split up into:
 //! 1. Translating the remaining counts to percentages/probabilities
@@ -71,7 +71,7 @@ where
     }
 }
 
-/// Converts the `Rem` to a matrix of percentages. Based on ignore_pairing, some entries might be
+/// Converts the [`crate::Rem`] to a matrix of percentages. Based on ignore_pairing, some entries might be
 /// absent in this matrix.
 /// In the returned value, each row is associated with its "header" (aka first column)
 ///

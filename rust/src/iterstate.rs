@@ -49,14 +49,14 @@ pub trait IterStateTrait {
     /// Called for each emitted matching.
     ///
     /// - `i`: the global sequential index of the emitted matching.
-    /// - `p`: the `MaskedMatching` describing the matching.
+    /// - `p`: the [`crate::matching_repr::MaskedMatching`] describing the matching.
     fn step(&mut self, i: usize, p: &MaskedMatching) -> Result<()>;
 }
 
 /// A struct to perform the iteration over all permutations which collect stats along the way.
 ///
 /// The generics used allow to plug other implementations of Constraints and Progressbar.
-/// In particular the Progressbar can be replaced with the `MockProgressbar` which is already
+/// In particular the Progressbar can be replaced with the [`crate::progressbar::MockProgressBar`] which is already
 /// available. This way the progressbar can be deactivated.
 #[derive(Debug)]
 pub struct IterState<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> {
@@ -172,7 +172,7 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterStateTrait f
 }
 
 impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> {
-    /// Create a new `IterState`.
+    /// Create a new [`crate::iterstate::IterState`].
     ///
     /// - `keep_rem`: whether to keep remaining permutations in memory for reporting.
     /// - `perm_amount`: total number of permutations expected (for showing progress).
@@ -229,7 +229,7 @@ impl<T: ProgressBarTrait, S: ConstraintSim + ConstraintGetters> IterState<T, S> 
         Ok(is)
     }
 
-    /// Update per-pair counts for statistics from a raw `MaskedMatching`
+    /// Update per-pair counts for statistics from a raw [`crate::matching_repr::MaskedMatching`]
     fn step_counting_all(&mut self, p: &MaskedMatching) {
         // count how often each pairing occurs without filtering
         // - necessary to be able to work with caching

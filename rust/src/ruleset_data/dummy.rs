@@ -12,7 +12,7 @@ use crate::ruleset::RuleSet;
 use crate::ruleset_data::RuleSetData;
 use crate::Lut;
 
-/// Dummy implementation of `RuleSetData` used when the ruleset does not need
+/// Dummy implementation of [`super::RuleSetData`] used when the ruleset does not need
 /// per-solution statistics => no-op
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct DummyData {}

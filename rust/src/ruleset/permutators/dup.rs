@@ -14,7 +14,7 @@ use crate::matching_repr::{bitset::Bitset, IdBase};
 /// Apply a sequence of duplicate-add operations to `buf` *in-place* and emit every final result.
 ///
 /// Semantics:
-/// - `buf` is a mutable slice of `Bitset` representing buckets. Each `Bitset` in `buf` is
+/// - `buf` is a mutable slice of [`crate::matching_repr::bitset::Bitset`] representing buckets. Each [`crate::matching_repr::bitset::Bitset`] in `buf` is
 ///   typically a singleton
 /// - `add` is a slice of values (bit indices) that must be applied in order
 /// - For each `add[i]` the algorithm chooses a target bucket index `j` (0..buf.len()) such that
@@ -26,9 +26,9 @@ use crate::matching_repr::{bitset::Bitset, IdBase};
 ///
 /// Performance & invariants:
 /// - No heap allocations per emission. The function uses stack recursion of depth `add.len()`.
-/// - `Bitset` is copied/assigned to save/restore buckets
+/// - [`crate::matching_repr::bitset::Bitset`] is copied/assigned to save/restore buckets
 /// - the caller's `buf` is guaranteed to be exactly restored when the function returns.
-/// - Caller must ensure `add` values are valid bit indices for `Bitset`.
+/// - Caller must ensure `add` values are valid bit indices for [`crate::matching_repr::bitset::Bitset`].
 #[inline]
 pub(crate) fn add_x_dups_inplace<F>(
     buf: &mut [Bitset],

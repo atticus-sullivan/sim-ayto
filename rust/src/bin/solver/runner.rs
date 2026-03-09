@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! This module orchestrates running multiple simulations independently in parallel.
-//! It uses `rayon` to spwan X thrads running a fresh simulation in parallel.
+//! It uses [`rayon`] to spwan X thrads running a fresh simulation in parallel.
 //! A single writer thread is responsible for writing the gathered statistics/results to disk.
 
 use std::path::Path;

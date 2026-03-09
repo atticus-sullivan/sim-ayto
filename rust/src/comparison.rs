@@ -63,7 +63,7 @@ impl Language {
         }
     }
 
-    /// Return a number formatting `Locale` used for formatting monetary amounts / numbers.
+    /// Return a number formatting [`num_format::Locale`] used for formatting monetary amounts / numbers.
     pub(crate) fn number_formatting(&self) -> num_format::Locale {
         match self {
             Language::De => num_format::Locale::de,
@@ -126,7 +126,7 @@ pub fn write_pages(
     Ok(())
 }
 
-/// Render a single page using the provided `PageConfig` and language.
+/// Render a single page using the provided [`PageConfig`] and language.
 ///
 /// This writes a Markdown file (`.md` for German, `en.md` for English) to the
 /// `cfg.base_path` with the provided `md_ruleset_tab`, `md_summary_tab` and
