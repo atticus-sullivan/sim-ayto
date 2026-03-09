@@ -185,7 +185,7 @@ fn main() {
                 .unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
-        Commands::Cache { } => {
+        Commands::Cache {} => {
             let gp = GameParse::new_from_yaml(&args.yaml_path).expect("Parsing failed");
             let mut g = gp
                 .finalize_parsing(std::path::Path::new(".trash"), &IgnoreOps::Nothing)
@@ -194,7 +194,7 @@ fn main() {
             let cs = g.get_cache_candidates();
             show_caches(cs).unwrap();
         }
-        Commands::Check { } => {
+        Commands::Check {} => {
             let gp = GameParse::new_from_yaml(&args.yaml_path).expect("Parsing failed");
             gp.finalize_parsing(std::path::Path::new(".trash"), &IgnoreOps::Nothing)
                 .expect("processing game failed");

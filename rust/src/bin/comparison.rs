@@ -29,5 +29,11 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    comparison::write_pages(&args.html_path_de, &args.html_path_us, args.theme_light, args.theme_dark).unwrap();
+    comparison::write_pages(
+        &args.html_path_de,
+        &args.html_path_us,
+        args.theme_light,
+        args.theme_dark,
+    )
+    .unwrap();
 }
