@@ -66,7 +66,7 @@ clean: $(CLALIAS)
 	- $(RM) stats_us.html stats_de.html
 
 $(CLALIAS):
-	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/$i{.txt,.col.out,.pdf,.col.png,_tab.png,_sum.png,*.dot,.csv,.md} )
+	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/$i{.txt,.col.out,*.pdf,.col.png,_tab.png,_sum.png,*.dot,.csv,.md} )
 	- $(RM) $(let i,$(patsubst clean_%,%,$@),data/$i/stat{Info,MB,MN,Sum,s}.{csv,json})
 
 
@@ -84,8 +84,8 @@ $(CAALIAS):
 	@make --no-print-directory $(f)
 	$(NOTIF) &
 ifdef ZATHURA
-	$(eval pdf := $(shell printf "%s\n" $(f:.txt=_*_tree_*.pdf) | sort -t_ -k2 -n | tail -n1))
-	-test -f $(pdf) && $(ZATHURA) "$(pdf)" & disown
+	$(eval pdf_pat := $(f:.txt=_*_tree_*.pdf))
+	-pdf="$$(printf "%s\n" $(pdf_pat) | sort -t_ -k2 -n | tail -n1)" && test -f $${pdf} && $(ZATHURA) "$${pdf}" & disown
 endif
 	$(CAT) $(f:.txt=.col.out)
 
