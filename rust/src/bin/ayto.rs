@@ -5,7 +5,6 @@
 //! This module serves as a CLI to the simulation/calculation/evaluation/reporting and comparison
 //! code.
 
-use ayto::comparison;
 use ayto::game::cache::{CacheModeArg, CacheModeFallback, CacheSpec};
 use ayto::game::cache_report::show_caches;
 use ayto::game::parse::GameParse;
@@ -22,6 +21,9 @@ use std::time::Instant;
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
+    /// The path to the file to read as game-config
+    yaml_path: PathBuf,
+
     /// subcommands of the binary
     #[command(subcommand)]
     cmd: Commands,
@@ -41,9 +43,6 @@ enum Commands {
         /// specify which operations/events shall be ignored
         #[arg(long = "ignore", value_enum, default_value_t = IgnoreOps::Nothing)]
         ignore: IgnoreOps,
-
-        /// The path to the file to read as game-config
-        yaml_path: PathBuf,
 
         // #[arg(short = 'c', long = "color")]
         // colored: bool,
@@ -122,28 +121,9 @@ enum Commands {
         cache_event: Option<String>,
     },
     /// Linter like checking of the game-config for errors
-    Check {
-        /// The path to the file to read
-        yaml_path: PathBuf,
-    },
-    /// Build comparison HTML pages for the dataset directories
-    Comparison {
-        /// id for the palette used for generating the light-theme output
-        #[arg(short = 'l', long = "theme-light", default_value = "1")]
-        theme_light: u8,
-        /// id for the palette used for generating the dark-theme output
-        #[arg(short = 'd', long = "theme-dark", default_value = "3")]
-        theme_dark: u8,
-        /// base-path where to write the comparison site for the german seasons to
-        html_path_de: PathBuf,
-        /// base-path where to write the comparison site for the us+uk seasons to
-        html_path_us: PathBuf,
-    },
+    Check {},
     /// Report cache availability for a YAML file
-    Cache {
-        /// Path to the game-config for which the caches shall be listed
-        yaml_path: PathBuf,
-    },
+    Cache {},
 }
 
 /// Run the command selected by the CLI arguments. Factored out for easier testing or reuse.
@@ -154,7 +134,6 @@ fn main() {
         Commands::Sim {
             no_tree_output,
             ignore,
-            yaml_path,
             // colored: _,
             transpose_tabs,
             stem,
@@ -168,7 +147,7 @@ fn main() {
             cache_path,
             cache_event,
         } => {
-            let gp = GameParse::new_from_yaml(&yaml_path).expect("Parsing failed");
+            let gp = GameParse::new_from_yaml(&args.yaml_path).expect("Parsing failed");
             let gp_cache = (
                 gp.gen_cache,
                 gp.use_cache.clone(),
@@ -206,8 +185,8 @@ fn main() {
                 .unwrap();
             println!("\nRan in {:.2}s", start.elapsed().as_secs_f64());
         }
-        Commands::Cache { yaml_path } => {
-            let gp = GameParse::new_from_yaml(&yaml_path).expect("Parsing failed");
+        Commands::Cache { } => {
+            let gp = GameParse::new_from_yaml(&args.yaml_path).expect("Parsing failed");
             let mut g = gp
                 .finalize_parsing(std::path::Path::new(".trash"), &IgnoreOps::Nothing)
                 .expect("processing game failed");
@@ -215,18 +194,10 @@ fn main() {
             let cs = g.get_cache_candidates();
             show_caches(cs).unwrap();
         }
-        Commands::Check { yaml_path } => {
-            let gp = GameParse::new_from_yaml(&yaml_path).expect("Parsing failed");
+        Commands::Check { } => {
+            let gp = GameParse::new_from_yaml(&args.yaml_path).expect("Parsing failed");
             gp.finalize_parsing(std::path::Path::new(".trash"), &IgnoreOps::Nothing)
                 .expect("processing game failed");
-        }
-        Commands::Comparison {
-            theme_light,
-            theme_dark,
-            html_path_de,
-            html_path_us,
-        } => {
-            comparison::write_pages(&html_path_de, &html_path_us, theme_light, theme_dark).unwrap();
         }
     }
 }
