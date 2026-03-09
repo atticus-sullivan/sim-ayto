@@ -25,7 +25,7 @@ impl Constraint {
     /// Write a `.dot` file for the tree of remaining possibilities in case this has been
     /// requested. If no tree is requested for this constraint, this function is a no-op.
     ///
-    /// Returns whether a tree has been generated/drawn
+    /// Returns whether and if yes which trees have been generated/drawn
     pub(crate) fn build_tree<F: Fn(&str) -> PathBuf>(
         &self,
         path: F,
