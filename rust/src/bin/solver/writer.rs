@@ -37,7 +37,7 @@ pub(super) enum WriterMsg {
 ///
 /// The writer thread:
 /// - Owns the output file
-/// - Serializes `SimulationResult` as JSON lines
+/// - Serializes [`crate::result::SimulationResult`] as JSON lines
 /// - Maintains and updates a progress bar
 /// - Tracks active simulations
 ///

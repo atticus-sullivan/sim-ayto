@@ -16,7 +16,7 @@ use crate::matching_repr::{bitset::Bitset, IdBase};
 /// - For every choice `ks` of `k` slot indices (combination) select a permutation of the remaining
 ///   values `vs` and map it to the chosen `ks`
 /// - This emitter produces `&[Bitset]` buffers where only the `ks` positions are singletons; other
-///   positions are unset/empty `Bitset::empty()`.
+///   positions are unset/empty [`crate::matching_repr::bitset::Bitset::empty`].
 ///
 /// Notes:
 /// - To avoid allocations, permutations of `vs` are generated in-place using `heaps_permute`.

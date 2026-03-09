@@ -46,7 +46,8 @@ pub struct CfgParse {
 }
 
 impl CfgParse {
-    /// create a `CfgParse` from a yaml config. This struct can then be finalized to a `Cfg`
+    /// create a [`CfgParse`] from a yaml config. This struct can then be finalized to a
+    /// [`Simulation`]
     pub fn new_from_yaml(yaml_path: &Path) -> Result<CfgParse> {
         let gp: CfgParse = serde_yaml::from_reader(File::open(yaml_path)?)?;
         Ok(gp)

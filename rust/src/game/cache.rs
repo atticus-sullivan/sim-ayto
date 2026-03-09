@@ -54,7 +54,7 @@ impl CachableSpec for CacheSpec {
     }
 }
 
-/// Compute cache file candidates (path + label) for the current `GameParse`.
+/// Compute cache file candidates (path + label) for the current [`crate::game::parse::GameParse`].
 ///
 /// This function only *theoretically* computes what valid identifiers for caches would be. It does
 /// not check if these files exist.
@@ -87,7 +87,7 @@ where
     input_hashes
 }
 
-/// argument specification for `CacheMode` so this can be used with clap
+/// argument specification for [`CacheMode`] so this can be used with clap
 #[derive(Debug, Clone, clap::ValueEnum)]
 pub enum CacheModeArg {
     /// select the most recent available cache
@@ -114,7 +114,7 @@ pub enum CacheMode {
 }
 
 impl CacheModeArg {
-    /// convert the cachemode parsed to a full `CacheMode`
+    /// convert the cachemode parsed to a full [`CacheMode`]
     pub fn finalize(&self, cache: &Option<PathBuf>, event: &Option<String>) -> Result<CacheMode> {
         match &self {
             CacheModeArg::MostRecent => Ok(CacheMode::MostRecent),

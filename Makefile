@@ -4,6 +4,8 @@
 
 MODE ?= release
 
+RUST_SRCS := $(shell find rust/src -name '*.rs')
+
 DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05 de05r de06 de07
 DAT_RUST += us01 us02 us03 us04 us05 us06 us07 us08 us09
 DAT_RUST += uk01
@@ -72,7 +74,7 @@ $(CLALIAS):
 check: $(CHALIAS)
 	
 $(CHALIAS):
-	./rust/target/$(MODE)/ayto check $(let i,$(patsubst check_%,%,$@),data/$i/$i.yaml)
+	./rust/target/$(MODE)/ayto $(let i,$(patsubst check_%,%,$@),data/$i/$i.yaml) check
 
 cat: cat_$(CUR)
 
@@ -114,7 +116,7 @@ $(ALIAS):
 
 $(OUT_RUST): data/%.txt: data/%.yaml $(RUST_DEP)
 	@date
-	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto sim $(GENARGS) -o $(basename $<) $< > $(basename $<).col.out
+	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto $< sim $(GENARGS) -o $(basename $<) > $(basename $<).col.out
 	# strip ansi color stuff to get a plain text file
 	sed 's/\x1b\[[0-9;]*m//g' $(basename $<).col.out > $(basename $<).txt
 	# colored output
@@ -134,7 +136,7 @@ endif
 cache: cache_$(CUR)
 $(CEALIAS): $(RUST_DEP)
 	$(eval f := $(let i,$@,data/$(patsubst cache_%,%,$i)/$(patsubst cache_%,%,$i).yaml))
-	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto cache $(f)
+	test $$(git rev-parse --abbrev-ref HEAD) = "build" || ./rust/target/$(MODE)/ayto $(f) cache
 
 comparison: gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
@@ -142,8 +144,11 @@ hugo: comparison
 	cd ./gh-pages && hugo build
 	echo "$(pwd)/gh-pages/public/ayto"
 
-gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/ayto $(wildcard data/*/*.json)
-	./rust/target/$(MODE)/ayto comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
+gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/comparison $(wildcard data/*/*.json)
+	./rust/target/$(MODE)/comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
-rust/target/$(MODE)/ayto: ./rust/src/*
+rust/target/$(MODE)/ayto: $(RUST_SRCS)
 	make -C rust target/$(MODE)/ayto
+
+rust/target/$(MODE)/comparison: $(RUST_SRCS)
+	make -C rust target/$(MODE)/comparison

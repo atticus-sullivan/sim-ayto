@@ -151,7 +151,7 @@ impl Bitset {
     }
 }
 
-/// Bitwise operators for `Bitset`.
+/// Bitwise operators for [`Bitset`].
 impl std::ops::BitAnd for Bitset {
     type Output = Bitset;
     #[inline(always)]

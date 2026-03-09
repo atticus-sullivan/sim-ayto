@@ -96,7 +96,7 @@ impl Constraint {
     /// apply this constraint to the 2d-Matrix of the left possibilities for a 1:1 match
     ///
     /// Calculates stats for this constraint
-    /// and returns the adjusted `Rem`.
+    /// and returns the adjusted [`crate::Rem`].
     pub fn apply_to_rem(&mut self, mut rem: Rem) -> Option<Rem> {
         rem.1 -= self.eliminated;
 

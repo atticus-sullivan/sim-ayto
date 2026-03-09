@@ -7,10 +7,10 @@
 //!
 //! Usually the life-cycle of a constraint is as follows:
 //! 1. Parsing -> see the parse module
-//!   1. parsed from yaml to `ConstraintParse`
-//!   2. converted to `Constraint`
+//!   1. parsed from yaml to [`parse::ConstraintParse`]
+//!   2. converted to [`Constraint`]
 //! 2. Simulating -> see the simulate module
-//!   - here `process` is the core function which plugs everything together
+//!   - here [`Constraint::process`] is the core function which plugs everything together
 //! 3. Evaluating -> see the evaluate module
 //!   - after the simulation is done the stats collected during the simulation are evaluated
 //! 4. Comparing -> see the compare module
@@ -318,7 +318,7 @@ pub trait ConstraintSim {
 }
 
 impl Constraint {
-    /// Create a new `Constraint`. The most important data can be passed as arguments, the
+    /// Create a new [`Constraint`]. The most important data can be passed as arguments, the
     /// remaining fields will be filled with typical defaults.
     #[allow(clippy::field_reassign_with_default)]
     pub fn new_with_defaults(

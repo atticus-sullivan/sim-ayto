@@ -30,7 +30,7 @@ pub enum CheckType {
 }
 
 impl CheckType {
-    /// Return the lights-count if this `CheckType` is `Lights`.
+    /// Return the lights-count if this [`CheckType`] is `Lights`.
     pub fn as_lights(&self) -> Option<LightCnt> {
         if let CheckType::Lights(l, _) = *self {
             Some(l)

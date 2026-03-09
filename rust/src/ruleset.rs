@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! This module implements a ruleset. This way the game can be played with various different rules.
-//! The fore function the ruleset offers is `iter_perms` which basically performs the entire
+//! The fore function the ruleset offers is [`RuleSet::iter_perms`] which basically performs the entire
 //! simulation.
 
 pub mod parse;
@@ -267,20 +267,20 @@ impl RuleSet {
     }
 }
 
-/// Copy `slice` into the provided `MaskedMatching` and forward it to the iterator-state.
+/// Copy `slice` into the provided [`crate::matching_repr::MaskedMatching`] and forward it to the iterator-state.
 ///
 /// When re-using the same MaskedMatching over and over again this avoids having to allocate a
 /// MaskedMatching over and over again.
 ///
 /// # Parameters
 /// - `idx`: index (position) of this emitted matching within the global enumeration.
-/// - `slice`: slice of `Bitset` masks for each slot to be placed into `mm`.
-/// - `mm`: a preallocated `MaskedMatching` that will be *overwritten* with `slice`.
-/// - `is`: mutable reference to an `IterStateTrait` which will receive the `MaskedMatching`.
+/// - `slice`: slice of [`crate::matching_repr::bitset::Bitset`] masks for each slot to be placed into `mm`.
+/// - `mm`: a preallocated [`crate::matching_repr::MaskedMatching`] that will be *overwritten* with `slice`.
+/// - `is`: mutable reference to an [`crate::iterstate::IterStateTrait`] which will receive the [`crate::matching_repr::MaskedMatching`].
 ///
 /// # Preconditions / Performance
-/// - `mm` MUST be preallocated with capacity >= `slice.len()`. Use `MaskedMatching::with_slots`.
-/// - `set_masks_from_slice` is expected to perform a single `copy_from_slice` style operation
+/// - `mm` MUST be preallocated with capacity >= `slice.len()`. Use [`crate::matching_repr::MaskedMatching::with_slots`].
+/// - [`crate::matching_repr::MaskedMatching::set_masks_from_slice`] is expected to perform a single `copy_from_slice` style operation
 ///   (cheap, u64-sized copies) and must not re-allocate in the common case.
 ///
 /// # Notes:

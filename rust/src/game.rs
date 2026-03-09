@@ -4,11 +4,11 @@
 
 //! This module represents the whole game.
 //! A game has te following lifecycle:
-//! 1. parsed from yaml as `GameParse` -> parse module
-//! 2. converted to a regular `Game` -> parse module
-//! 3. simulated `sim()` -> main module
-//! 4. evaluated `eval()` -> eval module
-//! 5. report generated and printed `report()` -> eval/report module
+//! 1. parsed from yaml as [`parse::GameParse`] -> parse module
+//! 2. converted to a regular [`Game`] -> parse module
+//! 3. simulated [`Game::sim`] -> main module
+//! 4. evaluated [`Game::eval`] -> eval module
+//! 5. report generated and printed `Game::report` -> eval/report module
 
 pub mod cache;
 pub mod cache_report;
@@ -121,12 +121,12 @@ impl Game {
         format!("{}/{}", self.map_a.len(), self.map_b.len())
     }
 
-    /// Run the simulation (populate an `IterState` by iterating ruleset permutations).
+    /// Run the simulation (populate an [`crate::iterstate::IterState`] by iterating ruleset permutations).
     ///
     /// by setting `dump_mode` the permutations which survived all constraints are stored for later
     /// evaluation/dumping
     ///
-    /// Returns the final `IterState`.
+    /// Returns the final [`crate::iterstate::IterState`].
     pub fn sim<T: ProgressBarTrait>(
         &mut self,
         dump_mode: Option<DumpMode>,

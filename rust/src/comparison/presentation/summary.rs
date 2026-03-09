@@ -12,8 +12,9 @@ use crate::constraint::compare::{SumCounts, SumOffersMB, SumOffersMN};
 
 /// Build a summary Markdown tab for all rulesets.
 ///
-/// - `cmp_data` is pairs of `(ruleset_name, CmpData)`
-/// - `lang` controls the i18n labels (e.g. `Language::De` / `Language::En`).
+/// - `cmp_data` is pairs of `(ruleset_name, [crate::comparison::data::CmpData])`
+/// - `lang` controls the i18n labels (e.g. [`crate::comparison::Language::De`] /
+///   [`crate::comparison::Language::En`]).
 ///
 /// Returns a (long) Markdown table string (multiline).
 pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> String {

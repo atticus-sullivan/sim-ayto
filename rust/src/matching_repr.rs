@@ -19,7 +19,7 @@ use crate::matching_repr::bitset::Bitset;
 pub type Word = u64;
 /// The type used to store elements in the index representation
 pub type IdBase = u8;
-/// the amount of bits available in the currently used `Word`
+/// the amount of bits available in the currently used [`Word`]
 const WORD_BITS: usize = 64;
 // const WORD_BITS_LOG: usize = 6; // log2(64)
 
@@ -28,15 +28,15 @@ const WORD_BITS: usize = 64;
 /// the dups/trips in the initial permutation)
 pub const MATCH_MAX_LEN: usize = 12;
 
-/// This is a way of representing a full matching. For each element it stores a `Bitset` so multple
+/// This is a way of representing a full matching. For each element it stores a [`bitset::Bitset`] so multple
 /// items from *set_b* can match to the element (from *set_a*).
 ///
-/// This is much cheaper than storing `Vec<Vec<IdBase>>`. This way it becomes a simple `Vec<Bitset>`.
-/// Usually a matching will not have more than `MATCH_MAX_LEN` (~10) slots. Thus, internally we use
-/// a `SmallVec` instead of a `Vec`. When storing a list of matchings (`Vec<MaskedMatching>`), this
+/// This is much cheaper than storing `Vec<Vec<[crate::IdBase]>>`. This way it becomes a simple `Vec<[bitset::Bitset]>`.
+/// Usually a matching will not have more than [`MATCH_MAX_LEN`] (~10) slots. Thus, internally we use
+/// a [`smallvec::SmallVec`] instead of a `Vec`. When storing a list of matchings (`Vec<[MaskedMatching]>`), this
 /// saves us from pointer chasing and leads to this list of matching being stored consecutive in
 /// memory (not lots of tiny allocations).
-/// Still `SmallVec` can also store larger vectors. In such a case it resorts back to doing a heap
+/// Still [`smallvec::SmallVec`] can also store larger vectors. In such a case it resorts back to doing a heap
 /// allocation. It also supports storing vectors/arrays with do not take up the full length.
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Deserialize, Serialize, Default)]
 pub struct MaskedMatching {
@@ -70,15 +70,15 @@ impl MaskedMatching {
         self.masks.get(slot)
     }
 
-    /// Prepare a `Vec<Vec<IdBase>>` representation for human-friendly printing.
+    /// Prepare a `Vec<Vec<[crate::IdBase]>>` representation for human-friendly printing.
     ///
-    /// Each slot becomes a `Vec<IdBase>` of the element indices present in that slot.
+    /// Each slot becomes a `Vec<[crate::IdBase]>` of the element indices present in that slot.
     /// The idea is that this can be printed via the Debug trait.
     pub fn prepare_debug_print(&self) -> Vec<Vec<IdBase>> {
         self.masks.iter().map(|b| b.iter().collect()).collect()
     }
 
-    /// Prepare a name-pair list for human-friendly printing, just like `prepare_debug_print`. The
+    /// Prepare a name-pair list for human-friendly printing, just like [`MaskedMatching::prepare_debug_print`]. The
     /// difference is that this function resolves the indices to the strings/names.
     ///
     /// # Note
@@ -107,7 +107,7 @@ impl MaskedMatching {
 
     /// Counts the number of slots that are non-empty and overlap with `sol`.
     ///
-    /// This method compares the calling `MaskedMatching` to `sol` and returns
+    /// This method compares the calling [`MaskedMatching`] to `sol` and returns
     /// how many slots have a non-zero intersection.
     ///
     /// Note: In the context of the game this is also known as how many lights the calling Matching
@@ -135,7 +135,7 @@ impl MaskedMatching {
 
     /// Compute the universe (highest set bit + 1) or 0 if empty.
     ///
-    /// Useful when converting back to `Vec<Vec<IdBase>>` to know the upper bound.
+    /// Useful when converting back to `Vec<Vec<[crate::IdBase]>>` to know the upper bound.
     pub fn computed_universe(&self) -> usize {
         self.masks
             .iter()

@@ -12,10 +12,10 @@ all: run
 test:
 	cargo test
 
-target/release/ayto: $(SRC_FILES)
+target/release/ayto target/release/comparison: $(SRC_FILES)
 	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo build --release
 
-target/debug/ayto: $(SRC_FILES)
+target/debug/ayto target/debug/comparison: $(SRC_FILES)
 	RUSTFLAGS="-Wmissing_docs -C target-cpu=native" RUSTC_WRAPPER=sccache cargo build
 
 buildAll: buildRelease build

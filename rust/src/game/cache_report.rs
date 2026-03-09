@@ -104,7 +104,7 @@ impl<'a> Display for CacheStatusAll<'a> {
 
 /// Build a human-readable table with information about available caches.
 ///
-/// This function *inspects the filesystem* and returns a `comfy_table::Table`
+/// This function *inspects the filesystem* and returns a [`comfy_table::Table`]
 /// describing stats on the caches found.
 pub fn show_caches(caches: Vec<CacheSpec>) -> Result<()> {
     let csa = CacheStatusAll(caches.iter().map(CacheStatus::new).collect::<Result<_>>()?);
