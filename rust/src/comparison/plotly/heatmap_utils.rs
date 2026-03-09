@@ -28,6 +28,10 @@ pub(super) fn generate_buckets_from_entries<F, D>(
 where
     F: Fn(&D) -> Vec<EntryDatum>,
 {
+    if cmp_data.is_empty() {
+        return (vec![], vec![]);
+    }
+
     // bucket -> season -> values
     let mut bucket_map: BTreeMap<Decimal, HashMap<String, Vec<Decimal>>> = BTreeMap::new();
 
