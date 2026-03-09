@@ -4,6 +4,8 @@
 
 MODE ?= release
 
+RUST_SRCS := $(shell find rust/src -name '*.rs')
+
 DAT_RUST := de01 de01r de02 de02r de03 de03r de04 de04r de05 de05r de06 de07
 DAT_RUST += us01 us02 us03 us04 us05 us06 us07 us08 us09
 DAT_RUST += uk01
@@ -145,8 +147,8 @@ hugo: comparison
 gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md: rust/target/$(MODE)/comparison $(wildcard data/*/*.json)
 	./rust/target/$(MODE)/comparison gh-pages/content/comparison/de.md gh-pages/content/comparison/us.md
 
-rust/target/$(MODE)/ayto: ./rust/src/*
+rust/target/$(MODE)/ayto: $(RUST_SRCS)
 	make -C rust target/$(MODE)/ayto
 
-rust/target/$(MODE)/comparison: ./rust/src/*
+rust/target/$(MODE)/comparison: $(RUST_SRCS)
 	make -C rust target/$(MODE)/comparison
