@@ -102,7 +102,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ayto
-          path: rust/target/release/{ayto,comparison}
+          path: |
+            rust/target/release/ayto
+            rust/target/release/comparison
 
 
   run-sim:
