@@ -48,7 +48,7 @@ fn read_json_data<T: DeserializeOwned>(fn_param: &str, path: &Path) -> Result<Op
 /// Parse the game YAML file located at `fn_path` (without extension).
 ///
 /// The function expects `<fn_path>.yaml` to exist and uses the game's parsing
-/// facilities (`GameParse`) to produce a `Game`. This helper will panic on parse
+/// facilities ([`crate::game::parse::GameParse`]) to produce a [`crate::game::Game`]. This helper will panic on parse
 /// error in current behavior (keeps earlier behavior intact).
 fn read_yaml_spec(mut fn_path: PathBuf) -> Result<Game> {
     fn_path.set_extension("yaml");

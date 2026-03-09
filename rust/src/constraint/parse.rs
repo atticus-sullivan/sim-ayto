@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! This module is typically used to
-//! 1. deserialize into `ConstraintParse`
-//! 2. call `finalize_parsing` to get a `Constraint` object to use in the simulation
+//! 1. deserialize into [`ConstraintParse`]
+//! 2. call [`ConstraintParse::finalize_parsing`] to get a [`super::Constraint`] object to use in the simulation
 //!
 //! Some helpers were soutsourced to parse_utils
 
@@ -23,7 +23,7 @@ use crate::tree::TreeConfigParse;
 use crate::{LightCnt, Lut, MapS, Rename};
 
 /// this struct is only used when parsing the yaml file.
-/// The function `finalize_parsing` is intended to convert this to a regular constraint.
+/// The function [`ConstraintParse::finalize_parsing`] is intended to convert this to a regular constraint.
 #[derive(Deserialize, Debug, Clone)]
 pub struct ConstraintParse {
     /// of what type this constraint is (e.g. MB/MN)
@@ -77,7 +77,7 @@ impl Default for ConstraintParse {
 }
 
 impl ConstraintParse {
-    /// Convert a `ConstraintParse` (raw YAML-deserialized structure) into a runtime `Constraint`.
+    /// Convert a [`ConstraintParse`] (raw YAML-deserialized structure) into a runtime [`super::Constraint`].
     ///
     /// This performs:
     /// - finalization of optional parameters,

@@ -17,14 +17,14 @@ use ayto::matching_repr::{IdBase, MaskedMatching};
 
 use crate::NUM_PLAYERS_SET_A;
 
-/// Generates a random solution and converts it into `MaskedMatching`.
+/// Generates a random solution and converts it into [`ayto::matching_repr::MaskedMatching`].
 pub(super) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
     let mut solution: Vec<IdBase> = (0..NUM_PLAYERS_SET_A).map(|x| x as IdBase).collect();
     solution.shuffle(rng);
     (*solution).into()
 }
 
-/// Creates the initial `IterState` for a simulation based on
+/// Creates the initial [`ayto::iterstate::IterState`] for a simulation based on
 /// the first constraint.
 ///
 /// This prepares the permutation engine and initializes
@@ -34,7 +34,7 @@ pub(super) fn generate_solution(rng: &mut StdRng) -> MaskedMatching {
 /// - `constraint` - The initial constraint of the simulation
 ///
 /// # Returns
-/// An initialized (but not executed) `IterState`.
+/// An initialized (but not executed) [`ayto::iterstate::IterState`].
 pub(super) fn create_iteration_state(
     constraints: Vec<Constraint>,
 ) -> Result<IterState<MockProgressBar, Constraint>> {

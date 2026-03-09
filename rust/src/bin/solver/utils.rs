@@ -74,7 +74,7 @@ impl RuntimeStats {
 
     /// Returns the average runtime of all samples.
     ///
-    /// If no samples have been recorded, `Duration::ZERO` is returned.
+    /// If no samples have been recorded, [`Duration::ZERO`] is returned.
     fn avg(&self) -> Duration {
         if self.count == 0 {
             Duration::ZERO

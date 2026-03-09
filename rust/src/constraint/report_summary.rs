@@ -35,7 +35,7 @@ pub(crate) struct SummaryRow {
 }
 
 impl SummaryRow {
-    /// render the `SummaryRow` to a row so it can be used by comfy_table
+    /// render the [`SummaryRow`] to a row so it can be used by comfy_table
     pub(crate) fn render<F>(&self, style: F) -> Vec<Cell>
     where
         F: Fn(Cell) -> Cell,
@@ -95,7 +95,7 @@ enum LightSemantic {
 }
 
 impl LightSemantic {
-    /// style the cell `c` based on the `LightSemantic`
+    /// style the cell `c` based on the [`LightSemantic`]
     fn style(&self, c: Cell) -> Cell {
         match self {
             LightSemantic::Match => c.fg(comfy_table::Color::Green),
@@ -114,7 +114,7 @@ enum LightCell {
     Unknown,
     /// this constraint did not produce lights, it has Eq check-type
     Equal,
-    /// this constraint produced `LightCnt` new lights
+    /// this constraint produced [`crate::LightCnt`] new lights
     Value(LightCnt),
     /// we get to known an individual is a match together with X other individuals of the same set
     Xcnt,
@@ -143,7 +143,7 @@ enum EntrySemantic {
 }
 
 impl EntrySemantic {
-    /// style the cell `c` based on the `EntrySemantic`
+    /// style the cell `c` based on the [`EntrySemantic`]
     fn style(&self, c: Cell) -> Cell {
         match self {
             EntrySemantic::Match => c.fg(comfy_table::Color::Green),

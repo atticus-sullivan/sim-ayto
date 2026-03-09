@@ -4,7 +4,7 @@
 
 //! This module contains getters / evaluations which is used to pre-process the gathered data for a
 //! comparison with other simulations.
-//! The root is `EvalData` (which is at some point serialized/stored so the comparison can take
+//! The root is [`ComparisonData`] (which is at some point serialized/stored so the comparison can take
 //! place later)
 
 use anyhow::{Context, Result};
@@ -22,7 +22,7 @@ use crate::{
 /// - `events` are the chronological evaluation events (MB/MN/Initial).
 /// - `cnts` are aggregated counters and summary data.
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub(crate) struct ComparisonData {
+pub struct ComparisonData {
     /// stats for the trail of events which happened in the season
     pub(crate) events: Vec<EvalEvent>,
     /// summary stats for the whole season
@@ -41,7 +41,7 @@ pub enum EvalEvent {
     Initial(EvalInitial),
 }
 
-/// a macro to generate generalized getters for trails of `EvalEvent`s to "unwrap"/filter the enum
+/// a macro to generate generalized getters for trails of [`EvalEvent`]s to "unwrap"/filter the enum
 /// based on the encapsulated data. Usually this is used in combination with `filter_map()`
 macro_rules! eval_event_query_data {
     (
@@ -52,7 +52,7 @@ macro_rules! eval_event_query_data {
         MB($mb_var:ident) => $mb_body:expr,
         Initial($ini_var:ident) => $init_body:expr
     ) => {
-        /// Map the `EvalEvent` to `$data_name`$data_expl.
+        /// Map the [`EvalEvent`] to `$data_name`$data_expl.
         ///
         /// The closure parameters (for MB, MN, Initial) control whether the variant
         /// should be included.
@@ -316,7 +316,7 @@ impl Default for SumOffersMN {
 }
 
 impl SumOffersMB {
-    /// Increment this `SumOffersMB` with values found in `other`. Works in-place
+    /// Increment this [`SumOffersMB`] with values found in `other`. Works in-place
     pub(crate) fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
         self.sold_but_match += other.sold_but_match;
@@ -329,7 +329,7 @@ impl SumOffersMB {
     }
 }
 impl SumOffersMN {
-    /// Increment this `SumOffersMB` with values found in `other`. Works in-place
+    /// Increment this [`SumOffersMB`] with values found in `other`. Works in-place
     pub(crate) fn add(&mut self, other: &Self) {
         self.sold_cnt += other.sold_cnt;
 
@@ -340,7 +340,7 @@ impl SumOffersMN {
 }
 
 impl SumCounts {
-    /// Increment this `SumCounts` with values found in `other`. Works in-place
+    /// Increment this [`SumCounts`] with values found in `other`. Works in-place
     pub(crate) fn add(&mut self, other: &Self) {
         self.blackouts += other.blackouts;
 

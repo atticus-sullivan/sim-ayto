@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! This module contains standalone helpers to faciliate turning a parsed (from yaml) game to a
-//! ready-to-use `Game`.
+//! ready-to-use [`super::Game`].
 
 use anyhow::{bail, Result};
 
@@ -13,7 +13,7 @@ use crate::ignore_ops::IgnoreOps;
 use crate::ruleset::RuleSet;
 use crate::{LightCnt, Lut, Rename};
 
-/// Build lookup tables (`Lut`) for the left-hand side (`set_a`) and right-hand
+/// Build lookup tables ([`crate::Lut`]) for the left-hand side (`set_a`) and right-hand
 /// side (`set_b`).  Each unique name is mapped to its index in the original
 /// vector.
 ///
@@ -35,8 +35,8 @@ pub fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut)> {
     Ok((lut_a, lut_b))
 }
 
-/// Transform a list of raw `ConstraintParse` objects into the final
-/// `Constraint` representations used by the solver.
+/// Transform a list of raw [`crate::constraint::parse::ConstraintParse`] objects into the final
+/// {`crate::constraint::Constraint`] representations used by the solver.
 ///
 /// The conversion respects:
 /// * Global ignore flags (`ignore`)
@@ -45,13 +45,13 @@ pub fn build_luts(map_a: &[String], map_b: &[String]) -> Result<(Lut, Lut)> {
 /// * Per-side rename tables (`rename_a`, `rename_b`)
 ///
 /// Returns a tuple containing:
-/// * `Vec<Constraint>` - the processed constraints in the same order as the
+/// * `Vec<[crate::constraint::Constraint]>` - the processed constraints in the same order as the
 ///   input (minus any that were ignored).
-/// * `LightCnt` - the cumulative number of *known lights* added while processing,
+/// * [`crate::LightCnt`] - the cumulative number of *known lights* added while processing,
 ///   useful for later bookkeeping.
 ///
 /// # Errors
-/// Propagates any error from `ConstraintParse::finalize_parsing` or from the
+/// Propagates any error from [`crate::constraint::parse::ConstraintParse::finalize_parsing`] or from the
 /// rule-set initialisation.
 #[allow(clippy::too_many_arguments)]
 pub fn process_constraints(
@@ -91,7 +91,7 @@ pub fn process_constraints(
 }
 
 /// Apply rename mappings to the left-hand (`map_a`) and right-hand (`map_b`)
-/// name vectors.  For each entry, the corresponding `Rename` table is consulted;
+/// name vectors.  For each entry, the corresponding [`crate::Rename`] table is consulted;
 /// if a mapping exists the name is replaced, otherwise it stays unchanged.
 ///
 /// This function mutates the supplied slices in place and does not allocate

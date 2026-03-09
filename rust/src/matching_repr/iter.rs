@@ -10,7 +10,7 @@ use crate::matching_repr::bitset::{BitIter, Bitset};
 use crate::matching_repr::{IdBase, MaskedMatching, Word, MATCH_MAX_LEN, WORD_BITS};
 
 impl MaskedMatching {
-    /// Iterate over slots: returns an iterator of `Bitset` (one bitset per slot).
+    /// Iterate over slots: returns an iterator of [`super::bitset::Bitset`] (one bitset per slot).
     pub fn iter(&self) -> SlotsIter<'_> {
         SlotsIter {
             masks: &self.masks,
@@ -41,7 +41,7 @@ impl MaskedMatching {
     }
 
     /// Iterate over combinations that pick exactly one value from each slot,
-    /// producing `MaskedMatching` objects that have single-bit masks per slot.
+    /// producing [`super::MaskedMatching`] objects that have single-bit masks per slot.
     pub fn iter_unwrapped(&self) -> UnwrappedIter<'_> {
         let mut iters = self.build_bit_iters();
         let current = Self::prime_iters(&mut iters);
@@ -118,7 +118,7 @@ impl<'a> Iterator for PairsIter<'a> {
     }
 }
 
-/// Slots iterator: returns `Bitset` per slot (so iterating a MaskedMatching yields Bitset).
+/// Slots iterator: returns [`super::bitset::Bitset`] per slot (so iterating a MaskedMatching yields Bitset).
 pub struct SlotsIter<'a> {
     /// the base over which the iterator iterates over
     masks: &'a [Bitset],

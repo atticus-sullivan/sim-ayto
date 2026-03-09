@@ -30,7 +30,7 @@ pub enum RuleSetParse {
 }
 
 impl RuleSetParse {
-    /// finalizes the parsing by consuming the `RuleSetParse` and producing the final `RuleSet`
+    /// finalizes the parsing by consuming the [`RuleSetParse`] and producing the final [`super::RuleSet`]
     pub fn finalize_parsing(self) -> RuleSet {
         match self {
             RuleSetParse::SomeoneIsTrip => RuleSet::SomeoneIsTrip,

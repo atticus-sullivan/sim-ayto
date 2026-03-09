@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! This module implements a dup_data which tracks how often people occur in multi-matches
-//! (dup/trip). This module also works for `RuleSetDupX` where multiple duplicates can be present
+//! (dup/trip). This module also works for [`crate::ruleset::RuleSetDupX`] where multiple duplicates can be present
 //! (but only duplicates, no triples)
 
 use std::collections::HashMap;

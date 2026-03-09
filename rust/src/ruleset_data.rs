@@ -20,8 +20,8 @@ use crate::Lut;
 
 /// Small helper trait to allow cloning boxed trait objects.
 ///
-/// Implementors of `RuleSetData` should derive/impl `Clone` and `RuleSetDataClone`
-/// will provide a boxed clone via `clone_box`.
+/// Implementors of [`RuleSetData`] should derive/impl [`Clone`] and [`RuleSetDataClone`]
+/// will provide a boxed clone via [`RuleSetDataClone::clone_box`].
 pub trait RuleSetDataClone {
     /// clone the boxed RulesetData
     fn clone_box(&self) -> Box<dyn RuleSetData>;
