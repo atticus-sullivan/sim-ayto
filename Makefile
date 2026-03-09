@@ -84,7 +84,8 @@ $(CAALIAS):
 	@make --no-print-directory $(f)
 	$(NOTIF) &
 ifdef ZATHURA
-	-test -f $(f:.txt=.pdf) && $(ZATHURA) "$(f:.txt=.pdf)" & disown
+	$(eval pdf := $(shell printf "%s\n" $(f:.txt=_*_tree_*.pdf) | sort -t_ -k2 -n | tail -n1))
+	-test -f $(pdf) && $(ZATHURA) "$(pdf)" & disown
 endif
 	$(CAT) $(f:.txt=.col.out)
 
@@ -128,7 +129,8 @@ endif
 		test -e "$${dot_file}" && \
 			name="$$(echo $${dot_file} | sed -E 's/^.*\/(.*)\.dot$$/\1/')" && \
 			dot -Tpng -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.png" "$${dot_file}" && \
-			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" || continue ; \
+			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" && \
+			dot -Tpdf -o "./data/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" || continue ; \
 	done
 	@date
 
