@@ -84,7 +84,8 @@ $(CAALIAS):
 	@make --no-print-directory $(f)
 	$(NOTIF) &
 ifdef ZATHURA
-	-test -f $(f:.txt=.pdf) && $(ZATHURA) "$(f:.txt=.pdf)" & disown
+	$(eval pdf := $(shell printf "%s\n" $(f:.txt=_*_tree_*.pdf) | sort -t_ -k2 -n | tail -n1))
+	-test -f $(pdf) && $(ZATHURA) "$(pdf)" & disown
 endif
 	$(CAT) $(f:.txt=.col.out)
 
