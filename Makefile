@@ -128,7 +128,8 @@ endif
 		test -e "$${dot_file}" && \
 			name="$$(echo $${dot_file} | sed -E 's/^.*\/(.*)\.dot$$/\1/')" && \
 			dot -Tpng -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.png" "$${dot_file}" && \
-			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" || continue ; \
+			dot -Tpdf -o "./gh-pages/static/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" && \
+			dot -Tpdf -o "./data/$$(basename "$<" .yaml)/$${name}.pdf" "$${dot_file}" || continue ; \
 	done
 	@date
 
