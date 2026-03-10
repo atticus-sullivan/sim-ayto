@@ -173,22 +173,43 @@ constraints:
       Jerry: Elena
       Chris: Ella
 
-  # - type: !Box {num: 7, comment: "E15"}
-  #   check: !Lights [0]
-  #   map:
-  #     Noel: Tonia
-  #     # Jeronymo: Elena
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights [1]
+    map:
+      Noel: Tonia
+      # Jeronymo: Elena
+    treeCfg:
+      - id: ""
+      - id: "wo_alicia"
+        title: "ohne Alicia"
+        ignoreB: ["Alicia"]
+        moveUpA: ["Jerry", "Evi"]
 
-  # - type: !Night {num: 7, comment: "E16"}
-  #   check: !Lights [3]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [4]
+    resultUnknown: true
+    treeCfg:
+      - id: "wo_alicia"
+        title: "ohne Alicia"
+        ignoreB: ["Alicia"]
+        moveUpA: ["Jerry", "Evi"]
+    map:
+      JulianM: Marla
+      Noel: Tonia
+      Jerry: Laura
+      Evi: Aurora
+      Jeronymo: Tiziana
+      Julian: Adrianna
+      Ema: Michelle
+      Chris: Linda
+      Meji: Ella
+      Luke: Elena
 
   # - type: !Box {num: 8, comment: "E17"}
   #   check: !Lights [0]
   #   map:
+  #     # x: y
+  #     # x: y
 
   # - type: !Night {num: 8, comment: "E18"}
   #   check: !Lights [3]
