@@ -187,7 +187,6 @@ constraints:
 
   - type: !Night {num: 7, comment: "E16"}
     check: !Lights [4]
-    resultUnknown: true
     treeCfg:
       - id: "wo_alicia"
         title: "ohne Alicia"
