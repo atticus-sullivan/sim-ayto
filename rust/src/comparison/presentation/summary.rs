@@ -47,7 +47,7 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
 
     for (name, cd) in cmp_data {
         tab_lines.push(format!(
-            "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} / {} | {} | | {} | {} | {} / {} |",
+            "| {} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {{{{< badge content=\"{}\" color=\"{}\" >}}}} | {} | {} | | {} / {} | {} | | {} / {} | {} | {} / {} |",
             name,
 
             if let Some(won) = &cd.cnts.won_in {
@@ -80,6 +80,12 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
             } else {
                 "".to_string()
             },
+            if cd.cnts.offers_mn.offers_noted {
+                cd.cnts.offers_mn.offers_cnt.to_string()
+            } else {
+                "".to_string()
+            },
+
             if cd.cnts.offers_mb.offers_noted {
                 cd.cnts.offers_mb.offer_and_match.to_string()
             } else {
@@ -102,22 +108,31 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
 
     tab_lines.push("| | | | | | | | | | | | |".to_string());
     tab_lines.push(format!(
-        "| {} | | | {} | {} | | {} / {} | {} | | {} | {} | {} / {} |",
+        "| {} | | | {} | {} | | {} / {} | {} | | {} / {} | {} | {} / {} |",
         "{{< i18n \"total\" >}}",
         total_counts.matches_found,
         total_counts.blackouts,
+
         total_counts.offers_mb.sold_cnt,
         total_counts.offers_mn.sold_cnt,
+
         if total_counts.offers_mb.sold_but_match_active {
             total_counts.offers_mb.sold_but_match.to_string()
         } else {
             "".to_string()
         },
+
         if total_counts.offers_mb.offers_noted {
             total_counts.offers_mb.offers_cnt.to_string()
         } else {
             "".to_string()
         },
+        if total_counts.offers_mn.offers_noted {
+            total_counts.offers_mn.offers_cnt.to_string()
+        } else {
+            "".to_string()
+        },
+
         if total_counts.offers_mb.offers_noted {
             total_counts.offers_mb.offer_and_match.to_string()
         } else {
