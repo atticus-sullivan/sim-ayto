@@ -112,16 +112,13 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
         "{{< i18n \"total\" >}}",
         total_counts.matches_found,
         total_counts.blackouts,
-
         total_counts.offers_mb.sold_cnt,
         total_counts.offers_mn.sold_cnt,
-
         if total_counts.offers_mb.sold_but_match_active {
             total_counts.offers_mb.sold_but_match.to_string()
         } else {
             "".to_string()
         },
-
         if total_counts.offers_mb.offers_noted {
             total_counts.offers_mb.offers_cnt.to_string()
         } else {
@@ -132,7 +129,6 @@ pub(crate) fn tab_md(cmp_data: &Vec<(String, CmpData)>, lang: Language) -> Strin
         } else {
             "".to_string()
         },
-
         if total_counts.offers_mb.offers_noted {
             total_counts.offers_mb.offer_and_match.to_string()
         } else {
