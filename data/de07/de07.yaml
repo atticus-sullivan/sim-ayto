@@ -262,6 +262,8 @@ constraints:
 
   - type: !Night {num: 10, comment: "E21"}
     check: !Lights [4]
+    treeCfg:
+      - id: ""
     map:
       JulianM: Marla
       Noel: Tonia
