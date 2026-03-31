@@ -256,6 +256,8 @@ constraints:
 
   - type: !Box {num: 10, comment: "E21"}
     check: !Lights [1]
+    treeCfg:
+      - id: ""
     map:
       # Jerry: Laura
       Jeronymo: Tiziana
