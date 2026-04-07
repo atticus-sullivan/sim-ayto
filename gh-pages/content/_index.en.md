@@ -21,7 +21,7 @@ cascade:
 | Season  4 | [:white_check_mark:](de/04/) | [:white_check_mark:](de-rsil/04/) | [:white_check_mark:](us/04/) |                                   |
 | Season  5 | [:white_check_mark:](de/05/) | [:white_check_mark:       ](de-rsil/05/) | [:white_check_mark:](us/05/) |                                   |
 | Season  6 | [:white_check_mark:](de/06/) |                                        | [:white_check_mark:](us/06/) |                                   |
-| Season  7 | [:hourglass:       ](de/07/)|                                        | [:white_check_mark:](us/07/) |                                   |
+| Season  7 | [:white_check_mark:](de/07/)|                                        | [:white_check_mark:](us/07/) |                                   |
 | Season  8 |                                   |                                        | [:white_check_mark:](us/08/) |                                   |
 | Season  9 |                                   |                                        | [:white_check_mark:](us/09/) |                                   |
 | Season 10 |                                   |                                        | [                  ]()            |                                   |
