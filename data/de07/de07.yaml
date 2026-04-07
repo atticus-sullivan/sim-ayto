@@ -277,3 +277,19 @@ constraints:
       Chris: Laura
       Meji: Ella
       Ema: Elena
+
+  - type: !Night {num: 11, comment: "E22 -- Reunion"}
+    check: !Lights [10]
+    treeCfg:
+      - id: ""
+    map:
+      JulianM: Marla
+      Jeronymo: Tiziana
+      Luke: Linda
+      Noel: Alicia # Tonia
+      Evi: Ella
+      Julian: Adrianna
+      Chris: Michelle
+      Ema: Laura
+      Jerry: Elena
+      Meji: Aurora
