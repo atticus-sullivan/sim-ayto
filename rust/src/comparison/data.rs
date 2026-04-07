@@ -11,6 +11,7 @@ use std::fs::File;
 use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
+use anyhow::Context;
 use anyhow::Result;
 use serde::de::DeserializeOwned;
 use walkdir::WalkDir;
@@ -82,7 +83,9 @@ pub(crate) fn gather_cmp_data(filter_dirs: fn(&str) -> bool) -> Result<Vec<(Stri
     {
         let game = read_yaml_spec(entry.path().join(entry.file_name()))?;
 
-        let eval_data: ComparisonData = match read_json_data("stats.json", entry.path())? {
+        let eval_data: ComparisonData = match read_json_data("stats.json", entry.path())
+            .with_context(|| format!("{:?}", entry.path()))?
+        {
             Some(x) => x,
             None => continue,
         };
