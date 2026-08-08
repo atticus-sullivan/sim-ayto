@@ -24,7 +24,7 @@ lto = true
 serde = { version = "1.0", features = ["derive"] }
 serde_yaml = "0.9"
 permutator = "0.4"
-comfy-table = "7.2"
+comfy-table = "8.0"
 anyhow = "1.0"
 clap = { version = "4.5", features = ["derive"] }
 indicatif = "0.18"
