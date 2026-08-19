@@ -151,17 +151,12 @@ impl MatchingEntry {
 impl fmt::Display for MatchingEntry {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut tab = Table::new();
-        tab
-            .force_no_tty()
-            .enforce_styling()
-            .load_style(
-                presets::NOTHING
-                .content_lines(ContentLineStyle::new('\u{2192}', '\u{2192}', '\u{2192}'))
-                // .content_lines(ContentLineStyle::new('\u{21D2}','\u{21D2}','\u{21D2}'))
-                // .content_lines(ContentLineStyle::new('\u{21E8}','\u{21E8}','\u{21E8}'))
-                // .content_lines(ContentLineStyle::new('\u{21FE}','\u{21FE}','\u{21FE}'))
-            )
-        ;
+        tab.force_no_tty().enforce_styling().load_style(
+            presets::NOTHING
+                .content_lines(ContentLineStyle::new('\u{2192}', '\u{2192}', '\u{2192}')), // .content_lines(ContentLineStyle::new('\u{21D2}','\u{21D2}','\u{21D2}'))
+                                                                                           // .content_lines(ContentLineStyle::new('\u{21E8}','\u{21E8}','\u{21E8}'))
+                                                                                           // .content_lines(ContentLineStyle::new('\u{21FE}','\u{21FE}','\u{21FE}'))
+        );
         tab.add_rows(self.rows.iter().map(|(a, b)| {
             let mut row = Row::new();
             row.add_cell(Cell::new(a));

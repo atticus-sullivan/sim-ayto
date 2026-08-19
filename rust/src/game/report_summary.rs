@@ -47,10 +47,7 @@ impl Game {
         table
             .force_no_tty()
             .enforce_styling()
-            .load_style(
-                presets::UTF8_FULL_CONDENSED
-                .with_rounded_corners()
-            )
+            .load_style(presets::UTF8_FULL_CONDENSED.with_rounded_corners())
             .set_header(hdr);
 
         for (i, row) in generate_data(merged_constraints, transpose, map_hor)

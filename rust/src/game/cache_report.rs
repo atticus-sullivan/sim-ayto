@@ -75,10 +75,7 @@ impl<'a> Display for CacheStatusAll<'a> {
         ];
         let mut table = Table::new();
         table
-            .load_style(
-                presets::UTF8_FULL_CONDENSED
-                .with_rounded_corners()
-            )
+            .load_style(presets::UTF8_FULL_CONDENSED.with_rounded_corners())
             .force_no_tty()
             .enforce_styling()
             .set_header(hdr);

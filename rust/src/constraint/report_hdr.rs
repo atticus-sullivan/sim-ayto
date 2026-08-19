@@ -112,7 +112,9 @@ impl TabCol {
 impl fmt::Display for MapSRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut tab = Table::new();
-        tab.force_no_tty().enforce_styling().load_style(presets::NOTHING);
+        tab.force_no_tty()
+            .enforce_styling()
+            .load_style(presets::NOTHING);
 
         let mut rows = vec![("", Row::new()); self.map.len()];
 
