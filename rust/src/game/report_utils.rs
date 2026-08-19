@@ -15,8 +15,7 @@
 
 use std::fmt::Display;
 
-use comfy_table::modifiers::UTF8_ROUND_CORNERS;
-use comfy_table::presets::UTF8_FULL_CONDENSED;
+use comfy_table::presets;
 use comfy_table::{Cell, Color, Table};
 
 use crate::{prob_comfy_cell, Rem};
@@ -210,8 +209,10 @@ fn render_table(
         table
             .force_no_tty()
             .enforce_styling()
-            .load_preset(UTF8_FULL_CONDENSED)
-            .apply_modifier(UTF8_ROUND_CORNERS)
+            .load_style(
+                presets::UTF8_FULL_CONDENSED
+                .with_rounded_corners()
+            )
             .set_header(hdr);
     }
 

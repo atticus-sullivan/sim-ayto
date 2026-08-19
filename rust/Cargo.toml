@@ -24,23 +24,23 @@ lto = true
 serde = { version = "1.0", features = ["derive"] }
 serde_yaml = "0.9"
 permutator = "0.4"
-comfy-table = "7.2"
+comfy-table = "8.0"
 anyhow = "1.0"
-clap = { version = "4.5", features = ["derive"] }
+clap = { version = "4.6", features = ["derive"] }
 indicatif = "0.18"
 walkdir = "2.5.0"
 plotly = "0.14.1"
-catppuccin = "2.6.0"
-serde_json = "1.0.149"
-rust_decimal = { version = "1.40.0", features = ["macros", "serde-float"] }
+catppuccin = "2.8.0"
+serde_json = "1.0.151"
+rust_decimal = { version = "1.42.1", features = ["macros", "serde-float"] }
 num-format = "0.4.4"
-rand = "0.10.0"
-rayon = "1.11.0"
-chrono = "0.4.43"
-smallvec = {version = "1.15.1", features = ["serde"] }
+rand = "0.10.2"
+rayon = "1.12.0"
+chrono = "0.4.45"
+smallvec = {version = "1.15.2", features = ["serde"] }
 
 [dev-dependencies]
-tempfile = "3.25.0"
+tempfile = "3.27.0"
 pretty_assertions = "1.4.1"
 
 [lints.clippy]
