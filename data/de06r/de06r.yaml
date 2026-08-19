@@ -1,0 +1,51 @@
+# vim macro to swap the map:
+# 0wvedwvep0wPj
+
+frontmatter:
+  linkTitle: 'DE RSIL Staffel 6'
+  identifier: deR-season6
+  weight: 1
+
+gen_cache: false
+
+# rule_set: !SomeoneIsDup
+# rule_set: !FixedDup Christina
+rule_set: !Eq
+
+setA:
+  - Emma
+  - Alexandra
+  - Christin
+  - Francesca
+  - Janice
+  - Jenny
+  - Julia
+  - Marta
+  - Michelle
+  - Zoe
+
+setB:
+  - Bennett
+  - Brian
+  - Cansin
+  - Daymian
+  - Fabi
+  - Germain
+  - Marwin
+  - Johannes
+  - Raúl
+  - Robin
+
+constraints:
+  - type: !Box {num: 1, comment: "E01"}
+    check: !Lights [0]
+    resultUnknown: true
+    map:
+      Emma: Bennett
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:

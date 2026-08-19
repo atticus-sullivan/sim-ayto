@@ -8,7 +8,8 @@
 use std::fmt;
 
 use anyhow::{Context, Result};
-use comfy_table::{presets::NOTHING, Cell, Row, Table};
+use comfy_table::{presets, ContentLineStyle};
+use comfy_table::{Cell, Row, Table};
 use smallvec::SmallVec;
 
 use crate::matching_repr::{bitset::Bitset, MaskedMatching};
@@ -150,15 +151,12 @@ impl MatchingEntry {
 impl fmt::Display for MatchingEntry {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut tab = Table::new();
-        tab
-            .force_no_tty()
-            .enforce_styling()
-            .load_preset(NOTHING)
-            .set_style(comfy_table::TableComponent::VerticalLines, '\u{2192}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21D2}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21E8}')
-        // .set_style(comfy_table::TableComponent::VerticalLines, '\u{21FE}')
-        ;
+        tab.force_no_tty().enforce_styling().load_style(
+            presets::NOTHING
+                .content_lines(ContentLineStyle::new('\u{2192}', '\u{2192}', '\u{2192}')), // .content_lines(ContentLineStyle::new('\u{21D2}','\u{21D2}','\u{21D2}'))
+                                                                                           // .content_lines(ContentLineStyle::new('\u{21E8}','\u{21E8}','\u{21E8}'))
+                                                                                           // .content_lines(ContentLineStyle::new('\u{21FE}','\u{21FE}','\u{21FE}'))
+        );
         tab.add_rows(self.rows.iter().map(|(a, b)| {
             let mut row = Row::new();
             row.add_cell(Cell::new(a));

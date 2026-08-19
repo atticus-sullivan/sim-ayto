@@ -8,6 +8,10 @@ Berechnet die noch verfügbaren Möglichkeiten
 Auf [atticus-sullivan.github.io/sim-ayto/](https://atticus-sullivan.github.io/sim-ayto/) findet ihr die Ergebnisse der Berechnungen.
 
 # Selbst rumprobieren
+
+> [!NOTE]
+> Der Commit 5979758a101b9bb6bfc05efd8d7bf62a20b105b1 ist ein gutes Beispiel wie man eine neue Staffel vollständig hinzufügt.
+
 Da die Ergebnisse automatisch gebaut werden, könnt ihr auch ein wenig rumspielen
 (halt nicht richtig interaktiv, aber mehr als die Website (+ Account) braucht ihr nicht)
 

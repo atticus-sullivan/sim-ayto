@@ -182,3 +182,8 @@ module:
       target: content/de-rsil/05.md
     - source: ../data/de05r/de05r.md
       target: content/de-rsil/05.en.md
+
+    - source: ../data/de06r/de06r.md
+      target: content/de-rsil/06.md
+    - source: ../data/de06r/de06r.md
+      target: content/de-rsil/06.en.md

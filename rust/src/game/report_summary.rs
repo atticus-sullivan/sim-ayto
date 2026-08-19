@@ -4,8 +4,7 @@
 
 //! This module offers printing a summary table for a collection of constraints.
 
-use comfy_table::modifiers::UTF8_ROUND_CORNERS;
-use comfy_table::presets::UTF8_FULL_CONDENSED;
+use comfy_table::presets;
 use comfy_table::{Cell, Table};
 
 use anyhow::Result;
@@ -48,8 +47,7 @@ impl Game {
         table
             .force_no_tty()
             .enforce_styling()
-            .load_preset(UTF8_FULL_CONDENSED)
-            .apply_modifier(UTF8_ROUND_CORNERS)
+            .load_style(presets::UTF8_FULL_CONDENSED.with_rounded_corners())
             .set_header(hdr);
 
         for (i, row) in generate_data(merged_constraints, transpose, map_hor)

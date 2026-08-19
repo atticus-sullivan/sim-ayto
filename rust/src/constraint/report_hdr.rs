@@ -10,7 +10,8 @@ use core::fmt;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 
-use comfy_table::{presets::NOTHING, Row, Table};
+use comfy_table::presets;
+use comfy_table::{Row, Table};
 
 use crate::constraint::{CheckType, Constraint, ConstraintGetters};
 use crate::{prob_comfy_cell, LightCnt, MapS, Rem};
@@ -111,7 +112,9 @@ impl TabCol {
 impl fmt::Display for MapSRender<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut tab = Table::new();
-        tab.force_no_tty().enforce_styling().load_preset(NOTHING);
+        tab.force_no_tty()
+            .enforce_styling()
+            .load_style(presets::NOTHING);
 
         let mut rows = vec![("", Row::new()); self.map.len()];
 

@@ -12,8 +12,7 @@ use std::path::PathBuf;
 
 use anyhow::Result;
 
-use comfy_table::modifiers::UTF8_ROUND_CORNERS;
-use comfy_table::presets::UTF8_FULL_CONDENSED;
+use comfy_table::presets;
 use comfy_table::{Cell, Color, Table};
 
 use crate::game::cache::{CachableSpec, CacheSpec};
@@ -76,10 +75,9 @@ impl<'a> Display for CacheStatusAll<'a> {
         ];
         let mut table = Table::new();
         table
+            .load_style(presets::UTF8_FULL_CONDENSED.with_rounded_corners())
             .force_no_tty()
             .enforce_styling()
-            .load_preset(UTF8_FULL_CONDENSED)
-            .apply_modifier(UTF8_ROUND_CORNERS)
             .set_header(hdr);
 
         for (i, r) in self.0.iter().enumerate() {

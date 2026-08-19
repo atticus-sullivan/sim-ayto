@@ -20,7 +20,7 @@ cascade:
 | Staffel  3 | [:white_check_mark:](de/03/) | [:white_check_mark:](de-rsil/03/) | [:white_check_mark:](us/03/) |                                   |
 | Staffel  4 | [:white_check_mark:](de/04/) | [:white_check_mark:](de-rsil/04/) | [:white_check_mark:](us/04/) |                                   |
 | Staffel  5 | [:white_check_mark:](de/05/) | [:white_check_mark:       ](de-rsil/05/) | [:white_check_mark:](us/05/) |                                   |
-| Staffel  6 | [:white_check_mark:](de/06/) |                                        | [:white_check_mark:](us/06/) |                                   |
+| Staffel  6 | [:white_check_mark:](de/06/) | [:hourglass:       ](de-rsil/06/) | [:white_check_mark:](us/06/) |                                   |
 | Staffel  7 | [:white_check_mark:](de/07/)|                                        | [:white_check_mark:](us/07/) |                                   |
 | Staffel  8 |                                   |                                        | [:white_check_mark:](us/08/) |                                   |
 | Staffel  9 |                                   |                                        | [:white_check_mark:](us/09/) |                                   |

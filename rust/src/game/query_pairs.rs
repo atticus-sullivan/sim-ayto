@@ -8,7 +8,7 @@
 use std::{collections::HashSet, fmt};
 
 use anyhow::{Context, Result};
-use comfy_table::{presets::UTF8_FULL_CONDENSED, Cell, Row, Table};
+use comfy_table::{presets, Cell, Row, Table};
 
 use crate::{game::parse::QueryPair, iterstate::QueryPairData, matching_repr::IdBase, Lut};
 
@@ -126,7 +126,7 @@ impl fmt::Display for QueryPairSection {
         let mut tab = Table::new();
         tab.force_no_tty()
             .enforce_styling()
-            .load_preset(UTF8_FULL_CONDENSED)
+            .load_style(presets::UTF8_FULL_CONDENSED)
             .set_header(vec!["", &self.header]);
 
         tab.add_rows(self.rows.iter().map(|(c, i)| {
