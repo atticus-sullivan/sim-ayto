@@ -1,10 +1,9 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
-solved: false
-
 frontmatter:
-  title: 'DE Staffel 1'
+  linkTitle: 'DE RSIL Staffel 1'
+  identifier: deR-season1
   weight: 1
 
 gen_cache: false
