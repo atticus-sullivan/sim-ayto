@@ -1,21 +1,31 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+# keepRem: true
+
 frontmatter:
   linkTitle: 'DE RSIL Staffel 6'
-  identifier: deR-season6
   weight: 1
 
-gen_cache: false
-
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Christina
-rule_set: !Eq
+rule_set: !XTimesDup [null]
+# rule_set: !XTimesDup [Joena]
 
 setA:
-  - Emma
+  - Bennett
+  - Brian
+  - Cansin
+  - Daymian
+  - Fabi
+  - Germain
+  - Johannes
+  - Raul
+  - Robin
+  - Marwin
+
+setB:
   - Alexandra
   - Christin
+  - Emma
   - Francesca
   - Janice
   - Jenny
@@ -23,25 +33,58 @@ setA:
   - Marta
   - Michelle
   - Zoe
-
-setB:
-  - Bennett
-  - Brian
-  - Cansin
-  - Daymian
-  - Fabi
-  - Germain
-  - Marwin
-  - Johannes
-  - Raúl
-  - Robin
+  - Joena
 
 constraints:
-  - type: !Box {num: 1, comment: "E01"}
+  - type: !Box {num: 0.4, comment: "E02"}
     check: !Lights [0]
-    resultUnknown: true
     map:
-      Emma: Bennett
+      Marwin: Christin
+
+  - type: !Box {num: 1, comment: "E03"}
+    check: !Lights [0]
+    map:
+      # Michelle: Marwin
+      Robin: Marta
+
+  - type: !Night {num: 1, comment: "E01"}
+    check: !Lights [3]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      Robin: Jenny
+      Johannes: Marta
+      Brian: Christin
+      Marwin: Michelle
+      Germain: Emma
+      Raul: Alexandra
+      Fabi: Janice
+      Daymian: Julia
+      Cansin: Zoe
+      Bennett: Francesca
+      # Robin: Joena
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
 
   # - type: !Night {num: 1, comment: "E01"}
   #   check: !Lights [2]
