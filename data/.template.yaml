@@ -1,15 +1,14 @@
 # vim macro to swap the map:
 # 0wvedwvep0wPj
 
+keepRem: true
+
 frontmatter:
   linkTitle: 'DE RSIL Staffel 1'
-  identifier: deR-season1
   weight: 1
 
-gen_cache: false
-
-# rule_set: !SomeoneIsDup
-# rule_set: !FixedDup Christina
+# rule_set: !XTimesDup [null]
+# rule_set: !XTimesDup [Christina]
 rule_set: !Eq
 
 setA:
