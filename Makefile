@@ -103,7 +103,7 @@ endif
 	# https://github.com/edubart/luamon
 	$(eval f := $(let i,$@,data/$(patsubst mon_%,%,$i)/$(patsubst mon_%,%,$i).txt))
 	-test -f $(f:.txt=.pdf) && zathura "$(f:.txt=.pdf)" & disown
-	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x make -- --no-print-directory cat_$(patsubst mon_%,%,$@)
+	luamon -w data/$(patsubst mon_%,%,$@) -e yaml -x 'sleep 1 ; make' -- --no-print-directory cat_$(patsubst mon_%,%,$@)
 
 edit: edit_$(CUR)
 
