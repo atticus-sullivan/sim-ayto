@@ -36,7 +36,7 @@ setB:
   - Joena
 
 constraints:
-  - type: !Box {num: 0.4, comment: "E02"}
+  - type: !Box {num: 0.75, comment: "E02"}
     check: !Lights [0]
     map:
       Marwin: Christin
@@ -47,7 +47,7 @@ constraints:
       # Michelle: Marwin
       Robin: Marta
 
-  - type: !Night {num: 1, comment: "E01"}
+  - type: !Night {num: 1, comment: "E04"}
     check: !Lights [3]
     # resultUnknown: true
     # noExclude: true
@@ -64,6 +64,114 @@ constraints:
       Cansin: Zoe
       Bennett: Francesca
       # Robin: Joena
+
+  - type: !Box {num: 2, comment: "E05"}
+    check: !Lights [0]
+    map:
+      # Cansin: Michelle
+      Daymian: Julia
+
+  - type: !Night {num: 2, comment: "E06"}
+    check: !Lights [2]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      Germain: Emma
+      Brian: Alexandra
+      Fabi: Julia
+      Bennett: Joena
+      Robin: Christin
+      Daymian: Jenny
+      Marwin: Michelle
+      Raul: Marta
+      Johannes: Janice
+      Cansin: Zoe
+      # Francesca
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
+
+  # - type: !Box {num: 1, comment: "E02"}
+  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
+  #   # resultUnknown: true
+  #   check: !Lights [0]
+  #   map:
+  #     Christin: Marwin
+
+  # - type: !Night {num: 1, comment: "E01"}
+  #   check: !Lights [2]
+  #   resultUnknown: true
+  #   # noExclude: true
+  #   # buildTree: true
+  #   map:
 
   # - type: !Box {num: 1, comment: "E02"}
   # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
