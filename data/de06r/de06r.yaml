@@ -72,7 +72,7 @@ constraints:
       Daymian: Julia
 
   - type: !Night {num: 2, comment: "E06"}
-    check: !Lights [2]
+    check: !Lights [3]
     # resultUnknown: true
     # noExclude: true
     # buildTree: true
@@ -89,21 +89,38 @@ constraints:
       Cansin: Zoe
       # Francesca
 
-  # - type: !Box {num: 1, comment: "E02"}
-  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   # resultUnknown: true
-  #   check: !Lights [0]
-  #   map:
-  #     Christin: Marwin
+  - type: !Box {num: 3, comment: "E07"}
+    noExclude: true
+    hidden: true
+    check: !Lights [1]
+    map:
+      Johannes: Janice
 
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
+  - type: !Box {num: 3.1, comment: "E07"}
+    noExclude: true
+    check: !Lights [1]
+    map:
+      # Fabi: Zoe
+      Johannes: Marta
 
-  # - type: !Box {num: 1, comment: "E02"}
+
+  - type: !Night {num: 3, comment: "E08"}
+    check: !Lights [3]
+    # noExclude: true
+    # buildTree: true
+    map:
+      Johannes: Marta
+      Raul: Michelle
+      Robin: Christin
+      Germain: Alexandra
+      Fabi: Emma
+      Cansin: Jenny
+      Bennett: Julia
+      Daymian: Zoe
+      Marwin: Joena
+      Brian: Francesca
+
+  # - type: !Box {num: 4, comment: "E09"}
   # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
   #   # resultUnknown: true
   #   check: !Lights [0]
