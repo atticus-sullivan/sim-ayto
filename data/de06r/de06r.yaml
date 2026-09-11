@@ -96,7 +96,7 @@ constraints:
     map:
       Johannes: Janice
 
-  - type: !Box {num: 3.1, comment: "E07"}
+  - type: !Box {num: 3, comment: "E07"}
     noExclude: true
     check: !Lights [1]
     map:
@@ -120,26 +120,34 @@ constraints:
       Marwin: Joena
       Brian: Francesca
 
-  # - type: !Box {num: 4, comment: "E09"}
+  - type: !Box {num: 4, comment: "E09", offer: !Group {by: "Fabi", amount: 240000}}
+    # resultUnknown: true
+    check: !Lights [0]
+    map:
+      # Daymian: Zoe
+      Bennett: Julia
+
+  - type: !Night {num: 4, comment: "E10"}
+    check: !Lights [4]
+    map:
+      Johannes: Marta
+      Fabi: Zoe
+      Cansin: Julia
+      Bennett: Christin
+      Raul: Francesca
+      Robin: Joena
+      Daymian: Jenny
+      Marwin: Emma
+      Germain: Michelle
+      Brian: Alexandra
+
+  # - type: !Box {num: 5, comment: "E11"}
   # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
   #   # resultUnknown: true
   #   check: !Lights [0]
   #   map:
-  #     Christin: Marwin
-
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
-
-  # - type: !Box {num: 1, comment: "E02"}
-  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   # resultUnknown: true
-  #   check: !Lights [0]
-  #   map:
-  #     Christin: Marwin
+  #     Laurenz: Alexandra
+  #     Laurenz: Emma
 
   # - type: !Night {num: 1, comment: "E01"}
   #   check: !Lights [2]
