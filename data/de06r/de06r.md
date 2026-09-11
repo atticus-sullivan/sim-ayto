@@ -37,12 +37,20 @@ weight: 1
 {{% img src="/de06r/de06r_5.png" %}}
 {{% /details %}}
 
-{{% details title="MB#3.1 E07" closed="true" %}}
+{{% details title="MB#3.0 E07" closed="true" %}}
 {{% img src="/de06r/de06r_6.png" %}}
 {{% /details %}}
 
 {{% details title="MN#3.0 E08" closed="true" %}}
 {{% img src="/de06r/de06r_7.png" %}}
+{{% /details %}}
+
+{{% details title="MB#4.0 E09" closed="true" %}}
+{{% img src="/de06r/de06r_8.png" %}}
+{{% /details %}}
+
+{{% details title="MN#4.0 E10" closed="true" %}}
+{{% img src="/de06r/de06r_9.png" %}}
 {{% /details %}}
 
 {{% translateHdr "tab-everything" %}}
