@@ -107,7 +107,6 @@ constraints:
       # Fabi: Zoe
       Johannes: Marta
 
-
   - type: !Night {num: 3, comment: "E08"}
     check: !Lights [3]
     # noExclude: true
@@ -151,7 +150,7 @@ constraints:
       Laurenz: Alexandra
       Laurenz: Emma
 
-  - type: !Night {num: 1, comment: "E01"}
+  - type: !Night {num: 5, comment: "E12"}
     check: !Lights [3]
     # buildTree: true
     map:
