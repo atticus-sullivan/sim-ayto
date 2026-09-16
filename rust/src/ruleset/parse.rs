@@ -27,6 +27,8 @@ pub enum RuleSetParse {
     /// A ruleset where N:N players play so each individual from set_a matches exactly one
     /// individual from set_b
     Eq,
+    /// A special ruleset for DE06r - will be renamed/generalized in the future
+    SpecialS6R(String, String),
 }
 
 impl RuleSetParse {
@@ -42,6 +44,7 @@ impl RuleSetParse {
                 let ss = s.into_iter().flatten().collect::<Vec<_>>();
                 RuleSet::XTimesDup((nc, ss))
             }
+            RuleSetParse::SpecialS6R(a, b) => RuleSet::SpecialS6R(a, b),
         }
     }
 }

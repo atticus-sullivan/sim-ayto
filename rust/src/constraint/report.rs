@@ -60,7 +60,9 @@ impl Constraint {
         if !self.show_past_dist() || !other.show_past_dist() {
             return None;
         }
-        if self.map.len() != other.map.len() {
+        if self.map.iter().filter(|x| !x.is_empty()).count()
+            != other.map.iter().filter(|x| !x.is_empty()).count()
+        {
             return None;
         }
 
@@ -69,12 +71,11 @@ impl Constraint {
                 .iter()
                 .enumerate()
                 .filter(|&(k, v)| {
-                    !v.is_empty()
-                        && !other
-                            .map
-                            .slot_mask(k)
-                            .unwrap_or(&Bitset::empty())
-                            .contains_any(v)
+                    !other
+                        .map
+                        .slot_mask(k)
+                        .unwrap_or(&Bitset::empty())
+                        .contains_any(v)
                 })
                 .count(),
         )
