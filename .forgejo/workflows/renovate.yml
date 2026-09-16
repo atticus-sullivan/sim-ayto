@@ -1,0 +1,31 @@
+name: Renovate
+
+on:
+  schedule:
+    - cron: "0 3,15 * * *"
+  workflow_dispatch:
+
+jobs:
+  renovate:
+    runs-on: "docker"
+
+    container:
+      image: "docker.io/renovate/renovate:44"
+
+    env:
+      RENOVATE_PLATFORM: "forgejo"
+      RENOVATE_ENDPOINT: "${{ forgejo.api_url }}"
+      RENOVATE_TOKEN: "${{ secrets.RENOVATE_TOKEN }}"
+      RENOVATE_REPOSITORIES: "${{ forgejo.repository }}"
+      RENOVATE_CONFIG_FILE_NAMES: "renovate.json5"
+      RENOVATE_ONBOARDING_CONFIG_FILE_NAME: "renovate.json5"
+      RENOVATE_OPTIMIZE_FOR_DISABLED: 'true'
+      RENOVATE_REPOSITORY_CACHE: 'enabled'
+      GITHUB_COM_TOKEN: "${{ secrets.RENOVATE_GITHUB_COM_TOKEN }}"
+      RENOVATE_LOG_LEVEL: info # NOTE: debug can be useful investigating issues with the renovate config
+      LOG_FILE: "renovate-log.ndjson"
+      LOG_FILE_LEVEL: debug
+
+    steps:
+      - name: "Run Renovate"
+        run: renovate

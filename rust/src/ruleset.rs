@@ -13,6 +13,7 @@ mod utils;
 
 use crate::matching_repr::bitset::Bitset;
 use crate::matching_repr::{IdBase, MaskedMatching};
+use crate::ruleset::permutators::ab_dup::ab_dup_inplace;
 use crate::ruleset::permutators::{
     dup::add_x_dups_inplace, dup::someone_is_dup_inplace, heaps_permute, n_to_n::n_to_n_inplace,
     trip::add_trip_inplace, trip::someone_is_trip_inplace,
@@ -49,6 +50,8 @@ pub enum RuleSet {
     /// individual from set_b
     #[default]
     Eq,
+    /// Special ruleset for DE06r -- should be renamed/generalized eventually
+    SpecialS6R(String, String),
 }
 
 impl RuleSet {
@@ -97,6 +100,26 @@ impl RuleSet {
                 // Heaps' permutation over `buf` (in-place), emit each permutation by copying
                 // the current `&mut [Bitset]` into the reusable MaskedMatching and calling is.step.
                 heaps_permute(&mut buf, |slice| {
+                    // emit current permutation
+                    let idx = global_idx;
+                    global_idx = global_idx
+                        .checked_add(1)
+                        .context("permutation index overflowed")?;
+                    emit_slice_to_state(idx, slice, &mut mm, is)
+                })?
+            }
+
+            RuleSet::SpecialS6R(_, _) => {
+                ensure!(
+                    lut_b.len() < u8::MAX as usize && lut_a.len() < u8::MAX as usize,
+                    "lut too long"
+                );
+
+                let mut buf = (0..lut_a.len() as u8)
+                    .map(|i| Bitset::from_idxs(&[i]))
+                    .collect::<Vec<_>>();
+
+                ab_dup_inplace(&mut buf, |slice| {
                     // emit current permutation
                     let idx = global_idx;
                     global_idx = global_idx
@@ -258,6 +281,14 @@ impl RuleSet {
             // the fixed one ((b-1)!/2!)
             RuleSet::FixedTrip(_) => size_map_a * permutator::factorial(size_map_b - 1) / 2,
             RuleSet::Eq => permutator::factorial(size_map_a),
+            // TODO
+            RuleSet::SpecialS6R(_, _) => {
+                (size_map_a
+                    * (size_map_a - 1)
+                    * (size_map_a - 2)
+                    * permutator::factorial(size_map_a - 1))
+                    / 2
+            }
             // first choose the items for the first set, then distribute the rest. Avoid double
             // counting. binom(X,2X) * X! / 2
             RuleSet::NToN => {
@@ -478,6 +509,24 @@ mod tests {
     fn get_perms_amount_ntoon_simple() {
         let amt = RuleSet::NToN.get_perms_amount(4, 4, &None).unwrap();
         assert_eq!(amt, 3);
+    }
+
+    #[test]
+    fn get_perms_amount_specials6r_simple() {
+        let amt = RuleSet::SpecialS6R("a".to_string(), "b".to_string())
+            .get_perms_amount(3, 3, &None)
+            .unwrap();
+        assert_eq!(amt, 6);
+
+        let amt = RuleSet::SpecialS6R("a".to_string(), "b".to_string())
+            .get_perms_amount(4, 4, &None)
+            .unwrap();
+        assert_eq!(amt, 72);
+
+        let amt = RuleSet::SpecialS6R("a".to_string(), "b".to_string())
+            .get_perms_amount(5, 5, &None)
+            .unwrap();
+        assert_eq!(amt, 720);
     }
 
     #[test]

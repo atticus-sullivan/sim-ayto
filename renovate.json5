@@ -1,0 +1,15 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended"],
+
+	// Create a PR whenever Renovate finds an update.
+	"automerge": false,
+
+	// Keep Renovate's own PRs reasonably easy to identify.
+	"labels": [
+		"dependencies"
+	],
+
+	"prConcurrentLimit": 10,
+	"prHourlyLimit": 10,
+}

@@ -18,6 +18,7 @@ impl RuleSet {
             RuleSet::FixedTrip(_) => Box::new(DupData::default()),
             RuleSet::NToN => Box::new(DummyData::default()),
             RuleSet::Eq => Box::new(DummyData::default()),
+            RuleSet::SpecialS6R(_, _) => Box::new(DummyData::default()),
 
             // RuleSet::XTimesDup(_, _) => Box::new(DupData::default()),
             RuleSet::XTimesDup(rs) => Box::new(DupXData::new(rs.clone())?),
@@ -27,7 +28,10 @@ impl RuleSet {
     /// whether on a found match an exclusion must be formed
     pub fn must_add_exclude(&self) -> bool {
         match &self {
-            RuleSet::XTimesDup(_) | RuleSet::SomeoneIsTrip | RuleSet::FixedTrip(_) => true,
+            RuleSet::XTimesDup(_)
+            | RuleSet::SomeoneIsTrip
+            | RuleSet::FixedTrip(_)
+            | RuleSet::SpecialS6R(_, _) => true,
             RuleSet::Eq | RuleSet::NToN => false,
         }
     }
@@ -40,6 +44,7 @@ impl RuleSet {
             | RuleSet::FixedTrip(_)
             | RuleSet::Eq => a,
             RuleSet::NToN => a / 2,
+            RuleSet::SpecialS6R(_, _) => a - 1,
         }
     }
 
@@ -49,6 +54,7 @@ impl RuleSet {
             RuleSet::XTimesDup(_)
             | RuleSet::SomeoneIsTrip
             | RuleSet::FixedTrip(_)
+            | RuleSet::SpecialS6R(_, _)
             | RuleSet::Eq => false,
             RuleSet::NToN => true,
         }
@@ -103,6 +109,14 @@ impl RuleSet {
                     lut_b.len()
                 );
             }
+            RuleSet::SpecialS6R(_, _) => {
+                ensure!(
+                    lut_a.len() == lut_b.len(),
+                    "length of setA ({}) and setB ({}) does not fit to Eq",
+                    lut_a.len(),
+                    lut_b.len()
+                );
+            }
             RuleSet::NToN => {
                 ensure!(
                     lut_a.len() == lut_b.len(),
@@ -123,6 +137,7 @@ impl RuleSet {
     pub fn ignore_pairing(&self, a: usize, b: usize) -> bool {
         match self {
             RuleSet::Eq
+            | RuleSet::SpecialS6R(_, _)
             | RuleSet::XTimesDup(_)
             | RuleSet::SomeoneIsTrip
             | RuleSet::FixedTrip(_) => false,

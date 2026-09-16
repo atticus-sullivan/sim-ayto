@@ -113,6 +113,7 @@ impl Game {
             RuleSet::NToN => ("rs-NToN".to_string(), "N:N".to_string()),
             RuleSet::FixedTrip(_) => ("rs-FixedTrip".to_string(), "=3".to_string()),
             RuleSet::Eq => ("rs-Eq".to_string(), "=".to_string()),
+            RuleSet::SpecialS6R(_, _) => ("rs-S6R".to_string(), "*".to_string()),
         }
     }
 
