@@ -53,6 +53,14 @@ weight: 1
 {{% img src="/de06r/de06r_9.png" %}}
 {{% /details %}}
 
+{{% details title="MB#5.0 E11" closed="true" %}}
+{{% img src="/de06r/de06r_10.png" %}}
+{{% /details %}}
+
+{{% details title="MN#1.0 E01" closed="true" %}}
+{{% img src="/de06r/de06r_11.png" %}}
+{{% /details %}}
+
 {{% translateHdr "tab-everything" %}}
 :warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details closed="true" %}}
