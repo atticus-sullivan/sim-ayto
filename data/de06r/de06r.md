@@ -57,7 +57,7 @@ weight: 1
 {{% img src="/de06r/de06r_10.png" %}}
 {{% /details %}}
 
-{{% details title="MN#1.0 E01" closed="true" %}}
+{{% details title="MN#5.0 E12" closed="true" %}}
 {{% img src="/de06r/de06r_11.png" %}}
 {{% /details %}}
 
