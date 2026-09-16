@@ -9,6 +9,7 @@
 //! done in rust with the strong typing, I chose to implement this via nested function calls and
 //! closures.
 
+pub(super) mod ab_dup;
 pub(super) mod dup;
 pub(super) mod n_to_n;
 pub(super) mod trip;
