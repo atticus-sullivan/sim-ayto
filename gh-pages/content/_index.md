@@ -93,14 +93,31 @@ falls gewünscht auf die Wahrscheinlichkeit zurückrechnen.
 `E[I]/bits`: Ist der Erwartungswert, des Informationsgewinns.
 
 #### Reguläre Tabellen
-Die **Schrift**farbe ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
+
+{{% img src="/explanation.png" %}}
+
+Die **Schrift**farbe (bei *10*) ist ein Indikator dafür wie hoch die Wahrscheinlichkeit für
 dieses Match ist (unter 1% rot, ab 45% gelb, ab 55% cyan, ab 80% grün).
 
-Die **Hintergrund**farbe zeigt an welche Person(en) für eine andere Person am
+Die **Hintergrund**farbe (bei *10*) zeigt an welche Person(en) für eine andere Person am
 wahrscheinlichsten ist.
 - leicht **grüner** Hintergrund: Match ist für beide Personen am wahrscheinlichsten
 - **leicht roter**/**hellgrauer** Hintergrund: Match ist für die Person deren
 Spalte/Zeile das ist am wahrscheinlichsten.
+
+Restliche Teile der Ausgaben (Nummerierung wie im Bild oben):
+1. Beschreibung des *Events* (*MN* = Matchingnight, *MB* = Matchbox)
+2. Genereller Kommentar, hier ist mindestens die Episodennummer (idR wo die Auflösung stattfindet) enthalten
+3. Vor dem jeweiligen Match steht wie oft diese **vor dem Event** bereits in einer *MN* zusammensaßen
+4. Beschreibung der Matches in dem Event
+5. Wahrscheinlichkeit des Matches vor dem Event (gleicher Color-Code wie in der Tabelle)
+6. Wahrscheinlichkeit des Matches nach dem Event (gleicher Color-Code wie in der Tabelle)
+7. Angabe wie hoch der Informationsgewinn ist wenn es $X$ Lichter gegeben hätte (direkter Bezug zur Wahrscheinlichkeit, siehe oben)
+8. Erwartungswert des Informationsgewinns mit der Zusammensetzung an Matches
+9. Ergebnis des Events (Lichter und dadurch gewonnene Informationen)
+10. Normale Wahrscheinlichkeiten in der Tabelle `[0,100]` in Prozent, Color-Coding siehe oben
+11. Stand der verbleibenden Möglichkeiten nach Auflösung des Events
+12. Nach dem Event, wer könnte ein Doppelmatch sein (Ausgabe abhängig von den aktuellen Regeln)
 
 
 #### Zusammenfassende Tabelle am Ende
