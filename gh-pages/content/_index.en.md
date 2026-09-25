@@ -95,15 +95,32 @@ you can calculate back to the probabilities if you can relate more with that.
 `E[l]/bits`: Is the expected value of the gain of information
 
 #### Regular tables
-The **font**color is an indicator for how high the probability for this match is
+
+{{% img src="/explanation.png" %}}
+
+The **font**color (see *10*) is an indicator for how high the probability for this match is
 (below 1% red, higher than 45% yello, higher than 55% cyan and more than 80%
 green).
 
-The **background**color shows which people have the highest probability with which
+The **background**color (see *10*) shows which people have the highest probability with which
 other people.
 - **green** background: Match is for both persons the most likely one.
 - **red/light gray** backgroung: Match is for the person whose column/row this
 is the most likely one.
+
+Remaining parts of the output (numbering like in the image above):
+1. Description of the *event* (*MN* = Matchingnight, *MB* = Matchbox)
+2. General comment on the event, this contains at least the episode in which the result of the event was revealed
+3. In front of each match: how often did this match occur before in a *MN* **before this event**
+4. Description of the matches in this event
+5. Probability of this match **before this event** (same color-coding like in the table)
+6. Probability of this match **after this event** (same color-coding like in the table)
+7. How high is the information gain when there are $X$ lights (directly correlated to the probability, see above)
+8. Expected value of the information gain with this matches
+9. Result of the event (lights and information gain)
+10. Normal probabilities in the table `[0,100]` in percent (color-coding see above)
+11. Currently remaining possibilities after this event
+12. After this event, who could be a double-match (output depending on the ruleset of the season)
 
 #### Summary table in the end
 In the end there is a summary of all constraints. A star in this tale means this

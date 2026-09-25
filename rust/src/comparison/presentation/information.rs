@@ -83,7 +83,42 @@ pub(crate) fn plots(cmp_data: &[(String, CmpData)], theme: u8) -> Vec<(String, S
             ),
         ),
         (
-            "Combined".to_owned(),
+            "Combined I".to_owned(),
+            build_scatter_plot(
+                cmp_data,
+                &layout,
+                &palette,
+                "Average information-gain up to this point",
+                "#MB/#MN",
+                "avg I [bit]",
+                Mode::Lines,
+                |cd| {
+                    cd.eval_data
+                        .iter()
+                        .filter_map(|i| i.num_unified(|_| true, |_| true, |_| true))
+                        .collect()
+                },
+                |cd| {
+                    cd.eval_data
+                        .iter()
+                        .filter_map(|i| i.bits_gained(|_| true, |_| true, |_| true))
+                        .scan((0.0, 0usize), |(sum, count), x| {
+                            *sum += x;
+                            *count += 1;
+                            Some(*sum / *count as f64)
+                        })
+                        .collect()
+                },
+                |cd| {
+                    cd.eval_data
+                        .iter()
+                        .filter_map(|i| i.comment(|_| true, |_| true, |_| true))
+                        .collect()
+                },
+            ),
+        ),
+        (
+            "Combined H".to_owned(),
             build_scatter_plot(
                 cmp_data,
                 &layout,
