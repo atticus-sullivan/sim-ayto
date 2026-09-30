@@ -190,43 +190,55 @@ constraints:
       Germain: Julia
       Marwin: Francesca
 
-  # - type: !Box {num: 7, comment: "E15"}
+  - type: !Box {num: 7, comment: "E15"}
+    check: !Lights [1]
+    treeCfg:
+      - id: ""
+    map:
+      # Marwin: Francesca
+      Daymian: Jenny
+
+  - type: !Night {num: 7, comment: "E16"}
+    check: !Lights [5]
+    # resultUnknown: true
+    # noExclude: true
+    # buildTree: true
+    map:
+      Johannes: Marta
+      Daymian: Jenny
+      Laurenz: Emma
+      Brian: Zoe
+      Fabi: Michelle
+      Robin: Joena
+      Germain: Julia
+      Bennett: Christin
+      Marwin: Francesca
+      Raul: Alexandra
+      # Cansin
+
+  # - type: !Box {num: 8, comment: "E17"}
   # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
   #   # resultUnknown: true
   #   check: !Lights [0]
   #   map:
-  #     Marwin: Francesca
-  #     Daymian: Jenny
+  #     Raul: Emma
+  #     Fabi: Zoe
 
-  # - type: !Night {num: 1, comment: "E01"}
+  # - type: !Night {num: 8, comment: "E18"}
   #   check: !Lights [2]
   #   resultUnknown: true
   #   # noExclude: true
   #   # buildTree: true
   #   map:
 
-  # - type: !Box {num: 1, comment: "E02"}
+  # - type: !Box {num: 9, comment: "E18"}
   # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
   #   # resultUnknown: true
   #   check: !Lights [0]
   #   map:
   #     Christin: Marwin
 
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
-
-  # - type: !Box {num: 1, comment: "E02"}
-  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   # resultUnknown: true
-  #   check: !Lights [0]
-  #   map:
-  #     Christin: Marwin
-
-  # - type: !Night {num: 1, comment: "E01"}
+  # - type: !Night {num: 10, comment: "E19"}
   #   check: !Lights [2]
   #   resultUnknown: true
   #   # noExclude: true
