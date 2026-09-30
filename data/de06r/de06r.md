@@ -70,6 +70,15 @@ weight: 1
 {{% img src="/de06r/de06r_13_tree_.png" %}}
 {{% /details %}}
 
+{{% details title="MB#7.0 E15" closed="true" %}}
+{{% img src="/de06r/de06r_14.png" %}}
+{{% img src="/de06r/de06r_14_tree_.png" %}}
+{{% /details %}}
+
+{{% details title="MN#7.0 E16" closed="true" %}}
+{{% img src="/de06r/de06r_15.png" %}}
+{{% /details %}}
+
 {{% translateHdr "tab-everything" %}}
 :warning: {{< i18n "spoiler-warning" >}} :warning:
 {{% details closed="true" %}}
