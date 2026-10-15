@@ -216,41 +216,57 @@ constraints:
       Raul: Alexandra
       # Cansin
 
-  # - type: !Box {num: 8, comment: "E17"}
+  - type: !Box {num: 8, comment: "E17", offer: !Single {by: "Brian", amount: 5000, reducedPot: true, save: true}}
+    # resultUnknown: true
+    check: !Sold
+    map:
+      Fabi: Zoe
+      # Raul: Emma
+
+  - type: !Night {num: 8, comment: "E18"}
+    check: !Lights [6]
+    # resultUnknown: true
+    map:
+      Johannes: Marta
+      Daymian: Jenny
+      Raul: Francesca
+      # Marwin: Joena
+      Bennett: Christin
+      Brian: Julia
+      Cansin: Zoe
+      Fabi: Michelle
+      Laurenz: Emma
+      Germain: Alexandra
+      Robin: Joena
+
+  - type: !Box {num: 9, comment: "E19"}
+    check: !Lights [0]
+    map:
+      Germain: Alexandra
+      # Raul: Francesca
+
+  - type: !Night {num: 9, comment: "E20"}
+    check: !Lights [8]
+    # resultUnknown: true
+    map:
+      Johannes: Marta
+      Daymian: Jenny
+      Germain: Michelle
+      Laurenz: Emma
+      Robin: Joena
+      Brian: Julia
+      Raul: Alexandra
+      Marwin: Francesca
+      Bennett: Christin
+      Cansin: Zoe
+      # Fabi
+
+  # - type: !Box {num: 10, comment: "E21"}
   # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   # resultUnknown: true
   #   check: !Lights [0]
   #   map:
-  #     Raul: Emma
-  #     Fabi: Zoe
-
-  # - type: !Night {num: 8, comment: "E18"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
-
-  # - type: !Box {num: 9, comment: "E18"}
-  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   # resultUnknown: true
-  #   check: !Lights [0]
-  #   map:
-  #     Christin: Marwin
-
-  # - type: !Night {num: 10, comment: "E19"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
-
-  # - type: !Box {num: 1, comment: "E02"}
-  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   # resultUnknown: true
-  #   check: !Lights [0]
-  #   map:
-  #     Christin: Marwin
+  #     Robin: Joena
+  #     Germain: Emma
 
   # - type: !Night {num: 1, comment: "E01"}
   #   check: !Lights [2]
