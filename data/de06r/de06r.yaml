@@ -261,16 +261,23 @@ constraints:
       Cansin: Zoe
       # Fabi
 
-  # - type: !Box {num: 10, comment: "E21"}
-  # # - type: !Box {num: 9, comment: "E19", offer: !SinglePair {byA: "Meji", byB: "Ella", amount: 20000, reducedPot: true, save: true}}
-  #   check: !Lights [0]
-  #   map:
-  #     Robin: Joena
-  #     Germain: Emma
+  - type: !Box {num: 10, comment: "E21"}
+    check: !Lights [0]
+    map:
+      Robin: Joena
+      # Germain: Emma
 
-  # - type: !Night {num: 1, comment: "E01"}
-  #   check: !Lights [2]
-  #   resultUnknown: true
-  #   # noExclude: true
-  #   # buildTree: true
-  #   map:
+  - type: !Night {num: 10, comment: "E21"}
+    check: !Lights [10]
+    map:
+      Johannes: Marta
+      Daymian: Jenny
+      Raul: Alexandra
+      Robin: Francesca
+      Bennett: Christin
+      Brian: Julia
+      Germain: Michelle
+      Marwin: Joena
+      Laurenz: Emma
+      Cansin: Zoe
+      # Fabi: Emma
